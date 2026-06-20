@@ -7,7 +7,7 @@ import { param } from '../../types/params';
 const BLOCK_TYPES = [
   'heading', 'paragraph', 'rich_text', 'kpi_card', 'chart', 'image', 'quote',
   'callout', 'table', 'driver_card', 'strategy_card', 'insight_card', 'map',
-  'timeline', 'download_button', 'cta_button', 'video', 'divider', 'stat_group', 'two_column',
+  'timeline', 'download_button', 'cta_button', 'video', 'divider', 'stat_group', 'two_column', 'cards',
 ] as const;
 
 const createSchema = z.object({

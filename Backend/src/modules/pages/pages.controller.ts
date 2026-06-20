@@ -15,8 +15,8 @@ const createSchema = z.object({
   slug: z.string().min(1),
   parentPathway: z.enum(['introduction', 'executive_summary']).optional(),
   sortOrder: z.number().optional(),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
+  metaTitle: z.string().nullable().optional(),
+  metaDescription: z.string().nullable().optional(),
 });
 
 export class PagesController {

@@ -97,27 +97,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
     }
   };
 
-  const handleUpdatePageMeta = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!activeReport) return;
-    setSavingPage(true);
-    setSuccessMsg(null);
-    try {
-      const updated = await api.patch<PageDetail>(`/reports/${activeReport.id}/pages/${pageId}`, {
-        title: pageTitle,
-        metaTitle: metaTitle || null,
-        metaDescription: metaDescription || null,
-        isPublished,
-      });
-      setPage(updated);
-      setSuccessMsg('Page configuration saved.');
-      setTimeout(() => setSuccessMsg(null), 3000);
-    } catch (err: any) {
-      alert(`Error saving page settings: ${err.message}`);
-    } finally {
-      setSavingPage(false);
-    }
-  };
+
 
   // Reorder Blocks
   const moveBlock = async (index: number, direction: 'up' | 'down') => {
@@ -195,32 +175,43 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
     }
   };
 
-  // Save specific block content
-  const handleSaveBlock = async (blockId: string, updatedContent: Record<string, any>, isVisible: boolean) => {
+  // Save all page changes (SEO properties + blocks content)
+  const handleSavePageBlocks = async () => {
+    setSavingPage(true);
+    setSuccessMsg(null);
     try {
-      const saved = await api.patch<ContentBlock>(`/pages/${pageId}/blocks/${blockId}`, {
-        content: updatedContent,
-        isVisible,
+      // 1. Save Page Meta
+      const updatedPage = await api.patch<PageDetail>(`/reports/${activeReport!.id}/pages/${pageId}`, {
+        title: pageTitle,
+        metaTitle: metaTitle || null,
+        metaDescription: metaDescription || null,
+        isPublished,
       });
-      setBlocks(blocks.map(b => b.id === blockId ? saved : b));
-      alert('Component saved successfully!');
+      setPage(updatedPage);
+
+      // 2. Save all content blocks concurrently
+      const updatedBlocks = await Promise.all(
+        blocks.map(block => 
+          api.patch<ContentBlock>(`/pages/${pageId}/blocks/${block.id}`, {
+            content: block.content,
+            isVisible: block.isVisible,
+          })
+        )
+      );
+      setBlocks(updatedBlocks.sort((a, b) => a.sortOrder - b.sortOrder));
+
+      setSuccessMsg('All chapter configurations and layout blocks saved successfully.');
+      setTimeout(() => setSuccessMsg(null), 3000);
     } catch (err: any) {
-      alert(`Failed to save component: ${err.message}`);
+      alert(`Failed to save page contents: ${err.message}`);
+    } finally {
+      setSavingPage(false);
     }
   };
 
-  // Toggle Visibility
-  const toggleVisibility = async (block: ContentBlock) => {
-    const updatedVisible = !block.isVisible;
-    setBlocks(blocks.map(b => b.id === block.id ? { ...b, isVisible: updatedVisible } : b));
-    try {
-      await api.patch(`/pages/${pageId}/blocks/${block.id}`, {
-        isVisible: updatedVisible,
-      });
-    } catch (err: any) {
-      console.error('Failed to toggle block visibility:', err);
-      loadPageData();
-    }
+  // Toggle Visibility locally (saved on clicking global Save & Publish)
+  const toggleVisibility = (block: ContentBlock) => {
+    setBlocks(blocks.map(b => b.id === block.id ? { ...b, isVisible: !b.isVisible } : b));
   };
 
   // Delete Block
@@ -240,14 +231,11 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
     setRawJsonText(JSON.stringify(block.content, null, 2));
   };
 
-  const handleSaveRawJson = async (blockId: string) => {
+  const handleSaveRawJson = (blockId: string) => {
     try {
       const parsedContent = JSON.parse(rawJsonText);
-      const targetBlock = blocks.find(b => b.id === blockId);
-      if (targetBlock) {
-        await handleSaveBlock(blockId, parsedContent, targetBlock.isVisible);
-        setRawJsonEditId(null);
-      }
+      setBlocks(blocks.map(b => b.id === blockId ? { ...b, content: parsedContent } : b));
+      setRawJsonEditId(null);
     } catch (err: any) {
       alert(`JSON Syntax Error: ${err.message}`);
     }
@@ -308,29 +296,65 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
         </button>
       </div>
 
-      {/* Title */}
-      <div className="flex justify-between items-end">
-        <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-muted">
-            <span>Chapters</span>
-            <span>/</span>
-            <span>Pages</span>
-            <span>/</span>
-            <span className="text-primary font-bold">{page.title}</span>
+      {/* Page Builder Actions Bar */}
+      <div className="border border-border bg-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between shadow-xs gap-3">
+        <div className="flex items-center gap-3">
+          <div>
+            <div className="mb-1 flex items-center gap-2 font-mono text-[8px] uppercase tracking-widest text-muted">
+              <span>Chapter page</span>
+              <span>/</span>
+              <span className="text-primary font-bold">{page.title}</span>
+            </div>
+            <h1 className="text-lg font-bold tracking-tight text-primary uppercase leading-none">
+              {pageTitle || 'Chapter Builder'}
+            </h1>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary uppercase">
-            CMS Page Builder
-          </h1>
+          
+          <span className={`inline-flex items-center text-[8px] font-mono font-bold py-0.5 px-1.5 border leading-none ${
+            isPublished 
+              ? 'bg-green-50 border-green-200 text-green-700' 
+              : 'bg-yellow-50 border-yellow-200 text-yellow-700'
+          }`}>
+            {isPublished ? 'PUBLISHED' : 'DRAFT'}
+          </span>
         </div>
 
-        <button
-          onClick={() => setShowCatalog(true)}
-          className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
-        >
-          <Plus className="h-4 w-4" />
-          Add Component Block
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Quick Publish Toggle */}
+          <label className="flex items-center gap-1.5 cursor-pointer select-none border border-border bg-sidebar/20 px-2.5 py-1.5 text-[10px] font-mono font-medium">
+            <input
+              type="checkbox"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+              className="h-3.5 w-3.5 rounded border-border text-primary focus:ring-0 cursor-pointer"
+            />
+            <span>Publish Chapter</span>
+          </label>
+
+          <button
+            onClick={() => setShowCatalog(true)}
+            className="border border-border bg-card px-3 py-1.5 font-mono text-[10px] uppercase hover:bg-sidebar transition-colors flex items-center justify-center gap-1 cursor-pointer"
+          >
+            <Plus className="h-4 w-4" />
+            Add Block
+          </button>
+
+          <button
+            onClick={handleSavePageBlocks}
+            disabled={savingPage}
+            className="border border-primary bg-primary px-4 py-1.5 font-mono text-[10px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer font-bold"
+          >
+            <Save className="h-4 w-4" />
+            {savingPage ? 'Saving...' : 'Save Layout & Publish'}
+          </button>
+        </div>
       </div>
+
+      {successMsg && (
+        <div className="border border-green-200 bg-green-50/50 p-3 text-xs text-green-700 font-mono">
+          * SUCCESS: {successMsg.toUpperCase()}
+        </div>
+      )}
 
       {/* ── Page properties configuration ── */}
       <div className="border border-border bg-card p-6 shadow-sm relative">
@@ -342,13 +366,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
           SEO and Page Settings
         </h2>
 
-        <form onSubmit={handleUpdatePageMeta} className="space-y-4">
-          {successMsg && (
-            <div className="border border-green-200 bg-green-50/50 p-3 text-xs text-green-700 font-mono">
-              * SUCCESS: {successMsg.toUpperCase()}
-            </div>
-          )}
-
+        <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <div className="space-y-1">
               <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">Page Title</label>
@@ -395,18 +413,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
               />
             </div>
           </div>
-
-          <div className="flex justify-end pt-2">
-            <button
-              type="submit"
-              disabled={savingPage}
-              className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
-            >
-              <Save className="h-3.5 w-3.5" />
-              Save Configuration
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
 
       {/* ── Content Components Canvas ── */}
@@ -969,16 +976,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                       </div>
                     )}
 
-                    {/* Save Component details button */}
-                    <div className="pt-2 flex justify-end">
-                      <button
-                        onClick={() => handleSaveBlock(block.id, block.content, block.isVisible)}
-                        className="border border-primary bg-primary px-3.5 py-1.5 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center gap-1"
-                      >
-                        <Save className="h-3 w-3" />
-                        Save Component
-                      </button>
-                    </div>
+
 
                   </div>
                 )}

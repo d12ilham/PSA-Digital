@@ -33,6 +33,7 @@ export const blockTypeEnum = pgEnum('block_type', [
   'divider',
   'stat_group',
   'two_column',
+  'cards',
 ]);
 
 export const contentBlocks = pgTable('content_blocks', {
