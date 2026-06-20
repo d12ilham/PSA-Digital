@@ -14,6 +14,8 @@ router.post('/', authenticate, requireEditor, reportsController.create.bind(repo
 router.patch('/:id', authenticate, requireEditor, reportsController.update.bind(reportsController));
 router.post('/:id/publish', authenticate, requireAdmin, reportsController.publish.bind(reportsController));
 router.post('/:id/archive', authenticate, requireAdmin, reportsController.archive.bind(reportsController));
+router.delete('/:id', authenticate, requireAdmin, reportsController.delete.bind(reportsController));
+
 
 // KPIs (nested under report)
 router.get('/:id/kpis', optionalAuthenticate, reportsController.listKpis.bind(reportsController));

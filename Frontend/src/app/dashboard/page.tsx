@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useReport } from '@/context/ReportContext';
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { initializeReportPages } from '@/lib/pageInit';
 import { 
   FileText, 
   Sliders, 
@@ -11,8 +12,10 @@ import {
   Settings, 
   ChevronRight, 
   BookOpen, 
-  Plus
+  Plus,
+  Info
 } from 'lucide-react';
+
 
 interface SummaryStats {
   pagesCount: number;
@@ -22,8 +25,9 @@ interface SummaryStats {
 }
 
 export default function DashboardPage() {
-  const { activeReport, loading: reportsLoading } = useReport();
+  const { activeReport, loading: reportsLoading, refreshReports } = useReport();
   const router = useRouter();
+
   const [stats, setStats] = useState<SummaryStats>({
     pagesCount: 0,
     strategiesCount: 0,
@@ -113,7 +117,43 @@ export default function DashboardPage() {
         )}
       </div>
 
+      {stats.pagesCount === 0 && (
+        <div className="border border-amber-200 bg-amber-50/50 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <Info className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-amber-800">
+                Dataset outline not initialized
+              </h3>
+              <p className="text-[10px] text-muted leading-relaxed max-w-lg mt-0.5">
+                This report dataset currently has no content chapters configured. Click initialize to auto-generate the default 9 standard chapters (About, Executive Summary, Strategies, etc.).
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={async () => {
+              setLoading(true);
+              try {
+                await initializeReportPages(activeReport.id);
+                await refreshReports();
+                const pages = await api.get<any[]>(`/reports/${activeReport.id}/pages`);
+                setStats(prev => ({ ...prev, pagesCount: pages.length }));
+                alert('Chapters initialized successfully.');
+              } catch (err: any) {
+                alert(`Failed to initialize pages: ${err.message}`);
+              } finally {
+                setLoading(false);
+              }
+            }}
+            className="border border-amber-300 bg-amber-600 text-white font-mono text-[9px] uppercase tracking-widest px-4 py-2 hover:bg-amber-700 transition-colors shrink-0"
+          >
+            Initialize Chapters
+          </button>
+        </div>
+      )}
+
       {/* ── KPI Blocks Grid ── */}
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {/* KPI 1: Pages */}
         <div className="border border-border bg-card p-6 relative">

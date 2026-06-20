@@ -113,6 +113,11 @@ export class ReportsService {
     return this.update(id, { status: 'archived' });
   }
 
+  async delete(id: string) {
+    await db.delete(reports).where(eq(reports.id, id));
+  }
+
+
   // ── KPIs ────────────────────────────────────────────────────────────────────
   async listKpis(reportId: string) {
     return db.select().from(reportKpis).where(eq(reportKpis.reportId, reportId)).orderBy(reportKpis.sortOrder);

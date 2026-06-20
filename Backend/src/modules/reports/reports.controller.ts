@@ -93,6 +93,17 @@ export class ReportsController {
     } catch (e) { next(e); }
   }
 
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = param(req.params.id);
+      const before = await reportsService.findById(id);
+      await reportsService.delete(id);
+      await createAuditLog(req, { action: 'DELETE', entityType: 'report', entityId: id, diff: { before } });
+      res.json(successResponse({ message: 'Report deleted successfully' }));
+    } catch (e) { next(e); }
+  }
+
+
   async listKpis(req: Request, res: Response, next: NextFunction) {
     try {
       const kpis = await reportsService.listKpis(param(req.params.id));
