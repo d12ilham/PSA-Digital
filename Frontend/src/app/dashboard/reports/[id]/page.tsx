@@ -10,7 +10,13 @@ import {
   Trash2, 
   Plus, 
   ArrowLeft,
-  RefreshCw
+  RefreshCw,
+  BookOpen,
+  Settings,
+  ChevronRight,
+  Eye,
+  CheckCircle,
+  Clock
 } from 'lucide-react';
 
 interface KPI {
@@ -43,6 +49,14 @@ interface AuditLog {
   userName: string;
 }
 
+interface PageItem {
+  id: string;
+  title: string;
+  pageType: string;
+  sortOrder: number;
+  isPublished?: boolean;
+}
+
 export default function ReportEditPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: reportId } = use(params);
   const { user } = useAuth();
@@ -51,6 +65,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
 
   const [loading, setLoading] = useState(true);
   const [report, setReport] = useState<Report | null>(null);
+  const [pages, setPages] = useState<PageItem[]>([]);
 
   // Lists
   const [industriesList, setIndustriesList] = useState<IndustryOption[]>([]);
@@ -105,16 +120,18 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
     setLoading(true);
     setError(null);
     try {
-      // 1. Fetch industries/years dropdowns
-      const [industries, years, reportData] = await Promise.all([
+      // Fetch dropdowns, report, and pages manifest
+      const [industries, years, reportData, pagesData] = await Promise.all([
         api.get<IndustryOption[]>('/industries'),
         api.get<YearOption[]>('/industries/years'),
-        api.get<Report>(`/reports/${reportId}`)
+        api.get<Report>(`/reports/${reportId}`),
+        api.get<PageItem[]>(`/reports/${reportId}/pages`)
       ]);
 
       setIndustriesList(industries);
       setYearsList(years);
       setReport(reportData);
+      setPages(pagesData.sort((a, b) => a.sortOrder - b.sortOrder));
 
       // Populate form fields
       setTitle(reportData.title);
@@ -123,9 +140,9 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
       setPdfFileUrl(reportData.pdfFileUrl || '');
       setPsaSectorPageUrl(reportData.psaSectorPageUrl || '');
       setContactUrl(reportData.contactUrl || '');
-      setCardNote(reportData.cardNote || '');
       setSortOrder(reportData.sortOrder || 0);
       setIsFeatured(reportData.isFeatured || false);
+      setCardNote(reportData.cardNote || '');
 
       // Set active workspace report context
       setActiveReport(reportData);
@@ -243,15 +260,28 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
       setSaving(true);
       await initializeReportPages(report.id);
       refreshReports();
-      // Reload report pages
-      const updated = await api.get<Report>(`/reports/${report.id}`);
-      setActiveReport(updated);
+      // Reload report details + pages manifest
+      const [reportData, pagesData] = await Promise.all([
+        api.get<Report>(`/reports/${report.id}`),
+        api.get<PageItem[]>(`/reports/${report.id}/pages`)
+      ]);
+      setReport(reportData);
+      setPages(pagesData.sort((a, b) => a.sortOrder - b.sortOrder));
+      setActiveReport(reportData);
       alert('Default report structure has been successfully initialized.');
     } catch (err: any) {
       alert(`Failed to initialize pages: ${err.message}`);
     } finally {
       setSaving(false);
     }
+  };
+
+  const getPageIdByType = (type: string) => {
+    return pages.find(p => p.pageType === type)?.id;
+  };
+
+  const getPagePublishStatus = (type: string) => {
+    return pages.find(p => p.pageType === type)?.isPublished ?? false;
   };
 
   if (loading) {
@@ -282,6 +312,27 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
     );
   }
 
+  // Chapters structure helper
+  const chapters = [
+    { num: '01', title: 'About PSA & Methodology', type: 'about', desc: 'Introduction details, sector overview guidelines, and dataset methodology.' },
+    { num: '02', title: 'Executive Summary', type: 'executive_summary', desc: 'High-level insights, summary cards, and transition dashboard landing blocks.' },
+    { num: '03', title: 'Drivers of Change', type: 'drivers_of_change', desc: 'Key societal, industrial, and economic vectors shaping local workforce strategies.' },
+    { 
+      num: '04', 
+      title: 'Industry Overview', 
+      type: 'nested_overview', 
+      desc: 'Deep dive into industry profiles and regional/state details.',
+      nested: [
+        { title: 'Sector Overview', type: 'industry_overview', desc: 'National-level segment parameters and main takeaways.' },
+        { title: 'State & Territory Profile', type: 'state_territory', desc: 'Detailed state-specific demographic breakdowns.' },
+        { title: 'Industry Profile', type: 'industry_profile', desc: 'Socio-economic parameters and workforce characteristics.' },
+      ]
+    },
+    { num: '05', title: 'Workforce Insights', type: 'workforce_insights', desc: 'Dynamic indicators, employment statistics charts, and database grids.' },
+    { num: '06', title: 'Workforce Strategies', type: 'strategies', desc: 'Roadmaps, strategy action lists, and recommendations blocks.' },
+    { num: '07', title: 'Looking Forward', type: 'looking_forward', desc: 'Concluding remarks, future projections, and summary contact panels.' }
+  ];
+
   return (
     <div className="space-y-8">
       {/* ── Breadcrumbs & Back Nav ── */}
@@ -294,7 +345,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
             <span>/</span>
             <span className="cursor-pointer hover:underline text-muted" onClick={() => router.push('/dashboard/reports')}>Reports</span>
             <span>/</span>
-            <span className="text-primary font-bold">Configure</span>
+            <span className="text-primary font-bold">Editor</span>
           </div>
           
           <button
@@ -306,7 +357,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
           </button>
           
           <h1 className="text-2xl font-bold tracking-tight text-primary">
-            Settings: {report.title}
+            {report.title}
           </h1>
         </div>
 
@@ -317,346 +368,462 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
         </div>
       </div>
 
-      {/* ── Tabs Navigation ── */}
-      <div className="flex border-b border-border bg-card">
-        <button
-          onClick={() => setActiveSubTab('details')}
-          className={`px-4 py-3 text-[10px] font-mono uppercase tracking-wider font-semibold border-b-2 cursor-pointer ${
-            activeSubTab === 'details' ? 'border-primary text-primary font-bold' : 'border-transparent text-muted'
-          }`}
-        >
-          General Settings
-        </button>
-        <button
-          onClick={() => setActiveSubTab('kpis')}
-          className={`px-4 py-3 text-[10px] font-mono uppercase tracking-wider font-semibold border-b-2 cursor-pointer ${
-            activeSubTab === 'kpis' ? 'border-primary text-primary font-bold' : 'border-transparent text-muted'
-          }`}
-        >
-          KPI Badges
-        </button>
-        <button
-          onClick={() => setActiveSubTab('history')}
-          className={`px-4 py-3 text-[10px] font-mono uppercase tracking-wider font-semibold border-b-2 cursor-pointer ${
-            activeSubTab === 'history' ? 'border-primary text-primary font-bold' : 'border-transparent text-muted'
-          }`}
-        >
-          Edit History
-        </button>
-      </div>
+      {/* ── WordPress-Style Split Grid ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* ── LEFT COLUMN: Report Chapters (Main Content) ── */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="border border-border bg-card p-6 shadow-sm relative">
+            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+              * DATASET SECTIONS
+            </span>
+            
+            <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-6 flex items-center gap-2">
+              <BookOpen className="h-4.5 w-4.5 text-muted" />
+              Report Chapters
+            </h2>
 
-      {/* ── Tab Content ── */}
-
-      {/* Tab 1: General Details */}
-      {activeSubTab === 'details' && (
-        <div className="border border-border bg-card p-6 shadow-sm relative">
-          <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
-            * REPORT PROPERTIES
-          </span>
-
-          <h2 className="text-xs font-bold uppercase tracking-wider text-primary mb-4">
-            General Properties
-          </h2>
-
-          <form onSubmit={handleSaveReport} className="space-y-4">
-            {message && (
-              <div className="border border-green-200 bg-green-50/50 p-3 text-xs text-green-700 font-mono">
-                * SUCCESS: {message.toUpperCase()}
-              </div>
-            )}
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1 sm:col-span-2">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Report Title
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Cover Image URL
-                </label>
-                <input
-                  type="text"
-                  value={coverImageUrl}
-                  onChange={(e) => setCoverImageUrl(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                  placeholder="https://example.com/cover.jpg"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  PDF Download URL
-                </label>
-                <input
-                  type="text"
-                  value={pdfFileUrl}
-                  onChange={(e) => setPdfFileUrl(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                  placeholder="https://example.com/document.pdf"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  PSA Website link (Back Link)
-                </label>
-                <input
-                  type="text"
-                  value={psaSectorPageUrl}
-                  onChange={(e) => setPsaSectorPageUrl(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                  placeholder="https://psa.gov.au/local-gov"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Contact inquiry link
-                </label>
-                <input
-                  type="text"
-                  value={contactUrl}
-                  onChange={(e) => setContactUrl(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                  placeholder="https://psa.gov.au/contact"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Sort Order Position
-                </label>
-                <input
-                  type="number"
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(Number(e.target.value))}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div className="flex items-center h-full pt-4">
-                <label className="flex items-center gap-2 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={isFeatured}
-                    onChange={(e) => setIsFeatured(e.target.checked)}
-                    className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
-                  />
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-primary">
-                    Feature Report Card
-                  </span>
-                </label>
-              </div>
-
-              <div className="space-y-1 sm:col-span-2">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Short Description
-                </label>
-                <textarea
-                  rows={3}
-                  value={shortDescription}
-                  onChange={(e) => setShortDescription(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div className="space-y-1 sm:col-span-2">
-                <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                  Home Card Notes
-                </label>
-                <textarea
-                  rows={2}
-                  value={cardNote}
-                  onChange={(e) => setCardNote(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                  placeholder="e.g. Includes Police, Correctional Services..."
-                />
-              </div>
-            </div>
-
-            <div className="pt-2 flex justify-between items-center">
-              <button
-                type="button"
-                onClick={handleInitializeEmptyPages}
-                className="border border-border hover:bg-sidebar text-muted font-mono text-[9px] uppercase tracking-wider px-3 py-2 flex items-center gap-1 cursor-pointer"
-              >
-                <RefreshCw className="h-3 w-3" />
-                Init Chapters
-              </button>
-
-              <button
-                type="submit"
-                disabled={saving}
-                className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 cursor-pointer"
-              >
-                {saving ? 'Saving changes...' : 'Save Settings'}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* Tab 2: KPIs */}
-      {activeSubTab === 'kpis' && (
-        <div className="border border-border bg-card p-6 shadow-sm relative">
-          <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
-            * KPI METRICS EDIT
-          </span>
-
-          <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-6">
-            KPI Summary Badges
-          </h2>
-
-          <div className="space-y-3 mb-6">
-            {kpis.length === 0 ? (
-              <div className="text-xs text-muted/60 font-mono py-2 italic border border-dashed border-border p-4 bg-sidebar/20 text-center">
-                * No KPI badges defined. Create a badge card below.
+            {pages.length === 0 ? (
+              <div className="text-center py-10 border border-dashed border-border/80 bg-sidebar/10 p-6 rounded">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-muted block mb-2 font-bold">
+                  Structure Empty
+                </span>
+                <p className="text-xs text-muted mb-4">
+                  This report has no structural chapters initialized yet. Seeding default chapters is required to edit content.
+                </p>
+                <button
+                  onClick={handleInitializeEmptyPages}
+                  disabled={saving}
+                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
+                >
+                  <RefreshCw className="h-3.5 w-3.5" />
+                  Init Default Structure
+                </button>
               </div>
             ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {kpis.map((kpi) => (
-                  <div key={kpi.id} className="border border-border p-3 flex flex-col justify-between bg-[#fcfcfb]">
-                    <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="font-mono text-[8px] uppercase text-muted tracking-wider">
-                          {kpi.label}
-                        </span>
-                        <button 
-                          onClick={() => handleDeleteKpi(kpi.id)}
-                          className="text-red-500 hover:text-red-700 p-0.5 border border-transparent hover:border-red-200 bg-card cursor-pointer"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
+              <div className="divide-y divide-border/60">
+                {chapters.map((ch) => {
+                  const isNested = ch.type === 'nested_overview';
+                  const pageId = isNested ? null : (getPageIdByType(ch.type) || (ch.type === 'strategies' ? getPageIdByType('strategy_update') : null));
+                  const isPublished = isNested ? false : getPagePublishStatus(ch.type);
+
+                  return (
+                    <div key={ch.num} className="py-4 first:pt-0 last:pb-0">
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div className="flex gap-4">
+                          <span className="font-mono font-bold text-sm text-muted/60 pt-0.5">{ch.num}</span>
+                          <div className="space-y-1">
+                            <h3 className="text-sm font-bold text-primary leading-none">{ch.title}</h3>
+                            <p className="text-xs text-muted leading-relaxed max-w-lg">{ch.desc}</p>
+                            {!isNested && pageId && (
+                              <div className="flex items-center gap-2 pt-1">
+                                <span className={`inline-flex items-center gap-1 text-[9px] font-mono font-medium py-0.5 px-1.5 border ${
+                                  isPublished 
+                                    ? 'bg-green-50 border-green-200 text-green-700' 
+                                    : 'bg-yellow-50 border-yellow-200 text-yellow-700'
+                                }`}>
+                                  {isPublished ? 'Published' : 'Draft'}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {!isNested && (
+                          <button
+                            onClick={() => {
+                              if (pageId) {
+                                router.push(`/dashboard/pages/${pageId}`);
+                              } else {
+                                alert('This chapter page could not be found. Please try re-initializing report structure.');
+                              }
+                            }}
+                            className="border border-border hover:bg-sidebar text-primary px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 cursor-pointer self-start sm:self-center"
+                          >
+                            Edit Content
+                            <ChevronRight className="h-3 w-3" />
+                          </button>
+                        )}
                       </div>
-                      <span className="text-xl font-bold tracking-tight text-primary">
-                        {kpi.prefix}{kpi.value}{kpi.suffix}
-                      </span>
+
+                      {/* Nested sub-pages for Chapter 4 */}
+                      {isNested && ch.nested && (
+                        <div className="mt-3 pl-8 ml-3 border-l-2 border-border/40 space-y-3">
+                          {ch.nested.map((sub) => {
+                            const subPageId = getPageIdByType(sub.type);
+                            const subPublished = getPagePublishStatus(sub.type);
+
+                            return (
+                              <div key={sub.type} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-1 first:pt-0 last:pb-0">
+                                <div>
+                                  <h4 className="text-xs font-bold text-primary">{sub.title}</h4>
+                                  <p className="text-[11px] text-muted">{sub.desc}</p>
+                                  {subPageId && (
+                                    <span className={`inline-block mt-1 text-[8px] font-mono py-0.2 px-1 border ${
+                                      subPublished 
+                                        ? 'bg-green-50 border-green-200 text-green-700' 
+                                        : 'bg-yellow-50 border-yellow-200 text-yellow-700'
+                                    }`}>
+                                      {subPublished ? 'Published' : 'Draft'}
+                                    </span>
+                                  )}
+                                </div>
+
+                                <button
+                                  onClick={() => {
+                                    if (subPageId) {
+                                      router.push(`/dashboard/pages/${subPageId}`);
+                                    } else {
+                                      alert('This page was not found. Please try initializing pages structure.');
+                                    }
+                                  }}
+                                  className="border border-border hover:bg-sidebar text-primary px-2.5 py-1 text-[9px] font-mono uppercase tracking-wider flex items-center gap-0.5 cursor-pointer self-start sm:self-center"
+                                >
+                                  Edit Content
+                                  <ChevronRight className="h-2.5 w-2.5" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
+        </div>
 
-          <form onSubmit={handleAddKpi} className="border-t border-border/60 pt-4 space-y-4">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-muted block">
-              Create KPI Badge Card
+        {/* ── RIGHT COLUMN: WP-Style Report Config & Settings Sidebar ── */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="border border-border bg-card p-6 shadow-sm relative">
+            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+              * CONFIG & UTILITIES
             </span>
-            
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Label Descriptor</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Employees"
-                  value={newKpiLabel}
-                  onChange={(e) => setNewKpiLabel(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
 
-              <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Statistic Value</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. 48,800"
-                  value={newKpiValue}
-                  onChange={(e) => setNewKpiValue(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-4 flex items-center gap-2 border-b border-border/60 pb-3">
+              <Settings className="h-4.5 w-4.5 text-muted" />
+              Settings Panel
+            </h2>
 
-              <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Prefix</label>
-                <input
-                  type="text"
-                  placeholder="e.g. $"
-                  value={newKpiPrefix}
-                  onChange={(e) => setNewKpiPrefix(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Suffix</label>
-                <input
-                  type="text"
-                  placeholder="e.g. %"
-                  value={newKpiSuffix}
-                  onChange={(e) => setNewKpiSuffix(e.target.value)}
-                  className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="flex justify-end pt-2">
+            {/* Sidebar Tabs */}
+            <div className="flex border-b border-border bg-card/40 text-[9px] font-mono font-bold uppercase tracking-wider mb-4">
               <button
-                type="submit"
-                disabled={kpiLoading}
-                className="border border-primary bg-primary px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1 cursor-pointer"
+                onClick={() => setActiveSubTab('details')}
+                className={`flex-1 text-center py-2 border-b-2 cursor-pointer ${
+                  activeSubTab === 'details' ? 'border-primary text-primary' : 'border-transparent text-muted'
+                }`}
               >
-                <Plus className="h-3.5 w-3.5" />
-                Create Badge
+                Details
+              </button>
+              <button
+                onClick={() => setActiveSubTab('kpis')}
+                className={`flex-1 text-center py-2 border-b-2 cursor-pointer ${
+                  activeSubTab === 'kpis' ? 'border-primary text-primary' : 'border-transparent text-muted'
+                }`}
+              >
+                KPIs
+              </button>
+              <button
+                onClick={() => setActiveSubTab('history')}
+                className={`flex-1 text-center py-2 border-b-2 cursor-pointer ${
+                  activeSubTab === 'history' ? 'border-primary text-primary' : 'border-transparent text-muted'
+                }`}
+              >
+                History
               </button>
             </div>
-          </form>
-        </div>
-      )}
 
-      {/* Tab 3: History */}
-      {activeSubTab === 'history' && (
-        <div className="border border-border bg-card p-6 shadow-sm relative">
-          <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
-            * AUDIT LOG HISTORY
-          </span>
-
-          <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-6">
-            Report Revision History
-          </h2>
-
-          {logsLoading ? (
-            <div className="flex h-32 items-center justify-center">
-              <div className="flex flex-col items-center gap-2">
-                <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-                <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Querying log indices...</span>
-              </div>
-            </div>
-          ) : auditLogsList.length === 0 ? (
-            <div className="text-center py-12 font-mono text-xs uppercase text-muted italic border border-dashed border-border p-4 bg-sidebar/20">
-              * No revision history found for this report.
-            </div>
-          ) : (
-            <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-              {auditLogsList.map((log) => (
-                <div key={log.id} className="border border-border p-3 bg-[#fcfcfb] relative">
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
-                      ACTION: {log.action}
-                    </span>
-                    <span className="font-mono text-[8px] text-muted">
-                      {new Date(log.createdAt).toLocaleString()}
-                    </span>
+            {/* Tab 1: General Details */}
+            {activeSubTab === 'details' && (
+              <form onSubmit={handleSaveReport} className="space-y-4">
+                {message && (
+                  <div className="border border-green-200 bg-green-50/50 p-2.5 text-[10px] text-green-700 font-mono">
+                    * {message.toUpperCase()}
                   </div>
-                  <div className="text-[10px] text-muted leading-relaxed">
-                    Modified by: <span className="font-bold text-primary">{log.userName}</span> (<span className="font-mono">{log.userEmail}</span>)
+                )}
+
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      Report Title
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      Cover Image URL
+                    </label>
+                    <input
+                      type="text"
+                      value={coverImageUrl}
+                      onChange={(e) => setCoverImageUrl(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                      placeholder="https://example.com/cover.jpg"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      PDF Download URL
+                    </label>
+                    <input
+                      type="text"
+                      value={pdfFileUrl}
+                      onChange={(e) => setPdfFileUrl(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                      placeholder="https://example.com/document.pdf"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      PSA Website link (Back Link)
+                    </label>
+                    <input
+                      type="text"
+                      value={psaSectorPageUrl}
+                      onChange={(e) => setPsaSectorPageUrl(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                      placeholder="https://psa.gov.au/local-gov"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      Contact inquiry link
+                    </label>
+                    <input
+                      type="text"
+                      value={contactUrl}
+                      onChange={(e) => setContactUrl(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                      placeholder="https://psa.gov.au/contact"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
+                      <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                        Sort Order
+                      </label>
+                      <input
+                        type="number"
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(Number(e.target.value))}
+                        className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="flex items-center h-full pt-4">
+                      <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={isFeatured}
+                          onChange={(e) => setIsFeatured(e.target.checked)}
+                          className="h-3.5 w-3.5 rounded border-border text-primary focus:ring-0 cursor-pointer"
+                        />
+                        <span className="font-mono text-[8px] uppercase tracking-wider text-primary">
+                          Featured
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      Short Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={shortDescription}
+                      onChange={(e) => setShortDescription(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                      Home Card Notes
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={cardNote}
+                      onChange={(e) => setCardNote(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none leading-relaxed"
+                      placeholder="e.g. Includes Police..."
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+
+                <div className="pt-2 flex flex-col gap-2">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="w-full border border-primary bg-primary py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 cursor-pointer text-center"
+                  >
+                    {saving ? 'Saving changes...' : 'Save Settings'}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleInitializeEmptyPages}
+                    className="w-full border border-border bg-card hover:bg-sidebar text-muted font-mono text-[9px] uppercase tracking-wider py-2 flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw className="h-3 w-3" />
+                    Init Chapters Structure
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Tab 2: KPIs */}
+            {activeSubTab === 'kpis' && (
+              <div className="space-y-4">
+                <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                  {kpis.length === 0 ? (
+                    <div className="text-[10px] text-muted/60 font-mono py-4 italic border border-dashed border-border p-3 bg-sidebar/20 text-center">
+                      No KPI badges defined.
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {kpis.map((kpi) => (
+                        <div key={kpi.id} className="border border-border p-2.5 bg-[#fcfcfb] flex justify-between items-center">
+                          <div>
+                            <span className="font-mono text-[8px] uppercase text-muted tracking-wider block">
+                              {kpi.label}
+                            </span>
+                            <span className="text-sm font-bold tracking-tight text-primary">
+                              {kpi.prefix}{kpi.value}{kpi.suffix}
+                            </span>
+                          </div>
+                          <button 
+                            onClick={() => handleDeleteKpi(kpi.id)}
+                            className="text-red-500 hover:text-red-700 p-1 border border-transparent hover:border-red-200 bg-card cursor-pointer"
+                            title="Delete KPI Badge"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <form onSubmit={handleAddKpi} className="border-t border-border/60 pt-3 space-y-3">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-muted block font-bold">
+                    Create KPI Badge
+                  </span>
+                  
+                  <div className="space-y-2 text-xs">
+                    <div className="space-y-1">
+                      <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Label Descriptor</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Employees"
+                        value={newKpiLabel}
+                        onChange={(e) => setNewKpiLabel(e.target.value)}
+                        className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs text-primary focus:border-primary focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Statistic Value</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. 48,800"
+                        value={newKpiValue}
+                        onChange={(e) => setNewKpiValue(e.target.value)}
+                        className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs text-primary focus:border-primary focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="space-y-1">
+                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Prefix</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. $"
+                          value={newKpiPrefix}
+                          onChange={(e) => setNewKpiPrefix(e.target.value)}
+                          className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs text-primary focus:border-primary focus:outline-none"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Suffix</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. %"
+                          value={newKpiSuffix}
+                          onChange={(e) => setNewKpiSuffix(e.target.value)}
+                          className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs text-primary focus:border-primary focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={kpiLoading}
+                    className="w-full border border-primary bg-primary py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="h-3 w-3" />
+                    Create Badge Card
+                  </button>
+                </form>
+              </div>
+            )}
+
+            {/* Tab 3: History */}
+            {activeSubTab === 'history' && (
+              <div className="space-y-3">
+                {logsLoading ? (
+                  <div className="flex h-32 items-center justify-center">
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="h-3 w-3 animate-spin rounded-full border border-primary border-t-transparent" />
+                      <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Loading logs...</span>
+                    </div>
+                  </div>
+                ) : auditLogsList.length === 0 ? (
+                  <div className="text-center py-8 font-mono text-[10px] uppercase text-muted italic border border-dashed border-border p-3 bg-sidebar/20">
+                    No history found.
+                  </div>
+                ) : (
+                  <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+                    {auditLogsList.map((log) => (
+                      <div key={log.id} className="border border-border p-2 bg-[#fcfcfb] space-y-1">
+                        <div className="flex justify-between items-center">
+                          <span className="font-mono text-[8px] font-bold uppercase tracking-wider text-primary">
+                            {log.action}
+                          </span>
+                          <span className="font-mono text-[7px] text-muted">
+                            {new Date(log.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-muted">
+                          By: <span className="font-bold text-primary">{log.userName.split(' ')[0]}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      )}
+
+      </div>
     </div>
   );
 }

@@ -56,6 +56,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   }, [activeReport]);
 
+  // Reset active report context when navigating away from report edit workflow
+  useEffect(() => {
+    const isEditingReport = pathname.startsWith('/dashboard/reports/') || pathname.startsWith('/dashboard/pages/');
+    if (!isEditingReport && activeReport) {
+      setActiveReport(null);
+    }
+  }, [pathname, activeReport, setActiveReport]);
+
   if (authLoading || reportsLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -152,18 +160,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
           </div>
 
-          {/* Vertical Divider */}
-          <div className="h-6 w-px bg-border" />
-
-          {/* Active Report Indicator (Read Only) */}
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] uppercase tracking-wider text-muted font-bold">
-              Active Report:
-            </span>
-            <span className="wireframe-badge text-[10px] font-mono font-medium">
-              {activeReport ? activeReport.title.replace(' Workforce Insights Report', '') : 'No Report Selected'}
-            </span>
-          </div>
         </div>
 
         {/* Middle Search Mockup */}
@@ -244,203 +240,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </ul>
             </div>
 
-            {/* Active Report Indicator & Chapters */}
-            {activeReport ? (
-              <div className="px-3">
-                <div className="px-2 mb-4 border-b border-border/60 pb-3">
-                  <span className="font-mono text-[8px] uppercase tracking-widest text-muted block mb-1">
-                    Editing Report
-                  </span>
-                  <span className="text-xs font-bold font-sans text-primary block leading-tight">
-                    {activeReport.title.replace(' Workforce Insights Report', '')}
-                  </span>
-                  <span className="wireframe-badge mt-2 inline-block">
-                    {activeReport.status.toUpperCase()}
-                  </span>
-                </div>
 
-                <span className="font-mono text-[9px] uppercase tracking-widest text-muted block px-2 mb-3">
-                  Chapters
-                </span>
-                <ul className="space-y-1">
-                  {/* 01 About */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('about') || getPageIdByType('methodology');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('about') && !getPageIdByType('methodology')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'about' || activePageType() === 'methodology'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">01</span>
-                      About
-                    </button>
-                  </li>
-
-                  {/* 02 Executive Summary */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('executive_summary');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('executive_summary')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'executive_summary' || activePageType() === 'transition_landing'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">02</span>
-                      Executive Summary
-                    </button>
-                  </li>
-
-                  {/* 03 Drivers of Change */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('drivers_of_change');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('drivers_of_change')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'drivers_of_change'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">03</span>
-                      Drivers of Change
-                    </button>
-                  </li>
-
-                  {/* 04 Industry Overview */}
-                  <li className="space-y-1">
-                    <div className="w-full flex items-center px-2 py-1.5 text-xs font-sans font-bold text-primary/80">
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">04</span>
-                      Industry Overview
-                    </div>
-                    {/* Sub pages */}
-                    <ul className="pl-7 space-y-1 border-l border-border/60 ml-5">
-                      <li>
-                        <button
-                          onClick={() => {
-                            const id = getPageIdByType('industry_overview');
-                            if (id) router.push(`/dashboard/pages/${id}`);
-                          }}
-                          disabled={!getPageIdByType('industry_overview')}
-                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                            activePageType() === 'industry_overview' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                          }`}
-                        >
-                          Sector Overview
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          onClick={() => {
-                            const id = getPageIdByType('state_territory');
-                            if (id) router.push(`/dashboard/pages/${id}`);
-                          }}
-                          disabled={!getPageIdByType('state_territory')}
-                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                            activePageType() === 'state_territory' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                          }`}
-                        >
-                          State & Territory Profile
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          onClick={() => {
-                            const id = getPageIdByType('industry_profile');
-                            if (id) router.push(`/dashboard/pages/${id}`);
-                          }}
-                          disabled={!getPageIdByType('industry_profile')}
-                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                            activePageType() === 'industry_profile' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                          }`}
-                        >
-                          Industry Profile
-                        </button>
-                      </li>
-                    </ul>
-                  </li>
-
-                  {/* 05 Workforce Insights */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('workforce_insights');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('workforce_insights')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'workforce_insights'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">05</span>
-                      Workforce Insights
-                    </button>
-                  </li>
-
-                  {/* 06 Workforce Strategies */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('strategies') || getPageIdByType('strategy_update');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('strategies') && !getPageIdByType('strategy_update')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'strategies' || activePageType() === 'strategy_update'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">06</span>
-                      Workforce Strategies
-                    </button>
-                  </li>
-
-                  {/* 07 Looking Forward */}
-                  <li>
-                    <button
-                      onClick={() => {
-                        const id = getPageIdByType('looking_forward');
-                        if (id) router.push(`/dashboard/pages/${id}`);
-                      }}
-                      disabled={!getPageIdByType('looking_forward')}
-                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                        activePageType() === 'looking_forward'
-                          ? 'font-bold bg-border/40 text-primary'
-                          : 'text-primary/80'
-                      }`}
-                    >
-                      <span className="font-mono font-bold text-[10px] w-6 mr-1">07</span>
-                      Looking Forward
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="px-4 py-4 border border-dashed border-border mx-3 bg-[#fdfdfc]/50 text-center rounded">
-                <span className="font-mono text-[8px] uppercase tracking-wider text-muted block mb-1 font-bold">
-                  No Active Report
-                </span>
-                <p className="text-[10px] text-muted leading-relaxed">
-                  Select a report from the Reports list to edit page chapters.
-                </p>
-              </div>
-            )}
 
             {/* Admin Controls */}
             <div className="px-3 mt-8">
@@ -475,18 +275,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
 
           {/* Bottom Progress Bar */}
-          <div className="border-t border-border bg-sidebar/50 p-4 font-mono text-[10px]">
-            <div className="flex justify-between text-muted font-bold mb-1 uppercase tracking-wide">
-              <span>Chapter {chapter} / 07</span>
-              <span>{progress}</span>
+          {activeReport && (
+            <div className="border-t border-border bg-sidebar/50 p-4 font-mono text-[10px]">
+              <div className="flex justify-between text-muted font-bold mb-1 uppercase tracking-wide">
+                <span>Chapter {chapter} / 07</span>
+                <span>{progress}</span>
+              </div>
+              <div className="h-1.5 w-full bg-border">
+                <div 
+                  className="h-full bg-primary transition-all duration-300 ease-out" 
+                  style={{ width: progress }}
+                />
+              </div>
             </div>
-            <div className="h-1.5 w-full bg-border">
-              <div 
-                className="h-full bg-primary transition-all duration-300 ease-out" 
-                style={{ width: progress }}
-              />
-            </div>
-          </div>
+          )}
         </aside>
 
         {/* Content Canvas */}

@@ -291,14 +291,20 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-8">
       
-      {/* Back to Overview */}
+      {/* Back to Report Editor */}
       <div className="flex items-center gap-2">
         <button
-          onClick={() => router.push('/dashboard')}
+          onClick={() => {
+            if (activeReport) {
+              router.push(`/dashboard/reports/${activeReport.id}`);
+            } else {
+              router.push('/dashboard/reports');
+            }
+          }}
           className="flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors border border-border bg-card px-2.5 py-1"
         >
           <ChevronLeft className="h-3 w-3" />
-          Back to Overview
+          Back to Report Editor
         </button>
       </div>
 
