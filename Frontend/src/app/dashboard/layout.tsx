@@ -155,41 +155,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Vertical Divider */}
           <div className="h-6 w-px bg-border" />
 
-          {/* Active Report Switcher */}
-          <div className="relative">
-            <button 
-              onClick={() => setSwitcherOpen(!switcherOpen)}
-              className="flex items-center gap-2 border border-border px-3 py-1.5 bg-[#fdfdfc] text-xs font-mono font-medium hover:bg-sidebar transition-colors"
-            >
-              {activeReport ? activeReport.title.replace(' Workforce Insights Report', '') : 'Select Report'}
-              <ChevronDown className="h-3 w-3 text-muted" />
-            </button>
-
-            {switcherOpen && (
-              <>
-                <div className="fixed inset-0 z-10" onClick={() => setSwitcherOpen(false)} />
-                <div className="absolute left-0 mt-1 w-64 border border-border bg-card shadow-sm z-20">
-                  <div className="border-b border-border bg-sidebar p-2 text-[9px] font-mono text-muted uppercase tracking-wider">
-                    Select Active Dataset
-                  </div>
-                  <div className="max-h-60 overflow-y-auto py-1">
-                    {reports.map((rep) => (
-                      <button
-                        key={rep.id}
-                        onClick={() => {
-                          setActiveReport(rep);
-                          setSwitcherOpen(false);
-                          router.push('/dashboard');
-                        }}
-                        className={`w-full text-left px-3 py-2 text-xs hover:bg-sidebar font-sans ${activeReport?.id === rep.id ? 'font-bold bg-sidebar/50' : 'text-primary'}`}
-                      >
-                        {rep.title}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
+          {/* Active Report Indicator (Read Only) */}
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[9px] uppercase tracking-wider text-muted font-bold">
+              Active Report:
+            </span>
+            <span className="wireframe-badge text-[10px] font-mono font-medium">
+              {activeReport ? activeReport.title.replace(' Workforce Insights Report', '') : 'No Report Selected'}
+            </span>
           </div>
         </div>
 
@@ -240,202 +213,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           
           <div className="flex flex-col py-6">
             
-            {/* Active Report Indicator Card */}
-            {activeReport && (
-              <div className="px-5 mb-6">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-muted block mb-1">
-                  Active Report Context
-                </span>
-                <span className="text-xs font-bold font-sans text-primary block leading-tight">
-                  2026 · {activeReport.title.replace(' Workforce Insights Report 2026', '')}
-                </span>
-                <span className="wireframe-badge mt-2 inline-block">
-                  {activeReport.status.toUpperCase()}
-                </span>
-              </div>
-            )}
-
-            {/* Content Chapters Nav */}
-            <div className="px-3">
+            {/* Primary Navigation */}
+            <div className="px-3 mb-6">
               <span className="font-mono text-[9px] uppercase tracking-widest text-muted block px-2 mb-3">
-                Contents
+                Main
               </span>
               <ul className="space-y-1">
-                {/* 01 About */}
                 <li>
                   <button
-                    onClick={() => {
-                      const id = getPageIdByType('about') || getPageIdByType('methodology');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('about') && !getPageIdByType('methodology')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'about' || activePageType() === 'methodology'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
+                    onClick={() => router.push('/dashboard')}
+                    className={`w-full flex items-center gap-2.5 px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 ${
+                      isActiveLink('/dashboard', true) ? 'font-bold bg-border/40 text-primary' : 'text-primary/80'
                     }`}
                   >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">01</span>
-                    About
+                    <Sliders className="h-3.5 w-3.5 text-muted" />
+                    Overview
                   </button>
                 </li>
-
-                {/* 02 Executive Summary */}
-                <li>
-                  <button
-                    onClick={() => {
-                      const id = getPageIdByType('executive_summary');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('executive_summary')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'executive_summary' || activePageType() === 'transition_landing'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
-                    }`}
-                  >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">02</span>
-                    Executive Summary
-                  </button>
-                </li>
-
-                {/* 03 Drivers of Change */}
-                <li>
-                  <button
-                    onClick={() => {
-                      const id = getPageIdByType('drivers_of_change');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('drivers_of_change')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'drivers_of_change'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
-                    }`}
-                  >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">03</span>
-                    Drivers of Change
-                  </button>
-                </li>
-
-                {/* 04 Industry Overview */}
-                <li className="space-y-1">
-                  <div className="w-full flex items-center px-2 py-1.5 text-xs font-sans font-bold text-primary/80">
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">04</span>
-                    Industry Overview
-                  </div>
-                  {/* Sub pages */}
-                  <ul className="pl-7 space-y-1 border-l border-border/60 ml-5">
-                    <li>
-                      <button
-                        onClick={() => {
-                          const id = getPageIdByType('industry_overview');
-                          if (id) router.push(`/dashboard/pages/${id}`);
-                        }}
-                        disabled={!getPageIdByType('industry_overview')}
-                        className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                          activePageType() === 'industry_overview' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                        }`}
-                      >
-                        Sector Overview
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => {
-                          const id = getPageIdByType('state_territory');
-                          if (id) router.push(`/dashboard/pages/${id}`);
-                        }}
-                        disabled={!getPageIdByType('state_territory')}
-                        className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                          activePageType() === 'state_territory' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                        }`}
-                      >
-                        State & Territory Profile
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => {
-                          const id = getPageIdByType('industry_profile');
-                          if (id) router.push(`/dashboard/pages/${id}`);
-                        }}
-                        disabled={!getPageIdByType('industry_profile')}
-                        className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
-                          activePageType() === 'industry_profile' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
-                        }`}
-                      >
-                        Industry Profile
-                      </button>
-                    </li>
-                  </ul>
-                </li>
-
-                {/* 05 Workforce Insights */}
-                <li>
-                  <button
-                    onClick={() => {
-                      const id = getPageIdByType('workforce_insights');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('workforce_insights')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'workforce_insights'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
-                    }`}
-                  >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">05</span>
-                    Workforce Insights
-                  </button>
-                </li>
-
-                {/* 06 Workforce Strategies */}
-                <li>
-                  <button
-                    onClick={() => {
-                      const id = getPageIdByType('strategies') || getPageIdByType('strategy_update');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('strategies') && !getPageIdByType('strategy_update')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'strategies' || activePageType() === 'strategy_update'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
-                    }`}
-                  >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">06</span>
-                    Workforce Strategies
-                  </button>
-                </li>
-
-                {/* 07 Looking Forward */}
-                <li>
-                  <button
-                    onClick={() => {
-                      const id = getPageIdByType('looking_forward');
-                      if (id) router.push(`/dashboard/pages/${id}`);
-                    }}
-                    disabled={!getPageIdByType('looking_forward')}
-                    className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      activePageType() === 'looking_forward'
-                        ? 'font-bold bg-border/40 text-primary'
-                        : 'text-primary/80'
-                    }`}
-                  >
-                    <span className="font-mono font-bold text-[10px] w-6 mr-1">07</span>
-                    Looking Forward
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Admin Controls */}
-            <div className="px-3 mt-8">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted block px-2 mb-3">
-                Admin Controls
-              </span>
-              <ul className="space-y-1">
                 <li>
                   <button
                     onClick={() => router.push('/dashboard/reports')}
@@ -443,10 +237,217 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       isActiveLink('/dashboard/reports') ? 'font-bold bg-border/40 text-primary' : 'text-primary/80'
                     }`}
                   >
-                    <Sliders className="h-3.5 w-3.5 text-muted" />
-                    Manage Reports
+                    <BookOpen className="h-3.5 w-3.5 text-muted" />
+                    Reports
                   </button>
                 </li>
+              </ul>
+            </div>
+
+            {/* Active Report Indicator & Chapters */}
+            {activeReport ? (
+              <div className="px-3">
+                <div className="px-2 mb-4 border-b border-border/60 pb-3">
+                  <span className="font-mono text-[8px] uppercase tracking-widest text-muted block mb-1">
+                    Editing Report
+                  </span>
+                  <span className="text-xs font-bold font-sans text-primary block leading-tight">
+                    {activeReport.title.replace(' Workforce Insights Report', '')}
+                  </span>
+                  <span className="wireframe-badge mt-2 inline-block">
+                    {activeReport.status.toUpperCase()}
+                  </span>
+                </div>
+
+                <span className="font-mono text-[9px] uppercase tracking-widest text-muted block px-2 mb-3">
+                  Chapters
+                </span>
+                <ul className="space-y-1">
+                  {/* 01 About */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('about') || getPageIdByType('methodology');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('about') && !getPageIdByType('methodology')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'about' || activePageType() === 'methodology'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">01</span>
+                      About
+                    </button>
+                  </li>
+
+                  {/* 02 Executive Summary */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('executive_summary');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('executive_summary')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'executive_summary' || activePageType() === 'transition_landing'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">02</span>
+                      Executive Summary
+                    </button>
+                  </li>
+
+                  {/* 03 Drivers of Change */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('drivers_of_change');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('drivers_of_change')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'drivers_of_change'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">03</span>
+                      Drivers of Change
+                    </button>
+                  </li>
+
+                  {/* 04 Industry Overview */}
+                  <li className="space-y-1">
+                    <div className="w-full flex items-center px-2 py-1.5 text-xs font-sans font-bold text-primary/80">
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">04</span>
+                      Industry Overview
+                    </div>
+                    {/* Sub pages */}
+                    <ul className="pl-7 space-y-1 border-l border-border/60 ml-5">
+                      <li>
+                        <button
+                          onClick={() => {
+                            const id = getPageIdByType('industry_overview');
+                            if (id) router.push(`/dashboard/pages/${id}`);
+                          }}
+                          disabled={!getPageIdByType('industry_overview')}
+                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
+                            activePageType() === 'industry_overview' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
+                          }`}
+                        >
+                          Sector Overview
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            const id = getPageIdByType('state_territory');
+                            if (id) router.push(`/dashboard/pages/${id}`);
+                          }}
+                          disabled={!getPageIdByType('state_territory')}
+                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
+                            activePageType() === 'state_territory' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
+                          }`}
+                        >
+                          State & Territory Profile
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            const id = getPageIdByType('industry_profile');
+                            if (id) router.push(`/dashboard/pages/${id}`);
+                          }}
+                          disabled={!getPageIdByType('industry_profile')}
+                          className={`w-full text-left px-2 py-1 text-[11px] rounded transition-colors hover:bg-border/30 disabled:opacity-40 ${
+                            activePageType() === 'industry_profile' ? 'font-bold text-primary bg-border/40' : 'text-primary/70'
+                          }`}
+                        >
+                          Industry Profile
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {/* 05 Workforce Insights */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('workforce_insights');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('workforce_insights')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'workforce_insights'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">05</span>
+                      Workforce Insights
+                    </button>
+                  </li>
+
+                  {/* 06 Workforce Strategies */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('strategies') || getPageIdByType('strategy_update');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('strategies') && !getPageIdByType('strategy_update')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'strategies' || activePageType() === 'strategy_update'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">06</span>
+                      Workforce Strategies
+                    </button>
+                  </li>
+
+                  {/* 07 Looking Forward */}
+                  <li>
+                    <button
+                      onClick={() => {
+                        const id = getPageIdByType('looking_forward');
+                        if (id) router.push(`/dashboard/pages/${id}`);
+                      }}
+                      disabled={!getPageIdByType('looking_forward')}
+                      className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
+                        activePageType() === 'looking_forward'
+                          ? 'font-bold bg-border/40 text-primary'
+                          : 'text-primary/80'
+                      }`}
+                    >
+                      <span className="font-mono font-bold text-[10px] w-6 mr-1">07</span>
+                      Looking Forward
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="px-4 py-4 border border-dashed border-border mx-3 bg-[#fdfdfc]/50 text-center rounded">
+                <span className="font-mono text-[8px] uppercase tracking-wider text-muted block mb-1 font-bold">
+                  No Active Report
+                </span>
+                <p className="text-[10px] text-muted leading-relaxed">
+                  Select a report from the Reports list to edit page chapters.
+                </p>
+              </div>
+            )}
+
+            {/* Admin Controls */}
+            <div className="px-3 mt-8">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-muted block px-2 mb-3">
+                Admin Controls
+              </span>
+              <ul className="space-y-1">
                 <li>
                   <button
                     onClick={() => router.push('/dashboard/users')}
