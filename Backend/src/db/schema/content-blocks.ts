@@ -34,6 +34,9 @@ export const blockTypeEnum = pgEnum('block_type', [
   'stat_group',
   'two_column',
   'cards',
+  'tags',
+  'numbered_list_theme',
+  'kpi_dashboard',
 ]);
 
 export const contentBlocks = pgTable('content_blocks', {

@@ -26,7 +26,10 @@ import {
   MessageSquare,
   MapPin,
   X,
-  CreditCard
+  CreditCard,
+  Tag,
+  Briefcase,
+  TrendingUp
 } from 'lucide-react';
 
 interface ContentBlock {
@@ -155,10 +158,50 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
       defaultContent = { items: ['First list item detail', 'Second list item detail'] };
     } else if (type === 'cards') {
       defaultContent = {
+        columnsPerRow: 2,
         cards: [
-          { number: '01', title: 'First Nations Participation', description: 'Details about participation...' },
-          { number: '02', title: 'AI & Digital Transformation', description: 'Details about AI impact...' }
+          { number: '01', title: 'First Nations Participation', description: 'Details about participation...', tags: ['Tag 1', 'Tag 2'] },
+          { number: '02', title: 'AI & Digital Transformation', description: 'Details about AI impact...', tags: ['Tag 3'] }
         ]
+      };
+    } else if (type === 'tags') {
+      defaultContent = {
+        prefix: 'ON THIS PAGE',
+        tags: ['Evidence', 'Industry voice', 'Insights', 'Strategies', 'Outlook']
+      };
+    } else if (type === 'strategy_card') {
+      defaultContent = {
+        strategies: [
+          { number: '1', title: 'Map shortages to VET training products', breadcrumbs: ['Theme 1', 'Insights 1-3', 'Strategy 1'], deliverable: 'Occupational Shortage Map', timeline: '12-month' },
+          { number: '2', title: 'Facilitate a whole-of-VET roundtable', breadcrumbs: ['Theme 2', 'Insights 4-7', 'Strategy 2'], deliverable: 'Roundtable + summary report', timeline: '12-month' }
+        ]
+      };
+    } else if (type === 'numbered_list_theme') {
+      defaultContent = {
+        themes: [
+          {
+            title: 'Local Government-specific occupational shortages',
+            countText: '3',
+            items: [
+              { number: '1', text: 'Councils need a broad, diverse skill base to cover expanding responsibilities' },
+              { number: '2', text: 'Skills needs are shifting with technology, workforce pressure & community expectations' },
+              { number: '3', text: 'Acute Local Government-specific shortages persist — especially emergency management' }
+            ]
+          }
+        ]
+      };
+    } else if (type === 'kpi_dashboard') {
+      defaultContent = {
+        kpis: [
+          { value: '218,000', label: 'Total workforce', subtext: 'employees, June 2025' },
+          { value: '+14%', label: 'Workforce growth', subtext: '2020 → 2025' },
+          { value: '55%', label: 'Regional, rural & remote', subtext: 'share of councils' },
+          { value: '8.2%', label: 'First Nations workforce', subtext: 'vs 3.8% population' }
+        ],
+        showTrend: true,
+        trendTitle: 'Projected workforce demand →',
+        trendSubtext: 'significant growth projected to 2035',
+        trendPoints: [10, 12, 11, 15, 14, 18, 20]
       };
     }
 
@@ -897,11 +940,27 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
 
                     {/* Cards Grid Component Editor */}
                     {block.blockType === 'cards' && (
-                      <div className="space-y-3">
-                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Cards Layout Items</span>
+                      <div className="space-y-4">
+                        <div className="grid gap-3 sm:grid-cols-3">
+                          <div className="space-y-1">
+                            <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Columns Per Row</label>
+                            <select
+                              value={block.content.columnsPerRow || 2}
+                              onChange={(e) => updateBlockContentField(block.id, 'columnsPerRow', Number(e.target.value))}
+                              className="w-full border border-border bg-card py-1.5 px-2 text-xs focus:outline-none"
+                            >
+                              <option value={1}>1 Column</option>
+                              <option value={2}>2 Columns</option>
+                              <option value={3}>3 Columns</option>
+                              <option value={4}>4 Columns</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold border-t border-border/40 pt-3">Cards Layout Items</span>
                         
                         <div className="space-y-4">
-                          {(block.content.cards || []).map((card: { number: string; title: string; description: string }, i: number) => (
+                          {(block.content.cards || []).map((card: { number: string; title: string; description: string; tags?: string[]; _tagsInput?: string }, i: number) => (
                             <div key={i} className="border border-border p-4 bg-sidebar/25 relative space-y-3">
                               <div className="flex justify-between items-center border-b border-border/40 pb-2">
                                 <span className="font-mono text-[8px] uppercase text-muted font-semibold">Card #{i+1}</span>
@@ -911,7 +970,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                                     const newCards = (block.content.cards || []).filter((_: any, idx: number) => idx !== i);
                                     updateBlockContentField(block.id, 'cards', newCards);
                                   }}
-                                  className="text-red-500 hover:text-red-700 p-0.5 border border-transparent hover:border-red-150 bg-card"
+                                  className="text-red-500 hover:text-red-700 p-0.5 border border-transparent hover:border-red-150 bg-card cursor-pointer"
                                 >
                                   <Trash2 className="h-3 w-3" />
                                 </button>
@@ -929,7 +988,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                                       updateBlockContentField(block.id, 'cards', newCards);
                                     }}
                                     placeholder="e.g. 01"
-                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1 text-xs focus:outline-none"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
                                   />
                                 </div>
                                 <div className="space-y-1 sm:col-span-3">
@@ -942,7 +1001,30 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                                       newCards[i] = { ...newCards[i], title: e.target.value };
                                       updateBlockContentField(block.id, 'cards', newCards);
                                     }}
-                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1 text-xs focus:outline-none"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1 sm:col-span-4">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Card Tags (Comma-separated)</label>
+                                  <input
+                                    type="text"
+                                    value={card._tagsInput !== undefined ? card._tagsInput : (card.tags || []).join(', ')}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      const tagsArray = val.split(',').map(s => s.trim()).filter(Boolean);
+                                      const newCards = [...(block.content.cards || [])];
+                                      newCards[i] = { ...newCards[i], tags: tagsArray, _tagsInput: val };
+                                      updateBlockContentField(block.id, 'cards', newCards);
+                                    }}
+                                    onBlur={() => {
+                                      const newCards = [...(block.content.cards || [])];
+                                      if (newCards[i]._tagsInput !== undefined) {
+                                        delete newCards[i]._tagsInput;
+                                        updateBlockContentField(block.id, 'cards', newCards);
+                                      }
+                                    }}
+                                    placeholder="e.g. First Nations, Regional"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
                                   />
                                 </div>
                                 <div className="space-y-1 sm:col-span-4">
@@ -955,7 +1037,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                                       newCards[i] = { ...newCards[i], description: e.target.value };
                                       updateBlockContentField(block.id, 'cards', newCards);
                                     }}
-                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1 text-xs focus:outline-none"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
                                   />
                                 </div>
                               </div>
@@ -965,13 +1047,621 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
                           <button
                             type="button"
                             onClick={() => {
-                              const newCards = [...(block.content.cards || []), { number: String(block.content.cards?.length + 1 || 1).padStart(2, '0'), title: 'New Card Title', description: '' }];
+                              const newCards = [...(block.content.cards || []), { number: String(block.content.cards?.length + 1 || 1).padStart(2, '0'), title: 'New Card Title', description: '', tags: [] }];
                               updateBlockContentField(block.id, 'cards', newCards);
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
                           >
                             <Plus className="h-3 w-3" /> Add Grid Card
                           </button>
+                        </div>
+
+                        {/* Visual Preview */}
+                        <div className="border-t border-border/40 pt-4 space-y-2">
+                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">* COMPONENT PREVIEW</span>
+                          <div className={`grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-${block.content.columnsPerRow || 2}`}>
+                            {(block.content.cards || []).map((card: any, idx: number) => (
+                              <div key={idx} className="border border-border p-4 bg-[#fdfdfc] rounded-sm space-y-2 shadow-xs">
+                                <div className="flex justify-between items-start gap-2">
+                                  <span className="font-mono text-[10px] text-muted/60 font-bold">{card.number}</span>
+                                  <div className="flex flex-wrap gap-1">
+                                    {(card.tags || []).map((tag: string, tIdx: number) => (
+                                      <span key={tIdx} className="px-1.5 py-0.5 bg-[#f4f2ee] border border-border/60 text-primary text-[8px] font-mono leading-none rounded">
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                                <h4 className="text-xs font-bold text-primary uppercase leading-tight font-sans">{card.title}</h4>
+                                <p className="text-[11px] text-muted leading-relaxed font-sans">{card.description}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tags Component Editor */}
+                    {block.blockType === 'tags' && (
+                      <div className="space-y-4">
+                        <div className="space-y-1">
+                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Prefix Label</label>
+                          <input
+                            type="text"
+                            value={block.content.prefix || ''}
+                            onChange={(e) => updateBlockContentField(block.id, 'prefix', e.target.value)}
+                            className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                            placeholder="e.g. ON THIS PAGE"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Tags List</label>
+                          <div className="flex flex-wrap gap-2 items-center">
+                            {(block.content.tags || []).map((tag: string, i: number) => (
+                              <div key={i} className="flex items-center border border-border bg-[#fdfdfc] pl-3 pr-1 py-1 text-xs gap-1.5">
+                                <span>{tag}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newTags = (block.content.tags || []).filter((_: any, idx: number) => idx !== i);
+                                    updateBlockContentField(block.id, 'tags', newTags);
+                                  }}
+                                  className="text-red-500 hover:text-red-700 p-0.5"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex gap-2 max-w-xs mt-2">
+                            <input
+                              type="text"
+                              id={`new-tag-input-${block.id}`}
+                              placeholder="New tag name"
+                              className="flex-1 border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  const target = e.currentTarget;
+                                  const value = target.value.trim();
+                                  if (value) {
+                                    updateBlockContentField(block.id, 'tags', [...(block.content.tags || []), value]);
+                                    target.value = '';
+                                  }
+                                }
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const input = document.getElementById(`new-tag-input-${block.id}`) as HTMLInputElement;
+                                const value = input?.value.trim();
+                                if (value) {
+                                  updateBlockContentField(block.id, 'tags', [...(block.content.tags || []), value]);
+                                  input.value = '';
+                                }
+                              }}
+                              className="border border-border bg-card hover:bg-sidebar px-3 py-1 font-mono text-[9px] uppercase"
+                            >
+                              Add
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Visual Preview */}
+                        <div className="border-t border-border/40 pt-4 space-y-2">
+                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">* COMPONENT PREVIEW</span>
+                          <div className="flex flex-wrap items-center gap-2 border border-border/40 p-4 bg-[#fcfcfb]">
+                            <span className="font-mono text-[9px] uppercase tracking-widest text-muted mr-2 font-bold">{block.content.prefix || 'ON THIS PAGE'}</span>
+                            {(block.content.tags || []).map((tag: string, i: number) => (
+                              <span key={i} className="px-3 py-1 text-xs font-semibold rounded-full bg-[#f4f2ee] border border-border text-primary font-sans leading-none">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Strategy Card Component Editor */}
+                    {block.blockType === 'strategy_card' && (
+                      <div className="space-y-4">
+                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Strategies List</span>
+
+                        <div className="space-y-4">
+                          {(block.content.strategies || []).map((strat: any, i: number) => (
+                            <div key={i} className="border border-border p-4 bg-sidebar/25 relative space-y-3">
+                              <div className="flex justify-between items-center border-b border-border/40 pb-2">
+                                <span className="font-mono text-[8px] uppercase text-muted font-semibold">Strategy #{i+1}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newStrats = (block.content.strategies || []).filter((_: any, idx: number) => idx !== i);
+                                    updateBlockContentField(block.id, 'strategies', newStrats);
+                                  }}
+                                  className="text-red-500 hover:text-red-700 p-0.5 border border-transparent hover:border-red-150 bg-card cursor-pointer"
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </button>
+                              </div>
+
+                              <div className="grid gap-3 sm:grid-cols-4">
+                                <div className="space-y-1">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Badge/Num</label>
+                                  <input
+                                    type="text"
+                                    value={strat.number || ''}
+                                    onChange={(e) => {
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      newStrats[i] = { ...newStrats[i], number: e.target.value };
+                                      updateBlockContentField(block.id, 'strategies', newStrats);
+                                    }}
+                                    placeholder="e.g. 1"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1 sm:col-span-3">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Strategy Title</label>
+                                  <input
+                                    type="text"
+                                    value={strat.title || ''}
+                                    onChange={(e) => {
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      newStrats[i] = { ...newStrats[i], title: e.target.value };
+                                      updateBlockContentField(block.id, 'strategies', newStrats);
+                                    }}
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1 sm:col-span-4">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Breadcrumbs (Comma-separated)</label>
+                                  <input
+                                    type="text"
+                                    value={strat._breadcrumbsInput !== undefined ? strat._breadcrumbsInput : (strat.breadcrumbs || []).join(', ')}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      const breadcrumbsArray = val.split(',').map(s => s.trim()).filter(Boolean);
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      newStrats[i] = { ...newStrats[i], breadcrumbs: breadcrumbsArray, _breadcrumbsInput: val };
+                                      updateBlockContentField(block.id, 'strategies', newStrats);
+                                    }}
+                                    onBlur={() => {
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      if (newStrats[i]._breadcrumbsInput !== undefined) {
+                                        delete newStrats[i]._breadcrumbsInput;
+                                        updateBlockContentField(block.id, 'strategies', newStrats);
+                                      }
+                                    }}
+                                    placeholder="e.g. Theme 1, Insights 1-3, Strategy 1"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1 sm:col-span-2">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Deliverable</label>
+                                  <input
+                                    type="text"
+                                    value={strat.deliverable || ''}
+                                    onChange={(e) => {
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      newStrats[i] = { ...newStrats[i], deliverable: e.target.value };
+                                      updateBlockContentField(block.id, 'strategies', newStrats);
+                                    }}
+                                    placeholder="e.g. Occupational Shortage Map"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1 sm:col-span-2">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Timeline</label>
+                                  <input
+                                    type="text"
+                                    value={strat.timeline || ''}
+                                    onChange={(e) => {
+                                      const newStrats = [...(block.content.strategies || [])];
+                                      newStrats[i] = { ...newStrats[i], timeline: e.target.value };
+                                      updateBlockContentField(block.id, 'strategies', newStrats);
+                                    }}
+                                    placeholder="e.g. 12-month"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newStrats = [...(block.content.strategies || []), { number: String(block.content.strategies?.length + 1 || 1), title: 'New Strategy Action', breadcrumbs: [], deliverable: '', timeline: '' }];
+                              updateBlockContentField(block.id, 'strategies', newStrats);
+                            }}
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
+                          >
+                            <Plus className="h-3 w-3" /> Add Strategy Card
+                          </button>
+                        </div>
+
+                        {/* Visual Preview */}
+                        <div className="border-t border-border/40 pt-4 space-y-2">
+                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">* COMPONENT PREVIEW</span>
+                          <div className="space-y-4">
+                            {(block.content.strategies || []).map((strat: any, idx: number) => (
+                              <div key={idx} className="border border-border bg-[#fdfdfc] p-6 rounded-md shadow-xs space-y-4">
+                                <div className="flex gap-4 items-start">
+                                  <span className="w-8 h-8 rounded bg-[#2b2a27] text-[#fdfdfc] flex items-center justify-center font-mono font-bold text-sm shrink-0">
+                                    {strat.number}
+                                  </span>
+                                  <div className="space-y-2 flex-1">
+                                    <h4 className="text-sm font-bold text-primary font-sans leading-snug">{strat.title}</h4>
+                                    <div className="flex flex-wrap items-center gap-1.5 text-[9px] font-mono text-muted">
+                                      {(strat.breadcrumbs || []).map((bc: string, bIdx: number) => (
+                                        <React.Fragment key={bIdx}>
+                                          {bIdx > 0 && <span className="text-muted/40">→</span>}
+                                          <span className="px-2 py-0.5 bg-[#f4f2ee] rounded border border-border/60">{bc}</span>
+                                        </React.Fragment>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="border-t border-border/40 pt-3 flex justify-between items-center text-[10px] font-mono text-muted">
+                                  <span>Deliverable · <strong className="text-primary font-normal">{strat.deliverable || 'None'}</strong></span>
+                                  <span className="text-right">{strat.timeline || 'TBD'}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Numbered List with Theme Component Editor */}
+                    {block.blockType === 'numbered_list_theme' && (
+                      <div className="space-y-4">
+                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Themes & Sub-lists</span>
+
+                        <div className="space-y-4">
+                          {(block.content.themes || []).map((theme: any, tIdx: number) => (
+                            <div key={tIdx} className="border border-border p-4 bg-sidebar/25 relative space-y-3">
+                              <div className="flex justify-between items-center border-b border-border/40 pb-2">
+                                <span className="font-mono text-[8px] uppercase text-muted font-semibold">Theme Grid #{tIdx+1}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newThemes = (block.content.themes || []).filter((_: any, idx: number) => idx !== tIdx);
+                                    updateBlockContentField(block.id, 'themes', newThemes);
+                                  }}
+                                  className="text-red-500 hover:text-red-700 p-0.5 border border-transparent hover:border-red-150 bg-card cursor-pointer"
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </button>
+                              </div>
+
+                              <div className="grid gap-3 sm:grid-cols-4">
+                                <div className="space-y-1 sm:col-span-3">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Theme Title</label>
+                                  <input
+                                    type="text"
+                                    value={theme.title || ''}
+                                    onChange={(e) => {
+                                      const newThemes = [...(block.content.themes || [])];
+                                      newThemes[tIdx] = { ...newThemes[tIdx], title: e.target.value };
+                                      updateBlockContentField(block.id, 'themes', newThemes);
+                                    }}
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Count Text (e.g. total)</label>
+                                  <input
+                                    type="text"
+                                    value={theme.countText || ''}
+                                    onChange={(e) => {
+                                      const newThemes = [...(block.content.themes || [])];
+                                      newThemes[tIdx] = { ...newThemes[tIdx], countText: e.target.value };
+                                      updateBlockContentField(block.id, 'themes', newThemes);
+                                    }}
+                                    placeholder="e.g. 3"
+                                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Nested items inside this theme */}
+                              <div className="space-y-2 border-t border-border/40 pt-3">
+                                <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">List Items</span>
+                                {(theme.items || []).map((item: any, iIdx: number) => (
+                                  <div key={iIdx} className="flex gap-2 items-center">
+                                    <input
+                                      type="text"
+                                      placeholder="Num (e.g. 1)"
+                                      value={item.number || ''}
+                                      onChange={(e) => {
+                                        const newThemes = [...(block.content.themes || [])];
+                                        const newItems = [...(newThemes[tIdx].items || [])];
+                                        newItems[iIdx] = { ...newItems[iIdx], number: e.target.value };
+                                        newThemes[tIdx] = { ...newThemes[tIdx], items: newItems };
+                                        updateBlockContentField(block.id, 'themes', newThemes);
+                                      }}
+                                      className="w-16 border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none text-center"
+                                    />
+                                    <input
+                                      type="text"
+                                      placeholder="Item detail description text"
+                                      value={item.text || ''}
+                                      onChange={(e) => {
+                                        const newThemes = [...(block.content.themes || [])];
+                                        const newItems = [...(newThemes[tIdx].items || [])];
+                                        newItems[iIdx] = { ...newItems[iIdx], text: e.target.value };
+                                        newThemes[tIdx] = { ...newThemes[tIdx], items: newItems };
+                                        updateBlockContentField(block.id, 'themes', newThemes);
+                                      }}
+                                      className="flex-1 border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const newThemes = [...(block.content.themes || [])];
+                                        newThemes[tIdx] = { ...newThemes[tIdx], items: (newThemes[tIdx].items || []).filter((_: any, idx: number) => idx !== iIdx) };
+                                        updateBlockContentField(block.id, 'themes', newThemes);
+                                      }}
+                                      className="p-1 border border-red-200 bg-[#fff5f5] text-red-500 hover:bg-red-100"
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </button>
+                                  </div>
+                                ))}
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newThemes = [...(block.content.themes || [])];
+                                    newThemes[tIdx] = {
+                                      ...newThemes[tIdx],
+                                      items: [...(newThemes[tIdx].items || []), { number: String(newThemes[tIdx].items?.length + 1 || 1), text: 'New insight/item details...' }]
+                                    };
+                                    updateBlockContentField(block.id, 'themes', newThemes);
+                                  }}
+                                  className="border border-dashed border-border hover:bg-sidebar px-2 py-1 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
+                                >
+                                  <Plus className="h-2.5 w-2.5" /> Add List Item
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newThemes = [...(block.content.themes || []), { title: 'New Theme Section', countText: '1', items: [{ number: '1', text: 'Theme item description' }] }];
+                              updateBlockContentField(block.id, 'themes', newThemes);
+                            }}
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
+                          >
+                            <Plus className="h-3 w-3" /> Add Theme Section
+                          </button>
+                        </div>
+
+                        {/* Visual Preview */}
+                        <div className="border-t border-border/40 pt-4 space-y-4">
+                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">* COMPONENT PREVIEW</span>
+                          <div className="space-y-6">
+                            {(block.content.themes || []).map((theme: any, tIdx: number) => (
+                              <div key={tIdx} className="space-y-3">
+                                <div className="flex justify-between items-center border-b border-border/60 pb-1.5 font-mono text-[10px] text-primary uppercase font-bold tracking-wider">
+                                  <span>Theme {tIdx + 1} &nbsp;{theme.title}</span>
+                                  <span className="text-muted/60">{theme.countText}</span>
+                                </div>
+                                <div className="divide-y divide-border/40">
+                                  {(theme.items || []).map((item: any, iIdx: number) => (
+                                    <div key={iIdx} className="py-3 flex gap-3.5 items-start first:pt-0 last:pb-0">
+                                      <span className="w-6 h-6 bg-[#f4f2ee] border border-border/60 text-primary rounded flex items-center justify-center font-mono text-[10px] font-bold shrink-0">
+                                        {item.number}
+                                      </span>
+                                      <span className="text-xs text-primary leading-relaxed font-sans">{item.text}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* KPI Dashboard Component Editor */}
+                    {block.blockType === 'kpi_dashboard' && (
+                      <div className="space-y-4">
+                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">KPI Stats Panel</span>
+
+                        <div className="space-y-3">
+                          {(block.content.kpis || []).map((kpi: any, kIdx: number) => (
+                            <div key={kIdx} className="border border-border p-3 bg-sidebar/20 relative grid gap-3 sm:grid-cols-3">
+                              <div className="space-y-1">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Stat Value (e.g. +14% or 218,000)</label>
+                                <input
+                                  type="text"
+                                  value={kpi.value || ''}
+                                  onChange={(e) => {
+                                    const newKpis = [...(block.content.kpis || [])];
+                                    newKpis[kIdx] = { ...newKpis[kIdx], value: e.target.value };
+                                    updateBlockContentField(block.id, 'kpis', newKpis);
+                                  }}
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+                              </div>
+
+                              <div className="space-y-1">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Descriptor Label</label>
+                                <input
+                                  type="text"
+                                  value={kpi.label || ''}
+                                  onChange={(e) => {
+                                    const newKpis = [...(block.content.kpis || [])];
+                                    newKpis[kIdx] = { ...newKpis[kIdx], label: e.target.value };
+                                    updateBlockContentField(block.id, 'kpis', newKpis);
+                                  }}
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+                              </div>
+
+                              <div className="space-y-1 relative pr-8">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Subtext Context</label>
+                                <input
+                                  type="text"
+                                  value={kpi.subtext || ''}
+                                  onChange={(e) => {
+                                    const newKpis = [...(block.content.kpis || [])];
+                                    newKpis[kIdx] = { ...newKpis[kIdx], subtext: e.target.value };
+                                    updateBlockContentField(block.id, 'kpis', newKpis);
+                                  }}
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newKpis = (block.content.kpis || []).filter((_: any, idx: number) => idx !== kIdx);
+                                    updateBlockContentField(block.id, 'kpis', newKpis);
+                                  }}
+                                  className="absolute top-6 right-2 text-red-500 hover:text-red-700"
+                                >
+                                  <Trash2 className="h-3.5 w-3.5" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newKpis = [...(block.content.kpis || []), { value: '0%', label: 'Metric', subtext: 'description...' }];
+                              updateBlockContentField(block.id, 'kpis', newKpis);
+                            }}
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
+                          >
+                            <Plus className="h-3 w-3" /> Add KPI Statistic
+                          </button>
+                        </div>
+
+                        {/* Trend Chart Sparkline Configurations */}
+                        <div className="border-t border-border/40 pt-4 space-y-3">
+                          <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Trend Sparkline Column</span>
+                          
+                          <div className="flex items-center gap-2 mb-2">
+                            <input
+                              type="checkbox"
+                              id={`show-trend-${block.id}`}
+                              checked={block.content.showTrend ?? false}
+                              onChange={(e) => updateBlockContentField(block.id, 'showTrend', e.target.checked)}
+                              className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
+                            />
+                            <label htmlFor={`show-trend-${block.id}`} className="font-mono text-[9px] uppercase tracking-wider text-primary cursor-pointer select-none">
+                              Include Trend Sparkline Column
+                            </label>
+                          </div>
+
+                          {block.content.showTrend && (
+                            <div className="grid gap-3 sm:grid-cols-3 bg-sidebar/10 p-3 border border-border">
+                              <div className="space-y-1">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Trend Title</label>
+                                <input
+                                  type="text"
+                                  value={block.content.trendTitle || ''}
+                                  onChange={(e) => updateBlockContentField(block.id, 'trendTitle', e.target.value)}
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+                              </div>
+
+                              <div className="space-y-1">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Trend Subtext Caption</label>
+                                <input
+                                  type="text"
+                                  value={block.content.trendSubtext || ''}
+                                  onChange={(e) => updateBlockContentField(block.id, 'trendSubtext', e.target.value)}
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+                              </div>
+
+                              <div className="space-y-1">
+                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Data Coordinates (Comma-separated)</label>
+                                <input
+                                  type="text"
+                                  value={(block.content.trendPoints || []).join(', ')}
+                                  onChange={(e) => {
+                                    const coords = e.target.value.split(',').map(s => Number(s.trim())).filter(n => !isNaN(n));
+                                    updateBlockContentField(block.id, 'trendPoints', coords);
+                                  }}
+                                  placeholder="e.g. 10, 15, 12, 18, 20"
+                                  className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1 text-xs focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Visual Preview */}
+                        <div className="border-t border-border/40 pt-4 space-y-2">
+                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">* COMPONENT PREVIEW</span>
+                          
+                          {(() => {
+                            const points = block.content.trendPoints || [10, 12, 11, 15, 14, 18, 20];
+                            const max = Math.max(...points, 1);
+                            const min = Math.min(...points, 0);
+                            const range = max - min || 1;
+                            const svgPath = points.map((p: number, idx: number) => {
+                              const x = (idx / (points.length - 1)) * 120;
+                              const y = 35 - ((p - min) / range) * 30;
+                              return `${idx === 0 ? 'M' : 'L'} ${x} ${y}`;
+                            }).join(' ');
+
+                            const dottedPath = points.map((p: number, idx: number) => {
+                              const x = (idx / (points.length - 1)) * 120;
+                              const y = 38 - ((p - min) / range) * 15;
+                              return `${idx === 0 ? 'M' : 'L'} ${x} ${y}`;
+                            }).join(' ');
+
+                            return (
+                              <div className="grid grid-cols-1 md:grid-cols-5 border border-border bg-[#fdfdfc] divide-y md:divide-y-0 md:divide-x divide-border rounded-sm shadow-xs">
+                                {(block.content.kpis || []).map((kpi: any, idx: number) => (
+                                  <div key={idx} className="p-5 space-y-1">
+                                    <div className="text-2xl font-bold tracking-tight text-primary leading-none font-sans">{kpi.value}</div>
+                                    <div className="font-mono text-[9px] uppercase tracking-wider text-primary font-bold">{kpi.label}</div>
+                                    <div className="font-mono text-[8px] text-muted">{kpi.subtext}</div>
+                                  </div>
+                                ))}
+                                {block.content.showTrend && (
+                                  <div className="p-5 md:col-span-1 space-y-2 flex flex-col justify-between min-h-24">
+                                    <span className="font-mono text-[8px] text-primary uppercase font-bold block leading-none">
+                                      {block.content.trendTitle || 'Projected workforce demand →'}
+                                    </span>
+                                    <div className="h-10 flex items-center justify-center">
+                                      <svg className="w-full h-full overflow-visible" viewBox="0 0 120 40">
+                                        <path
+                                          d={svgPath}
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeWidth="1.5"
+                                          className="text-primary"
+                                        />
+                                        <path
+                                          d={dottedPath}
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeWidth="1"
+                                          strokeDasharray="2,2"
+                                          className="text-muted/40"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <span className="font-mono text-[8px] text-muted block leading-none">
+                                      {block.content.trendSubtext || 'significant growth projected'}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                     )}
@@ -1097,6 +1787,42 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
               >
                 <CreditCard className="h-6 w-6 text-muted" />
                 <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">Cards Grid</span>
+              </div>
+
+              {/* Tags List */}
+              <div 
+                onClick={() => handleAddBlock('tags')}
+                className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
+              >
+                <Tag className="h-6 w-6 text-muted" />
+                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">Tags List</span>
+              </div>
+
+              {/* Strategy Card */}
+              <div 
+                onClick={() => handleAddBlock('strategy_card')}
+                className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
+              >
+                <Briefcase className="h-6 w-6 text-muted" />
+                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">Strategy Cards</span>
+              </div>
+
+              {/* Numbered List with Theme */}
+              <div 
+                onClick={() => handleAddBlock('numbered_list_theme')}
+                className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
+              >
+                <ListIcon className="h-6 w-6 text-muted" />
+                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">Theme List</span>
+              </div>
+
+              {/* KPI Dashboard */}
+              <div 
+                onClick={() => handleAddBlock('kpi_dashboard')}
+                className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
+              >
+                <TrendingUp className="h-6 w-6 text-muted" />
+                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">KPI Dashboard</span>
               </div>
 
             </div>

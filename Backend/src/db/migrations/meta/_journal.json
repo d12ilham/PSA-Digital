@@ -15,6 +15,13 @@
       "when": 1781985401956,
       "tag": "0001_little_mister_fear",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781986438383,
+      "tag": "0002_cheerful_zeigeist",
+      "breakpoints": true
     }
   ]
 }
