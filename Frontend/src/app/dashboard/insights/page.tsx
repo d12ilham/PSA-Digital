@@ -81,8 +81,9 @@ export default function InsightsManagementPage() {
     setLoading(true);
     try {
       if (activeTab === 'insights') {
-        const res = await api.get<{ rows: Insight[]; total: number }>(`/reports/${activeReport!.id}/insights`);
-        setInsights((res.rows || []).sort((a, b) => a.insightNumber - b.insightNumber));
+        const res = await api.get<any>(`/reports/${activeReport!.id}/insights`);
+        const rows: Insight[] = Array.isArray(res) ? res : (res?.rows || []);
+        setInsights(rows.sort((a, b) => a.insightNumber - b.insightNumber));
       } else {
         const res = await api.get<Driver[]>(`/reports/${activeReport!.id}/insights/drivers`);
         setDrivers(res);

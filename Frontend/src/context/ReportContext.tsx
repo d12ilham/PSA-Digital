@@ -49,10 +49,10 @@ export function ReportProvider({ children }: { children: React.ReactNode }) {
 
     try {
       setLoading(true);
-      const res = await api.get<{ rows: Report[]; total: number }>('/reports', {
+      const res = await api.get<any>('/reports', {
         params: { limit: 100, page: 1 }
       });
-      const rows = res.rows || [];
+      const rows: Report[] = Array.isArray(res) ? res : (res?.rows || []);
       setReports(rows);
 
       // Restore active report from local storage, or fall back to the first one in the list

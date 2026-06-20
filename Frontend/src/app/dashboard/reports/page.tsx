@@ -201,6 +201,7 @@ export default function ReportsManagementPage() {
       setNewYearId('');
 
       refreshReports();
+      setActiveReport(report);
       alert('Report dataset created and chapters initialized successfully.');
     } catch (err: any) {
       setError(err.message || 'Failed to create report.');

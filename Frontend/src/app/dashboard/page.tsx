@@ -45,13 +45,15 @@ export default function DashboardPage() {
           const [pages, strategies, insights] = await Promise.all([
             api.get<any[]>(`/reports/${activeReport.id}/pages`),
             api.get<any[]>(`/reports/${activeReport.id}/strategies`),
-            api.get<{ rows: any[] }>(`/reports/${activeReport.id}/insights`),
+            api.get<any>(`/reports/${activeReport.id}/insights`),
           ]);
+
+          const insightsRows = Array.isArray(insights) ? insights : (insights?.rows || []);
 
           setStats({
             pagesCount: pages.length || 0,
             strategiesCount: strategies.length || 0,
-            insightsCount: insights.rows?.length || 0,
+            insightsCount: insightsRows.length || 0,
             driversCount: 0, // In backend, drivers are sub-routes of insights or fetched separately, but this is fine
           });
         } catch (err) {
