@@ -106,8 +106,11 @@ export async function optionalAuthenticate(req: Request, _res: Response, next: N
         lastName: user.lastName,
       };
     }
-  } catch {
-    // Silently ignore invalid tokens for public routes
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return next(new AppError('Invalid or expired token', 401, 'UNAUTHORIZED'));
+    }
+    return next(error);
   }
 
   next();
