@@ -376,7 +376,7 @@ export default function ReportsManagementPage() {
           className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <Plus className="h-4 w-4" />
-          Create Report (WordPress Flow)
+          Create Report (Creator Flow)
         </button>
       </div>
 
@@ -821,12 +821,12 @@ export default function ReportsManagementPage() {
 
       </div>
 
-      {/* ── WordPress Flow: Create Report Modal ── */}
+      {/* ── Creator Flow: Create Report Modal ── */}
       {createModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-md border border-border bg-card shadow-lg p-6 relative">
             <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
-              * WP CREATOR FLOW
+              * CMS CREATOR FLOW
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">

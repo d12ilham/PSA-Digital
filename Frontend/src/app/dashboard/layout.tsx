@@ -452,6 +452,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     Manage Users
                   </button>
                 </li>
+                <li>
+                  <button
+                    onClick={() => router.push('/dashboard/settings')}
+                    className={`w-full flex items-center gap-2.5 px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 ${
+                      isActiveLink('/dashboard/settings') ? 'font-bold bg-border/40 text-primary' : 'text-primary/80'
+                    }`}
+                  >
+                    <Settings className="h-3.5 w-3.5 text-muted" />
+                    Settings
+                  </button>
+                </li>
               </ul>
             </div>
           </div>

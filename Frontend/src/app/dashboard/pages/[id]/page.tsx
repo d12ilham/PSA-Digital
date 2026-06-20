@@ -141,7 +141,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
     }
   };
 
-  // Create Block (Wordpress Component Catalog flow)
+  // Create Block (Component Catalog flow)
   const handleAddBlock = async (type: string) => {
     setShowCatalog(false);
     
@@ -313,7 +313,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
             <span className="text-primary font-bold">{page.title}</span>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-primary uppercase">
-            WordPress-Style Page Builder
+            CMS Page Builder
           </h1>
         </div>
 
@@ -345,7 +345,7 @@ export default function PageBuilderPage({ params }: { params: Promise<{ id: stri
 
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <div className="space-y-1">
-              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">Title (WordPress Style)</label>
+              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">Page Title</label>
               <input
                 type="text"
                 required
