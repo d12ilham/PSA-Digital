@@ -374,10 +374,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {/* 05 Workforce Insights */}
                 <li>
                   <button
-                    onClick={() => router.push('/dashboard/insights')}
-                    disabled={!activeReport}
+                    onClick={() => {
+                      const id = getPageIdByType('workforce_insights');
+                      if (id) router.push(`/dashboard/pages/${id}`);
+                    }}
+                    disabled={!getPageIdByType('workforce_insights')}
                     className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      isActiveLink('/dashboard/insights')
+                      activePageType() === 'workforce_insights'
                         ? 'font-bold bg-border/40 text-primary'
                         : 'text-primary/80'
                     }`}
@@ -390,10 +393,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {/* 06 Workforce Strategies */}
                 <li>
                   <button
-                    onClick={() => router.push('/dashboard/strategies')}
-                    disabled={!activeReport}
+                    onClick={() => {
+                      const id = getPageIdByType('strategies') || getPageIdByType('strategy_update');
+                      if (id) router.push(`/dashboard/pages/${id}`);
+                    }}
+                    disabled={!getPageIdByType('strategies') && !getPageIdByType('strategy_update')}
                     className={`w-full flex items-center px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 disabled:opacity-40 ${
-                      isActiveLink('/dashboard/strategies')
+                      activePageType() === 'strategies' || activePageType() === 'strategy_update'
                         ? 'font-bold bg-border/40 text-primary'
                         : 'text-primary/80'
                     }`}

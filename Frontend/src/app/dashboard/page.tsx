@@ -35,6 +35,7 @@ export default function DashboardPage() {
     driversCount: 0,
   });
   const [loading, setLoading] = useState(false);
+  const [pagesList, setPagesList] = useState<any[]>([]);
 
   useEffect(() => {
     if (activeReport) {
@@ -50,6 +51,7 @@ export default function DashboardPage() {
 
           const insightsRows = Array.isArray(insights) ? insights : (insights?.rows || []);
 
+          setPagesList(pages);
           setStats({
             pagesCount: pages.length || 0,
             strategiesCount: strategies.length || 0,
@@ -271,7 +273,10 @@ export default function DashboardPage() {
 
           {/* Manage Strategies */}
           <div 
-            onClick={() => router.push('/dashboard/strategies')}
+            onClick={() => {
+              const page = pagesList.find(p => p.pageType === 'strategies');
+              if (page) router.push(`/dashboard/pages/${page.id}`);
+            }}
             className="border border-border bg-card p-5 cursor-pointer hover:border-primary transition-all flex flex-col justify-between group h-36"
           >
             <div>
@@ -280,17 +285,20 @@ export default function DashboardPage() {
                 Manage Strategies
               </h4>
               <p className="text-[10px] text-muted mt-1">
-                Edit proposed strategies, timeline deliveries, lead agencies, and updates.
+                Edit proposed strategies and roadmap details using visual layout blocks.
               </p>
             </div>
             <div className="flex items-center text-[9px] font-mono text-muted uppercase group-hover:text-primary mt-2">
-              Open strategies <ChevronRight className="h-3 w-3 ml-0.5" />
+              Open page builder <ChevronRight className="h-3 w-3 ml-0.5" />
             </div>
           </div>
 
           {/* Manage Insights */}
           <div 
-            onClick={() => router.push('/dashboard/insights')}
+            onClick={() => {
+              const page = pagesList.find(p => p.pageType === 'workforce_insights');
+              if (page) router.push(`/dashboard/pages/${page.id}`);
+            }}
             className="border border-border bg-card p-5 cursor-pointer hover:border-primary transition-all flex flex-col justify-between group h-36"
           >
             <div>
@@ -299,11 +307,11 @@ export default function DashboardPage() {
                 Manage Insights
               </h4>
               <p className="text-[10px] text-muted mt-1">
-                Create new workforce insights, detailed summaries, and drivers of change.
+                Add headings, statistics, and detail blocks to Chapter 05 Workforce Insights.
               </p>
             </div>
             <div className="flex items-center text-[9px] font-mono text-muted uppercase group-hover:text-primary mt-2">
-              Open insights <ChevronRight className="h-3 w-3 ml-0.5" />
+              Open page builder <ChevronRight className="h-3 w-3 ml-0.5" />
             </div>
           </div>
 
