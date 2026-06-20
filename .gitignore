@@ -36,3 +36,7 @@ Thumbs.db
 .idea/
 *.pem
 *.tsbuildinfo
+
+pdf.md
+PSA_Digital_WIR_SRS_v1_1.pdf
+PSA-workflow.html
