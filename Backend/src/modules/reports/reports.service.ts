@@ -58,8 +58,9 @@ export class ReportsService {
     return { rows, total: count };
   }
 
-  async findBySlug(slug: string, isPublic: boolean) {
-    const conditions = [eq(reports.slug, slug)];
+  async findBySlug(slugOrId: string, isPublic: boolean) {
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
+    const conditions = [isUuid ? eq(reports.id, slugOrId) : eq(reports.slug, slugOrId)];
     if (isPublic) conditions.push(this.publicWhere());
 
     const [report] = await db
