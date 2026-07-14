@@ -21,6 +21,15 @@ const changePasswordSchema = z.object({
   newPassword: z.string().min(8),
 });
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
 export class AuthController {
   async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -77,6 +86,26 @@ export class AuthController {
       const { currentPassword, newPassword } = changePasswordSchema.parse(req.body);
       await authService.changePassword(req.user!.id, currentPassword, newPassword);
       res.json(successResponse({ message: 'Password changed successfully' }));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email } = forgotPasswordSchema.parse(req.body);
+      await authService.forgotPassword(email);
+      res.json(successResponse({ message: 'If the email matches an account, password reset instructions have been sent.' }));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { token, password } = resetPasswordSchema.parse(req.body);
+      await authService.resetPassword(token, password);
+      res.json(successResponse({ message: 'Password has been reset successfully.' }));
     } catch (error) {
       next(error);
     }

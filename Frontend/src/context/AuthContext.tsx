@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Simple route guard check
   useEffect(() => {
     if (!loading) {
-      const publicPaths = ['/login'];
+      const publicPaths = ['/login', '/login/forgot-password', '/login/reset-password'];
       const isPublicPath = publicPaths.includes(pathname);
 
       if (!user && !isPublicPath) {

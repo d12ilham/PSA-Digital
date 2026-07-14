@@ -19,6 +19,9 @@ import { industryProfilesRouter } from './modules/industry-profiles/industry-pro
 import { mediaRouter } from './modules/media/media.router';
 import { searchRouter } from './modules/search/search.router';
 import { analyticsRouter } from './modules/analytics/analytics.router';
+import { pageTemplatesRouter } from './modules/page-templates/page-templates.router';
+import { siteSettingsRouter } from './modules/site-settings/site-settings.router';
+import { menusRouter } from './modules/menus/menus.router';
 
 // Middleware
 import { errorHandler, notFoundHandler } from './middleware/error.middleware';
@@ -93,6 +96,9 @@ export function createApp(): Application {
   app.use(`${API}/media`, mediaRouter);
   app.use(`${API}/search`, searchRouter);
   app.use(`${API}/analytics`, analyticsRouter);
+  app.use(`${API}/page-templates`, pageTemplatesRouter);
+  app.use(`${API}/site-settings`, siteSettingsRouter);
+  app.use(`${API}/menus`, menusRouter);
 
   // ── API Root Info ─────────────────────────────────────────────────────────────
   app.get(API, (_req, res) => {

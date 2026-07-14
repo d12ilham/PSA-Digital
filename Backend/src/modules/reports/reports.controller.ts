@@ -19,7 +19,7 @@ const createSchema = z.object({
   title: z.string().min(1),
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
   shortDescription: z.string().optional(),
-  coverImageUrl: z.string().url().optional(),
+  coverImageUrl: z.string().optional().nullable(),
   pdfFileUrl: z.string().optional(),
   previousPdfUrl: z.string().optional(),
   psaSectorPageUrl: z.string().optional(),
@@ -27,6 +27,7 @@ const createSchema = z.object({
   cardNote: z.string().optional(),
   isFeatured: z.boolean().optional(),
   sortOrder: z.number().optional(),
+  status: z.enum(['draft', 'published', 'archived']).optional(),
 });
 
 const updateSchema = createSchema.partial();

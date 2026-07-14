@@ -1,14 +1,16 @@
 import { api } from './api';
 
-export interface PageInitItem {
+export interface PageTemplate {
+  id: string;
   title: string;
   pageType: string;
   slug: string;
+  parentPathway?: string | null;
   sortOrder: number;
-  parentPathway?: 'introduction' | 'executive_summary';
 }
 
-export const DEFAULT_REPORT_PAGES: PageInitItem[] = [
+// Legacy hardcoded fallback used only when no templates are defined in the DB
+export const DEFAULT_REPORT_PAGES: Omit<PageTemplate, 'id'>[] = [
   { title: 'About', pageType: 'about', slug: 'about', sortOrder: 1 },
   { title: 'Executive Summary', pageType: 'executive_summary', slug: 'executive-summary', sortOrder: 2 },
   { title: 'Drivers of Change', pageType: 'drivers_of_change', slug: 'drivers-of-change', sortOrder: 3 },
@@ -20,19 +22,43 @@ export const DEFAULT_REPORT_PAGES: PageInitItem[] = [
   { title: 'Looking Forward', pageType: 'looking_forward', slug: 'looking-forward', sortOrder: 9 },
 ];
 
+/**
+ * Fetches templates from the API (admin-managed).
+ * Falls back to hardcoded defaults if none exist yet.
+ */
+export async function fetchPageTemplates(): Promise<Omit<PageTemplate, 'id'>[]> {
+  try {
+    const templates = await api.get<PageTemplate[]>('/page-templates');
+    if (templates && templates.length > 0) {
+      return templates.sort((a, b) => a.sortOrder - b.sortOrder);
+    }
+  } catch (err) {
+    console.warn('Could not fetch page templates from API, using defaults:', err);
+  }
+  return DEFAULT_REPORT_PAGES;
+}
+
+/**
+ * Seeds chapter pages for a report using the global admin-defined template.
+ * Already-existing pages (same slug) are silently skipped.
+ */
 export async function initializeReportPages(reportId: string): Promise<void> {
-  for (const page of DEFAULT_REPORT_PAGES) {
+  const templates = await fetchPageTemplates();
+  for (const tpl of templates) {
     try {
       await api.post(`/reports/${reportId}/pages`, {
-        pageType: page.pageType,
-        title: page.title,
-        slug: page.slug,
-        sortOrder: page.sortOrder,
-        parentPathway: page.parentPathway,
-        isPublished: true,
+        pageType: tpl.pageType,
+        title: tpl.title,
+        slug: tpl.slug,
+        sortOrder: tpl.sortOrder,
+        parentPathway: tpl.parentPathway ?? undefined,
+        isPublished: false,
       });
-    } catch (error) {
-      console.error(`Failed to initialize default page [${page.title}] for report [${reportId}]:`, error);
+    } catch (error: any) {
+      // Skip duplicate slug errors silently; log everything else
+      if (!error.message?.includes('duplicate') && !error.message?.includes('already')) {
+        console.error(`Failed to initialize page [${tpl.title}]:`, error);
+      }
     }
   }
 }

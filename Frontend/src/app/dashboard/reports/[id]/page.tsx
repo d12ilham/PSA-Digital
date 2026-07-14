@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState, use, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useReport, Report } from '@/context/ReportContext';
 import { useAuth } from '@/context/AuthContext';
 import { initializeReportPages } from '@/lib/pageInit';
+import { useToast } from '@/context/ToastContext';
+import MediaLibraryModal from '@/components/media/MediaLibraryModal';
 import { 
   Trash2, 
   Plus, 
@@ -16,7 +18,15 @@ import {
   ChevronRight,
   Eye,
   CheckCircle,
-  Clock
+  Clock,
+  Upload,
+  Link as LinkIcon,
+  X,
+  HelpCircle,
+  ImageIcon,
+  FileText,
+  PencilLine,
+  ExternalLink,
 } from 'lucide-react';
 
 interface KPI {
@@ -53,8 +63,10 @@ interface PageItem {
   id: string;
   title: string;
   pageType: string;
+  slug: string;
   sortOrder: number;
   isPublished?: boolean;
+  parentPathway?: string | null;
 }
 
 export default function ReportEditPage({ params }: { params: Promise<{ id: string }> }) {
@@ -62,6 +74,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
   const { user } = useAuth();
   const { refreshReports, activeReport, setActiveReport } = useReport();
   const router = useRouter();
+  const toast = useToast();
 
   const [loading, setLoading] = useState(true);
   const [report, setReport] = useState<Report | null>(null);
@@ -83,6 +96,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
   const [cardNote, setCardNote] = useState('');
   const [sortOrder, setSortOrder] = useState(0);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [status, setStatus] = useState<'draft' | 'published' | 'archived'>('draft');
 
   // Nested KPIs
   const [kpis, setKpis] = useState<KPI[]>([]);
@@ -92,11 +106,22 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
   const [newKpiSuffix, setNewKpiSuffix] = useState('');
   const [kpiLoading, setKpiLoading] = useState(false);
 
+  // File upload state
+  const [coverImageMode, setCoverImageMode] = useState<'url' | 'upload' | 'library'>('library');
+  const [pdfMode, setPdfMode] = useState<'url' | 'upload' | 'library'>('library');
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [uploadingPdf, setUploadingPdf] = useState(false);
+  const [coverImageLibraryOpen, setCoverImageLibraryOpen] = useState(false);
+  const [pdfLibraryOpen, setPdfLibraryOpen] = useState(false);
+  const coverImageInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
+
   // State
   const [activeSubTab, setActiveSubTab] = useState<'details' | 'kpis' | 'history'>('details');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showInitTooltip, setShowInitTooltip] = useState(false);
 
   const isAdmin = user?.role === 'admin';
 
@@ -143,6 +168,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
       setSortOrder(reportData.sortOrder || 0);
       setIsFeatured(reportData.isFeatured || false);
       setCardNote(reportData.cardNote || '');
+      setStatus(reportData.status);
 
       // Set active workspace report context
       setActiveReport(reportData);
@@ -182,6 +208,35 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
     }
   };
 
+  // File upload handlers
+  const handleCoverImageUpload = async (file: File) => {
+    setUploadingCover(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const result = await api.upload<{ url: string }>('/media/upload', formData);
+      setCoverImageUrl(`http://localhost:3000${result.url}`);
+    } catch (err: any) {
+      alert(`Failed to upload image: ${err.message}`);
+    } finally {
+      setUploadingCover(false);
+    }
+  };
+
+  const handlePdfUpload = async (file: File) => {
+    setUploadingPdf(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const result = await api.upload<{ url: string }>('/media/upload', formData);
+      setPdfFileUrl(`http://localhost:3000${result.url}`);
+    } catch (err: any) {
+      alert(`Failed to upload PDF: ${err.message}`);
+    } finally {
+      setUploadingPdf(false);
+    }
+  };
+
   // Save Report
   const handleSaveReport = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,6 +256,7 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
         cardNote,
         sortOrder: Number(sortOrder),
         isFeatured,
+        status,
       });
 
       setMessage('Report settings updated successfully.');
@@ -268,14 +324,15 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
       setReport(reportData);
       setPages(pagesData.sort((a, b) => a.sortOrder - b.sortOrder));
       setActiveReport(reportData);
-      alert('Default report structure has been successfully initialized.');
+      toast.success('Default report structure has been successfully initialized.');
     } catch (err: any) {
-      alert(`Failed to initialize pages: ${err.message}`);
+      toast.error(err);
     } finally {
       setSaving(false);
     }
   };
 
+  const isLoading = loading;
   const getPageIdByType = (type: string) => {
     return pages.find(p => p.pageType === type)?.id;
   };
@@ -359,6 +416,9 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
           <h1 className="text-2xl font-bold tracking-tight text-primary">
             {report.title}
           </h1>
+          <p className="font-mono text-[10px] text-muted mt-1.5 uppercase tracking-wide">
+            Slug: <span className="text-primary font-bold lowercase select-all">/reports/{report.slug}</span>
+          </p>
         </div>
 
         <div>
@@ -378,10 +438,21 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
               * DATASET SECTIONS
             </span>
             
-            <h2 className="text-sm font-bold uppercase tracking-wider text-primary mb-6 flex items-center gap-2">
-              <BookOpen className="h-4.5 w-4.5 text-muted" />
-              Report Chapters
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-primary flex items-center gap-2">
+                <BookOpen className="h-4 w-4 text-muted" />
+                Report Chapters
+              </h2>
+              {(user?.role === 'admin' || user?.role === 'editor') && (
+                <button
+                  onClick={() => router.push('/dashboard/settings')}
+                  className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider px-2.5 py-1.5 border border-border bg-card hover:bg-sidebar text-primary transition-colors cursor-pointer"
+                >
+                  <Settings className="h-3 w-3 text-muted" />
+                  Manage Templates
+                </button>
+              )}
+            </div>
 
             {pages.length === 0 ? (
               <div className="text-center py-10 border border-dashed border-border/80 bg-sidebar/10 p-6 rounded">
@@ -401,96 +472,85 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
                 </button>
               </div>
             ) : (
-              <div className="divide-y divide-border/60">
-                {chapters.map((ch) => {
-                  const isNested = ch.type === 'nested_overview';
-                  const pageId = isNested ? null : (getPageIdByType(ch.type) || (ch.type === 'strategies' ? getPageIdByType('strategy_update') : null));
-                  const isPublished = isNested ? false : getPagePublishStatus(ch.type);
+              (() => {
+                // Group pages: top-level (no parentPathway) and sub-chapters (has parentPathway)
+                const topLevel = pages.filter(p => !p.parentPathway);
+                const subChapterMap: Record<string, PageItem[]> = {};
+                pages.filter(p => p.parentPathway).forEach(p => {
+                  const key = p.parentPathway!;
+                  if (!subChapterMap[key]) subChapterMap[key] = [];
+                  subChapterMap[key].push(p);
+                });
 
-                  return (
-                    <div key={ch.num} className="py-4 first:pt-0 last:pb-0">
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                        <div className="flex gap-4">
-                          <span className="font-mono font-bold text-sm text-muted/60 pt-0.5">{ch.num}</span>
-                          <div className="space-y-1">
-                            <h3 className="text-sm font-bold text-primary leading-none">{ch.title}</h3>
-                            <p className="text-xs text-muted leading-relaxed max-w-lg">{ch.desc}</p>
-                            {!isNested && pageId && (
-                              <div className="flex items-center gap-2 pt-1">
-                                <span className={`inline-flex items-center gap-1 text-[9px] font-mono font-medium py-0.5 px-1.5 border ${
-                                  isPublished 
-                                    ? 'bg-green-50 border-green-200 text-green-700' 
-                                    : 'bg-yellow-50 border-yellow-200 text-yellow-700'
-                                }`}>
-                                  {isPublished ? 'Published' : 'Draft'}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                return (
+                  <div className="divide-y divide-border/60">
+                    {topLevel.map((page, idx) => {
+                      const subs = subChapterMap[page.pageType] || [];
 
-                        {!isNested && (
-                          <button
-                            onClick={() => {
-                              if (pageId) {
-                                router.push(`/dashboard/pages/${pageId}`);
-                              } else {
-                                alert('This chapter page could not be found. Please try re-initializing report structure.');
-                              }
-                            }}
-                            className="border border-border hover:bg-sidebar text-primary px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 cursor-pointer self-start sm:self-center"
-                          >
-                            Edit Content
-                            <ChevronRight className="h-3 w-3" />
-                          </button>
-                        )}
-                      </div>
-
-                      {/* Nested sub-pages for Chapter 4 */}
-                      {isNested && ch.nested && (
-                        <div className="mt-3 pl-8 ml-3 border-l-2 border-border/40 space-y-3">
-                          {ch.nested.map((sub) => {
-                            const subPageId = getPageIdByType(sub.type);
-                            const subPublished = getPagePublishStatus(sub.type);
-
-                            return (
-                              <div key={sub.type} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-1 first:pt-0 last:pb-0">
-                                <div>
-                                  <h4 className="text-xs font-bold text-primary">{sub.title}</h4>
-                                  <p className="text-[11px] text-muted">{sub.desc}</p>
-                                  {subPageId && (
-                                    <span className={`inline-block mt-1 text-[8px] font-mono py-0.2 px-1 border ${
-                                      subPublished 
-                                        ? 'bg-green-50 border-green-200 text-green-700' 
-                                        : 'bg-yellow-50 border-yellow-200 text-yellow-700'
-                                    }`}>
-                                      {subPublished ? 'Published' : 'Draft'}
-                                    </span>
+                      return (
+                        <div key={page.id} className="py-4 first:pt-0 last:pb-0">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                            <div className="flex gap-4">
+                              <span className="font-mono font-bold text-sm text-muted/60 pt-0.5 shrink-0">
+                                {String(idx + 1).padStart(2, '0')}
+                              </span>
+                              <div className="space-y-1">
+                                <h3 className="text-sm font-bold text-primary leading-none flex items-center gap-2">
+                                  {page.title}
+                                  {page.isPublished ? (
+                                    <span title="Published"><CheckCircle className="h-4 w-4 text-green-600" /></span>
+                                  ) : (
+                                    <span title="Draft"><Clock className="h-4 w-4 text-yellow-500" /></span>
                                   )}
-                                </div>
-
-                                <button
-                                  onClick={() => {
-                                    if (subPageId) {
-                                      router.push(`/dashboard/pages/${subPageId}`);
-                                    } else {
-                                      alert('This page was not found. Please try initializing pages structure.');
-                                    }
-                                  }}
-                                  className="border border-border hover:bg-sidebar text-primary px-2.5 py-1 text-[9px] font-mono uppercase tracking-wider flex items-center gap-0.5 cursor-pointer self-start sm:self-center"
-                                >
-                                  Edit Content
-                                  <ChevronRight className="h-2.5 w-2.5" />
-                                </button>
+                                </h3>
                               </div>
-                            );
-                          })}
+                            </div>
+
+                            <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
+                              <button
+                                onClick={() => router.push(`/dashboard/pages/${page.id}`)}
+                                className="border border-border hover:bg-sidebar text-primary px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 cursor-pointer"
+                              >
+                                <PencilLine className="h-3 w-3" />
+                                Edit
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Sub-chapters */}
+                          {subs.length > 0 && (
+                            <div className="mt-3 pl-8 ml-3 border-l-2 border-border/40 space-y-3">
+                              {subs.map(sub => (
+                                <div key={sub.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-1 first:pt-0 last:pb-0">
+                                  <div>
+                                    <h4 className="text-xs font-bold text-primary flex items-center gap-1.5 leading-none">
+                                      {sub.title}
+                                      {sub.isPublished ? (
+                                        <span title="Published"><CheckCircle className="h-3.5 w-3.5 text-green-600" /></span>
+                                      ) : (
+                                        <span title="Draft"><Clock className="h-3.5 w-3.5 text-yellow-500" /></span>
+                                      )}
+                                    </h4>
+                                  </div>
+                                  <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
+                                    <button
+                                      onClick={() => router.push(`/dashboard/pages/${sub.id}`)}
+                                      className="border border-border hover:bg-sidebar text-primary px-2.5 py-1 text-[9px] font-mono uppercase tracking-wider flex items-center gap-0.5 cursor-pointer"
+                                    >
+                                      <PencilLine className="h-2.5 w-2.5" />
+                                      Edit
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()
             )}
           </div>
         </div>
@@ -560,28 +620,291 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
 
                   <div className="space-y-1">
                     <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                      Cover Image URL
+                      Report Status
                     </label>
-                    <input
-                      type="text"
-                      value={coverImageUrl}
-                      onChange={(e) => setCoverImageUrl(e.target.value)}
-                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                      placeholder="https://example.com/cover.jpg"
-                    />
+                    <select
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value as 'draft' | 'published' | 'archived')}
+                      className="w-full border border-border bg-card px-2.5 py-1.5 text-xs text-primary focus:outline-none"
+                    >
+                      <option value="draft">Draft</option>
+                      <option value="published">Published</option>
+                      <option value="archived">Archived</option>
+                    </select>
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                      PDF Download URL
-                    </label>
-                    <input
-                      type="text"
-                      value={pdfFileUrl}
-                      onChange={(e) => setPdfFileUrl(e.target.value)}
-                      className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
-                      placeholder="https://example.com/document.pdf"
-                    />
+                  {/* Cover Image — Library, Upload or URL */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="block font-mono text-[9px] uppercase tracking-wider text-muted flex items-center gap-1">
+                        <ImageIcon className="h-3 w-3" />
+                        Cover Image
+                      </label>
+                      <div className="flex items-center gap-0">
+                        <button
+                          type="button"
+                          onClick={() => setCoverImageMode('library')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border-y border-l border-border transition-colors ${
+                            coverImageMode === 'library'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <BookOpen className="h-2.5 w-2.5 inline mr-0.5" />
+                          Library
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCoverImageMode('url')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border-y border-x border-border transition-colors ${
+                            coverImageMode === 'url'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <LinkIcon className="h-2.5 w-2.5 inline mr-0.5" />
+                          URL
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCoverImageMode('upload')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border border-border transition-colors ${
+                            coverImageMode === 'upload'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <Upload className="h-2.5 w-2.5 inline mr-0.5" />
+                          Upload
+                        </button>
+                      </div>
+                    </div>
+
+                    {coverImageMode === 'library' && (
+                      <div className="space-y-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setCoverImageLibraryOpen(true)}
+                          className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors"
+                        >
+                          <BookOpen className="h-4 w-4 text-muted" />
+                          <span className="font-mono text-[8px] uppercase tracking-wider text-muted">
+                            Choose from Media Library
+                          </span>
+                        </button>
+                        {coverImageUrl && (
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={coverImageUrl}
+                              alt="Cover preview"
+                              className="h-10 w-14 object-cover border border-border"
+                              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-mono text-[8px] text-muted truncate">{coverImageUrl}</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setCoverImageUrl('')}
+                              className="p-0.5 text-red-400 hover:text-red-600"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {coverImageMode === 'url' && (
+                      <input
+                        type="text"
+                        value={coverImageUrl}
+                        onChange={(e) => setCoverImageUrl(e.target.value)}
+                        className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                        placeholder="https://example.com/cover.jpg"
+                      />
+                    )}
+
+                    {coverImageMode === 'upload' && (
+                      <div className="space-y-1.5">
+                        <input
+                          ref={coverImageInputRef}
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleCoverImageUpload(file);
+                          }}
+                        />
+                        <button
+                          type="button"
+                          disabled={uploadingCover}
+                          onClick={() => coverImageInputRef.current?.click()}
+                          className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors disabled:opacity-50"
+                        >
+                          {uploadingCover ? (
+                            <div className="h-3.5 w-3.5 animate-spin rounded-full border border-primary border-t-transparent" />
+                          ) : (
+                            <Upload className="h-4 w-4 text-muted" />
+                          )}
+                          <span className="font-mono text-[8px] uppercase tracking-wider text-muted">
+                            {uploadingCover ? 'Uploading...' : 'Click to select image file'}
+                          </span>
+                          <span className="font-mono text-[7px] text-muted/50">JPG, PNG, WEBP, SVG</span>
+                        </button>
+                        {coverImageUrl && (
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={coverImageUrl}
+                              alt="Cover preview"
+                              className="h-10 w-14 object-cover border border-border"
+                              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-mono text-[8px] text-muted truncate">{coverImageUrl}</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setCoverImageUrl('')}
+                              className="p-0.5 text-red-400 hover:text-red-600"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* PDF Download — Library, Upload or URL */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="block font-mono text-[9px] uppercase tracking-wider text-muted flex items-center gap-1">
+                        <FileText className="h-3 w-3" />
+                        PDF Download
+                      </label>
+                      <div className="flex items-center gap-0">
+                        <button
+                          type="button"
+                          onClick={() => setPdfMode('library')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border-y border-l border-border transition-colors ${
+                            pdfMode === 'library'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <BookOpen className="h-2.5 w-2.5 inline mr-0.5" />
+                          Library
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPdfMode('url')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border-y border-x border-border transition-colors ${
+                            pdfMode === 'url'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <LinkIcon className="h-2.5 w-2.5 inline mr-0.5" />
+                          URL
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPdfMode('upload')}
+                          className={`px-2 py-0.5 font-mono text-[8px] uppercase border border-border transition-colors ${
+                            pdfMode === 'upload'
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-card text-muted hover:bg-sidebar'
+                          }`}
+                        >
+                          <Upload className="h-2.5 w-2.5 inline mr-0.5" />
+                          Upload
+                        </button>
+                      </div>
+                    </div>
+
+                    {pdfMode === 'library' && (
+                      <div className="space-y-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setPdfLibraryOpen(true)}
+                          className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors"
+                        >
+                          <BookOpen className="h-4 w-4 text-muted" />
+                          <span className="font-mono text-[8px] uppercase tracking-wider text-muted">
+                            Choose from Media Library
+                          </span>
+                        </button>
+                        {pdfFileUrl && (
+                          <div className="flex items-center gap-2 border border-border bg-sidebar/20 p-2">
+                            <FileText className="h-4 w-4 text-muted shrink-0" />
+                            <p className="font-mono text-[8px] text-muted truncate flex-1">{pdfFileUrl}</p>
+                            <button
+                              type="button"
+                              onClick={() => setPdfFileUrl('')}
+                              className="p-0.5 text-red-400 hover:text-red-600 shrink-0"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {pdfMode === 'url' && (
+                      <input
+                        type="text"
+                        value={pdfFileUrl}
+                        onChange={(e) => setPdfFileUrl(e.target.value)}
+                        className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:border-primary focus:outline-none placeholder:text-muted/40"
+                        placeholder="https://example.com/document.pdf"
+                      />
+                    )}
+
+                    {pdfMode === 'upload' && (
+                      <div className="space-y-1.5">
+                        <input
+                          ref={pdfInputRef}
+                          type="file"
+                          accept="application/pdf"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handlePdfUpload(file);
+                          }}
+                        />
+                        <button
+                          type="button"
+                          disabled={uploadingPdf}
+                          onClick={() => pdfInputRef.current?.click()}
+                          className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors disabled:opacity-50"
+                        >
+                          {uploadingPdf ? (
+                            <div className="h-3.5 w-3.5 animate-spin rounded-full border border-primary border-t-transparent" />
+                          ) : (
+                            <Upload className="h-4 w-4 text-muted" />
+                          )}
+                          <span className="font-mono text-[8px] uppercase tracking-wider text-muted">
+                            {uploadingPdf ? 'Uploading...' : 'Click to select PDF file'}
+                          </span>
+                          <span className="font-mono text-[7px] text-muted/50">PDF only · Max {process.env.NEXT_PUBLIC_MAX_FILE_MB ?? 20}MB</span>
+                        </button>
+                        {pdfFileUrl && (
+                          <div className="flex items-center gap-2 border border-border bg-sidebar/20 p-2">
+                            <FileText className="h-4 w-4 text-muted shrink-0" />
+                            <p className="font-mono text-[8px] text-muted truncate flex-1">{pdfFileUrl}</p>
+                            <button
+                              type="button"
+                              onClick={() => setPdfFileUrl('')}
+                              className="p-0.5 text-red-400 hover:text-red-600 shrink-0"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -673,14 +996,34 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
                     {saving ? 'Saving changes...' : 'Save Settings'}
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={handleInitializeEmptyPages}
-                    className="w-full border border-border bg-card hover:bg-sidebar text-muted font-mono text-[9px] uppercase tracking-wider py-2 flex items-center justify-center gap-1 cursor-pointer"
-                  >
-                    <RefreshCw className="h-3 w-3" />
-                    Init Chapters Structure
-                  </button>
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={handleInitializeEmptyPages}
+                      className="w-full border border-border bg-card hover:bg-sidebar text-muted font-mono text-[9px] uppercase tracking-wider py-2 flex items-center justify-center gap-1 cursor-pointer"
+                    >
+                      <RefreshCw className="h-3 w-3" />
+                      Init Chapters Structure
+                    </button>
+                    <button
+                      type="button"
+                      onMouseEnter={() => setShowInitTooltip(true)}
+                      onMouseLeave={() => setShowInitTooltip(false)}
+                      onFocus={() => setShowInitTooltip(true)}
+                      onBlur={() => setShowInitTooltip(false)}
+                      className="absolute right-1.5 top-1/2 -translate-y-1/2 text-muted/50 hover:text-muted"
+                    >
+                      <HelpCircle className="h-3.5 w-3.5" />
+                    </button>
+                    {showInitTooltip && (
+                      <div className="absolute bottom-full right-0 mb-2 w-64 bg-primary text-white text-[9px] font-mono leading-relaxed p-3 z-50 shadow-lg">
+                        <span className="font-bold uppercase block mb-1">What does this do?</span>
+                        <p>Creates the default chapter pages for this report (e.g. About, Executive Summary, Drivers of Change, Industry Overview, Workforce Insights, Strategies, Looking Forward).</p>
+                        <p className="mt-1 text-white/70">If chapters already exist, this will only create any missing ones — it will NOT overwrite existing content.</p>
+                        <div className="absolute bottom-[-4px] right-3 w-2 h-2 bg-primary rotate-45" />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </form>
             )}
@@ -824,6 +1167,20 @@ export default function ReportEditPage({ params }: { params: Promise<{ id: strin
         </div>
 
       </div>
+
+      <MediaLibraryModal
+        isOpen={coverImageLibraryOpen}
+        onClose={() => setCoverImageLibraryOpen(false)}
+        allowedType="image"
+        onSelect={(url) => setCoverImageUrl(url)}
+      />
+
+      <MediaLibraryModal
+        isOpen={pdfLibraryOpen}
+        onClose={() => setPdfLibraryOpen(false)}
+        allowedType="pdf"
+        onSelect={(url) => setPdfFileUrl(url)}
+      />
     </div>
   );
 }

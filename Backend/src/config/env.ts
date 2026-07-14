@@ -19,6 +19,13 @@ const envSchema = z.object({
 
   UPLOAD_DIR: z.string().default('uploads'),
   MAX_FILE_SIZE_MB: z.coerce.number().default(50),
+  SMTP_HOST: z.string().default('localhost'),
+  SMTP_PORT: z.coerce.number().default(587),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  SMTP_SECURE: z.preprocess((val) => val === 'true' || val === true, z.boolean()).default(false),
+  SMTP_FROM: z.string().default('no-reply@psadigital.com'),
+  FRONTEND_URL: z.string().default('http://localhost:3001'),
 });
 
 const parsed = envSchema.safeParse(process.env);

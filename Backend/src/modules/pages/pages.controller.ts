@@ -13,7 +13,7 @@ const createSchema = z.object({
   ]),
   title: z.string().min(1),
   slug: z.string().min(1),
-  parentPathway: z.enum(['introduction', 'executive_summary']).optional(),
+  parentPathway: z.string().nullable().optional(),
   sortOrder: z.number().optional(),
   metaTitle: z.string().nullable().optional(),
   metaDescription: z.string().nullable().optional(),
@@ -51,7 +51,10 @@ export class PagesController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = createSchema.partial().parse(req.body);
+      const updateSchema = createSchema.partial().extend({
+        isPublished: z.boolean().optional(),
+      });
+      const data = updateSchema.parse(req.body);
       const page = await pagesService.update(param(req.params.id), data);
       res.json(successResponse(page));
     } catch (e) { next(e); }

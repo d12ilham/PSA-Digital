@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ReportProvider } from "@/context/ReportContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PSA Workforce Insights — Admin Dashboard",
-  description: "Admin Dashboard for managing Workforce Insights reports, pages, strategies, and users.",
+  description:
+    "Admin Dashboard for managing Workforce Insights reports, pages, strategies, and users.",
 };
 
 export default function RootLayout({
@@ -32,11 +34,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AuthProvider>
           <ReportProvider>
-            {children}
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </ReportProvider>
         </AuthProvider>
       </body>
     </html>
   );
 }
-

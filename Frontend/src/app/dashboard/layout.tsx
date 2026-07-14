@@ -15,7 +15,9 @@ import {
   BookOpen, 
   Activity, 
   Eye,
-  Settings
+  Settings,
+  Image as ImageIcon,
+  Globe
 } from 'lucide-react';
 
 interface PageItem {
@@ -237,6 +239,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     Reports
                   </button>
                 </li>
+                <li>
+                  <button
+                    onClick={() => router.push('/dashboard/media')}
+                    className={`w-full flex items-center gap-2.5 px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 ${
+                      isActiveLink('/dashboard/media') ? 'font-bold bg-border/40 text-primary' : 'text-primary/80'
+                    }`}
+                  >
+                    <ImageIcon className="h-3.5 w-3.5 text-muted" />
+                    Media Library
+                  </button>
+                </li>
               </ul>
             </div>
 
@@ -257,6 +270,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   >
                     <Users className="h-3.5 w-3.5 text-muted" />
                     Manage Users
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => router.push('/dashboard/site-settings')}
+                    className={`w-full flex items-center gap-2.5 px-2 py-1.5 text-xs font-sans rounded transition-colors text-left hover:bg-border/30 ${
+                      isActiveLink('/dashboard/site-settings') ? 'font-bold bg-border/40 text-primary' : 'text-primary/80'
+                    }`}
+                  >
+                    <Globe className="h-3.5 w-3.5 text-muted" />
+                    Site Settings
                   </button>
                 </li>
                 <li>

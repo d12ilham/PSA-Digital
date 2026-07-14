@@ -7,6 +7,8 @@ import { eq, and, gt } from 'drizzle-orm';
 import { env } from '../../config/env';
 import { AppError } from '../../middleware/error.middleware';
 import type { JwtPayload } from '../../middleware/auth.middleware';
+import { mailService } from './mail.service';
+import { logger } from '../../config/logger';
 
 export interface RegisterInput {
   email: string;
@@ -164,6 +166,63 @@ export class AuthService {
 
     // Revoke all refresh tokens
     await db.delete(refreshTokens).where(eq(refreshTokens.userId, userId));
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const emailLower = email.toLowerCase();
+    const [user] = await db.select().from(users).where(eq(users.email, emailLower)).limit(1);
+    
+    // Always return success even if user not found to prevent user enumeration
+    if (!user) return;
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await db.update(users)
+      .set({
+        resetPasswordToken: tokenHash,
+        resetPasswordExpires: expiresAt,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, user.id));
+
+    const resetLink = `${env.FRONTEND_URL}/login/reset-password?token=${token}`;
+    
+    // Send email asynchronously and don't block response
+    mailService.sendResetPasswordEmail(user.email, user.firstName, resetLink).catch((err) => {
+      logger.error('Failed to send reset password email asynchronously', { error: err.message });
+    });
+  }
+
+  async resetPassword(token: string, newPassword: string): Promise<void> {
+    const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+    const now = new Date();
+
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.resetPasswordToken, tokenHash), gt(users.resetPasswordExpires, now)))
+      .limit(1);
+
+    if (!user) {
+      throw new AppError('Invalid or expired password reset token', 400, 'BAD_REQUEST');
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 12);
+
+    await db
+      .update(users)
+      .set({
+        passwordHash,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, user.id));
+
+    // Revoke all existing sessions
+    await db.delete(refreshTokens).where(eq(refreshTokens.userId, user.id));
   }
 }
 

@@ -5,7 +5,7 @@ import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../../config/database';
 import { mediaAssets } from '../../db/schema';
-import { eq, sql } from 'drizzle-orm';
+import { eq, sql, and, desc, ilike, like } from 'drizzle-orm';
 import { env } from '../../config/env';
 import { authenticate } from '../../middleware/auth.middleware';
 import { requireEditor, requireAdmin } from '../../middleware/rbac.middleware';
@@ -28,7 +28,11 @@ const upload = multer({
   storage,
   limits: { fileSize: env.MAX_FILE_SIZE_MB * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
-    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf'];
+    const allowed = [
+      'image/jpeg', 'image/png', 'image/webp', 'image/svg+xml',
+      'video/mp4', 'video/webm', 'video/ogg', 'video/quicktime',
+      'application/pdf'
+    ];
     if (allowed.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -68,14 +72,56 @@ router.get('/', authenticate, requireEditor, async (req: Request, res: Response,
     const page = Number(req.query.page ?? 1);
     const limit = Number(req.query.limit ?? 20);
     const offset = (page - 1) * limit;
+    const search = req.query.search as string | undefined;
+    const type = req.query.type as string | undefined;
+
+    const conditions = [];
+
+    if (search) {
+      conditions.push(ilike(mediaAssets.originalName, `%${search}%`));
+    }
+
+    if (type) {
+      if (type === 'image') {
+        conditions.push(like(mediaAssets.mimeType, 'image/%'));
+      } else if (type === 'video') {
+        conditions.push(like(mediaAssets.mimeType, 'video/%'));
+      } else if (type === 'pdf') {
+        conditions.push(eq(mediaAssets.mimeType, 'application/pdf'));
+      }
+    }
+
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
     const [assets, countResult] = await Promise.all([
-      db.select().from(mediaAssets).limit(limit).offset(offset).orderBy(mediaAssets.createdAt),
-      db.select({ count: sql<number>`count(*)::int` }).from(mediaAssets),
+      db.select().from(mediaAssets).where(whereClause).limit(limit).offset(offset).orderBy(desc(mediaAssets.createdAt)),
+      db.select({ count: sql<number>`count(*)::int` }).from(mediaAssets).where(whereClause),
     ]);
 
     const total = countResult[0]?.count ?? 0;
     res.json(successResponse(assets, paginationMeta(total, page, limit)));
+  } catch (e) { next(e); }
+});
+
+// PATCH /api/v1/media/:id
+router.patch('/:id', authenticate, requireEditor, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = param(req.params.id);
+    const altText = req.body.altText as string | undefined;
+
+    if (altText === undefined) {
+      throw new AppError('altText is required', 400, 'BAD_REQUEST');
+    }
+
+    const [asset] = await db.select().from(mediaAssets).where(eq(mediaAssets.id, id)).limit(1);
+    if (!asset) throw new AppError('Asset not found', 404, 'NOT_FOUND');
+
+    const [updatedAsset] = await db.update(mediaAssets)
+      .set({ altText })
+      .where(eq(mediaAssets.id, id))
+      .returning();
+
+    res.json(successResponse(updatedAsset));
   } catch (e) { next(e); }
 });
 

@@ -1,6 +1,7 @@
 const API_BASE = 'http://localhost:3000/api/v1';
 
 let accessToken: string | null = null;
+let refreshPromise: Promise<string | null> | null = null;
 
 export function setAccessToken(token: string | null) {
   accessToken = token;
@@ -48,34 +49,42 @@ interface RequestOptions extends RequestInit {
 }
 
 async function handleRefresh(): Promise<string | null> {
-  const refresh = getRefreshToken();
-  if (!refresh) return null;
+  if (refreshPromise) return refreshPromise;
 
-  try {
-    const res = await fetch(`${API_BASE}/auth/refresh`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refreshToken: refresh }),
-    });
+  refreshPromise = (async () => {
+    const refresh = getRefreshToken();
+    if (!refresh) return null;
 
-    if (!res.ok) {
-      clearTokens();
-      return null;
+    try {
+      const res = await fetch(`${API_BASE}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken: refresh }),
+      });
+
+      if (!res.ok) {
+        clearTokens();
+        return null;
+      }
+
+      const json = await res.json();
+      if (json.success && json.data) {
+        const { accessToken: newAccess, refreshToken: newRefresh } = json.data;
+        setAccessToken(newAccess);
+        setRefreshToken(newRefresh);
+        return newAccess;
+      }
+    } catch (error) {
+      console.error('Error refreshing token:', error);
     }
 
-    const json = await res.json();
-    if (json.success && json.data) {
-      const { accessToken: newAccess, refreshToken: newRefresh } = json.data;
-      setAccessToken(newAccess);
-      setRefreshToken(newRefresh);
-      return newAccess;
-    }
-  } catch (error) {
-    console.error('Error refreshing token:', error);
-  }
+    clearTokens();
+    return null;
+  })();
 
-  clearTokens();
-  return null;
+  const result = await refreshPromise;
+  refreshPromise = null;
+  return result;
 }
 
 export async function apiRequest<T = any>(

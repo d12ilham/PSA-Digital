@@ -22,6 +22,27 @@
       "when": 1781986438383,
       "tag": "0002_cheerful_zeigeist",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782002250941,
+      "tag": "0003_rainy_blockbuster",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782005511119,
+      "tag": "0004_known_roulette",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1784033042708,
+      "tag": "0005_melodic_medusa",
+      "breakpoints": true
     }
   ]
 }

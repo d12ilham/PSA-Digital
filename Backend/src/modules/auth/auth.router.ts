@@ -22,4 +22,10 @@ router.get('/me', authenticate, authController.me.bind(authController));
 // POST /api/v1/auth/change-password
 router.post('/change-password', authenticate, authController.changePassword.bind(authController));
 
+// POST /api/v1/auth/forgot-password
+router.post('/forgot-password', authController.forgotPassword.bind(authController));
+
+// POST /api/v1/auth/reset-password
+router.post('/reset-password', authController.resetPassword.bind(authController));
+
 export { router as authRouter };

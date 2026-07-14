@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
@@ -66,9 +67,17 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-              Password
-            </label>
+            <div className="flex justify-between items-center">
+              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+                Password
+              </label>
+              <Link
+                href="/login/forgot-password"
+                className="font-mono text-[9px] uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2"
+              >
+                Forgot?
+              </Link>
+            </div>
             <input
               type="password"
               required

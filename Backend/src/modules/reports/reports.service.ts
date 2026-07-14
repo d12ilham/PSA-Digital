@@ -97,10 +97,14 @@ export class ReportsService {
   }
 
   async update(id: string, data: Partial<typeof reports.$inferInsert>) {
-    await this.findById(id);
+    const before = await this.findById(id);
+    const updateData = { ...data, updatedAt: new Date() };
+    if (data.status === 'published' && !before.publishedAt) {
+      updateData.publishedAt = new Date();
+    }
     const [row] = await db
       .update(reports)
-      .set({ ...data, updatedAt: new Date() })
+      .set(updateData)
       .where(eq(reports.id, id))
       .returning();
     return row;
