@@ -266,7 +266,7 @@ export default function ReportLandingPage({
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <button
-                  onClick={() => router.push(`/reports/${slug}/pages/about`)}
+                  onClick={() => router.push(`/reports/${slug}/introduction`)}
                   className="bg-accent text-primary hover:bg-[#699A05] transition-colors font-bold text-xs px-5 py-3 rounded-lg text-center shrink-0 cursor-pointer"
                 >
                   Explore Introduction →
@@ -331,7 +331,7 @@ export default function ReportLandingPage({
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <button
                   onClick={() =>
-                    router.push(`/reports/${slug}/pages/executive_summary`)
+                    router.push(`/reports/${slug}/executive_summary`)
                   }
                   className="bg-accent text-primary hover:bg-[#699A05] transition-colors font-bold text-xs px-5 py-3 rounded-lg text-center shrink-0 cursor-pointer"
                 >

@@ -12,14 +12,16 @@ export interface PageTemplate {
 // Legacy hardcoded fallback used only when no templates are defined in the DB
 export const DEFAULT_REPORT_PAGES: Omit<PageTemplate, 'id'>[] = [
   { title: 'About', pageType: 'about', slug: 'about', sortOrder: 1 },
-  { title: 'Executive Summary', pageType: 'executive_summary', slug: 'executive-summary', sortOrder: 2 },
-  { title: 'Drivers of Change', pageType: 'drivers_of_change', slug: 'drivers-of-change', sortOrder: 3 },
-  { title: 'Sector Overview', pageType: 'industry_overview', slug: 'sector-overview', sortOrder: 4, parentPathway: 'executive_summary' },
-  { title: 'State & Territory Profile', pageType: 'state_territory', slug: 'state-territory-profile', sortOrder: 5, parentPathway: 'executive_summary' },
-  { title: 'Industry Profile', pageType: 'industry_profile', slug: 'industry-profile', sortOrder: 6, parentPathway: 'executive_summary' },
-  { title: 'Workforce Insights', pageType: 'workforce_insights', slug: 'workforce-insights', sortOrder: 7 },
-  { title: 'Workforce Strategies', pageType: 'strategies', slug: 'workforce-strategies', sortOrder: 8 },
-  { title: 'Looking Forward', pageType: 'looking_forward', slug: 'looking-forward', sortOrder: 9 },
+  { title: 'Introduction', pageType: 'introduction', slug: 'introduction', sortOrder: 2, parentPathway: 'about' },
+  { title: 'Methodology', pageType: 'methodology', slug: 'methodology', sortOrder: 3, parentPathway: 'about' },
+  { title: 'Executive Summary', pageType: 'executive_summary', slug: 'executive-summary', sortOrder: 4 },
+  { title: 'Drivers of Change', pageType: 'drivers_of_change', slug: 'drivers-of-change', sortOrder: 5 },
+  { title: 'Sector Overview', pageType: 'industry_overview', slug: 'sector-overview', sortOrder: 6, parentPathway: 'executive_summary' },
+  { title: 'State & Territory Profile', pageType: 'state_territory', slug: 'state-territory-profile', sortOrder: 7, parentPathway: 'executive_summary' },
+  { title: 'Industry Profile', pageType: 'industry_profile', slug: 'industry-profile', sortOrder: 8, parentPathway: 'executive_summary' },
+  { title: 'Workforce Insights', pageType: 'workforce_insights', slug: 'workforce-insights', sortOrder: 9 },
+  { title: 'Workforce Strategies', pageType: 'strategies', slug: 'workforce-strategies', sortOrder: 10 },
+  { title: 'Looking Forward', pageType: 'looking_forward', slug: 'looking-forward', sortOrder: 11 },
 ];
 
 /**
