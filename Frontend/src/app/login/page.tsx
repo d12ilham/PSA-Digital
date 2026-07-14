@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password.');
+      setError(err.message || "Invalid email or password.");
     } finally {
       setSubmitting(false);
     }
@@ -32,14 +32,14 @@ export default function LoginPage() {
         {/* Header Logo */}
         <div className="mb-8 flex flex-col items-start">
           <div className="flex items-center gap-2 mb-2">
-            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-[10px] font-bold tracking-wider font-mono">
+            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold tracking-wider font-mono">
               PSA
             </span>
             <span className="font-sans text-lg font-bold tracking-tight text-primary">
               Workforce Insights
             </span>
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted">
             ADMIN SYSTEM / ACCESS GATEWAY
           </span>
         </div>
@@ -53,7 +53,7 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-1">
-            <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
               Email Address
             </label>
             <input
@@ -68,12 +68,12 @@ export default function LoginPage() {
 
           <div className="space-y-1">
             <div className="flex justify-between items-center">
-              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                 Password
               </label>
               <Link
                 href="/login/forgot-password"
-                className="font-mono text-[9px] uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2"
+                className="font-mono text-xs uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2"
               >
                 Forgot?
               </Link>
@@ -92,14 +92,14 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full border border-primary bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
+              className="w-full bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
             >
-              {submitting ? 'Authenticating...' : 'Sign In'}
+              {submitting ? "Authenticating..." : "Sign In"}
             </button>
           </div>
         </form>
 
-        <div className="mt-8 border-t border-border/60 pt-4 flex justify-between items-center text-[9px] font-mono text-muted">
+        <div className="mt-8 border-t border-border/60 pt-4 flex justify-between items-center text-xs font-mono text-muted">
           <span>SECURE SYSTEM</span>
           <span>© 2026 PSA DIGITAL</span>
         </div>

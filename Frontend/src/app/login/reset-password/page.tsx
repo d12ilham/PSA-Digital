@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { api } from '@/lib/api';
+import React, { useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { api } from "@/lib/api";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const token = searchParams.get("token");
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -21,27 +21,29 @@ function ResetPasswordForm() {
     setSuccess(false);
 
     if (!token) {
-      setError('Invalid reset token or link has expired.');
+      setError("Invalid reset token or link has expired.");
       return;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+      setError("Password must be at least 8 characters long.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError("Passwords do not match.");
       return;
     }
 
     setSubmitting(true);
 
     try {
-      await api.post('/auth/reset-password', { token, password });
+      await api.post("/auth/reset-password", { token, password });
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || 'Failed to reset password. The link may have expired.');
+      setError(
+        err.message || "Failed to reset password. The link may have expired.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -54,12 +56,13 @@ function ResetPasswordForm() {
           * ERROR: INVALID OR MISSING PASSWORD RESET TOKEN.
         </div>
         <p className="text-xs text-muted font-sans leading-relaxed">
-          The link you followed is incorrect or has expired. Please request a new password reset link.
+          The link you followed is incorrect or has expired. Please request a
+          new password reset link.
         </p>
         <div className="pt-2">
           <Link
             href="/login/forgot-password"
-            className="block w-full text-center border border-primary bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none"
+            className="block w-full text-center bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none"
           >
             Request New Link
           </Link>
@@ -80,7 +83,7 @@ function ResetPasswordForm() {
         <div className="pt-2">
           <Link
             href="/login"
-            className="block w-full text-center border border-primary bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none"
+            className="block w-full text-center bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none"
           >
             Go to Sign In
           </Link>
@@ -92,7 +95,8 @@ function ResetPasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <p className="text-xs text-muted font-sans leading-relaxed mb-4">
-        Enter a new secure password for your administrator account. Password must be at least 8 characters.
+        Enter a new secure password for your administrator account. Password
+        must be at least 8 characters.
       </p>
 
       {error && (
@@ -102,7 +106,7 @@ function ResetPasswordForm() {
       )}
 
       <div className="space-y-1">
-        <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
           New Password
         </label>
         <input
@@ -116,7 +120,7 @@ function ResetPasswordForm() {
       </div>
 
       <div className="space-y-1">
-        <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
           Confirm New Password
         </label>
         <input
@@ -133,13 +137,13 @@ function ResetPasswordForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full border border-primary bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
+          className="w-full bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
         >
-          {submitting ? 'Resetting...' : 'Reset Password'}
+          {submitting ? "Resetting..." : "Reset Password"}
         </button>
         <Link
           href="/login"
-          className="text-center font-mono text-[9px] uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2 py-1"
+          className="text-center font-mono text-xs uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2 py-1"
         >
           Cancel and return
         </Link>
@@ -156,14 +160,14 @@ export default function ResetPasswordPage() {
         {/* Header Logo */}
         <div className="mb-8 flex flex-col items-start">
           <div className="flex items-center gap-2 mb-2">
-            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-[10px] font-bold tracking-wider font-mono">
+            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold tracking-wider font-mono">
               PSA
             </span>
             <span className="font-sans text-lg font-bold tracking-tight text-primary">
               Workforce Insights
             </span>
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted">
             ADMIN SYSTEM / RESET PASSWORD
           </span>
         </div>
@@ -171,7 +175,7 @@ export default function ResetPasswordPage() {
         {/* Form Body inside Suspense Boundary */}
         <Suspense
           fallback={
-            <div className="text-center py-6 font-mono text-[10px] uppercase text-muted">
+            <div className="text-center py-6 font-mono text-xs uppercase text-muted">
               Loading recovery details...
             </div>
           }
@@ -179,7 +183,7 @@ export default function ResetPasswordPage() {
           <ResetPasswordForm />
         </Suspense>
 
-        <div className="mt-8 border-t border-border/60 pt-4 flex justify-between items-center text-[9px] font-mono text-muted">
+        <div className="mt-8 border-t border-border/60 pt-4 flex justify-between items-center text-xs font-mono text-muted">
           <span>SECURE SYSTEM</span>
           <span>© 2026 PSA DIGITAL</span>
         </div>

@@ -57,6 +57,10 @@ export const reports = pgTable('reports', {
   sortOrder: integer('sort_order').notNull().default(0),
   // Notes for the home page card (e.g., "Includes Defence, Fire and Emergency Services, and Police")
   cardNote: text('card_note'),
+  landingIntroDesc: text('landing_intro_desc'),
+  landingIntroBullets: text('landing_intro_bullets'),
+  landingExecDesc: text('landing_exec_desc'),
+  landingExecBullets: text('landing_exec_bullets'),
   createdBy: uuid('created_by').references(() => users.id, { onDelete: 'set null' }),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),

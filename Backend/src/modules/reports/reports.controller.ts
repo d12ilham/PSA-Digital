@@ -28,6 +28,10 @@ const createSchema = z.object({
   isFeatured: z.boolean().optional(),
   sortOrder: z.number().optional(),
   status: z.enum(['draft', 'published', 'archived']).optional(),
+  landingIntroDesc: z.string().optional().nullable(),
+  landingIntroBullets: z.string().optional().nullable(),
+  landingExecDesc: z.string().optional().nullable(),
+  landingExecBullets: z.string().optional().nullable(),
 });
 
 const updateSchema = createSchema.partial();

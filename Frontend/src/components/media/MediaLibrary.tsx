@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { api } from '@/lib/api';
-import { useAuth } from '@/context/AuthContext';
-import { useToast } from '@/context/ToastContext';
+import React, { useState, useEffect, useRef } from "react";
+import { api } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 import {
   Search,
   Upload,
@@ -17,8 +17,8 @@ import {
   ChevronRight,
   Loader2,
   Calendar,
-  HardDrive
-} from 'lucide-react';
+  HardDrive,
+} from "lucide-react";
 
 export interface MediaAsset {
   id: string;
@@ -34,30 +34,30 @@ export interface MediaAsset {
 }
 
 interface MediaLibraryProps {
-  mode?: 'standalone' | 'select';
-  allowedType?: 'image' | 'video' | 'pdf' | 'all';
+  mode?: "standalone" | "select";
+  allowedType?: "image" | "video" | "pdf" | "all";
   onSelect?: (url: string, asset: MediaAsset) => void;
   onClose?: () => void;
 }
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = "http://localhost:3000";
 
 export default function MediaLibrary({
-  mode = 'standalone',
-  allowedType = 'all',
+  mode = "standalone",
+  allowedType = "all",
   onSelect,
-  onClose
+  onClose,
 }: MediaLibraryProps) {
   const { user } = useAuth();
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'library' | 'upload'>('library');
+  const [activeTab, setActiveTab] = useState<"library" | "upload">("library");
 
   // Search, Filters & Pagination
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>(allowedType);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -69,7 +69,7 @@ export default function MediaLibrary({
 
   // Selected Asset & Sidebar Edit States
   const [selectedAsset, setSelectedAsset] = useState<MediaAsset | null>(null);
-  const [altTextInput, setAltTextInput] = useState('');
+  const [altTextInput, setAltTextInput] = useState("");
   const [savingAltText, setSavingAltText] = useState(false);
   const [deletingAsset, setDeletingAsset] = useState(false);
 
@@ -77,7 +77,7 @@ export default function MediaLibrary({
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === "admin";
 
   // Debounce search input
   useEffect(() => {
@@ -97,13 +97,13 @@ export default function MediaLibrary({
   const fetchAssets = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/media', {
+      const response = await api.get("/media", {
         params: {
           page,
           limit: 18,
           search: debouncedSearch || undefined,
-          type: typeFilter === 'all' ? undefined : typeFilter
-        }
+          type: typeFilter === "all" ? undefined : typeFilter,
+        },
       });
 
       // Response contains success, data, meta
@@ -112,7 +112,7 @@ export default function MediaLibrary({
         setTotalPages(1);
         setTotalAssets(response.length);
       } else if (response && response.success === false) {
-        toast.error(response.message || 'Failed to load media assets');
+        toast.error(response.message || "Failed to load media assets");
       } else {
         // Fallback for API paging structure
         const list = response.data || response;
@@ -122,8 +122,8 @@ export default function MediaLibrary({
         setTotalAssets(meta.total || (Array.isArray(list) ? list.length : 0));
       }
     } catch (err: any) {
-      console.error('Fetch media failed:', err);
-      toast.error('Failed to load media library assets');
+      console.error("Fetch media failed:", err);
+      toast.error("Failed to load media library assets");
     } finally {
       setLoading(false);
     }
@@ -132,7 +132,7 @@ export default function MediaLibrary({
   // Select asset
   const handleSelectAsset = (asset: MediaAsset) => {
     setSelectedAsset(asset);
-    setAltTextInput(asset.altText || '');
+    setAltTextInput(asset.altText || "");
   };
 
   // Save Alt Text
@@ -141,18 +141,20 @@ export default function MediaLibrary({
     setSavingAltText(true);
     try {
       const result = await api.patch(`/media/${selectedAsset.id}`, {
-        altText: altTextInput
+        altText: altTextInput,
       });
 
       const updatedAsset = result.data || result;
       // Update selected asset in state
       setSelectedAsset(updatedAsset);
       // Update asset in list
-      setAssets(prev => prev.map(a => a.id === updatedAsset.id ? updatedAsset : a));
-      toast.success('Alt text updated successfully');
+      setAssets((prev) =>
+        prev.map((a) => (a.id === updatedAsset.id ? updatedAsset : a)),
+      );
+      toast.success("Alt text updated successfully");
     } catch (err: any) {
-      console.error('Save alt text failed:', err);
-      toast.error(err.message || 'Failed to update alt text');
+      console.error("Save alt text failed:", err);
+      toast.error(err.message || "Failed to update alt text");
     } finally {
       setSavingAltText(false);
     }
@@ -161,18 +163,26 @@ export default function MediaLibrary({
   // Delete Asset
   const handleDeleteAsset = async () => {
     if (!selectedAsset) return;
-    if (!confirm(`Are you sure you want to permanently delete "${selectedAsset.originalName}"? This action cannot be undone.`)) return;
+    if (
+      !confirm(
+        `Are you sure you want to permanently delete "${selectedAsset.originalName}"? This action cannot be undone.`,
+      )
+    )
+      return;
 
     setDeletingAsset(true);
     try {
       await api.delete(`/media/${selectedAsset.id}`);
-      toast.success('Asset deleted successfully');
+      toast.success("Asset deleted successfully");
       // Clear selection and refresh list
       setSelectedAsset(null);
       fetchAssets();
     } catch (err: any) {
-      console.error('Delete asset failed:', err);
-      toast.error(err.message || 'Failed to delete asset. Ensure you have administrator rights.');
+      console.error("Delete asset failed:", err);
+      toast.error(
+        err.message ||
+          "Failed to delete asset. Ensure you have administrator rights.",
+      );
     } finally {
       setDeletingAsset(false);
     }
@@ -195,12 +205,12 @@ export default function MediaLibrary({
       const file = files[i];
       try {
         const formData = new FormData();
-        formData.append('file', file);
-        
-        await api.upload('/media/upload', formData);
+        formData.append("file", file);
+
+        await api.upload("/media/upload", formData);
         successCount++;
       } catch (err: any) {
-        console.error('Upload failed for file:', file.name, err);
+        console.error("Upload failed for file:", file.name, err);
         failCount++;
       }
     }
@@ -211,11 +221,13 @@ export default function MediaLibrary({
       toast.success(`Successfully uploaded ${successCount} file(s).`);
       // Refresh library and switch tab
       fetchAssets();
-      setActiveTab('library');
+      setActiveTab("library");
     }
 
     if (failCount > 0) {
-      toast.error(`Failed to upload ${failCount} file(s). Check file type restrictions.`);
+      toast.error(
+        `Failed to upload ${failCount} file(s). Check file type restrictions.`,
+      );
     }
   };
 
@@ -223,9 +235,9 @@ export default function MediaLibrary({
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
+    if (e.type === "dragenter" || e.type === "dragover") {
       setDragActive(true);
-    } else if (e.type === 'dragleave') {
+    } else if (e.type === "dragleave") {
       setDragActive(false);
     }
   };
@@ -242,44 +254,43 @@ export default function MediaLibrary({
 
   // Helper to format bytes
   const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   // Helper to check if file is image, video, or pdf
   const getAssetType = (mimeType: string) => {
-    if (mimeType.startsWith('image/')) return 'image';
-    if (mimeType.startsWith('video/')) return 'video';
-    if (mimeType === 'application/pdf') return 'pdf';
-    return 'other';
+    if (mimeType.startsWith("image/")) return "image";
+    if (mimeType.startsWith("video/")) return "video";
+    if (mimeType === "application/pdf") return "pdf";
+    return "other";
   };
 
   return (
-    <div className="flex flex-col h-[75vh] min-h-[500px] border border-border bg-card text-primary font-sans select-none overflow-hidden">
-      
+    <div className="flex flex-col h-[75vh] min-h-[500px] bg-card text-primary font-sans select-none">
       {/* ── Library Header & Tabs ── */}
       <div className="flex items-center justify-between border-b border-border bg-sidebar/50 px-4 py-2 shrink-0">
         <div className="flex items-center gap-1">
           <button
-            onClick={() => setActiveTab('upload')}
-            className={`px-3 py-1 font-mono text-[9px] uppercase tracking-wider transition-colors border ${
-              activeTab === 'upload'
-                ? 'bg-primary text-white border-primary'
-                : 'bg-card border-border hover:bg-sidebar'
+            onClick={() => setActiveTab("upload")}
+            className={`px-3 py-1 font-mono text-xs uppercase tracking-wider transition-colors border ${
+              activeTab === "upload"
+                ? "bg-primary text-white border-primary"
+                : "bg-card border-border hover:bg-sidebar"
             }`}
           >
             <Upload className="h-3 w-3 inline mr-1" />
             Upload Files
           </button>
           <button
-            onClick={() => setActiveTab('library')}
-            className={`px-3 py-1 font-mono text-[9px] uppercase tracking-wider transition-colors border ${
-              activeTab === 'library'
-                ? 'bg-primary text-white border-primary'
-                : 'bg-card border-border hover:bg-sidebar'
+            onClick={() => setActiveTab("library")}
+            className={`px-3 py-1 font-mono text-xs uppercase tracking-wider transition-colors border ${
+              activeTab === "library"
+                ? "bg-primary text-white border-primary"
+                : "bg-card border-border hover:bg-sidebar"
             }`}
           >
             <HardDrive className="h-3 w-3 inline mr-1" />
@@ -299,9 +310,8 @@ export default function MediaLibrary({
 
       {/* ── Main Content Grid/Split Layout ── */}
       <div className="flex flex-1 overflow-hidden min-h-0">
-        
         {/* Upload Tab View */}
-        {activeTab === 'upload' && (
+        {activeTab === "upload" && (
           <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto">
             <div
               onDragEnter={handleDrag}
@@ -310,8 +320,8 @@ export default function MediaLibrary({
               onDrop={handleDrop}
               className={`w-full max-w-xl border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center gap-4 transition-all duration-200 ${
                 dragActive
-                  ? 'border-primary bg-sidebar/50'
-                  : 'border-border bg-sidebar/10 hover:bg-sidebar/20'
+                  ? "border-primary bg-sidebar/50"
+                  : "border-border bg-sidebar/10 hover:bg-sidebar/20"
               }`}
             >
               <input
@@ -320,13 +330,13 @@ export default function MediaLibrary({
                 multiple
                 className="hidden"
                 accept={
-                  allowedType === 'image'
-                    ? 'image/*'
-                    : allowedType === 'video'
-                    ? 'video/*'
-                    : allowedType === 'pdf'
-                    ? 'application/pdf'
-                    : 'image/*,video/*,application/pdf'
+                  allowedType === "image"
+                    ? "image/*"
+                    : allowedType === "video"
+                      ? "video/*"
+                      : allowedType === "pdf"
+                        ? "application/pdf"
+                        : "image/*,video/*,application/pdf"
                 }
                 onChange={(e) => {
                   if (e.target.files && e.target.files.length > 0) {
@@ -337,7 +347,9 @@ export default function MediaLibrary({
               {uploading ? (
                 <div className="flex flex-col items-center gap-2">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted">Uploading assets...</span>
+                  <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                    Uploading assets...
+                  </span>
                 </div>
               ) : (
                 <>
@@ -345,20 +357,30 @@ export default function MediaLibrary({
                   <div className="text-center">
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="font-mono text-[10px] uppercase tracking-widest text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold shadow-sm"
+                      className="font-mono text-xs uppercase tracking-widest text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold shadow-sm"
                     >
                       Select Files to Upload
                     </button>
-                    <p className="text-[10px] text-muted/60 mt-3 font-mono">
+                    <p className="text-xs text-muted/60 mt-3 font-mono">
                       or drag and drop files here
                     </p>
                   </div>
-                  <div className="text-center space-y-1 font-mono text-[8px] text-muted uppercase tracking-wider mt-4">
+                  <div className="text-center space-y-1 font-mono text-xs text-muted uppercase tracking-wider mt-4">
                     <p>Supported Formats:</p>
-                    {allowedType === 'all' && <p className="text-muted/60">JPG, PNG, WEBP, SVG, MP4, WEBM, PDF</p>}
-                    {allowedType === 'image' && <p className="text-muted/60">JPG, PNG, WEBP, SVG</p>}
-                    {allowedType === 'video' && <p className="text-muted/60">MP4, WEBM, OGG, MOV</p>}
-                    {allowedType === 'pdf' && <p className="text-muted/60">PDF only</p>}
+                    {allowedType === "all" && (
+                      <p className="text-muted/60">
+                        JPG, PNG, WEBP, SVG, MP4, WEBM, PDF
+                      </p>
+                    )}
+                    {allowedType === "image" && (
+                      <p className="text-muted/60">JPG, PNG, WEBP, SVG</p>
+                    )}
+                    {allowedType === "video" && (
+                      <p className="text-muted/60">MP4, WEBM, OGG, MOV</p>
+                    )}
+                    {allowedType === "pdf" && (
+                      <p className="text-muted/60">PDF only</p>
+                    )}
                   </div>
                 </>
               )}
@@ -367,15 +389,12 @@ export default function MediaLibrary({
         )}
 
         {/* Library Tab View */}
-        {activeTab === 'library' && (
+        {activeTab === "library" && (
           <div className="flex-1 flex overflow-hidden">
-            
             {/* Left Grid Area */}
             <div className="flex-1 flex flex-col bg-background overflow-hidden border-r border-border min-w-0">
-              
               {/* Filter / Search Bar */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-border bg-card p-3 gap-2 shrink-0">
-                
                 {/* Search */}
                 <div className="relative flex-1 max-w-md">
                   <input
@@ -388,7 +407,7 @@ export default function MediaLibrary({
                   <Search className="absolute left-2.5 top-2.5 h-3 w-3 text-muted/50" />
                   {search && (
                     <button
-                      onClick={() => setSearch('')}
+                      onClick={() => setSearch("")}
                       className="absolute right-2.5 top-2.5 text-muted/50 hover:text-primary"
                     >
                       <X className="h-3 w-3" />
@@ -397,16 +416,18 @@ export default function MediaLibrary({
                 </div>
 
                 {/* Filter Type */}
-                {allowedType === 'all' && (
+                {allowedType === "all" && (
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-muted font-bold whitespace-nowrap">Show:</span>
+                    <span className="font-mono text-xs uppercase tracking-wider text-muted font-bold whitespace-nowrap">
+                      Show:
+                    </span>
                     <select
                       value={typeFilter}
                       onChange={(e) => {
                         setTypeFilter(e.target.value);
                         setPage(1);
                       }}
-                      className="border border-border bg-[#fdfdfc] px-2 py-1 text-[10px] font-mono text-primary focus:border-primary focus:outline-none cursor-pointer"
+                      className="border border-border bg-[#fdfdfc] px-2 py-1 text-xs font-mono text-primary focus:border-primary focus:outline-none cursor-pointer"
                     >
                       <option value="all">All Types</option>
                       <option value="image">Images</option>
@@ -422,14 +443,19 @@ export default function MediaLibrary({
                 {loading ? (
                   <div className="flex h-full flex-col items-center justify-center gap-3">
                     <Loader2 className="h-6 w-6 animate-spin text-primary" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted">Loading Media Grid...</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                      Loading Media Grid...
+                    </span>
                   </div>
                 ) : assets.length === 0 ? (
                   <div className="flex h-full flex-col items-center justify-center text-center p-6 border border-dashed border-border bg-sidebar/10">
                     <HardDrive className="h-8 w-8 text-muted/50 mb-3" />
-                    <span className="font-mono text-xs uppercase tracking-wider text-muted mb-1">No Assets Found</span>
-                    <p className="text-[10px] text-muted/60 max-w-xs font-mono">
-                      No uploaded assets match your filters, or the media library is empty.
+                    <span className="font-mono text-xs uppercase tracking-wider text-muted mb-1">
+                      No Assets Found
+                    </span>
+                    <p className="text-xs text-muted/60 max-w-xs font-mono">
+                      No uploaded assets match your filters, or the media
+                      library is empty.
                     </p>
                   </div>
                 ) : (
@@ -442,37 +468,38 @@ export default function MediaLibrary({
                         <div
                           key={asset.id}
                           onClick={() => handleSelectAsset(asset)}
-                          className={`relative aspect-square border cursor-pointer group flex flex-col justify-between bg-card overflow-hidden shadow-sm transition-all duration-150 ${
+                          className={`relative rounded-xl aspect-square border cursor-pointer group flex flex-col justify-between bg-card overflow-hidden transition-all duration-150 ${
                             isSelected
-                              ? 'border-2 border-primary bg-sidebar/20 ring-1 ring-primary'
-                              : 'border-border hover:border-accent hover:shadow'
+                              ? "border-2 border-primary bg-sidebar/20 ring-1 ring-primary"
+                              : "border-border hover:border-accent hover:shadow"
                           }`}
                         >
                           {/* Thumbnail Content */}
                           <div className="flex-1 flex items-center justify-center p-2 relative bg-sidebar/5 min-h-0">
-                            {type === 'image' && (
+                            {type === "image" && (
                               <img
                                 src={`${BACKEND_URL}${asset.url}`}
                                 alt={asset.altText || asset.originalName}
                                 className="max-w-full max-h-full object-contain pointer-events-none"
                                 onError={(e) => {
                                   // Fallback for failed image load
-                                  (e.target as HTMLImageElement).src = '';
-                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).src = "";
+                                  (e.target as HTMLImageElement).style.display =
+                                    "none";
                                 }}
                               />
                             )}
-                            {type === 'video' && (
+                            {type === "video" && (
                               <div className="flex flex-col items-center justify-center gap-1 text-muted group-hover:text-primary">
                                 <Film className="h-8 w-8 shrink-0" />
                               </div>
                             )}
-                            {type === 'pdf' && (
+                            {type === "pdf" && (
                               <div className="flex flex-col items-center justify-center gap-1 text-muted group-hover:text-primary">
                                 <FileText className="h-8 w-8 shrink-0 text-red-700/80" />
                               </div>
                             )}
-                            {type === 'other' && (
+                            {type === "other" && (
                               <div className="flex flex-col items-center justify-center gap-1 text-muted group-hover:text-primary">
                                 <FileText className="h-8 w-8 shrink-0" />
                               </div>
@@ -488,10 +515,13 @@ export default function MediaLibrary({
 
                           {/* Truncated File Label */}
                           <div className="border-t border-border bg-sidebar/20 p-1 px-1.5 shrink-0 min-w-0">
-                            <p className="font-mono text-[8px] text-primary truncate" title={asset.originalName}>
+                            <p
+                              className="font-mono text-xs text-primary truncate"
+                              title={asset.originalName}
+                            >
                               {asset.originalName}
                             </p>
-                            <p className="font-mono text-[7px] text-muted uppercase">
+                            <p className="font-mono text-xs text-muted uppercase">
                               {type}
                             </p>
                           </div>
@@ -504,21 +534,24 @@ export default function MediaLibrary({
 
               {/* Grid Pagination Footer */}
               {totalPages > 1 && (
-                <div className="border-t border-border bg-card px-4 py-2.5 flex items-center justify-between shrink-0 font-mono text-[10px] text-muted">
+                <div className="border-t border-border bg-card px-4 py-2.5 flex items-center justify-between shrink-0 font-mono text-xs text-muted">
                   <span>
-                    Showing Page {page} of {totalPages} ({totalAssets} assets total)
+                    Showing Page {page} of {totalPages} ({totalAssets} assets
+                    total)
                   </span>
                   <div className="flex items-center gap-1">
                     <button
                       disabled={page === 1}
-                      onClick={() => setPage(p => Math.max(p - 1, 1))}
+                      onClick={() => setPage((p) => Math.max(p - 1, 1))}
                       className="border border-border p-1 hover:bg-sidebar disabled:opacity-50 disabled:hover:bg-card transition-colors shrink-0"
                     >
                       <ChevronLeft className="h-4.5 w-4.5" />
                     </button>
                     <button
                       disabled={page === totalPages}
-                      onClick={() => setPage(p => Math.min(p + 1, totalPages))}
+                      onClick={() =>
+                        setPage((p) => Math.min(p + 1, totalPages))
+                      }
                       className="border border-border p-1 hover:bg-sidebar disabled:opacity-50 disabled:hover:bg-card transition-colors shrink-0"
                     >
                       <ChevronRight className="h-4.5 w-4.5" />
@@ -534,31 +567,33 @@ export default function MediaLibrary({
                 <div className="p-4 space-y-6">
                   {/* Panel Title */}
                   <div>
-                    <h3 className="font-mono text-[9px] uppercase tracking-widest text-muted">
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
                       Asset Details
                     </h3>
                   </div>
 
                   {/* Visual Preview */}
                   <div className="border border-border bg-sidebar/10 rounded p-2 flex items-center justify-center h-40 relative max-w-full overflow-hidden">
-                    {getAssetType(selectedAsset.mimeType) === 'image' && (
+                    {getAssetType(selectedAsset.mimeType) === "image" && (
                       <img
                         src={`${BACKEND_URL}${selectedAsset.url}`}
-                        alt={selectedAsset.altText || selectedAsset.originalName}
+                        alt={
+                          selectedAsset.altText || selectedAsset.originalName
+                        }
                         className="max-w-full max-h-full object-contain"
                       />
                     )}
-                    {getAssetType(selectedAsset.mimeType) === 'video' && (
+                    {getAssetType(selectedAsset.mimeType) === "video" && (
                       <video
                         src={`${BACKEND_URL}${selectedAsset.url}`}
                         controls
                         className="max-w-full max-h-full object-contain"
                       />
                     )}
-                    {getAssetType(selectedAsset.mimeType) === 'pdf' && (
+                    {getAssetType(selectedAsset.mimeType) === "pdf" && (
                       <div className="flex flex-col items-center justify-center text-center gap-2">
                         <FileText className="h-12 w-12 text-red-700/80" />
-                        <span className="font-mono text-[8px] bg-red-100 border border-red-200 text-red-800 uppercase px-1 rounded">
+                        <span className="font-mono text-xs bg-red-100 border border-red-200 text-red-800 uppercase px-1 rounded">
                           PDF Report
                         </span>
                       </div>
@@ -566,20 +601,27 @@ export default function MediaLibrary({
                   </div>
 
                   {/* Metadata Fields */}
-                  <div className="space-y-2 border-b border-border pb-4 font-mono text-[9px] text-muted">
+                  <div className="space-y-2 border-b border-border pb-4 font-mono text-xs text-muted">
                     <div className="flex justify-between items-start gap-1">
                       <span className="uppercase text-muted/60">Filename:</span>
-                      <span className="text-primary text-right truncate flex-1 min-w-0 font-bold" title={selectedAsset.originalName}>
+                      <span
+                        className="text-primary text-right truncate flex-1 min-w-0 font-bold"
+                        title={selectedAsset.originalName}
+                      >
                         {selectedAsset.originalName}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="uppercase text-muted/60">Type:</span>
-                      <span className="text-primary font-bold uppercase">{selectedAsset.mimeType}</span>
+                      <span className="text-primary font-bold uppercase">
+                        {selectedAsset.mimeType}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="uppercase text-muted/60">Size:</span>
-                      <span className="text-primary font-bold">{formatBytes(selectedAsset.sizeBytes)}</span>
+                      <span className="text-primary font-bold">
+                        {formatBytes(selectedAsset.sizeBytes)}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="uppercase text-muted/60">Uploaded:</span>
@@ -591,9 +633,11 @@ export default function MediaLibrary({
 
                   {/* Alt Text Input Field */}
                   <div className="space-y-1.5">
-                    <label className="block font-mono text-[9px] uppercase tracking-wider text-muted flex items-center justify-between">
+                    <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center justify-between">
                       <span>Alt Text / Tag</span>
-                      <span className="text-[8px] text-muted/40 lowercase">(optional)</span>
+                      <span className="text-xs text-muted/40 lowercase">
+                        (optional)
+                      </span>
                     </label>
                     <textarea
                       value={altTextInput}
@@ -620,10 +664,10 @@ export default function MediaLibrary({
 
                   {/* Action Buttons (Insert / Delete) */}
                   <div className="pt-4 border-t border-border flex flex-col gap-2">
-                    {mode === 'select' && onSelect && (
+                    {mode === "select" && onSelect && (
                       <button
                         onClick={handleConfirmSelection}
-                        className="w-full border border-primary bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center justify-center gap-1"
+                        className="w-full bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center justify-center gap-1"
                       >
                         <Check className="h-3.5 w-3.5" />
                         Select Asset
@@ -649,17 +693,16 @@ export default function MediaLibrary({
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-center p-6 text-muted">
                   <ImageIcon className="h-8 w-8 text-muted/30 mb-2" />
-                  <p className="font-mono text-[9px] uppercase tracking-wider leading-relaxed">
-                    Select an asset from the media grid to view details and edit settings.
+                  <p className="font-mono text-xs uppercase tracking-wider leading-relaxed">
+                    Select an asset from the media grid to view details and edit
+                    settings.
                   </p>
                 </div>
               )}
             </div>
-
           </div>
         )}
       </div>
-
     </div>
   );
 }

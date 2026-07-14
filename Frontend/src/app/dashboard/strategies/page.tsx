@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
-import { useReport } from '@/context/ReportContext';
-import { useAuth } from '@/context/AuthContext';
-import { 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Eye, 
-  X, 
-  Check, 
-  Sliders, 
-  SlidersHorizontal 
-} from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { api } from "@/lib/api";
+import { useReport } from "@/context/ReportContext";
+import { useAuth } from "@/context/AuthContext";
+import {
+  Plus,
+  Trash2,
+  Edit3,
+  Eye,
+  X,
+  Check,
+  Sliders,
+  SlidersHorizontal,
+} from "lucide-react";
 
 interface Strategy {
   id: string;
   reportId: string;
-  strategyType: 'proposed' | 'existing' | 'federal' | 'update';
+  strategyType: "proposed" | "existing" | "federal" | "update";
   strategyYear: number | null;
   strategyNumber: number | null;
   title: string;
@@ -26,7 +26,7 @@ interface Strategy {
   deliveryTimeline: string | null;
   leadAgency: string | null;
   updateNote: string | null;
-  status: 'draft' | 'active' | 'archived';
+  status: "draft" | "active" | "archived";
   sortOrder: number;
 }
 
@@ -37,24 +37,30 @@ export default function StrategiesManagementPage() {
   const [loading, setLoading] = useState(false);
 
   // Filters
-  const [typeFilter, setTypeFilter] = useState<'all' | 'proposed' | 'existing' | 'federal' | 'update'>('all');
+  const [typeFilter, setTypeFilter] = useState<
+    "all" | "proposed" | "existing" | "federal" | "update"
+  >("all");
 
   // Edit / Add Modal States
   const [modalOpen, setModalOpen] = useState(false);
   const [editingStrategy, setEditingStrategy] = useState<Strategy | null>(null);
 
   // Form Fields
-  const [strategyType, setStrategyType] = useState<'proposed' | 'existing' | 'federal' | 'update'>('proposed');
+  const [strategyType, setStrategyType] = useState<
+    "proposed" | "existing" | "federal" | "update"
+  >("proposed");
   const [strategyYear, setStrategyYear] = useState<number>(2026);
   const [strategyNumber, setStrategyNumber] = useState<number>(1);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [deliveryTimeline, setDeliveryTimeline] = useState('');
-  const [leadAgency, setLeadAgency] = useState('');
-  const [updateNote, setUpdateNote] = useState('');
-  const [status, setStatus] = useState<'draft' | 'active' | 'archived'>('active');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [deliveryTimeline, setDeliveryTimeline] = useState("");
+  const [leadAgency, setLeadAgency] = useState("");
+  const [updateNote, setUpdateNote] = useState("");
+  const [status, setStatus] = useState<"draft" | "active" | "archived">(
+    "active",
+  );
 
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
     if (activeReport) {
@@ -65,10 +71,12 @@ export default function StrategiesManagementPage() {
   const loadStrategies = async () => {
     setLoading(true);
     try {
-      const res = await api.get<Strategy[]>(`/reports/${activeReport!.id}/strategies`);
+      const res = await api.get<Strategy[]>(
+        `/reports/${activeReport!.id}/strategies`,
+      );
       setStrategies(res.sort((a, b) => a.sortOrder - b.sortOrder));
     } catch (err) {
-      console.error('Failed to load strategies:', err);
+      console.error("Failed to load strategies:", err);
     } finally {
       setLoading(false);
     }
@@ -76,15 +84,15 @@ export default function StrategiesManagementPage() {
 
   const handleOpenAdd = () => {
     setEditingStrategy(null);
-    setStrategyType('proposed');
+    setStrategyType("proposed");
     setStrategyYear(2026);
     setStrategyNumber(strategies.length + 1);
-    setTitle('');
-    setDescription('');
-    setDeliveryTimeline('');
-    setLeadAgency('');
-    setUpdateNote('');
-    setStatus('active');
+    setTitle("");
+    setDescription("");
+    setDeliveryTimeline("");
+    setLeadAgency("");
+    setUpdateNote("");
+    setStatus("active");
     setModalOpen(true);
   };
 
@@ -94,10 +102,10 @@ export default function StrategiesManagementPage() {
     setStrategyYear(strat.strategyYear || 2026);
     setStrategyNumber(strat.strategyNumber || 1);
     setTitle(strat.title);
-    setDescription(strat.description || '');
-    setDeliveryTimeline(strat.deliveryTimeline || '');
-    setLeadAgency(strat.leadAgency || '');
-    setUpdateNote(strat.updateNote || '');
+    setDescription(strat.description || "");
+    setDeliveryTimeline(strat.deliveryTimeline || "");
+    setLeadAgency(strat.leadAgency || "");
+    setUpdateNote(strat.updateNote || "");
     setStatus(strat.status);
     setModalOpen(true);
   };
@@ -114,14 +122,17 @@ export default function StrategiesManagementPage() {
       description: description || null,
       deliveryTimeline: deliveryTimeline || null,
       leadAgency: leadAgency || null,
-      updateNote: strategyType === 'update' ? updateNote : null,
+      updateNote: strategyType === "update" ? updateNote : null,
       status,
     };
 
     try {
       if (editingStrategy) {
         // Update
-        await api.patch(`/reports/${activeReport.id}/strategies/${editingStrategy.id}`, payload);
+        await api.patch(
+          `/reports/${activeReport.id}/strategies/${editingStrategy.id}`,
+          payload,
+        );
       } else {
         // Create
         await api.post(`/reports/${activeReport.id}/strategies`, {
@@ -138,7 +149,12 @@ export default function StrategiesManagementPage() {
 
   const handleDelete = async (stratId: string) => {
     if (!activeReport) return;
-    if (!confirm('Are you sure you want to delete this strategy record? This is irreversible.')) return;
+    if (
+      !confirm(
+        "Are you sure you want to delete this strategy record? This is irreversible.",
+      )
+    )
+      return;
 
     try {
       await api.delete(`/reports/${activeReport.id}/strategies/${stratId}`);
@@ -148,8 +164,8 @@ export default function StrategiesManagementPage() {
     }
   };
 
-  const filteredStrategies = strategies.filter(s => {
-    if (typeFilter === 'all') return true;
+  const filteredStrategies = strategies.filter((s) => {
+    if (typeFilter === "all") return true;
     return s.strategyType === typeFilter;
   });
 
@@ -166,7 +182,7 @@ export default function StrategiesManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Dataset</span>
@@ -180,7 +196,7 @@ export default function StrategiesManagementPage() {
 
         <button
           onClick={handleOpenAdd}
-          className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <Plus className="h-4 w-4" />
           Add Strategy
@@ -189,44 +205,44 @@ export default function StrategiesManagementPage() {
 
       {/* ── Visual Filter Chips ── */}
       <div className="flex flex-wrap gap-2 items-center">
-        <span className="font-mono text-[8px] uppercase tracking-widest text-muted mr-2">
+        <span className="font-mono text-xs uppercase tracking-widest text-muted mr-2">
           Filter Type:
         </span>
         <button
-          onClick={() => setTypeFilter('all')}
-          className={`chip ${typeFilter === 'all' ? 'chip-active' : ''}`}
+          onClick={() => setTypeFilter("all")}
+          className={`chip ${typeFilter === "all" ? "chip-active" : ""}`}
         >
           All Strategies
         </button>
         <button
-          onClick={() => setTypeFilter('proposed')}
-          className={`chip ${typeFilter === 'proposed' ? 'chip-active' : ''}`}
+          onClick={() => setTypeFilter("proposed")}
+          className={`chip ${typeFilter === "proposed" ? "chip-active" : ""}`}
         >
           2026 Proposed
         </button>
         <button
-          onClick={() => setTypeFilter('existing')}
-          className={`chip ${typeFilter === 'existing' ? 'chip-active' : ''}`}
+          onClick={() => setTypeFilter("existing")}
+          className={`chip ${typeFilter === "existing" ? "chip-active" : ""}`}
         >
           Existing Sector
         </button>
         <button
-          onClick={() => setTypeFilter('federal')}
-          className={`chip ${typeFilter === 'federal' ? 'chip-active' : ''}`}
+          onClick={() => setTypeFilter("federal")}
+          className={`chip ${typeFilter === "federal" ? "chip-active" : ""}`}
         >
           Federal Initiatives
         </button>
         <button
-          onClick={() => setTypeFilter('update')}
-          className={`chip ${typeFilter === 'update' ? 'chip-active' : ''}`}
+          onClick={() => setTypeFilter("update")}
+          className={`chip ${typeFilter === "update" ? "chip-active" : ""}`}
         >
           2025 Updates
         </button>
       </div>
 
       {/* ── Strategies Table Card ── */}
-      <div className="border border-border bg-card p-6 shadow-sm relative">
-        <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+      <div className="border border-border bg-card p-6 rounded-2xl relative">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
           * STRATEGIES DATA TABLE
         </span>
 
@@ -234,7 +250,9 @@ export default function StrategiesManagementPage() {
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Loading strategies...</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                Loading strategies...
+              </span>
             </div>
           </div>
         ) : filteredStrategies.length === 0 ? (
@@ -245,7 +263,7 @@ export default function StrategiesManagementPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-border text-muted font-mono uppercase text-[9px] tracking-wider font-bold">
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
                   <th className="py-2.5 px-3">Num</th>
                   <th className="py-2.5 px-3">Type</th>
                   <th className="py-2.5 px-3">Strategy Title</th>
@@ -257,31 +275,39 @@ export default function StrategiesManagementPage() {
               <tbody className="divide-y divide-border/40">
                 {filteredStrategies.map((strat) => (
                   <tr key={strat.id} className="hover:bg-sidebar/10">
-                    <td className="py-3 px-3 font-mono text-[10px] text-muted">
-                      #{strat.strategyNumber || '-'}
+                    <td className="py-3 px-3 font-mono text-xs text-muted">
+                      #{strat.strategyNumber || "-"}
                     </td>
                     <td className="py-3 px-3">
-                      <span className="wireframe-badge text-[7px] font-semibold">
+                      <span className="wireframe-badge text-xs font-semibold">
                         {strat.strategyType.toUpperCase()}
                       </span>
                     </td>
                     <td className="py-3 px-3 max-w-xs">
-                      <div className="font-bold text-primary">{strat.title}</div>
+                      <div className="font-bold text-primary">
+                        {strat.title}
+                      </div>
                       {strat.description && (
-                        <p className="text-[10px] text-muted line-clamp-1 mt-0.5">{strat.description}</p>
+                        <p className="text-xs text-muted line-clamp-1 mt-0.5">
+                          {strat.description}
+                        </p>
                       )}
-                      {strat.strategyType === 'update' && strat.updateNote && (
-                        <div className="mt-1 bg-sidebar/40 border border-border/40 p-1 text-[9px] font-mono text-muted">
+                      {strat.strategyType === "update" && strat.updateNote && (
+                        <div className="mt-1 bg-sidebar/40 border border-border/40 p-1 text-xs font-mono text-muted">
                           * UPDATE: {strat.updateNote}
                         </div>
                       )}
                     </td>
-                    <td className="py-3 px-3 font-mono text-[10px] text-muted">
-                      <div>Agency: {strat.leadAgency || 'N/A'}</div>
-                      <div className="mt-0.5">Timeline: {strat.deliveryTimeline || 'N/A'}</div>
+                    <td className="py-3 px-3 font-mono text-xs text-muted">
+                      <div>Agency: {strat.leadAgency || "N/A"}</div>
+                      <div className="mt-0.5">
+                        Timeline: {strat.deliveryTimeline || "N/A"}
+                      </div>
                     </td>
                     <td className="py-3 px-3">
-                      <span className={`text-[8px] font-mono uppercase ${strat.status === 'active' ? 'text-green-700' : 'text-muted'}`}>
+                      <span
+                        className={`text-xs font-mono uppercase ${strat.status === "active" ? "text-green-700" : "text-muted"}`}
+                      >
                         {strat.status}
                       </span>
                     </td>
@@ -317,15 +343,17 @@ export default function StrategiesManagementPage() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * STRATEGY DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
-                {editingStrategy ? 'Modify Strategy Record' : 'Create Strategy Record'}
+                {editingStrategy
+                  ? "Modify Strategy Record"
+                  : "Create Strategy Record"}
               </h3>
-              <button 
+              <button
                 onClick={() => setModalOpen(false)}
                 className="p-1 border border-border hover:bg-sidebar text-muted"
               >
@@ -336,7 +364,9 @@ export default function StrategiesManagementPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Type</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    Type
+                  </label>
                   <select
                     value={strategyType}
                     onChange={(e) => setStrategyType(e.target.value as any)}
@@ -350,7 +380,9 @@ export default function StrategiesManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Year</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    Year
+                  </label>
                   <input
                     type="number"
                     value={strategyYear}
@@ -360,7 +392,9 @@ export default function StrategiesManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Number</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    Number
+                  </label>
                   <input
                     type="number"
                     value={strategyNumber}
@@ -371,7 +405,9 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Strategy Title</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Strategy Title
+                </label>
                 <input
                   type="text"
                   required
@@ -383,7 +419,9 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Lead Agency</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Lead Agency
+                </label>
                 <input
                   type="text"
                   value={leadAgency}
@@ -394,7 +432,9 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Delivery Timeline</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Delivery Timeline
+                </label>
                 <input
                   type="text"
                   value={deliveryTimeline}
@@ -405,7 +445,9 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-semibold">Status</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-semibold">
+                  Status
+                </label>
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value as any)}
@@ -418,7 +460,9 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Description</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Description
+                </label>
                 <textarea
                   rows={3}
                   value={description}
@@ -427,9 +471,9 @@ export default function StrategiesManagementPage() {
                 />
               </div>
 
-              {strategyType === 'update' && (
+              {strategyType === "update" && (
                 <div className="space-y-1 border-t border-border/60 pt-3">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-red-600 font-bold">
+                  <label className="block font-mono text-xs uppercase tracking-wider text-red-600 font-bold">
                     Progress Update Note (2025 Strategy Status)
                   </label>
                   <textarea
@@ -446,13 +490,13 @@ export default function StrategiesManagementPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
                 >
                   Save Strategy
                 </button>
@@ -461,7 +505,6 @@ export default function StrategiesManagementPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

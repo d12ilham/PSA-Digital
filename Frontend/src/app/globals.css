@@ -1,27 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2d2b27;
-  --color-background: #fbfaf7;
-  --color-foreground: #2d2b27;
+  --color-primary: #1a3d2b;
+  --color-background: #faf8f4;
+  --color-foreground: #3d5c47;
   --color-card: #ffffff;
-  --color-sidebar: #efece6;
-  --color-border: #d8d4cc;
-  --color-muted: #8b867d;
-  --color-active: #3b3833;
-  --color-inactive: #efece6;
-  --color-accent: #c6c1b7;
-  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  --font-mono: var(--font-geist-mono), Courier, monospace;
+  --color-sidebar: #fefdf3;
+  --color-border: #edebe6;
+  --color-muted: #598303;
+  --color-active: #416102;
+  --color-inactive: #f0f5df;
+  --color-accent: #a7dd6c;
+  --font-sans: "Manrope", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-sans);
 }
 
 :root {
-  --background: #fbfaf7;
-  --foreground: #2d2b27;
+  --background: #fafaf0;
+  --foreground: #252d02;
   --border: #d8d4cc;
-  --sidebar-bg: #efece6;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --sidebar-bg: #fefdf3;
+  --font-sans: "Manrope", sans-serif;
+  --font-mono: var(--font-sans);
 }
 
 body {
@@ -94,4 +95,111 @@ body {
   background-color: #3b3833;
   color: #ffffff;
   border-color: #3b3833;
+}
+
+/* Enforce radius-xl (0.75rem) globally for buttons, inputs, textareas, select dropdowns, and tables */
+/* button,
+.btn,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select,
+table,
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg {
+  border-radius: 0.75rem !important; 
+} */
+
+table {
+  overflow: hidden !important;
+}
+
+/* Enforce default border color globally */
+*,
+::before,
+::after {
+  border-color: var(--color-border, #d8d4cc) !important;
+}
+
+/* Enforce global button accent color */
+/* button,
+.btn,
+[role="button"],
+input[type="button"],
+input[type="submit"] {
+  background-color: var(--color-accent, #8ac900) !important;
+  color: var(--color-primary, #252d02) !important;
+  font-weight: 700 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--color-primary, #252d02) !important;
+} */
+
+/* button:hover,
+.btn:hover,
+[role="button"]:hover {
+  background-color: var(--color-active, #416102) !important;
+  color: #ffffff !important;
+} */
+
+/* Sidebar Nav Item Button Overrides */
+aside button {
+  background-color: transparent !important;
+  color: rgba(250, 250, 240, 0.8) !important;
+}
+
+aside button:hover {
+  background-color: #252d02 !important;
+  color: #ffffff !important;
+}
+
+/* Active Sidebar button */
+aside button.bg-\[\#8AC900\] {
+  background-color: #8ac900 !important;
+  color: #161b01 !important;
+  font-weight: 700 !important;
+}
+
+/* Styled Card for Dashboard Sections */
+.dashboard-section-card {
+  border: 1px solid var(--color-border) !important;
+  background-color: #ffffff !important;
+  border-radius: 1rem !important; /* radius-xl */
+  overflow: hidden !important;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.dashboard-section-header {
+  background-color: #252d02 !important;
+  color: #fafaf0 !important;
+  padding: 1rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 1px solid #252d02 !important;
+  border-radius: 0.75rem 0.75rem 0 0 !important; /* top corners rounded-xl */
+}
+
+.dashboard-section-header h2,
+.dashboard-section-header h3 {
+  color: #fafaf0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.875rem !important; /* text-sm */
+  margin: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.dashboard-section-header svg {
+  color: #8ac900 !important; /* icon accent color */
 }

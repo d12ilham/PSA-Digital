@@ -79,7 +79,7 @@ const RichTextEditor = ({
 
   return (
     <div className="border border-border rounded-sm overflow-hidden bg-card">
-      <div className="flex flex-wrap items-center gap-1 bg-sidebar/20 p-2 border-b border-border/80 text-[10px] font-mono select-none">
+      <div className="flex flex-wrap items-center gap-1 bg-sidebar/20 p-2 border-b border-border/80 text-xs font-mono select-none">
         <button
           type="button"
           onClick={() => execCmd("bold")}
@@ -153,7 +153,7 @@ const RichTextEditor = ({
             const url = prompt("Enter URL:");
             if (url) execCmd("createLink", url);
           }}
-          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded font-mono text-[9px] cursor-pointer"
+          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded font-mono text-xs cursor-pointer"
           title="Add Link"
         >
           Link
@@ -161,7 +161,7 @@ const RichTextEditor = ({
         <button
           type="button"
           onClick={() => execCmd("unlink")}
-          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded font-mono text-[9px] cursor-pointer"
+          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded font-mono text-xs cursor-pointer"
           title="Remove Link"
         >
           Unlink
@@ -170,7 +170,7 @@ const RichTextEditor = ({
         <button
           type="button"
           onClick={() => execCmd("removeFormat")}
-          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded text-[8px] uppercase font-bold cursor-pointer"
+          className="px-2.5 py-1 border border-border bg-card hover:bg-sidebar rounded text-xs uppercase font-bold cursor-pointer"
           title="Clear Formatting"
         >
           Clear
@@ -233,7 +233,7 @@ export default function PageBuilderPage({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setShowFloatingAdd(!entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -245,7 +245,7 @@ export default function PageBuilderPage({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setShowFloatingSave(!entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -461,7 +461,10 @@ export default function PageBuilderPage({
       setBlocks((prev) => [...prev, newBlock]);
       // Scroll to the newly added block after a brief paint delay
       setTimeout(() => {
-        newBlockRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        newBlockRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }, 120);
     } catch (err: any) {
       alert(`Failed to add component: ${err.message}`);
@@ -615,7 +618,7 @@ export default function PageBuilderPage({
       <div className="flex h-[50vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border border-primary border-t-transparent" />
-          <span className="font-mono text-[9px] uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted">
             Loading CMS Builder...
           </span>
         </div>
@@ -643,7 +646,7 @@ export default function PageBuilderPage({
               router.push("/dashboard/reports");
             }
           }}
-          className="flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors border border-border bg-card px-2.5 py-1"
+          className="flex items-center gap-1 text-xs font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors border border-border bg-card px-2.5 py-1"
         >
           <ChevronLeft className="h-3 w-3" />
           Back to Report Editor
@@ -654,7 +657,7 @@ export default function PageBuilderPage({
       <div className="border border-border bg-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between shadow-xs gap-3">
         <div className="flex items-center gap-3">
           <div>
-            <div className="mb-1 flex items-center gap-2 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
               <span>Chapter page</span>
               <span>/</span>
               <span className="text-primary font-bold">{page.title}</span>
@@ -665,7 +668,7 @@ export default function PageBuilderPage({
           </div>
 
           <span
-            className={`inline-flex items-center text-[8px] font-mono font-bold py-0.5 px-1.5 border leading-none ${
+            className={`inline-flex items-center text-xs font-mono font-bold py-0.5 px-1.5 border leading-none ${
               isPublished
                 ? "bg-green-50 border-green-200 text-green-700"
                 : "bg-yellow-50 border-yellow-200 text-yellow-700"
@@ -679,7 +682,7 @@ export default function PageBuilderPage({
           <button
             ref={addBlockBtnRef}
             onClick={() => setShowCatalog(true)}
-            className="border border-border bg-card px-3 py-1.5 font-mono text-[10px] uppercase hover:bg-sidebar transition-colors flex items-center justify-center gap-1 cursor-pointer"
+            className="border border-border bg-card px-3 py-1.5 font-mono text-xs uppercase hover:bg-sidebar transition-colors flex items-center justify-center gap-1 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             Add Block
@@ -688,7 +691,7 @@ export default function PageBuilderPage({
           <button
             onClick={handleSaveAsDraft}
             disabled={savingDraft || savingPage}
-            className="border border-border bg-card px-3 py-1.5 font-mono text-[10px] uppercase hover:bg-sidebar transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer text-muted"
+            className="border border-border bg-card px-3 py-1.5 font-mono text-xs uppercase hover:bg-sidebar transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer text-muted"
           >
             <Save className="h-3.5 w-3.5" />
             {savingDraft ? "Saving..." : "Save as Draft"}
@@ -698,7 +701,7 @@ export default function PageBuilderPage({
             ref={saveBtnRef}
             onClick={handleSavePageBlocks}
             disabled={savingPage || savingDraft}
-            className="border border-primary bg-primary px-4 py-1.5 font-mono text-[10px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer font-bold"
+            className="bg-primary px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer font-bold"
           >
             <Save className="h-4 w-4" />
             {savingPage ? "Publishing..." : "Publish Chapter"}
@@ -713,8 +716,8 @@ export default function PageBuilderPage({
       )}
 
       {/* ── Page properties configuration ── */}
-      <div className="border border-border bg-card p-6 shadow-sm relative">
-        <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+      <div className="border border-border bg-card p-6 rounded-2xl relative">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
           * CHAPTER CONFIG
         </span>
 
@@ -725,7 +728,7 @@ export default function PageBuilderPage({
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <div className="space-y-1">
-              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                 Page Title
               </label>
               <input
@@ -738,7 +741,7 @@ export default function PageBuilderPage({
             </div>
 
             <div className="space-y-1">
-              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                 SEO Meta Title
               </label>
               <input
@@ -751,7 +754,7 @@ export default function PageBuilderPage({
 
             <div className="flex items-center h-full pt-4 md:pl-4">
               <span
-                className={`inline-flex items-center text-[8px] font-mono font-bold py-0.5 px-2 border leading-none ${
+                className={`inline-flex items-center text-xs font-mono font-bold py-0.5 px-2 border leading-none ${
                   isPublished
                     ? "bg-green-50 border-green-200 text-green-700"
                     : "bg-yellow-50 border-yellow-200 text-yellow-700"
@@ -762,7 +765,7 @@ export default function PageBuilderPage({
             </div>
 
             <div className="space-y-1 sm:col-span-2 md:col-span-3">
-              <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                 SEO Meta Description
               </label>
               <textarea
@@ -786,7 +789,7 @@ export default function PageBuilderPage({
                 <button
                   onClick={handleSaveAsDraft}
                   disabled={savingDraft || savingPage}
-                  className="flex items-center gap-2 bg-card border border-border text-primary px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest shadow-lg hover:bg-sidebar transition-all rounded-sm disabled:opacity-50"
+                  className="flex items-center gap-2 bg-card border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase tracking-widest shadow-lg hover:bg-sidebar transition-all rounded-sm disabled:opacity-50"
                 >
                   <Save className="h-3.5 w-3.5" />
                   {savingDraft ? "Saving..." : "Save as Draft"}
@@ -794,7 +797,7 @@ export default function PageBuilderPage({
                 <button
                   onClick={handleSavePageBlocks}
                   disabled={savingPage || savingDraft}
-                  className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest shadow-lg hover:bg-active transition-all border border-primary/20 rounded-sm disabled:opacity-50"
+                  className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 font-mono text-xs uppercase tracking-widest shadow-lg hover:bg-active transition-all border border-primary/20 rounded-sm disabled:opacity-50"
                 >
                   <Save className="h-4 w-4" />
                   {savingPage ? "Publishing..." : "Publish Chapter"}
@@ -804,7 +807,7 @@ export default function PageBuilderPage({
             {showFloatingAdd && (
               <button
                 onClick={() => setShowCatalog(true)}
-                className="flex items-center gap-2 bg-sidebar border border-border text-primary px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest shadow-lg hover:bg-card transition-all rounded-sm"
+                className="flex items-center gap-2 bg-sidebar border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase tracking-widest shadow-lg hover:bg-card transition-all rounded-sm"
               >
                 <Plus className="h-4 w-4" />
                 Add Block
@@ -837,12 +840,12 @@ export default function PageBuilderPage({
                 {/* Component Toolbar */}
                 <div className="flex items-center justify-between mb-4 border-b border-border/60 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                       * COMPONENT {String(index + 1).padStart(2, "0")} :{" "}
                       {block.blockType.toUpperCase()}
                     </span>
                     {!block.isVisible && (
-                      <span className="font-mono text-[8px] uppercase text-red-500 border border-red-200 bg-red-50 px-1 py-0.5">
+                      <span className="font-mono text-xs uppercase text-red-500 border border-red-200 bg-red-50 px-1 py-0.5">
                         Hidden
                       </span>
                     )}
@@ -908,7 +911,7 @@ export default function PageBuilderPage({
                 {isEditingRaw ? (
                   // RAW JSON SCHEMA EDITOR
                   <div className="space-y-4">
-                    <div className="bg-red-50 p-2 text-[9px] font-mono text-red-700 uppercase border border-red-200">
+                    <div className="bg-red-50 p-2 text-xs font-mono text-red-700 uppercase border border-red-200">
                       * WARNING: INCORRECT SCHEMA FORMATS WILL PREVENT THE SITE
                       FROM BUILDING.
                     </div>
@@ -921,13 +924,13 @@ export default function PageBuilderPage({
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => setRawJsonEditId(null)}
-                        className="border border-border bg-card px-3 py-1 font-mono text-[9px] uppercase hover:bg-sidebar"
+                        className="border border-border bg-card px-3 py-1 font-mono text-xs uppercase hover:bg-sidebar"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={() => handleSaveRawJson(block.id)}
-                        className="border border-primary bg-primary px-3 py-1 font-mono text-[9px] uppercase text-white hover:bg-active"
+                        className="bg-primary px-3 py-1 font-mono text-xs uppercase text-white hover:bg-active"
                       >
                         Apply Schema
                       </button>
@@ -940,7 +943,7 @@ export default function PageBuilderPage({
                     {block.blockType === "heading" && (
                       <div className="grid gap-3 sm:grid-cols-6">
                         <div className="sm:col-span-1 space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Size
                           </label>
                           <select
@@ -962,7 +965,7 @@ export default function PageBuilderPage({
                           </select>
                         </div>
                         <div className="sm:col-span-3 space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Heading Text
                           </label>
                           <input
@@ -979,7 +982,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="sm:col-span-2 space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-normal">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-normal">
                             Alignment
                           </label>
                           <select
@@ -1004,7 +1007,7 @@ export default function PageBuilderPage({
                     {/* Paragraph Editor */}
                     {block.blockType === "paragraph" && (
                       <div className="space-y-1">
-                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                           Paragraph Content
                         </label>
                         <textarea
@@ -1026,7 +1029,7 @@ export default function PageBuilderPage({
                     {block.blockType === "cta_button" && (
                       <div className="grid gap-3 sm:grid-cols-3">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Button Label
                           </label>
                           <input
@@ -1043,7 +1046,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Redirect URL
                           </label>
                           <input
@@ -1060,7 +1063,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-normal">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-normal">
                             Button Design
                           </label>
                           <select
@@ -1089,7 +1092,7 @@ export default function PageBuilderPage({
                     {block.blockType === "kpi_card" && (
                       <div className="grid gap-3 sm:grid-cols-5">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Stat Label
                           </label>
                           <input
@@ -1106,7 +1109,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Numeric Value
                           </label>
                           <input
@@ -1123,7 +1126,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-normal">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-normal">
                             Prefix
                           </label>
                           <input
@@ -1141,7 +1144,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-normal">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-normal">
                             Suffix
                           </label>
                           <input
@@ -1159,7 +1162,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Description
                           </label>
                           <input
@@ -1182,7 +1185,7 @@ export default function PageBuilderPage({
                     {block.blockType === "stat_group" && (
                       <div className="grid gap-3 sm:grid-cols-3">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Box Title
                           </label>
                           <input
@@ -1199,7 +1202,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Box Description
                           </label>
                           <input
@@ -1216,7 +1219,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-normal">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-normal">
                             Select Icon
                           </label>
                           <select
@@ -1243,7 +1246,7 @@ export default function PageBuilderPage({
                     {block.blockType === "map" && (
                       <div className="grid gap-3 sm:grid-cols-2">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Focus State Territory
                           </label>
                           <select
@@ -1268,7 +1271,7 @@ export default function PageBuilderPage({
                           </select>
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Zoom Index (1-10)
                           </label>
                           <input
@@ -1290,7 +1293,7 @@ export default function PageBuilderPage({
                     {/* Bullet List Editor */}
                     {block.blockType === "list" && (
                       <div className="space-y-3">
-                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                           Bullet Items
                         </label>
                         <div className="space-y-2">
@@ -1347,7 +1350,7 @@ export default function PageBuilderPage({
                                 newItems,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1 font-mono text-xs uppercase tracking-wider flex items-center gap-1 mt-2 text-muted"
                           >
                             <Plus className="h-3 w-3" /> Add Bullet Item
                           </button>
@@ -1359,7 +1362,7 @@ export default function PageBuilderPage({
                     {block.blockType === "quote" && (
                       <div className="space-y-3">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Quote Statement
                           </label>
                           <textarea
@@ -1376,7 +1379,7 @@ export default function PageBuilderPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Speaker / Consultation Source
                           </label>
                           <input
@@ -1400,7 +1403,7 @@ export default function PageBuilderPage({
                       <div className="space-y-3">
                         <div className="grid gap-3 sm:grid-cols-3">
                           <div className="space-y-1">
-                            <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                               Chart Title
                             </label>
                             <input
@@ -1417,7 +1420,7 @@ export default function PageBuilderPage({
                             />
                           </div>
                           <div className="space-y-1">
-                            <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                               Chart Type
                             </label>
                             <select
@@ -1437,7 +1440,7 @@ export default function PageBuilderPage({
                             </select>
                           </div>
                           <div className="space-y-1">
-                            <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                               Source Note
                             </label>
                             <input
@@ -1458,7 +1461,7 @@ export default function PageBuilderPage({
 
                         {/* Chart Dataset Grid */}
                         <div className="space-y-2 border-t border-border/40 pt-3">
-                          <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Chart Datasets
                           </span>
 
@@ -1543,7 +1546,7 @@ export default function PageBuilderPage({
                                 newData,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1 font-mono text-xs uppercase tracking-wider flex items-center gap-1 mt-2 text-muted"
                           >
                             <Plus className="h-3 w-3" /> Add Data Row
                           </button>
@@ -1556,7 +1559,7 @@ export default function PageBuilderPage({
                       <div className="space-y-4">
                         <div className="grid gap-3 sm:grid-cols-3">
                           <div className="space-y-1">
-                            <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                               Columns Per Row
                             </label>
                             <select
@@ -1578,7 +1581,7 @@ export default function PageBuilderPage({
                           </div>
                         </div>
 
-                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold border-t border-border/40 pt-3">
+                        <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold border-t border-border/40 pt-3">
                           Cards Layout Items
                         </span>
 
@@ -1599,7 +1602,7 @@ export default function PageBuilderPage({
                                 className="border border-border p-4 bg-sidebar/25 relative space-y-3"
                               >
                                 <div className="flex justify-between items-center border-b border-border/40 pb-2">
-                                  <span className="font-mono text-[8px] uppercase text-muted font-semibold">
+                                  <span className="font-mono text-xs uppercase text-muted font-semibold">
                                     Card #{i + 1}
                                   </span>
                                   <button
@@ -1624,7 +1627,7 @@ export default function PageBuilderPage({
 
                                 <div className="grid gap-3 sm:grid-cols-4">
                                   <div className="space-y-1">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Badge/Num
                                     </label>
                                     <input
@@ -1649,7 +1652,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-3">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Card Title
                                     </label>
                                     <input
@@ -1673,7 +1676,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-4">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Card Tags (Comma-separated)
                                     </label>
                                     <input
@@ -1723,7 +1726,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-4">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Card Description
                                     </label>
                                     <textarea
@@ -1771,7 +1774,7 @@ export default function PageBuilderPage({
                                 newCards,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-xs uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
                           >
                             <Plus className="h-3 w-3" /> Add Grid Card
                           </button>
@@ -1779,7 +1782,7 @@ export default function PageBuilderPage({
 
                         {/* Visual Preview */}
                         <div className="border-t border-border/40 pt-4 space-y-2">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
                           <div
@@ -1792,14 +1795,14 @@ export default function PageBuilderPage({
                                   className="border border-border p-4 bg-[#fdfdfc] rounded-sm space-y-2 shadow-xs"
                                 >
                                   <div className="flex items-start gap-2">
-                                    <span className="font-mono text-[10px] text-muted/60 font-bold">
+                                    <span className="font-mono text-xs text-muted/60 font-bold">
                                       {card.number}
                                     </span>
                                   </div>
                                   <h4 className="text-xs font-bold text-primary uppercase leading-tight font-sans">
                                     {card.title}
                                   </h4>
-                                  <p className="text-[11px] text-muted leading-relaxed font-sans">
+                                  <p className="text-xs text-muted leading-relaxed font-sans">
                                     {card.description}
                                   </p>
                                   {(card.tags || []).length > 0 && (
@@ -1808,7 +1811,7 @@ export default function PageBuilderPage({
                                         (tag: string, tIdx: number) => (
                                           <span
                                             key={tIdx}
-                                            className="px-1.5 py-0.5 bg-[#f4f2ee] border border-border/60 text-primary text-[8px] font-mono leading-none rounded"
+                                            className="px-1.5 py-0.5 bg-[#f4f2ee] border border-border/60 text-primary text-xs font-mono leading-none rounded"
                                           >
                                             {tag}
                                           </span>
@@ -1828,7 +1831,7 @@ export default function PageBuilderPage({
                     {block.blockType === "tags" && (
                       <div className="space-y-4">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                             Prefix Label
                           </label>
                           <input
@@ -1847,7 +1850,7 @@ export default function PageBuilderPage({
                         </div>
 
                         <div className="space-y-2">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Tags List
                           </label>
                           <div className="flex flex-wrap gap-2 items-center">
@@ -1917,7 +1920,7 @@ export default function PageBuilderPage({
                                   input.value = "";
                                 }
                               }}
-                              className="border border-border bg-card hover:bg-sidebar px-3 py-1 font-mono text-[9px] uppercase"
+                              className="border border-border bg-card hover:bg-sidebar px-3 py-1 font-mono text-xs uppercase"
                             >
                               Add
                             </button>
@@ -1926,11 +1929,11 @@ export default function PageBuilderPage({
 
                         {/* Visual Preview */}
                         <div className="border-t border-border/40 pt-4 space-y-2">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
                           <div className="flex flex-wrap items-center gap-2 border border-border/40 p-4 bg-[#fcfcfb]">
-                            <span className="font-mono text-[9px] uppercase tracking-widest text-muted mr-2 font-bold">
+                            <span className="font-mono text-xs uppercase tracking-widest text-muted mr-2 font-bold">
                               {block.content.prefix || "ON THIS PAGE"}
                             </span>
                             {(block.content.tags || []).map(
@@ -1951,7 +1954,7 @@ export default function PageBuilderPage({
                     {/* Strategy Card Component Editor */}
                     {block.blockType === "strategy_card" && (
                       <div className="space-y-4">
-                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                        <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                           Strategies List
                         </span>
 
@@ -1963,7 +1966,7 @@ export default function PageBuilderPage({
                                 className="border border-border p-4 bg-sidebar/25 relative space-y-3"
                               >
                                 <div className="flex justify-between items-center border-b border-border/40 pb-2">
-                                  <span className="font-mono text-[8px] uppercase text-muted font-semibold">
+                                  <span className="font-mono text-xs uppercase text-muted font-semibold">
                                     Strategy #{i + 1}
                                   </span>
                                   <button
@@ -1988,7 +1991,7 @@ export default function PageBuilderPage({
 
                                 <div className="grid gap-3 sm:grid-cols-4">
                                   <div className="space-y-1">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Badge/Num
                                     </label>
                                     <input
@@ -2013,7 +2016,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-3">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Strategy Title
                                     </label>
                                     <input
@@ -2037,7 +2040,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-4">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Breadcrumbs (Comma-separated)
                                     </label>
                                     <input
@@ -2088,7 +2091,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-2">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Deliverable
                                     </label>
                                     <input
@@ -2113,7 +2116,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1 sm:col-span-2">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Timeline
                                     </label>
                                     <input
@@ -2163,7 +2166,7 @@ export default function PageBuilderPage({
                                 newStrats,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-xs uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
                           >
                             <Plus className="h-3 w-3" /> Add Strategy Card
                           </button>
@@ -2171,7 +2174,7 @@ export default function PageBuilderPage({
 
                         {/* Visual Preview */}
                         <div className="border-t border-border/40 pt-4 space-y-2">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
                           <div className="space-y-4">
@@ -2189,7 +2192,7 @@ export default function PageBuilderPage({
                                       <h4 className="text-sm font-bold text-primary font-sans leading-snug">
                                         {strat.title}
                                       </h4>
-                                      <div className="flex flex-wrap items-center gap-1.5 text-[9px] font-mono text-muted">
+                                      <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono text-muted">
                                         {(strat.breadcrumbs || []).map(
                                           (bc: string, bIdx: number) => (
                                             <React.Fragment key={bIdx}>
@@ -2207,7 +2210,7 @@ export default function PageBuilderPage({
                                       </div>
                                     </div>
                                   </div>
-                                  <div className="border-t border-border/40 pt-3 flex justify-between items-center text-[10px] font-mono text-muted">
+                                  <div className="border-t border-border/40 pt-3 flex justify-between items-center text-xs font-mono text-muted">
                                     <span>
                                       Deliverable ·{" "}
                                       <strong className="text-primary font-normal">
@@ -2229,7 +2232,7 @@ export default function PageBuilderPage({
                     {/* Numbered List with Theme Component Editor */}
                     {block.blockType === "numbered_list_theme" && (
                       <div className="space-y-4">
-                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                        <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                           Themes & Sub-lists
                         </span>
 
@@ -2241,7 +2244,7 @@ export default function PageBuilderPage({
                                 className="border border-border p-4 bg-sidebar/25 relative space-y-3"
                               >
                                 <div className="flex justify-between items-center border-b border-border/40 pb-2">
-                                  <span className="font-mono text-[8px] uppercase text-muted font-semibold">
+                                  <span className="font-mono text-xs uppercase text-muted font-semibold">
                                     Theme Grid #{tIdx + 1}
                                   </span>
                                   <button
@@ -2266,7 +2269,7 @@ export default function PageBuilderPage({
 
                                 <div className="grid gap-3 sm:grid-cols-4">
                                   <div className="space-y-1 sm:col-span-3">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Theme Title
                                     </label>
                                     <input
@@ -2290,7 +2293,7 @@ export default function PageBuilderPage({
                                     />
                                   </div>
                                   <div className="space-y-1">
-                                    <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                       Count Text (e.g. total)
                                     </label>
                                     <input
@@ -2318,7 +2321,7 @@ export default function PageBuilderPage({
 
                                 {/* Nested items inside this theme */}
                                 <div className="space-y-2 border-t border-border/40 pt-3">
-                                  <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                                  <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                                     List Items
                                   </span>
                                   {(theme.items || []).map(
@@ -2435,7 +2438,7 @@ export default function PageBuilderPage({
                                         newThemes,
                                       );
                                     }}
-                                    className="border border-dashed border-border hover:bg-sidebar px-2 py-1 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
+                                    className="border border-dashed border-border hover:bg-sidebar px-2 py-1 font-mono text-xs uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
                                   >
                                     <Plus className="h-2.5 w-2.5" /> Add List
                                     Item
@@ -2467,7 +2470,7 @@ export default function PageBuilderPage({
                                 newThemes,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-xs uppercase tracking-wider flex items-center gap-1 mt-2 text-muted cursor-pointer"
                           >
                             <Plus className="h-3 w-3" /> Add Theme Section
                           </button>
@@ -2475,14 +2478,14 @@ export default function PageBuilderPage({
 
                         {/* Visual Preview */}
                         <div className="border-t border-border/40 pt-4 space-y-4">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
                           <div className="space-y-6">
                             {(block.content.themes || []).map(
                               (theme: any, tIdx: number) => (
                                 <div key={tIdx} className="space-y-3">
-                                  <div className="flex justify-between items-center border-b border-border/60 pb-1.5 font-mono text-[10px] text-primary uppercase font-bold tracking-wider">
+                                  <div className="flex justify-between items-center border-b border-border/60 pb-1.5 font-mono text-xs text-primary uppercase font-bold tracking-wider">
                                     <span>
                                       Theme {tIdx + 1} &nbsp;{theme.title}
                                     </span>
@@ -2497,7 +2500,7 @@ export default function PageBuilderPage({
                                           key={iIdx}
                                           className="py-3 flex gap-3.5 items-start first:pt-0 last:pb-0"
                                         >
-                                          <span className="w-6 h-6 bg-[#f4f2ee] border border-border/60 text-primary rounded flex items-center justify-center font-mono text-[10px] font-bold shrink-0">
+                                          <span className="w-6 h-6 bg-[#f4f2ee] border border-border/60 text-primary rounded flex items-center justify-center font-mono text-xs font-bold shrink-0">
                                             {item.number}
                                           </span>
                                           <span className="text-xs text-primary leading-relaxed font-sans">
@@ -2518,7 +2521,7 @@ export default function PageBuilderPage({
                     {/* KPI Dashboard Component Editor */}
                     {block.blockType === "kpi_dashboard" && (
                       <div className="space-y-4">
-                        <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                        <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                           KPI Stats Panel
                         </span>
 
@@ -2530,7 +2533,7 @@ export default function PageBuilderPage({
                                 className="border border-border p-3 bg-sidebar/20 relative grid gap-3 sm:grid-cols-3"
                               >
                                 <div className="space-y-1">
-                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                     Stat Value (e.g. +14% or 218,000)
                                   </label>
                                   <input
@@ -2555,7 +2558,7 @@ export default function PageBuilderPage({
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                     Descriptor Label
                                   </label>
                                   <input
@@ -2580,7 +2583,7 @@ export default function PageBuilderPage({
                                 </div>
 
                                 <div className="space-y-1 relative pr-8">
-                                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                     Subtext Context
                                   </label>
                                   <input
@@ -2643,7 +2646,7 @@ export default function PageBuilderPage({
                                 newKpis,
                               );
                             }}
-                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-[8px] uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
+                            className="border border-dashed border-border hover:bg-sidebar px-3 py-1.5 font-mono text-xs uppercase tracking-wider flex items-center gap-1 text-muted cursor-pointer"
                           >
                             <Plus className="h-3 w-3" /> Add KPI Statistic
                           </button>
@@ -2651,7 +2654,7 @@ export default function PageBuilderPage({
 
                         {/* Trend Chart Sparkline Configurations */}
                         <div className="border-t border-border/40 pt-4 space-y-3">
-                          <span className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                             Trend Sparkline Column
                           </span>
 
@@ -2671,7 +2674,7 @@ export default function PageBuilderPage({
                             />
                             <label
                               htmlFor={`show-trend-${block.id}`}
-                              className="font-mono text-[9px] uppercase tracking-wider text-primary cursor-pointer select-none"
+                              className="font-mono text-xs uppercase tracking-wider text-primary cursor-pointer select-none"
                             >
                               Include Trend Sparkline Column
                             </label>
@@ -2680,7 +2683,7 @@ export default function PageBuilderPage({
                           {block.content.showTrend && (
                             <div className="grid gap-3 sm:grid-cols-3 bg-sidebar/10 p-3 border border-border">
                               <div className="space-y-1">
-                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                   Trend Title
                                 </label>
                                 <input
@@ -2698,7 +2701,7 @@ export default function PageBuilderPage({
                               </div>
 
                               <div className="space-y-1">
-                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                   Trend Subtext Caption
                                 </label>
                                 <input
@@ -2716,7 +2719,7 @@ export default function PageBuilderPage({
                               </div>
 
                               <div className="space-y-1">
-                                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">
+                                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
                                   Data Coordinates (Comma-separated)
                                 </label>
                                 <input
@@ -2745,7 +2748,7 @@ export default function PageBuilderPage({
 
                         {/* Visual Preview */}
                         <div className="border-t border-border/40 pt-4 space-y-2">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
 
@@ -2780,10 +2783,10 @@ export default function PageBuilderPage({
                                       <div className="text-2xl font-bold tracking-tight text-primary leading-none font-sans">
                                         {kpi.value}
                                       </div>
-                                      <div className="font-mono text-[9px] uppercase tracking-wider text-primary font-bold">
+                                      <div className="font-mono text-xs uppercase tracking-wider text-primary font-bold">
                                         {kpi.label}
                                       </div>
-                                      <div className="font-mono text-[8px] text-muted">
+                                      <div className="font-mono text-xs text-muted">
                                         {kpi.subtext}
                                       </div>
                                     </div>
@@ -2791,7 +2794,7 @@ export default function PageBuilderPage({
                                 )}
                                 {block.content.showTrend && (
                                   <div className="p-5 md:col-span-1 space-y-2 flex flex-col justify-between min-h-24">
-                                    <span className="font-mono text-[8px] text-primary uppercase font-bold block leading-none">
+                                    <span className="font-mono text-xs text-primary uppercase font-bold block leading-none">
                                       {block.content.trendTitle ||
                                         "Projected workforce demand →"}
                                     </span>
@@ -2817,7 +2820,7 @@ export default function PageBuilderPage({
                                         />
                                       </svg>
                                     </div>
-                                    <span className="font-mono text-[8px] text-muted block leading-none">
+                                    <span className="font-mono text-xs text-muted block leading-none">
                                       {block.content.trendSubtext ||
                                         "significant growth projected"}
                                     </span>
@@ -2833,7 +2836,7 @@ export default function PageBuilderPage({
                     {/* Rich Text Editor */}
                     {block.blockType === "rich_text" && (
                       <div className="space-y-4">
-                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">
+                        <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
                           WYSIWYG Rich Text Content
                         </label>
                         <RichTextEditor
@@ -2843,7 +2846,7 @@ export default function PageBuilderPage({
                           }
                         />
                         <div className="border-t border-border/40 pt-4 space-y-2">
-                          <span className="block font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
+                          <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
                             * COMPONENT PREVIEW
                           </span>
                           <div
@@ -2869,7 +2872,7 @@ export default function PageBuilderPage({
       {showCatalog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * COMPONENTS LIBRARY
             </span>
 
@@ -2892,7 +2895,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <HeadingIcon className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Heading Title
                 </span>
               </div>
@@ -2903,7 +2906,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <Type className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Paragraph Text
                 </span>
               </div>
@@ -2914,7 +2917,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <LinkIcon className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Button / CTA
                 </span>
               </div>
@@ -2925,7 +2928,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <CheckCircle className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Number Box
                 </span>
               </div>
@@ -2936,7 +2939,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <HelpCircle className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Icon Box
                 </span>
               </div>
@@ -2947,7 +2950,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <MapPin className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Map Module
                 </span>
               </div>
@@ -2958,7 +2961,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <BarChart className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Graph / Chart
                 </span>
               </div>
@@ -2969,7 +2972,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <ListIcon className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Bullet List
                 </span>
               </div>
@@ -2980,7 +2983,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <MessageSquare className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Quote Card
                 </span>
               </div>
@@ -2991,7 +2994,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <CreditCard className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Cards Grid
                 </span>
               </div>
@@ -3002,7 +3005,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <Tag className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Tags List
                 </span>
               </div>
@@ -3013,7 +3016,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <Briefcase className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Strategy Cards
                 </span>
               </div>
@@ -3024,7 +3027,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <ListIcon className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Theme List
                 </span>
               </div>
@@ -3035,7 +3038,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <TrendingUp className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   KPI Dashboard
                 </span>
               </div>
@@ -3046,7 +3049,7 @@ export default function PageBuilderPage({
                 className="border border-border p-4 bg-sidebar/20 hover:border-primary cursor-pointer transition-colors flex flex-col items-center text-center gap-2"
               >
                 <FileText className="h-6 w-6 text-muted" />
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
                   Rich Text
                 </span>
               </div>

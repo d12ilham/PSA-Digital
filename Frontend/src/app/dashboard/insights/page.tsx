@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
-import { useReport } from '@/context/ReportContext';
-import { useAuth } from '@/context/AuthContext';
-import { 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  X, 
-  Activity, 
-  TrendingUp, 
-  Check, 
-  Info 
-} from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { api } from "@/lib/api";
+import { useReport } from "@/context/ReportContext";
+import { useAuth } from "@/context/AuthContext";
+import {
+  Plus,
+  Trash2,
+  Edit3,
+  X,
+  Activity,
+  TrendingUp,
+  Check,
+  Info,
+} from "lucide-react";
 
 interface Insight {
   id: string;
   reportId: string;
-  theme: 'theme_1' | 'theme_2' | 'theme_3';
+  theme: "theme_1" | "theme_2" | "theme_3";
   insightNumber: number;
   title: string;
   summary: string | null;
@@ -40,8 +40,10 @@ interface Driver {
 export default function InsightsManagementPage() {
   const { activeReport } = useReport();
   const { user } = useAuth();
-  
-  const [activeTab, setActiveTab] = useState<'insights' | 'drivers'>('insights');
+
+  const [activeTab, setActiveTab] = useState<"insights" | "drivers">(
+    "insights",
+  );
   const [insights, setInsights] = useState<Insight[]>([]);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [loading, setLoading] = useState(false);
@@ -54,22 +56,24 @@ export default function InsightsManagementPage() {
   const [editingDriver, setEditingDriver] = useState<Driver | null>(null);
 
   // Insight Form Fields
-  const [theme, setTheme] = useState<'theme_1' | 'theme_2' | 'theme_3'>('theme_1');
+  const [theme, setTheme] = useState<"theme_1" | "theme_2" | "theme_3">(
+    "theme_1",
+  );
   const [insightNumber, setInsightNumber] = useState<number>(1);
-  const [insightTitle, setInsightTitle] = useState('');
-  const [insightSummary, setInsightSummary] = useState('');
-  const [insightDetail, setInsightDetail] = useState('');
-  const [insightEvidence, setInsightEvidence] = useState('');
-  const [insightSourceNote, setInsightSourceNote] = useState('');
-  const [insightTagsText, setInsightTagsText] = useState('');
+  const [insightTitle, setInsightTitle] = useState("");
+  const [insightSummary, setInsightSummary] = useState("");
+  const [insightDetail, setInsightDetail] = useState("");
+  const [insightEvidence, setInsightEvidence] = useState("");
+  const [insightSourceNote, setInsightSourceNote] = useState("");
+  const [insightTagsText, setInsightTagsText] = useState("");
   const [isPublished, setIsPublished] = useState(false);
 
   // Driver Form Fields
-  const [driverTitle, setDriverTitle] = useState('');
-  const [driverDescription, setDriverDescription] = useState('');
-  const [driverTagsText, setDriverTagsText] = useState('');
+  const [driverTitle, setDriverTitle] = useState("");
+  const [driverDescription, setDriverDescription] = useState("");
+  const [driverTagsText, setDriverTagsText] = useState("");
 
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
     if (activeReport) {
@@ -80,16 +84,18 @@ export default function InsightsManagementPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      if (activeTab === 'insights') {
+      if (activeTab === "insights") {
         const res = await api.get<any>(`/reports/${activeReport!.id}/insights`);
-        const rows: Insight[] = Array.isArray(res) ? res : (res?.rows || []);
+        const rows: Insight[] = Array.isArray(res) ? res : res?.rows || [];
         setInsights(rows.sort((a, b) => a.insightNumber - b.insightNumber));
       } else {
-        const res = await api.get<Driver[]>(`/reports/${activeReport!.id}/insights/drivers`);
+        const res = await api.get<Driver[]>(
+          `/reports/${activeReport!.id}/insights/drivers`,
+        );
         setDrivers(res);
       }
     } catch (err) {
-      console.error('Failed to load data:', err);
+      console.error("Failed to load data:", err);
     } finally {
       setLoading(false);
     }
@@ -98,14 +104,14 @@ export default function InsightsManagementPage() {
   // INSIGHT ACTIONS
   const handleOpenAddInsight = () => {
     setEditingInsight(null);
-    setTheme('theme_1');
+    setTheme("theme_1");
     setInsightNumber(insights.length + 1);
-    setInsightTitle('');
-    setInsightSummary('');
-    setInsightDetail('');
-    setInsightEvidence('');
-    setInsightSourceNote('');
-    setInsightTagsText('');
+    setInsightTitle("");
+    setInsightSummary("");
+    setInsightDetail("");
+    setInsightEvidence("");
+    setInsightSourceNote("");
+    setInsightTagsText("");
     setIsPublished(true);
     setInsightModalOpen(true);
   };
@@ -115,11 +121,11 @@ export default function InsightsManagementPage() {
     setTheme(ins.theme);
     setInsightNumber(ins.insightNumber);
     setInsightTitle(ins.title);
-    setInsightSummary(ins.summary || '');
-    setInsightDetail(ins.detail || '');
-    setInsightEvidence(ins.evidenceText || '');
-    setInsightSourceNote(ins.sourceNote || '');
-    setInsightTagsText(ins.tags ? ins.tags.join(', ') : '');
+    setInsightSummary(ins.summary || "");
+    setInsightDetail(ins.detail || "");
+    setInsightEvidence(ins.evidenceText || "");
+    setInsightSourceNote(ins.sourceNote || "");
+    setInsightTagsText(ins.tags ? ins.tags.join(", ") : "");
     setIsPublished(ins.isPublished);
     setInsightModalOpen(true);
   };
@@ -129,9 +135,9 @@ export default function InsightsManagementPage() {
     if (!activeReport) return;
 
     const tagsArray = insightTagsText
-      .split(',')
-      .map(t => t.trim())
-      .filter(t => t.length > 0);
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
 
     const payload = {
       theme,
@@ -147,7 +153,10 @@ export default function InsightsManagementPage() {
 
     try {
       if (editingInsight) {
-        await api.patch(`/reports/${activeReport.id}/insights/${editingInsight.id}`, payload);
+        await api.patch(
+          `/reports/${activeReport.id}/insights/${editingInsight.id}`,
+          payload,
+        );
       } else {
         await api.post(`/reports/${activeReport.id}/insights`, {
           ...payload,
@@ -163,7 +172,8 @@ export default function InsightsManagementPage() {
 
   const handleDeleteInsight = async (insId: string) => {
     if (!activeReport) return;
-    if (!confirm('Are you sure you want to delete this workforce insight?')) return;
+    if (!confirm("Are you sure you want to delete this workforce insight?"))
+      return;
     try {
       await api.delete(`/reports/${activeReport.id}/insights/${insId}`);
       loadData();
@@ -175,17 +185,17 @@ export default function InsightsManagementPage() {
   // DRIVER ACTIONS
   const handleOpenAddDriver = () => {
     setEditingDriver(null);
-    setDriverTitle('');
-    setDriverDescription('');
-    setDriverTagsText('');
+    setDriverTitle("");
+    setDriverDescription("");
+    setDriverTagsText("");
     setDriverModalOpen(true);
   };
 
   const handleOpenEditDriver = (drv: Driver) => {
     setEditingDriver(drv);
     setDriverTitle(drv.title);
-    setDriverDescription(drv.description || '');
-    setDriverTagsText(drv.megatrendTags ? drv.megatrendTags.join(', ') : '');
+    setDriverDescription(drv.description || "");
+    setDriverTagsText(drv.megatrendTags ? drv.megatrendTags.join(", ") : "");
     setDriverModalOpen(true);
   };
 
@@ -194,9 +204,9 @@ export default function InsightsManagementPage() {
     if (!activeReport) return;
 
     const tagsArray = driverTagsText
-      .split(',')
-      .map(t => t.trim())
-      .filter(t => t.length > 0);
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
 
     const payload = {
       title: driverTitle,
@@ -206,7 +216,10 @@ export default function InsightsManagementPage() {
 
     try {
       if (editingDriver) {
-        await api.patch(`/reports/${activeReport.id}/insights/drivers/${editingDriver.id}`, payload);
+        await api.patch(
+          `/reports/${activeReport.id}/insights/drivers/${editingDriver.id}`,
+          payload,
+        );
       } else {
         await api.post(`/reports/${activeReport.id}/insights/drivers`, {
           ...payload,
@@ -222,7 +235,8 @@ export default function InsightsManagementPage() {
 
   const handleDeleteDriver = async (drvId: string) => {
     if (!activeReport) return;
-    if (!confirm('Are you sure you want to delete this Driver of Change?')) return;
+    if (!confirm("Are you sure you want to delete this Driver of Change?"))
+      return;
     try {
       await api.delete(`/reports/${activeReport.id}/insights/drivers/${drvId}`);
       loadData();
@@ -244,7 +258,7 @@ export default function InsightsManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Dataset</span>
@@ -257,33 +271,37 @@ export default function InsightsManagementPage() {
         </div>
 
         <button
-          onClick={activeTab === 'insights' ? handleOpenAddInsight : handleOpenAddDriver}
-          className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          onClick={
+            activeTab === "insights"
+              ? handleOpenAddInsight
+              : handleOpenAddDriver
+          }
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <Plus className="h-4 w-4" />
-          {activeTab === 'insights' ? 'Add Insight' : 'Add Driver'}
+          {activeTab === "insights" ? "Add Insight" : "Add Driver"}
         </button>
       </div>
 
       {/* ── Tabbed View Switches ── */}
       <div className="flex border-b border-border/80">
         <button
-          onClick={() => setActiveTab('insights')}
+          onClick={() => setActiveTab("insights")}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold border-b-2 transition-all ${
-            activeTab === 'insights' 
-              ? 'border-primary text-primary font-bold bg-sidebar/10' 
-              : 'border-transparent text-muted hover:text-primary'
+            activeTab === "insights"
+              ? "border-primary text-primary font-bold bg-sidebar/10"
+              : "border-transparent text-muted hover:text-primary"
           }`}
         >
           <Activity className="h-4 w-4" />
           Workforce Insights (Ch 05)
         </button>
         <button
-          onClick={() => setActiveTab('drivers')}
+          onClick={() => setActiveTab("drivers")}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold border-b-2 transition-all ${
-            activeTab === 'drivers' 
-              ? 'border-primary text-primary font-bold bg-sidebar/10' 
-              : 'border-transparent text-muted hover:text-primary'
+            activeTab === "drivers"
+              ? "border-primary text-primary font-bold bg-sidebar/10"
+              : "border-transparent text-muted hover:text-primary"
           }`}
         >
           <TrendingUp className="h-4 w-4" />
@@ -292,19 +310,24 @@ export default function InsightsManagementPage() {
       </div>
 
       {/* ── Main Data Table Card ── */}
-      <div className="border border-border bg-card p-6 shadow-sm relative">
-        <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
-          * {activeTab === 'insights' ? 'INSIGHTS DATA TABLE' : 'DRIVERS DATA TABLE'}
+      <div className="border border-border bg-card p-6 rounded-2xl relative">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          *{" "}
+          {activeTab === "insights"
+            ? "INSIGHTS DATA TABLE"
+            : "DRIVERS DATA TABLE"}
         </span>
 
         {loading ? (
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Loading data...</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                Loading data...
+              </span>
             </div>
           </div>
-        ) : activeTab === 'insights' ? (
+        ) : activeTab === "insights" ? (
           // WORKFORCE INSIGHTS LIST
           insights.length === 0 ? (
             <div className="text-center py-12 font-mono text-xs uppercase text-muted italic">
@@ -314,7 +337,7 @@ export default function InsightsManagementPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-border text-muted font-mono uppercase text-[9px] tracking-wider font-bold">
+                  <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
                     <th className="py-2.5 px-3">Num</th>
                     <th className="py-2.5 px-3">Theme</th>
                     <th className="py-2.5 px-3">Insight Title</th>
@@ -326,32 +349,45 @@ export default function InsightsManagementPage() {
                 <tbody className="divide-y divide-border/40">
                   {insights.map((ins) => (
                     <tr key={ins.id} className="hover:bg-sidebar/10">
-                      <td className="py-3 px-3 font-mono text-[10px] text-muted">
+                      <td className="py-3 px-3 font-mono text-xs text-muted">
                         #{ins.insightNumber}
                       </td>
                       <td className="py-3 px-3">
-                        <span className="wireframe-badge text-[7px] font-semibold">
-                          {ins.theme.replace('_', ' ').toUpperCase()}
+                        <span className="wireframe-badge text-xs font-semibold">
+                          {ins.theme.replace("_", " ").toUpperCase()}
                         </span>
                       </td>
                       <td className="py-3 px-3 max-w-sm">
-                        <div className="font-bold text-primary">{ins.title}</div>
+                        <div className="font-bold text-primary">
+                          {ins.title}
+                        </div>
                         {ins.summary && (
-                          <p className="text-[10px] text-muted line-clamp-1 mt-0.5">{ins.summary}</p>
+                          <p className="text-xs text-muted line-clamp-1 mt-0.5">
+                            {ins.summary}
+                          </p>
                         )}
                       </td>
                       <td className="py-3 px-3">
                         <div className="flex flex-wrap gap-1">
                           {ins.tags?.map((t, idx) => (
-                            <span key={idx} className="bg-sidebar px-1.5 py-0.5 border border-border/40 rounded-none text-[8px] font-mono text-muted">
+                            <span
+                              key={idx}
+                              className="bg-sidebar px-1.5 py-0.5 border border-border/40 rounded-none text-xs font-mono text-muted"
+                            >
                               {t}
                             </span>
-                          )) || <span className="text-[10px] text-muted italic">None</span>}
+                          )) || (
+                            <span className="text-xs text-muted italic">
+                              None
+                            </span>
+                          )}
                         </div>
                       </td>
                       <td className="py-3 px-3">
-                        <span className={`text-[8px] font-mono uppercase ${ins.isPublished ? 'text-green-700' : 'text-muted'}`}>
-                          {ins.isPublished ? 'published' : 'draft'}
+                        <span
+                          className={`text-xs font-mono uppercase ${ins.isPublished ? "text-green-700" : "text-muted"}`}
+                        >
+                          {ins.isPublished ? "published" : "draft"}
                         </span>
                       </td>
                       <td className="py-3 px-3 text-right">
@@ -378,65 +414,70 @@ export default function InsightsManagementPage() {
               </table>
             </div>
           )
+        ) : // DRIVERS OF CHANGE LIST
+        drivers.length === 0 ? (
+          <div className="text-center py-12 font-mono text-xs uppercase text-muted italic">
+            * No Drivers of Change records found. Create one.
+          </div>
         ) : (
-          // DRIVERS OF CHANGE LIST
-          drivers.length === 0 ? (
-            <div className="text-center py-12 font-mono text-xs uppercase text-muted italic">
-              * No Drivers of Change records found. Create one.
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-border text-muted font-mono uppercase text-[9px] tracking-wider font-bold">
-                    <th className="py-2.5 px-3">Driver Title</th>
-                    <th className="py-2.5 px-3">Description</th>
-                    <th className="py-2.5 px-3">Megatrends</th>
-                    <th className="py-2.5 px-3 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/40">
-                  {drivers.map((drv) => (
-                    <tr key={drv.id} className="hover:bg-sidebar/10">
-                      <td className="py-3 px-3 font-bold text-primary max-w-xs">
-                        {drv.title}
-                      </td>
-                      <td className="py-3 px-3 max-w-sm text-muted">
-                        {drv.description || 'N/A'}
-                      </td>
-                      <td className="py-3 px-3">
-                        <div className="flex flex-wrap gap-1">
-                          {drv.megatrendTags?.map((t, idx) => (
-                            <span key={idx} className="bg-sidebar px-1.5 py-0.5 border border-border/40 rounded-none text-[8px] font-mono text-muted">
-                              {t}
-                            </span>
-                          )) || <span className="text-[10px] text-muted italic">None</span>}
-                        </div>
-                      </td>
-                      <td className="py-3 px-3 text-right">
-                        <div className="flex justify-end gap-1.5">
-                          <button
-                            onClick={() => handleOpenEditDriver(drv)}
-                            className="p-1 border border-border bg-card hover:bg-sidebar text-muted"
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
+                  <th className="py-2.5 px-3">Driver Title</th>
+                  <th className="py-2.5 px-3">Description</th>
+                  <th className="py-2.5 px-3">Megatrends</th>
+                  <th className="py-2.5 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/40">
+                {drivers.map((drv) => (
+                  <tr key={drv.id} className="hover:bg-sidebar/10">
+                    <td className="py-3 px-3 font-bold text-primary max-w-xs">
+                      {drv.title}
+                    </td>
+                    <td className="py-3 px-3 max-w-sm text-muted">
+                      {drv.description || "N/A"}
+                    </td>
+                    <td className="py-3 px-3">
+                      <div className="flex flex-wrap gap-1">
+                        {drv.megatrendTags?.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-sidebar px-1.5 py-0.5 border border-border/40 rounded-none text-xs font-mono text-muted"
                           >
-                            <Edit3 className="h-3.5 w-3.5" />
+                            {t}
+                          </span>
+                        )) || (
+                          <span className="text-xs text-muted italic">
+                            None
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-3 px-3 text-right">
+                      <div className="flex justify-end gap-1.5">
+                        <button
+                          onClick={() => handleOpenEditDriver(drv)}
+                          className="p-1 border border-border bg-card hover:bg-sidebar text-muted"
+                        >
+                          <Edit3 className="h-3.5 w-3.5" />
+                        </button>
+                        {isAdmin && (
+                          <button
+                            onClick={() => handleDeleteDriver(drv.id)}
+                            className="p-1 border border-red-150 bg-[#fff5f5] hover:bg-red-50 text-red-500 hover:border-red-300"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
                           </button>
-                          {isAdmin && (
-                            <button
-                              onClick={() => handleDeleteDriver(drv.id)}
-                              className="p-1 border border-red-150 bg-[#fff5f5] hover:bg-red-50 text-red-500 hover:border-red-300"
-                            >
-                              <Trash2 className="h-3.5 w-3.5" />
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
@@ -444,15 +485,17 @@ export default function InsightsManagementPage() {
       {insightModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-xl border border-border bg-card shadow-lg p-6 relative max-h-[90vh] overflow-y-auto">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * INSIGHT DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
-                {editingInsight ? 'Modify Workforce Insight' : 'Create Workforce Insight'}
+                {editingInsight
+                  ? "Modify Workforce Insight"
+                  : "Create Workforce Insight"}
               </h3>
-              <button 
+              <button
                 onClick={() => setInsightModalOpen(false)}
                 className="p-1 border border-border hover:bg-sidebar text-muted"
               >
@@ -463,20 +506,30 @@ export default function InsightsManagementPage() {
             <form onSubmit={handleInsightSubmit} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Theme Block</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                    Theme Block
+                  </label>
                   <select
                     value={theme}
                     onChange={(e) => setTheme(e.target.value as any)}
                     className="w-full border border-border bg-card py-1.5 px-2 text-xs focus:outline-none"
                   >
-                    <option value="theme_1">Theme 1: Demographics / Tech</option>
-                    <option value="theme_2">Theme 2: Workforce Shortages</option>
-                    <option value="theme_3">Theme 3: Education & Training</option>
+                    <option value="theme_1">
+                      Theme 1: Demographics / Tech
+                    </option>
+                    <option value="theme_2">
+                      Theme 2: Workforce Shortages
+                    </option>
+                    <option value="theme_3">
+                      Theme 3: Education & Training
+                    </option>
                   </select>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Insight Number</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                    Insight Number
+                  </label>
                   <input
                     type="number"
                     value={insightNumber}
@@ -487,7 +540,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Insight Title</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Insight Title
+                </label>
                 <input
                   type="text"
                   required
@@ -499,7 +554,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Comma-Separated Tags</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Comma-Separated Tags
+                </label>
                 <input
                   type="text"
                   value={insightTagsText}
@@ -517,14 +574,16 @@ export default function InsightsManagementPage() {
                     onChange={(e) => setIsPublished(e.target.checked)}
                     className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
                   />
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-primary">
+                  <span className="font-mono text-xs uppercase tracking-wider text-primary">
                     Publish this Insight
                   </span>
                 </label>
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Summary Intro (Textarea)</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Summary Intro (Textarea)
+                </label>
                 <textarea
                   rows={2}
                   value={insightSummary}
@@ -534,7 +593,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Detailed Explanation (Rich text/Markdown compatible)</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Detailed Explanation (Rich text/Markdown compatible)
+                </label>
                 <textarea
                   rows={4}
                   value={insightDetail}
@@ -544,7 +605,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Supporting Evidence Text</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Supporting Evidence Text
+                </label>
                 <textarea
                   rows={2}
                   value={insightEvidence}
@@ -555,7 +618,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Source Citation Note</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Source Citation Note
+                </label>
                 <input
                   type="text"
                   value={insightSourceNote}
@@ -569,13 +634,13 @@ export default function InsightsManagementPage() {
                 <button
                   type="button"
                   onClick={() => setInsightModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
                 >
                   Save Insight
                 </button>
@@ -589,15 +654,17 @@ export default function InsightsManagementPage() {
       {driverModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * DRIVER DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
-                {editingDriver ? 'Modify Driver of Change' : 'Create Driver of Change'}
+                {editingDriver
+                  ? "Modify Driver of Change"
+                  : "Create Driver of Change"}
               </h3>
-              <button 
+              <button
                 onClick={() => setDriverModalOpen(false)}
                 className="p-1 border border-border hover:bg-sidebar text-muted"
               >
@@ -607,7 +674,9 @@ export default function InsightsManagementPage() {
 
             <form onSubmit={handleDriverSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Driver Title</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Driver Title
+                </label>
                 <input
                   type="text"
                   required
@@ -619,7 +688,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Megatrend Tags (Comma-Separated)</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Megatrend Tags (Comma-Separated)
+                </label>
                 <input
                   type="text"
                   value={driverTagsText}
@@ -630,7 +701,9 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Driver Description</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Driver Description
+                </label>
                 <textarea
                   rows={4}
                   value={driverDescription}
@@ -643,13 +716,13 @@ export default function InsightsManagementPage() {
                 <button
                   type="button"
                   onClick={() => setDriverModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
                 >
                   Save Driver
                 </button>
@@ -658,7 +731,6 @@ export default function InsightsManagementPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

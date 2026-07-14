@@ -1,42 +1,44 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
-import { useAuth, User } from '@/context/AuthContext';
-import { 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  X, 
-  Check, 
-  Users, 
-  Shield, 
-  UserPlus 
-} from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { api } from "@/lib/api";
+import { useAuth, User } from "@/context/AuthContext";
+import {
+  Plus,
+  Trash2,
+  Edit3,
+  X,
+  Check,
+  Users,
+  Shield,
+  UserPlus,
+} from "lucide-react";
 
 export default function UserManagementPage() {
   const { user: currentUser } = useAuth();
-  
+
   const [usersList, setUsersList] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Register New User Modal
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState<'admin' | 'editor' | 'viewer'>('editor');
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [role, setRole] = useState<"admin" | "editor" | "viewer">("editor");
+
   // Edit User Modal
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [editRole, setEditRole] = useState<'admin' | 'editor' | 'viewer'>('editor');
+  const [editRole, setEditRole] = useState<"admin" | "editor" | "viewer">(
+    "editor",
+  );
   const [editIsActive, setEditIsActive] = useState(true);
 
   const [submitting, setSubmitting] = useState(false);
 
-  const isAdmin = currentUser?.role === 'admin';
+  const isAdmin = currentUser?.role === "admin";
 
   useEffect(() => {
     if (isAdmin) {
@@ -47,10 +49,10 @@ export default function UserManagementPage() {
   const loadUsers = async () => {
     setLoading(true);
     try {
-      const res = await api.get<User[]>('/users');
+      const res = await api.get<User[]>("/users");
       setUsersList(res);
     } catch (err) {
-      console.error('Failed to load users list:', err);
+      console.error("Failed to load users list:", err);
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ export default function UserManagementPage() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/auth/register', {
+      await api.post("/auth/register", {
         email,
         password,
         firstName,
@@ -68,11 +70,11 @@ export default function UserManagementPage() {
         role,
       });
       setAddModalOpen(false);
-      setEmail('');
-      setPassword('');
-      setFirstName('');
-      setLastName('');
-      setRole('editor');
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setRole("editor");
       loadUsers();
     } catch (err: any) {
       alert(`Registration failed: ${err.message}`);
@@ -108,7 +110,7 @@ export default function UserManagementPage() {
 
   const handleToggleActive = async (user: User) => {
     if (user.id === currentUser?.id) {
-      alert('You cannot deactivate your own account.');
+      alert("You cannot deactivate your own account.");
       return;
     }
     const updatedStatus = !user.isActive;
@@ -126,9 +128,12 @@ export default function UserManagementPage() {
     return (
       <div className="flex h-[60vh] flex-col items-center justify-center border border-dashed border-border bg-sidebar/20 p-8 text-center">
         <Shield className="mb-4 h-8 w-8 text-red-500" />
-        <span className="font-mono text-xs uppercase tracking-wider text-red-500 mb-2">Access Denied</span>
+        <span className="font-mono text-xs uppercase tracking-wider text-red-500 mb-2">
+          Access Denied
+        </span>
         <p className="max-w-xs text-xs text-muted/80 leading-relaxed">
-          User Management functions are strictly restricted to system administrators. Please contact your administrator.
+          User Management functions are strictly restricted to system
+          administrators. Please contact your administrator.
         </p>
       </div>
     );
@@ -139,7 +144,7 @@ export default function UserManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Admin</span>
@@ -153,7 +158,7 @@ export default function UserManagementPage() {
 
         <button
           onClick={() => setAddModalOpen(true)}
-          className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <UserPlus className="h-4 w-4" />
           Add User Account
@@ -161,8 +166,8 @@ export default function UserManagementPage() {
       </div>
 
       {/* ── Users Table Card ── */}
-      <div className="border border-border bg-card p-6 shadow-sm relative">
-        <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+      <div className="border border-border bg-card p-6 rounded-2xl relative">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
           * SYSTEM ACCOUNTS INDEX
         </span>
 
@@ -170,7 +175,9 @@ export default function UserManagementPage() {
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Loading account data...</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                Loading account data...
+              </span>
             </div>
           </div>
         ) : usersList.length === 0 ? (
@@ -181,7 +188,7 @@ export default function UserManagementPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-border text-muted font-mono uppercase text-[9px] tracking-wider font-bold">
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
                   <th className="py-2.5 px-3">Full Name</th>
                   <th className="py-2.5 px-3">Email Address</th>
                   <th className="py-2.5 px-3">Authorization Role</th>
@@ -193,13 +200,14 @@ export default function UserManagementPage() {
                 {usersList.map((usr) => (
                   <tr key={usr.id} className="hover:bg-sidebar/10">
                     <td className="py-3 px-3 font-bold text-primary">
-                      {usr.firstName} {usr.lastName} {usr.id === currentUser?.id && ' (You)'}
+                      {usr.firstName} {usr.lastName}{" "}
+                      {usr.id === currentUser?.id && " (You)"}
                     </td>
-                    <td className="py-3 px-3 font-mono text-[10px] text-muted">
+                    <td className="py-3 px-3 font-mono text-xs text-muted">
                       {usr.email}
                     </td>
                     <td className="py-3 px-3">
-                      <span className="wireframe-badge text-[7px] font-semibold">
+                      <span className="wireframe-badge text-xs font-semibold">
                         {usr.role.toUpperCase()}
                       </span>
                     </td>
@@ -207,13 +215,13 @@ export default function UserManagementPage() {
                       <button
                         onClick={() => handleToggleActive(usr)}
                         disabled={usr.id === currentUser?.id}
-                        className={`text-[8px] font-mono uppercase border px-1.5 py-0.5 transition-colors disabled:opacity-50 ${
-                          usr.isActive 
-                            ? 'text-green-700 border-green-200 bg-green-50/50 hover:bg-green-50' 
-                            : 'text-red-700 border-red-200 bg-red-50/50 hover:bg-red-50'
+                        className={`text-xs font-mono uppercase border px-1.5 py-0.5 transition-colors disabled:opacity-50 ${
+                          usr.isActive
+                            ? "text-green-700 border-green-200 bg-green-50/50 hover:bg-green-50"
+                            : "text-red-700 border-red-200 bg-red-50/50 hover:bg-red-50"
                         }`}
                       >
-                        {usr.isActive ? 'Active' : 'Suspended'}
+                        {usr.isActive ? "Active" : "Suspended"}
                       </button>
                     </td>
                     <td className="py-3 px-3 text-right">
@@ -240,7 +248,7 @@ export default function UserManagementPage() {
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-md border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * REGISTER USER
             </span>
 
@@ -248,7 +256,7 @@ export default function UserManagementPage() {
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                 Register New Account
               </h3>
-              <button 
+              <button
                 onClick={() => setAddModalOpen(false)}
                 className="p-1 border border-border hover:bg-sidebar text-muted"
               >
@@ -259,7 +267,9 @@ export default function UserManagementPage() {
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">First Name</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    First Name
+                  </label>
                   <input
                     type="text"
                     required
@@ -270,7 +280,9 @@ export default function UserManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Last Name</label>
+                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    Last Name
+                  </label>
                   <input
                     type="text"
                     required
@@ -282,7 +294,9 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Email Address</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   required
@@ -294,7 +308,9 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Temporary Password</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  Temporary Password
+                </label>
                 <input
                   type="password"
                   required
@@ -306,13 +322,17 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Initial Role</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Initial Role
+                </label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as any)}
                   className="w-full border border-border bg-card py-1.5 px-2 text-xs focus:outline-none"
                 >
-                  <option value="editor">Editor (Can edit drafts/reports)</option>
+                  <option value="editor">
+                    Editor (Can edit drafts/reports)
+                  </option>
                   <option value="admin">Administrator (Full Control)</option>
                   <option value="viewer">Viewer (Read-only access)</option>
                 </select>
@@ -322,16 +342,16 @@ export default function UserManagementPage() {
                 <button
                   type="button"
                   onClick={() => setAddModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
                 >
-                  {submitting ? 'Registering...' : 'Register Account'}
+                  {submitting ? "Registering..." : "Register Account"}
                 </button>
               </div>
             </form>
@@ -343,7 +363,7 @@ export default function UserManagementPage() {
       {editModalOpen && editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-sm border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
               * ACCOUNT PRIVILEGES
             </span>
 
@@ -351,7 +371,7 @@ export default function UserManagementPage() {
               <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                 Edit User: {editingUser.firstName}
               </h3>
-              <button 
+              <button
                 onClick={() => setEditModalOpen(false)}
                 className="p-1 border border-border hover:bg-sidebar text-muted"
               >
@@ -361,7 +381,9 @@ export default function UserManagementPage() {
 
             <form onSubmit={handleUpdateUser} className="space-y-4">
               <div className="space-y-1">
-                <label className="block font-mono text-[8px] uppercase tracking-wider text-muted font-bold">Assign Role</label>
+                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  Assign Role
+                </label>
                 <select
                   value={editRole}
                   onChange={(e) => setEditRole(e.target.value as any)}
@@ -381,7 +403,7 @@ export default function UserManagementPage() {
                     onChange={(e) => setEditIsActive(e.target.checked)}
                     className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
                   />
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-primary">
+                  <span className="font-mono text-xs uppercase tracking-wider text-primary">
                     Active Account Status
                   </span>
                 </label>
@@ -391,23 +413,22 @@ export default function UserManagementPage() {
                 <button
                   type="button"
                   onClick={() => setEditModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
                 >
-                  {submitting ? 'Updating...' : 'Save Settings'}
+                  {submitting ? "Updating..." : "Save Settings"}
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
-
     </div>
   );
 }

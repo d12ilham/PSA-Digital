@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/context/AuthContext';
-import { api } from '@/lib/api';
-import { useToast } from '@/context/ToastContext';
-import MediaLibraryModal from '@/components/media/MediaLibraryModal';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { api } from "@/lib/api";
+import { useToast } from "@/context/ToastContext";
+import MediaLibraryModal from "@/components/media/MediaLibraryModal";
 import {
   Globe,
   ImageIcon,
@@ -17,8 +17,8 @@ import {
   FileText,
   Check,
   Loader2,
-  Settings
-} from 'lucide-react';
+  Settings,
+} from "lucide-react";
 
 interface Menu {
   id: string;
@@ -55,19 +55,19 @@ function slugify(text: string): string {
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
 export default function SiteSettingsPage() {
   const { user } = useAuth();
   const toast = useToast();
 
-  const isEditorOrAdmin = user?.role === 'admin' || user?.role === 'editor';
+  const isEditorOrAdmin = user?.role === "admin" || user?.role === "editor";
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'identity' | 'menus'>('identity');
+  const [activeTab, setActiveTab] = useState<"identity" | "menus">("identity");
 
   // ── 1. Site Identity State ──────────────────────────────────────────────────
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -75,51 +75,53 @@ export default function SiteSettingsPage() {
   const [savingSettings, setSavingSettings] = useState(false);
 
   // Identity Form Fields
-  const [siteTitle, setSiteTitle] = useState('');
-  const [siteDescription, setSiteDescription] = useState('');
-  const [logoLightUrl, setLogoLightUrl] = useState('');
-  const [logoDarkUrl, setLogoDarkUrl] = useState('');
-  const [faviconUrl, setFaviconUrl] = useState('');
+  const [siteTitle, setSiteTitle] = useState("");
+  const [siteDescription, setSiteDescription] = useState("");
+  const [logoLightUrl, setLogoLightUrl] = useState("");
+  const [logoDarkUrl, setLogoDarkUrl] = useState("");
+  const [faviconUrl, setFaviconUrl] = useState("");
 
   // Media Library Pickers State
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [pickerTarget, setPickerTarget] = useState<'logoLight' | 'logoDark' | 'favicon' | null>(null);
+  const [pickerTarget, setPickerTarget] = useState<
+    "logoLight" | "logoDark" | "favicon" | null
+  >(null);
 
   // ── 2. Navigation Menus State ───────────────────────────────────────────────
   const [menusList, setMenusList] = useState<Menu[]>([]);
   const [menusLoading, setMenusLoading] = useState(false);
-  
+
   // Selected Menu & Nested Items
-  const [selectedMenuId, setSelectedMenuId] = useState<string>('');
+  const [selectedMenuId, setSelectedMenuId] = useState<string>("");
   const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
   const [menuItemsTree, setMenuItemsTree] = useState<MenuItem[]>([]);
   const [menuItemsFlat, setMenuItemsFlat] = useState<MenuItem[]>([]);
   const [menuDetailLoading, setMenuDetailLoading] = useState(false);
 
   // Edit Menu Metadata Form
-  const [menuName, setMenuName] = useState('');
-  const [menuSlug, setMenuSlug] = useState('');
+  const [menuName, setMenuName] = useState("");
+  const [menuSlug, setMenuSlug] = useState("");
   const [savingMenuInfo, setSavingMenuInfo] = useState(false);
 
   // Create Menu Modal/Form
   const [showCreateMenu, setShowCreateMenu] = useState(false);
-  const [newMenuName, setNewMenuName] = useState('');
-  const [newMenuSlug, setNewMenuSlug] = useState('');
+  const [newMenuName, setNewMenuName] = useState("");
+  const [newMenuSlug, setNewMenuSlug] = useState("");
   const [creatingMenu, setCreatingMenu] = useState(false);
 
   // Add Item Form Fields
-  const [itemLabel, setItemLabel] = useState('');
-  const [itemUrl, setItemUrl] = useState('');
-  const [itemParentId, setItemParentId] = useState('');
-  const [itemSortOrder, setItemSortOrder] = useState('0');
+  const [itemLabel, setItemLabel] = useState("");
+  const [itemUrl, setItemUrl] = useState("");
+  const [itemParentId, setItemParentId] = useState("");
+  const [itemSortOrder, setItemSortOrder] = useState("0");
   const [addingItem, setAddingItem] = useState(false);
 
   // Edit Item Inline State
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
-  const [editItemLabel, setEditItemLabel] = useState('');
-  const [editItemUrl, setEditItemUrl] = useState('');
-  const [editItemParentId, setEditItemParentId] = useState('');
-  const [editItemSortOrder, setEditItemSortOrder] = useState('0');
+  const [editItemLabel, setEditItemLabel] = useState("");
+  const [editItemUrl, setEditItemUrl] = useState("");
+  const [editItemParentId, setEditItemParentId] = useState("");
+  const [editItemSortOrder, setEditItemSortOrder] = useState("0");
   const [savingItemEdit, setSavingItemEdit] = useState(false);
 
   // ── 3. Effects & Fetching ──────────────────────────────────────────────────
@@ -142,17 +144,17 @@ export default function SiteSettingsPage() {
   const fetchSiteSettings = async () => {
     setSettingsLoading(true);
     try {
-      const res = await api.get<SiteSettings>('/site-settings');
+      const res = await api.get<SiteSettings>("/site-settings");
       const data = res;
       setSettings(data);
-      setSiteTitle(data.title || '');
-      setSiteDescription(data.description || '');
-      setLogoLightUrl(data.logoLightUrl || '');
-      setLogoDarkUrl(data.logoDarkUrl || '');
-      setFaviconUrl(data.faviconUrl || '');
+      setSiteTitle(data.title || "");
+      setSiteDescription(data.description || "");
+      setLogoLightUrl(data.logoLightUrl || "");
+      setLogoDarkUrl(data.logoDarkUrl || "");
+      setFaviconUrl(data.faviconUrl || "");
     } catch (err: any) {
-      console.error('Fetch site settings failed:', err);
-      toast.error('Failed to load site identity settings');
+      console.error("Fetch site settings failed:", err);
+      toast.error("Failed to load site identity settings");
     } finally {
       setSettingsLoading(false);
     }
@@ -164,19 +166,19 @@ export default function SiteSettingsPage() {
     if (!isEditorOrAdmin) return;
     setSavingSettings(true);
     try {
-      const res = await api.patch<SiteSettings>('/site-settings', {
+      const res = await api.patch<SiteSettings>("/site-settings", {
         title: siteTitle,
         description: siteDescription,
         logoLightUrl: logoLightUrl || null,
         logoDarkUrl: logoDarkUrl || null,
-        faviconUrl: faviconUrl || null
+        faviconUrl: faviconUrl || null,
       });
       const data = res;
       setSettings(data);
-      toast.success('Site settings updated successfully');
+      toast.success("Site settings updated successfully");
     } catch (err: any) {
-      console.error('Save settings failed:', err);
-      toast.error(err.message || 'Failed to update site settings');
+      console.error("Save settings failed:", err);
+      toast.error(err.message || "Failed to update site settings");
     } finally {
       setSavingSettings(false);
     }
@@ -186,7 +188,7 @@ export default function SiteSettingsPage() {
   const fetchMenus = async () => {
     setMenusLoading(true);
     try {
-      const res = await api.get<Menu[]>('/menus');
+      const res = await api.get<Menu[]>("/menus");
       const list = res;
       setMenusList(list);
       // Select first menu if available and none selected
@@ -194,8 +196,8 @@ export default function SiteSettingsPage() {
         setSelectedMenuId(list[0].id);
       }
     } catch (err) {
-      console.error('Fetch menus failed:', err);
-      toast.error('Failed to load navigation menus');
+      console.error("Fetch menus failed:", err);
+      toast.error("Failed to load navigation menus");
     } finally {
       setMenusLoading(false);
     }
@@ -208,8 +210,8 @@ export default function SiteSettingsPage() {
       const res = await api.get<Menu & { items: MenuItem[] }>(`/menus/${id}`);
       const data = res;
       setSelectedMenu(data);
-      setMenuName(data.name || '');
-      setMenuSlug(data.slug || '');
+      setMenuName(data.name || "");
+      setMenuSlug(data.slug || "");
       setMenuItemsTree(data.items || []);
 
       // Build flat list for dropdown selectors
@@ -223,8 +225,8 @@ export default function SiteSettingsPage() {
       (data.items || []).forEach(traverse);
       setMenuItemsFlat(flat);
     } catch (err) {
-      console.error('Fetch menu details failed:', err);
-      toast.error('Failed to load menu items');
+      console.error("Fetch menu details failed:", err);
+      toast.error("Failed to load menu items");
     } finally {
       setMenuDetailLoading(true);
       setMenuDetailLoading(false);
@@ -239,15 +241,17 @@ export default function SiteSettingsPage() {
     try {
       const res = await api.patch(`/menus/${selectedMenu.id}`, {
         name: menuName,
-        slug: menuSlug
+        slug: menuSlug,
       });
       const updated = res;
-      toast.success('Menu configurations updated');
+      toast.success("Menu configurations updated");
       // Update in dropdown lists
-      setMenusList(prev => prev.map(m => m.id === updated.id ? updated : m));
+      setMenusList((prev) =>
+        prev.map((m) => (m.id === updated.id ? updated : m)),
+      );
       setSelectedMenu(updated);
     } catch (err: any) {
-      toast.error(err.message || 'Failed to update menu configs');
+      toast.error(err.message || "Failed to update menu configs");
     } finally {
       setSavingMenuInfo(false);
     }
@@ -256,16 +260,21 @@ export default function SiteSettingsPage() {
   // Delete Menu
   const handleDeleteMenu = async () => {
     if (!selectedMenu || !isEditorOrAdmin) return;
-    if (!confirm(`Are you sure you want to delete the menu "${selectedMenu.name}"? This will delete all its menu items and subitems.`)) return;
+    if (
+      !confirm(
+        `Are you sure you want to delete the menu "${selectedMenu.name}"? This will delete all its menu items and subitems.`,
+      )
+    )
+      return;
 
     try {
       await api.delete(`/menus/${selectedMenu.id}`);
-      toast.success('Menu deleted successfully');
-      const updatedList = menusList.filter(m => m.id !== selectedMenu.id);
+      toast.success("Menu deleted successfully");
+      const updatedList = menusList.filter((m) => m.id !== selectedMenu.id);
       setMenusList(updatedList);
-      setSelectedMenuId(updatedList.length > 0 ? updatedList[0].id : '');
+      setSelectedMenuId(updatedList.length > 0 ? updatedList[0].id : "");
     } catch (err: any) {
-      toast.error(err.message || 'Failed to delete menu');
+      toast.error(err.message || "Failed to delete menu");
     }
   };
 
@@ -275,19 +284,19 @@ export default function SiteSettingsPage() {
     if (!newMenuName.trim() || !newMenuSlug.trim() || !isEditorOrAdmin) return;
     setCreatingMenu(true);
     try {
-      const res = await api.post<Menu>('/menus', {
+      const res = await api.post<Menu>("/menus", {
         name: newMenuName,
-        slug: newMenuSlug
+        slug: newMenuSlug,
       });
       const created = res;
       toast.success(`Menu "${created.name}" created`);
-      setMenusList(prev => [...prev, created]);
+      setMenusList((prev) => [...prev, created]);
       setSelectedMenuId(created.id);
       setShowCreateMenu(false);
-      setNewMenuName('');
-      setNewMenuSlug('');
+      setNewMenuName("");
+      setNewMenuSlug("");
     } catch (err: any) {
-      toast.error(err.message || 'Failed to create menu');
+      toast.error(err.message || "Failed to create menu");
     } finally {
       setCreatingMenu(false);
     }
@@ -296,23 +305,29 @@ export default function SiteSettingsPage() {
   // Add Item to active Menu
   const handleAddMenuItem = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedMenu || !itemLabel.trim() || !itemUrl.trim() || !isEditorOrAdmin) return;
+    if (
+      !selectedMenu ||
+      !itemLabel.trim() ||
+      !itemUrl.trim() ||
+      !isEditorOrAdmin
+    )
+      return;
     setAddingItem(true);
     try {
       await api.post(`/menus/${selectedMenu.id}/items`, {
         label: itemLabel,
         url: itemUrl,
         parentId: itemParentId || null,
-        sortOrder: Number(itemSortOrder) || 0
+        sortOrder: Number(itemSortOrder) || 0,
       });
-      toast.success('Menu item added successfully');
-      setItemLabel('');
-      setItemUrl('');
-      setItemParentId('');
-      setItemSortOrder('0');
+      toast.success("Menu item added successfully");
+      setItemLabel("");
+      setItemUrl("");
+      setItemParentId("");
+      setItemSortOrder("0");
       fetchMenuDetails(selectedMenu.id);
     } catch (err: any) {
-      toast.error(err.message || 'Failed to add menu item');
+      toast.error(err.message || "Failed to add menu item");
     } finally {
       setAddingItem(false);
     }
@@ -323,7 +338,7 @@ export default function SiteSettingsPage() {
     setEditingItemId(item.id);
     setEditItemLabel(item.label);
     setEditItemUrl(item.url);
-    setEditItemParentId(item.parentId || '');
+    setEditItemParentId(item.parentId || "");
     setEditItemSortOrder(String(item.sortOrder));
   };
 
@@ -337,13 +352,13 @@ export default function SiteSettingsPage() {
         label: editItemLabel,
         url: editItemUrl,
         parentId: editItemParentId || null,
-        sortOrder: Number(editItemSortOrder) || 0
+        sortOrder: Number(editItemSortOrder) || 0,
       });
-      toast.success('Menu item updated');
+      toast.success("Menu item updated");
       setEditingItemId(null);
       fetchMenuDetails(selectedMenu.id);
     } catch (err: any) {
-      toast.error(err.message || 'Failed to update menu item');
+      toast.error(err.message || "Failed to update menu item");
     } finally {
       setSavingItemEdit(false);
     }
@@ -352,34 +367,39 @@ export default function SiteSettingsPage() {
   // Delete item from active Menu
   const handleDeleteMenuItem = async (itemId: string, label: string) => {
     if (!selectedMenu || !isEditorOrAdmin) return;
-    if (!confirm(`Are you sure you want to delete the item "${label}"? Any subitems nested inside it will also be deleted.`)) return;
+    if (
+      !confirm(
+        `Are you sure you want to delete the item "${label}"? Any subitems nested inside it will also be deleted.`,
+      )
+    )
+      return;
 
     try {
       await api.delete(`/menus/${selectedMenu.id}/items/${itemId}`);
-      toast.success('Menu item deleted');
+      toast.success("Menu item deleted");
       fetchMenuDetails(selectedMenu.id);
     } catch (err: any) {
-      toast.error(err.message || 'Failed to delete menu item');
+      toast.error(err.message || "Failed to delete menu item");
     }
   };
 
   // Trigger media library picker
-  const triggerPicker = (target: 'logoLight' | 'logoDark' | 'favicon') => {
+  const triggerPicker = (target: "logoLight" | "logoDark" | "favicon") => {
     setPickerTarget(target);
     setPickerOpen(true);
   };
 
   const handleSelectMedia = (url: string) => {
-    if (pickerTarget === 'logoLight') setLogoLightUrl(url);
-    if (pickerTarget === 'logoDark') setLogoDarkUrl(url);
-    if (pickerTarget === 'favicon') setFaviconUrl(url);
+    if (pickerTarget === "logoLight") setLogoLightUrl(url);
+    if (pickerTarget === "logoDark") setLogoDarkUrl(url);
+    if (pickerTarget === "favicon") setFaviconUrl(url);
   };
 
   return (
     <div className="space-y-8">
       {/* ── Breadcrumb & Title ── */}
       <div>
-        <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-muted">
+        <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
           <span>Home</span>
           <span>/</span>
           <span>Admin</span>
@@ -394,22 +414,22 @@ export default function SiteSettingsPage() {
       {/* ── Tab Selector ── */}
       <div className="flex border-b border-border gap-1 shrink-0">
         <button
-          onClick={() => setActiveTab('identity')}
+          onClick={() => setActiveTab("identity")}
           className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors border-t border-x -mb-[1px] ${
-            activeTab === 'identity'
-              ? 'bg-card text-primary border-border font-bold'
-              : 'bg-transparent border-transparent text-muted hover:text-primary'
+            activeTab === "identity"
+              ? "bg-card text-primary border-border font-bold"
+              : "bg-transparent border-transparent text-muted hover:text-primary"
           }`}
         >
           <Settings className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />
           Site Identity
         </button>
         <button
-          onClick={() => setActiveTab('menus')}
+          onClick={() => setActiveTab("menus")}
           className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors border-t border-x -mb-[1px] ${
-            activeTab === 'menus'
-              ? 'bg-card text-primary border-border font-bold'
-              : 'bg-transparent border-transparent text-muted hover:text-primary'
+            activeTab === "menus"
+              ? "bg-card text-primary border-border font-bold"
+              : "bg-transparent border-transparent text-muted hover:text-primary"
           }`}
         >
           <BookOpen className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />
@@ -419,237 +439,262 @@ export default function SiteSettingsPage() {
 
       {/* ── Tab Contents ── */}
       <div className="space-y-8">
-        
         {/* Tab 1: Site Identity */}
-        {activeTab === 'identity' && (
-          <div className="border border-border bg-card p-6 shadow-sm relative">
-            <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted font-bold">
-              * SITE CONFIGURATION
-            </span>
-            
-            <div className="flex items-center gap-2 mb-6 border-b border-border/60 pb-3">
-              <Globe className="h-5 w-5 text-muted" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-primary">
+        {activeTab === "identity" && (
+          <div className="dashboard-section-card">
+            <div className="dashboard-section-header">
+              <h2 className="flex items-center gap-2">
+                <Globe className="h-5 w-5 text-[#8AC900]" />
                 Manage General Identity
               </h2>
             </div>
 
-            {settingsLoading ? (
-              <div className="flex h-40 items-center justify-center">
-                <div className="flex flex-col items-center gap-2">
-                  <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                  <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Retrieving configurations...</span>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSaveSettings} className="space-y-6 max-w-4xl">
-                
-                {/* Site Title */}
-                <div className="space-y-1">
-                  <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                    Site Title *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={siteTitle}
-                    onChange={(e) => setSiteTitle(e.target.value)}
-                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
-                    placeholder="PSA Workforce Insights"
-                  />
-                </div>
-
-                {/* Site Description */}
-                <div className="space-y-1">
-                  <label className="block font-mono text-[9px] uppercase tracking-wider text-muted">
-                    Site Description
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={siteDescription}
-                    onChange={(e) => setSiteDescription(e.target.value)}
-                    className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none leading-relaxed"
-                    placeholder="Enter meta description for the site..."
-                  />
-                </div>
-
-                {/* Light & Dark Logo Grid */}
-                <div className="grid gap-6 sm:grid-cols-2">
-                  
-                  {/* Light Theme Logo */}
-                  <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
-                    <span className="block font-mono text-[9px] uppercase tracking-wider text-muted font-bold">
-                      Logo (Light Mode BG)
+            <div className="p-6">
+              {settingsLoading ? (
+                <div className="flex h-40 items-center justify-center">
+                  <div className="flex flex-col items-center gap-2">
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                      Retrieving configurations...
                     </span>
-                    <div className="border border-border/80 bg-card rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
-                      {logoLightUrl ? (
-                        <img src={logoLightUrl} alt="Light logo preview" className="max-h-full object-contain" />
-                      ) : (
-                        <span className="font-mono text-[7px] uppercase text-muted/50 italic">No Logo Selected</span>
-                      )}
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={() => triggerPicker('logoLight')}
-                        className="flex-1 font-mono text-[8px] uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
-                      >
-                        Choose Logo
-                      </button>
-                      {logoLightUrl && (
+                  </div>
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleSaveSettings}
+                  className="space-y-6 max-w-4xl"
+                >
+                  {/* Site Title */}
+                  <div className="space-y-1">
+                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      Site Title *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={siteTitle}
+                      onChange={(e) => setSiteTitle(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none"
+                      placeholder="PSA Workforce Insights"
+                    />
+                  </div>
+
+                  {/* Site Description */}
+                  <div className="space-y-1">
+                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      Site Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={siteDescription}
+                      onChange={(e) => setSiteDescription(e.target.value)}
+                      className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:border-primary focus:outline-none leading-relaxed"
+                      placeholder="Enter meta description for the site..."
+                    />
+                  </div>
+
+                  {/* Light & Dark Logo Grid */}
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    {/* Light Theme Logo */}
+                    <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                        Logo (Light Mode BG)
+                      </span>
+                      <div className="border border-border/80 bg-card rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
+                        {logoLightUrl ? (
+                          <img
+                            src={logoLightUrl}
+                            alt="Light logo preview"
+                            className="max-h-full object-contain"
+                          />
+                        ) : (
+                          <span className="font-mono text-xs uppercase text-muted/50 italic">
+                            No Logo Selected
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex gap-2">
                         <button
                           type="button"
-                          onClick={() => setLogoLightUrl('')}
-                          className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
+                          onClick={() => triggerPicker("logoLight")}
+                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
                         >
-                          <X className="h-3.5 w-3.5" />
+                          Choose Logo
                         </button>
-                      )}
+                        {logoLightUrl && (
+                          <button
+                            type="button"
+                            onClick={() => setLogoLightUrl("")}
+                            className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Dark Theme Logo */}
+                    <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                        Logo (Dark Mode BG)
+                      </span>
+                      <div className="border border-border/80 bg-primary rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
+                        {logoDarkUrl ? (
+                          <img
+                            src={logoDarkUrl}
+                            alt="Dark logo preview"
+                            className="max-h-full object-contain"
+                          />
+                        ) : (
+                          <span className="font-mono text-xs uppercase text-muted/30 italic">
+                            No Logo Selected
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => triggerPicker("logoDark")}
+                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
+                        >
+                          Choose Logo
+                        </button>
+                        {logoDarkUrl && (
+                          <button
+                            type="button"
+                            onClick={() => setLogoDarkUrl("")}
+                            className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Dark Theme Logo */}
-                  <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
-                    <span className="block font-mono text-[9px] uppercase tracking-wider text-muted font-bold">
-                      Logo (Dark Mode BG)
+                  {/* Favicon picker */}
+                  <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded max-w-xs">
+                    <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                      Browser Favicon
                     </span>
-                    <div className="border border-border/80 bg-primary rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
-                      {logoDarkUrl ? (
-                        <img src={logoDarkUrl} alt="Dark logo preview" className="max-h-full object-contain" />
-                      ) : (
-                        <span className="font-mono text-[7px] uppercase text-muted/30 italic">No Logo Selected</span>
-                      )}
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={() => triggerPicker('logoDark')}
-                        className="flex-1 font-mono text-[8px] uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
-                      >
-                        Choose Logo
-                      </button>
-                      {logoDarkUrl && (
+                    <div className="flex items-center gap-4">
+                      <div className="border border-border/80 bg-card rounded p-2 flex items-center justify-center h-12 w-12 shrink-0">
+                        {faviconUrl ? (
+                          <img
+                            src={faviconUrl}
+                            alt="Favicon"
+                            className="h-6 w-6 object-contain"
+                          />
+                        ) : (
+                          <Globe className="h-5 w-5 text-muted/30" />
+                        )}
+                      </div>
+                      <div className="flex-1 flex gap-2">
                         <button
                           type="button"
-                          onClick={() => setLogoDarkUrl('')}
-                          className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
+                          onClick={() => triggerPicker("favicon")}
+                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
                         >
-                          <X className="h-3.5 w-3.5" />
+                          Choose Favicon
                         </button>
-                      )}
+                        {faviconUrl && (
+                          <button
+                            type="button"
+                            onClick={() => setFaviconUrl("")}
+                            className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                </div>
-
-                {/* Favicon picker */}
-                <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded max-w-xs">
-                  <span className="block font-mono text-[9px] uppercase tracking-wider text-muted font-bold">
-                    Browser Favicon
-                  </span>
-                  <div className="flex items-center gap-4">
-                    <div className="border border-border/80 bg-card rounded p-2 flex items-center justify-center h-12 w-12 shrink-0">
-                      {faviconUrl ? (
-                        <img src={faviconUrl} alt="Favicon" className="h-6 w-6 object-contain" />
-                      ) : (
-                        <Globe className="h-5 w-5 text-muted/30" />
-                      )}
-                    </div>
-                    <div className="flex-1 flex gap-2">
+                  {/* Submit button */}
+                  {isEditorOrAdmin && (
+                    <div className="pt-4 flex justify-end border-t border-border/60">
                       <button
-                        type="button"
-                        onClick={() => triggerPicker('favicon')}
-                        className="flex-1 font-mono text-[8px] uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
+                        type="submit"
+                        disabled={savingSettings}
+                        className="bg-primary px-5 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5 font-bold"
                       >
-                        Choose Favicon
+                        <Save className="h-3.5 w-3.5" />
+                        {savingSettings
+                          ? "Saving..."
+                          : "Save Identity Settings"}
                       </button>
-                      {faviconUrl && (
-                        <button
-                          type="button"
-                          onClick={() => setFaviconUrl('')}
-                          className="px-2 py-1 text-red-500 border border-red-200 bg-red-50 hover:bg-red-100/50"
-                        >
-                          <X className="h-3.5 w-3.5" />
-                        </button>
-                      )}
                     </div>
-                  </div>
-                </div>
-
-                {/* Submit button */}
-                {isEditorOrAdmin && (
-                  <div className="pt-4 flex justify-end border-t border-border/60">
-                    <button
-                      type="submit"
-                      disabled={savingSettings}
-                      className="border border-primary bg-primary px-5 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5 font-bold"
-                    >
-                      <Save className="h-3.5 w-3.5" />
-                      {savingSettings ? 'Saving...' : 'Save Identity Settings'}
-                    </button>
-                  </div>
-                )}
-
-              </form>
-            )}
+                  )}
+                </form>
+              )}
+            </div>
           </div>
         )}
 
         {/* Tab 2: Navigation Menus */}
-        {activeTab === 'menus' && (
+        {activeTab === "menus" && (
           <div className="space-y-6">
-            
             {/* Header select toolbar */}
-            <div className="border border-border bg-card p-4 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-muted font-bold whitespace-nowrap">
-                  Select a menu to edit:
-                </span>
-                {menusLoading ? (
-                  <Loader2 className="h-3.5 w-3.5 animate-spin text-muted" />
-                ) : (
-                  <select
-                    value={selectedMenuId}
-                    onChange={(e) => setSelectedMenuId(e.target.value)}
-                    className="border border-border bg-[#fdfdfc] px-3 py-1 text-xs font-mono text-primary focus:outline-none cursor-pointer"
+            <div className="dashboard-section-card">
+              <div className="dashboard-section-header">
+                <h2 className="flex items-center gap-2">
+                  <BookOpen className="h-4.5 w-4.5 text-[#8AC900]" />
+                  Select Navigation Menu
+                </h2>
+              </div>
+              <div className="p-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-card">
+                <div className="flex items-center gap-3">
+                  <span className="font-sans text-xs uppercase tracking-widest text-muted font-bold whitespace-nowrap">
+                    Select a menu to edit:
+                  </span>
+                  {menusLoading ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-muted" />
+                  ) : (
+                    <select
+                      value={selectedMenuId}
+                      onChange={(e) => setSelectedMenuId(e.target.value)}
+                      className="border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none cursor-pointer"
+                    >
+                      <option value="">— Select Menu —</option>
+                      {menusList.map((m) => (
+                        <option key={m.id} value={m.id}>
+                          {m.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+
+                {isEditorOrAdmin && (
+                  <button
+                    onClick={() => setShowCreateMenu(true)}
+                    className="font-sans text-xs uppercase tracking-wider px-3 py-1.5 bg-primary text-white hover:bg-[#416102] transition-colors flex items-center gap-1 cursor-pointer font-bold shrink-0 rounded-lg"
                   >
-                    <option value="">— Select Menu —</option>
-                    {menusList.map(m => (
-                      <option key={m.id} value={m.id}>{m.name}</option>
-                    ))}
-                  </select>
+                    <Plus className="h-3 w-3" />
+                    Create New Menu
+                  </button>
                 )}
               </div>
-
-              {isEditorOrAdmin && (
-                <button
-                  onClick={() => setShowCreateMenu(true)}
-                  className="font-mono text-[9px] uppercase tracking-wider px-3 py-1.5 border border-primary bg-primary text-white hover:bg-active transition-colors flex items-center gap-1 cursor-pointer font-bold shrink-0"
-                >
-                  <Plus className="h-3 w-3" />
-                  Create New Menu
-                </button>
-              )}
             </div>
 
             {/* Menu configuration container */}
             {selectedMenu ? (
               <div className="grid gap-8 lg:grid-cols-3">
-                
                 {/* Menu Details & Add Items Panel */}
                 <div className="lg:col-span-1 space-y-6">
-                  
                   {/* Menu Settings */}
                   <div className="border border-border bg-card p-5 shadow-sm relative">
-                    <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+                    <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
                       * CONFIGURATION
                     </span>
-                    <h3 className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold mb-4">
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-4">
                       Menu Structure Settings
                     </h3>
                     <form onSubmit={handleUpdateMenuInfo} className="space-y-4">
                       <div className="space-y-1">
-                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Menu Name</label>
+                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          Menu Name
+                        </label>
                         <input
                           type="text"
                           required
@@ -662,22 +707,24 @@ export default function SiteSettingsPage() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Slug (Identifier)</label>
+                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          Slug (Identifier)
+                        </label>
                         <input
                           type="text"
                           required
                           value={menuSlug}
                           onChange={(e) => setMenuSlug(e.target.value)}
-                          className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:outline-none font-mono text-[11px]"
+                          className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:outline-none font-mono text-xs"
                         />
                       </div>
-                      
+
                       {isEditorOrAdmin && (
                         <div className="flex gap-2 pt-2">
                           <button
                             type="button"
                             onClick={handleDeleteMenu}
-                            className="border border-red-200 bg-red-50 text-red-600 px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider hover:bg-red-100 transition-colors flex items-center justify-center gap-1"
+                            className="border border-red-200 bg-red-50 text-red-600 px-3 py-1.5 font-mono text-xs uppercase tracking-wider hover:bg-red-100 transition-colors flex items-center justify-center gap-1"
                           >
                             <Trash2 className="h-3 w-3" />
                             Delete Menu
@@ -685,10 +732,10 @@ export default function SiteSettingsPage() {
                           <button
                             type="submit"
                             disabled={savingMenuInfo}
-                            className="flex-1 border border-primary bg-primary text-white py-1.5 font-mono text-[9px] uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 font-bold"
+                            className="flex-1 bg-primary text-white py-1.5 font-mono text-xs uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 font-bold"
                           >
                             <Save className="h-3 w-3" />
-                            {savingMenuInfo ? 'Saving...' : 'Save Settings'}
+                            {savingMenuInfo ? "Saving..." : "Save Settings"}
                           </button>
                         </div>
                       )}
@@ -698,15 +745,17 @@ export default function SiteSettingsPage() {
                   {/* Add Menu Item */}
                   {isEditorOrAdmin && (
                     <div className="border border-border bg-card p-5 shadow-sm relative">
-                      <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+                      <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
                         * ITEM BUILDER
                       </span>
-                      <h3 className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold mb-4">
+                      <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-4">
                         Add Menu Link Item
                       </h3>
                       <form onSubmit={handleAddMenuItem} className="space-y-4">
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Link Label *</label>
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                            Link Label *
+                          </label>
                           <input
                             type="text"
                             required
@@ -716,9 +765,11 @@ export default function SiteSettingsPage() {
                             className="w-full border border-border bg-[#fdfdfc] px-2.5 py-1.5 text-xs text-primary focus:outline-none"
                           />
                         </div>
-                        
+
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Link URL *</label>
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                            Link URL *
+                          </label>
                           <input
                             type="text"
                             required
@@ -730,21 +781,27 @@ export default function SiteSettingsPage() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Parent Menu Item</label>
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                            Parent Menu Item
+                          </label>
                           <select
                             value={itemParentId}
                             onChange={(e) => setItemParentId(e.target.value)}
                             className="w-full border border-border bg-card px-2.5 py-1.5 text-xs text-primary focus:outline-none cursor-pointer"
                           >
                             <option value="">— None (Top-level) —</option>
-                            {menuItemsFlat.map(it => (
-                              <option key={it.id} value={it.id}>{it.label} ({it.url})</option>
+                            {menuItemsFlat.map((it) => (
+                              <option key={it.id} value={it.id}>
+                                {it.label} ({it.url})
+                              </option>
                             ))}
                           </select>
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Sort Order</label>
+                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                            Sort Order
+                          </label>
                           <input
                             type="number"
                             required
@@ -757,24 +814,23 @@ export default function SiteSettingsPage() {
                         <button
                           type="submit"
                           disabled={addingItem}
-                          className="w-full border border-primary bg-primary text-white py-2 font-mono text-[9px] uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 font-bold"
+                          className="w-full bg-primary text-white py-2 font-mono text-xs uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 font-bold"
                         >
                           <Plus className="h-3.5 w-3.5" />
-                          {addingItem ? 'Adding...' : 'Add Link to Menu'}
+                          {addingItem ? "Adding..." : "Add Link to Menu"}
                         </button>
                       </form>
                     </div>
                   )}
-
                 </div>
 
                 {/* Hierarchical Items Outline Panel */}
                 <div className="lg:col-span-2 space-y-4">
-                  <div className="border border-border bg-card p-6 shadow-sm relative">
-                    <span className="absolute top-2 right-3 font-mono text-[8px] uppercase tracking-widest text-muted">
+                  <div className="border border-border bg-card p-6 rounded-2xl relative">
+                    <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
                       * MENU OUTLINE
                     </span>
-                    <h3 className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold border-b border-border/60 pb-3 mb-4">
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold border-b border-border/60 pb-3 mb-4">
                       Menu Structure & Hierarchy
                     </h3>
 
@@ -782,21 +838,29 @@ export default function SiteSettingsPage() {
                       <div className="flex h-40 items-center justify-center">
                         <div className="flex flex-col items-center gap-2">
                           <Loader2 className="h-5 w-5 animate-spin text-muted" />
-                          <span className="font-mono text-[8px] uppercase tracking-widest text-muted">Retrieving items...</span>
+                          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                            Retrieving items...
+                          </span>
                         </div>
                       </div>
                     ) : menuItemsTree.length === 0 ? (
                       <div className="text-center py-12 border border-dashed border-border bg-sidebar/10 p-6">
-                        <p className="text-xs text-muted mb-1 font-mono">This menu is currently empty.</p>
-                        <p className="text-[9px] text-muted/60 leading-relaxed font-mono">
-                          Use the "Add Menu Link Item" builder on the left to add your navigation links.
+                        <p className="text-xs text-muted mb-1 font-mono">
+                          This menu is currently empty.
+                        </p>
+                        <p className="text-xs text-muted/60 leading-relaxed font-mono">
+                          Use the "Add Menu Link Item" builder on the left to
+                          add your navigation links.
                         </p>
                       </div>
                     ) : (
                       <div className="space-y-4">
                         {/* Recursive Renderer function */}
                         {(() => {
-                          const renderMenuItem = (item: MenuItem, depth = 0) => {
+                          const renderMenuItem = (
+                            item: MenuItem,
+                            depth = 0,
+                          ) => {
                             const isEditing = editingItemId === item.id;
 
                             return (
@@ -804,64 +868,97 @@ export default function SiteSettingsPage() {
                                 {/* Mapped Item Box */}
                                 <div
                                   className={`border border-border bg-card p-3 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3 ${
-                                    isEditing ? 'border-primary bg-sidebar/10 ring-1 ring-primary' : 'hover:bg-sidebar/5'
+                                    isEditing
+                                      ? "border-primary bg-sidebar/10 ring-1 ring-primary"
+                                      : "hover:bg-sidebar/5"
                                   }`}
                                   style={{ marginLeft: `${depth * 28}px` }}
                                 >
                                   {isEditing ? (
                                     /* Inline Edit Form */
-                                    <form onSubmit={handleSaveItemEdit} className="w-full grid gap-3 sm:grid-cols-4 items-end">
+                                    <form
+                                      onSubmit={handleSaveItemEdit}
+                                      className="w-full grid gap-3 sm:grid-cols-4 items-end"
+                                    >
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-[7px] uppercase tracking-wider text-muted">Label *</label>
+                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                          Label *
+                                        </label>
                                         <input
                                           type="text"
                                           required
                                           value={editItemLabel}
-                                          onChange={(e) => setEditItemLabel(e.target.value)}
+                                          onChange={(e) =>
+                                            setEditItemLabel(e.target.value)
+                                          }
                                           className="w-full border border-border bg-card px-2 py-1 text-xs text-primary focus:outline-none"
                                         />
                                       </div>
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-[7px] uppercase tracking-wider text-muted">URL *</label>
+                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                          URL *
+                                        </label>
                                         <input
                                           type="text"
                                           required
                                           value={editItemUrl}
-                                          onChange={(e) => setEditItemUrl(e.target.value)}
-                                          className="w-full border border-border bg-card px-2 py-1 text-xs text-primary focus:outline-none font-mono text-[10px]"
+                                          onChange={(e) =>
+                                            setEditItemUrl(e.target.value)
+                                          }
+                                          className="w-full border border-border bg-card px-2 py-1 text-xs text-primary focus:outline-none font-mono text-xs"
                                         />
                                       </div>
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-[7px] uppercase tracking-wider text-muted">Parent</label>
+                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                          Parent
+                                        </label>
                                         <select
                                           value={editItemParentId}
-                                          onChange={(e) => setEditItemParentId(e.target.value)}
-                                          className="w-full border border-border bg-card px-1 py-1 text-[10px] text-primary focus:outline-none cursor-pointer"
-                                        >
-                                          <option value="">— Top Level —</option>
-                                          {menuItemsFlat
-                                            .filter(flatIt => flatIt.id !== item.id) // Prevent self-parenting
-                                            .map(flatIt => (
-                                              <option key={flatIt.id} value={flatIt.id}>{flatIt.label}</option>
-                                            ))
+                                          onChange={(e) =>
+                                            setEditItemParentId(e.target.value)
                                           }
+                                          className="w-full border border-border bg-card px-1 py-1 text-xs text-primary focus:outline-none cursor-pointer"
+                                        >
+                                          <option value="">
+                                            — Top Level —
+                                          </option>
+                                          {menuItemsFlat
+                                            .filter(
+                                              (flatIt) => flatIt.id !== item.id,
+                                            ) // Prevent self-parenting
+                                            .map((flatIt) => (
+                                              <option
+                                                key={flatIt.id}
+                                                value={flatIt.id}
+                                              >
+                                                {flatIt.label}
+                                              </option>
+                                            ))}
                                         </select>
                                       </div>
                                       <div className="space-y-1 sm:col-span-1 flex gap-1">
                                         <div className="flex-1">
-                                          <label className="block font-mono text-[7px] uppercase tracking-wider text-muted">Order</label>
+                                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                            Order
+                                          </label>
                                           <input
                                             type="number"
                                             required
                                             value={editItemSortOrder}
-                                            onChange={(e) => setEditItemSortOrder(e.target.value)}
+                                            onChange={(e) =>
+                                              setEditItemSortOrder(
+                                                e.target.value,
+                                              )
+                                            }
                                             className="w-full border border-border bg-card px-1.5 py-1 text-xs text-primary focus:outline-none font-mono"
                                           />
                                         </div>
                                         <div className="flex gap-0.5 mt-4 shrink-0">
                                           <button
                                             type="button"
-                                            onClick={() => setEditingItemId(null)}
+                                            onClick={() =>
+                                              setEditingItemId(null)
+                                            }
                                             className="p-1.5 border border-border bg-card hover:bg-sidebar text-muted"
                                           >
                                             <X className="h-3.5 w-3.5" />
@@ -869,9 +966,13 @@ export default function SiteSettingsPage() {
                                           <button
                                             type="submit"
                                             disabled={savingItemEdit}
-                                            className="p-1.5 border border-primary bg-primary text-white disabled:opacity-50"
+                                            className="p-1.5 bg-primary text-white disabled:opacity-50"
                                           >
-                                            {savingItemEdit ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+                                            {savingItemEdit ? (
+                                              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                            ) : (
+                                              <Save className="h-3.5 w-3.5" />
+                                            )}
                                           </button>
                                         </div>
                                       </div>
@@ -880,29 +981,42 @@ export default function SiteSettingsPage() {
                                     /* Static Details View */
                                     <>
                                       <div className="flex items-center gap-2.5 min-w-0">
-                                        {depth > 0 && <span className="font-mono text-muted/30">└──</span>}
+                                        {depth > 0 && (
+                                          <span className="font-mono text-muted/30">
+                                            └──
+                                          </span>
+                                        )}
                                         <div className="min-w-0">
                                           <h4 className="text-xs font-bold text-primary flex items-center gap-1.5 leading-none">
                                             {item.label}
-                                            <span className="font-mono text-[7px] uppercase font-normal text-muted/65 border border-border px-1 py-0.5 bg-sidebar/10">
+                                            <span className="font-mono text-xs uppercase font-normal text-muted/65 border border-border px-1 py-0.5 bg-sidebar/10">
                                               Order: {item.sortOrder}
                                             </span>
                                           </h4>
-                                          <p className="font-mono text-[8px] text-muted mt-1 truncate">{item.url}</p>
+                                          <p className="font-mono text-xs text-muted mt-1 truncate">
+                                            {item.url}
+                                          </p>
                                         </div>
                                       </div>
 
                                       {isEditorOrAdmin && (
                                         <div className="flex items-center gap-1 shrink-0 justify-end">
                                           <button
-                                            onClick={() => handleStartEditItem(item)}
+                                            onClick={() =>
+                                              handleStartEditItem(item)
+                                            }
                                             className="p-1 border border-border bg-card hover:bg-sidebar text-muted hover:text-primary transition-colors cursor-pointer"
                                             title="Edit Item"
                                           >
                                             <Edit2 className="h-3 w-3" />
                                           </button>
                                           <button
-                                            onClick={() => handleDeleteMenuItem(item.id, item.label)}
+                                            onClick={() =>
+                                              handleDeleteMenuItem(
+                                                item.id,
+                                                item.label,
+                                              )
+                                            }
                                             className="p-1 border border-red-200 bg-card hover:bg-red-50 text-red-500 transition-colors cursor-pointer"
                                             title="Delete Item"
                                           >
@@ -919,7 +1033,9 @@ export default function SiteSettingsPage() {
                                   <div className="space-y-2">
                                     {item.subItems
                                       .sort((a, b) => a.sortOrder - b.sortOrder)
-                                      .map(child => renderMenuItem(child, depth + 1))}
+                                      .map((child) =>
+                                        renderMenuItem(child, depth + 1),
+                                      )}
                                   </div>
                                 )}
                               </div>
@@ -930,7 +1046,7 @@ export default function SiteSettingsPage() {
                             <div className="space-y-3.5">
                               {menuItemsTree
                                 .sort((a, b) => a.sortOrder - b.sortOrder)
-                                .map(root => renderMenuItem(root, 0))}
+                                .map((root) => renderMenuItem(root, 0))}
                             </div>
                           );
                         })()}
@@ -938,14 +1054,16 @@ export default function SiteSettingsPage() {
                     )}
                   </div>
                 </div>
-
               </div>
             ) : (
               <div className="border border-dashed border-border bg-sidebar/20 p-8 text-center rounded">
                 <Globe className="h-10 w-10 text-muted/30 mx-auto mb-3" />
-                <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">No Navigation Menu Selected</span>
-                <p className="font-mono text-[9px] text-muted/60 max-w-xs mx-auto">
-                  Please select an existing menu from the selector toolbar, or click "Create New Menu" to begin.
+                <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+                  No Navigation Menu Selected
+                </span>
+                <p className="font-mono text-xs text-muted/60 max-w-xs mx-auto">
+                  Please select an existing menu from the selector toolbar, or
+                  click "Create New Menu" to begin.
                 </p>
               </div>
             )}
@@ -955,7 +1073,7 @@ export default function SiteSettingsPage() {
               <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
                 <div className="w-full max-w-md bg-card border border-border p-6 shadow-2xl space-y-4">
                   <div className="flex items-center justify-between border-b border-border/60 pb-3">
-                    <h3 className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold flex items-center gap-1.5">
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-1.5">
                       <Plus className="h-3.5 w-3.5" />
                       Create Navigation Menu
                     </h3>
@@ -969,7 +1087,9 @@ export default function SiteSettingsPage() {
 
                   <form onSubmit={handleCreateMenu} className="space-y-4">
                     <div className="space-y-1">
-                      <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Menu Name *</label>
+                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        Menu Name *
+                      </label>
                       <input
                         type="text"
                         required
@@ -983,14 +1103,16 @@ export default function SiteSettingsPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block font-mono text-[8px] uppercase tracking-wider text-muted">Slug (Auto-generated) *</label>
+                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        Slug (Auto-generated) *
+                      </label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. header-menu"
                         value={newMenuSlug}
                         onChange={(e) => setNewMenuSlug(e.target.value)}
-                        className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none font-mono text-[11px]"
+                        className="w-full border border-border bg-[#fdfdfc] px-3 py-1.5 text-xs text-primary focus:outline-none font-mono text-xs"
                       />
                     </div>
 
@@ -998,26 +1120,24 @@ export default function SiteSettingsPage() {
                       <button
                         type="button"
                         onClick={() => setShowCreateMenu(false)}
-                        className="border border-border bg-card px-4 py-2 font-mono text-[9px] uppercase tracking-wider hover:bg-sidebar text-muted"
+                        className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-wider hover:bg-sidebar text-muted"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
                         disabled={creatingMenu}
-                        className="border border-primary bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 font-bold"
+                        className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 font-bold"
                       >
-                        {creatingMenu ? 'Creating...' : 'Create Menu'}
+                        {creatingMenu ? "Creating..." : "Create Menu"}
                       </button>
                     </div>
                   </form>
                 </div>
               </div>
             )}
-
           </div>
         )}
-
       </div>
 
       {/* Reusable Image Selection Picker Modals */}

@@ -19,6 +19,10 @@ export interface Report {
   sortOrder: number;
   industryId: string;
   yearId: string;
+  landingIntroDesc?: string;
+  landingIntroBullets?: string;
+  landingExecDesc?: string;
+  landingExecBullets?: string;
 }
 
 
