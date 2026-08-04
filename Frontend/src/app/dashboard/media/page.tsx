@@ -9,16 +9,14 @@ export default function MediaLibraryPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span className="text-primary font-bold">Media Library</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
-            Media Library
-          </h1>
+          <h1 className="text-2xl font-bold text-primary">Media Library</h1>
         </div>
-        <div className="font-mono text-xs uppercase tracking-wider text-muted">
+        <div className="font-mono text-xs uppercase text-muted">
           Manage system uploaded assets
         </div>
       </div>

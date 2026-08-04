@@ -53,15 +53,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refreshUser();
   }, []);
 
-  // Simple route guard check
+  // Route guard check: Only /dashboard and its sub-routes require login
   useEffect(() => {
     if (!loading) {
-      const publicPaths = ['/login', '/login/forgot-password', '/login/reset-password'];
-      const isPublicPath = publicPaths.includes(pathname);
+      const isDashboardRoute =
+        pathname === '/dashboard' || pathname.startsWith('/dashboard/');
+      const authPages = [
+        '/login',
+        '/login/forgot-password',
+        '/login/reset-password',
+      ];
+      const isAuthPage = authPages.includes(pathname);
 
-      if (!user && !isPublicPath) {
+      if (!user && isDashboardRoute) {
         router.push('/login');
-      } else if (user && isPublicPath) {
+      } else if (user && isAuthPage) {
         router.push('/dashboard');
       }
     }

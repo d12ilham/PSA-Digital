@@ -383,7 +383,7 @@ export default function ReportEditPage({
       <div className="flex h-64 items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border border-primary border-t-transparent" />
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase text-muted">
             Retrieving report metadata...
           </span>
         </div>
@@ -394,7 +394,7 @@ export default function ReportEditPage({
   if (error || !report) {
     return (
       <div className="border border-red-200 bg-red-50/50 p-6 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest text-red-700 block mb-2 font-bold">
+        <span className="font-mono text-xs uppercase text-red-700 block mb-2 font-bold">
           * REPORT LOOKUP FAILED
         </span>
         <p className="text-xs text-red-600 mb-4">
@@ -402,7 +402,7 @@ export default function ReportEditPage({
         </p>
         <button
           onClick={() => router.push("/dashboard/reports")}
-          className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest text-primary hover:bg-sidebar"
+          className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase text-primary hover:bg-sidebar"
         >
           Back to Reports Board
         </button>
@@ -478,7 +478,7 @@ export default function ReportEditPage({
       {/* ── Breadcrumbs & Back Nav ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Admin</span>
@@ -501,10 +501,8 @@ export default function ReportEditPage({
             Back to Reports list
           </button>
 
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
-            {report.title}
-          </h1>
-          <p className="font-mono text-xs text-muted mt-1.5 uppercase tracking-wide">
+          <h1 className="text-2xl font-bold text-primary">{report.title}</h1>
+          <p className="font-mono text-xs text-muted mt-1.5 uppercase">
             Slug:{" "}
             <span className="text-primary font-bold lowercase select-all">
               /reports/{report.slug}
@@ -517,7 +515,7 @@ export default function ReportEditPage({
             href={`/reports/${report.slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider px-3 py-1.5 border border-border bg-card hover:bg-sidebar text-primary transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 font-mono text-xs uppercase px-3 py-1.5 border border-border bg-card hover:bg-sidebar text-primary transition-colors cursor-pointer"
           >
             <ExternalLink className="h-3 w-3 text-muted" />
             View Landing Page
@@ -535,7 +533,7 @@ export default function ReportEditPage({
           <div className="border border-border bg-card rounded-xl overflow-hidden shadow-none">
             {/* Dark green header title bar */}
             <div className="bg-[#252D02] px-6 py-4 flex items-center justify-between text-[#FAFAF0]">
-              <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+              <h2 className="text-sm font-bold uppercase flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-[#8AC900]" />
                 Report Chapters
               </h2>
@@ -553,7 +551,7 @@ export default function ReportEditPage({
             <div className="p-6">
               {pages.length === 0 ? (
                 <div className="text-center py-10 border border-dashed border-border/80 bg-sidebar/10 p-6 rounded">
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted block mb-2 font-bold">
+                  <span className="font-mono text-xs uppercase text-muted block mb-2 font-bold">
                     Structure Empty
                   </span>
                   <p className="text-xs text-muted mb-4">
@@ -563,7 +561,7 @@ export default function ReportEditPage({
                   <button
                     onClick={handleInitializeEmptyPages}
                     disabled={saving}
-                    className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
+                    className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
                   >
                     <RefreshCw className="h-3.5 w-3.5" />
                     Init Default Structure
@@ -618,7 +616,7 @@ export default function ReportEditPage({
                                   onClick={() =>
                                     router.push(`/dashboard/pages/${page.id}`)
                                   }
-                                  className="border border-border hover:bg-sidebar text-primary px-3 py-1.5 text-xs font-mono uppercase tracking-wider flex items-center gap-1 cursor-pointer"
+                                  className="border border-border hover:bg-sidebar text-primary px-3 py-1.5 text-xs font-mono uppercase flex items-center gap-1 cursor-pointer"
                                 >
                                   <PencilLine className="h-3 w-3" />
                                   Edit
@@ -655,7 +653,7 @@ export default function ReportEditPage({
                                             `/dashboard/pages/${sub.id}`,
                                           )
                                         }
-                                        className="border border-border hover:bg-sidebar text-primary px-2.5 py-1 text-xs font-mono uppercase tracking-wider flex items-center gap-0.5 cursor-pointer"
+                                        className="border border-border hover:bg-sidebar text-primary px-2.5 py-1 text-xs font-mono uppercase flex items-center gap-0.5 cursor-pointer"
                                       >
                                         <PencilLine className="h-2.5 w-2.5" />
                                         Edit
@@ -681,7 +679,7 @@ export default function ReportEditPage({
           <div className="border border-border bg-card rounded-xl overflow-hidden shadow-none">
             {/* Dark green header title bar */}
             <div className="bg-[#252D02] px-6 py-4 flex items-center justify-between text-[#FAFAF0]">
-              <h2 className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+              <h2 className="text-sm font-bold uppercase flex items-center gap-2">
                 <Settings className="h-4.5 w-4.5 text-[#8AC900]" />
                 Settings Panel
               </h2>
@@ -689,7 +687,7 @@ export default function ReportEditPage({
 
             <div className="p-6">
               {/* Sidebar Tabs */}
-              <div className="flex border-b border-border bg-card/40 text-xs font-mono font-bold uppercase tracking-wider mb-4">
+              <div className="flex border-b border-border bg-card/40 text-xs font-mono font-bold uppercase mb-4">
                 <button
                   onClick={() => setActiveSubTab("details")}
                   className={`flex-1 text-center py-2 border-b-2 cursor-pointer ${
@@ -733,7 +731,7 @@ export default function ReportEditPage({
 
                   <div className="space-y-3">
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Report Title
                       </label>
                       <input
@@ -746,7 +744,7 @@ export default function ReportEditPage({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Report Status
                       </label>
                       <select
@@ -770,7 +768,7 @@ export default function ReportEditPage({
                     {/* Cover Image — Library, Upload or URL */}
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center gap-1">
+                        <label className="block font-mono text-xs uppercase text-muted flex items-center gap-1">
                           <ImageIcon className="h-3 w-3" />
                           Cover Image
                         </label>
@@ -822,7 +820,7 @@ export default function ReportEditPage({
                             className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors"
                           >
                             <BookOpen className="h-4 w-4 text-muted" />
-                            <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                            <span className="font-mono text-xs uppercase text-muted">
                               Choose from Media Library
                             </span>
                           </button>
@@ -887,7 +885,7 @@ export default function ReportEditPage({
                             ) : (
                               <Upload className="h-4 w-4 text-muted" />
                             )}
-                            <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                            <span className="font-mono text-xs uppercase text-muted">
                               {uploadingCover
                                 ? "Uploading..."
                                 : "Click to select image file"}
@@ -928,7 +926,7 @@ export default function ReportEditPage({
                     {/* PDF Download — Library, Upload or URL */}
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center gap-1">
+                        <label className="block font-mono text-xs uppercase text-muted flex items-center gap-1">
                           <FileText className="h-3 w-3" />
                           PDF Download
                         </label>
@@ -980,7 +978,7 @@ export default function ReportEditPage({
                             className="w-full border border-dashed border-border bg-sidebar/20 hover:bg-sidebar/40 py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors"
                           >
                             <BookOpen className="h-4 w-4 text-muted" />
-                            <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                            <span className="font-mono text-xs uppercase text-muted">
                               Choose from Media Library
                             </span>
                           </button>
@@ -1035,7 +1033,7 @@ export default function ReportEditPage({
                             ) : (
                               <Upload className="h-4 w-4 text-muted" />
                             )}
-                            <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                            <span className="font-mono text-xs uppercase text-muted">
                               {uploadingPdf
                                 ? "Uploading..."
                                 : "Click to select PDF file"}
@@ -1065,7 +1063,7 @@ export default function ReportEditPage({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         PSA Website link (Back Link)
                       </label>
                       <input
@@ -1078,7 +1076,7 @@ export default function ReportEditPage({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Contact inquiry link
                       </label>
                       <input
@@ -1092,7 +1090,7 @@ export default function ReportEditPage({
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="space-y-1">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase text-muted">
                           Sort Order
                         </label>
                         <input
@@ -1111,7 +1109,7 @@ export default function ReportEditPage({
                             onChange={(e) => setIsFeatured(e.target.checked)}
                             className="h-3.5 w-3.5 rounded border-border text-primary focus:ring-0 cursor-pointer"
                           />
-                          <span className="font-mono text-xs uppercase tracking-wider text-primary">
+                          <span className="font-mono text-xs uppercase text-primary">
                             Featured
                           </span>
                         </label>
@@ -1119,7 +1117,7 @@ export default function ReportEditPage({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Short Description
                       </label>
                       <textarea
@@ -1131,7 +1129,7 @@ export default function ReportEditPage({
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Home Card Notes
                       </label>
                       <textarea
@@ -1145,17 +1143,17 @@ export default function ReportEditPage({
 
                     {/* Public Landing Pathways Config */}
                     <div className="border-t border-border/60 pt-4 space-y-4">
-                      <span className="block font-mono text-xs uppercase tracking-widest text-muted font-bold">
+                      <span className="block font-mono text-xs uppercase text-muted font-bold">
                         * Landing Page Pathways
                       </span>
 
                       {/* Introduction Pathway */}
                       <div className="space-y-3 p-3 bg-sidebar/10 border border-border/80 rounded">
-                        <span className="block font-mono text-xs uppercase tracking-wider text-primary font-bold">
+                        <span className="block font-mono text-xs uppercase text-primary font-bold">
                           1. Introduction Pathway
                         </span>
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Pathway Description
                           </label>
                           <textarea
@@ -1169,7 +1167,7 @@ export default function ReportEditPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Bullets (One per line)
                           </label>
                           <textarea
@@ -1186,11 +1184,11 @@ export default function ReportEditPage({
 
                       {/* Executive Summary Pathway */}
                       <div className="space-y-3 p-3 bg-sidebar/10 border border-border/80 rounded">
-                        <span className="block font-mono text-xs uppercase tracking-wider text-primary font-bold">
+                        <span className="block font-mono text-xs uppercase text-primary font-bold">
                           2. Executive Summary Pathway
                         </span>
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Pathway Description
                           </label>
                           <textarea
@@ -1202,7 +1200,7 @@ export default function ReportEditPage({
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Bullets (One per line)
                           </label>
                           <textarea
@@ -1223,7 +1221,7 @@ export default function ReportEditPage({
                     <button
                       type="submit"
                       disabled={saving}
-                      className="w-full bg-primary py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 cursor-pointer text-center"
+                      className="w-full bg-primary py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 cursor-pointer text-center"
                     >
                       {saving ? "Saving changes..." : "Save Settings"}
                     </button>
@@ -1232,7 +1230,7 @@ export default function ReportEditPage({
                       <button
                         type="button"
                         onClick={handleInitializeEmptyPages}
-                        className="w-full border border-border bg-card hover:bg-sidebar text-muted font-mono text-xs uppercase tracking-wider py-2 flex items-center justify-center gap-1 cursor-pointer"
+                        className="w-full border border-border bg-card hover:bg-sidebar text-muted font-mono text-xs uppercase py-2 flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <RefreshCw className="h-3 w-3" />
                         Init Chapters Structure
@@ -1287,10 +1285,10 @@ export default function ReportEditPage({
                             className="border border-border p-2.5 bg-[#fcfcfb] flex justify-between items-center"
                           >
                             <div>
-                              <span className="font-mono text-xs uppercase text-muted tracking-wider block">
+                              <span className="font-mono text-xs uppercase text-muted block">
                                 {kpi.label}
                               </span>
-                              <span className="text-sm font-bold tracking-tight text-primary">
+                              <span className="text-sm font-bold text-primary">
                                 {kpi.prefix}
                                 {kpi.value}
                                 {kpi.suffix}
@@ -1313,13 +1311,13 @@ export default function ReportEditPage({
                     onSubmit={handleAddKpi}
                     className="border-t border-border/60 pt-3 space-y-3"
                   >
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted block font-bold">
+                    <span className="font-mono text-xs uppercase text-muted block font-bold">
                       Create KPI Badge
                     </span>
 
                     <div className="space-y-2 text-xs">
                       <div className="space-y-1">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase text-muted">
                           Label Descriptor
                         </label>
                         <input
@@ -1333,7 +1331,7 @@ export default function ReportEditPage({
                       </div>
 
                       <div className="space-y-1">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase text-muted">
                           Statistic Value
                         </label>
                         <input
@@ -1348,7 +1346,7 @@ export default function ReportEditPage({
 
                       <div className="grid grid-cols-2 gap-2">
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Prefix
                           </label>
                           <input
@@ -1361,7 +1359,7 @@ export default function ReportEditPage({
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Suffix
                           </label>
                           <input
@@ -1378,7 +1376,7 @@ export default function ReportEditPage({
                     <button
                       type="submit"
                       disabled={kpiLoading}
-                      className="w-full bg-primary py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 cursor-pointer"
+                      className="w-full bg-primary py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 cursor-pointer"
                     >
                       <Plus className="h-3 w-3" />
                       Create Badge Card
@@ -1394,7 +1392,7 @@ export default function ReportEditPage({
                     <div className="flex h-32 items-center justify-center">
                       <div className="flex flex-col items-center gap-2">
                         <div className="h-3 w-3 animate-spin rounded-full border border-primary border-t-transparent" />
-                        <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                        <span className="font-mono text-xs uppercase text-muted">
                           Loading logs...
                         </span>
                       </div>
@@ -1411,7 +1409,7 @@ export default function ReportEditPage({
                           className="border border-border p-2 bg-[#fcfcfb] space-y-1"
                         >
                           <div className="flex justify-between items-center">
-                            <span className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+                            <span className="font-mono text-xs font-bold uppercase text-primary">
                               {log.action}
                             </span>
                             <span className="font-mono text-xs text-muted">

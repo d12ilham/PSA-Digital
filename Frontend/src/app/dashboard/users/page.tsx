@@ -128,7 +128,7 @@ export default function UserManagementPage() {
     return (
       <div className="flex h-[60vh] flex-col items-center justify-center border border-dashed border-border bg-sidebar/20 p-8 text-center">
         <Shield className="mb-4 h-8 w-8 text-red-500" />
-        <span className="font-mono text-xs uppercase tracking-wider text-red-500 mb-2">
+        <span className="font-mono text-xs uppercase text-red-500 mb-2">
           Access Denied
         </span>
         <p className="max-w-xs text-xs text-muted/80 leading-relaxed">
@@ -144,21 +144,19 @@ export default function UserManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Admin</span>
             <span>/</span>
             <span className="text-primary font-bold">Users</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
-            User Accounts
-          </h1>
+          <h1 className="text-2xl font-bold text-primary">User Accounts</h1>
         </div>
 
         <button
           onClick={() => setAddModalOpen(true)}
-          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <UserPlus className="h-4 w-4" />
           Add User Account
@@ -167,7 +165,7 @@ export default function UserManagementPage() {
 
       {/* ── Users Table Card ── */}
       <div className="border border-border bg-card p-6 rounded-2xl relative">
-        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
           * SYSTEM ACCOUNTS INDEX
         </span>
 
@@ -175,7 +173,7 @@ export default function UserManagementPage() {
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              <span className="font-mono text-xs uppercase text-muted">
                 Loading account data...
               </span>
             </div>
@@ -188,7 +186,7 @@ export default function UserManagementPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs font-bold">
                   <th className="py-2.5 px-3">Full Name</th>
                   <th className="py-2.5 px-3">Email Address</th>
                   <th className="py-2.5 px-3">Authorization Role</th>
@@ -248,12 +246,12 @@ export default function UserManagementPage() {
       {addModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-md border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * REGISTER USER
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 Register New Account
               </h3>
               <button
@@ -267,7 +265,7 @@ export default function UserManagementPage() {
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     First Name
                   </label>
                   <input
@@ -280,7 +278,7 @@ export default function UserManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Last Name
                   </label>
                   <input
@@ -294,7 +292,7 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Email Address
                 </label>
                 <input
@@ -308,7 +306,7 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Temporary Password
                 </label>
                 <input
@@ -322,7 +320,7 @@ export default function UserManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Initial Role
                 </label>
                 <select
@@ -342,14 +340,14 @@ export default function UserManagementPage() {
                 <button
                   type="button"
                   onClick={() => setAddModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50"
                 >
                   {submitting ? "Registering..." : "Register Account"}
                 </button>
@@ -363,12 +361,12 @@ export default function UserManagementPage() {
       {editModalOpen && editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-sm border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * ACCOUNT PRIVILEGES
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 Edit User: {editingUser.firstName}
               </h3>
               <button
@@ -381,7 +379,7 @@ export default function UserManagementPage() {
 
             <form onSubmit={handleUpdateUser} className="space-y-4">
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Assign Role
                 </label>
                 <select
@@ -403,7 +401,7 @@ export default function UserManagementPage() {
                     onChange={(e) => setEditIsActive(e.target.checked)}
                     className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
                   />
-                  <span className="font-mono text-xs uppercase tracking-wider text-primary">
+                  <span className="font-mono text-xs uppercase text-primary">
                     Active Account Status
                   </span>
                 </label>
@@ -413,14 +411,14 @@ export default function UserManagementPage() {
                 <button
                   type="button"
                   onClick={() => setEditModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50"
                 >
                   {submitting ? "Updating..." : "Save Settings"}
                 </button>

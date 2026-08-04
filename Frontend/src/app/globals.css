@@ -14,6 +14,14 @@
   --color-accent: #a7dd6c;
   --font-sans: "Manrope", var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --font-mono: var(--font-sans);
+  --color-lg-dark: #046d2a;
+  --color-lg-light: #8ac900;
+  --color-LG-LIGHT: #9caa54;
+  --color-notes: #598303;
+  --color-gray800: #252b37;
+  --color-gray600: #535862;
+  --color-gray200: #e5e8da;
+  --color-cards: #e5e8da;
 }
 
 :root {
@@ -122,11 +130,11 @@ table {
 }
 
 /* Enforce default border color globally */
-*,
+/* *,
 ::before,
 ::after {
   border-color: var(--color-border, #d8d4cc) !important;
-}
+} */
 
 /* Enforce global button accent color */
 /* button,

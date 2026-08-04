@@ -276,7 +276,7 @@ export default function MediaLibrary({
         <div className="flex items-center gap-1">
           <button
             onClick={() => setActiveTab("upload")}
-            className={`px-3 py-1 font-mono text-xs uppercase tracking-wider transition-colors border ${
+            className={`px-3 py-1 font-mono text-xs uppercase transition-colors border ${
               activeTab === "upload"
                 ? "bg-primary text-white border-primary"
                 : "bg-card border-border hover:bg-sidebar"
@@ -287,7 +287,7 @@ export default function MediaLibrary({
           </button>
           <button
             onClick={() => setActiveTab("library")}
-            className={`px-3 py-1 font-mono text-xs uppercase tracking-wider transition-colors border ${
+            className={`px-3 py-1 font-mono text-xs uppercase transition-colors border ${
               activeTab === "library"
                 ? "bg-primary text-white border-primary"
                 : "bg-card border-border hover:bg-sidebar"
@@ -347,7 +347,7 @@ export default function MediaLibrary({
               {uploading ? (
                 <div className="flex flex-col items-center gap-2">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                  <span className="font-mono text-xs uppercase text-muted">
                     Uploading assets...
                   </span>
                 </div>
@@ -357,7 +357,7 @@ export default function MediaLibrary({
                   <div className="text-center">
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="font-mono text-xs uppercase tracking-widest text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold shadow-sm"
+                      className="font-mono text-xs uppercase text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold shadow-sm"
                     >
                       Select Files to Upload
                     </button>
@@ -365,7 +365,7 @@ export default function MediaLibrary({
                       or drag and drop files here
                     </p>
                   </div>
-                  <div className="text-center space-y-1 font-mono text-xs text-muted uppercase tracking-wider mt-4">
+                  <div className="text-center space-y-1 font-mono text-xs text-muted uppercase mt-4">
                     <p>Supported Formats:</p>
                     {allowedType === "all" && (
                       <p className="text-muted/60">
@@ -418,7 +418,7 @@ export default function MediaLibrary({
                 {/* Filter Type */}
                 {allowedType === "all" && (
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs uppercase tracking-wider text-muted font-bold whitespace-nowrap">
+                    <span className="font-mono text-xs uppercase text-muted font-bold whitespace-nowrap">
                       Show:
                     </span>
                     <select
@@ -443,14 +443,14 @@ export default function MediaLibrary({
                 {loading ? (
                   <div className="flex h-full flex-col items-center justify-center gap-3">
                     <Loader2 className="h-6 w-6 animate-spin text-primary" />
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                    <span className="font-mono text-xs uppercase text-muted">
                       Loading Media Grid...
                     </span>
                   </div>
                 ) : assets.length === 0 ? (
                   <div className="flex h-full flex-col items-center justify-center text-center p-6 border border-dashed border-border bg-sidebar/10">
                     <HardDrive className="h-8 w-8 text-muted/50 mb-3" />
-                    <span className="font-mono text-xs uppercase tracking-wider text-muted mb-1">
+                    <span className="font-mono text-xs uppercase text-muted mb-1">
                       No Assets Found
                     </span>
                     <p className="text-xs text-muted/60 max-w-xs font-mono">
@@ -567,7 +567,7 @@ export default function MediaLibrary({
                 <div className="p-4 space-y-6">
                   {/* Panel Title */}
                   <div>
-                    <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+                    <h3 className="font-mono text-xs uppercase text-muted">
                       Asset Details
                     </h3>
                   </div>
@@ -633,7 +633,7 @@ export default function MediaLibrary({
 
                   {/* Alt Text Input Field */}
                   <div className="space-y-1.5">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center justify-between">
+                    <label className="block font-mono text-xs uppercase text-muted flex items-center justify-between">
                       <span>Alt Text / Tag</span>
                       <span className="text-xs text-muted/40 lowercase">
                         (optional)
@@ -667,7 +667,7 @@ export default function MediaLibrary({
                     {mode === "select" && onSelect && (
                       <button
                         onClick={handleConfirmSelection}
-                        className="w-full bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center justify-center gap-1"
+                        className="w-full bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold uppercase transition-colors shadow-sm flex items-center justify-center gap-1"
                       >
                         <Check className="h-3.5 w-3.5" />
                         Select Asset
@@ -693,7 +693,7 @@ export default function MediaLibrary({
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-center p-6 text-muted">
                   <ImageIcon className="h-8 w-8 text-muted/30 mb-2" />
-                  <p className="font-mono text-xs uppercase tracking-wider leading-relaxed">
+                  <p className="font-mono text-xs uppercase leading-relaxed">
                     Select an asset from the media grid to view details and edit
                     settings.
                   </p>

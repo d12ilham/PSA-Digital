@@ -258,14 +258,14 @@ export default function InsightsManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Dataset</span>
             <span>/</span>
             <span className="text-primary font-bold">Insights</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
+          <h1 className="text-2xl font-bold text-primary">
             Insights & Drivers
           </h1>
         </div>
@@ -276,7 +276,7 @@ export default function InsightsManagementPage() {
               ? handleOpenAddInsight
               : handleOpenAddDriver
           }
-          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <Plus className="h-4 w-4" />
           {activeTab === "insights" ? "Add Insight" : "Add Driver"}
@@ -287,7 +287,7 @@ export default function InsightsManagementPage() {
       <div className="flex border-b border-border/80">
         <button
           onClick={() => setActiveTab("insights")}
-          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold border-b-2 transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase font-semibold border-b-2 transition-all ${
             activeTab === "insights"
               ? "border-primary text-primary font-bold bg-sidebar/10"
               : "border-transparent text-muted hover:text-primary"
@@ -298,7 +298,7 @@ export default function InsightsManagementPage() {
         </button>
         <button
           onClick={() => setActiveTab("drivers")}
-          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold border-b-2 transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-mono uppercase font-semibold border-b-2 transition-all ${
             activeTab === "drivers"
               ? "border-primary text-primary font-bold bg-sidebar/10"
               : "border-transparent text-muted hover:text-primary"
@@ -311,7 +311,7 @@ export default function InsightsManagementPage() {
 
       {/* ── Main Data Table Card ── */}
       <div className="border border-border bg-card p-6 rounded-2xl relative">
-        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
           *{" "}
           {activeTab === "insights"
             ? "INSIGHTS DATA TABLE"
@@ -322,7 +322,7 @@ export default function InsightsManagementPage() {
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              <span className="font-mono text-xs uppercase text-muted">
                 Loading data...
               </span>
             </div>
@@ -337,7 +337,7 @@ export default function InsightsManagementPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
+                  <tr className="border-b border-border text-muted font-mono uppercase text-xs font-bold">
                     <th className="py-2.5 px-3">Num</th>
                     <th className="py-2.5 px-3">Theme</th>
                     <th className="py-2.5 px-3">Insight Title</th>
@@ -423,7 +423,7 @@ export default function InsightsManagementPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs font-bold">
                   <th className="py-2.5 px-3">Driver Title</th>
                   <th className="py-2.5 px-3">Description</th>
                   <th className="py-2.5 px-3">Megatrends</th>
@@ -485,12 +485,12 @@ export default function InsightsManagementPage() {
       {insightModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-xl border border-border bg-card shadow-lg p-6 relative max-h-[90vh] overflow-y-auto">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * INSIGHT DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 {editingInsight
                   ? "Modify Workforce Insight"
                   : "Create Workforce Insight"}
@@ -506,7 +506,7 @@ export default function InsightsManagementPage() {
             <form onSubmit={handleInsightSubmit} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  <label className="block font-mono text-xs uppercase text-muted font-bold">
                     Theme Block
                   </label>
                   <select
@@ -527,7 +527,7 @@ export default function InsightsManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                  <label className="block font-mono text-xs uppercase text-muted font-bold">
                     Insight Number
                   </label>
                   <input
@@ -540,7 +540,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Insight Title
                 </label>
                 <input
@@ -554,7 +554,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Comma-Separated Tags
                 </label>
                 <input
@@ -574,14 +574,14 @@ export default function InsightsManagementPage() {
                     onChange={(e) => setIsPublished(e.target.checked)}
                     className="h-4 w-4 rounded border-border text-primary focus:ring-0 cursor-pointer"
                   />
-                  <span className="font-mono text-xs uppercase tracking-wider text-primary">
+                  <span className="font-mono text-xs uppercase text-primary">
                     Publish this Insight
                   </span>
                 </label>
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Summary Intro (Textarea)
                 </label>
                 <textarea
@@ -593,7 +593,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Detailed Explanation (Rich text/Markdown compatible)
                 </label>
                 <textarea
@@ -605,7 +605,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Supporting Evidence Text
                 </label>
                 <textarea
@@ -618,7 +618,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Source Citation Note
                 </label>
                 <input
@@ -634,13 +634,13 @@ export default function InsightsManagementPage() {
                 <button
                   type="button"
                   onClick={() => setInsightModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors"
                 >
                   Save Insight
                 </button>
@@ -654,12 +654,12 @@ export default function InsightsManagementPage() {
       {driverModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * DRIVER DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 {editingDriver
                   ? "Modify Driver of Change"
                   : "Create Driver of Change"}
@@ -674,7 +674,7 @@ export default function InsightsManagementPage() {
 
             <form onSubmit={handleDriverSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Driver Title
                 </label>
                 <input
@@ -688,7 +688,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Megatrend Tags (Comma-Separated)
                 </label>
                 <input
@@ -701,7 +701,7 @@ export default function InsightsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Driver Description
                 </label>
                 <textarea
@@ -716,13 +716,13 @@ export default function InsightsManagementPage() {
                 <button
                   type="button"
                   onClick={() => setDriverModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors"
                 >
                   Save Driver
                 </button>

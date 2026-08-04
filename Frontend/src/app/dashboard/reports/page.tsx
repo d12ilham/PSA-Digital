@@ -216,16 +216,14 @@ export default function ReportsManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Admin</span>
             <span>/</span>
             <span className="text-primary font-bold">Reports</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
-            Reports Board
-          </h1>
+          <h1 className="text-2xl font-bold text-primary">Reports Board</h1>
         </div>
       </div>
 
@@ -300,7 +298,7 @@ export default function ReportsManagementPage() {
         {/* Create Report Button */}
         <button
           onClick={() => setCreateModalOpen(true)}
-          className="bg-accent px-4 py-2.5 rounded-md font-mono text-xs uppercase tracking-widest text-primary hover:bg-active hover:text-white transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer"
+          className="bg-accent px-4 py-2.5 rounded-md font-mono text-xs uppercase text-primary hover:bg-active hover:text-white transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           Create Report
@@ -312,7 +310,7 @@ export default function ReportsManagementPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-border bg-sidebar/30 text-muted font-mono uppercase text-xs tracking-wider font-bold">
+              <tr className="border-b border-border bg-sidebar/30 text-muted font-mono uppercase text-xs font-bold">
                 <th className="py-3 px-4">Title</th>
                 <th className="py-3 px-4">URL Slug</th>
                 <th className="py-3 px-4">Industry</th>
@@ -353,7 +351,7 @@ export default function ReportsManagementPage() {
                           setActiveReport(report);
                           router.push(`/dashboard/reports/${report.id}`);
                         }}
-                        className={`border px-2.5 py-1 text-xs rounded-xl font-mono uppercase tracking-wider transition-colors cursor-pointer ${activeReport?.id === report.id ? "bg-primary text-white border-primary" : "bg-card text-primary border-border hover:bg-sidebar"}`}
+                        className={`border px-2.5 py-1 text-xs rounded-xl font-mono uppercase transition-colors cursor-pointer ${activeReport?.id === report.id ? "bg-primary text-white border-primary" : "bg-card text-primary border-border hover:bg-sidebar"}`}
                       >
                         Configure & Edit
                       </button>
@@ -361,7 +359,7 @@ export default function ReportsManagementPage() {
                       {isAdmin && report.status === "draft" && (
                         <button
                           onClick={() => handlePublish(report.id)}
-                          className="border border-green-200 bg-green-50 text-green-700 px-2.5 py-1 text-xs rounded-xl font-mono uppercase tracking-wider hover:bg-green-100 transition-colors cursor-pointer"
+                          className="border border-green-200 bg-green-50 text-green-700 px-2.5 py-1 text-xs rounded-xl font-mono uppercase hover:bg-green-100 transition-colors cursor-pointer"
                         >
                           Publish
                         </button>
@@ -370,7 +368,7 @@ export default function ReportsManagementPage() {
                       {isAdmin && report.status === "published" && (
                         <button
                           onClick={() => handleArchive(report.id)}
-                          className="border border-red-200 bg-red-50 text-red-700 px-2.5 py-1 text-xs rounded-xl font-mono uppercase tracking-wider hover:bg-red-100 transition-colors cursor-pointer"
+                          className="border border-red-200 bg-red-50 text-red-700 px-2.5 py-1 text-xs rounded-xl font-mono uppercase hover:bg-red-100 transition-colors cursor-pointer"
                         >
                           Archive
                         </button>
@@ -409,12 +407,12 @@ export default function ReportsManagementPage() {
       {createModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-md border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * CMS CREATOR FLOW
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 Create New Report Dataset
               </h3>
               <button
@@ -433,7 +431,7 @@ export default function ReportsManagementPage() {
               )}
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Report Title
                 </label>
                 <input
@@ -447,7 +445,7 @@ export default function ReportsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Auto-Generated URL Slug
                 </label>
                 <input
@@ -461,7 +459,7 @@ export default function ReportsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center gap-1">
+                <label className="block font-mono text-xs uppercase text-muted flex items-center gap-1">
                   <Building className="h-3 w-3" /> Select Industry
                 </label>
                 <select
@@ -480,7 +478,7 @@ export default function ReportsManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted flex items-center gap-1">
+                <label className="block font-mono text-xs uppercase text-muted flex items-center gap-1">
                   <Calendar className="h-3 w-3" /> Select Year
                 </label>
                 <select
@@ -502,14 +500,14 @@ export default function ReportsManagementPage() {
                 <button
                   type="button"
                   onClick={() => setCreateModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={creating}
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50"
                 >
                   {creating
                     ? "Initializing report & pages..."

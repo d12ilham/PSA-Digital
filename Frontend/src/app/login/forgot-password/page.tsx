@@ -33,14 +33,14 @@ export default function ForgotPasswordPage() {
         {/* Header Logo */}
         <div className="mb-8 flex flex-col items-start">
           <div className="flex items-center gap-2 mb-2">
-            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold tracking-wider font-mono">
+            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold font-mono">
               PSA
             </span>
-            <span className="font-sans text-lg font-bold tracking-tight text-primary">
+            <span className="font-sans text-lg font-bold text-primary">
               Workforce Insights
             </span>
           </div>
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase text-muted">
             ADMIN SYSTEM / PASSWORD RESET
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
             <div className="pt-2">
               <Link
                 href="/login"
-                className="block w-full text-center bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none"
+                className="block w-full text-center bg-primary py-2.5 font-mono text-xs uppercase text-white transition-all hover:bg-active focus:outline-none"
               >
                 Return to Sign In
               </Link>
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
             )}
 
             <div className="space-y-1">
-              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase text-muted">
                 Email Address
               </label>
               <input
@@ -96,13 +96,13 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
+                className="w-full bg-primary py-2.5 font-mono text-xs uppercase text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
               >
                 {submitting ? "Processing..." : "Send Reset Link"}
               </button>
               <Link
                 href="/login"
-                className="text-center font-mono text-xs uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2 py-1"
+                className="text-center font-mono text-xs uppercase text-muted hover:text-primary transition-colors underline underline-offset-2 py-1"
               >
                 Cancel and return
               </Link>

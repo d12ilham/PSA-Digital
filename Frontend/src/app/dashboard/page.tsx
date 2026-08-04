@@ -74,7 +74,7 @@ export default function DashboardPage() {
     return (
       <div className="flex h-[60vh] flex-col items-center justify-center border border-dashed border-border bg-sidebar/30 p-8 text-center">
         <BookOpen className="mb-4 h-8 w-8 text-muted" />
-        <span className="font-mono text-xs uppercase tracking-wider text-muted mb-2">
+        <span className="font-mono text-xs uppercase text-muted mb-2">
           No Report Selected
         </span>
         <p className="max-w-xs text-xs text-muted/80 leading-relaxed">
@@ -90,18 +90,16 @@ export default function DashboardPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span className="text-primary font-bold">Overview</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
-            Dataset Summary
-          </h1>
+          <h1 className="text-2xl font-bold text-primary">Dataset Summary</h1>
         </div>
 
         {/* Swap info / actions */}
-        <div className="font-mono text-xs uppercase tracking-wider text-muted text-left md:text-right">
+        <div className="font-mono text-xs uppercase text-muted text-left md:text-right">
           Last updated:{" "}
           {new Date(
             activeReport.status === "published"
@@ -115,7 +113,7 @@ export default function DashboardPage() {
 
       {/* ── Active Report Description Card ── */}
       <div className="border border-border rounded-2xl bg-card p-6 relative">
-        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
           * METADATA BLOCK
         </span>
         <h2 className="text-lg font-bold text-primary mb-2">
@@ -138,7 +136,7 @@ export default function DashboardPage() {
           <div className="flex items-start gap-3">
             <Info className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-amber-800">
+              <h3 className="text-xs font-bold uppercase text-amber-800">
                 Dataset outline not initialized
               </h3>
               <p className="text-xs text-muted leading-relaxed max-w-lg mt-0.5">
@@ -165,7 +163,7 @@ export default function DashboardPage() {
                 setLoading(false);
               }
             }}
-            className="border border-amber-300 bg-amber-600 text-white font-mono text-xs uppercase tracking-widest px-4 py-2 hover:bg-amber-700 transition-colors shrink-0"
+            className="border border-amber-300 bg-amber-600 text-white font-mono text-xs uppercase px-4 py-2 hover:bg-amber-700 transition-colors shrink-0"
           >
             Initialize Chapters
           </button>
@@ -177,16 +175,16 @@ export default function DashboardPage() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {/* KPI 1: Pages */}
         <div className="border border-border bg-card p-6 relative">
-          <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
             * KPI BLOCK
           </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+          <span className="font-mono text-xs uppercase text-muted block mb-1">
             Total Content Pages
           </span>
           {loading ? (
             <div className="h-9 w-12 animate-pulse bg-border/40 mt-1" />
           ) : (
-            <span className="text-3xl font-bold tracking-tight text-primary">
+            <span className="text-3xl font-bold text-primary">
               {stats.pagesCount}
             </span>
           )}
@@ -197,16 +195,16 @@ export default function DashboardPage() {
 
         {/* KPI 2: Strategies */}
         <div className="border border-border bg-card p-6 relative">
-          <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
             * KPI BLOCK
           </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+          <span className="font-mono text-xs uppercase text-muted block mb-1">
             Active Strategies
           </span>
           {loading ? (
             <div className="h-9 w-12 animate-pulse bg-border/40 mt-1" />
           ) : (
-            <span className="text-3xl font-bold tracking-tight text-primary">
+            <span className="text-3xl font-bold text-primary">
               {stats.strategiesCount}
             </span>
           )}
@@ -217,16 +215,16 @@ export default function DashboardPage() {
 
         {/* KPI 3: Insights */}
         <div className="border border-border bg-card p-6 relative">
-          <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
             * KPI BLOCK
           </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+          <span className="font-mono text-xs uppercase text-muted block mb-1">
             Workforce Insights
           </span>
           {loading ? (
             <div className="h-9 w-12 animate-pulse bg-border/40 mt-1" />
           ) : (
-            <span className="text-3xl font-bold tracking-tight text-primary">
+            <span className="text-3xl font-bold text-primary">
               {stats.insightsCount}
             </span>
           )}
@@ -237,14 +235,14 @@ export default function DashboardPage() {
 
         {/* KPI 4: Dataset Status */}
         <div className="border border-border bg-card p-6 relative">
-          <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
             * KPI BLOCK
           </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+          <span className="font-mono text-xs uppercase text-muted block mb-1">
             Publication Status
           </span>
           <div className="mt-1">
-            <span className="text-xl font-bold tracking-tight text-primary uppercase block">
+            <span className="text-xl font-bold text-primary uppercase block">
               {activeReport.status}
             </span>
             <span className="wireframe-badge mt-1.5 inline-block text-xs">
@@ -258,7 +256,7 @@ export default function DashboardPage() {
 
       {/* ── Quick Controls Grid ── */}
       <div>
-        <h3 className="font-mono text-xs uppercase tracking-widest text-muted mb-4 block">
+        <h3 className="font-mono text-xs uppercase text-muted mb-4 block">
           Admin Shortcuts
         </h3>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -279,7 +277,7 @@ export default function DashboardPage() {
           >
             <div>
               <FileText className="h-5 w-5 text-muted group-hover:text-primary mb-3" />
-              <h4 className="text-xs font-bold text-primary uppercase tracking-wide">
+              <h4 className="text-xs font-bold text-primary uppercase">
                 Edit Content Pages
               </h4>
               <p className="text-xs text-muted mt-1">
@@ -302,7 +300,7 @@ export default function DashboardPage() {
           >
             <div>
               <Sliders className="h-5 w-5 text-muted group-hover:text-primary mb-3" />
-              <h4 className="text-xs font-bold text-primary uppercase tracking-wide">
+              <h4 className="text-xs font-bold text-primary uppercase">
                 Manage Strategies
               </h4>
               <p className="text-xs text-muted mt-1">
@@ -327,7 +325,7 @@ export default function DashboardPage() {
           >
             <div>
               <Activity className="h-5 w-5 text-muted group-hover:text-primary mb-3" />
-              <h4 className="text-xs font-bold text-primary uppercase tracking-wide">
+              <h4 className="text-xs font-bold text-primary uppercase">
                 Manage Insights
               </h4>
               <p className="text-xs text-muted mt-1">
@@ -347,7 +345,7 @@ export default function DashboardPage() {
           >
             <div>
               <Settings className="h-5 w-5 text-muted group-hover:text-primary mb-3" />
-              <h4 className="text-xs font-bold text-primary uppercase tracking-wide">
+              <h4 className="text-xs font-bold text-primary uppercase">
                 Report Settings
               </h4>
               <p className="text-xs text-muted mt-1">

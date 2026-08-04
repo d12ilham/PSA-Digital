@@ -32,14 +32,14 @@ export default function LoginPage() {
         {/* Header Logo */}
         <div className="mb-8 flex flex-col items-start">
           <div className="flex items-center gap-2 mb-2">
-            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold tracking-wider font-mono">
+            <span className="flex h-7 w-7 items-center justify-center border border-primary bg-sidebar text-xs font-bold font-mono">
               PSA
             </span>
-            <span className="font-sans text-lg font-bold tracking-tight text-primary">
+            <span className="font-sans text-lg font-bold text-primary">
               Workforce Insights
             </span>
           </div>
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase text-muted">
             ADMIN SYSTEM / ACCESS GATEWAY
           </span>
         </div>
@@ -53,7 +53,7 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-1">
-            <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+            <label className="block font-mono text-xs uppercase text-muted">
               Email Address
             </label>
             <input
@@ -68,12 +68,12 @@ export default function LoginPage() {
 
           <div className="space-y-1">
             <div className="flex justify-between items-center">
-              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase text-muted">
                 Password
               </label>
               <Link
                 href="/login/forgot-password"
-                className="font-mono text-xs uppercase tracking-wider text-muted hover:text-primary transition-colors underline underline-offset-2"
+                className="font-mono text-xs uppercase text-muted hover:text-primary transition-colors underline underline-offset-2"
               >
                 Forgot?
               </Link>
@@ -92,7 +92,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-primary py-2.5 font-mono text-xs uppercase tracking-widest text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
+              className="w-full bg-primary py-2.5 font-mono text-xs uppercase text-white transition-all hover:bg-active focus:outline-none disabled:opacity-50"
             >
               {submitting ? "Authenticating..." : "Sign In"}
             </button>

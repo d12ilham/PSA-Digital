@@ -493,27 +493,25 @@ export default function SettingsPage() {
     <div className="space-y-8">
       {/* ── Breadcrumb & Title ── */}
       <div>
-        <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+        <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
           <span>Home</span>
           <span>/</span>
           <span>Admin</span>
           <span>/</span>
           <span className="text-primary font-bold">Settings</span>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-primary">
-          Settings Panel
-        </h1>
+        <h1 className="text-2xl font-bold text-primary">Settings Panel</h1>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Card 1: Change Password */}
         <div className="border border-border bg-card p-6 rounded-2xl relative">
-          <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
             * SECURITY SETTINGS
           </span>
           <div className="flex items-center gap-2 mb-6">
             <KeyRound className="h-5 w-5 text-muted" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-primary">
+            <h2 className="text-sm font-bold uppercase text-primary">
               Change Password
             </h2>
           </div>
@@ -531,7 +529,7 @@ export default function SettingsPage() {
             )}
 
             <div className="space-y-1">
-              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase text-muted">
                 Current Password
               </label>
               <input
@@ -544,7 +542,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-1">
-              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase text-muted">
                 New Password
               </label>
               <input
@@ -557,7 +555,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-1">
-              <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+              <label className="block font-mono text-xs uppercase text-muted">
                 Confirm New Password
               </label>
               <input
@@ -573,7 +571,7 @@ export default function SettingsPage() {
               <button
                 type="submit"
                 disabled={passwordLoading}
-                className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
               >
                 <Save className="h-3.5 w-3.5" />
                 {passwordLoading ? "Updating..." : "Update Password"}
@@ -586,12 +584,12 @@ export default function SettingsPage() {
         <div className="space-y-8">
           {/* Card 2: Add New Industry */}
           <div className="border border-border bg-card p-6 rounded-2xl relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * METADATA CREATOR
             </span>
             <div className="flex items-center gap-2 mb-6">
               <Building className="h-5 w-5 text-muted" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h2 className="text-sm font-bold uppercase text-primary">
                 Register Industry Segment
               </h2>
             </div>
@@ -615,7 +613,7 @@ export default function SettingsPage() {
                 )}
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Industry Name
                   </label>
                   <input
@@ -629,7 +627,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     URL Slug
                   </label>
                   <input
@@ -644,7 +642,7 @@ export default function SettingsPage() {
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="space-y-1 sm:col-span-2">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Description (Optional)
                     </label>
                     <textarea
@@ -657,7 +655,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="space-y-1 sm:col-span-2">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Sort Order Position (Optional)
                     </label>
                     <input
@@ -674,7 +672,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={indLoading}
-                    className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                    className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     {indLoading ? "Registering..." : "Register Industry"}
@@ -686,12 +684,12 @@ export default function SettingsPage() {
 
           {/* Card 3: Add New Year */}
           <div className="border border-border bg-card p-6 rounded-2xl relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * METADATA CREATOR
             </span>
             <div className="flex items-center gap-2 mb-6">
               <Calendar className="h-5 w-5 text-muted" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h2 className="text-sm font-bold uppercase text-primary">
                 Register Report Year
               </h2>
             </div>
@@ -715,7 +713,7 @@ export default function SettingsPage() {
                 )}
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Calendar Year (YYYY)
                   </label>
                   <input
@@ -731,7 +729,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Display Label
                   </label>
                   <input
@@ -748,7 +746,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={yearLoading}
-                    className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                    className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     {yearLoading ? "Registering..." : "Register Year"}
@@ -762,20 +760,20 @@ export default function SettingsPage() {
 
       {/* Chapter Templates Management Card */}
       <div className="border border-border bg-card p-6 rounded-2xl relative">
-        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
           * REPORT BLUEPRINT
         </span>
         <div className="flex items-center justify-between mb-6 border-b border-border/60 pb-3">
           <div className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-muted" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-primary">
+            <h2 className="text-sm font-bold uppercase text-primary">
               Global Report Chapter Templates
             </h2>
           </div>
           {templates.length === 0 && !templatesLoading && isEditorOrAdmin && (
             <button
               onClick={handleSeedDefaults}
-              className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider px-3 py-1.5 bg-primary text-white hover:bg-active transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 font-mono text-xs uppercase px-3 py-1.5 bg-primary text-white hover:bg-active transition-colors cursor-pointer"
             >
               <RefreshCw className="h-3 w-3" />
               Seed Default Chapters
@@ -805,7 +803,7 @@ export default function SettingsPage() {
             <div className="grid gap-8 lg:grid-cols-3">
               {/* Creator Form */}
               <div className="lg:col-span-1 border-r border-border/60 pr-8 space-y-4">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold">
+                <h3 className="font-mono text-xs uppercase text-primary font-bold">
                   {editingTplId
                     ? "Edit Chapter Template"
                     : "Add Chapter Template"}
@@ -817,7 +815,7 @@ export default function SettingsPage() {
                   className="space-y-3"
                 >
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Title *
                     </label>
                     <input
@@ -835,7 +833,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Slug (Auto-generated) *
                     </label>
                     <input
@@ -853,7 +851,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Page Type *
                     </label>
                     <select
@@ -898,7 +896,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Parent Chapter (Optional)
                     </label>
                     <select
@@ -930,7 +928,7 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Sort Order Position
                     </label>
                     <input
@@ -951,7 +949,7 @@ export default function SettingsPage() {
                       <button
                         type="button"
                         onClick={() => setEditingTplId(null)}
-                        className="flex-1 border border-border bg-card py-2 font-mono text-xs uppercase tracking-wider hover:bg-sidebar text-muted flex items-center justify-center gap-1 cursor-pointer"
+                        className="flex-1 border border-border bg-card py-2 font-mono text-xs uppercase hover:bg-sidebar text-muted flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <X className="h-3 w-3" />
                         Cancel
@@ -960,7 +958,7 @@ export default function SettingsPage() {
                     <button
                       type="submit"
                       disabled={creatingTemplate || updatingTemplate}
-                      className="flex-1 bg-primary py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 cursor-pointer"
+                      className="flex-1 bg-primary py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 cursor-pointer"
                     >
                       <Plus className="h-3.5 w-3.5" />
                       {editingTplId
@@ -977,7 +975,7 @@ export default function SettingsPage() {
 
               {/* Hierarchy List */}
               <div className="lg:col-span-2 space-y-4">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold">
+                <h3 className="font-mono text-xs uppercase text-primary font-bold">
                   Structure Template List
                 </h3>
 
@@ -985,7 +983,7 @@ export default function SettingsPage() {
                   <div className="flex h-32 items-center justify-center border border-dashed border-border/80">
                     <div className="flex flex-col items-center gap-2">
                       <div className="h-3.5 w-3.5 animate-spin rounded-full border border-primary border-t-transparent" />
-                      <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                      <span className="font-mono text-xs uppercase text-muted">
                         Retrieving chapter blueprint...
                       </span>
                     </div>

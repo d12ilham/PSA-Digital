@@ -138,7 +138,7 @@ export default function PublicReportReaderPage({
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-6 w-6 animate-spin text-primary" />
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase text-muted">
             Initialising Document Reader...
           </span>
         </div>
@@ -150,7 +150,7 @@ export default function PublicReportReaderPage({
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="max-w-md w-full border border-red-200 bg-red-50/50 p-6 text-center rounded-xl">
-          <span className="font-sans text-xs uppercase tracking-widest text-red-700 block mb-2 font-bold">
+          <span className="font-sans text-xs uppercase text-red-700 block mb-2 font-bold">
             * READER EXCEPTION
           </span>
           <p className="text-xs text-red-600 mb-4">
@@ -158,7 +158,7 @@ export default function PublicReportReaderPage({
           </p>
           <button
             onClick={() => router.push(`/reports/${slug}`)}
-            className="border border-border bg-card px-4 py-2 font-sans text-xs uppercase tracking-widest text-primary hover:bg-sidebar transition-colors cursor-pointer rounded-xl"
+            className="border border-border bg-card px-4 py-2 font-sans text-xs uppercase text-primary hover:bg-sidebar transition-colors cursor-pointer rounded-xl"
           >
             Back to Cover
           </button>
@@ -288,7 +288,7 @@ export default function PublicReportReaderPage({
               href={report.psaSectorPageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-all font-sans uppercase tracking-wider"
+              className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-all font-sans uppercase"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               PSA Sector Website
@@ -299,7 +299,7 @@ export default function PublicReportReaderPage({
               href={report.pdfFileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-all font-sans uppercase tracking-wider"
+              className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-all font-sans uppercase"
             >
               <FileText className="h-3.5 w-3.5" />
               Download Full PDF
@@ -313,7 +313,7 @@ export default function PublicReportReaderPage({
             href={report.contactUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-between gap-3 bg-[#699a05] text-[#FAFAF0] hover:bg-[#8ac900] hover:text-[#161b01] transition-all p-3 rounded-xl font-bold text-xs uppercase tracking-wider"
+            className="w-full flex items-center justify-between gap-3 bg-[#699a05] text-[#FAFAF0] hover:bg-[#8ac900] hover:text-[#161b01] transition-all p-3 rounded-xl font-bold text-xs uppercase"
           >
             <span className="flex items-center gap-2">
               <span className="h-6 w-6 rounded-full border border-white/30 flex items-center justify-center">
@@ -350,7 +350,7 @@ export default function PublicReportReaderPage({
           <MenuIcon className="h-4 w-4" />
         </button>
 
-        <span className="hidden md:inline text-xs font-bold text-primary max-w-lg truncate leading-none uppercase tracking-wide">
+        <span className="hidden md:inline text-xs font-bold text-primary max-w-lg truncate leading-none uppercase">
           {report.title}
         </span>
       </header>
@@ -367,7 +367,7 @@ export default function PublicReportReaderPage({
             <div className="flex h-96 items-center justify-center">
               <div className="flex flex-col items-center gap-2">
                 <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                <span className="font-mono text-xs uppercase text-muted">
                   Loading Section...
                 </span>
               </div>
@@ -377,7 +377,7 @@ export default function PublicReportReaderPage({
               {/* Active page header */}
               <div className="border-b border-border/60 pb-5">
                 {activePage.parentPathway && (
-                  <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold mb-1">
+                  <span className="block font-mono text-xs uppercase text-muted font-bold mb-1">
                     {activePage.parentPathway.replace("_", " ")}
                   </span>
                 )}
@@ -453,10 +453,10 @@ export default function PublicReportReaderPage({
                               key={idx}
                               className="p-5 space-y-1 flex flex-col justify-center"
                             >
-                              <div className="text-2xl font-extrabold text-primary tracking-tight font-sans leading-none">
+                              <div className="text-2xl font-extrabold text-primary font-sans leading-none">
                                 {kpi.value}
                               </div>
-                              <div className="font-mono text-xs uppercase tracking-wider text-[#598303] font-bold">
+                              <div className="font-mono text-xs uppercase text-[#598303] font-bold">
                                 {kpi.label}
                               </div>
                               {kpi.subtext && (

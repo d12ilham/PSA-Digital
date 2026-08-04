@@ -182,21 +182,21 @@ export default function StrategiesManagementPage() {
       {/* ── Breadcrumb & Title ── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
             <span>Home</span>
             <span>/</span>
             <span>Dataset</span>
             <span>/</span>
             <span className="text-primary font-bold">Strategies</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-primary">
+          <h1 className="text-2xl font-bold text-primary">
             Workforce Strategies
           </h1>
         </div>
 
         <button
           onClick={handleOpenAdd}
-          className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
+          className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors flex items-center justify-center gap-1.5"
         >
           <Plus className="h-4 w-4" />
           Add Strategy
@@ -205,7 +205,7 @@ export default function StrategiesManagementPage() {
 
       {/* ── Visual Filter Chips ── */}
       <div className="flex flex-wrap gap-2 items-center">
-        <span className="font-mono text-xs uppercase tracking-widest text-muted mr-2">
+        <span className="font-mono text-xs uppercase text-muted mr-2">
           Filter Type:
         </span>
         <button
@@ -242,7 +242,7 @@ export default function StrategiesManagementPage() {
 
       {/* ── Strategies Table Card ── */}
       <div className="border border-border bg-card p-6 rounded-2xl relative">
-        <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+        <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
           * STRATEGIES DATA TABLE
         </span>
 
@@ -250,7 +250,7 @@ export default function StrategiesManagementPage() {
           <div className="flex h-32 items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="h-4 w-4 animate-spin rounded-full border border-primary border-t-transparent" />
-              <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              <span className="font-mono text-xs uppercase text-muted">
                 Loading strategies...
               </span>
             </div>
@@ -263,7 +263,7 @@ export default function StrategiesManagementPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-border text-muted font-mono uppercase text-xs tracking-wider font-bold">
+                <tr className="border-b border-border text-muted font-mono uppercase text-xs font-bold">
                   <th className="py-2.5 px-3">Num</th>
                   <th className="py-2.5 px-3">Type</th>
                   <th className="py-2.5 px-3">Strategy Title</th>
@@ -343,12 +343,12 @@ export default function StrategiesManagementPage() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
           <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
-            <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+            <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * STRATEGY DIALOG
             </span>
 
             <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
+              <h3 className="text-sm font-bold uppercase text-primary">
                 {editingStrategy
                   ? "Modify Strategy Record"
                   : "Create Strategy Record"}
@@ -364,7 +364,7 @@ export default function StrategiesManagementPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Type
                   </label>
                   <select
@@ -380,7 +380,7 @@ export default function StrategiesManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Year
                   </label>
                   <input
@@ -392,7 +392,7 @@ export default function StrategiesManagementPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                  <label className="block font-mono text-xs uppercase text-muted">
                     Number
                   </label>
                   <input
@@ -405,7 +405,7 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Strategy Title
                 </label>
                 <input
@@ -419,7 +419,7 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Lead Agency
                 </label>
                 <input
@@ -432,7 +432,7 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                <label className="block font-mono text-xs uppercase text-muted font-bold">
                   Delivery Timeline
                 </label>
                 <input
@@ -445,7 +445,7 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted font-semibold">
+                <label className="block font-mono text-xs uppercase text-muted font-semibold">
                   Status
                 </label>
                 <select
@@ -460,7 +460,7 @@ export default function StrategiesManagementPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                <label className="block font-mono text-xs uppercase text-muted">
                   Description
                 </label>
                 <textarea
@@ -473,7 +473,7 @@ export default function StrategiesManagementPage() {
 
               {strategyType === "update" && (
                 <div className="space-y-1 border-t border-border/60 pt-3">
-                  <label className="block font-mono text-xs uppercase tracking-wider text-red-600 font-bold">
+                  <label className="block font-mono text-xs uppercase text-red-600 font-bold">
                     Progress Update Note (2025 Strategy Status)
                   </label>
                   <textarea
@@ -490,13 +490,13 @@ export default function StrategiesManagementPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest hover:bg-sidebar transition-colors"
+                  className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors"
+                  className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors"
                 >
                   Save Strategy
                 </button>

@@ -399,14 +399,14 @@ export default function SiteSettingsPage() {
     <div className="space-y-8">
       {/* ── Breadcrumb & Title ── */}
       <div>
-        <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+        <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
           <span>Home</span>
           <span>/</span>
           <span>Admin</span>
           <span>/</span>
           <span className="text-primary font-bold">Site Settings</span>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-primary">
+        <h1 className="text-2xl font-bold text-primary">
           Site Identity & Navigation
         </h1>
       </div>
@@ -415,7 +415,7 @@ export default function SiteSettingsPage() {
       <div className="flex border-b border-border gap-1 shrink-0">
         <button
           onClick={() => setActiveTab("identity")}
-          className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors border-t border-x -mb-[1px] ${
+          className={`px-4 py-2 font-mono text-xs uppercase transition-colors border-t border-x -mb-[1px] ${
             activeTab === "identity"
               ? "bg-card text-primary border-border font-bold"
               : "bg-transparent border-transparent text-muted hover:text-primary"
@@ -426,7 +426,7 @@ export default function SiteSettingsPage() {
         </button>
         <button
           onClick={() => setActiveTab("menus")}
-          className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors border-t border-x -mb-[1px] ${
+          className={`px-4 py-2 font-mono text-xs uppercase transition-colors border-t border-x -mb-[1px] ${
             activeTab === "menus"
               ? "bg-card text-primary border-border font-bold"
               : "bg-transparent border-transparent text-muted hover:text-primary"
@@ -454,7 +454,7 @@ export default function SiteSettingsPage() {
                 <div className="flex h-40 items-center justify-center">
                   <div className="flex flex-col items-center gap-2">
                     <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                    <span className="font-mono text-xs uppercase text-muted">
                       Retrieving configurations...
                     </span>
                   </div>
@@ -466,7 +466,7 @@ export default function SiteSettingsPage() {
                 >
                   {/* Site Title */}
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Site Title *
                     </label>
                     <input
@@ -481,7 +481,7 @@ export default function SiteSettingsPage() {
 
                   {/* Site Description */}
                   <div className="space-y-1">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                    <label className="block font-mono text-xs uppercase text-muted">
                       Site Description
                     </label>
                     <textarea
@@ -497,7 +497,7 @@ export default function SiteSettingsPage() {
                   <div className="grid gap-6 sm:grid-cols-2">
                     {/* Light Theme Logo */}
                     <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
-                      <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                      <span className="block font-mono text-xs uppercase text-muted font-bold">
                         Logo (Light Mode BG)
                       </span>
                       <div className="border border-border/80 bg-card rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
@@ -517,7 +517,7 @@ export default function SiteSettingsPage() {
                         <button
                           type="button"
                           onClick={() => triggerPicker("logoLight")}
-                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
+                          className="flex-1 font-mono text-xs uppercase border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
                         >
                           Choose Logo
                         </button>
@@ -535,7 +535,7 @@ export default function SiteSettingsPage() {
 
                     {/* Dark Theme Logo */}
                     <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded">
-                      <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                      <span className="block font-mono text-xs uppercase text-muted font-bold">
                         Logo (Dark Mode BG)
                       </span>
                       <div className="border border-border/80 bg-primary rounded p-2 flex items-center justify-center h-20 max-w-full overflow-hidden">
@@ -555,7 +555,7 @@ export default function SiteSettingsPage() {
                         <button
                           type="button"
                           onClick={() => triggerPicker("logoDark")}
-                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
+                          className="flex-1 font-mono text-xs uppercase border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
                         >
                           Choose Logo
                         </button>
@@ -574,7 +574,7 @@ export default function SiteSettingsPage() {
 
                   {/* Favicon picker */}
                   <div className="space-y-2 border border-border p-4 bg-sidebar/5 rounded max-w-xs">
-                    <span className="block font-mono text-xs uppercase tracking-wider text-muted font-bold">
+                    <span className="block font-mono text-xs uppercase text-muted font-bold">
                       Browser Favicon
                     </span>
                     <div className="flex items-center gap-4">
@@ -593,7 +593,7 @@ export default function SiteSettingsPage() {
                         <button
                           type="button"
                           onClick={() => triggerPicker("favicon")}
-                          className="flex-1 font-mono text-xs uppercase tracking-wider border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
+                          className="flex-1 font-mono text-xs uppercase border border-border bg-card hover:bg-sidebar px-2 py-1 transition-colors"
                         >
                           Choose Favicon
                         </button>
@@ -616,7 +616,7 @@ export default function SiteSettingsPage() {
                       <button
                         type="submit"
                         disabled={savingSettings}
-                        className="bg-primary px-5 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5 font-bold"
+                        className="bg-primary px-5 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 flex items-center gap-1.5 font-bold"
                       >
                         <Save className="h-3.5 w-3.5" />
                         {savingSettings
@@ -644,7 +644,7 @@ export default function SiteSettingsPage() {
               </div>
               <div className="p-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-card">
                 <div className="flex items-center gap-3">
-                  <span className="font-sans text-xs uppercase tracking-widest text-muted font-bold whitespace-nowrap">
+                  <span className="font-sans text-xs uppercase text-muted font-bold whitespace-nowrap">
                     Select a menu to edit:
                   </span>
                   {menusLoading ? (
@@ -668,7 +668,7 @@ export default function SiteSettingsPage() {
                 {isEditorOrAdmin && (
                   <button
                     onClick={() => setShowCreateMenu(true)}
-                    className="font-sans text-xs uppercase tracking-wider px-3 py-1.5 bg-primary text-white hover:bg-[#416102] transition-colors flex items-center gap-1 cursor-pointer font-bold shrink-0 rounded-lg"
+                    className="font-sans text-xs uppercase px-3 py-1.5 bg-primary text-white hover:bg-[#416102] transition-colors flex items-center gap-1 cursor-pointer font-bold shrink-0 rounded-lg"
                   >
                     <Plus className="h-3 w-3" />
                     Create New Menu
@@ -684,15 +684,15 @@ export default function SiteSettingsPage() {
                 <div className="lg:col-span-1 space-y-6">
                   {/* Menu Settings */}
                   <div className="border border-border bg-card p-5 shadow-sm relative">
-                    <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+                    <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
                       * CONFIGURATION
                     </span>
-                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-4">
+                    <h3 className="font-mono text-xs uppercase text-primary font-bold mb-4">
                       Menu Structure Settings
                     </h3>
                     <form onSubmit={handleUpdateMenuInfo} className="space-y-4">
                       <div className="space-y-1">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase text-muted">
                           Menu Name
                         </label>
                         <input
@@ -707,7 +707,7 @@ export default function SiteSettingsPage() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                        <label className="block font-mono text-xs uppercase text-muted">
                           Slug (Identifier)
                         </label>
                         <input
@@ -724,7 +724,7 @@ export default function SiteSettingsPage() {
                           <button
                             type="button"
                             onClick={handleDeleteMenu}
-                            className="border border-red-200 bg-red-50 text-red-600 px-3 py-1.5 font-mono text-xs uppercase tracking-wider hover:bg-red-100 transition-colors flex items-center justify-center gap-1"
+                            className="border border-red-200 bg-red-50 text-red-600 px-3 py-1.5 font-mono text-xs uppercase hover:bg-red-100 transition-colors flex items-center justify-center gap-1"
                           >
                             <Trash2 className="h-3 w-3" />
                             Delete Menu
@@ -732,7 +732,7 @@ export default function SiteSettingsPage() {
                           <button
                             type="submit"
                             disabled={savingMenuInfo}
-                            className="flex-1 bg-primary text-white py-1.5 font-mono text-xs uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 font-bold"
+                            className="flex-1 bg-primary text-white py-1.5 font-mono text-xs uppercase hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1 font-bold"
                           >
                             <Save className="h-3 w-3" />
                             {savingMenuInfo ? "Saving..." : "Save Settings"}
@@ -745,15 +745,15 @@ export default function SiteSettingsPage() {
                   {/* Add Menu Item */}
                   {isEditorOrAdmin && (
                     <div className="border border-border bg-card p-5 shadow-sm relative">
-                      <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+                      <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
                         * ITEM BUILDER
                       </span>
-                      <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold mb-4">
+                      <h3 className="font-mono text-xs uppercase text-primary font-bold mb-4">
                         Add Menu Link Item
                       </h3>
                       <form onSubmit={handleAddMenuItem} className="space-y-4">
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Link Label *
                           </label>
                           <input
@@ -767,7 +767,7 @@ export default function SiteSettingsPage() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Link URL *
                           </label>
                           <input
@@ -781,7 +781,7 @@ export default function SiteSettingsPage() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Parent Menu Item
                           </label>
                           <select
@@ -799,7 +799,7 @@ export default function SiteSettingsPage() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                          <label className="block font-mono text-xs uppercase text-muted">
                             Sort Order
                           </label>
                           <input
@@ -814,7 +814,7 @@ export default function SiteSettingsPage() {
                         <button
                           type="submit"
                           disabled={addingItem}
-                          className="w-full bg-primary text-white py-2 font-mono text-xs uppercase tracking-widest hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 font-bold"
+                          className="w-full bg-primary text-white py-2 font-mono text-xs uppercase hover:bg-active transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 font-bold"
                         >
                           <Plus className="h-3.5 w-3.5" />
                           {addingItem ? "Adding..." : "Add Link to Menu"}
@@ -827,10 +827,10 @@ export default function SiteSettingsPage() {
                 {/* Hierarchical Items Outline Panel */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="border border-border bg-card p-6 rounded-2xl relative">
-                    <span className="absolute top-2 right-3 font-mono text-xs uppercase tracking-widest text-muted">
+                    <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
                       * MENU OUTLINE
                     </span>
-                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold border-b border-border/60 pb-3 mb-4">
+                    <h3 className="font-mono text-xs uppercase text-primary font-bold border-b border-border/60 pb-3 mb-4">
                       Menu Structure & Hierarchy
                     </h3>
 
@@ -838,7 +838,7 @@ export default function SiteSettingsPage() {
                       <div className="flex h-40 items-center justify-center">
                         <div className="flex flex-col items-center gap-2">
                           <Loader2 className="h-5 w-5 animate-spin text-muted" />
-                          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                          <span className="font-mono text-xs uppercase text-muted">
                             Retrieving items...
                           </span>
                         </div>
@@ -881,7 +881,7 @@ export default function SiteSettingsPage() {
                                       className="w-full grid gap-3 sm:grid-cols-4 items-end"
                                     >
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                        <label className="block font-mono text-xs uppercase text-muted">
                                           Label *
                                         </label>
                                         <input
@@ -895,7 +895,7 @@ export default function SiteSettingsPage() {
                                         />
                                       </div>
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                        <label className="block font-mono text-xs uppercase text-muted">
                                           URL *
                                         </label>
                                         <input
@@ -909,7 +909,7 @@ export default function SiteSettingsPage() {
                                         />
                                       </div>
                                       <div className="space-y-1 sm:col-span-1">
-                                        <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                        <label className="block font-mono text-xs uppercase text-muted">
                                           Parent
                                         </label>
                                         <select
@@ -938,7 +938,7 @@ export default function SiteSettingsPage() {
                                       </div>
                                       <div className="space-y-1 sm:col-span-1 flex gap-1">
                                         <div className="flex-1">
-                                          <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                                          <label className="block font-mono text-xs uppercase text-muted">
                                             Order
                                           </label>
                                           <input
@@ -1058,7 +1058,7 @@ export default function SiteSettingsPage() {
             ) : (
               <div className="border border-dashed border-border bg-sidebar/20 p-8 text-center rounded">
                 <Globe className="h-10 w-10 text-muted/30 mx-auto mb-3" />
-                <span className="font-mono text-xs uppercase tracking-wider text-muted block mb-1">
+                <span className="font-mono text-xs uppercase text-muted block mb-1">
                   No Navigation Menu Selected
                 </span>
                 <p className="font-mono text-xs text-muted/60 max-w-xs mx-auto">
@@ -1073,7 +1073,7 @@ export default function SiteSettingsPage() {
               <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
                 <div className="w-full max-w-md bg-card border border-border p-6 shadow-2xl space-y-4">
                   <div className="flex items-center justify-between border-b border-border/60 pb-3">
-                    <h3 className="font-mono text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-1.5">
+                    <h3 className="font-mono text-xs uppercase text-primary font-bold flex items-center gap-1.5">
                       <Plus className="h-3.5 w-3.5" />
                       Create Navigation Menu
                     </h3>
@@ -1087,7 +1087,7 @@ export default function SiteSettingsPage() {
 
                   <form onSubmit={handleCreateMenu} className="space-y-4">
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Menu Name *
                       </label>
                       <input
@@ -1103,7 +1103,7 @@ export default function SiteSettingsPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-muted">
+                      <label className="block font-mono text-xs uppercase text-muted">
                         Slug (Auto-generated) *
                       </label>
                       <input
@@ -1120,14 +1120,14 @@ export default function SiteSettingsPage() {
                       <button
                         type="button"
                         onClick={() => setShowCreateMenu(false)}
-                        className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-wider hover:bg-sidebar text-muted"
+                        className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase hover:bg-sidebar text-muted"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
                         disabled={creatingMenu}
-                        className="bg-primary px-4 py-2 font-mono text-xs uppercase tracking-widest text-white hover:bg-active transition-colors disabled:opacity-50 font-bold"
+                        className="bg-primary px-4 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-colors disabled:opacity-50 font-bold"
                       >
                         {creatingMenu ? "Creating..." : "Create Menu"}
                       </button>

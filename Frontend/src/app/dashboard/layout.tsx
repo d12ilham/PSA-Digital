@@ -83,7 +83,7 @@ export default function DashboardLayout({
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border border-primary border-t-transparent" />
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <span className="font-mono text-xs uppercase text-muted">
             Loading Workspace...
           </span>
         </div>
@@ -172,7 +172,7 @@ export default function DashboardLayout({
 
           {/* Primary Navigation */}
           <div className="mb-6">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#FAFAF0]/40 block px-3 mb-2.5 font-bold">
+            <span className="font-sans text-xs uppercase text-[#FAFAF0]/40 block px-3 mb-2.5 font-bold">
               Main
             </span>
             <ul className="space-y-1.5">
@@ -226,7 +226,7 @@ export default function DashboardLayout({
 
           {/* Admin Controls */}
           <div>
-            <span className="font-sans text-xs uppercase tracking-widest text-[#FAFAF0]/40 block px-3 mb-2.5 font-bold">
+            <span className="font-sans text-xs uppercase text-[#FAFAF0]/40 block px-3 mb-2.5 font-bold">
               Admin Controls
             </span>
             <ul className="space-y-1.5">
@@ -285,7 +285,7 @@ export default function DashboardLayout({
             <span className="text-sm font-bold text-white leading-tight">
               {user.firstName} {user.lastName}
             </span>
-            <span className="text-xs text-[#FAFAF0]/40 font-medium uppercase tracking-wider">
+            <span className="text-xs text-[#FAFAF0]/40 font-medium uppercase">
               {user.role}
             </span>
           </div>
