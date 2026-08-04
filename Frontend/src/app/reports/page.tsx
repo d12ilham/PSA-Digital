@@ -200,7 +200,7 @@ export default function ReportsArchivePage() {
                     siteSettings.logoDarkUrl || siteSettings.logoLightUrl
                   )?.startsWith("http")
                     ? siteSettings.logoLightUrl
-                    : `http://localhost:3000${(siteSettings.logoDarkUrl || siteSettings.logoLightUrl)?.startsWith("/") ? "" : "/"}${siteSettings.logoDarkUrl || siteSettings.logoLightUrl}`
+                    : `${typeof window !== "undefined" ? window.location.origin : ""}${(siteSettings.logoDarkUrl || siteSettings.logoLightUrl)?.startsWith("/") ? "" : "/"}${siteSettings.logoDarkUrl || siteSettings.logoLightUrl}`
                 }
                 alt={siteSettings?.title || "Public Skills Australia"}
                 className="h-8 w-auto object-contain"

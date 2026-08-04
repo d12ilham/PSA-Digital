@@ -109,7 +109,7 @@ export default function ReportLandingPage({
   const getLogoUrl = (rawUrl?: string) => {
     if (!rawUrl) return null;
     if (rawUrl.startsWith("http")) return rawUrl;
-    return `http://localhost:3000${rawUrl.startsWith("/") ? "" : "/"}${rawUrl}`;
+    return `${typeof window !== "undefined" ? window.location.origin : ""}${rawUrl.startsWith("/") ? "" : "/"}${rawUrl}`;
   };
 
   if (loading) {

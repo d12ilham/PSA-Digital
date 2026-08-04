@@ -161,7 +161,7 @@ export default function DashboardLayout({
           {/* Brand Logo Header */}
           <div className="px-2 mb-6 border-b border-white/10 pb-5 pt-2 flex justify-center">
             <img
-              src="http://localhost:3000/uploads/7c44c719-ad10-460e-a0f9-b971240d10fc.png"
+              src="/uploads/7c44c719-ad10-460e-a0f9-b971240d10fc.png"
               alt="Public Skills Australia"
               className="h-11 w-auto object-contain"
               onError={(e) => {

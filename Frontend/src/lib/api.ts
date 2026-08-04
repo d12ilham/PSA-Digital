@@ -1,4 +1,12 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1';
+export function getApiBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/api/v1`;
+  }
+  return 'http://localhost:3000/api/v1';
+}
 
 let accessToken: string | null = null;
 let refreshPromise: Promise<string | null> | null = null;
@@ -56,7 +64,7 @@ async function handleRefresh(): Promise<string | null> {
     if (!refresh) return null;
 
     try {
-      const res = await fetch(`${API_BASE}/auth/refresh`, {
+      const res = await fetch(`${getApiBaseUrl()}/auth/refresh`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken: refresh }),
@@ -91,7 +99,7 @@ export async function apiRequest<T = any>(
   endpoint: string,
   options: RequestOptions = {}
 ): Promise<T> {
-  let url = `${API_BASE}${endpoint}`;
+  let url = `${getApiBaseUrl()}${endpoint}`;
   
   if (options.params) {
     const searchParams = new URLSearchParams();

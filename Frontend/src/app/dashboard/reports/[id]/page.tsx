@@ -238,7 +238,7 @@ export default function ReportEditPage({
         "/media/upload",
         formData,
       );
-      setCoverImageUrl(`http://localhost:3000${result.url}`);
+      setCoverImageUrl(result.url);
     } catch (err: any) {
       alert(`Failed to upload image: ${err.message}`);
     } finally {
@@ -255,7 +255,7 @@ export default function ReportEditPage({
         "/media/upload",
         formData,
       );
-      setPdfFileUrl(`http://localhost:3000${result.url}`);
+      setPdfFileUrl(result.url);
     } catch (err: any) {
       alert(`Failed to upload PDF: ${err.message}`);
     } finally {
