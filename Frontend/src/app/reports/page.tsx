@@ -65,6 +65,7 @@ const SECTOR_REPORTS = [
     actionText: "View report",
     coverImage: "/images/reports/local-government.png",
     isFirst: true,
+    targetUrl: "/reports/federal-state-territory-wir-2026",
   },
   {
     id: "public-safety",
@@ -269,85 +270,47 @@ export default function ReportsArchivePage() {
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── 2. HERO INTRO SECTION ── */}
-        <section className="bg-white rounded-2xl p-4 sm:p-6 border border-gray200 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Intro Text Column */}
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-notes text-xs uppercase block">
-                PUBLIC SKILLS AUSTRALIA
-              </span>
+        <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray200 space-y-6">
+          <div className="space-y-4 max-w-4xl">
+            <span className="text-notes text-xs uppercase block font-semibold">
+              PUBLIC SKILLS AUSTRALIA
+            </span>
 
-              <div className="space-y-1">
-                <h1 className="text-2xl sm:text-4xl font-bold text-gray800 leading-tight">
-                  Welcome to the Public Skills Australia
-                </h1>
-                <h2 className="text-2xl sm:text-4xl font-bold text-lg-dark leading-tight">
-                  Workforce Insights Reports
-                </h2>
-              </div>
-
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
-                This platform brings together workforce insights and strategies
-                across six priority sectors.
-              </p>
-
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
-                The reports are structured to help you quickly access key
-                insights and strategies, while providing the depth of analysis
-                supporting the strategy and plans.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-3 pt-3">
-                <button
-                  onClick={scrollToSectors}
-                  className="bg-lg-light text-gray800 font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#78B800] transition-all cursor-pointer active:scale-95"
-                >
-                  Choose your sector
-                </button>
-                <button
-                  onClick={() => setIsPdfModalOpen(true)}
-                  className="bg-lg-dark text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#2A3716] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
-                >
-                  <span>All sector reports (PDFs)</span>
-                  <Download className="w-4 h-4 text-white" />
-                </button>
-              </div>
+            <div className="space-y-1">
+              <h1 className="text-2xl sm:text-4xl font-bold text-gray800 leading-tight">
+                Welcome to the Public Skills Australia
+              </h1>
+              <h2 className="text-2xl sm:text-4xl font-bold text-lg-dark leading-tight">
+                Workforce Insights Reports
+              </h2>
             </div>
 
-            {/* Right Video Card Preview */}
-            <div className="lg:col-span-5">
-              <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
-                {/* Video Thumbnail Box */}
-                <div
-                  onClick={() => setIsVideoModalOpen(true)}
-                  className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden group cursor-pointer hover:border-[#85CC00] transition-colors"
-                >
-                  {/* Subtle video background artwork */}
-                  <div className="absolute inset-0 bg-white"></div>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
+              This platform brings together workforce insights and strategies
+              across six priority sectors.
+            </p>
 
-                  <div className="relative z-10 flex flex-col items-center gap-3">
-                    <div className="w-20 h-20 rounded-full bg-[#F0F5DF] text-lg-light flex items-center justify-center pl-1 group-hover:scale-110 transition-transform duration-200">
-                      <Play className="w-9 h-9 fill-lg-light" />
-                    </div>
-                  </div>
-                </div>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
+              The reports are structured to help you quickly access key
+              insights and strategies, while providing the depth of analysis
+              supporting the strategy and plans.
+            </p>
 
-                {/* Video Subtitle & Play Button */}
-                <div className="flex items-center justify-between px-1 gap-5">
-                  <p className="text-xs text-gray600 font-medium leading-snug">
-                    A short introduction to the 2026 reports from Public Skills
-                    Australia.
-                  </p>
-                  <button
-                    onClick={() => setIsVideoModalOpen(true)}
-                    className="bg-lg-light text-gray800 font-bold text-sm px-4 py-2 rounded-full hover:bg-[#78B800] transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer"
-                  >
-                    <Play className="w-4 h-4" />
-                    <span>Watch 2 Mins.</span>
-                  </button>
-                </div>
-              </div>
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3 pt-3">
+              <button
+                onClick={scrollToSectors}
+                className="bg-lg-light text-gray800 font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#78B800] transition-all cursor-pointer active:scale-95"
+              >
+                Choose your sector
+              </button>
+              <button
+                onClick={() => setIsPdfModalOpen(true)}
+                className="bg-lg-dark text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#2A3716] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
+              >
+                <span>All sector reports (PDFs)</span>
+                <Download className="w-4 h-4 text-white" />
+              </button>
             </div>
           </div>
 
@@ -443,7 +406,13 @@ export default function ReportsArchivePage() {
             {SECTOR_REPORTS.map((sector) => (
               <div
                 key={sector.id}
-                onClick={getSectorNavigation(sector.sectorKey)}
+                onClick={() => {
+                  if (sector.targetUrl) {
+                    router.push(sector.targetUrl);
+                  } else {
+                    getSectorNavigation(sector.sectorKey)();
+                  }
+                }}
                 className={`bg-white rounded-2xl overflow-hidden flex flex-col justify-between cursor-pointer group relative transition-all ${
                   sector.isFirst
                     ? "border-2 border-lg-dark"
