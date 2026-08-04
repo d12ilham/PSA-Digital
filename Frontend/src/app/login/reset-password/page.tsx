@@ -156,7 +156,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
       {/* Container Card */}
-      <div className="w-full max-w-md border border-border bg-card p-8 shadow-sm">
+      <div className="w-full max-w-md border border-border bg-card p-8">
         {/* Header Logo */}
         <div className="mb-8 flex flex-col items-start">
           <div className="flex items-center gap-2 mb-2">

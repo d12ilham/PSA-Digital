@@ -128,7 +128,7 @@ export default function ReportLandingPage({
   if (error || !report) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F7F8F0] px-4">
-        <div className="max-w-md w-full border border-red-200 bg-white p-6 text-center rounded-2xl shadow-sm">
+        <div className="max-w-md w-full border border-red-200 bg-white p-6 text-center rounded-2xl">
           <span className="font-mono text-xs uppercase text-red-700 block mb-2 font-bold">
             REPORT ACCESS FAILED
           </span>
@@ -172,7 +172,7 @@ export default function ReportLandingPage({
 
       {/* ── TOP HEADER ── */}
       <header className="w-full bg-[#FAFAF0] z-10 relative border-b border-gray200">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 py-4 flex items-center justify-between">
+        <div className="max-w-360 mx-auto px-6 sm:px-12 py-4 flex items-center justify-between">
           <div
             onClick={() => router.push("/reports")}
             className="cursor-pointer flex items-center"
@@ -271,7 +271,7 @@ export default function ReportLandingPage({
       <footer className="w-full bg-white border-t border-gray200 z-10 relative py-4 px-4 flex items-center justify-center gap-3">
         <button
           onClick={() => router.push("/reports")}
-          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer"
+          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 transition-all cursor-pointer"
         >
           <span>←</span> Back to PSA Website
         </button>
@@ -281,7 +281,7 @@ export default function ReportLandingPage({
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full transition-all shadow-2xs no-underline"
+          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full transition-all no-underline"
         >
           Contact Us
         </a>

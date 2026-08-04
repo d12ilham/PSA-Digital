@@ -1,26 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
-  ArrowLeft,
-  ArrowRight,
   Briefcase,
   Clock,
   Cpu,
   Crosshair,
-  Download,
-  Globe,
   Globe2,
   HeartHandshake,
-  Lightbulb,
-  Lock,
-  RefreshCw,
   Search,
   Settings,
-  ShieldAlert,
   ShieldCheck,
-  Users,
   Users2,
 } from "lucide-react";
 
@@ -37,6 +31,113 @@ interface Report {
   };
 }
 
+const DRIVERS = [
+  {
+    id: 1,
+    number: "DRIVER 1",
+    shortTitle: "Resilience of organisations to respond to strategic shocks",
+    shortDesc: "Compounding crises have exposed structural vulnerabilities...",
+    fullTitle:
+      "Driver 1 — Resilience of organisations to respond to strategic shocks",
+    fullDesc:
+      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyberattacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that support systemwide preparedness, robust governance and the ability to maintain critical functions under stress.",
+    sources:
+      "Sources (4): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
+  },
+  {
+    id: 2,
+    number: "DRIVER 2",
+    shortTitle: "Challenges to workforce productivity",
+    shortDesc: "Australia's slowest productivity growth in 60 years...",
+    fullTitle: "Driver 2 — Challenges to workforce productivity",
+    fullDesc:
+      "Australia is experiencing its slowest productivity growth in 60 years. Productivity challenges across Public Safety and Government impact the delivery of essential services and community outcomes. Enhancing workforce productivity requires targeted investment in skills, process optimization, and supportive organizational structures.",
+    sources:
+      "Sources (5, 6): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026.",
+  },
+  {
+    id: 3,
+    number: "DRIVER 3",
+    shortTitle:
+      "Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
+    shortDesc: "Capability uplift — and a growing security risk...",
+    fullTitle:
+      "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
+    fullDesc:
+      "The rapid evolution of artificial intelligence and automation technologies presents both unprecedented opportunities for capability uplift and growing security and ethical risks. Public Safety and Government organizations must build digital literacy and adapt workforce capabilities to leverage AI effectively while maintaining data integrity and public trust.",
+    sources:
+      "Sources (7): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026; Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025.",
+  },
+  {
+    id: 4,
+    number: "DRIVER 4",
+    shortTitle: "Workforce inclusivity",
+    shortDesc: "Recruiting and retaining diverse cohorts...",
+    fullTitle: "Driver 4 — Workforce inclusivity",
+    fullDesc:
+      "Recruiting and retaining diverse cohorts is essential to building resilient, representative workforces across Local Government and Public Safety. Promoting inclusive workplaces improves retention, innovation, and service delivery for diverse communities.",
+    sources:
+      "Sources (8): Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
+  },
+];
+
+const MEGATRENDS = [
+  {
+    id: "pathways",
+    icon: Briefcase,
+    title: "Limitations in career pathways",
+    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
+  },
+  {
+    id: "climate",
+    icon: Globe2,
+    title: "Climate change",
+    desc: "Increasing severity of natural disasters and extreme weather events demands adaptation in emergency response, infrastructure maintenance, and local environmental management.",
+  },
+  {
+    id: "labour",
+    icon: Settings,
+    title: "Competition for labour",
+    desc: "Tight labor markets across regional and metropolitan areas create heightened competition for specialized technical, engineering, and administrative roles.",
+  },
+  {
+    id: "duties",
+    icon: Crosshair,
+    title: "Expansion of core duties",
+    desc: "Local councils face expanding expectations to deliver broader social, environmental, and community services without proportional resource increases.",
+  },
+  {
+    id: "diversity",
+    icon: HeartHandshake,
+    title: "Diversity and inclusion",
+    desc: "Emphasizing inclusive recruitment and workplace practices to reflect community diversity and enhance organizational performance.",
+  },
+  {
+    id: "demographics",
+    icon: Users2,
+    title: "Demographic shifts",
+    desc: "Aging populations in regional areas alter service demand while impacting local council workforce availability and succession planning.",
+  },
+  {
+    id: "tech",
+    icon: Cpu,
+    title: "Technological development",
+    desc: "Adopting smart infrastructure, digital service platforms, and automated workflow tools to improve municipal operational efficiency.",
+  },
+  {
+    id: "recruitment",
+    icon: Search,
+    title: "Recruitment and retention",
+    desc: "Addressing persistent geographical and competitive hurdles to recruit and retain skilled personnel in key council occupations.",
+  },
+  {
+    id: "trust",
+    icon: ShieldCheck,
+    title: "Public trust and perceptions",
+    desc: "Building community trust through transparent governance, effective communication, and responsive local government service delivery.",
+  },
+];
+
 export default function DriversOfChangeView({
   slug,
   report,
@@ -46,233 +147,59 @@ export default function DriversOfChangeView({
 }) {
   const router = useRouter();
 
+  const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(
+    "pathways",
+  );
+
+  React.useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      (window.location.hash === "#nine-megatrends" ||
+        window.location.hash === "#megatrends")
+    ) {
+      const el = document.getElementById("nine-megatrends");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, []);
+
+  const activeDriver = DRIVERS.find((d) => d.id === activeDriverId);
+  const activeMegatrend = MEGATRENDS.find((m) => m.id === activeMegatrendId);
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
-      <header className="bg-[#161b01] text-white sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <div
-            onClick={() => router.push(`/reports/${slug}`)}
-            className="flex items-center gap-2 cursor-pointer font-extrabold text-base text-white hover:text-accent transition-colors"
-          >
-            <span>LG WIR {report.year?.label || "2026"}</span>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
-            <div className="relative group py-1">
-              <button className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer">
-                About <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() => router.push(`/reports/${slug}/introduction`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Introduction
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/about`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  About Public Skills Australia
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/methodology`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Methodology
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Executive Summary
-            </button>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/drivers_of_change`)
-                }
-                className="flex items-center gap-1 text-accent font-bold cursor-pointer"
-              >
-                Drivers of Change <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-accent font-bold hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Drivers of Change
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/megatrends`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Nine Megatrends
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/industry_overview`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Industry Overview <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_overview`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry-Sector Overview
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/state_territory`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  State and Territory Profile
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_profile`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry Profile
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Insights <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Insights Overview
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_strategies`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Strategies <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  2026 Proposed Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/existing_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Existing Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/federal_initiatives`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Federal Initiatives
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Looking Forward
-            </button>
-          </nav>
-
-          <div>
-            {report.pdfFileUrl ? (
-              <a
-                href={report.pdfFileUrl}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </a>
-            ) : (
-              <button
-                onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+      <ReportHeader
+        slug={slug}
+        report={report}
+        currentPage="drivers_of_change"
+      />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/methodology`)}
-            className="border border-border bg-white hover:bg-gray-50 text-foreground font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Methodology
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-            className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-          >
-            Next Section: Industry-Sector Overview{" "}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <ReportNavButtons
+          prev={{
+            label: "Methodology",
+            href: `/reports/${slug}/methodology`,
+          }}
+          next={{
+            label: "Industry-Sector Overview",
+            href: `/reports/${slug}/industry_overview`,
+          }}
+        />
 
         {/* Hero Card */}
-        <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
               Drivers of Change
             </h1>
-            <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               In 2024, Public Skills Australia identified nine megatrends
               impacting the Public Safety and Government industry-sectors. These
               megatrends were further considered in the development of the 2025{" "}
@@ -281,7 +208,7 @@ export default function DriversOfChangeView({
               </span>
               .
             </p>
-            <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               While these megatrends will continue to have longer term
               implications for workforce planning and development across the
               Public Safety and Government industry-sectors, the 2026{" "}
@@ -295,248 +222,140 @@ export default function DriversOfChangeView({
             </p>
           </div>
 
-          {/* Right Loop Circular Diagram */}
-          <div className="lg:col-span-4 flex items-center justify-center p-4">
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center">
-              {/* Top Icon */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shadow-xs">
-                <ShieldAlert className="h-6 w-6" />
-              </div>
-              {/* Right Icon */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shadow-xs">
-                <Clock className="h-6 w-6" />
-              </div>
-              {/* Bottom Icon */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shadow-xs">
-                <Cpu className="h-6 w-6" />
-              </div>
-              {/* Left Icon */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shadow-xs">
-                <HeartHandshake className="h-6 w-6" />
-              </div>
-            </div>
+          {/* Right Diagram Image */}
+          <div className="lg:col-span-4 flex justify-end p-2">
+            <img
+              src="/images/reports/drivers-of-change-diagram.png"
+              alt="Drivers of Change Diagram"
+              className="h-auto max-h-48 object-contain"
+            />
           </div>
         </div>
 
         {/* ── SECTION 2: FOUR KEY DRIVERS ── */}
         <div className="space-y-6">
-          <div className="border-b border-border/60 pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+          <div className="border-b border-gray200 pb-3">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray800">
               Four Key Drivers
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Driver 1 */}
-            <div className="bg-white rounded-2xl border border-border border-t-4 border-t-[#85B810] p-6 shadow-2xs space-y-4 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-3">
-                <span className="text-xs font-extrabold text-[#728C28] uppercase block">
-                  DRIVER 1
-                </span>
-                <h3 className="font-extrabold text-base text-foreground leading-snug">
-                  Resilience of organisations to respond to strategic shocks
-                </h3>
-                <p className="text-xs text-foreground/75 leading-relaxed">
-                  Compounding crises have exposed structural vulnerabilities...
-                </p>
-              </div>
+            {DRIVERS.map((driver) => {
+              const isActive = activeDriverId === driver.id;
 
-              <div>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors shadow-xs"
+              return (
+                <div
+                  key={driver.id}
+                  onClick={() => setActiveDriverId(isActive ? null : driver.id)}
+                  className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all ${
+                    isActive
+                      ? "bg-[#EBF1E4] border-active border-t-8"
+                      : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-[#728C28]"
+                  }`}
                 >
-                  Open ▾
-                </button>
-              </div>
-            </div>
+                  <div className="space-y-3">
+                    <span className="text-xs font-bold text-notes uppercase block">
+                      {driver.number}
+                    </span>
+                    <h3 className="font-bold text-base text-gray800 leading-snug">
+                      {driver.shortTitle}
+                    </h3>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      {driver.shortDesc}
+                    </p>
+                  </div>
 
-            {/* Driver 2 */}
-            <div className="bg-white rounded-2xl border border-border border-t-4 border-t-[#85B810] p-6 shadow-2xs space-y-4 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-3">
-                <span className="text-xs font-extrabold text-[#728C28] uppercase block">
-                  DRIVER 2
-                </span>
-                <h3 className="font-extrabold text-base text-foreground leading-snug">
-                  Challenges to workforce productivity
-                </h3>
-                <p className="text-xs text-foreground/75 leading-relaxed">
-                  Australia's slowest productivity growth in 60 years...
-                </p>
-              </div>
-
-              <div>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors shadow-xs"
-                >
-                  Open ▾
-                </button>
-              </div>
-            </div>
-
-            {/* Driver 3 */}
-            <div className="bg-white rounded-2xl border border-border border-t-4 border-t-[#85B810] p-6 shadow-2xs space-y-4 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-3">
-                <span className="text-xs font-extrabold text-[#728C28] uppercase block">
-                  DRIVER 3
-                </span>
-                <h3 className="font-extrabold text-base text-foreground leading-snug">
-                  Emergence of Artificial Intelligence (AI), greater automation
-                  and broader digital transformation
-                </h3>
-                <p className="text-xs text-foreground/75 leading-relaxed">
-                  Capability uplift — and a growing security risk...
-                </p>
-              </div>
-
-              <div>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors shadow-xs"
-                >
-                  Open ▾
-                </button>
-              </div>
-            </div>
-
-            {/* Driver 4 */}
-            <div className="bg-white rounded-2xl border border-border border-t-4 border-t-[#85B810] p-6 shadow-2xs space-y-4 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-3">
-                <span className="text-xs font-extrabold text-[#728C28] uppercase block">
-                  DRIVER 4
-                </span>
-                <h3 className="font-extrabold text-base text-foreground leading-snug">
-                  Workforce inclusivity
-                </h3>
-                <p className="text-xs text-foreground/75 leading-relaxed">
-                  Recruiting and retaining diverse cohorts...
-                </p>
-              </div>
-
-              <div>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors shadow-xs"
-                >
-                  Open ▾
-                </button>
-              </div>
-            </div>
+                  <div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveDriverId(isActive ? null : driver.id);
+                      }}
+                      className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                    >
+                      {isActive ? "Close ▴" : "Open ▾"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+
+          {/* Active Driver Detail Panel */}
+          {activeDriver && (
+            <div className="bg-[#EBF1E4] border border-active border-l-8 rounded-2xl p-6 space-y-4 animate-fade-in">
+              <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
+                NOW PRESENTING - {activeDriver.number}
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-gray800">
+                {activeDriver.fullTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                {activeDriver.fullDesc}
+              </p>
+              <p className="text-xs text-active pt-3 border-t border-active/20">
+                {activeDriver.sources}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* ── SECTION 3: NINE MEGATRENDS ── */}
-        <div className="space-y-6">
-          <div className="border-b border-border/60 pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+        <div id="nine-megatrends" className="space-y-6">
+          <div className="border-b border-gray200 pb-3">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray800">
               Nine Megatrends
             </h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3">
-            {/* Megatrend 1 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Briefcase className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Limitations in career pathways
-              </p>
-            </div>
+            {MEGATRENDS.map((item) => {
+              const IconComponent = item.icon;
+              const isActive = activeMegatrendId === item.id;
 
-            {/* Megatrend 2 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Globe2 className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Climate change
-              </p>
-            </div>
-
-            {/* Megatrend 3 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Settings className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Competition for labour
-              </p>
-            </div>
-
-            {/* Megatrend 4 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Crosshair className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Expansion of core duties
-              </p>
-            </div>
-
-            {/* Megatrend 5 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <HeartHandshake className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Diversity and inclusion
-              </p>
-            </div>
-
-            {/* Megatrend 6 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Users2 className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Demographic shifts
-              </p>
-            </div>
-
-            {/* Megatrend 7 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Cpu className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Technological development
-              </p>
-            </div>
-
-            {/* Megatrend 8 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Search className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Recruitment and retention
-              </p>
-            </div>
-
-            {/* Megatrend 9 */}
-            <div className="bg-white border border-border rounded-2xl p-4 flex flex-col items-center text-center space-y-3 shadow-2xs hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
-              <p className="text-xs font-semibold text-foreground/80 leading-tight">
-                Public trust and perceptions
-              </p>
-            </div>
+              return (
+                <div
+                  key={item.id}
+                  onClick={() =>
+                    setActiveMegatrendId(isActive ? null : item.id)
+                  }
+                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-3 cursor-pointer transition-all ${
+                    isActive
+                      ? "bg-[#EBF1E4] border-active"
+                      : "bg-white border-gray200 hover:border-[#728C28]"
+                  }`}
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#F0F5DF] text-[#8AC900] flex items-center justify-center shrink-0">
+                    <IconComponent className="h-6 w-6" />
+                  </div>
+                  <p
+                    className={`text-xs font-semibold leading-tight ${
+                      isActive ? "text-active" : "text-gray600"
+                    }`}
+                  >
+                    {item.title}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
-          <p className="text-xs text-foreground/75 leading-relaxed pt-2">
+          {/* Active Megatrend Detail Panel */}
+          {activeMegatrend && (
+            <div className="bg-[#EBF1E4] border border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in">
+              <h3 className="text-lg sm:text-xl font-bold text-gray800">
+                {activeMegatrend.title}
+              </h3>
+              <p className="text-sm text-gray600 leading-relaxed">
+                {activeMegatrend.desc}
+              </p>
+            </div>
+          )}
+
+          <p className="text-sm text-gray800 leading-relaxed pt-2">
             These megatrends were identified in previous{" "}
-            <span className="font-semibold text-[#728C28]">
+            <span className="font-semibold text-lg-dark">
               Workforce Insights Reports
             </span>{" "}
             and will continue to have longer term implications for workforce
@@ -546,12 +365,12 @@ export default function DriversOfChangeView({
         </div>
 
         {/* ── SECTION 4: SOURCES CONTAINER ── */}
-        <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-4">
-          <h3 className="font-extrabold text-xl text-foreground">Sources</h3>
+        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
+          <h3 className="font-bold text-xl text-gray800">Sources</h3>
 
-          <div className="space-y-3 text-xs text-foreground/80 leading-relaxed">
+          <div className="space-y-3 text-xs text-gray600 leading-relaxed">
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#728C28] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
               </span>
               <p>
@@ -565,7 +384,7 @@ export default function DriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#728C28] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 5
               </span>
               <p>
@@ -578,7 +397,7 @@ export default function DriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#728C28] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 6
               </span>
               <p>
@@ -591,7 +410,7 @@ export default function DriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#728C28] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 7
               </span>
               <p>
@@ -612,7 +431,7 @@ export default function DriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#728C28] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 8
               </span>
               <p>
@@ -628,25 +447,7 @@ export default function DriversOfChangeView({
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-[#161b01] text-white py-4 px-6 sm:px-8 border-t border-[#252D02]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <p className="text-white/80">
-            © Public Skills Australia 2026 · Local Government Workforce Insights
-            Report
-          </p>
-          <a
-            href={
-              report.contactUrl ||
-              "https://publicskillsaustralia.org.au/contact"
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/90 hover:text-white font-semibold no-underline"
-          >
-            Contact Us
-          </a>
-        </div>
-      </footer>
+      <ReportFooter contactUrl={report.contactUrl} />
     </div>
   );
 }

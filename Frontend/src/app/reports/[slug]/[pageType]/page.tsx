@@ -425,7 +425,7 @@ export default function PublicReportReaderPage({
           </div>
         </header>
 
-        <main className="flex-1 p-6 sm:p-10 overflow-y-auto bg-[#FAF8F4] rounded-tl-3xl border-t border-l border-border shadow-xs">
+        <main className="flex-1 p-6 sm:p-10 overflow-y-auto bg-[#FAF8F4] rounded-tl-3xl border-t border-l border-border">
           {pageLoading ? (
             <div className="flex h-96 items-center justify-center">
               <div className="flex flex-col items-center gap-2">

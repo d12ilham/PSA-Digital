@@ -484,7 +484,7 @@ export default function InsightsManagementPage() {
       {/* ── Insight Editor Modal ── */}
       {insightModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
-          <div className="w-full max-w-xl border border-border bg-card shadow-lg p-6 relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-xl border border-border bg-card p-6 relative max-h-[90vh] overflow-y-auto">
             <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * INSIGHT DIALOG
             </span>
@@ -653,7 +653,7 @@ export default function InsightsManagementPage() {
       {/* ── Driver Editor Modal ── */}
       {driverModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
-          <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
+          <div className="w-full max-w-lg border border-border bg-card p-6 relative">
             <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * DRIVER DIALOG
             </span>

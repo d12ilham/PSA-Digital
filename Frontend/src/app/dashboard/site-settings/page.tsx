@@ -683,7 +683,7 @@ export default function SiteSettingsPage() {
                 {/* Menu Details & Add Items Panel */}
                 <div className="lg:col-span-1 space-y-6">
                   {/* Menu Settings */}
-                  <div className="border border-border bg-card p-5 shadow-sm relative">
+                  <div className="border border-border bg-card p-5 relative">
                     <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
                       * CONFIGURATION
                     </span>
@@ -744,7 +744,7 @@ export default function SiteSettingsPage() {
 
                   {/* Add Menu Item */}
                   {isEditorOrAdmin && (
-                    <div className="border border-border bg-card p-5 shadow-sm relative">
+                    <div className="border border-border bg-card p-5 relative">
                       <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
                         * ITEM BUILDER
                       </span>
@@ -867,7 +867,7 @@ export default function SiteSettingsPage() {
                               <div key={item.id} className="space-y-2">
                                 {/* Mapped Item Box */}
                                 <div
-                                  className={`border border-border bg-card p-3 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3 ${
+                                  className={`border border-border bg-card p-3 flex flex-col md:flex-row md:items-center justify-between gap-3 ${
                                     isEditing
                                       ? "border-primary bg-sidebar/10 ring-1 ring-primary"
                                       : "hover:bg-sidebar/5"
@@ -1071,7 +1071,7 @@ export default function SiteSettingsPage() {
             {/* Create Menu Modal Overlay */}
             {showCreateMenu && (
               <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-                <div className="w-full max-w-md bg-card border border-border p-6 shadow-2xl space-y-4">
+                <div className="w-full max-w-md bg-card border border-border p-6 space-y-4">
                   <div className="flex items-center justify-between border-b border-border/60 pb-3">
                     <h3 className="font-mono text-xs uppercase text-primary font-bold flex items-center gap-1.5">
                       <Plus className="h-3.5 w-3.5" />

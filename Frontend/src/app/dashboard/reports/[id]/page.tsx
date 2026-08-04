@@ -1246,7 +1246,7 @@ export default function ReportEditPage({
                         <HelpCircle className="h-3.5 w-3.5" />
                       </button>
                       {showInitTooltip && (
-                        <div className="absolute bottom-full right-0 mb-2 w-64 bg-primary text-white text-xs font-mono leading-relaxed p-3 z-50 shadow-lg">
+                        <div className="absolute bottom-full right-0 mb-2 w-64 bg-primary text-white text-xs font-mono leading-relaxed p-3 z-50">
                           <span className="font-bold uppercase block mb-1">
                             What does this do?
                           </span>

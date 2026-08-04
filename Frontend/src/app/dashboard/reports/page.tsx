@@ -406,7 +406,7 @@ export default function ReportsManagementPage() {
       {/* ── Creator Flow: Create Report Modal ── */}
       {createModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
-          <div className="w-full max-w-md border border-border bg-card shadow-lg p-6 relative">
+          <div className="w-full max-w-md border border-border bg-card p-6 relative">
             <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * CMS CREATOR FLOW
             </span>

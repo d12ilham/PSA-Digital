@@ -1,0 +1,284 @@
+"use client";
+
+import React from "react";
+import { useRouter } from "next/navigation";
+import { Download } from "lucide-react";
+
+interface ReportHeaderProps {
+  slug: string;
+  report: {
+    year?: { label: string };
+    pdfFileUrl?: string;
+  };
+  currentPage?: string;
+}
+
+export default function ReportHeader({
+  slug,
+  report,
+  currentPage,
+}: ReportHeaderProps) {
+  const router = useRouter();
+
+  return (
+    <header className="bg-[#252D02] text-white sticky top-0 z-50">
+      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+        <div
+          onClick={() => router.push(`/reports/${slug}`)}
+          className="flex items-center gap-2 cursor-pointer font-bold text-base text-white hover:text-accent transition-colors"
+        >
+          <span>
+            LG WIR{" "}
+            <span className="text-[#B2DB79]">
+              {report?.year?.label || "2026"}
+            </span>
+          </span>
+        </div>
+
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
+          <div className="relative group py-1">
+            <button className="flex items-center gap-1 text-accent font-bold cursor-pointer">
+              About <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-48 space-y-1 z-50">
+              <button
+                onClick={() => router.push(`/reports/${slug}/introduction`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "introduction"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Introduction
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/about`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "about"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                About Public Skills Australia
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/methodology`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "methodology"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Methodology
+              </button>
+            </div>
+          </div>
+
+          <button
+            onClick={() => router.push(`/reports/${slug}/executive_summary`)}
+            className={`transition-colors cursor-pointer ${
+              currentPage === "executive_summary"
+                ? "text-accent font-bold"
+                : "text-white/80 hover:text-white"
+            }`}
+          >
+            Executive Summary
+          </button>
+
+          <div className="relative group py-1">
+            <button
+              onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
+              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+            >
+              Drivers of Change <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-48 space-y-1 z-50">
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/drivers_of_change`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "drivers_of_change"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Drivers of Change
+              </button>
+              <button
+                onClick={() => {
+                  if (currentPage === "drivers_of_change") {
+                    const el = document.getElementById("nine-megatrends");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  } else {
+                    router.push(
+                      `/reports/${slug}/drivers_of_change#nine-megatrends`
+                    );
+                  }
+                }}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "drivers_of_change" || currentPage === "megatrends"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Nine Megatrends
+              </button>
+            </div>
+          </div>
+
+          <div className="relative group py-1">
+            <button
+              onClick={() => router.push(`/reports/${slug}/industry_overview`)}
+              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+            >
+              Industry Overview <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50">
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/industry_overview`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "industry_overview"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Industry-Sector Overview
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/state_territory`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "state_territory"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                State and Territory Profile
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/industry_profile`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "industry_profile"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Industry Profile
+              </button>
+            </div>
+          </div>
+
+          <div className="relative group py-1">
+            <button
+              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+            >
+              Workforce Insights <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-48 space-y-1 z-50">
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "workforce_insights"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Insights Overview
+              </button>
+            </div>
+          </div>
+
+          <div className="relative group py-1">
+            <button
+              onClick={() =>
+                router.push(`/reports/${slug}/workforce_strategies`)
+              }
+              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+            >
+              Workforce Strategies <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50">
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_strategies`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "workforce_strategies"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                2026 Proposed Strategies
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/existing_strategies`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "existing_strategies"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Existing Strategies
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/federal_initiatives`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "federal_initiatives"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Federal Initiatives
+              </button>
+            </div>
+          </div>
+
+          <button
+            onClick={() => router.push(`/reports/${slug}/looking_forward`)}
+            className={`transition-colors cursor-pointer ${
+              currentPage === "looking_forward"
+                ? "text-accent font-bold"
+                : "text-white/80 hover:text-white"
+            }`}
+          >
+            Looking Forward
+          </button>
+        </nav>
+
+        <div>
+          {report?.pdfFileUrl ? (
+            <a
+              href={report.pdfFileUrl}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <span>Download 2026 PDF</span>
+              <Download className="h-3.5 w-3.5" />
+            </a>
+          ) : (
+            <button
+              onClick={() => router.push(`/reports/${slug}`)}
+              className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <span>Download 2026 PDF</span>
+              <Download className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}

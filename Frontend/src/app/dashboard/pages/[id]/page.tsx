@@ -654,7 +654,7 @@ export default function PageBuilderPage({
       </div>
 
       {/* Page Builder Actions Bar */}
-      <div className="border border-border bg-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between shadow-xs gap-3">
+      <div className="border border-border bg-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <div>
             <div className="mb-1 flex items-center gap-2 font-mono text-xs uppercase text-muted">
@@ -789,7 +789,7 @@ export default function PageBuilderPage({
                 <button
                   onClick={handleSaveAsDraft}
                   disabled={savingDraft || savingPage}
-                  className="flex items-center gap-2 bg-card border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase shadow-lg hover:bg-sidebar transition-all rounded-sm disabled:opacity-50"
+                  className="flex items-center gap-2 bg-card border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase hover:bg-sidebar transition-all rounded-sm disabled:opacity-50"
                 >
                   <Save className="h-3.5 w-3.5" />
                   {savingDraft ? "Saving..." : "Save as Draft"}
@@ -797,7 +797,7 @@ export default function PageBuilderPage({
                 <button
                   onClick={handleSavePageBlocks}
                   disabled={savingPage || savingDraft}
-                  className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 font-mono text-xs uppercase shadow-lg hover:bg-active transition-all border border-primary/20 rounded-sm disabled:opacity-50"
+                  className="flex items-center gap-2 bg-primary text-white px-4 py-2.5 font-mono text-xs uppercase hover:bg-active transition-all border border-primary/20 rounded-sm disabled:opacity-50"
                 >
                   <Save className="h-4 w-4" />
                   {savingPage ? "Publishing..." : "Publish Chapter"}
@@ -807,7 +807,7 @@ export default function PageBuilderPage({
             {showFloatingAdd && (
               <button
                 onClick={() => setShowCatalog(true)}
-                className="flex items-center gap-2 bg-sidebar border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase shadow-lg hover:bg-card transition-all rounded-sm"
+                className="flex items-center gap-2 bg-sidebar border border-border text-primary px-4 py-2.5 font-mono text-xs uppercase hover:bg-card transition-all rounded-sm"
               >
                 <Plus className="h-4 w-4" />
                 Add Block
@@ -831,7 +831,7 @@ export default function PageBuilderPage({
               <div
                 key={block.id}
                 ref={isNewest ? newBlockRef : undefined}
-                className={`border bg-card p-6 shadow-sm relative transition-all ${
+                className={`border bg-card p-6 relative transition-all ${
                   block.isVisible
                     ? "border-border"
                     : "border-dashed border-border/40 opacity-70 bg-sidebar/10"
@@ -1792,7 +1792,7 @@ export default function PageBuilderPage({
                               (card: any, idx: number) => (
                                 <div
                                   key={idx}
-                                  className="border border-border p-4 bg-[#fdfdfc] rounded-sm space-y-2 shadow-xs"
+                                  className="border border-border p-4 bg-[#fdfdfc] rounded-sm space-y-2"
                                 >
                                   <div className="flex items-start gap-2">
                                     <span className="font-mono text-xs text-muted/60 font-bold">
@@ -2182,7 +2182,7 @@ export default function PageBuilderPage({
                               (strat: any, idx: number) => (
                                 <div
                                   key={idx}
-                                  className="border border-border bg-[#fdfdfc] p-6 rounded-md shadow-xs space-y-4"
+                                  className="border border-border bg-[#fdfdfc] p-6 rounded-md space-y-4"
                                 >
                                   <div className="flex gap-4 items-start">
                                     <span className="w-8 h-8 rounded bg-[#2b2a27] text-[#fdfdfc] flex items-center justify-center font-mono font-bold text-sm shrink-0">
@@ -2776,7 +2776,7 @@ export default function PageBuilderPage({
                               .join(" ");
 
                             return (
-                              <div className="grid grid-cols-1 md:grid-cols-5 border border-border bg-[#fdfdfc] divide-y md:divide-y-0 md:divide-x divide-border rounded-sm shadow-xs">
+                              <div className="grid grid-cols-1 md:grid-cols-5 border border-border bg-[#fdfdfc] divide-y md:divide-y-0 md:divide-x divide-border rounded-sm">
                                 {(block.content.kpis || []).map(
                                   (kpi: any, idx: number) => (
                                     <div key={idx} className="p-5 space-y-1">
@@ -2871,7 +2871,7 @@ export default function PageBuilderPage({
       {/* ── Component Catalog Overlay ── */}
       {showCatalog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/20 backdrop-blur-xs px-4">
-          <div className="w-full max-w-lg border border-border bg-card shadow-lg p-6 relative">
+          <div className="w-full max-w-lg border border-border bg-card p-6 relative">
             <span className="absolute top-2 right-3 font-mono text-xs uppercase text-muted">
               * COMPONENTS LIBRARY
             </span>

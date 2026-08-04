@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import ReportFooter from "@/components/layout/ReportFooter";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -186,7 +187,7 @@ export default function ReportsArchivePage() {
     <div className="min-h-screen bg-[#FAFAF0] text-[#1B240E] font-sans flex flex-col antialiased selection:bg-[#85CC00]/40">
       {/* ── 1. TOP NAVIGATION BAR ── */}
       <header className="bg-[#252D02] w-full text-white border-b border-[#2A3716] sticky top-0 z-50">
-        <div className="max-w-360 mx-auto py-3.5 px-4 flex items-center justify-between">
+        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Left Brand Logo & Title */}
           <div
             className="flex items-center gap-3 cursor-pointer group"
@@ -205,7 +206,7 @@ export default function ReportsArchivePage() {
                 className="h-8 w-auto object-contain"
               />
             ) : (
-              <div className="w-8 h-8 rounded bg-[#85CC00] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded bg-[#85CC00] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <svg
                   width="20"
                   height="20"
@@ -266,13 +267,13 @@ export default function ReportsArchivePage() {
       </header>
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="flex-1 w-full max-w-360 mx-auto px-4 py-8 space-y-8">
+      <main className="flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── 2. HERO INTRO SECTION ── */}
         <section className="bg-white rounded-2xl p-4 sm:p-6 border border-gray200 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Intro Text Column */}
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-notes text-xsr uppercase block">
+              <span className="text-notes text-xs uppercase block">
                 PUBLIC SKILLS AUSTRALIA
               </span>
 
@@ -353,7 +354,7 @@ export default function ReportsArchivePage() {
           {/* ── 3. VALUE PROPOSITION CARDS (2 SIDE-BY-SIDE) ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Card 1: An evidence-based view */}
-            <div className="bg-white rounded-2xl p-6 border border-gray200 shadow-xs flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
+            <div className="bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
               <div className="w-16 h-16 rounded-full border border-gray200 flex items-center justify-center shrink-0 text-notes">
                 <FileText className="w-9 h-9" />
               </div>
@@ -523,47 +524,12 @@ export default function ReportsArchivePage() {
       </main>
 
       {/* ── 7. FOOTER ── */}
-      <footer className="bg-[#1C250E] text-white/90 mt-12 border-t border-[#2A3716]">
-        <div className="max-w-360 mx-auto py-10 px-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-1">
-            <h5 className="text-xs sm:text-sm font-extrabold uppercaser text-white">
-              Public Skills Australia
-            </h5>
-            <p className="text-[11px] sm:text-xs text-white/60">
-              &copy; 2026 Public Skills Australia. All rights reserved.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/70 font-medium">
-            <a
-              href="https://publicskillsaustralia.org.au"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              PSA Website
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Accessibility
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Privacy Policy
-            </a>
-            <a
-              href="https://publicskillsaustralia.org.au/contact"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
+      <ReportFooter />
 
       {/* ── 8. VIDEO INTRO MODAL ── */}
       {isVideoModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl space-y-0 relative border border-[#E2DFD4]">
+          <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden space-y-0 relative border border-[#E2DFD4]">
             <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
               <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 <Play className="w-4 h-4 fill-[#85CC00] text-[#85CC00]" />
@@ -600,7 +566,7 @@ export default function ReportsArchivePage() {
       {/* ── 9. ALL SECTOR REPORTS (PDFs) MODAL ── */}
       {isPdfModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative border border-[#E2DFD4]">
+          <div className="bg-white rounded-2xl max-w-lg w-full overflow-hidden relative border border-[#E2DFD4]">
             <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
               <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
                 <Download className="w-4 h-4 text-[#85CC00]" />

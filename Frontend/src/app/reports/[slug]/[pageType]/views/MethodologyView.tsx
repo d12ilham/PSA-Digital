@@ -2,6 +2,9 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
   ArrowRight,
@@ -39,241 +42,38 @@ export default function MethodologyView({
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
-      <header className="bg-[#161b01] text-white sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <div
-            onClick={() => router.push(`/reports/${slug}`)}
-            className="flex items-center gap-2 cursor-pointer font-extrabold text-base text-white hover:text-accent transition-colors"
-          >
-            <span>LG WIR {report.year?.label || "2026"}</span>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
-            <div className="relative group py-1">
-              <button className="flex items-center gap-1 text-accent font-bold cursor-pointer">
-                About <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() => router.push(`/reports/${slug}/introduction`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Introduction
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/about`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  About Public Skills Australia
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/methodology`)}
-                  className="w-full text-left px-3 py-2 text-xs text-accent font-bold hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Methodology
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Executive Summary
-            </button>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/drivers_of_change`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Drivers of Change <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Drivers of Change
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/megatrends`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Nine Megatrends
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/industry_overview`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Industry Overview <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_overview`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry-Sector Overview
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/state_territory`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  State and Territory Profile
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_profile`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry Profile
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Insights <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Insights Overview
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_strategies`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Strategies <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  2026 Proposed Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/existing_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Existing Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/federal_initiatives`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Federal Initiatives
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Looking Forward
-            </button>
-          </nav>
-
-          <div>
-            {report.pdfFileUrl ? (
-              <a
-                href={report.pdfFileUrl}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </a>
-            ) : (
-              <button
-                onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+      <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-            className="border border-border bg-white hover:bg-gray-50 text-foreground font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Executive Summary
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-            className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-          >
-            Next Section: Drivers of Change{" "}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+        <ReportNavButtons
+          prev={{
+            label: "Executive Summary",
+            href: `/reports/${slug}/executive_summary`,
+          }}
+          next={{
+            label: "Drivers of Change",
+            href: `/reports/${slug}/drivers_of_change`,
+          }}
+        />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
-        <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
                 Methodology
               </h1>
-              <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal font-medium">
                 Public Skills Australia's{" "}
-                <span className="font-semibold text-[#728C28]">
-                  Workforce Insights Reports
-                </span>{" "}
+                <span className="text-lg-dark">Workforce Insights Reports</span>{" "}
                 are developed using a combination of qualitative and
                 quantitative methods obtained from primary and secondary
                 sources. This 2026 Local Government Workforce Insights Report is
                 supported by data obtained through stakeholder consultations and
                 engagements.
               </p>
-              <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
                 These consultations were used to gain insight into challenges
                 the Local Government industry-sector is facing with the
                 development and maintenance of a skilled workforce. The
@@ -290,59 +90,59 @@ export default function MethodologyView({
 
             <div className="space-y-4 pt-2">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="border border-border rounded-xl p-3.5 bg-white shadow-2xs space-y-2">
-                  <span className="text-xs font-bold text-[#728C28] uppercase block">
+                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 1
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                      <Database className="h-4 w-4" />
+                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
+                      <Database className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-foreground">
+                      <h4 className="font-bold text-xs text-gray800 mb-1">
                         Data sources
                       </h4>
-                      <p className="text-xs text-foreground/70">
+                      <p className="text-xs text-gray600 font-medium">
                         JSA · ABS · NCVER datasets
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="border border-border rounded-xl p-3.5 bg-white shadow-2xs space-y-2">
-                  <span className="text-xs font-bold text-[#728C28] uppercase block">
+                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 2
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                      <FileSpreadsheet className="h-4 w-4" />
+                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
+                      <FileSpreadsheet className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-foreground">
+                      <h4 className="font-bold text-xs text-gray800 mb-1">
                         National survey
                       </h4>
-                      <p className="text-xs text-foreground/70">
-                        <span className="font-bold text-[#728C28]">210</span>{" "}
+                      <p className="text-xs text-gray600 font-medium">
+                        <span className="font-bold text-[#8AC900]">210</span>{" "}
                         councils responded
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="border border-border rounded-xl p-3.5 bg-white shadow-2xs space-y-2">
-                  <span className="text-xs font-bold text-[#728C28] uppercase block">
+                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 3
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                      <Users className="h-4 w-4" />
+                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
+                      <Users className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-foreground">
+                      <h4 className="font-bold text-xs text-gray800 mb-1">
                         Workshops
                       </h4>
-                      <p className="text-xs text-foreground/70">
-                        <span className="font-bold text-[#728C28]">137</span>{" "}
+                      <p className="text-xs text-gray600 font-medium">
+                        <span className="font-bold text-[#8AC900]">137</span>{" "}
                         councils attended
                       </p>
                     </div>
@@ -351,39 +151,39 @@ export default function MethodologyView({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
-                <div className="border border-border rounded-xl p-3.5 bg-white shadow-2xs space-y-2">
-                  <span className="text-xs font-bold text-[#728C28] uppercase block">
+                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 4
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                      <UserCheck className="h-4 w-4" />
+                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
+                      <UserCheck className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-foreground">
+                      <h4 className="font-bold text-xs text-gray800 mb-1">
                         Representatives
                       </h4>
-                      <p className="text-xs text-foreground/70">
-                        <span className="font-bold text-[#728C28]">11</span>{" "}
+                      <p className="text-xs text-gray600 font-medium">
+                        <span className="font-bold text-[#8AC900]">11</span>{" "}
                         Industry-sector bodies
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="border border-border rounded-xl p-3.5 bg-white shadow-2xs space-y-2">
-                  <span className="text-xs font-bold text-[#728C28] uppercase block">
+                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 5
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                      <ShieldCheck className="h-4 w-4" />
+                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
+                      <ShieldCheck className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-foreground">
+                      <h4 className="font-bold text-xs text-gray800 mb-1">
                         Governance
                       </h4>
-                      <p className="text-xs text-foreground/70">
+                      <p className="text-xs text-gray600 font-medium">
                         Review, endorsement, approval
                       </p>
                     </div>
@@ -393,18 +193,18 @@ export default function MethodologyView({
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#F2F3EC] border border-border/50 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-extrabold text-sm text-foreground leading-snug">
+                <h3 className="font-bold text-xl text-gray800 leading-snug">
                   Key industry-sector representatives
                 </h3>
-                <div className="w-10 h-10 rounded-xl bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
                   <Users className="h-5 w-5" />
                 </div>
               </div>
 
-              <p className="text-xs text-foreground/75 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 Public Skills Australia undertook targeted workforce planning
                 consultation with key industry-sector representatives as below:
               </p>
@@ -425,7 +225,7 @@ export default function MethodologyView({
                 ].map((rep, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-lg p-2.5 text-xs font-semibold text-foreground/80 shadow-2xs border border-border/40"
+                    className="bg-white rounded-lg p-2.5 text-xs font-semibold text-gray600"
                   >
                     {rep}
                   </div>
@@ -436,8 +236,8 @@ export default function MethodologyView({
         </div>
 
         {/* RESEARCH & STATS CONTAINER */}
-        <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-          <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
+          <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
             Following these consultations, Public Skills Australia conducted
             secondary qualitative and quantitative research to verify the
             challenges raised. In addition to these consultations, the findings
@@ -451,37 +251,31 @@ export default function MethodologyView({
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-extrabold text-[#728C28]">
-                280³
-              </span>
-              <span className="text-xs font-semibold text-foreground/80 leading-tight">
+            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+              <span className="text-3xl font-bold text-gray800">280³</span>
+              <span className="text-sm font-semibold text-gray600 leading-tight">
                 In total, Public Skills Australia engaged with a total of 280
                 councils
               </span>
             </div>
 
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-extrabold text-[#728C28]">
-                137
-              </span>
-              <span className="text-xs font-semibold text-foreground/80 leading-tight">
+            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+              <span className="text-3xl font-bold text-gray800">137</span>
+              <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils attended workshops
               </span>
             </div>
 
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-extrabold text-[#728C28]">
-                210
-              </span>
-              <span className="text-xs font-semibold text-foreground/80 leading-tight">
+            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+              <span className="text-3xl font-bold text-gray800">210</span>
+              <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils responded to the survey
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-            <p className="text-xs text-foreground/75">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+            <p className="text-sm text-gray600 font-medium">
               A full list of councils that participated in these activities is
               provided at Appendix A.
             </p>
@@ -491,14 +285,14 @@ export default function MethodologyView({
                 download
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs shrink-0"
+                className="bg-lg-dark hover:bg-[#8AC900] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
               >
                 Download 2026 PDF <Download className="h-3.5 w-3.5" />
               </a>
             ) : (
               <button
                 onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs shrink-0"
+                className="bg-lg-dark hover:bg-[#8AC900] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
               >
                 Download 2026 PDF <Download className="h-3.5 w-3.5" />
               </button>
@@ -507,24 +301,24 @@ export default function MethodologyView({
         </div>
 
         {/* GOVERNANCE PROCESS CONTAINER */}
-        <div className="space-y-6">
-          <div className="border-b border-border/60 pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+        <div className="space-y-6 bg-white rounded-2xl border border-gray200 p-6">
+          <div>
+            <h2 className="text-xl font-bold text-gray800">
               Drafts were subsequently progressed through Public Skills
               Australia's governance process that includes:
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-extrabold text-base text-foreground">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+              <h3 className="font-bold text-xl text-gray800">
                 1 · Government Subcommittee
               </h3>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 The Subcommittee is responsible for recommending this Report to
                 the Industry Advisory Group (IAG) for endorsement.
               </p>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 This recommendation is made on the basis that the Subcommittee
                 is satisfied that sufficient consultation and engagement has
                 been undertaken, and that consultation feedback was
@@ -532,15 +326,15 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-extrabold text-base text-foreground">
+            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+              <h3 className="font-bold text-xl text-gray800">
                 2 · Industry Advisory Group
               </h3>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 The IAG is responsible for endorsing this Report to the Public
                 Skills Australia Board for approval to be submitted to DEWR.
               </p>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 This endorsement is made on the basis that the IAG is satisfied
                 with the Government Subcommittee's recommendation for
                 endorsement. The IAG further provides its strategic guidance and
@@ -549,15 +343,15 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div className="bg-[#F2F3EC] border border-border/50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-extrabold text-base text-foreground">
+            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+              <h3 className="font-bold text-xl text-gray800">
                 3 · Public Skills Australia Board
               </h3>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 The Public Skills Australia Board (the Board) is responsible to
                 approve the submission of this Report to DEWR.
               </p>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 This approval is made on the basis that the Board is satisfied
                 that an appropriate development and consultation process was
                 followed and that the Report has been progressed in line with
@@ -569,15 +363,13 @@ export default function MethodologyView({
 
         {/* DATA SOURCES & WITH THANKS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl border border-border p-6 shadow-2xs flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-              <Database className="h-6 w-6" />
+          <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
+            <div className="w-16 h-16 rounded-full bg-[#E5E8DA] border border-gray200 text-notes flex items-center justify-center shrink-0">
+              <Database className="h-8 w-8" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-extrabold text-base text-foreground">
-                Data sources
-              </h3>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <h3 className="font-bold text-xl text-gray800">Data sources</h3>
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 The Report uses publicly available datasets accessible from Jobs
                 and Skills Australia (JSA), the Australian Bureau of Statistics
                 (ABS), the National Centre for Vocational Education Research
@@ -594,15 +386,13 @@ export default function MethodologyView({
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-border p-6 shadow-2xs flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-              <HeartHandshake className="h-6 w-6" />
+          <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
+            <div className="w-16 h-16 rounded-full bg-[#E5E8DA] border border-gray200 text-notes flex items-center justify-center shrink-0">
+              <HeartHandshake className="h-8 w-8" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-extrabold text-base text-foreground">
-                With thanks
-              </h3>
-              <p className="text-xs text-foreground/80 leading-relaxed">
+              <h3 className="font-bold text-xl text-gray800">With thanks</h3>
+              <p className="text-sm font-medium text-gray600 leading-relaxed">
                 Public Skills Australia thanks the contributors, including
                 industry representatives, its Board and governance group
                 representatives, Department of Employment and Workplace
@@ -614,7 +404,7 @@ export default function MethodologyView({
         </div>
 
         {/* Footnote Box */}
-        <div className="bg-[#EFF3E4] border border-border/60 rounded-xl p-4 text-xs text-foreground/75 leading-relaxed">
+        <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
           <p>
             3 - Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted
@@ -627,25 +417,7 @@ export default function MethodologyView({
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-[#161b01] text-white py-4 px-6 sm:px-8 border-t border-[#252D02]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <p className="text-white/80">
-            © Public Skills Australia 2026 · Local Government Workforce Insights
-            Report
-          </p>
-          <a
-            href={
-              report.contactUrl ||
-              "https://publicskillsaustralia.org.au/contact"
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/90 hover:text-white font-semibold no-underline"
-          >
-            Contact Us
-          </a>
-        </div>
-      </footer>
+      <ReportFooter contactUrl={report.contactUrl} />
     </div>
   );
 }

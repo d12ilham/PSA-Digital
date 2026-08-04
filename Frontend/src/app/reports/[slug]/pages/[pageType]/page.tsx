@@ -331,7 +331,7 @@ export default function PublicReportReaderPage({
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-[#B2DB79]/30">
       {/* ── HEADER ── */}
-      <header className="bg-card border-b border-border py-4 px-6 sm:px-12 flex items-center justify-between sticky top-0 z-50 shadow-xs">
+      <header className="bg-card border-b border-border py-4 px-6 sm:px-12 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.push(`/reports/${slug}`)}
@@ -355,7 +355,7 @@ export default function PublicReportReaderPage({
         </span>
       </header>
 
-      <div className="flex-1 w-full max-w-7xl mx-auto flex items-stretch relative">
+      <div className="flex-1 w-full max-w-360 mx-auto flex items-stretch relative">
         {/* ── DESKTOP SIDEBAR ── */}
         <aside className="hidden md:flex flex-col w-76 shrink-0 bg-[#161b01] text-white/95 p-5 overflow-y-auto">
           {renderSidebarContent()}
@@ -446,7 +446,7 @@ export default function PublicReportReaderPage({
                       return (
                         <div
                           key={block.id}
-                          className="grid grid-cols-1 md:grid-cols-5 border border-border bg-[#FEFDF3] divide-y md:divide-y-0 md:divide-x divide-border rounded-xl shadow-xs overflow-hidden my-6"
+                          className="grid grid-cols-1 md:grid-cols-5 border border-border bg-[#FEFDF3] divide-y md:divide-y-0 md:divide-x divide-border rounded-xl overflow-hidden my-6"
                         >
                           {kpisList.map((kpi: any, idx: number) => (
                             <div

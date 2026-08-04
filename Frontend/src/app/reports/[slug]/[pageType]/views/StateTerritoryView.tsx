@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowLeft, ArrowRight, Download, Search } from "lucide-react";
 
 interface Report {
@@ -85,7 +88,7 @@ const STATES_DATA: Record<string, StateData> = {
       {
         occupation: "Community Program Coordinator",
         stateShortage: "S",
-        nationalShortage: "NS",
+        nationalShortage: "S",
       },
       {
         occupation: "Community Service Roles",
@@ -94,14 +97,10 @@ const STATES_DATA: Record<string, StateData> = {
       },
       {
         occupation: "Managerial Roles",
-        stateShortage: "S",
-        nationalShortage: "NS",
+        stateShortage: "R",
+        nationalShortage: "R",
       },
-      {
-        occupation: "Works Officer",
-        stateShortage: "S",
-        nationalShortage: "NS",
-      },
+      { occupation: "Works Officer", stateShortage: "S", nationalShortage: "S" },
       {
         occupation: "Tradesperson",
         stateShortage: "S",
@@ -120,34 +119,35 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "48,800",
     councils: 77,
     topShortages: [
-      "Engineer (including Civil and Operations)",
+      "Water / Wastewater Operator",
+      "Civil Engineer",
       "Town Planner",
-      "Water Operations Officer",
-      "IT Officer / Cyber Specialist",
-      "Project Manager / Business Analyst",
+      "Environmental Health Officer",
+      "Plant Operator",
     ],
     oslTable: [
-      { occupation: "Engineer", stateShortage: "NS", nationalShortage: "S" },
       {
-        occupation: "Town Planner",
-        stateShortage: "NS",
+        occupation: "Water Operator",
+        stateShortage: "S",
+        nationalShortage: "S",
+      },
+      { occupation: "Civil Engineer", stateShortage: "S", nationalShortage: "S" },
+      { occupation: "Town Planner", stateShortage: "R", nationalShortage: "R" },
+      {
+        occupation: "Environmental Health",
+        stateShortage: "S",
         nationalShortage: "R",
       },
       {
-        occupation: "Water Operations Officer",
-        stateShortage: "NS",
-        nationalShortage: "NS",
-      },
-      { occupation: "IT Officer", stateShortage: "NS", nationalShortage: "NS" },
-      {
-        occupation: "Project Manager",
-        stateShortage: "NS",
+        occupation: "Plant Operator",
+        stateShortage: "S",
         nationalShortage: "NS",
       },
     ],
     lgSpecificShortages: [
-      "Water Operations Officer",
-      "Project Manager / Business Analyst",
+      "Water / Wastewater Operator",
+      "Environmental Health Officer",
+      "Plant Operator",
     ],
   },
   SA: {
@@ -157,10 +157,10 @@ const STATES_DATA: Record<string, StateData> = {
     councils: 68,
     topShortages: [
       "Building Surveyor",
-      "Civil Engineer / Operations",
-      "Arborist",
-      "Project Manager / Business Analyst",
-      "Community Development Officer",
+      "Town Planner",
+      "Civil Engineer",
+      "Horticulturist / Parks Worker",
+      "IT Specialist",
     ],
     oslTable: [
       {
@@ -168,19 +168,20 @@ const STATES_DATA: Record<string, StateData> = {
         stateShortage: "S",
         nationalShortage: "S",
       },
+      { occupation: "Town Planner", stateShortage: "R", nationalShortage: "R" },
+      { occupation: "Civil Engineer", stateShortage: "S", nationalShortage: "S" },
       {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      { occupation: "Arborist", stateShortage: "S", nationalShortage: "S" },
-      {
-        occupation: "Project Manager",
+        occupation: "Horticulturist",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
+      { occupation: "IT Specialist", stateShortage: "S", nationalShortage: "NS" },
     ],
-    lgSpecificShortages: ["Community Development Officer", "Building Surveyor"],
+    lgSpecificShortages: [
+      "Building Surveyor",
+      "Horticulturist / Parks Worker",
+      "IT Specialist",
+    ],
   },
   TAS: {
     code: "TAS",
@@ -188,34 +189,36 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "4,800",
     councils: 29,
     topShortages: [
-      "Urban/Town Planner",
-      "Building Surveyor",
-      "Engineer",
-      "Plumbing Inspector",
+      "Environmental Health Officer",
+      "Planning Officer",
+      "Civil Engineer",
+      "Heavy Diesel Mechanic",
+      "Rates & Revenue Officer",
     ],
     oslTable: [
       {
-        occupation: "Urban and Regional Planner",
-        stateShortage: "R",
+        occupation: "Environmental Health Officer",
+        stateShortage: "S",
         nationalShortage: "R",
       },
+      { occupation: "Planning Officer", stateShortage: "R", nationalShortage: "R" },
+      { occupation: "Civil Engineer", stateShortage: "S", nationalShortage: "S" },
       {
-        occupation: "Building Surveyor",
+        occupation: "Heavy Diesel Mechanic",
         stateShortage: "S",
-        nationalShortage: "S",
+        nationalShortage: "NS",
       },
       {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Plumbing Inspectors",
+        occupation: "Rates & Revenue Officer",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
     ],
-    lgSpecificShortages: ["Plumbing Inspector"],
+    lgSpecificShortages: [
+      "Environmental Health Officer",
+      "Heavy Diesel Mechanic",
+      "Rates & Revenue Officer",
+    ],
   },
   VIC: {
     code: "VIC",
@@ -223,34 +226,35 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "56,100",
     councils: 79,
     topShortages: [
-      "Mechanic",
-      "Human Resources",
-      "Maternal Child Health Nurses",
-      "Environmental Officer",
-      "Finance (rates) Officer",
+      "Early Childhood Educator",
+      "Statutory Planner",
+      "Civil Engineer",
+      "Building Surveyor",
+      "Aged Care Worker",
     ],
     oslTable: [
-      { occupation: "Mechanic", stateShortage: "NS", nationalShortage: "NS" },
       {
-        occupation: "Human Resources",
-        stateShortage: "NS",
-        nationalShortage: "NS",
+        occupation: "Early Childhood Educator",
+        stateShortage: "S",
+        nationalShortage: "S",
       },
+      { occupation: "Statutory Planner", stateShortage: "R", nationalShortage: "R" },
+      { occupation: "Civil Engineer", stateShortage: "S", nationalShortage: "S" },
       {
-        occupation: "Maternal Child Health Nurses",
+        occupation: "Building Surveyor",
         stateShortage: "S",
         nationalShortage: "S",
       },
       {
-        occupation: "Environmental Officer",
-        stateShortage: "NS",
-        nationalShortage: "R",
+        occupation: "Aged Care Worker",
+        stateShortage: "S",
+        nationalShortage: "S",
       },
     ],
     lgSpecificShortages: [
-      "Mechanic",
-      "Human Resources",
-      "Finance (rates) Officer",
+      "Early Childhood Educator",
+      "Statutory Planner",
+      "Building Surveyor",
     ],
   },
   WA: {
@@ -259,31 +263,40 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "26,500",
     councils: 139,
     topShortages: [
-      "Environmental Officer",
-      "Corporate Performance",
-      "IT Officer / Cyber Specialist",
-      "Building Surveyor",
+      "Environmental Health Officer",
       "Civil Engineer",
+      "Plant Operator",
+      "Building Surveyor",
+      "Governance & Compliance Officer",
     ],
     oslTable: [
       {
-        occupation: "Environmental Officer",
-        stateShortage: "R",
+        occupation: "Environmental Health Officer",
+        stateShortage: "S",
         nationalShortage: "R",
       },
+      { occupation: "Civil Engineer", stateShortage: "S", nationalShortage: "S" },
       {
-        occupation: "Corporate Performance",
+        occupation: "Plant Operator",
+        stateShortage: "S",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "Building Surveyor",
+        stateShortage: "S",
+        nationalShortage: "S",
+      },
+      {
+        occupation: "Governance Officer",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
-      { occupation: "IT Officer", stateShortage: "NS", nationalShortage: "NS" },
-      {
-        occupation: "Building Surveyor",
-        stateShortage: "R",
-        nationalShortage: "S",
-      },
     ],
-    lgSpecificShortages: ["Environmental Officer", "Corporate Performance"],
+    lgSpecificShortages: [
+      "Environmental Health Officer",
+      "Plant Operator",
+      "Governance & Compliance Officer",
+    ],
   },
 };
 
@@ -576,231 +589,29 @@ export default function StateTerritoryView({
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
-      <header className="bg-[#161b01] text-white sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <div
-            onClick={() => router.push(`/reports/${slug}`)}
-            className="flex items-center gap-2 cursor-pointer font-extrabold text-base text-white hover:text-accent transition-colors"
-          >
-            <span>LG WIR {report.year?.label || "2026"}</span>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
-            <div className="relative group py-1">
-              <button className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer">
-                About <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() => router.push(`/reports/${slug}/introduction`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Introduction
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/about`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  About Public Skills Australia
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/methodology`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Methodology
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Executive Summary
-            </button>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/drivers_of_change`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Drivers of Change <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/drivers_of_change`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Drivers of Change
-                </button>
-                <button
-                  onClick={() => router.push(`/reports/${slug}/megatrends`)}
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Nine Megatrends
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/industry_overview`)
-                }
-                className="flex items-center gap-1 text-accent font-bold cursor-pointer"
-              >
-                Industry Overview <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_overview`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry-Sector Overview
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/state_territory`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-accent font-bold hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  State and Territory Profile
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/industry_profile`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Industry Profile
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Insights <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-48 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Insights Overview
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group py-1">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_strategies`)
-                }
-                className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
-              >
-                Workforce Strategies <span>▾</span>
-              </button>
-              <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl shadow-lg p-2 min-w-56 space-y-1 z-50">
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  2026 Proposed Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/existing_strategies`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Existing Strategies
-                </button>
-                <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/federal_initiatives`)
-                  }
-                  className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                  Federal Initiatives
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-              className="text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              Looking Forward
-            </button>
-          </nav>
-
-          <div>
-            {report.pdfFileUrl ? (
-              <a
-                href={report.pdfFileUrl}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </a>
-            ) : (
-              <button
-                onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-[#0C582B] hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-              >
-                <span>Download 2026 PDF</span>
-                <Download className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+      <ReportHeader slug={slug} report={report} currentPage="state_territory" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-            className="border border-border bg-white hover:bg-gray-50 text-foreground font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-2xs"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Industry-Sector
-            Overview
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/industry_profile`)}
-            className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
-          >
-            Next Section: Industry Profile{" "}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <ReportNavButtons
+          prev={{
+            label: "Industry-Sector Overview",
+            href: `/reports/${slug}/industry_overview`,
+          }}
+          next={{
+            label: "Industry Profile",
+            href: `/reports/${slug}/industry_profile`,
+          }}
+        />
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
-        <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs space-y-6">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 lg:p-10 space-y-6">
           <div className="space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#046D2A]">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
               Local Government Workforce Profile
             </h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs sm:text-sm text-foreground/80 leading-relaxed font-normal">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               <p>
                 Across Australia, there are 537 local councils. Of these local
                 councils, around 55 per cent are located in regional, rural or
@@ -833,7 +644,7 @@ export default function StateTerritoryView({
               onClick={() => setViewMode("single")}
               className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === "single"
-                  ? "bg-[#85B810] text-[#1B240E] shadow-xs"
+                  ? "bg-[#85B810] text-[#1B240E]"
                   : "bg-[#F2F3EC] text-foreground/70 hover:bg-[#e4e6d9]"
               }`}
             >
@@ -843,7 +654,7 @@ export default function StateTerritoryView({
               onClick={() => setViewMode("compare")}
               className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 viewMode === "compare"
-                  ? "bg-[#85B810] text-[#1B240E] shadow-xs"
+                  ? "bg-[#85B810] text-[#1B240E]"
                   : "bg-[#F2F3EC] text-foreground/70 hover:bg-[#e4e6d9]"
               }`}
             >
@@ -854,10 +665,10 @@ export default function StateTerritoryView({
 
         {/* ── MODE A: SINGLE STATE VIEW ── */}
         {viewMode === "single" && (
-          <div className="bg-white border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-8">
+          <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-8">
             {/* Jurisdiction Selector Pills */}
-            <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-border/60">
-              <span className="text-xs font-extrabold text-foreground/70 uppercase mr-3">
+            <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray200/60">
+              <span className="text-xs font-bold text-foreground/70 uppercase mr-3">
                 CHOOSE A STATE OR TERRITORY
               </span>
               {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map(
@@ -867,7 +678,7 @@ export default function StateTerritoryView({
                     onClick={() => setSelectedState(code)}
                     className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       selectedState === code
-                        ? "bg-[#85B810] text-[#1B240E] shadow-2xs"
+                        ? "bg-[#85B810] text-[#1B240E]"
                         : "bg-[#F2F3EC] text-foreground/80 hover:bg-[#e4e6d9]"
                     }`}
                   >
@@ -882,8 +693,8 @@ export default function StateTerritoryView({
               <div className="space-y-8">
                 {/* 3 National Stat Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-[#FAFBF6] border border-border/60 rounded-xl p-4 space-y-1">
-                    <span className="text-2xl font-extrabold text-[#728C28] block">
+                  <div className="bg-[#FAFBF6] border border-gray200/60 rounded-xl p-4 space-y-1">
+                    <span className="text-2xl font-bold text-[#728C28] block">
                       218,000
                     </span>
                     <p className="text-xs font-semibold text-foreground/80">
@@ -895,8 +706,8 @@ export default function StateTerritoryView({
                     </p>
                   </div>
 
-                  <div className="bg-[#FAFBF6] border border-border/60 rounded-xl p-4 space-y-1">
-                    <span className="text-2xl font-extrabold text-[#728C28] block">
+                  <div className="bg-[#FAFBF6] border border-gray200/60 rounded-xl p-4 space-y-1">
+                    <span className="text-2xl font-bold text-[#728C28] block">
                       49.1% Female / 50.9% Male
                     </span>
                     <p className="text-xs font-semibold text-foreground/80">
@@ -908,8 +719,8 @@ export default function StateTerritoryView({
                     </p>
                   </div>
 
-                  <div className="bg-[#FAFBF6] border border-border/60 rounded-xl p-4 space-y-1">
-                    <span className="text-2xl font-extrabold text-[#728C28] block">
+                  <div className="bg-[#FAFBF6] border border-gray200/60 rounded-xl p-4 space-y-1">
+                    <span className="text-2xl font-bold text-[#728C28] block">
                       9.2% First Nations
                     </span>
                     <p className="text-xs font-semibold text-foreground/80">
@@ -926,8 +737,8 @@ export default function StateTerritoryView({
                 {/* National Australia Map & Shortage Comparison Table */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   {/* Left Australia Map Box */}
-                  <div className="lg:col-span-4 bg-[#F2F4EB] border border-border/50 rounded-2xl p-5 space-y-4">
-                    <span className="font-extrabold text-sm text-foreground block">
+                  <div className="lg:col-span-4 bg-[#F2F4EB] border border-gray200/50 rounded-2xl p-5 space-y-4">
+                    <span className="font-bold text-sm text-foreground block">
                       National Map
                     </span>
                     <div className="w-full h-72 bg-[#E2ECC8] rounded-xl flex items-center justify-center p-4">
@@ -944,7 +755,7 @@ export default function StateTerritoryView({
                   {/* Right Occupation Shortage Comparison Table */}
                   <div className="lg:col-span-8 space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <h3 className="font-extrabold text-xl text-foreground">
+                      <h3 className="font-bold text-xl text-foreground">
                         National Occupation Shortage Comparison
                       </h3>
                       <span className="text-xs font-semibold text-foreground/60">
@@ -960,7 +771,7 @@ export default function StateTerritoryView({
                           placeholder="Search by Occupation"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full bg-[#FAFBF6] border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-[#85B810]"
+                          className="w-full bg-[#FAFBF6] border border-gray200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-[#85B810]"
                         />
                       </div>
 
@@ -1009,10 +820,10 @@ export default function StateTerritoryView({
                     </div>
 
                     {/* Table */}
-                    <div className="overflow-x-auto border border-border rounded-xl">
+                    <div className="overflow-x-auto border border-gray200 rounded-xl">
                       <table className="w-full text-left border-collapse text-xs">
                         <thead>
-                          <tr className="bg-[#F2F3EC] border-b border-border text-foreground font-extrabold uppercase">
+                          <tr className="bg-[#F2F3EC] border-b border-gray200 text-foreground font-bold uppercase">
                             <th className="p-3">Occupation</th>
                             <th className="p-3 text-center">AUS</th>
                             <th className="p-3 text-center">NSW</th>
@@ -1066,15 +877,15 @@ export default function StateTerritoryView({
               /* SPECIFIC STATE DASHBOARD (NSW, TAS, QLD, etc.) */
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Left Zoomed Map Box */}
-                <div className="lg:col-span-5 bg-[#F2F4EB] border border-border/50 rounded-2xl p-6 space-y-4">
-                  <h3 className="text-xl font-extrabold text-foreground">
+                <div className="lg:col-span-5 bg-[#F2F4EB] border border-gray200/50 rounded-2xl p-6 space-y-4">
+                  <h3 className="text-xl font-bold text-foreground">
                     {currentState.name}
                   </h3>
 
                   <div className="w-full h-80 bg-[#E2ECC8] rounded-2xl relative flex items-center justify-center p-6 overflow-hidden">
                     <div className="space-y-3 text-center">
-                      <div className="bg-white rounded-xl p-3 shadow-md inline-block">
-                        <span className="text-2xl font-extrabold text-[#728C28] block">
+                      <div className="bg-white rounded-xl p-3 inline-block">
+                        <span className="text-2xl font-bold text-[#728C28] block">
                           {currentState.employees}
                         </span>
                         <span className="text-xs font-semibold text-foreground/75">
@@ -1082,8 +893,8 @@ export default function StateTerritoryView({
                         </span>
                       </div>
                       <br />
-                      <div className="bg-white rounded-xl p-3 shadow-md inline-block">
-                        <span className="text-2xl font-extrabold text-[#728C28] block">
+                      <div className="bg-white rounded-xl p-3 inline-block">
+                        <span className="text-2xl font-bold text-[#728C28] block">
                           {currentState.councils}
                         </span>
                         <span className="text-xs font-semibold text-foreground/75">
@@ -1103,7 +914,7 @@ export default function StateTerritoryView({
                 {/* Right State Details Column */}
                 <div className="lg:col-span-7 space-y-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-3xl font-extrabold text-foreground">
+                    <h2 className="text-3xl font-bold text-foreground">
                       {currentState.name}
                     </h2>
                     <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -1113,8 +924,8 @@ export default function StateTerritoryView({
 
                   {/* 2 Stat Boxes */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-[#FAFBF6] border border-border/60 rounded-xl p-4 space-y-1">
-                      <span className="text-3xl font-extrabold text-[#728C28] block">
+                    <div className="bg-[#FAFBF6] border border-gray200/60 rounded-xl p-4 space-y-1">
+                      <span className="text-3xl font-bold text-[#728C28] block">
                         {currentState.employees}
                       </span>
                       <p className="text-xs font-semibold text-foreground/80">
@@ -1126,8 +937,8 @@ export default function StateTerritoryView({
                       </p>
                     </div>
 
-                    <div className="bg-[#FAFBF6] border border-border/60 rounded-xl p-4 space-y-1">
-                      <span className="text-3xl font-extrabold text-[#728C28] block">
+                    <div className="bg-[#FAFBF6] border border-gray200/60 rounded-xl p-4 space-y-1">
+                      <span className="text-3xl font-bold text-[#728C28] block">
                         {currentState.councils}
                       </span>
                       <p className="text-xs font-semibold text-foreground/80">
@@ -1146,13 +957,13 @@ export default function StateTerritoryView({
                       <span className="w-6 h-6 rounded-full bg-[#728C28] text-white font-bold text-xs flex items-center justify-center">
                         1
                       </span>
-                      <h4 className="font-extrabold text-base text-foreground">
+                      <h4 className="font-bold text-base text-foreground">
                         Skills Audit List
                       </h4>
                     </div>
 
-                    <div className="bg-[#FAFBF6] border border-border/60 rounded-2xl p-5 space-y-3">
-                      <span className="text-xs font-extrabold text-[#728C28] uppercase block">
+                    <div className="bg-[#FAFBF6] border border-gray200/60 rounded-2xl p-5 space-y-3">
+                      <span className="text-xs font-bold text-[#728C28] uppercase block">
                         TOP 5 OCCUPATIONAL SHORTAGES
                       </span>
 
@@ -1160,7 +971,7 @@ export default function StateTerritoryView({
                         {currentState.topShortages.map((item, idx) => (
                           <span
                             key={idx}
-                            className="bg-[#0C582B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-2xs"
+                            className="bg-[#0C582B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full"
                           >
                             {item}
                           </span>
@@ -1180,14 +991,14 @@ export default function StateTerritoryView({
                       <span className="w-6 h-6 rounded-full bg-[#728C28] text-white font-bold text-xs flex items-center justify-center">
                         2
                       </span>
-                      <h4 className="font-extrabold text-base text-foreground">
+                      <h4 className="font-bold text-base text-foreground">
                         Validation against the Jobs and Skills Australia
                         Occupation Shortage List (OSL)
                       </h4>
                     </div>
 
-                    <div className="border border-border rounded-xl overflow-hidden bg-white">
-                      <div className="bg-[#FAFBF6] p-3 border-b border-border flex items-center justify-between gap-4 text-xs font-bold">
+                    <div className="border border-gray200 rounded-xl overflow-hidden bg-white">
+                      <div className="bg-[#FAFBF6] p-3 border-b border-gray200 flex items-center justify-between gap-4 text-xs font-bold">
                         <span className="uppercase text-foreground/70">
                           NATIONAL SHORTAGES – {currentState.code}
                         </span>
@@ -1209,7 +1020,7 @@ export default function StateTerritoryView({
 
                       <table className="w-full text-left text-xs border-collapse">
                         <thead>
-                          <tr className="bg-[#F2F3EC] border-b border-border text-foreground font-extrabold">
+                          <tr className="bg-[#F2F3EC] border-b border-gray200 text-foreground font-bold">
                             <th className="p-3">
                               Occupation identified in shortage in{" "}
                               {currentState.code} through Skills Audit
@@ -1247,13 +1058,13 @@ export default function StateTerritoryView({
                       <span className="w-6 h-6 rounded-full bg-[#728C28] text-white font-bold text-xs flex items-center justify-center">
                         3
                       </span>
-                      <h4 className="font-extrabold text-base text-foreground">
+                      <h4 className="font-bold text-base text-foreground">
                         Relevant Local Government-specific Occupations List
                       </h4>
                     </div>
 
-                    <div className="bg-[#FAFBF6] border border-border/60 rounded-2xl p-5 space-y-3">
-                      <span className="text-xs font-extrabold text-[#728C28] uppercase block">
+                    <div className="bg-[#FAFBF6] border border-gray200/60 rounded-2xl p-5 space-y-3">
+                      <span className="text-xs font-bold text-[#728C28] uppercase block">
                         LOCAL GOVERNMENT SPECIFIC OCCUPATIONAL SHORTAGES
                       </span>
                       <p className="text-xs text-foreground/75 leading-relaxed">
@@ -1266,7 +1077,7 @@ export default function StateTerritoryView({
                         {currentState.lgSpecificShortages.map((item, idx) => (
                           <span
                             key={idx}
-                            className="bg-[#0C582B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-2xs"
+                            className="bg-[#0C582B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full"
                           >
                             {item}
                           </span>
@@ -1285,12 +1096,12 @@ export default function StateTerritoryView({
           <div className="space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               {/* Left Total Card */}
-              <div className="lg:col-span-4 bg-[#0C582B] text-white rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-xs">
+              <div className="lg:col-span-4 bg-[#0C582B] text-white rounded-2xl p-6 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <span className="text-xs font-bold uppercase text-white/80">
                     NATIONAL
                   </span>
-                  <h2 className="text-4xl font-extrabold">218,000</h2>
+                  <h2 className="text-4xl font-bold">218,000</h2>
                   <p className="text-xs text-white/80">
                     employees as of June 2025
                   </p>
@@ -1317,12 +1128,12 @@ export default function StateTerritoryView({
               {/* Right 2 Bar Chart Cards */}
               <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Chart 1: Employees by state */}
-                <div className="bg-white border border-border rounded-2xl p-6 shadow-2xs space-y-4">
+                <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
                   <span className="text-xs font-bold text-foreground/50 uppercase block">
                     SOURCE: ABS, PUBLIC SECTOR EMPLOYMENT AND EARNINGS, 2025,
                     TABLE 2
                   </span>
-                  <h3 className="font-extrabold text-base text-foreground">
+                  <h3 className="font-bold text-base text-foreground">
                     Employees by state and territory
                   </h3>
 
@@ -1358,11 +1169,11 @@ export default function StateTerritoryView({
                 </div>
 
                 {/* Chart 2: Councils by state */}
-                <div className="bg-white border border-border rounded-2xl p-6 shadow-2xs space-y-4">
+                <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
                   <span className="text-xs font-bold text-foreground/50 uppercase block">
                     SOURCE: STATE AND TERRITORY LOCAL GOVERNMENT ASSOCIATIONS
                   </span>
-                  <h3 className="font-extrabold text-base text-foreground">
+                  <h3 className="font-bold text-base text-foreground">
                     Councils by state and territory
                   </h3>
 
@@ -1400,15 +1211,15 @@ export default function StateTerritoryView({
             </div>
 
             {/* Comprehensive Matrix Table */}
-            <div className="bg-white border border-border rounded-2xl p-6 shadow-xs space-y-4">
-              <h3 className="font-extrabold text-xl text-foreground">
+            <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
+              <h3 className="font-bold text-xl text-foreground">
                 All States Occupation Shortages Matrix
               </h3>
 
-              <div className="overflow-x-auto border border-border rounded-xl">
+              <div className="overflow-x-auto border border-gray200 rounded-xl">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
-                    <tr className="bg-[#F2F3EC] border-b border-border text-foreground font-extrabold uppercase">
+                    <tr className="bg-[#F2F3EC] border-b border-gray200 text-foreground font-bold uppercase">
                       <th className="p-3">Occupation</th>
                       <th className="p-3 text-center">AUS</th>
                       <th className="p-3 text-center">NSW</th>
@@ -1461,25 +1272,7 @@ export default function StateTerritoryView({
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-[#161b01] text-white py-4 px-6 sm:px-8 border-t border-[#252D02]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <p className="text-white/80">
-            © Public Skills Australia 2026 · Local Government Workforce Insights
-            Report
-          </p>
-          <a
-            href={
-              report.contactUrl ||
-              "https://publicskillsaustralia.org.au/contact"
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/90 hover:text-white font-semibold no-underline"
-          >
-            Contact Us
-          </a>
-        </div>
-      </footer>
+      <ReportFooter contactUrl={report.contactUrl} />
     </div>
   );
 }

@@ -357,7 +357,7 @@ export default function MediaLibrary({
                   <div className="text-center">
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="font-mono text-xs uppercase text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold shadow-sm"
+                      className="font-mono text-xs uppercase text-primary border border-border px-4 py-2 bg-card hover:bg-sidebar transition-colors font-bold"
                     >
                       Select Files to Upload
                     </button>
@@ -507,7 +507,7 @@ export default function MediaLibrary({
 
                             {/* Selection Checkmark Badge */}
                             {isSelected && (
-                              <div className="absolute top-1.5 right-1.5 bg-primary text-white p-0.5 shadow-sm">
+                              <div className="absolute top-1.5 right-1.5 bg-primary text-white p-0.5">
                                 <Check className="h-3 w-3" />
                               </div>
                             )}
@@ -667,7 +667,7 @@ export default function MediaLibrary({
                     {mode === "select" && onSelect && (
                       <button
                         onClick={handleConfirmSelection}
-                        className="w-full bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold uppercase transition-colors shadow-sm flex items-center justify-center gap-1"
+                        className="w-full bg-primary hover:bg-primary/95 text-white py-1.5 text-xs font-mono font-bold uppercase transition-colors flex items-center justify-center gap-1"
                       >
                         <Check className="h-3.5 w-3.5" />
                         Select Asset
