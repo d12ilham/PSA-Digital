@@ -320,7 +320,7 @@ export default function ReportsArchivePage() {
             <div className="lg:col-span-5">
               <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
                 {/* Video Thumbnail Box */}
-                <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden border border-gray100">
+                <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-white"></div>
 
                   <div className="relative z-10 flex flex-col items-center gap-3">
