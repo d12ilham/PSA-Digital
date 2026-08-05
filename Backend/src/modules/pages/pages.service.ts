@@ -4,14 +4,16 @@ import { eq, and, asc, isNull } from 'drizzle-orm';
 import { AppError } from '../../middleware/error.middleware';
 
 export class PagesService {
-  async listByReport(reportId: string, _isPublic: boolean) {
+  async listByReport(reportId: string, isPublic: boolean) {
     const conditions = [eq(pages.reportId, reportId)];
+    if (isPublic) conditions.push(eq(pages.isPublished, true));
 
     return db.select().from(pages).where(and(...conditions)).orderBy(asc(pages.sortOrder));
   }
 
-  async findById(id: string, _isPublic: boolean) {
+  async findById(id: string, isPublic: boolean) {
     const conditions = [eq(pages.id, id)];
+    if (isPublic) conditions.push(eq(pages.isPublished, true));
 
     const [page] = await db.select().from(pages).where(and(...conditions)).limit(1);
     if (!page) throw new AppError('Page not found', 404, 'NOT_FOUND');
@@ -25,8 +27,9 @@ export class PagesService {
     return { ...page, contentBlocks: blocks };
   }
 
-  async findByType(reportId: string, pageType: string, _isPublic: boolean) {
+  async findByType(reportId: string, pageType: string, isPublic: boolean) {
     const conditions = [eq(pages.reportId, reportId), eq(pages.pageType, pageType as any)];
+    if (isPublic) conditions.push(eq(pages.isPublished, true));
 
     const [page] = await db.select().from(pages).where(and(...conditions)).limit(1);
     if (!page) throw new AppError(`Page type '${pageType}' not found for this report`, 404, 'NOT_FOUND');

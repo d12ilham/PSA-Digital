@@ -7,7 +7,7 @@ type ReportStatus = 'draft' | 'published' | 'archived';
 
 export class ReportsService {
   private publicWhere() {
-    return inArray(reports.status, ['published', 'draft']);
+    return eq(reports.status, 'published');
   }
 
   async list(params: {
