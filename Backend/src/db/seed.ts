@@ -147,7 +147,7 @@ async function seed() {
       shortDescription: report.shortDescription,
       cardNote: report.cardNote,
       sortOrder: report.sortOrder,
-      status: 'draft',
+      status: 'published',
       createdBy: adminId,
     });
 
