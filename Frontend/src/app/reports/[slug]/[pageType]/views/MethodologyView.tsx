@@ -4,7 +4,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
-import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -47,16 +46,7 @@ export default function MethodologyView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons
-          prev={{
-            label: "Executive Summary",
-            href: `/reports/${slug}/executive_summary`,
-          }}
-          next={{
-            label: "Drivers of Change",
-            href: `/reports/${slug}/drivers_of_change`,
-          }}
-        />
+        <ReportNavButtons slug={slug} currentPage="methodology" />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -414,9 +404,6 @@ export default function MethodologyView({
             ACT Government industry-sector are included in the 2026 Federal and
           </p>
         </div>
-
-        {/* ── PAGINATION NAV ── */}
-        <ReportPaginationNav slug={slug} currentPage="methodology" />
       </main>
 
       {/* ── FOOTER ── */}

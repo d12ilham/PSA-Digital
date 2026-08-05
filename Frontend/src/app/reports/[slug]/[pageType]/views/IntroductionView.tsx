@@ -4,7 +4,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
-import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowRight,
@@ -112,16 +111,7 @@ export default function IntroductionView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
-        <ReportNavButtons
-          prev={{
-            label: "About Public Skills Australia",
-            href: `/reports/${slug}/about`,
-          }}
-          next={{
-            label: "Executive Summary",
-            href: `/reports/${slug}/executive_summary`,
-          }}
-        />
+        <ReportNavButtons slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -370,9 +360,6 @@ export default function IntroductionView({
             </button>
           </div>
         </div>
-
-        {/* ── PAGINATION NAV ── */}
-        <ReportPaginationNav slug={slug} currentPage="introduction" />
       </main>
 
       {/* ── FOOTER ── */}

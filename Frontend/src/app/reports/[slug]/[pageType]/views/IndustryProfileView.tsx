@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
-import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -92,16 +91,7 @@ export default function IndustryProfileView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons
-          prev={{
-            label: "State and Territory Workforce Profile",
-            href: `/reports/${slug}/state_territory`,
-          }}
-          next={{
-            label: "Workforce Insights",
-            href: `/reports/${slug}/workforce_insights`,
-          }}
-        />
+        <ReportNavButtons slug={slug} currentPage="industry_profile" />
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -301,9 +291,6 @@ export default function IndustryProfileView({
             assets managed by local councils.
           </p>
         </div>
-
-        {/* ── PAGINATION NAV ── */}
-        <ReportPaginationNav slug={slug} currentPage="industry_profile" />
       </main>
 
       {/* ── FOOTER ── */}

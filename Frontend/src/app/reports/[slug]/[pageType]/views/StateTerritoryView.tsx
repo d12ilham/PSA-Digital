@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
-import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowLeft, ArrowRight, Download, Search } from "lucide-react";
 
@@ -595,16 +594,7 @@ export default function StateTerritoryView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons
-          prev={{
-            label: "Industry-Sector Overview",
-            href: `/reports/${slug}/industry_overview`,
-          }}
-          next={{
-            label: "Industry Profile",
-            href: `/reports/${slug}/industry_profile`,
-          }}
-        />
+        <ReportNavButtons slug={slug} currentPage="state_territory" />
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 lg:p-10 space-y-6">
@@ -1270,9 +1260,6 @@ export default function StateTerritoryView({
             </div>
           </div>
         )}
-
-        {/* ── PAGINATION NAV ── */}
-        <ReportPaginationNav slug={slug} currentPage="state_territory" />
       </main>
 
       {/* ── FOOTER ── */}

@@ -30,7 +30,7 @@ import IndustryOverviewView from "./views/IndustryOverviewView";
 import StateTerritoryView from "./views/StateTerritoryView";
 import IndustryProfileView from "./views/IndustryProfileView";
 import WorkforceInsightsView from "./views/WorkforceInsightsView";
-import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 
 interface PageItem {
   id: string;
@@ -438,6 +438,7 @@ export default function PublicReportReaderPage({
             </div>
           ) : activePage ? (
             <div className="space-y-8">
+              <ReportNavButtons slug={slug} currentPage={pageType} />
               <div className="border-b border-border/60 pb-5">
                 {activePage.parentPathway && (
                   <span className="block font-mono text-xs uppercase text-muted font-bold mb-1">
@@ -492,8 +493,6 @@ export default function PublicReportReaderPage({
               </p>
             </div>
           )}
-
-          <ReportPaginationNav slug={slug} currentPage={pageType} />
         </main>
       </div>
 
