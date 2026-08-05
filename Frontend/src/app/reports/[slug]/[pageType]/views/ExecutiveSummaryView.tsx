@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -524,9 +525,11 @@ export default function ExecutiveSummaryView({
             onClick={() => router.push(`/reports/${slug}/industry_profile`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-semibold text-xs px-4 py-2 rounded-full transition-colors cursor-pointer"
           >
-            Industry Profile
           </button>
         </div>
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="executive_summary" />
       </main>
 
       {/* ── FOOTER ── */}

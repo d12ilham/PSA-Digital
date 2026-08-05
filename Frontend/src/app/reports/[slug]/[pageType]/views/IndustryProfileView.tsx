@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -300,6 +301,9 @@ export default function IndustryProfileView({
             assets managed by local councils.
           </p>
         </div>
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="industry_profile" />
       </main>
 
       {/* ── FOOTER ── */}

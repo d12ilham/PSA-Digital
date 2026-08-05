@@ -30,6 +30,7 @@ import IndustryOverviewView from "./views/IndustryOverviewView";
 import StateTerritoryView from "./views/StateTerritoryView";
 import IndustryProfileView from "./views/IndustryProfileView";
 import WorkforceInsightsView from "./views/WorkforceInsightsView";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 
 interface PageItem {
   id: string;
@@ -491,6 +492,8 @@ export default function PublicReportReaderPage({
               </p>
             </div>
           )}
+
+          <ReportPaginationNav slug={slug} currentPage={pageType} />
         </main>
       </div>
 

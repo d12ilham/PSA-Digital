@@ -107,10 +107,7 @@ export async function optionalAuthenticate(req: Request, _res: Response, next: N
       };
     }
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      return next(new AppError('Invalid or expired token', 401, 'UNAUTHORIZED'));
-    }
-    return next(error);
+    // Ignore token error for optional auth and continue as guest
   }
 
   next();

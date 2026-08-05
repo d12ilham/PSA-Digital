@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowLeft, ArrowRight, Download, Search } from "lucide-react";
 
@@ -1269,6 +1270,9 @@ export default function StateTerritoryView({
             </div>
           </div>
         )}
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="state_territory" />
       </main>
 
       {/* ── FOOTER ── */}

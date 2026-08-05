@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -381,6 +382,9 @@ export default function IndustryOverviewView({
             </div>
           </div>
         </div>
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="industry_overview" />
       </main>
 
       {/* ── FOOTER ── */}

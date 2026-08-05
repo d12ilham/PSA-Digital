@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowRight,
@@ -369,6 +370,9 @@ export default function IntroductionView({
             </button>
           </div>
         </div>
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="introduction" />
       </main>
 
       {/* ── FOOTER ── */}

@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   ArrowLeft,
@@ -411,9 +412,11 @@ export default function MethodologyView({
             once. Public Skills Australia did not meet with stakeholders from
             the ACT as they do not have local councils. Insights related to the
             ACT Government industry-sector are included in the 2026 Federal and
-            State/Territory Workforce Insights Report.
           </p>
         </div>
+
+        {/* ── PAGINATION NAV ── */}
+        <ReportPaginationNav slug={slug} currentPage="methodology" />
       </main>
 
       {/* ── FOOTER ── */}

@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportPaginationNav from "@/components/layout/ReportPaginationNav";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import {
   Compass,
@@ -189,6 +190,9 @@ export default function AboutView({
               used to maintain accurate data representation.
             </p>
           </div>
+
+          {/* ── PAGINATION NAV ── */}
+          <ReportPaginationNav slug={slug} currentPage="about" />
         </div>
       </main>
 

@@ -139,7 +139,7 @@ export async function apiRequest<T = any>(
         response = await fetch(url, config);
       } else {
         // Trigger redirect if we are on client side
-        if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/dashboard')) {
           window.location.href = '/login';
         }
         throw new Error('Unauthorized');
