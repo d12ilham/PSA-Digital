@@ -65,7 +65,7 @@ const SECTOR_REPORTS = [
     actionText: "View report",
     coverImage: "/images/reports/local-government.png",
     isFirst: true,
-    targetUrl: "/reports/federal-state-territory-wir-2026",
+    targetUrl: "/reports/local-government-workforce-insights-report",
   },
   {
     id: "public-safety",
