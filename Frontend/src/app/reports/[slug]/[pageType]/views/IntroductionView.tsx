@@ -120,7 +120,7 @@ export default function IntroductionView({
               <span className="text-xs font-semibold text-notes uppercase block">
                 INTRODUCTION
               </span>
-              <h1 className="text-4xl font-bold text-gray800 leading-tight">
+              <h1 className="text-4xl font-bold text-gray800">
                 The fourth workforce report for the Local Government
                 industry-sector
               </h1>

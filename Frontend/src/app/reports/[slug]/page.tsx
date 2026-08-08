@@ -200,10 +200,10 @@ export default function ReportLandingPage({
           <p className="text-xs sm:text-xs font-semibold text-notes uppercase">
             {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray800 leading-tight">
+          <h1 className="text-4xl font-bold text-gray800 leading-normal">
             {report.title}
           </h1>
-          <p className="text-xl font-semibold text-notes">
+          <p className="text-lg font-medium text-notes">
             Select your reading experience
           </p>
         </div>
@@ -219,7 +219,7 @@ export default function ReportLandingPage({
               <h2 className="text-2xl font-bold text-LG-LIGHT mb-4">
                 Introduction
               </h2>
-              <p className="text-sm text-gray600 leading-relaxed mb-8">
+              <p className="text-xs text-gray600 leading-relaxed mb-8">
                 {report.landingIntroDesc || defaultIntroDesc}
               </p>
             </div>
@@ -235,20 +235,20 @@ export default function ReportLandingPage({
           </div>
 
           {/* Pathway 2: Executive Summary */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-7 sm:p-9 flex flex-col justify-between transition-all">
+          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all">
             <div>
               <div className="flex items-center justify-between gap-2.5 mb-4">
                 <span className="text-sm font-bold text-gray800 uppercase">
                   READY FOR THE KEY INSIGHTS?
                 </span>
-                <span className="bg-lg-dark text-white text-xs font-bold px-3 py-1.5 rounded-full shrink-0">
+                <span className="bg-lg-dark text-white text-xs px-3 py-1.5 rounded-full shrink-0">
                   Presentation View
                 </span>
               </div>
               <h2 className="text-2xl font-bold text-lg-dark mb-4">
                 Executive Summary
               </h2>
-              <p className="text-sm text-gray600 leading-relaxed mb-8">
+              <p className="text-xs text-gray600 leading-relaxed mb-8">
                 {report.landingExecDesc || defaultExecDesc}
               </p>
             </div>

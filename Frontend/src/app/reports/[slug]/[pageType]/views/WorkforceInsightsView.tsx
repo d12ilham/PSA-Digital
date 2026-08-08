@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -35,6 +35,8 @@ export default function WorkforceInsightsView({
   report: Report;
 }) {
   const router = useRouter();
+  const [showTheme1Overview, setShowTheme1Overview] = useState(false);
+  const [showTheme2Overview, setShowTheme2Overview] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -53,7 +55,7 @@ export default function WorkforceInsightsView({
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark">
               Workforce Insights
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
@@ -63,16 +65,13 @@ export default function WorkforceInsightsView({
             </p>
           </div>
 
-          {/* Right Icon Illustration */}
-          <div className="lg:col-span-4 flex items-center justify-center p-4">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center">
-                <Globe className="h-7 w-7" />
-              </div>
-              <div className="w-14 h-14 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center">
-                <Search className="h-7 w-7" />
-              </div>
-            </div>
+          {/* Right Hero Image */}
+          <div className="lg:col-span-4 flex items-center justify-center lg:justify-end p-2">
+            <img
+              src="/images/reports/workforce-insights.png"
+              alt="Workforce Insights"
+              className="h-auto max-h-36 max-w-full object-contain"
+            />
           </div>
         </div>
 
@@ -88,14 +87,28 @@ export default function WorkforceInsightsView({
                 Local Government Specific Occupational Shortages
               </h2>
               <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
-                }
-                className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                onClick={() => setShowTheme1Overview(!showTheme1Overview)}
+                className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
-                Theme Overview ▾
+                Theme Overview {showTheme1Overview ? "▴" : "▾"}
               </button>
             </div>
+
+            {showTheme1Overview && (
+              <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                <p>
+                  In support of both the 2024 Federal, State/Territory &amp;
+                  Local Government Workforce Plan and the 2025 Local Government
+                  Workforce Insights Report, local council employers continue to
+                  emphasise the broad scope of occupations employed in their
+                  workforce. Role expansion has been a consistent theme, further
+                  examined through two Parliamentary inquiries — which confirmed
+                  that the role of local councils has expanded over time and
+                  that this expansion is impacting both financial and workforce
+                  sustainability.
+                </p>
+              </div>
+            )}
 
             <div className="space-y-4">
               {/* Insight 1 */}
@@ -103,10 +116,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     1
                   </span>
                   <div className="space-y-1">
@@ -130,10 +143,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     2
                   </span>
                   <div className="space-y-1">
@@ -157,10 +170,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     3
                   </span>
                   <div className="space-y-1">
@@ -192,14 +205,30 @@ export default function WorkforceInsightsView({
                 Access to VET Qualifications and Training Delivery Partners
               </h2>
               <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
-                }
-                className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                onClick={() => setShowTheme2Overview(!showTheme2Overview)}
+                className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
-                Theme Overview ▾
+                Theme Overview {showTheme2Overview ? "▴" : "▾"}
               </button>
             </div>
+
+            {showTheme2Overview && (
+              <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                <p>
+                  Access to training has consistently been raised as a challenge
+                  for local council employers in regional, rural and remote
+                  locations — affirmed in the Interim Report into Local
+                  Government Sustainability, PSA’s 2025 LG WIR and ALGA’s 2022
+                  Workforce Skills and Capability Survey. VET was consistently
+                  identified as the most relevant pathway for roles requiring
+                  technical expertise and compliance assurance, such as Water
+                  Operator, Mechanic and Childcare Educator. Access to VET
+                  Training: consultations for the 2024 Workforce Plan, the 2025
+                  LG WIR and the Skills Audit project re-affirmed the challenges
+                  relating to access to qualifications and training delivery.
+                </p>
+              </div>
+            )}
 
             <div className="space-y-4">
               {/* Insight 1 */}
@@ -207,10 +236,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     1
                   </span>
                   <div className="space-y-1">
@@ -233,10 +262,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     2
                   </span>
                   <div className="space-y-1">
@@ -259,10 +288,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     3
                   </span>
                   <div className="space-y-1">
@@ -286,10 +315,10 @@ export default function WorkforceInsightsView({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className="bg-[#FAFBF6] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
+                className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl font-bold text-gray800/20 leading-none">
+                  <span className="text-[50px] font-bold text-notes/10 leading-none">
                     4
                   </span>
                   <div className="space-y-1">

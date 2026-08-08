@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -36,6 +36,8 @@ export default function ExecutiveSummaryView({
   report: Report;
 }) {
   const router = useRouter();
+  const [showTheme1Overview, setShowTheme1Overview] = useState(false);
+  const [showTheme2Overview, setShowTheme2Overview] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -149,25 +151,35 @@ export default function ExecutiveSummaryView({
                   Local Government Specific Occupational Shortages
                 </h3>
                 <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                  onClick={() => setShowTheme1Overview(!showTheme1Overview)}
+                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
                 >
-                  Theme Overview ▾
+                  Theme Overview {showTheme1Overview ? "▴" : "▾"}
                 </button>
               </div>
 
+              {showTheme1Overview && (
+                <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                  <p>
+                    In support of both the 2024 Federal, State/Territory &amp;
+                    Local Government Workforce Plan and the 2025 Local
+                    Government Workforce Insights Report, local council
+                    employers continue to emphasise the broad scope of
+                    occupations employed in their workforce. Role expansion has
+                    been a consistent theme, further examined through two
+                    Parliamentary inquiries — which confirmed that the role of
+                    local councils has expanded over time and that this
+                    expansion is impacting both financial and workforce
+                    sustainability.
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-3">
                 {/* Insight 1 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       1
                     </span>
                     <div>
@@ -181,20 +193,15 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Insight 2 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       2
                     </span>
                     <div>
@@ -208,20 +215,15 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Insight 3 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       3
                     </span>
                     <div>
@@ -236,9 +238,9 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -253,25 +255,37 @@ export default function ExecutiveSummaryView({
                   Access to VET Qualifications and Training Delivery Partners
                 </h3>
                 <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                  onClick={() => setShowTheme2Overview(!showTheme2Overview)}
+                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
                 >
-                  Theme Overview ▾
+                  Theme Overview {showTheme2Overview ? "▴" : "▾"}
                 </button>
               </div>
 
+              {showTheme2Overview && (
+                <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                  <p>
+                    Access to training has consistently been raised as a
+                    challenge for local council employers in regional, rural and
+                    remote locations — affirmed in the Interim Report into Local
+                    Government Sustainability, PSA’s 2025 LG WIR and ALGA’s 2022
+                    Workforce Skills and Capability Survey. VET was consistently
+                    identified as the most relevant pathway for roles requiring
+                    technical expertise and compliance assurance, such as Water
+                    Operator, Mechanic and Childcare Educator. Access to VET
+                    Training: consultations for the 2024 Workforce Plan, the
+                    2025 LG WIR and the Skills Audit project re-affirmed the
+                    challenges relating to access to qualifications and training
+                    delivery.
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-3">
                 {/* Insight 1 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       1
                     </span>
                     <div>
@@ -284,20 +298,15 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Insight 2 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       2
                     </span>
                     <div>
@@ -311,20 +320,15 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Insight 3 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       3
                     </span>
                     <div>
@@ -338,20 +342,15 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Insight 4 */}
-                <div
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_insights`)
-                  }
-                  className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] transition-all"
-                >
+                <div className="bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-[#728C28] transition-all">
                   <div className="flex items-start gap-4">
-                    <span className="text-3xl font-bold text-gray800/20 leading-none">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
                       4
                     </span>
                     <div>
@@ -364,9 +363,9 @@ export default function ExecutiveSummaryView({
                       </p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
+                  {/* <div className="w-8 h-8 rounded-full bg-[#8AC900] text-gray800 flex items-center justify-center shrink-0">
                     <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -510,11 +509,6 @@ export default function ExecutiveSummaryView({
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-semibold text-xs px-4 py-2 rounded-full transition-colors cursor-pointer"
           >
             State and Territory Workforce Profile
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/industry_profile`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-semibold text-xs px-4 py-2 rounded-full transition-colors cursor-pointer"
-          >
           </button>
         </div>
       </main>

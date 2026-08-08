@@ -279,7 +279,7 @@ export default function ReportsArchivePage() {
               </span>
 
               <div className="space-y-1">
-                <h1 className="text-2xl sm:text-4xl font-bold text-gray800 leading-tight">
+                <h1 className="text-4xl font-bold text-gray800">
                   Welcome to the Public Skills Australia
                 </h1>
                 <h2 className="text-2xl sm:text-4xl font-bold text-lg-dark leading-tight">
