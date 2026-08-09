@@ -206,8 +206,8 @@ export default function PublicReportReaderPage({
     return <IndustryProfileView slug={slug} report={report} />;
   }
 
-  if (pageType === "workforce_insights") {
-    return <WorkforceInsightsView slug={slug} report={report} />;
+  if (pageType === "workforce_insights" || pageType.startsWith("workforce_insights_")) {
+    return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
   }
 
   // ── DEFAULT FALLBACK SIDEBAR LAYOUT FOR ALL OTHER PAGES ──
