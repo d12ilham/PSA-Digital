@@ -287,7 +287,7 @@ export default function WorkforceInsightsView({
 
                 <div className="space-y-4">
                   {/* Insight 1 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 opacity-80">
+                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 leading-none">
                         1
@@ -302,10 +302,13 @@ export default function WorkforceInsightsView({
                         </p>
                       </div>
                     </div>
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                      <ArrowRight className="h-4 w-4" />
+                    </div>
                   </div>
 
                   {/* Insight 2 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 opacity-80">
+                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 leading-none">
                         2
@@ -321,10 +324,13 @@ export default function WorkforceInsightsView({
                         </p>
                       </div>
                     </div>
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                      <ArrowRight className="h-4 w-4" />
+                    </div>
                   </div>
 
                   {/* Insight 3 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 opacity-80">
+                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 leading-none">
                         3
@@ -340,10 +346,13 @@ export default function WorkforceInsightsView({
                         </p>
                       </div>
                     </div>
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                      <ArrowRight className="h-4 w-4" />
+                    </div>
                   </div>
 
                   {/* Insight 4 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4 opacity-80">
+                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 leading-none">
                         4
@@ -357,6 +366,9 @@ export default function WorkforceInsightsView({
                           from regional, rural or remote locations.
                         </p>
                       </div>
+                    </div>
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                      <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
                 </div>
