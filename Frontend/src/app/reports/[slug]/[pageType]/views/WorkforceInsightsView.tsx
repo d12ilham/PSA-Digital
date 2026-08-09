@@ -42,17 +42,25 @@ export default function WorkforceInsightsView({
   let activeInsightId: number | null = null;
 
   if (queryInsight) {
-    if (queryInsight.includes("insight1") || queryInsight === "1") activeInsightId = 1;
-    else if (queryInsight.includes("insight2") || queryInsight === "2") activeInsightId = 2;
-    else if (queryInsight.includes("insight3") || queryInsight === "3") activeInsightId = 3;
+    if (queryInsight.includes("insight1") || queryInsight === "1")
+      activeInsightId = 1;
+    else if (queryInsight.includes("insight2") || queryInsight === "2")
+      activeInsightId = 2;
+    else if (queryInsight.includes("insight3") || queryInsight === "3")
+      activeInsightId = 3;
   } else if (pageType) {
-    if (pageType.includes("theme1_insight1") || pageType.endsWith("_1")) activeInsightId = 1;
-    else if (pageType.includes("theme1_insight2") || pageType.endsWith("_2")) activeInsightId = 2;
-    else if (pageType.includes("theme1_insight3") || pageType.endsWith("_3")) activeInsightId = 3;
+    if (pageType.includes("theme1_insight1") || pageType.endsWith("_1"))
+      activeInsightId = 1;
+    else if (pageType.includes("theme1_insight2") || pageType.endsWith("_2"))
+      activeInsightId = 2;
+    else if (pageType.includes("theme1_insight3") || pageType.endsWith("_3"))
+      activeInsightId = 3;
   }
 
   const handleNavigateInsight = (id: number) => {
-    router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight${id}`);
+    router.push(
+      `/reports/${slug}/workforce_insights?insight=theme1-insight${id}`,
+    );
   };
 
   const handleBackToOverview = () => {
@@ -69,7 +77,7 @@ export default function WorkforceInsightsView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         {activeInsightId ? (
           /* ── SUB VIEW: THEME 1 INSIGHT DETAIL ── */
           <Theme1InsightSubView
@@ -91,9 +99,9 @@ export default function WorkforceInsightsView({
                   Workforce Insights
                 </h1>
                 <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                  This Report identifies the following themes and industry-sector
-                  insights relating to Local Government. Select any insight to open
-                  its detail page.
+                  This Report identifies the following themes and
+                  industry-sector insights relating to Local Government. Select
+                  any insight to open its detail page.
                 </p>
               </div>
 
@@ -108,7 +116,7 @@ export default function WorkforceInsightsView({
             </div>
 
             {/* ── SECTION 2: TWO THEMES GRID ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {/* Theme 1 Container */}
               <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-6 space-y-6">
                 <div className="space-y-3">
@@ -130,13 +138,14 @@ export default function WorkforceInsightsView({
                   <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
                     <p>
                       In support of both the 2024 Federal, State/Territory &amp;
-                      Local Government Workforce Plan and the 2025 Local Government
-                      Workforce Insights Report, local council employers continue to
-                      emphasise the broad scope of occupations employed in their
-                      workforce. Role expansion has been a consistent theme, further
-                      examined through two Parliamentary inquiries — which confirmed
-                      that the role of local councils has expanded over time and
-                      that this expansion is impacting both financial and workforce
+                      Local Government Workforce Plan and the 2025 Local
+                      Government Workforce Insights Report, local council
+                      employers continue to emphasise the broad scope of
+                      occupations employed in their workforce. Role expansion
+                      has been a consistent theme, further examined through two
+                      Parliamentary inquiries — which confirmed that the role of
+                      local councils has expanded over time and that this
+                      expansion is impacting both financial and workforce
                       sustainability.
                     </p>
                   </div>
@@ -146,7 +155,9 @@ export default function WorkforceInsightsView({
                   {/* Insight 1 */}
                   <div
                     onClick={() =>
-                      router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight1`)
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme1-insight1`,
+                      )
                     }
                     className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
                   >
@@ -173,7 +184,9 @@ export default function WorkforceInsightsView({
                   {/* Insight 2 */}
                   <div
                     onClick={() =>
-                      router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight2`)
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme1-insight2`,
+                      )
                     }
                     className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
                   >
@@ -200,7 +213,9 @@ export default function WorkforceInsightsView({
                   {/* Insight 3 */}
                   <div
                     onClick={() =>
-                      router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight3`)
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme1-insight3`,
+                      )
                     }
                     className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
                   >
@@ -247,17 +262,18 @@ export default function WorkforceInsightsView({
                 {showTheme2Overview && (
                   <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
                     <p>
-                      Access to training has consistently been raised as a challenge
-                      for local council employers in regional, rural and remote
-                      locations — affirmed in the Interim Report into Local
-                      Government Sustainability, PSA’s 2025 LG WIR and ALGA’s 2022
-                      Workforce Skills and Capability Survey. VET was consistently
-                      identified as the most relevant pathway for roles requiring
-                      technical expertise and compliance assurance, such as Water
-                      Operator, Mechanic and Childcare Educator. Access to VET
-                      Training: consultations for the 2024 Workforce Plan, the 2025
-                      LG WIR and the Skills Audit project re-affirmed the challenges
-                      relating to access to qualifications and training delivery.
+                      Access to training has consistently been raised as a
+                      challenge for local council employers in regional, rural
+                      and remote locations — affirmed in the Interim Report into
+                      Local Government Sustainability, PSA’s 2025 LG WIR and
+                      ALGA’s 2022 Workforce Skills and Capability Survey. VET
+                      was consistently identified as the most relevant pathway
+                      for roles requiring technical expertise and compliance
+                      assurance, such as Water Operator, Mechanic and Childcare
+                      Educator. Access to VET Training: consultations for the
+                      2024 Workforce Plan, the 2025 LG WIR and the Skills Audit
+                      project re-affirmed the challenges relating to access to
+                      qualifications and training delivery.
                     </p>
                   </div>
                 )}
@@ -292,8 +308,9 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Two
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Few TAFEs and RTOs are willing to travel to geographically
-                          isolated locations to deliver required qualifications.
+                          Few TAFEs and RTOs are willing to travel to
+                          geographically isolated locations to deliver required
+                          qualifications.
                         </p>
                       </div>
                     </div>
@@ -310,9 +327,9 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Local councils have limited training budgets to support
-                          financial impost of course enrolment as well as travel to
-                          and from training.
+                          Local councils have limited training budgets to
+                          support financial impost of course enrolment as well
+                          as travel to and from training.
                         </p>
                       </div>
                     </div>
@@ -329,8 +346,8 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Four
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Course delivery is often not tailored to suit those from
-                          regional, rural or remote locations.
+                          Course delivery is often not tailored to suit those
+                          from regional, rural or remote locations.
                         </p>
                       </div>
                     </div>

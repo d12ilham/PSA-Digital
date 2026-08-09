@@ -209,13 +209,15 @@ export default function ReportLandingPage({
         </div>
 
         {/* Pathways Selection Cards */}
-        <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Pathway 1: Introduction */}
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-8 flex flex-col justify-between transition-all">
             <div>
-              <span className="text-sm font-semibold text-gray800 uppercase mb-4 block">
-                NEW TO THE REPORT?
-              </span>
+              <div className="h-10 flex items-center justify-between gap-3 mb-1">
+                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase tracking-wide">
+                  NEW TO THE REPORT?
+                </span>
+              </div>
               <h2 className="text-2xl font-bold text-LG-LIGHT mb-4">
                 Introduction
               </h2>
@@ -226,7 +228,7 @@ export default function ReportLandingPage({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 Explore the Introduction{" "}
                 <span className="text-base font-normal">→</span>
@@ -237,11 +239,11 @@ export default function ReportLandingPage({
           {/* Pathway 2: Executive Summary */}
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all">
             <div>
-              <div className="flex items-center justify-between gap-2.5 mb-4">
-                <span className="text-sm font-bold text-gray800 uppercase">
+              <div className="h-10 flex items-center justify-between gap-3 mb-1">
+                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase tracking-wide">
                   READY FOR THE KEY INSIGHTS?
                 </span>
-                <span className="bg-lg-dark text-white text-xs px-3 py-1.5 rounded-full shrink-0">
+                <span className="bg-lg-dark text-white text-[11px] font-bold px-3 py-1 rounded-full shrink-0">
                   Presentation View
                 </span>
               </div>
@@ -257,7 +259,7 @@ export default function ReportLandingPage({
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-xs sm:text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 Open the Executive Summary{" "}
                 <span className="text-base font-normal">→</span>

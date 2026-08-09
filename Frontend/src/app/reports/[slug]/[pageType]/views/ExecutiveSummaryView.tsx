@@ -38,6 +38,8 @@ export default function ExecutiveSummaryView({
   const router = useRouter();
   const [showTheme1Overview, setShowTheme1Overview] = useState(false);
   const [showTheme2Overview, setShowTheme2Overview] = useState(false);
+  const [strategy1Open, setStrategy1Open] = useState(false);
+  const [strategy2Open, setStrategy2Open] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -84,15 +86,19 @@ export default function ExecutiveSummaryView({
 
         {/* Section Banner 1: Drivers of Change */}
         <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex gap-4">
             <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-              <RefreshCw className="h-6 w-6" />
+              <img
+                src="/images/drivers-of-change-icon.svg"
+                alt="Executive Summary Process Flow"
+                className="h-7 object-contain"
+              />
             </div>
             <div>
-              <h3 className="font-bold text-base text-gray800">
+              <h3 className="font-bold text-base text-gray800 pb-2">
                 Drivers of Change
               </h3>
-              <p className="text-xs text-gray600 leading-relaxed">
+              <p className="text-xs text-gray600 leading-relaxed w-2/3">
                 Four drivers of change impacting workforce planning in the short
                 to medium term, aligned with the nine megatrends detailed in
                 previous{" "}
@@ -114,12 +120,16 @@ export default function ExecutiveSummaryView({
         {/* Section 2: Two Themes, Seven Workforce Insights */}
         <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
-            <div className="flex items-center gap-4">
+            <div className="flex gap-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-                <Lightbulb className="h-6 w-6" />
+                <img
+                  src="/images/work-force.svg"
+                  alt="Executive Summary Process Flow"
+                  className="h-7 object-contain"
+                />
               </div>
               <div>
-                <h3 className="font-bold text-base text-gray800">
+                <h3 className="font-bold text-base text-gray800 pb-2">
                   Two Themes, Seven Workforce Insights
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
@@ -375,12 +385,16 @@ export default function ExecutiveSummaryView({
         {/* Section 3: 2026 Proposed Strategies */}
         <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
-            <div className="flex items-center gap-4">
+            <div className="flex gap-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-                <Wrench className="h-6 w-6" />
+                <img
+                  src="/images/stratergies.svg"
+                  alt="Executive Summary Process Flow"
+                  className="h-6 object-contain"
+                />
               </div>
               <div>
-                <h3 className="font-bold text-base text-gray800">
+                <h3 className="font-bold text-base text-gray800 pb-2">
                   2026 Proposed Strategies
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -401,57 +415,216 @@ export default function ExecutiveSummaryView({
           </div>
 
           {/* Two Strategy Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             {/* Strategy Card 1 */}
-            <div className="rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-6 space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <span className="bg-LG-LIGHT text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+            <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   STRATEGY 1
                 </span>
                 <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_strategies`)
-                  }
-                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-3.5 py-1 rounded-full cursor-pointer transition-colors"
+                  onClick={() => setStrategy1Open(!strategy1Open)}
+                  className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
                 >
-                  Open ▾
+                  {strategy1Open ? "Close ▴" : "Open ▾"}
                 </button>
               </div>
+
               <h4 className="font-bold text-base text-gray800 leading-snug">
                 Map Local Government occupational shortages to relevant VET
                 training products
               </h4>
+
               <p className="text-xs text-gray600 leading-relaxed">
                 Identify and map the use of relevant qualifications — beyond the
                 LGA Local Government Training Package — to support VET training
                 for key occupational shortages in Local Government.
               </p>
+
+              {/* EXPANDED CONTENT FOR STRATEGY 1 */}
+              {strategy1Open && (
+                <div className="pt-4 border-t border-gray200 space-y-4">
+                  <div className="flex flex-col items-start gap-2">
+                    <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
+                      Workforce Insight: LG Specific Occupational Shortages
+                    </span>
+                    <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
+                      12-month project
+                    </span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      JSC Function:
+                    </h5>
+                    <p className="text-xs text-gray600">
+                      Implementation, Promotion and Monitoring.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">Approach:</h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Map the most challenging occupational shortages (as
+                      identified through the JSA Occupation Shortage List and the
+                      Local Government Skills Audit) to relevant qualifications
+                      contained in both the LGA Local Government Training Package
+                      and other Training Packages, as well as the RTOs that
+                      deliver them.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Deliverable:
+                    </h5>
+                    <p className="text-xs text-gray600">
+                      Occupational Shortage Map.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Anticipated timing:
+                    </h5>
+                    <p className="text-xs text-gray600">
+                      12-month project.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">Impact:</h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      An Occupational Shortage Map connecting the most challenging
+                      shortages to the qualifications and RTOs that can address
+                      them — enabling the sector to meet expanding and increasing
+                      service delivery requirements.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Key stakeholders:
+                    </h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      ALGA · state/territory LG Associations · LG Workforce
+                      Development Group · RTOs · STTAs/SROs · state/territory LG
+                      Departments.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Strategy Card 2 */}
-            <div className="rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <span className="bg-lg-dark text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+            <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   STRATEGY 2
                 </span>
                 <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/workforce_strategies`)
-                  }
-                  className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 text-xs font-bold px-3.5 py-1 rounded-full cursor-pointer transition-colors"
+                  onClick={() => setStrategy2Open(!strategy2Open)}
+                  className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
                 >
-                  Open ▾
+                  {strategy2Open ? "Close ▴" : "Open ▾"}
                 </button>
               </div>
+
               <h4 className="font-bold text-base text-gray800 leading-snug">
-                Facilitate a roundtable on whole of VET system responses to
+                Facilitate a roundtable on whole-of-VET-system responses to
                 Local Government challenges
               </h4>
+
               <p className="text-xs text-gray600 leading-relaxed">
                 Promote the Local Government industry-sector as a sustainable
                 and skilled career pathway to enhance service delivery to
                 communities.
               </p>
+
+              {/* EXPANDED CONTENT FOR STRATEGY 2 */}
+              {strategy2Open && (
+                <div className="pt-4 border-t border-gray200 space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
+                      Workforce Insight: Access to VET Qualifications and Training
+                      Delivery Partners
+                    </span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      JSC Function:
+                    </h5>
+                    <p className="text-xs text-gray600">
+                      Industry Stewardship, Training Product Development
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Approach – Part A:
+                    </h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Bring together state and territory decision makers,
+                      STTAs/SROs, Local Government Partners, TAFEs and RTOs to
+                      facilitate conversations about whole of VET system
+                      responses to Local Government industry-sector challenges.
+                      This should include discussions about training delivery,
+                      funding of training for occupations in shortage in local
+                      councils and could see potential agreements between local
+                      councils and RTOs regarding training delivery.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Approach – Part B (optional):
+                    </h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      If gaps in specialist local council skills are identified in
+                      Strategy 1 (Map Local Government occupational shortages to
+                      relevant VET training products), an evaluation of the
+                      current LGA Local Government Training Package may be
+                      undertaken, with a focus on the number of qualifications,
+                      training pathways, design of specialisation areas and the
+                      potential utility of skill sets.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Deliverable:
+                    </h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Part A: Roundtable discussions and summary report of
+                      discussions.
+                      <br />
+                      Part B: Reviewed training product/s
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">
+                      Key Stakeholders:
+                    </h5>
+                    <ul className="space-y-1 text-xs text-gray600 pl-4 list-disc">
+                      <li>Australian Local Government Association</li>
+                      <li>State/Territory Local Government Associations</li>
+                      <li>Local Government Workforce Development Group</li>
+                      <li>Jobs and Skills Councils &gt; RTOs &gt; STTA/SROs</li>
+                      <li>State/Territory Local Government Departments</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold text-gray800">Impact:</h5>
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Support the Local Government industry-sector by facilitating
+                      access to whole of VET sector stakeholders.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -460,7 +633,11 @@ export default function ExecutiveSummaryView({
         <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex gap-4">
             <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-              <BookOpen className="h-6 w-6" />
+              <img
+                src="/images/2027-and-beyond.svg"
+                alt="Executive Summary Process Flow"
+                className="h-6 object-contain"
+              />
             </div>
             <div className="space-y-2">
               <h3 className="font-bold text-base text-gray800">

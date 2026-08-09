@@ -32,7 +32,7 @@ export default function Theme1InsightSubView({
         </button>
 
         <div className="flex items-center gap-4 self-end sm:self-auto">
-          <span className="text-sm font-semibold text-notes">
+          <span className="text-xs font-semibold text-notes">
             Insight {insightId} of 3 · Theme 1
           </span>
           <div className="flex items-center gap-2">
@@ -578,11 +578,11 @@ export default function Theme1InsightSubView({
               </div>
 
               {/* WA */}
-              <div className="sm:col-span-2 rounded-xl overflow-hidden border border-gray200">
+              <div className="sm:col-span-2 rounded-xl overflow-hidden border border-gray200 w-1/2">
                 <div className="bg-lg-dark text-white font-bold text-xs p-6 py-2.5">
                   Western Australia
                 </div>
-                <div className="bg-white p-6 grid grid-cols-1 sm:grid-cols-2 gap-y-1.5 gap-x-4 text-xs text-gray600">
+                <div className="bg-white p-6 space-y-1.5 text-xs text-gray600 h-full">
                   <div className="flex items-start gap-2">
                     <span className="font-bold">•</span>
                     <span>Corporate Performance</span>

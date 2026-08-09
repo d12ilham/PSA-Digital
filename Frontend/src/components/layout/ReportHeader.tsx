@@ -232,7 +232,7 @@ export default function ReportHeader({
             >
               Workforce Strategies <span>▾</span>
             </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50">
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-64 space-y-1 z-50">
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_strategies`)
@@ -247,6 +247,18 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
+                  router.push(`/reports/${slug}/update_2025_strategies`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
+                  currentPage === "update_2025_strategies"
+                    ? "text-accent font-bold bg-white/10"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Update on 2025 Strategies
+              </button>
+              <button
+                onClick={() =>
                   router.push(`/reports/${slug}/existing_strategies`)
                 }
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
@@ -255,19 +267,7 @@ export default function ReportHeader({
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}
               >
-                Existing Strategies
-              </button>
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/federal_initiatives`)
-                }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "federal_initiatives"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                Federal Initiatives
+                Existing Industry-Sector Strategies
               </button>
             </div>
           </div>

@@ -30,6 +30,10 @@ import IndustryOverviewView from "./views/IndustryOverviewView";
 import StateTerritoryView from "./views/StateTerritoryView";
 import IndustryProfileView from "./views/IndustryProfileView";
 import WorkforceInsightsView from "./views/WorkforceInsightsView";
+import ExistingStrategiesView from "./views/ExistingStrategiesView";
+import ProposedStrategies2026View from "./views/ProposedStrategies2026View";
+import ExistingIndustryStrategiesView from "./views/ExistingIndustryStrategiesView";
+import LookingForwardView from "./views/LookingForwardView";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 
 interface PageItem {
@@ -208,6 +212,22 @@ export default function PublicReportReaderPage({
 
   if (pageType === "workforce_insights" || pageType.startsWith("workforce_insights_")) {
     return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
+  }
+
+  if (pageType === "workforce_strategies" || pageType === "proposed_strategies") {
+    return <ProposedStrategies2026View slug={slug} report={report} />;
+  }
+
+  if (pageType === "update_2025_strategies" || pageType === "workforce_strategies_2025") {
+    return <ExistingStrategiesView slug={slug} report={report} />;
+  }
+
+  if (pageType === "existing_strategies" || pageType === "existing_industry_strategies") {
+    return <ExistingIndustryStrategiesView slug={slug} report={report} />;
+  }
+
+  if (pageType === "looking_forward" || pageType === "2027_and_beyond") {
+    return <LookingForwardView slug={slug} report={report} />;
   }
 
   // ── DEFAULT FALLBACK SIDEBAR LAYOUT FOR ALL OTHER PAGES ──

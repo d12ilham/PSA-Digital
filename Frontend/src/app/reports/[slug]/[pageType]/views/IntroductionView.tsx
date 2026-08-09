@@ -110,7 +110,7 @@ export default function IntroductionView({
       <ReportHeader slug={slug} report={report} currentPage="introduction" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         <ReportNavButtons slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
