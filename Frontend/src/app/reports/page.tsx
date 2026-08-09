@@ -332,7 +332,7 @@ export default function ReportsArchivePage() {
 
                 {/* Video Subtitle */}
                 <div className="flex items-center justify-between px-1 gap-5">
-                  <p className="text-xs text-gray600 font-medium leading-snug">
+                  <p className="text-xs text-gray600 font-medium leading-relaxed">
                     A short introduction to the 2026 reports from Public Skills
                     Australia.
                   </p>
@@ -349,9 +349,11 @@ export default function ReportsArchivePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Card 1: An evidence-based view */}
             <div className="bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
-              <div className="w-16 h-16 rounded-full border border-gray200 flex items-center justify-center shrink-0 text-notes">
-                <FileText className="w-9 h-9" />
-              </div>
+              <img
+                src="/images/reports/reports-main/evidence-based.svg"
+                alt="An evidence-based view"
+                className="w-16 h-16 shrink-0 object-contain"
+              />
               <div className="space-y-1.5">
                 <h3 className="font-bold text-sm sm:text-lg text-gray800">
                   An evidence-based view
@@ -368,9 +370,11 @@ export default function ReportsArchivePage() {
 
             {/* Card 2: Grounded in lived experience */}
             <div className="bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
-              <div className="w-16 h-16 rounded-full border border-gray200 flex items-center justify-center shrink-0 text-[#38761D]">
-                <Users className="w-9 h-9" />
-              </div>
+              <img
+                src="/images/reports/reports-main/Grounded.svg"
+                alt="Grounded in lived experience"
+                className="w-16 h-16 shrink-0 object-contain"
+              />
               <div className="space-y-1.5">
                 <h3 className="font-extrabold text-sm sm:text-lg text-gray800">
                   Grounded in lived experience
@@ -392,31 +396,51 @@ export default function ReportsArchivePage() {
             EACH REPORT INCLUDES
           </h4>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
             {[
-              { title: "Introduction", icon: BookOpen },
-              { title: "Executive Summary", icon: FileText },
-              { title: "Driver of Changes", icon: RefreshCw },
-              { title: "Industry Overview", icon: Search },
-              { title: "Workforce Insights", icon: Lightbulb },
-              { title: "Workforce Strategies", icon: Target },
-              { title: "Looking Forward", icon: ChevronRight },
-            ].map((item, idx) => {
-              const IconComp = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl p-3 border border-gray200 flex flex-col items-center justify-center text-center gap-3 min-h-[135px] hover:border-lg-dark transition-colors group cursor-default"
-                >
-                  <div className="w-16 h-16 rounded-full bg-cards border border-gray200 flex items-center justify-center text-[#38761D]">
-                    <IconComp className="w-7 h-7" />
-                  </div>
-                  <span className="font-semibold text-sm text-gray800 leading-tight">
-                    {item.title}
-                  </span>
-                </div>
-              );
-            })}
+              {
+                title: "Introduction",
+                icon: "/images/reports/reports-main/Introduction.svg",
+              },
+              {
+                title: "Executive Summary",
+                icon: "/images/reports/reports-main/Executive.svg",
+              },
+              {
+                title: "Driver of Changes",
+                icon: "/images/reports/reports-main/Driver.svg",
+              },
+              {
+                title: "Industry Overview",
+                icon: "/images/reports/reports-main/Industry.svg",
+              },
+              {
+                title: "Workforce Insights",
+                icon: "/images/reports/reports-main/Insights.svg",
+              },
+              {
+                title: "Workforce Strategies",
+                icon: "/images/reports/reports-main/Strategies.svg",
+              },
+              {
+                title: "Looking Forward",
+                icon: "/images/reports/reports-main/Looking.svg",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl p-3 border border-gray200 flex flex-col items-center justify-center text-center gap-3 min-h-[135px] hover:border-lg-dark transition-colors group cursor-default"
+              >
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-16 h-16 shrink-0 object-contain"
+                />
+                <span className="font-semibold text-sm text-gray800 leading-tight">
+                  {item.title}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
 

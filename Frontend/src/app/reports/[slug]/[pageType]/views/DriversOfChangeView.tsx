@@ -5,32 +5,6 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  Briefcase,
-  Clock,
-  Cpu,
-  Crosshair,
-  Globe2,
-  HeartHandshake,
-  Search,
-  Settings,
-  ShieldCheck,
-  Users2,
-} from "lucide-react";
-
-interface Report {
-  id: string;
-  title: string;
-  slug: string;
-  status: string;
-  pdfFileUrl?: string;
-  psaSectorPageUrl?: string;
-  contactUrl?: string;
-  year?: {
-    label: string;
-  };
-}
-
 const DRIVERS = [
   {
     id: 1,
@@ -51,9 +25,9 @@ const DRIVERS = [
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
-      "Australia is experiencing its slowest productivity growth in 60 years. Productivity challenges across Public Safety and Government impact the delivery of essential services and community outcomes. Enhancing workforce productivity requires targeted investment in skills, process optimization, and supportive organizational structures.",
+      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.",
     sources:
-      "Sources (5, 6): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026.",
+      "Sources (5, 6): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026 · Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
   },
   {
     id: 3,
@@ -64,9 +38,9 @@ const DRIVERS = [
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
     fullDesc:
-      "The rapid evolution of artificial intelligence and automation technologies presents both unprecedented opportunities for capability uplift and growing security and ethical risks. Public Safety and Government organizations must build digital literacy and adapt workforce capabilities to leverage AI effectively while maintaining data integrity and public trust.",
+      "AI, automation and accelerated digital transformation are powerful drivers of organisational and systemlevel change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.",
     sources:
-      "Sources (7): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026; Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025.",
+      "Sources (7, 8): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026 · Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025, accessed 25 February 2026 · Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
   },
   {
     id: 4,
@@ -75,66 +49,65 @@ const DRIVERS = [
     shortDesc: "Recruiting and retaining diverse cohorts...",
     fullTitle: "Driver 4 — Workforce inclusivity",
     fullDesc:
-      "Recruiting and retaining diverse cohorts is essential to building resilient, representative workforces across Local Government and Public Safety. Promoting inclusive workplaces improves retention, innovation, and service delivery for diverse communities.",
-    sources:
-      "Sources (8): Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
+      "Workforce inclusivity has been a key focus across the labour market. In the Public Safety and Government industry-sectors this is likely to translate into a continued focus on recruiting, retaining and developing employees from diverse cultural, linguistic, gender, disability and neurodivergent backgrounds. As organisations seek to increase workforce participation from these cohorts, they will be required to adapt and change legacy systems and processes to respond to the needs of the modern workforce.",
+    sources: "",
   },
 ];
 
 const MEGATRENDS = [
   {
     id: "pathways",
-    icon: Briefcase,
+    icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
     desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
   },
   {
     id: "climate",
-    icon: Globe2,
+    icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
-    desc: "Increasing severity of natural disasters and extreme weather events demands adaptation in emergency response, infrastructure maintenance, and local environmental management.",
+    desc: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
     id: "labour",
-    icon: Settings,
+    icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
-    desc: "Tight labor markets across regional and metropolitan areas create heightened competition for specialized technical, engineering, and administrative roles.",
+    desc: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
     id: "duties",
-    icon: Crosshair,
+    icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
-    desc: "Local councils face expanding expectations to deliver broader social, environmental, and community services without proportional resource increases.",
+    desc: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
   },
   {
     id: "diversity",
-    icon: HeartHandshake,
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
     title: "Diversity and inclusion",
-    desc: "Emphasizing inclusive recruitment and workplace practices to reflect community diversity and enhance organizational performance.",
+    desc: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
   },
   {
     id: "demographics",
-    icon: Users2,
+    icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
-    desc: "Aging populations in regional areas alter service demand while impacting local council workforce availability and succession planning.",
+    desc: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
     id: "tech",
-    icon: Cpu,
+    icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
-    desc: "Adopting smart infrastructure, digital service platforms, and automated workflow tools to improve municipal operational efficiency.",
+    desc: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
   },
   {
     id: "recruitment",
-    icon: Search,
+    icon: "/images/reports/drivers-of-change/Recruitment.svg",
     title: "Recruitment and retention",
-    desc: "Addressing persistent geographical and competitive hurdles to recruit and retain skilled personnel in key council occupations.",
+    desc: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
   },
   {
     id: "trust",
-    icon: ShieldCheck,
+    icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
-    desc: "Building community trust through transparent governance, effective communication, and responsive local government service delivery.",
+    desc: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
   },
 ];
 
@@ -143,7 +116,7 @@ export default function DriversOfChangeView({
   report,
 }: {
   slug: string;
-  report: Report;
+  report: any;
 }) {
   const router = useRouter();
 
@@ -241,8 +214,8 @@ export default function DriversOfChangeView({
                   onClick={() => setActiveDriverId(isActive ? null : driver.id)}
                   className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all ${
                     isActive
-                      ? "bg-[#EBF1E4] border-active border-t-8"
-                      : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-[#728C28]"
+                      ? "bg-[#EBF1E4] border-active border-2 border-t-8"
+                      : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
                   }`}
                 >
                   <div className="space-y-3">
@@ -275,19 +248,26 @@ export default function DriversOfChangeView({
 
           {/* Active Driver Detail Panel */}
           {activeDriver && (
-            <div className="bg-[#EBF1E4] border border-active border-l-8 rounded-2xl p-6 space-y-4 animate-fade-in">
-              <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
-                NOW PRESENTING - {activeDriver.number}
-              </span>
-              <h3 className="text-lg sm:text-xl font-bold text-gray800">
-                {activeDriver.fullTitle}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                {activeDriver.fullDesc}
-              </p>
-              <p className="text-xs text-active pt-3 border-t border-active/20">
-                {activeDriver.sources}
-              </p>
+            <div className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in">
+              <div className="space-y-4">
+                <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
+                  NOW PRESENTING - {activeDriver.number}
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
+                  {activeDriver.fullTitle}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-2/3">
+                  {activeDriver.fullDesc}
+                </p>
+                {activeDriver.sources && (
+                  <>
+                    <p className="text-xs text-active border-t border-gray200"></p>
+                    <p className="text-xs text-active w-2/3 leading-relaxed">
+                      {activeDriver.sources}
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -300,9 +280,8 @@ export default function DriversOfChangeView({
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
             {MEGATRENDS.map((item) => {
-              const IconComponent = item.icon;
               const isActive = activeMegatrendId === item.id;
 
               return (
@@ -311,17 +290,23 @@ export default function DriversOfChangeView({
                   onClick={() =>
                     setActiveMegatrendId(isActive ? null : item.id)
                   }
-                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-3 cursor-pointer transition-all ${
+                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all ${
                     isActive
-                      ? "bg-[#EBF1E4] border-active"
-                      : "bg-white border-gray200 hover:border-[#728C28]"
+                      ? "bg-[#EBF1E4] border-active border-2"
+                      : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#F0F5DF] text-[#8AC900] flex items-center justify-center shrink-0">
-                    <IconComponent className="h-6 w-6" />
-                  </div>
+                  <img
+                    src={
+                      isActive
+                        ? item.icon.replace(".svg", "-active.svg")
+                        : item.icon
+                    }
+                    alt={item.title}
+                    className="w-17 h-17 shrink-0 object-contain"
+                  />
                   <p
-                    className={`text-xs font-semibold leading-tight ${
+                    className={`text-xs font-semibold leading-normal ${
                       isActive ? "text-active" : "text-gray600"
                     }`}
                   >
@@ -334,17 +319,17 @@ export default function DriversOfChangeView({
 
           {/* Active Megatrend Detail Panel */}
           {activeMegatrend && (
-            <div className="bg-[#EBF1E4] border border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in">
-              <h3 className="text-lg sm:text-xl font-bold text-gray800">
+            <div className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in">
+              <h3 className="text-xl font-bold text-gray800">
                 {activeMegatrend.title}
               </h3>
-              <p className="text-sm text-gray600 leading-relaxed">
+              <p className="text-sm text-gray600 leading-relaxed w-2/3">
                 {activeMegatrend.desc}
               </p>
             </div>
           )}
 
-          <p className="text-sm text-gray800 leading-relaxed pt-2">
+          <p className="text-sm text-gray800 leading-relaxed pt-2 w-2/3">
             These megatrends were identified in previous{" "}
             <span className="font-semibold text-lg-dark">
               Workforce Insights Reports
@@ -359,18 +344,15 @@ export default function DriversOfChangeView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
           <h3 className="font-bold text-xl text-gray800">Sources</h3>
 
-          <div className="space-y-3 text-xs text-gray600 leading-relaxed">
+          <div className="space-y-3 text-xs text-gray600 leading-relaxed w-2/3">
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
               </span>
               <p>
-                Australian Government Department of Home Affairs,{" "}
-                <span className="italic">
-                  Organisational Resilience: Good Practice Guide
-                </span>
-                , Australian Government Department of Home Affairs, 2024,
-                accessed 25 February 2026.
+                Australian Government Department of Home Affairs, Organisational
+                Resilience: Good Practice Guide , Australian Government
+                Department of Home Affairs, 2024, accessed 25 February 2026.
               </p>
             </div>
 
@@ -379,11 +361,9 @@ export default function DriversOfChangeView({
                 5
               </span>
               <p>
-                Productivity Commission,{" "}
-                <span className="italic">
-                  Five pillars of productivity inquiries – final reports
-                </span>
-                , Productivity Commission, 2025, accessed 13 February 2026.
+                Productivity Commission, Five pillars of productivity inquiries
+                – final reports , Productivity Commission, 2025, accessed 13
+                February 2026.
               </p>
             </div>
 
@@ -392,10 +372,7 @@ export default function DriversOfChangeView({
                 6
               </span>
               <p>
-                Productivity Commission,{" "}
-                <span className="italic">
-                  Five pillars of productivity inquiries
-                </span>
+                Productivity Commission, Five pillars of productivity inquiries
                 , Productivity Commission, 2025, accessed 25 February 2026.
               </p>
             </div>
@@ -405,18 +382,12 @@ export default function DriversOfChangeView({
                 7
               </span>
               <p>
-                Australian Government Department of Finance,{" "}
-                <span className="italic">
-                  National framework for the assurance of artificial
-                  intelligence in government
-                </span>
-                , Australian Government Department of Finance, 2024, accessed 25
+                Australian Government Department of Finance, National framework
+                for the assurance of artificial intelligence in government ,
+                Australian Government Department of Finance, 2024, accessed 25
                 February 2026; Australian Government Digital Transformation
-                Agency,{" "}
-                <span className="italic">
-                  Policy for the responsible use of AI in government
-                </span>
-                , Australian Government Digital Transformation Agency, 2025,
+                Agency, Policy for the responsible use of AI in government ,
+                Australian Government Digital Transformation Agency, 2025,
                 accessed 25 February 2026.
               </p>
             </div>
@@ -426,11 +397,9 @@ export default function DriversOfChangeView({
                 8
               </span>
               <p>
-                Australian Security Intelligence Organisation (ASIO),{" "}
-                <span className="italic">
-                  Director-General's Annual Threat Assessment 2025
-                </span>
-                , ASIO, 2025, accessed 25 February 2026.
+                Australian Security Intelligence Organisation (ASIO),
+                Director-General's Annual Threat Assessment 2025 , ASIO, 2025,
+                accessed 25 February 2026.
               </p>
             </div>
           </div>

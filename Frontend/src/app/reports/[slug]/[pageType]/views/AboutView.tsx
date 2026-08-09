@@ -5,15 +5,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  Compass,
-  Download,
-  FileText,
-  GraduationCap,
-  Handshake,
-  HeartHandshake,
-  Users,
-} from "lucide-react";
+import { Download } from "lucide-react";
 
 interface Report {
   id: string;
@@ -69,9 +61,11 @@ export default function AboutView({
           </div>
 
           <div className="relative z-10 border border-gray200 rounded-2xl p-5 max-w-2xl flex items-start gap-4">
-            <div className="w-16 h-16 rounded-full border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-              <Handshake className="h-9 w-9" />
-            </div>
+            <img
+              src="/images/reports/about/working-in-partnership.svg"
+              alt="Working in partnership"
+              className="w-16 h-16 shrink-0 object-contain"
+            />
             <div className="space-y-1">
               <h3 className="font-bold text-sm text-gray800">
                 Working in partnership
@@ -94,10 +88,12 @@ export default function AboutView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                  <FileText className="h-9 w-9" />
-                </div>
+              <div className="space-y-5">
+                <img
+                  src="/images/reports/about/Workforce.svg"
+                  alt="Workforce Insight and Strategy"
+                  className="w-16 h-16 shrink-0 object-contain"
+                />
                 <h3 className="font-bold text-base text-gray800 leading-snug">
                   Workforce Insight and Strategy
                 </h3>
@@ -110,10 +106,12 @@ export default function AboutView({
             </div>
 
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                  <GraduationCap className="h-9 w-9" />
-                </div>
+              <div className="space-y-5">
+                <img
+                  src="/images/reports/about/Training.svg"
+                  alt="Training Product Quality & Development"
+                  className="w-16 h-16 shrink-0 object-contain"
+                />
                 <h3 className="font-bold text-base text-gray800 leading-snug">
                   Training Product Quality & Development
                 </h3>
@@ -125,10 +123,12 @@ export default function AboutView({
             </div>
 
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                  <Compass className="h-9 w-9" />
-                </div>
+              <div className="space-y-5">
+                <img
+                  src="/images/reports/about/Supports.svg"
+                  alt="Supports Career Pathways"
+                  className="w-16 h-16 shrink-0 object-contain"
+                />
                 <h3 className="font-bold text-base text-gray800 leading-snug">
                   Supports Career Pathways
                 </h3>
@@ -141,10 +141,12 @@ export default function AboutView({
             </div>
 
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                  <Users className="h-9 w-9" />
-                </div>
+              <div className="space-y-5">
+                <img
+                  src="/images/reports/about/Industry.svg"
+                  alt="Industry Stewardship"
+                  className="w-16 h-16 shrink-0 object-contain"
+                />
                 <h3 className="font-bold text-base text-gray800 leading-snug">
                   Industry Stewardship
                 </h3>
@@ -157,14 +159,16 @@ export default function AboutView({
           </div>
 
           <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start gap-5">
-            <div className="w-16 h-16 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-              <HeartHandshake className="h-9 w-9" />
-            </div>
+            <img
+              src="/images/reports/about/Commitment.svg"
+              alt="Our commitment"
+              className="w-16 h-16 shrink-0 object-contain"
+            />
             <div className="space-y-2 flex-1">
               <h3 className="font-bold text-base text-gray800">
                 Our commitment
               </h3>
-              <p className="text-sm text-gray600 leading-relaxed">
+              <p className="text-sm text-gray600 leading-relaxed w-2/3">
                 Public Skills Australia remains committed to encouraging the
                 participation of First Nations people,<sup>1</sup> those from
                 culturally and linguistically diverse backgrounds, those living
@@ -176,7 +180,7 @@ export default function AboutView({
           </div>
 
           <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
-            <p>
+            <p className="w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.
               When citing a data source (such as government strategies or state

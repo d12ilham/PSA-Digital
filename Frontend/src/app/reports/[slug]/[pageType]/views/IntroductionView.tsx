@@ -5,16 +5,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  ArrowRight,
-  BookOpen,
-  Download,
-  FileText,
-  Globe,
-  Lightbulb,
-  RefreshCw,
-  Wrench,
-} from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 
 interface Report {
   id: string;
@@ -31,7 +22,7 @@ interface Report {
 
 interface ReportSection {
   title: string;
-  icon: React.ElementType;
+  icon: string;
   subtitle?: string;
   description: string;
   tags?: string[];
@@ -41,14 +32,14 @@ interface ReportSection {
 const reportSections: ReportSection[] = [
   {
     title: "Executive Summary",
-    icon: FileText,
+    icon: "/images/reports/introduction/Executive.svg",
     subtitle: "The Local Government workforce story on one page",
     description: "A concise, presentation-friendly view of the report story.",
     path: "executive_summary",
   },
   {
     title: "Drivers of Change",
-    icon: RefreshCw,
+    icon: "/images/reports/introduction/Drivers.svg",
     description:
       "Four key drivers of change and the nine megatrends shaping long-term workforce trends.",
     tags: ["Drivers of Change", "Nine Megatrends"],
@@ -56,7 +47,7 @@ const reportSections: ReportSection[] = [
   },
   {
     title: "Industry Overview",
-    icon: Globe,
+    icon: "/images/reports/introduction/Overview.svg",
     description: "Examines the Local Government workforce data analysis.",
     tags: [
       "Industry-Sector Overview",
@@ -67,7 +58,7 @@ const reportSections: ReportSection[] = [
   },
   {
     title: "Workforce Insights",
-    icon: Lightbulb,
+    icon: "/images/reports/introduction/Insights.svg",
     description:
       "Details the Local Government workforce insights across two themes and seven insights.",
     tags: ["7 insight detail pages", "Insights overview"],
@@ -75,7 +66,7 @@ const reportSections: ReportSection[] = [
   },
   {
     title: "Workforce Strategies",
-    icon: Wrench,
+    icon: "/images/reports/introduction/Strategies.svg",
     description: "The strategies and related initiatives informing PSA's work.",
     tags: [
       "2026 Proposed Strategies",
@@ -87,7 +78,7 @@ const reportSections: ReportSection[] = [
   },
   {
     title: "Looking Forward",
-    icon: BookOpen,
+    icon: "/images/reports/introduction/Summary.svg",
     description:
       "The future lines of inquiry and priorities for the next reports.",
     tags: ["2027 and Beyond"],
@@ -263,49 +254,56 @@ export default function IntroductionView({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reportSections.map((section, index) => {
-              const IconComponent = section.icon;
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl border border-border border-t-12 border-t-lg-dark p-6 flex flex-col justify-between space-y-4"
+                  className="bg-white rounded-2xl border border-border border-t-12 border-t-lg-dark p-6 flex flex-col justify-between space-y-6"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-lg font-bold text-gray800">
+                  <div className="flex items-start justify-between gap-5">
+                    {/* Left Column: All text content & tags */}
+                    <div className="flex-1 space-y-3">
+                      <h3 className="text-xl font-bold text-gray800 leading-snug mt-1">
                         {section.title}
                       </h3>
-                      <div className="w-10 h-10 rounded-full bg-cards text-notes flex items-center justify-center shrink-0">
-                        <IconComponent className="h-5 w-5" />
-                      </div>
-                    </div>
-                    {section.subtitle && (
-                      <p className="text-xs font-medium text-notes">
-                        {section.subtitle}
+                      {section.subtitle && (
+                        <p className="text-xs font-medium text-notes leading-relaxed">
+                          {section.subtitle}
+                        </p>
+                      )}
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {section.description}
                       </p>
-                    )}
-                    <p className="text-xs text-gray600 leading-relaxed">
-                      {section.description}
-                    </p>
-                    {section.tags && section.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {section.tags.map((tag, tagIndex) => (
-                          <span
-                            key={tagIndex}
-                            className="bg-[#F0F5DF] text-notes text-xs font-bold px-3 py-1.5 rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                      {section.tags && section.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pt-2">
+                          {section.tags.map((tag, tagIndex) => (
+                            <span
+                              key={tagIndex}
+                              className="bg-[#F0F5DF] text-notes text-[10px] font-bold px-3 py-1 rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Column: Icon */}
+                    <div className="shrink-0 pt-0.5">
+                      <img
+                        src={section.icon}
+                        alt={section.title}
+                        className="w-14 h-14 object-contain"
+                      />
+                    </div>
                   </div>
 
+                  {/* Bottom: Explore Button */}
                   <div>
                     <button
                       onClick={() =>
                         router.push(`/reports/${slug}/${section.path}`)
                       }
-                      className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       Explore <ArrowRight className="h-3.5 w-3.5" />
                     </button>
@@ -320,9 +318,11 @@ export default function IntroductionView({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#FAFAF0] flex items-center justify-center text-notes shrink-0 border border-gray200">
-                <BookOpen className="h-6 w-6" />
-              </div>
+              <img
+                src="/images/reports/introduction/About.svg"
+                alt="About Public Skills Australia"
+                className="w-12 h-12 shrink-0 object-contain"
+              />
               <div className="flex flex-col gap-2">
                 <h4 className="font-bold text-sm text-gray800">
                   About Public Skills Australia
@@ -342,9 +342,11 @@ export default function IntroductionView({
 
           <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#FAFAF0] flex items-center justify-center text-notes shrink-0 border border-gray200">
-                <Lightbulb className="h-6 w-6" />
-              </div>
+              <img
+                src="/images/reports/introduction/Methodology.svg"
+                alt="Methodology"
+                className="w-12 h-12 shrink-0 object-contain"
+              />
               <div className="flex flex-col gap-2">
                 <h4 className="font-bold text-sm text-gray800">Methodology</h4>
                 <p className="text-xs text-gray600">

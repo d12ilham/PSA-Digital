@@ -5,16 +5,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Briefcase,
-  Building2,
-  Download,
-  Landmark,
-  PieChart,
-  Users,
-} from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 
 interface Report {
   id: string;
@@ -53,7 +44,7 @@ export default function IndustryOverviewView({
         <ReportNavButtons slug={slug} currentPage="industry_overview" />
 
         {/* Hero Card */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 lg:p-10 space-y-8">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
@@ -75,7 +66,7 @@ export default function IndustryOverviewView({
             {/* Right Diagram Image */}
             <div className="lg:col-span-4 flex justify-end p-2">
               <img
-                src="/images/reports/industry-overview-diagram.png"
+                src="/images/reports/industry-overview/hero.svg"
                 alt="Industry Overview Diagram"
                 className="h-auto max-h-48 object-contain"
               />
@@ -86,14 +77,16 @@ export default function IndustryOverviewView({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Stat 1 */}
             <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
-              <div className="w-14 h-14 rounded-full border border-gray200 text-notes flex items-center justify-center shrink-0">
-                <Building2 className="h-7 w-7" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/item1.svg"
+                alt="537 local councils"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
                   537
                 </span>
-                <p className="text-xs text-gray600 leading-tight">
+                <p className="text-xs text-gray600 leading-normal">
                   local councils across Australia
                 </p>
               </div>
@@ -101,14 +94,16 @@ export default function IndustryOverviewView({
 
             {/* Stat 2 */}
             <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
-              <div className="w-14 h-14 rounded-full border border-gray200 text-notes flex items-center justify-center shrink-0">
-                <PieChart className="h-7 w-7" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/item2.svg"
+                alt="55% / 45%"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
               <div className="space-y-1">
                 <span className="text-xl sm:text-2xl font-bold text-gray800 block leading-none">
                   55% / 45%
                 </span>
-                <p className="text-xs text-gray600 leading-tight">
+                <p className="text-xs text-gray600 leading-normal">
                   55% regional, rural or remote
                   <br />
                   45% urban regions, urban fringe and urban areas
@@ -118,14 +113,16 @@ export default function IndustryOverviewView({
 
             {/* Stat 3 */}
             <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
-              <div className="w-14 h-14 rounded-full border border-gray200 text-notes flex items-center justify-center shrink-0">
-                <Users className="h-7 w-7" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/item3.svg"
+                alt="218,000 employees"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
                   218,000
                 </span>
-                <p className="text-xs text-gray600 leading-tight">
+                <p className="text-xs text-gray600 leading-normal">
                   employees (estimated) in the Local Government workforce
                 </p>
               </div>
@@ -133,14 +130,16 @@ export default function IndustryOverviewView({
 
             {/* Stat 4 */}
             <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
-              <div className="w-14 h-14 rounded-full border border-gray200 text-notes flex items-center justify-center shrink-0">
-                <Briefcase className="h-7 w-7" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/item4.svg"
+                alt="400+ occupations"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
                   400+
                 </span>
-                <p className="text-xs text-gray600 leading-tight">
+                <p className="text-xs text-gray600 leading-normal">
                   different occupations employed
                 </p>
               </div>
@@ -153,9 +152,11 @@ export default function IndustryOverviewView({
           {/* Card 1 */}
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="w-16 h-16 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-                <Users className="h-8 w-8" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/multidisciplinary.svg"
+                alt="A multidisciplinary workforce"
+                className="w-16 h-16 shrink-0 object-contain"
+              />
               <h3 className="font-bold text-lg text-gray800">
                 A multidisciplinary workforce
               </h3>
@@ -188,9 +189,11 @@ export default function IndustryOverviewView({
           {/* Card 2 */}
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col">
             <div className="space-y-4">
-              <div className="w-16 h-16 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
-                <Landmark className="h-8 w-8" />
-              </div>
+              <img
+                src="/images/reports/industry-overview/Custodians.svg"
+                alt="Custodians of community infrastructure"
+                className="w-16 h-16 shrink-0 object-contain"
+              />
               <h3 className="font-bold text-lg text-gray800">
                 Custodians of community infrastructure
               </h3>

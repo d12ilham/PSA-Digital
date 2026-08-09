@@ -5,17 +5,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Database,
-  Download,
-  FileSpreadsheet,
-  HeartHandshake,
-  ShieldCheck,
-  UserCheck,
-  Users,
-} from "lucide-react";
+import { Download } from "lucide-react";
 
 interface Report {
   id: string;
@@ -86,9 +76,11 @@ export default function MethodologyView({
                     STEP 1
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                      <Database className="h-6 w-6" />
-                    </div>
+                    <img
+                      src="/images/reports/methodology/Data-sources.svg"
+                      alt="Data sources"
+                      className="w-12 h-12 shrink-0 object-contain"
+                    />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Data sources
@@ -105,9 +97,11 @@ export default function MethodologyView({
                     STEP 2
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                      <FileSpreadsheet className="h-6 w-6" />
-                    </div>
+                    <img
+                      src="/images/reports/methodology/National-survey.svg"
+                      alt="National survey"
+                      className="w-12 h-12 shrink-0 object-contain"
+                    />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         National survey
@@ -125,9 +119,11 @@ export default function MethodologyView({
                     STEP 3
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                      <Users className="h-6 w-6" />
-                    </div>
+                    <img
+                      src="/images/reports/methodology/Workshops.svg"
+                      alt="Workshops"
+                      className="w-12 h-12 shrink-0 object-contain"
+                    />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Workshops
@@ -147,9 +143,11 @@ export default function MethodologyView({
                     STEP 4
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                      <UserCheck className="h-6 w-6" />
-                    </div>
+                    <img
+                      src="/images/reports/methodology/Representatives.svg"
+                      alt="Representatives"
+                      className="w-12 h-12 shrink-0 object-contain"
+                    />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Representatives
@@ -167,9 +165,11 @@ export default function MethodologyView({
                     STEP 5
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-14 h-14 rounded-full bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                      <ShieldCheck className="h-6 w-6" />
-                    </div>
+                    <img
+                      src="/images/reports/methodology/Governance.svg"
+                      alt="Governance"
+                      className="w-12 h-12 shrink-0 object-contain"
+                    />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Governance
@@ -186,13 +186,15 @@ export default function MethodologyView({
 
           <div className="lg:col-span-5 bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-bold text-xl text-gray800 leading-snug">
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="font-bold text-xl text-gray800 leading-snug w-1/2">
                   Key industry-sector representatives
                 </h3>
-                <div className="w-10 h-10 rounded-xl bg-[#F0F5DF] border border-gray200 text-[#8AC900] flex items-center justify-center shrink-0">
-                  <Users className="h-5 w-5" />
-                </div>
+                <img
+                  src="/images/reports/methodology/industry-sector representatives.svg"
+                  alt="Key industry-sector representatives"
+                  className="w-16 h-16 shrink-0 object-contain ml-auto"
+                />
               </div>
 
               <p className="text-sm font-medium text-gray600 leading-relaxed">
@@ -355,9 +357,11 @@ export default function MethodologyView({
         {/* DATA SOURCES & WITH THANKS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
-            <div className="w-16 h-16 rounded-full bg-[#E5E8DA] border border-gray200 text-notes flex items-center justify-center shrink-0">
-              <Database className="h-8 w-8" />
-            </div>
+            <img
+              src="/images/reports/methodology/Data-sources-bottom.svg"
+              alt="Data sources"
+              className="w-16 h-16 shrink-0 object-contain"
+            />
             <div className="space-y-2">
               <h3 className="font-bold text-xl text-gray800">Data sources</h3>
               <p className="text-sm font-medium text-gray600 leading-relaxed">
@@ -378,9 +382,11 @@ export default function MethodologyView({
           </div>
 
           <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
-            <div className="w-16 h-16 rounded-full bg-[#E5E8DA] border border-gray200 text-notes flex items-center justify-center shrink-0">
-              <HeartHandshake className="h-8 w-8" />
-            </div>
+            <img
+              src="/images/reports/methodology/With-thanks.svg"
+              alt="With thanks"
+              className="w-16 h-16 shrink-0 object-contain"
+            />
             <div className="space-y-2">
               <h3 className="font-bold text-xl text-gray800">With thanks</h3>
               <p className="text-sm font-medium text-gray600 leading-relaxed">
@@ -396,7 +402,7 @@ export default function MethodologyView({
 
         {/* Footnote Box */}
         <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
-          <p>
+          <p className="w-1/2">
             3 - Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted
             once. Public Skills Australia did not meet with stakeholders from

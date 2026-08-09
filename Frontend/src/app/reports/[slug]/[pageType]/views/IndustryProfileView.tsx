@@ -5,16 +5,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Coins,
-  Download,
-  Landmark,
-  Network,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 
 interface Report {
   id: string;
@@ -96,7 +87,7 @@ export default function IndustryProfileView({
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark">
               Industry Profile
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
@@ -108,33 +99,30 @@ export default function IndustryProfileView({
           </div>
 
           {/* Right Icon Illustration */}
-          <div className="lg:col-span-4 flex items-center justify-center p-4">
-            <div className="w-48 h-32 bg-[#FAFBF6] border border-gray200 rounded-2xl p-4 flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center">
-                <TrendingUp className="h-6 w-6" />
-              </div>
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center">
-                <Users className="h-6 w-6" />
-              </div>
-            </div>
+          <div className="lg:col-span-4 flex items-center justify-end p-2">
+            <img
+              src="/images/reports/industry-profile/hero.png"
+              alt="Industry Profile Illustration"
+              className="h-auto max-h-36 object-contain"
+            />
           </div>
         </div>
 
         {/* ── SECTION 2: TWO DATA CHARTS GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Chart 1: Employment Growth */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-xs font-bold text-gray600/70 uppercase block">
+          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-2 flex flex-col justify-between">
+            <div className="space-y-2">
+              <span className="text-xs text-active uppercase block">
                 SOURCE: ABS, PUBLIC SECTOR EMPLOYMENT AND EARNINGS, RELEASES
                 2020–2025
               </span>
-              <h3 className="font-bold text-lg text-gray800">
+              <h3 className="font-bold text-lg text-gray800 mb-6">
                 2020–2025 Employment Growth in Local Government
               </h3>
 
               {/* Bar Chart Visualization */}
-              <div className="pt-8 pb-4 relative h-64 flex items-end justify-between gap-3 px-4 bg-[#FAFBF6] rounded-xl border border-gray200">
+              <div className="pt-4 pb-2 relative h-64 flex items-end justify-between gap-3">
                 {growthData.map((item, idx) => (
                   <div
                     key={item.year}
@@ -163,7 +151,7 @@ export default function IndustryProfileView({
               </div>
             </div>
 
-            <p className="text-xs text-gray600/70 italic leading-relaxed pt-2 border-t border-gray200">
+            <p className="text-xs text-active leading-relaxed">
               Figure 1: 2020–2025 Employment Growth in Local Government. Roll
               over any bar for its value. Bar values to be verified against the
               report data at content QA.
@@ -172,28 +160,28 @@ export default function IndustryProfileView({
 
           {/* Chart 2: Training Package Enrolments & Completions */}
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-xs font-bold text-gray600/70 uppercase block">
+            <div className="space-y-2">
+              <span className="text-xs text-active uppercase block">
                 SOURCE: NCVER, TOTAL VET STUDENTS AND COURSES
               </span>
-              <h3 className="font-bold text-lg text-gray800">
+              <h3 className="font-bold text-lg text-gray800 mb-6">
                 Local Government Training Package — Enrolment and Completion
               </h3>
 
               {/* Legend */}
               <div className="flex items-center gap-6 text-xs font-bold">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-xs bg-[#A1C950]" />
+                  <span className="w-3 h-3 rounded-sm bg-[#9CAA54]" />
                   <span className="text-gray600">Enrolments</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-xs bg-[#0C582B]" />
+                  <span className="w-3 h-3 rounded-sm bg-lg-dark" />
                   <span className="text-gray600">Completions</span>
                 </div>
               </div>
 
               {/* Bar Chart Visualization */}
-              <div className="pt-8 pb-4 relative h-64 flex items-end justify-between gap-6 px-6 bg-[#FAFBF6] rounded-xl border border-gray200">
+              <div className="pt-8 pb-4 relative h-64 flex items-end justify-between gap-6">
                 {trainingData.map((item) => (
                   <div
                     key={item.year}
@@ -202,13 +190,13 @@ export default function IndustryProfileView({
                     <div className="flex items-end gap-1.5 w-full justify-center h-full">
                       {/* Enrolment Bar */}
                       <div
-                        className="w-1/2 bg-[#A1C950] rounded-t-md transition-all hover:bg-[#85B810]"
+                        className="w-1/2 bg-[#9CAA54] rounded-t-md transition-all hover:bg-[#85B810]"
                         style={{ height: item.enrolH }}
                         title={`Enrolments: ${item.enrol}`}
                       />
                       {/* Completion Bar */}
                       <div
-                        className="w-1/2 bg-[#0C582B] rounded-t-md transition-all hover:bg-[#046D2A]"
+                        className="w-1/2 bg-lg-dark rounded-t-md transition-all hover:bg-[#046D2A]"
                         style={{ height: item.compH }}
                         title={`Completions: ${item.comp}`}
                       />
@@ -221,7 +209,7 @@ export default function IndustryProfileView({
               </div>
             </div>
 
-            <p className="text-xs text-gray600/70 italic leading-relaxed pt-2 border-t border-gray200">
+            <p className="text-xs text-active leading-relaxed">
               Figure 2: LGA Local Government Training Package enrolment and
               completion. Chart values to be verified against the report data at
               content QA.
@@ -231,8 +219,8 @@ export default function IndustryProfileView({
 
         {/* ── SECTION 3: ASSET MANAGEMENT CONTAINER ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
-          <div className="space-y-2">
-            <span className="text-xs font-bold text-gray600/70 uppercase block">
+          <div className="space-y-2.5">
+            <span className="text-xs text-active block">
               SOURCE: ALGA, 2024 NATIONAL STATE OF THE ASSETS REPORT
             </span>
             <h3 className="font-bold text-xl text-gray800">Asset Management</h3>
@@ -241,12 +229,14 @@ export default function IndustryProfileView({
           {/* 3 Stat Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Stat 1 */}
-            <div className="bg-[#FAFBF6] border border-gray200 rounded-xl p-5 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Landmark className="h-6 w-6" />
-              </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-bold text-[#046D2A] block leading-none">
+            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+              <img
+                src="/images/reports/industry-profile/item-1.svg"
+                alt="~1/3"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
+              <div className="space-y-2">
+                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
                   ~1/3
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
@@ -256,12 +246,14 @@ export default function IndustryProfileView({
             </div>
 
             {/* Stat 2 */}
-            <div className="bg-[#FAFBF6] border border-gray200 rounded-xl p-5 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Network className="h-6 w-6" />
-              </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-bold text-[#046D2A] block leading-none">
+            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+              <img
+                src="/images/reports/industry-profile/item-2.svg"
+                alt="77%"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
+              <div className="space-y-2">
+                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
                   77%
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
@@ -271,12 +263,14 @@ export default function IndustryProfileView({
             </div>
 
             {/* Stat 3 */}
-            <div className="bg-[#FAFBF6] border border-gray200 rounded-xl p-5 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#E2ECC8] text-[#046D2A] flex items-center justify-center shrink-0">
-                <Coins className="h-6 w-6" />
-              </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-bold text-[#046D2A] block leading-none">
+            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+              <img
+                src="/images/reports/industry-profile/item-3.svg"
+                alt="$643bn"
+                className="w-14 h-14 shrink-0 object-contain"
+              />
+              <div className="space-y-2">
+                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
                   $643bn
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
@@ -286,7 +280,7 @@ export default function IndustryProfileView({
             </div>
           </div>
 
-          <p className="text-xs text-gray600/70 italic leading-relaxed pt-2 border-t border-gray200">
+          <p className="text-xs text-active leading-relaxed">
             Figure 3: Asset Management — roads, airports, facilities and other
             assets managed by local councils.
           </p>
