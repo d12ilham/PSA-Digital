@@ -90,7 +90,14 @@ export default function WorkforceInsightsView({
           /* ── MAIN WORKFORCE INSIGHTS OVERVIEW GRID ── */
           <>
             {/* Sub-Header Navigation Buttons (Only on overview page) */}
-            <ReportNavButtons slug={slug} currentPage="workforce_insights" />
+            <ReportNavButtons
+              slug={slug}
+              currentPage="workforce_insights"
+              prev={{
+                label: "Executive Summary",
+                href: `/reports/${slug}/executive_summary`,
+              }}
+            />
 
             {/* Hero Card */}
             <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
