@@ -99,13 +99,10 @@ export default function ExecutiveSummaryView({
                 Drivers of Change
               </h3>
               <p className="text-xs text-gray600 leading-relaxed w-2/3">
-                Four drivers of change impacting workforce planning in the short
-                to medium term, aligned with the nine megatrends detailed in
-                previous{" "}
-                <span className="font-semibold text-[#728C28]">
-                  Workforce Insights Reports
-                </span>
-                .
+                It identifies four drivers of change that will impact workforce
+                planning in the short to medium term, aligned with the nine
+                megatrends detailed in previous Workforce Insights Reports, that
+                remain relevant to long term workforce trends.
               </p>
             </div>
           </div>
@@ -137,7 +134,7 @@ export default function ExecutiveSummaryView({
                   Government industry-sector, across two themes (Local
                   Government Specific Occupational Shortages and Access to
                   Vocational Education and Training (VET) Qualifications and
-                  Training Delivery Partners).
+                  Training Delivery Partners):
                 </p>
               </div>
             </div>
@@ -220,7 +217,7 @@ export default function ExecutiveSummaryView({
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
                         Skills needs are changing due to workforce pressures,
-                        technological advancements and shifting community
+                        technological advances and shifting community
                         expectations.
                       </p>
                     </div>
@@ -241,10 +238,9 @@ export default function ExecutiveSummaryView({
                         Theme One, Insight Three
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        While Local Government employers are experiencing some
-                        shortages in identified national shortage occupations,
-                        several Local Government specific shortages were also
-                        identified.
+                        There are acute occupational shortages specific to the
+                        Local Government industry-sector, particularly for
+                        Emergency Management.
                       </p>
                     </div>
                   </div>
@@ -303,8 +299,9 @@ export default function ExecutiveSummaryView({
                         Theme Two, Insight One
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Access to TAFE or RTOs in regional, rural and remote
-                        locations is limited.
+                        Access to Technical and Further Education (TAFE) or
+                        Registered Training Organisations (RTOs) in regional,
+                        rural and remote locations is limited.
                       </p>
                     </div>
                   </div>
@@ -325,8 +322,7 @@ export default function ExecutiveSummaryView({
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
                         Few TAFEs and RTOs are willing to travel to
-                        geographically isolated locations to deliver required
-                        qualifications.
+                        geographically isolated locations.
                       </p>
                     </div>
                   </div>
@@ -346,9 +342,7 @@ export default function ExecutiveSummaryView({
                         Theme Two, Insight Three
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Local councils have limited training budgets to support
-                        financial impost of course enrolment as well as travel
-                        to and from training.
+                        Local councils have limited training budgets.
                       </p>
                     </div>
                   </div>
@@ -368,8 +362,8 @@ export default function ExecutiveSummaryView({
                         Theme Two, Insight Four
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Course delivery is often not tailored to suit those from
-                        regional, rural or remote locations.
+                        Course delivery is often not tailored to regional, rural
+                        and remote areas.
                       </p>
                     </div>
                   </div>
@@ -395,7 +389,7 @@ export default function ExecutiveSummaryView({
               </div>
               <div>
                 <h3 className="font-bold text-base text-gray800 pb-2">
-                  2026 Proposed Strategies
+                  2026 Proposed Local Government Workforce Strategies
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   The following strategies have been developed to support
@@ -436,9 +430,10 @@ export default function ExecutiveSummaryView({
               </h4>
 
               <p className="text-xs text-gray600 leading-relaxed">
-                Identify and map the use of relevant qualifications — beyond the
-                LGA Local Government Training Package — to support VET training
-                for key occupational shortages in Local Government.
+                Identify and map the use of relevant qualifications (beyond the
+                Local Government Area (LGA) Local Government Training Package)
+                to support VET training for key occupational shortages in Local
+                Government.
               </p>
 
               {/* EXPANDED CONTENT FOR STRATEGY 1 */}
@@ -463,14 +458,16 @@ export default function ExecutiveSummaryView({
                   </div>
 
                   <div className="space-y-1">
-                    <h5 className="text-xs font-bold text-gray800">Approach:</h5>
+                    <h5 className="text-xs font-bold text-gray800">
+                      Approach:
+                    </h5>
                     <p className="text-xs text-gray600 leading-relaxed">
                       Map the most challenging occupational shortages (as
-                      identified through the JSA Occupation Shortage List and the
-                      Local Government Skills Audit) to relevant qualifications
-                      contained in both the LGA Local Government Training Package
-                      and other Training Packages, as well as the RTOs that
-                      deliver them.
+                      identified through the JSA Occupation Shortage List and
+                      the Local Government Skills Audit) to relevant
+                      qualifications contained in both the LGA Local Government
+                      Training Package and other Training Packages, as well as
+                      the RTOs that deliver them.
                     </p>
                   </div>
 
@@ -487,18 +484,16 @@ export default function ExecutiveSummaryView({
                     <h5 className="text-xs font-bold text-gray800">
                       Anticipated timing:
                     </h5>
-                    <p className="text-xs text-gray600">
-                      12-month project.
-                    </p>
+                    <p className="text-xs text-gray600">12-month project.</p>
                   </div>
 
                   <div className="space-y-1">
                     <h5 className="text-xs font-bold text-gray800">Impact:</h5>
                     <p className="text-xs text-gray600 leading-relaxed">
-                      An Occupational Shortage Map connecting the most challenging
-                      shortages to the qualifications and RTOs that can address
-                      them — enabling the sector to meet expanding and increasing
-                      service delivery requirements.
+                      An Occupational Shortage Map connecting the most
+                      challenging shortages to the qualifications and RTOs that
+                      can address them — enabling the sector to meet expanding
+                      and increasing service delivery requirements.
                     </p>
                   </div>
 
@@ -531,7 +526,7 @@ export default function ExecutiveSummaryView({
               </div>
 
               <h4 className="font-bold text-base text-gray800 leading-snug">
-                Facilitate a roundtable on whole-of-VET-system responses to
+                Facilitate a roundtable on whole of VET system responses to
                 Local Government challenges
               </h4>
 
@@ -546,8 +541,8 @@ export default function ExecutiveSummaryView({
                 <div className="pt-4 border-t border-gray200 space-y-4">
                   <div className="flex flex-wrap gap-2">
                     <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                      Workforce Insight: Access to VET Qualifications and Training
-                      Delivery Partners
+                      Workforce Insight: Access to VET Qualifications and
+                      Training Delivery Partners
                     </span>
                   </div>
 
@@ -581,9 +576,9 @@ export default function ExecutiveSummaryView({
                       Approach – Part B (optional):
                     </h5>
                     <p className="text-xs text-gray600 leading-relaxed">
-                      If gaps in specialist local council skills are identified in
-                      Strategy 1 (Map Local Government occupational shortages to
-                      relevant VET training products), an evaluation of the
+                      If gaps in specialist local council skills are identified
+                      in Strategy 1 (Map Local Government occupational shortages
+                      to relevant VET training products), an evaluation of the
                       current LGA Local Government Training Package may be
                       undertaken, with a focus on the number of qualifications,
                       training pathways, design of specialisation areas and the
@@ -619,8 +614,8 @@ export default function ExecutiveSummaryView({
                   <div className="space-y-1">
                     <h5 className="text-xs font-bold text-gray800">Impact:</h5>
                     <p className="text-xs text-gray600 leading-relaxed">
-                      Support the Local Government industry-sector by facilitating
-                      access to whole of VET sector stakeholders.
+                      Support the Local Government industry-sector by
+                      facilitating access to whole of VET sector stakeholders.
                     </p>
                   </div>
                 </div>
