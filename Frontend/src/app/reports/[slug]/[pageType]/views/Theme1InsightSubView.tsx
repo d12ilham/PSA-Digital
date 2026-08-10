@@ -118,7 +118,7 @@ export default function Theme1InsightSubView({
               </span>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
                 Skills needs are changing due to workforce pressures,
-                technological advancements and shifting community expectations.
+                technological advances and shifting community expectations.
               </h1>
             </div>
           </div>
@@ -136,9 +136,9 @@ export default function Theme1InsightSubView({
                 Theme One, Insight Three
               </span>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
-                While Local Government employers are experiencing some shortages
-                in identified national shortage occupations, several Local
-                Government specific shortages were also identified.
+                There are acute occupational shortages specific to the Local
+                Government industry-sector, particularly for Emergency
+                Management.
               </h1>
             </div>
           </div>

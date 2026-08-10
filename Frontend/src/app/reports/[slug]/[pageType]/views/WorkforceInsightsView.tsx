@@ -207,7 +207,7 @@ export default function WorkforceInsightsView({
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
                           Skills needs are changing due to workforce pressures,
-                          technological advancements and shifting community
+                          technological advances and shifting community
                           expectations.
                         </p>
                       </div>
@@ -235,10 +235,9 @@ export default function WorkforceInsightsView({
                           Theme One, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          While Local Government employers are experiencing some
-                          shortages in identified national shortage occupations,
-                          several Local Government specific shortages were also
-                          identified.
+                          There are acute occupational shortages specific to the
+                          Local Government industry-sector, particularly for
+                          Emergency Management.
                         </p>
                       </div>
                     </div>
@@ -297,8 +296,9 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight One
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Access to TAFE or RTOs in regional, rural and remote
-                          locations is limited.
+                          Access to Technical and Further Education (TAFE) or
+                          Registered Training Organisations (RTOs) in regional,
+                          rural and remote locations is limited.
                         </p>
                       </div>
                     </div>
@@ -319,8 +319,7 @@ export default function WorkforceInsightsView({
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
                           Few TAFEs and RTOs are willing to travel to
-                          geographically isolated locations to deliver required
-                          qualifications.
+                          geographically isolated locations.
                         </p>
                       </div>
                     </div>
@@ -340,9 +339,7 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Local councils have limited training budgets to
-                          support financial impost of course enrolment as well
-                          as travel to and from training.
+                          Local councils have limited training budgets.
                         </p>
                       </div>
                     </div>
@@ -362,8 +359,8 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Four
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Course delivery is often not tailored to suit those
-                          from regional, rural or remote locations.
+                          Course delivery is often not tailored to regional,
+                          rural and remote areas.
                         </p>
                       </div>
                     </div>
