@@ -105,57 +105,9 @@ body {
   border-color: #3b3833;
 }
 
-/* Enforce radius-xl (0.75rem) globally for buttons, inputs, textareas, select dropdowns, and tables */
-/* button,
-.btn,
-[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-textarea,
-select,
-table,
-.rounded,
-.rounded-sm,
-.rounded-md,
-.rounded-lg {
-  border-radius: 0.75rem !important; 
-} */
-
 table {
   overflow: hidden !important;
 }
-
-/* Enforce default border color globally */
-/* *,
-::before,
-::after {
-  border-color: var(--color-border, #d8d4cc) !important;
-} */
-
-/* Enforce global button accent color */
-/* button,
-.btn,
-[role="button"],
-input[type="button"],
-input[type="submit"] {
-  background-color: var(--color-accent, #8ac900) !important;
-  color: var(--color-primary, #252d02) !important;
-  font-weight: 700 !important;
-  border-width: 1px !important;
-  border-style: solid !important;
-  border-color: var(--color-primary, #252d02) !important;
-} */
-
-/* button:hover,
-.btn:hover,
-[role="button"]:hover {
-  background-color: var(--color-active, #416102) !important;
-  color: #ffffff !important;
-} */
 
 /* Sidebar Nav Item Button Overrides */
 aside button {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -29,6 +29,32 @@ export default function IndustryProfileView({
 }) {
   const router = useRouter();
   const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(5); // 2025 default
+  const [chartsLoaded, setChartsLoaded] = useState(false);
+  const chartsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setChartsLoaded(true);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (chartsRef.current) {
+      observer.observe(chartsRef.current);
+    }
+
+    const timer = setTimeout(() => setChartsLoaded(true), 200);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
 
   const growthData = [
     { year: "2020", val: "194,500", height: "60%" },
@@ -109,7 +135,7 @@ export default function IndustryProfileView({
         </div>
 
         {/* ── SECTION 2: TWO DATA CHARTS GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div ref={chartsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Chart 1: Employment Growth */}
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-2 flex flex-col justify-between">
             <div className="space-y-2">
@@ -136,12 +162,15 @@ export default function IndustryProfileView({
                       </div>
                     )}
                     <div
-                      className={`w-full rounded-t-lg transition-all duration-300 ${
+                      className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
                         activeGrowthBar === idx
                           ? "bg-[#728C28]"
                           : "bg-[#A1C950]/80 hover:bg-[#85B810]"
                       }`}
-                      style={{ height: item.height }}
+                      style={{
+                        height: chartsLoaded ? item.height : "0%",
+                        transitionDelay: `${idx * 100}ms`,
+                      }}
                     />
                     <span className="text-xs font-bold text-gray600 mt-2">
                       {item.year}
@@ -182,7 +211,7 @@ export default function IndustryProfileView({
 
               {/* Bar Chart Visualization */}
               <div className="pt-8 pb-4 relative h-64 flex items-end justify-between gap-6">
-                {trainingData.map((item) => (
+                {trainingData.map((item, idx) => (
                   <div
                     key={item.year}
                     className="flex-1 flex flex-col items-center h-full justify-end"
@@ -190,14 +219,20 @@ export default function IndustryProfileView({
                     <div className="flex items-end gap-1.5 w-full justify-center h-full">
                       {/* Enrolment Bar */}
                       <div
-                        className="w-1/2 bg-[#9CAA54] rounded-t-md transition-all hover:bg-[#85B810]"
-                        style={{ height: item.enrolH }}
+                        className="w-1/2 bg-[#9CAA54] rounded-t-md transition-all duration-1000 ease-out hover:bg-[#85B810]"
+                        style={{
+                          height: chartsLoaded ? item.enrolH : "0%",
+                          transitionDelay: `${idx * 120}ms`,
+                        }}
                         title={`Enrolments: ${item.enrol}`}
                       />
                       {/* Completion Bar */}
                       <div
-                        className="w-1/2 bg-lg-dark rounded-t-md transition-all hover:bg-[#046D2A]"
-                        style={{ height: item.compH }}
+                        className="w-1/2 bg-lg-dark rounded-t-md transition-all duration-1000 ease-out hover:bg-[#046D2A]"
+                        style={{
+                          height: chartsLoaded ? item.compH : "0%",
+                          transitionDelay: `${idx * 120 + 80}ms`,
+                        }}
                         title={`Completions: ${item.comp}`}
                       />
                     </div>

@@ -285,26 +285,13 @@ export default function ReportHeader({
         </nav>
 
         <div>
-          {report?.pdfFileUrl ? (
-            <a
-              href={report.pdfFileUrl}
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <span>Download 2026 PDF</span>
-              <Download className="h-3.5 w-3.5" />
-            </a>
-          ) : (
-            <button
-              onClick={() => router.push(`/reports/${slug}`)}
-              className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <span>Download 2026 PDF</span>
-              <Download className="h-3.5 w-3.5" />
-            </button>
-          )}
+          <button
+            onClick={() => router.push(`/reports/${slug}/downloads`)}
+            className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            <span>Download 2026 PDF</span>
+            <Download className="h-3.5 w-3.5" />
+          </button>
         </div>
       </div>
     </header>

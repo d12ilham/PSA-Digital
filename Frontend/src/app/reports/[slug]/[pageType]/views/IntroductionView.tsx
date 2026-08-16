@@ -248,7 +248,7 @@ export default function IntroductionView({
 
         {/* ── STRUCTURED SECTION ── */}
         <div id="structure" className="space-y-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray800 border-b border-gray-300 pb-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray800 border-b border-gray200 pb-3">
             This Report is structured as follows
           </h2>
 

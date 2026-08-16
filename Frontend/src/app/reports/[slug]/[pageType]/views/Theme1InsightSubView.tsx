@@ -442,7 +442,7 @@ export default function Theme1InsightSubView({
               <h3 className="text-xl font-bold text-gray800">
                 The jurisdictional Local Government-specific shortage list
               </h3>
-              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Occupations which appear to be in shortage specific to the Local
                 Government industry-sector in states and territories (when
                 compared to National Occupation Shortage List) include:

@@ -33,7 +33,9 @@ import WorkforceInsightsView from "./views/WorkforceInsightsView";
 import ExistingStrategiesView from "./views/ExistingStrategiesView";
 import ProposedStrategies2026View from "./views/ProposedStrategies2026View";
 import ExistingIndustryStrategiesView from "./views/ExistingIndustryStrategiesView";
+import FederalGovernmentInitiativesView from "./views/FederalGovernmentInitiativesView";
 import LookingForwardView from "./views/LookingForwardView";
+import DownloadsAndReferenceView from "./views/DownloadsAndReferenceView";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 
 interface PageItem {
@@ -226,8 +228,22 @@ export default function PublicReportReaderPage({
     return <ExistingIndustryStrategiesView slug={slug} report={report} />;
   }
 
+  if (pageType === "federal_initiatives" || pageType === "federal_government_initiatives") {
+    return <FederalGovernmentInitiativesView slug={slug} report={report} />;
+  }
+
   if (pageType === "looking_forward" || pageType === "2027_and_beyond") {
     return <LookingForwardView slug={slug} report={report} />;
+  }
+
+  if (
+    pageType === "downloads" ||
+    pageType === "downloads_and_reference" ||
+    pageType === "download_pdf" ||
+    pageType === "downloads_reference" ||
+    pageType === "download"
+  ) {
+    return <DownloadsAndReferenceView slug={slug} report={report} />;
   }
 
   // ── DEFAULT FALLBACK SIDEBAR LAYOUT FOR ALL OTHER PAGES ──
