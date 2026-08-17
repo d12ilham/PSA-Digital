@@ -71,42 +71,13 @@ export default function ReportHeader({
             Executive Summary
           </button>
 
-          {/* 3. DRIVERS OF CHANGE DROPDOWN */}
-          <div className="relative group py-1">
-            <button
-              onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "drivers_of_change" || currentPage === "megatrends" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
-            >
-              Drivers of Change <span>▾</span>
-            </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-48 space-y-1 z-50">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/drivers_of_change`)
-                }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "drivers_of_change" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
-              >
-                Drivers of Change
-              </button>
-              <button
-                onClick={() => {
-                  if (currentPage === "drivers_of_change") {
-                    const el = document.getElementById("nine-megatrends");
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
-                  } else {
-                    router.push(
-                      `/reports/${slug}/drivers_of_change#nine-megatrends`,
-                    );
-                  }
-                }}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "drivers_of_change" || currentPage === "megatrends" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
-              >
-                Nine Megatrends
-              </button>
-            </div>
-          </div>
+          {/* 3. AFTER ROUTING UPDATE: DRIVERS OF CHANGE */}
+          <button
+            onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
+            className={`transition-colors cursor-pointer ${currentPage === "drivers_of_change" || currentPage === "megatrends" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
+          >
+            Drivers of Change
+          </button>
 
           {/* 4. INDUSTRY OVERVIEW DROPDOWN */}
           <div className="relative group py-1">
@@ -139,7 +110,6 @@ export default function ReportHeader({
               </button>
             </div>
           </div>
-
           {/* 5. WORKFORCE INSIGHTS DROPDOWN */}
           <div className="relative group py-1">
             <button
@@ -148,103 +118,38 @@ export default function ReportHeader({
             >
               Workforce Insights <span>▾</span>
             </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50 shadow-xl">
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-80 max-w-sm space-y-1 z-50 shadow-xl">
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_insights" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
-                Insights Overview
+                Workforce Insights Overview
               </button>
-              <div className="pt-2 pb-1 px-3 text-[10px] uppercase font-bold text-[#85B810]/70 tracking-wider">
-                Theme 1
-              </div>
               <button
                 onClick={() =>
                   router.push(
                     `/reports/${slug}/workforce_insights?insight=theme1-insight1`,
                   )
                 }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-white/80 hover:text-white hover:bg-white/10"
               >
-                Theme 1, Insight 1
+                Theme 1: Local Government Specific Occupational Shortages
               </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme1-insight2`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Theme 1, Insight 2
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme1-insight3`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Theme 1, Insight 3
-              </button>
-              <div className="pt-2 pb-1 px-3 text-[10px] uppercase font-bold text-[#85B810]/70 tracking-wider border-t border-white/5">
-                Theme 2
-              </div>
               <button
                 onClick={() =>
                   router.push(
                     `/reports/${slug}/workforce_insights?insight=theme2-insight1`,
                   )
                 }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-white/80 hover:text-white hover:bg-white/10"
               >
-                Theme 2, Insight 1
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme2-insight2`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Theme 2, Insight 2
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme2-insight3`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Theme 2, Insight 3
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme2-insight4`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Theme 2, Insight 4
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=contextualisation`,
-                  )
-                }
-                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                Contextualisation of Qualifications
+                Theme 2: Access to VET Qualifications and Training Delivery Partners
               </button>
             </div>
           </div>
+
 
           {/* 6. WORKFORCE STRATEGIES DROPDOWN */}
           <div className="relative group py-1">
@@ -252,7 +157,7 @@ export default function ReportHeader({
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_strategies" || currentPage === "update_2025_strategies" || currentPage === "existing_strategies" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_strategies" || currentPage === "update_2025_strategies" || currentPage === "existing_strategies" || currentPage === "industry_strategies" || currentPage === "federal_initiatives" || currentPage === "federal_government_initiatives" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
             >
               Workforce Strategies <span>▾</span>
             </button>
@@ -277,12 +182,21 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/existing_strategies`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "existing_strategies" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "existing_strategies" || currentPage === "industry_strategies" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Existing Industry-Sector Strategies
               </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/federal_initiatives`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "federal_initiatives" || currentPage === "federal_government_initiatives" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
+              >
+                Federal Government Initiatives
+              </button>
             </div>
           </div>
+
 
           {/* 7. LOOKING FORWARD (NO ARROW) */}
           <button
