@@ -212,7 +212,12 @@ export default function PublicReportReaderPage({
     return <IndustryProfileView slug={slug} report={report} />;
   }
 
-  if (pageType === "workforce_insights" || pageType.startsWith("workforce_insights_")) {
+  if (
+    pageType === "workforce_insights" ||
+    pageType.startsWith("workforce_insights_") ||
+    pageType === "contextualisation_of_qualifications" ||
+    pageType === "contextualisation"
+  ) {
     return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
   }
 

@@ -7,6 +7,8 @@ import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight } from "lucide-react";
 import Theme1InsightSubView from "./Theme1InsightSubView";
+import Theme2InsightSubView from "./Theme2InsightSubView";
+import ContextualisationSubView from "./ContextualisationSubView";
 
 interface Report {
   id: string;
@@ -37,29 +39,59 @@ export default function WorkforceInsightsView({
   const [showTheme1Overview, setShowTheme1Overview] = useState(false);
   const [showTheme2Overview, setShowTheme2Overview] = useState(false);
 
-  // Determine selected insight from query parameter or pageType
+  // Determine selected theme and insight from query parameter or pageType
   const queryInsight = searchParams.get("insight");
+  const isContextualisation =
+    queryInsight === "contextualisation" ||
+    queryInsight === "contextualisation_of_qualifications" ||
+    pageType === "contextualisation_of_qualifications" ||
+    pageType === "contextualisation";
+  let activeTheme: 1 | 2 | null = null;
   let activeInsightId: number | null = null;
 
   if (queryInsight) {
-    if (queryInsight.includes("insight1") || queryInsight === "1")
+    if (queryInsight.includes("theme2") || queryInsight.startsWith("t2-")) {
+      activeTheme = 2;
+      const numMatch = queryInsight.match(/\d+$/);
+      activeInsightId = numMatch ? parseInt(numMatch[0], 10) : 1;
+    } else if (queryInsight.includes("theme1") || queryInsight.startsWith("t1-")) {
+      activeTheme = 1;
+      const numMatch = queryInsight.match(/\d+$/);
+      activeInsightId = numMatch ? parseInt(numMatch[0], 10) : 1;
+    } else if (queryInsight === "4" || queryInsight.includes("insight4")) {
+      activeTheme = 2;
+      activeInsightId = 4;
+    } else if (queryInsight === "1" || queryInsight.includes("insight1")) {
+      activeTheme = 1;
       activeInsightId = 1;
-    else if (queryInsight.includes("insight2") || queryInsight === "2")
+    } else if (queryInsight === "2" || queryInsight.includes("insight2")) {
+      activeTheme = 1;
       activeInsightId = 2;
-    else if (queryInsight.includes("insight3") || queryInsight === "3")
+    } else if (queryInsight === "3" || queryInsight.includes("insight3")) {
+      activeTheme = 1;
       activeInsightId = 3;
+    }
   } else if (pageType) {
-    if (pageType.includes("theme1_insight1") || pageType.endsWith("_1"))
-      activeInsightId = 1;
-    else if (pageType.includes("theme1_insight2") || pageType.endsWith("_2"))
-      activeInsightId = 2;
-    else if (pageType.includes("theme1_insight3") || pageType.endsWith("_3"))
-      activeInsightId = 3;
+    if (pageType.includes("theme2")) {
+      activeTheme = 2;
+      const numMatch = pageType.match(/\d+$/);
+      activeInsightId = numMatch ? parseInt(numMatch[0], 10) : 1;
+    } else if (pageType.includes("theme1")) {
+      activeTheme = 1;
+      const numMatch = pageType.match(/\d+$/);
+      activeInsightId = numMatch ? parseInt(numMatch[0], 10) : 1;
+    }
   }
 
-  const handleNavigateInsight = (id: number) => {
+  const handleNavigateTheme1Insight = (id: number) => {
     router.push(
       `/reports/${slug}/workforce_insights?insight=theme1-insight${id}`,
+    );
+  };
+
+  const handleNavigateTheme2Insight = (id: number) => {
+    router.push(
+      `/reports/${slug}/workforce_insights?insight=theme2-insight${id}`,
     );
   };
 
@@ -78,12 +110,25 @@ export default function WorkforceInsightsView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
-        {activeInsightId ? (
+        {isContextualisation ? (
+          <ContextualisationSubView
+            slug={slug}
+            onBackToOverview={handleBackToOverview}
+          />
+        ) : activeTheme === 1 && activeInsightId ? (
           /* ── SUB VIEW: THEME 1 INSIGHT DETAIL ── */
           <Theme1InsightSubView
             slug={slug}
             insightId={activeInsightId}
-            onNavigateInsight={handleNavigateInsight}
+            onNavigateInsight={handleNavigateTheme1Insight}
+            onBackToOverview={handleBackToOverview}
+          />
+        ) : activeTheme === 2 && activeInsightId ? (
+          /* ── SUB VIEW: THEME 2 INSIGHT DETAIL ── */
+          <Theme2InsightSubView
+            slug={slug}
+            insightId={activeInsightId}
+            onNavigateInsight={handleNavigateTheme2Insight}
             onBackToOverview={handleBackToOverview}
           />
         ) : (
@@ -286,9 +331,16 @@ export default function WorkforceInsightsView({
 
                 <div className="space-y-4">
                   {/* Insight 1 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
+                  <div
+                    onClick={() =>
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme2-insight1`,
+                      )
+                    }
+                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                  >
                     <div className="flex items-start gap-4">
-                      <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
                         1
                       </span>
                       <div className="space-y-1">
@@ -302,15 +354,22 @@ export default function WorkforceInsightsView({
                         </p>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] group-hover:bg-[#77A60D] text-[#1B240E] flex items-center justify-center shrink-0 transition-colors">
                       <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
 
                   {/* Insight 2 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
+                  <div
+                    onClick={() =>
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme2-insight2`,
+                      )
+                    }
+                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                  >
                     <div className="flex items-start gap-4">
-                      <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
                         2
                       </span>
                       <div className="space-y-1">
@@ -319,19 +378,26 @@ export default function WorkforceInsightsView({
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
                           Few TAFEs and RTOs are willing to travel to
-                          geographically isolated locations.
+                          geographically isolated locations to deliver required qualifications.
                         </p>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] group-hover:bg-[#77A60D] text-[#1B240E] flex items-center justify-center shrink-0 transition-colors">
                       <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
 
                   {/* Insight 3 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
+                  <div
+                    onClick={() =>
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme2-insight3`,
+                      )
+                    }
+                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                  >
                     <div className="flex items-start gap-4">
-                      <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
                         3
                       </span>
                       <div className="space-y-1">
@@ -339,19 +405,26 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Local councils have limited training budgets.
+                          Limited training budgets to support course enrolment and travel to access training.
                         </p>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] group-hover:bg-[#77A60D] text-[#1B240E] flex items-center justify-center shrink-0 transition-colors">
                       <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
 
                   {/* Insight 4 */}
-                  <div className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4">
+                  <div
+                    onClick={() =>
+                      router.push(
+                        `/reports/${slug}/workforce_insights?insight=theme2-insight4`,
+                      )
+                    }
+                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                  >
                     <div className="flex items-start gap-4">
-                      <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
                         4
                       </span>
                       <div className="space-y-1">
@@ -359,12 +432,11 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Four
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Course delivery is often not tailored to regional,
-                          rural and remote areas.
+                          Course delivery is often not tailored to suit those from regional, rural or remote locations.
                         </p>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-full bg-[#85B810] text-[#1B240E] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#85B810] group-hover:bg-[#77A60D] text-[#1B240E] flex items-center justify-center shrink-0 transition-colors">
                       <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>

@@ -136,71 +136,23 @@ export default function ReportHeader({
             >
               Industry Overview <span>▾</span>
             </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50">
-              <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/industry_overview`)
-                }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "industry_overview"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                Industry-Sector Overview
-              </button>
-              <button
-                onClick={() => router.push(`/reports/${slug}/state_territory`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "state_territory"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                State and Territory Profile
-              </button>
-              <button
-                onClick={() => router.push(`/reports/${slug}/industry_profile`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "industry_profile"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                Industry Profile
-              </button>
-            </div>
-          </div>
-
-          <div className="relative group py-1">
-            <button
-              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-              className={`flex items-center gap-1 cursor-pointer ${
-                currentPage === "workforce_insights"
-                  ? "text-accent font-bold"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
-              Workforce Insights <span>▾</span>
-            </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50">
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50 shadow-xl">
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "workforce_insights"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_insights" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Insights Overview
               </button>
+              <div className="pt-2 pb-1 px-3 text-[10px] uppercase font-bold text-[#85B810]/70 tracking-wider">
+                Theme 1
+              </div>
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight1`)
                 }
-                className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
                 Theme 1, Insight 1
               </button>
@@ -208,7 +160,7 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight2`)
                 }
-                className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
                 Theme 1, Insight 2
               </button>
@@ -216,9 +168,52 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight3`)
                 }
-                className="w-full text-left px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
                 Theme 1, Insight 3
+              </button>
+              <div className="pt-2 pb-1 px-3 text-[10px] uppercase font-bold text-[#85B810]/70 tracking-wider border-t border-white/5">
+                Theme 2
+              </div>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight1`)
+                }
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Theme 2, Insight 1
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight2`)
+                }
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Theme 2, Insight 2
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight3`)
+                }
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Theme 2, Insight 3
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight4`)
+                }
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Theme 2, Insight 4
+              </button>
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/workforce_insights?insight=contextualisation`)
+                }
+                className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Contextualisation of Qualifications
               </button>
             </div>
           </div>

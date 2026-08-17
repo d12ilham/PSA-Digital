@@ -1426,7 +1426,7 @@ export default function StateTerritoryView({
                       <span className="text-3xl font-bold text-lg-dark block">
                         218,000
                       </span>
-                      <p className="text-xs sm:text-sm font-semibold text-gray-700">
+                      <p className="text-sm font-semibold text-gray600">
                         Local Government employees as of June 2025
                       </p>
                     </div>
@@ -1448,7 +1448,7 @@ export default function StateTerritoryView({
                       <span className="text-3xl font-bold text-lg-dark block leading-tight">
                         50.9% Male
                       </span>
-                      <p className="text-xs sm:text-sm font-semibold text-gray-700 pt-1">
+                      <p className="text-sm font-semibold text-gray600 pt-1">
                         National Workforce Composition
                       </p>
                     </div>
@@ -1467,7 +1467,7 @@ export default function StateTerritoryView({
                       <span className="text-3xl font-bold text-lg-dark block">
                         8.2%
                       </span>
-                      <p className="text-xs sm:text-sm font-semibold text-gray-700">
+                      <p className="text-sm font-semibold text-gray600">
                         of the national workforce identifies as First Nations
                         (vs 3.8% of the population)
                       </p>
@@ -2037,10 +2037,7 @@ export default function StateTerritoryView({
                 {/* Female Gauge */}
                 <div className="flex flex-col items-center">
                   <div className="relative w-28 h-28 sm:w-30 sm:h-30 flex items-center justify-center">
-                    <svg
-                      className="w-full h-full"
-                      viewBox="0 0 36 36"
-                    >
+                    <svg className="w-full h-full" viewBox="0 0 36 36">
                       <path
                         className="text-[#9CAA54]/30"
                         strokeWidth="3.8"
@@ -2050,7 +2047,9 @@ export default function StateTerritoryView({
                       />
                       <path
                         className="text-[#9CAA54] transition-all duration-1000 ease-out"
-                        strokeDasharray={compareChartsLoaded ? "49.1, 100" : "0, 100"}
+                        strokeDasharray={
+                          compareChartsLoaded ? "49.1, 100" : "0, 100"
+                        }
                         strokeWidth="3.8"
                         strokeLinecap="round"
                         stroke="currentColor"
@@ -2072,10 +2071,7 @@ export default function StateTerritoryView({
                 {/* Male Gauge */}
                 <div className="flex flex-col items-center">
                   <div className="relative w-28 h-28 sm:w-30 sm:h-30 flex items-center justify-center">
-                    <svg
-                      className="w-full h-full"
-                      viewBox="0 0 36 36"
-                    >
+                    <svg className="w-full h-full" viewBox="0 0 36 36">
                       <path
                         className="text-[#0C582B]/30"
                         strokeWidth="3.8"
@@ -2085,7 +2081,9 @@ export default function StateTerritoryView({
                       />
                       <path
                         className="text-[#0C582B] transition-all duration-1000 ease-out"
-                        strokeDasharray={compareChartsLoaded ? "50.9, 100" : "0, 100"}
+                        strokeDasharray={
+                          compareChartsLoaded ? "50.9, 100" : "0, 100"
+                        }
                         strokeWidth="3.8"
                         strokeLinecap="round"
                         stroke="currentColor"
@@ -2151,7 +2149,8 @@ export default function StateTerritoryView({
                               style={{
                                 width: compareChartsLoaded ? item.pct : "0%",
                                 transitionDelay: `${idx * 80}ms`,
-                              }}/>
+                              }}
+                            />
                           </div>
                           <span className="w-12 text-right font-semibold text-gray-700">
                             {item.val}
@@ -2200,7 +2199,8 @@ export default function StateTerritoryView({
                               style={{
                                 width: compareChartsLoaded ? item.pct : "0%",
                                 transitionDelay: `${idx * 80}ms`,
-                              }}/>
+                              }}
+                            />
                           </div>
                           <span className="w-8 text-right font-semibold text-gray-700">
                             {item.val}
