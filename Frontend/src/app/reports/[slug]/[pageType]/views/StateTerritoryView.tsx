@@ -1615,7 +1615,7 @@ export default function StateTerritoryView({
                     </div>
 
                     {/* Legend */}
-                    <div className="flex items-center gap-x-6 gap-y-2 text-xs font-semibold text-gray800 pt-1">
+                    <div className="flex items-center gap-x-6 gap-y-2 text-sm font-semibold text-gray800 pt-1">
                       <div className="flex items-center gap-2 shrink-0">
                         <span className="w-4 h-4 rounded-xs bg-[#B2DB79] inline-block shrink-0" />
                         <span>
@@ -1636,7 +1636,7 @@ export default function StateTerritoryView({
                           <strong className="font-bold">S</strong> = Shortage
                         </span>
                       </div>
-                      <div className="text-xs text-gray800 font-normal leading-tight">
+                      <div className="text-sm text-gray800 font-normal leading-normal">
                         — = not identified through the Skills Audit in that
                         state or territory
                       </div>

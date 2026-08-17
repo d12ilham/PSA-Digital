@@ -36,59 +36,46 @@ export default function ReportHeader({
         </div>
 
         <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
+          {/* 1. ABOUT DROPDOWN */}
           <div className="relative group py-1">
-            <button className="flex items-center gap-1 text-accent font-bold cursor-pointer">
+            <button className={`flex items-center gap-1 cursor-pointer ${currentPage === "about" || currentPage === "introduction" || currentPage === "methodology" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}>
               About <span>▾</span>
             </button>
             <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-48 space-y-1 z-50">
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "introduction"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "introduction" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Introduction
               </button>
               <button
                 onClick={() => router.push(`/reports/${slug}/about`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "about"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "about" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 About Public Skills Australia
               </button>
               <button
                 onClick={() => router.push(`/reports/${slug}/methodology`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "methodology"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "methodology" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Methodology
               </button>
             </div>
           </div>
 
+          {/* 2. EXECUTIVE SUMMARY */}
           <button
             onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-            className={`transition-colors cursor-pointer ${
-              currentPage === "executive_summary"
-                ? "text-accent font-bold"
-                : "text-white/80 hover:text-white"
-            }`}
+            className={`transition-colors cursor-pointer ${currentPage === "executive_summary" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
           >
             Executive Summary
           </button>
 
+          {/* 3. DRIVERS OF CHANGE DROPDOWN */}
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "drivers_of_change" || currentPage === "megatrends" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
             >
               Drivers of Change <span>▾</span>
             </button>
@@ -97,11 +84,7 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/drivers_of_change`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "drivers_of_change"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "drivers_of_change" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Drivers of Change
               </button>
@@ -114,27 +97,56 @@ export default function ReportHeader({
                     }
                   } else {
                     router.push(
-                      `/reports/${slug}/drivers_of_change#nine-megatrends`
+                      `/reports/${slug}/drivers_of_change#nine-megatrends`,
                     );
                   }
                 }}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "drivers_of_change" || currentPage === "megatrends"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "drivers_of_change" || currentPage === "megatrends" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Nine Megatrends
               </button>
             </div>
           </div>
 
+          {/* 4. INDUSTRY OVERVIEW DROPDOWN */}
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "state_territory" || currentPage === "industry_profile" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
             >
               Industry Overview <span>▾</span>
+            </button>
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50 shadow-xl">
+              <button
+                onClick={() =>
+                  router.push(`/reports/${slug}/industry_overview`)
+                }
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "industry_overview" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
+              >
+                Industry-Sector Overview
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/state_territory`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "state_territory" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
+              >
+                State and Territory Profile
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${slug}/industry_profile`)}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "industry_profile" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
+              >
+                Industry Profile
+              </button>
+            </div>
+          </div>
+
+          {/* 5. WORKFORCE INSIGHTS DROPDOWN */}
+          <div className="relative group py-1">
+            <button
+              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_insights" || currentPage === "contextualisation_of_qualifications" || currentPage === "contextualisation" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
+            >
+              Workforce Insights <span>▾</span>
             </button>
             <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50 shadow-xl">
               <button
@@ -150,7 +162,9 @@ export default function ReportHeader({
               </div>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight1`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme1-insight1`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -158,7 +172,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight2`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme1-insight2`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -166,7 +182,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme1-insight3`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme1-insight3`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -177,7 +195,9 @@ export default function ReportHeader({
               </div>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight1`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme2-insight1`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -185,7 +205,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight2`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme2-insight2`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -193,7 +215,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight3`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme2-insight3`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -201,7 +225,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=theme2-insight4`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=theme2-insight4`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -209,7 +235,9 @@ export default function ReportHeader({
               </button>
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights?insight=contextualisation`)
+                  router.push(
+                    `/reports/${slug}/workforce_insights?insight=contextualisation`,
+                  )
                 }
                 className="w-full text-left px-3 py-1.5 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               >
@@ -218,25 +246,22 @@ export default function ReportHeader({
             </div>
           </div>
 
+          {/* 6. WORKFORCE STRATEGIES DROPDOWN */}
           <div className="relative group py-1">
             <button
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
-              className="flex items-center gap-1 text-white/80 hover:text-white cursor-pointer"
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_strategies" || currentPage === "update_2025_strategies" || currentPage === "existing_strategies" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
             >
               Workforce Strategies <span>▾</span>
             </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-64 space-y-1 z-50">
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-64 space-y-1 z-50 shadow-xl">
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_strategies`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "workforce_strategies"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_strategies" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 2026 Proposed Strategies
               </button>
@@ -244,11 +269,7 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/update_2025_strategies`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "update_2025_strategies"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "update_2025_strategies" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Update on 2025 Strategies
               </button>
@@ -256,29 +277,23 @@ export default function ReportHeader({
                 onClick={() =>
                   router.push(`/reports/${slug}/existing_strategies`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${
-                  currentPage === "existing_strategies"
-                    ? "text-accent font-bold bg-white/10"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "existing_strategies" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Existing Industry-Sector Strategies
               </button>
             </div>
           </div>
 
+          {/* 7. LOOKING FORWARD (NO ARROW) */}
           <button
             onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className={`transition-colors cursor-pointer ${
-              currentPage === "looking_forward"
-                ? "text-accent font-bold"
-                : "text-white/80 hover:text-white"
-            }`}
+            className={`transition-colors cursor-pointer ${currentPage === "looking_forward" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
           >
             Looking Forward
           </button>
         </nav>
 
+        {/* 8. DOWNLOAD CTA */}
         <div>
           <button
             onClick={() => router.push(`/reports/${slug}/downloads`)}
