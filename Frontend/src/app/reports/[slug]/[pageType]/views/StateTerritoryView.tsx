@@ -1643,35 +1643,35 @@ export default function StateTerritoryView({
                     </div>
 
                     {/* Table with borders around and between columns */}
-                    <div className="overflow-x-auto border border-gray200 rounded-xl">
+                    <div className="overflow-auto h-[500px] border border-gray200 rounded-xl relative">
                       <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                        <thead>
+                        <thead className="sticky top-0 z-10 bg-[#F5F5F5] shadow-xs">
                           <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
-                            <th className="p-4 font-bold text-left tracking-wider">
+                            <th className="p-4 font-bold text-left tracking-wider bg-[#F5F5F5]">
                               OCCUPATION
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               AUS
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               NSW
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               NT
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               QLD
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               SA
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               TAS
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               VIC
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16">
+                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                               WA
                             </th>
                           </tr>

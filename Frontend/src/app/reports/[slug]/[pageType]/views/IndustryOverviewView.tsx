@@ -20,6 +20,77 @@ interface Report {
   };
 }
 
+interface AnimatedCounterProps {
+  target: number;
+  duration?: number;
+  prefix?: string;
+  suffix?: string;
+  formatNumber?: boolean;
+}
+
+function AnimatedCounter({
+  target,
+  duration = 2600,
+  prefix = "",
+  suffix = "",
+  formatNumber = false,
+}: AnimatedCounterProps) {
+  const [count, setCount] = React.useState(0);
+  const elementRef = React.useRef<HTMLSpanElement>(null);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  React.useEffect(() => {
+    if (!hasAnimated) return;
+
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const eased = easeOutExpo(progress);
+      setCount(Math.round(eased * target));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [hasAnimated, target, duration]);
+
+  const displayValue = formatNumber ? count.toLocaleString() : count;
+
+  return (
+    <span ref={elementRef} className="tabular-nums">
+      {prefix}
+      {displayValue}
+      {suffix}
+    </span>
+  );
+}
+
 export default function IndustryOverviewView({
   slug,
   report,
@@ -76,7 +147,7 @@ export default function IndustryOverviewView({
           {/* 4 Stat Boxes Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Stat 1 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
+            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
               <img
                 src="/images/reports/industry-overview/item1.svg"
                 alt="537 local councils"
@@ -84,7 +155,7 @@ export default function IndustryOverviewView({
               />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
-                  537
+                  <AnimatedCounter target={537} />
                 </span>
                 <p className="text-xs text-gray600 leading-normal">
                   local councils across Australia
@@ -93,7 +164,7 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 2 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
+            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
               <img
                 src="/images/reports/industry-overview/item2.svg"
                 alt="55% / 45%"
@@ -101,7 +172,8 @@ export default function IndustryOverviewView({
               />
               <div className="space-y-1">
                 <span className="text-xl sm:text-2xl font-bold text-gray800 block leading-none">
-                  55% / 45%
+                  <AnimatedCounter target={55} suffix="%" /> /{" "}
+                  <AnimatedCounter target={45} suffix="%" />
                 </span>
                 <p className="text-xs text-gray600 leading-normal">
                   55% regional, rural or remote
@@ -112,7 +184,7 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 3 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
+            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
               <img
                 src="/images/reports/industry-overview/item3.svg"
                 alt="218,000 employees"
@@ -120,7 +192,7 @@ export default function IndustryOverviewView({
               />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
-                  218,000
+                  <AnimatedCounter target={218000} formatNumber={true} />
                 </span>
                 <p className="text-xs text-gray600 leading-normal">
                   employees (estimated) in the Local Government workforce
@@ -129,7 +201,7 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 4 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5">
+            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
               <img
                 src="/images/reports/industry-overview/item4.svg"
                 alt="400+ occupations"
@@ -137,7 +209,7 @@ export default function IndustryOverviewView({
               />
               <div className="space-y-1">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
-                  400+
+                  <AnimatedCounter target={400} suffix="+" />
                 </span>
                 <p className="text-xs text-gray600 leading-normal">
                   different occupations employed
