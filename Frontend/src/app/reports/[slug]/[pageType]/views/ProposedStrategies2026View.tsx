@@ -40,7 +40,7 @@ export default function ProposedStrategies2026View({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -125,7 +125,7 @@ export default function ProposedStrategies2026View({
 
             {/* EXPANDED CONTENT */}
             {strategy1Open && (
-              <div className="pt-4 border-t border-gray200 space-y-4">
+              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
                 <div className="space-y-1">
                   <h3 className="text-xs font-bold text-gray800">
                     JSC Function:
@@ -226,7 +226,7 @@ export default function ProposedStrategies2026View({
 
             {/* EXPANDED CONTENT */}
             {strategy2Open && (
-              <div className="pt-4 border-t border-gray200 space-y-4">
+              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
                 <div className="space-y-1">
                   <h3 className="text-xs font-bold text-gray800">
                     JSC Function:

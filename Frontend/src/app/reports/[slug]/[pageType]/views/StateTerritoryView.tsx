@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowLeft, ArrowRight, Download, Search } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 interface Report {
   id: string;
@@ -1322,7 +1323,7 @@ export default function StateTerritoryView({
       <ReportHeader slug={slug} report={report} currentPage="state_territory" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="state_territory" />
 
@@ -1364,7 +1365,7 @@ export default function StateTerritoryView({
             <div className="inline-flex items-center bg-[#F0F5DF] p-1.5 rounded-full border border-gray200">
               <button
                 onClick={() => setViewMode("single")}
-                className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "single"
                     ? "bg-[#8AC900] text-[#252D02]"
                     : "bg-transparent text-notes hover:text-[#1B240E]"
@@ -1374,7 +1375,7 @@ export default function StateTerritoryView({
               </button>
               <button
                 onClick={() => setViewMode("compare")}
-                className={`px-6 py-2 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "compare"
                     ? "bg-[#8AC900] text-[#252D02]"
                     : "bg-transparent text-notes hover:text-[#1B240E]"
@@ -1417,14 +1418,14 @@ export default function StateTerritoryView({
 
             {selectedState === "NATIONAL" ? (
               /* NATIONAL SINGLE VIEW */
-              <div className="space-y-8">
+              <div key="NATIONAL" className="space-y-8 animate-fade-in">
                 {/* 3 National Stat Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Card 1 */}
                   <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
-                        218,000
+                        <AnimatedCounter target={218000} formatNumber={true} />
                       </span>
                       <p className="text-sm font-semibold text-gray600">
                         Local Government employees as of June 2025
@@ -1443,10 +1444,10 @@ export default function StateTerritoryView({
                   <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
                     <div className="space-y-1">
                       <span className="text-3xl font-bold text-[#9CAA54] block leading-tight">
-                        49.1% Female
+                        <AnimatedCounter target={49.1} decimals={1} suffix="% Female" />
                       </span>
                       <span className="text-3xl font-bold text-lg-dark block leading-tight">
-                        50.9% Male
+                        <AnimatedCounter target={50.9} decimals={1} suffix="% Male" />
                       </span>
                       <p className="text-sm font-semibold text-gray600 pt-1">
                         National Workforce Composition
@@ -1465,7 +1466,7 @@ export default function StateTerritoryView({
                   <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
-                        8.2%
+                        <AnimatedCounter target={8.2} decimals={1} suffix="%" />
                       </span>
                       <p className="text-sm font-semibold text-gray600">
                         of the national workforce identifies as First Nations
@@ -1731,7 +1732,7 @@ export default function StateTerritoryView({
               </div>
             ) : (
               /* SPECIFIC STATE DASHBOARD (NSW, TAS, QLD, NT, SA, VIC, WA) */
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div key={selectedState} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
                 {/* Left Zoomed Map Box */}
                 <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                   <div className="flex items-start justify-between gap-2">
@@ -1760,7 +1761,7 @@ export default function StateTerritoryView({
                     {/* Stat Overlay Card 1 (Employees) */}
                     <div className="absolute top-8 left-3 sm:left-4 bg-white rounded-xl shadow-md p-3 min-w-28 sm:min-w-32 z-10">
                       <span className="text-2xl font-bold text-lg-dark block leading-tight">
-                        {currentState.employees}
+                        <AnimatedCounter key={selectedState + "-map-emp"} target={Number(currentState.employees.replace(/,/g, "")) || 0} formatNumber={true} />
                       </span>
                       <span className="text-xs font-semibold text-gray600">
                         Employees
@@ -1772,7 +1773,7 @@ export default function StateTerritoryView({
                     {/* Stat Overlay Card 2 (Local Councils) */}
                     <div className="absolute bottom-8 right-3 sm:right-4 bg-white rounded-xl shadow-md p-3 min-w-28 sm:min-w-32 z-10">
                       <span className="text-2xl font-bold text-lg-dark block leading-tight">
-                        {currentState.councils}
+                        <AnimatedCounter key={selectedState + "-map-councils"} target={currentState.councils} />
                       </span>
                       <span className="text-xs font-semibold text-gray600">
                         Local councils
@@ -1805,7 +1806,7 @@ export default function StateTerritoryView({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-white border border-gray200 rounded-2xl p-5 space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
-                        {currentState.employees}
+                        <AnimatedCounter key={selectedState + "-card-emp"} target={Number(currentState.employees.replace(/,/g, "")) || 0} formatNumber={true} />
                       </span>
                       <p className="text-xs font-bold text-gray600">
                         Employees
@@ -1819,7 +1820,7 @@ export default function StateTerritoryView({
 
                     <div className="bg-white border border-gray200 rounded-2xl p-5 space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
-                        {currentState.councils}
+                        <AnimatedCounter key={selectedState + "-card-councils"} target={currentState.councils} />
                       </span>
                       <p className="text-xs font-bold text-gray600">
                         Local councils
@@ -2005,7 +2006,7 @@ export default function StateTerritoryView({
 
         {/* ── MODE B: COMPARE ALL STATES VIEW ── */}
         {viewMode === "compare" && (
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
+          <div key="compare-mode" className="animate-fade-in flex flex-col lg:flex-row gap-8 items-start">
             {/* Left Column: National Green Card */}
             <div className="w-full lg:w-[330px] lg:min-w-[330px] lg:max-w-[330px] bg-lg-dark text-white rounded-2xl p-6 flex flex-col justify-between space-y-6 shrink-0">
               <div className="space-y-4">
@@ -2024,7 +2025,7 @@ export default function StateTerritoryView({
 
                 <div className="pt-2 space-y-1">
                   <h2 className="text-4xl font-bold tracking-tight text-white">
-                    218,000
+                    <AnimatedCounter target={218000} formatNumber={true} />
                   </h2>
                   <p className="text-xs text-white/80">
                     employees as of June 2025
@@ -2059,7 +2060,7 @@ export default function StateTerritoryView({
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-lg sm:text-xl font-bold text-[#9CAA54] leading-tight">
-                        49.1%
+                        <AnimatedCounter target={49.1} decimals={1} suffix="%" />
                       </span>
                       <span className="text-xs text-[#33380F] font-medium">
                         Female
@@ -2093,7 +2094,7 @@ export default function StateTerritoryView({
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-lg sm:text-xl font-bold text-[#0C582B] leading-tight">
-                        50.9%
+                        <AnimatedCounter target={50.9} decimals={1} suffix="%" />
                       </span>
                       <span className="text-xs text-[#33380F] font-medium">
                         Male
@@ -2106,7 +2107,7 @@ export default function StateTerritoryView({
               {/* First Nations Pill */}
               <div className="bg-[#9CAA54] rounded-full py-2 px-4">
                 <span className="text-xs font-bold text-white">
-                  8.2% identify as First Nations
+                  <AnimatedCounter target={8.2} decimals={1} suffix="% identify as First Nations" />
                 </span>
               </div>
             </div>
@@ -2153,7 +2154,7 @@ export default function StateTerritoryView({
                             />
                           </div>
                           <span className="w-12 text-right font-semibold text-gray-700">
-                            {item.val}
+                            <AnimatedCounter target={Number(item.val.replace(/,/g, "")) || 0} formatNumber={true} />
                           </span>
                         </div>
                       ))}
@@ -2203,7 +2204,7 @@ export default function StateTerritoryView({
                             />
                           </div>
                           <span className="w-8 text-right font-semibold text-gray-700">
-                            {item.val}
+                            <AnimatedCounter target={Number(item.val) || 0} />
                           </span>
                         </div>
                       ))}
@@ -2218,35 +2219,35 @@ export default function StateTerritoryView({
               </div>
 
               {/* Comprehensive Matrix Table */}
-              <div className="overflow-x-auto border border-gray200 rounded-xl">
+              <div className="overflow-auto h-[500px] border border-gray200 rounded-xl relative">
                 <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                  <thead>
+                  <thead className="sticky top-0 z-10 bg-[#F5F5F5] shadow-xs">
                     <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
-                      <th className="p-4 font-bold text-left tracking-wider">
+                      <th className="p-4 font-bold text-left tracking-wider bg-[#F5F5F5]">
                         OCCUPATION
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         AUS
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         NSW
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         NT
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         QLD
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         SA
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         TAS
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         VIC
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16">
+                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
                         WA
                       </th>
                     </tr>

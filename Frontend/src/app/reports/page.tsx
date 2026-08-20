@@ -268,7 +268,7 @@ export default function ReportsArchivePage() {
       </header>
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="animate-fade-in flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── 2. HERO INTRO SECTION ── */}
         <section className="bg-white rounded-2xl p-4 sm:p-6 border border-gray200 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

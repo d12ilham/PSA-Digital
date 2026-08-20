@@ -153,7 +153,7 @@ export default function DriversOfChangeView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
 
@@ -212,7 +212,7 @@ export default function DriversOfChangeView({
                 <div
                   key={driver.id}
                   onClick={() => setActiveDriverId(isActive ? null : driver.id)}
-                  className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all ${
+                  className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all duration-200 ${
                     isActive
                       ? "bg-[#EBF1E4] border-active border-2 border-t-8"
                       : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
@@ -236,7 +236,7 @@ export default function DriversOfChangeView({
                         e.stopPropagation();
                         setActiveDriverId(isActive ? null : driver.id);
                       }}
-                      className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                      className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer"
                     >
                       {isActive ? "Close ▴" : "Open ▾"}
                     </button>
@@ -248,7 +248,10 @@ export default function DriversOfChangeView({
 
           {/* Active Driver Detail Panel */}
           {activeDriver && (
-            <div className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in">
+            <div
+              key={activeDriverId}
+              className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in"
+            >
               <div className="space-y-4">
                 <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
                   NOW PRESENTING - {activeDriver.number}
@@ -290,7 +293,7 @@ export default function DriversOfChangeView({
                   onClick={() =>
                     setActiveMegatrendId(isActive ? null : item.id)
                   }
-                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all ${
+                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all duration-200 ${
                     isActive
                       ? "bg-[#EBF1E4] border-active border-2"
                       : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
@@ -319,7 +322,10 @@ export default function DriversOfChangeView({
 
           {/* Active Megatrend Detail Panel */}
           {activeMegatrend && (
-            <div className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in">
+            <div
+              key={activeMegatrendId}
+              className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in"
+            >
               <h3 className="text-xl font-bold text-gray800">
                 {activeMegatrend.title}
               </h3>

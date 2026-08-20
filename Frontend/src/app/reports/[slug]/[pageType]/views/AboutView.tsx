@@ -35,7 +35,7 @@ export default function AboutView({
       <ReportHeader slug={slug} report={report} currentPage="about" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         <ReportNavButtons slug={slug} currentPage="about" />
 
         <div className="bg-white border border-gray200 rounded-2xl p-6 relative overflow-hidden space-y-6">

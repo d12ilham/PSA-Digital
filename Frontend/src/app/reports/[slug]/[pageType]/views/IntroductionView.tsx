@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight, Download } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 interface Report {
   id: string;
@@ -101,7 +102,7 @@ export default function IntroductionView({
       <ReportHeader slug={slug} report={report} currentPage="introduction" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         <ReportNavButtons slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
@@ -181,10 +182,10 @@ export default function IntroductionView({
                 THIS REPORT AT A GLANCE
               </span>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white rounded-xl p-4 flex justify-between gap-5">
+                <div className="bg-white rounded-xl p-4 flex justify-between gap-5 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col flex-1 items-baseline gap-2 mb-1">
                     <span className="text-2xl font-semibold text-[#8AC900]">
-                      4
+                      <AnimatedCounter target={4} />
                     </span>
                     <span className="text-xs font-semibold text-gray600">
                       Drivers of Change
@@ -192,7 +193,7 @@ export default function IntroductionView({
                   </div>
                   <div className="flex flex-col flex-1 items-baseline gap-2">
                     <span className="text-2xl font-semibold text-[#8AC900]">
-                      9
+                      <AnimatedCounter target={9} />
                     </span>
                     <span className="text-xs font-semibold text-gray600">
                       Megatrends
@@ -200,19 +201,19 @@ export default function IntroductionView({
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl p-4 flex flex-col justify-center">
+                <div className="bg-white rounded-xl p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-xs">
                   <span className="text-2xl font-semibold text-[#8AC900]">
-                    218,000
+                    <AnimatedCounter target={218000} formatNumber={true} />
                   </span>
                   <span className="text-xs font-semibold text-gray600 leading-tight mt-1">
                     Workforce Employees
                   </span>
                 </div>
 
-                <div className="bg-white rounded-xl p-4 flex justify-between gap-5">
+                <div className="bg-white rounded-xl p-4 flex justify-between gap-5 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col flex-1 items-baseline gap-2 mb-1">
                     <span className="text-2xl font-semibold text-[#8AC900]">
-                      2
+                      <AnimatedCounter target={2} />
                     </span>
                     <span className="text-xs font-semibold text-gray600">
                       Themes
@@ -220,7 +221,7 @@ export default function IntroductionView({
                   </div>
                   <div className="flex flex-col flex-1 items-baseline gap-2">
                     <span className="text-2xl font-semibold text-[#8AC900]">
-                      7
+                      <AnimatedCounter target={7} />
                     </span>
                     <span className="text-xs font-semibold text-gray600">
                       Workforce Insights
@@ -228,9 +229,9 @@ export default function IntroductionView({
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl p-4 flex flex-col justify-center">
+                <div className="bg-white rounded-xl p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-xs">
                   <span className="text-2xl font-semibold text-[#8AC900]">
-                    2
+                    <AnimatedCounter target={2} />
                   </span>
                   <span className="text-xs font-semibold text-gray600 leading-tight mt-1">
                     Proposed 2026 Strategies

@@ -194,7 +194,7 @@ export default function ReportLandingPage({
       </header>
 
       {/* ── MAIN CONTENT (TOP ALIGNED) ── */}
-      <main className="flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">
+      <main className="animate-fade-in flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">
         {/* Title Section */}
         <div className="max-w-5xl mx-auto text-center mb-8 sm:mb-10 space-y-6">
           <p className="text-xs sm:text-xs font-semibold text-notes uppercase">

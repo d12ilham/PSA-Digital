@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight, Download } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 interface Report {
   id: string;
@@ -106,7 +107,7 @@ export default function IndustryProfileView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="industry_profile" />
 
@@ -289,7 +290,7 @@ export default function IndustryProfileView({
               />
               <div className="space-y-2">
                 <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
-                  77%
+                  <AnimatedCounter target={77} suffix="%" />
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
                   of the national road network by length
@@ -306,7 +307,7 @@ export default function IndustryProfileView({
               />
               <div className="space-y-2">
                 <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
-                  $643bn
+                  <AnimatedCounter target={643} prefix="$" suffix="bn" />
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
                   estimated value of public assets managed

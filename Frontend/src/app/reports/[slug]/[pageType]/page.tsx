@@ -180,75 +180,69 @@ export default function PublicReportReaderPage({
   }
 
   // ── SPECIAL PAGE VIEWS MATCHING DESIGN MOCKUPS ──
-  if (pageType === "introduction") {
-    return <IntroductionView slug={slug} report={report} />;
-  }
+  const renderSpecialView = () => {
+    if (pageType === "introduction") {
+      return <IntroductionView slug={slug} report={report} />;
+    }
+    if (pageType === "about") {
+      return <AboutView slug={slug} report={report} />;
+    }
+    if (pageType === "methodology") {
+      return <MethodologyView slug={slug} report={report} />;
+    }
+    if (pageType === "executive_summary") {
+      return <ExecutiveSummaryView slug={slug} report={report} />;
+    }
+    if (pageType === "drivers_of_change") {
+      return <DriversOfChangeView slug={slug} report={report} />;
+    }
+    if (pageType === "industry_overview") {
+      return <IndustryOverviewView slug={slug} report={report} />;
+    }
+    if (pageType === "state_territory") {
+      return <StateTerritoryView slug={slug} report={report} />;
+    }
+    if (pageType === "industry_profile") {
+      return <IndustryProfileView slug={slug} report={report} />;
+    }
+    if (
+      pageType === "workforce_insights" ||
+      pageType.startsWith("workforce_insights_") ||
+      pageType === "contextualisation_of_qualifications" ||
+      pageType === "contextualisation"
+    ) {
+      return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
+    }
+    if (pageType === "workforce_strategies" || pageType === "proposed_strategies") {
+      return <ProposedStrategies2026View slug={slug} report={report} />;
+    }
+    if (pageType === "update_2025_strategies" || pageType === "workforce_strategies_2025") {
+      return <ExistingStrategiesView slug={slug} report={report} />;
+    }
+    if (pageType === "existing_strategies" || pageType === "existing_industry_strategies") {
+      return <ExistingIndustryStrategiesView slug={slug} report={report} />;
+    }
+    if (pageType === "federal_initiatives" || pageType === "federal_government_initiatives") {
+      return <FederalGovernmentInitiativesView slug={slug} report={report} />;
+    }
+    if (pageType === "looking_forward" || pageType === "2027_and_beyond") {
+      return <LookingForwardView slug={slug} report={report} />;
+    }
+    if (
+      pageType === "downloads" ||
+      pageType === "downloads_and_reference" ||
+      pageType === "download_pdf" ||
+      pageType === "downloads_reference" ||
+      pageType === "download"
+    ) {
+      return <DownloadsAndReferenceView slug={slug} report={report} />;
+    }
+    return null;
+  };
 
-  if (pageType === "about") {
-    return <AboutView slug={slug} report={report} />;
-  }
-
-  if (pageType === "methodology") {
-    return <MethodologyView slug={slug} report={report} />;
-  }
-
-  if (pageType === "executive_summary") {
-    return <ExecutiveSummaryView slug={slug} report={report} />;
-  }
-
-  if (pageType === "drivers_of_change") {
-    return <DriversOfChangeView slug={slug} report={report} />;
-  }
-
-  if (pageType === "industry_overview") {
-    return <IndustryOverviewView slug={slug} report={report} />;
-  }
-
-  if (pageType === "state_territory") {
-    return <StateTerritoryView slug={slug} report={report} />;
-  }
-
-  if (pageType === "industry_profile") {
-    return <IndustryProfileView slug={slug} report={report} />;
-  }
-
-  if (
-    pageType === "workforce_insights" ||
-    pageType.startsWith("workforce_insights_") ||
-    pageType === "contextualisation_of_qualifications" ||
-    pageType === "contextualisation"
-  ) {
-    return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
-  }
-
-  if (pageType === "workforce_strategies" || pageType === "proposed_strategies") {
-    return <ProposedStrategies2026View slug={slug} report={report} />;
-  }
-
-  if (pageType === "update_2025_strategies" || pageType === "workforce_strategies_2025") {
-    return <ExistingStrategiesView slug={slug} report={report} />;
-  }
-
-  if (pageType === "existing_strategies" || pageType === "existing_industry_strategies") {
-    return <ExistingIndustryStrategiesView slug={slug} report={report} />;
-  }
-
-  if (pageType === "federal_initiatives" || pageType === "federal_government_initiatives") {
-    return <FederalGovernmentInitiativesView slug={slug} report={report} />;
-  }
-
-  if (pageType === "looking_forward" || pageType === "2027_and_beyond") {
-    return <LookingForwardView slug={slug} report={report} />;
-  }
-
-  if (
-    pageType === "downloads" ||
-    pageType === "downloads_and_reference" ||
-    pageType === "download_pdf" ||
-    pageType === "downloads_reference" ||
-    pageType === "download"
-  ) {
-    return <DownloadsAndReferenceView slug={slug} report={report} />;
+  const specialView = renderSpecialView();
+  if (specialView) {
+    return specialView;
   }
 
   // ── DEFAULT FALLBACK SIDEBAR LAYOUT FOR ALL OTHER PAGES ──

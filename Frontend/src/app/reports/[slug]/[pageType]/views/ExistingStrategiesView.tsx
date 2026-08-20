@@ -40,7 +40,7 @@ export default function ExistingStrategiesView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -203,7 +203,7 @@ export default function ExistingStrategiesView({
 
             {/* EXPANDED CONTENT */}
             {project1Open && (
-              <div className="pt-4 border-t border-gray200 space-y-5">
+              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-5">
                 <span className="bg-[#9CAA54] text-white text-xs font-bold px-2.5 py-1 rounded-full inline-block">
                   Update
                 </span>
@@ -341,7 +341,7 @@ export default function ExistingStrategiesView({
 
             {/* EXPANDED CONTENT */}
             {strategy2Open && (
-              <div className="pt-4 border-t border-gray200 space-y-5">
+              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-5">
                 <span className="bg-[#E5E8DA] text-[#046D2A] text-xs font-bold px-2.5 py-1 rounded-md inline-block">
                   Update
                 </span>

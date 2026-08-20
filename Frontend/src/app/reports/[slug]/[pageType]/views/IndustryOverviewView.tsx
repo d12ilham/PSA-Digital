@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight, Download } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 interface Report {
   id: string;
@@ -18,77 +19,6 @@ interface Report {
   year?: {
     label: string;
   };
-}
-
-interface AnimatedCounterProps {
-  target: number;
-  duration?: number;
-  prefix?: string;
-  suffix?: string;
-  formatNumber?: boolean;
-}
-
-function AnimatedCounter({
-  target,
-  duration = 2600,
-  prefix = "",
-  suffix = "",
-  formatNumber = false,
-}: AnimatedCounterProps) {
-  const [count, setCount] = React.useState(0);
-  const elementRef = React.useRef<HTMLSpanElement>(null);
-  const [hasAnimated, setHasAnimated] = React.useState(false);
-
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasAnimated]);
-
-  React.useEffect(() => {
-    if (!hasAnimated) return;
-
-    let startTimestamp: number | null = null;
-    let animationFrameId: number;
-
-    const easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const eased = easeOutExpo(progress);
-      setCount(Math.round(eased * target));
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [hasAnimated, target, duration]);
-
-  const displayValue = formatNumber ? count.toLocaleString() : count;
-
-  return (
-    <span ref={elementRef} className="tabular-nums">
-      {prefix}
-      {displayValue}
-      {suffix}
-    </span>
-  );
 }
 
 export default function IndustryOverviewView({
@@ -110,7 +40,7 @@ export default function IndustryOverviewView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="industry_overview" />
 

@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { Download } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 interface Report {
   id: string;
@@ -35,7 +36,7 @@ export default function MethodologyView({
       <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         <ReportNavButtons slug={slug} currentPage="methodology" />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
@@ -107,7 +108,7 @@ export default function MethodologyView({
                         National survey
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]">210</span>{" "}
+                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={210} /></span>{" "}
                         councils responded
                       </p>
                     </div>
@@ -129,7 +130,7 @@ export default function MethodologyView({
                         Workshops
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]">137</span>{" "}
+                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={137} /></span>{" "}
                         councils attended
                       </p>
                     </div>
@@ -153,7 +154,7 @@ export default function MethodologyView({
                         Representatives
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]">11</span>{" "}
+                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={11} /></span>{" "}
                         Industry-sector bodies
                       </p>
                     </div>
@@ -245,7 +246,7 @@ export default function MethodologyView({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800">280³</span>
+              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={280} suffix="³" /></span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 In total, Public Skills Australia engaged with a total of 280
                 councils
@@ -253,14 +254,14 @@ export default function MethodologyView({
             </div>
 
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800">137</span>
+              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={137} /></span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils attended workshops
               </span>
             </div>
 
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800">210</span>
+              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={210} /></span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils responded to the survey
               </span>

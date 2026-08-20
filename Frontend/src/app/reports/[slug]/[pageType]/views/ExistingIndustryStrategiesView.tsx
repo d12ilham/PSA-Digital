@@ -376,7 +376,7 @@ export default function ExistingIndustryStrategiesView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -430,7 +430,7 @@ export default function ExistingIndustryStrategiesView({
                 <div
                   key={item.id}
                   onClick={() => setSelectedId(item.id)}
-                  className={`rounded-2xl p-5 border transition-all cursor-pointer flex items-center justify-between gap-4 ${
+                  className={`rounded-2xl p-5 border transition-all duration-200 cursor-pointer flex items-center justify-between gap-4 ${
                     isSelected
                       ? "bg-[#046D2A1A] border-2 border-lg-dark"
                       : "bg-white border-gray200 hover:border-gray300"
@@ -498,7 +498,10 @@ export default function ExistingIndustryStrategiesView({
               </div>
             </div>
             {/* Inner White Content Card */}
-            <div className="bg-[#FAFAF0] rounded-2xl p-6 sm:p-8 space-y-5">
+            <div
+              key={selectedId}
+              className="bg-[#FAFAF0] rounded-2xl p-6 sm:p-8 space-y-5 animate-fade-in"
+            >
               {/* Title & Subtitle */}
               <div className="space-y-5">
                 <h2 className="text-lg sm:text-xl font-bold text-gray800 leading-snug">

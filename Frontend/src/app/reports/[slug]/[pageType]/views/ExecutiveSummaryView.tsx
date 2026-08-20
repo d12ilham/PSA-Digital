@@ -51,7 +51,7 @@ export default function ExecutiveSummaryView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="executive_summary" />
 
@@ -166,7 +166,7 @@ export default function ExecutiveSummaryView({
               </div>
 
               {showTheme1Overview && (
-                <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                <div className="animate-expand-down text-xs text-gray600 leading-relaxed space-y-2 font-normal">
                   <p>
                     In support of both the 2024 Federal, State/Territory &amp;
                     Local Government Workforce Plan and the 2025 Local
@@ -269,7 +269,7 @@ export default function ExecutiveSummaryView({
               </div>
 
               {showTheme2Overview && (
-                <div className="text-xs text-gray600 leading-relaxed space-y-2 font-normal">
+                <div className="animate-expand-down text-xs text-gray600 leading-relaxed space-y-2 font-normal">
                   <p>
                     Access to training has consistently been raised as a
                     challenge for local council employers in regional, rural and
@@ -438,7 +438,7 @@ export default function ExecutiveSummaryView({
 
               {/* EXPANDED CONTENT FOR STRATEGY 1 */}
               {strategy1Open && (
-                <div className="pt-4 border-t border-gray200 space-y-4">
+                <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
                   <div className="flex flex-col items-start gap-2">
                     <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
                       Workforce Insight: LG Specific Occupational Shortages
@@ -538,7 +538,7 @@ export default function ExecutiveSummaryView({
 
               {/* EXPANDED CONTENT FOR STRATEGY 2 */}
               {strategy2Open && (
-                <div className="pt-4 border-t border-gray200 space-y-4">
+                <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
                   <div className="flex flex-wrap gap-2">
                     <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
                       Workforce Insight: Access to VET Qualifications and

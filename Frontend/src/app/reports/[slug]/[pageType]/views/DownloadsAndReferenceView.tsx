@@ -34,7 +34,7 @@ export default function DownloadsAndReferenceView({
       <ReportHeader slug={slug} report={report} currentPage="downloads" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
         <div>
           <button
