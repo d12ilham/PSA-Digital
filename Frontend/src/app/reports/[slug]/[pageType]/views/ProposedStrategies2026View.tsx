@@ -50,7 +50,7 @@ export default function ProposedStrategies2026View({
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Workforce Insights
           </button>
           <button
-            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+            onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
             className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
             Next Section: Update on 2025 Strategies{" "}

@@ -86,7 +86,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight One
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Access to TAFE or RTOs in regional, rural and remote locations
                 is limited.
               </h1>
@@ -143,7 +143,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Two
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Few TAFEs and RTOs are willing to travel to geographically
                 isolated locations to deliver required qualifications.
               </h1>
@@ -162,7 +162,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Three
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Limited training budgets to support course enrolment and travel
                 to access training
               </h1>
@@ -181,7 +181,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Four
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Course delivery is often not tailored to suit those from
                 regional, rural or remoted locations
               </h1>

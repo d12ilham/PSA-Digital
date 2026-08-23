@@ -157,7 +157,7 @@ export default function LookingForwardView({
           className="border border-[#B2DB79] rounded-2xl p-5"
           style={{ backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
         >
-          <p className="text-sm text-gray600 leading-relaxed w-1/2">
+          <p className="text-sm text-gray600 leading-relaxed w-full xl:w-1/2">
             Beyond these focused lines of inquiry, the 2027{" "}
             <span className="font-bold text-lg-dark">
               Workforce Insights Reports

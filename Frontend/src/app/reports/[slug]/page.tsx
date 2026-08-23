@@ -200,7 +200,7 @@ export default function ReportLandingPage({
           <p className="text-xs sm:text-xs font-semibold text-notes uppercase">
             {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
           </p>
-          <h1 className="text-4xl font-bold text-gray800 leading-normal">
+          <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
             {report.title}
           </h1>
           <p className="text-lg font-medium text-notes">
@@ -214,7 +214,7 @@ export default function ReportLandingPage({
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-8 flex flex-col justify-between transition-all">
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase tracking-wide">
+                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
                   NEW TO THE REPORT?
                 </span>
               </div>
@@ -228,7 +228,7 @@ export default function ReportLandingPage({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 Explore the Introduction{" "}
                 <span className="text-base font-normal">→</span>
@@ -240,7 +240,7 @@ export default function ReportLandingPage({
           <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all">
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase tracking-wide">
+                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
                   READY FOR THE KEY INSIGHTS?
                 </span>
                 <span className="bg-lg-dark text-white text-[11px] font-bold px-3 py-1 rounded-full shrink-0">
@@ -259,7 +259,7 @@ export default function ReportLandingPage({
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 Open the Executive Summary{" "}
                 <span className="text-base font-normal">→</span>

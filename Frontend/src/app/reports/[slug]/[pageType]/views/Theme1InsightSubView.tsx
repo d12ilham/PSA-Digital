@@ -81,7 +81,7 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight One
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Local Government employers require a diverse range of skills to
                 maintain the breadth of responsibilities undertaken by local
                 councils.
@@ -92,7 +92,7 @@ export default function Theme1InsightSubView({
           {/* Theme context Box inside the same White BG container */}
           <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3">
             <h2 className="text-base font-bold text-gray800">Theme context.</h2>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-2/3">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full xl:w-2/3">
               In support of both the 2024 Federal, State/Territory &amp; Local
               Government Workforce Plan and the 2025 Local Government Workforce
               Insights Report, local council employers continue to emphasise the
@@ -116,7 +116,7 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Two
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 Skills needs are changing due to workforce pressures,
                 technological advances and shifting community expectations.
               </h1>
@@ -135,7 +135,7 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Three
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
                 There are acute occupational shortages specific to the Local
                 Government industry-sector, particularly for Emergency
                 Management.
@@ -578,7 +578,7 @@ export default function Theme1InsightSubView({
               </div>
 
               {/* WA */}
-              <div className="sm:col-span-2 rounded-xl overflow-hidden border border-gray200 w-1/2">
+              <div className="sm:col-span-2 rounded-xl overflow-hidden border border-gray200 w-full xl:w-1/2">
                 <div className="bg-lg-dark text-white font-bold text-xs p-6 py-2.5">
                   Western Australia
                 </div>

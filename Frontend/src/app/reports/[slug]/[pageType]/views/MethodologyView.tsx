@@ -108,7 +108,9 @@ export default function MethodologyView({
                         National survey
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={210} /></span>{" "}
+                        <span className="font-bold text-[#8AC900]">
+                          <AnimatedCounter target={210} />
+                        </span>{" "}
                         councils responded
                       </p>
                     </div>
@@ -130,7 +132,9 @@ export default function MethodologyView({
                         Workshops
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={137} /></span>{" "}
+                        <span className="font-bold text-[#8AC900]">
+                          <AnimatedCounter target={137} />
+                        </span>{" "}
                         councils attended
                       </p>
                     </div>
@@ -154,7 +158,9 @@ export default function MethodologyView({
                         Representatives
                       </h4>
                       <p className="text-xs text-gray600 font-medium">
-                        <span className="font-bold text-[#8AC900]"><AnimatedCounter target={11} /></span>{" "}
+                        <span className="font-bold text-[#8AC900]">
+                          <AnimatedCounter target={11} />
+                        </span>{" "}
                         Industry-sector bodies
                       </p>
                     </div>
@@ -246,7 +252,9 @@ export default function MethodologyView({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={280} suffix="³" /></span>
+              <span className="text-3xl font-bold text-gray800">
+                <AnimatedCounter target={280} suffix="³" />
+              </span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 In total, Public Skills Australia engaged with a total of 280
                 councils
@@ -254,14 +262,18 @@ export default function MethodologyView({
             </div>
 
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={137} /></span>
+              <span className="text-3xl font-bold text-gray800">
+                <AnimatedCounter target={137} />
+              </span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils attended workshops
               </span>
             </div>
 
             <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
-              <span className="text-3xl font-bold text-gray800"><AnimatedCounter target={210} /></span>
+              <span className="text-3xl font-bold text-gray800">
+                <AnimatedCounter target={210} />
+              </span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 Councils responded to the survey
               </span>
@@ -403,7 +415,7 @@ export default function MethodologyView({
 
         {/* Footnote Box */}
         <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
-          <p className="w-1/2">
+          <p className="w-full xl:w-1/2">
             3 - Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted
             once. Public Skills Australia did not meet with stakeholders from

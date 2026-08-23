@@ -98,7 +98,7 @@ export default function ExecutiveSummaryView({
               <h3 className="font-bold text-base text-gray800 pb-2">
                 Drivers of Change
               </h3>
-              <p className="text-xs text-gray600 leading-relaxed w-2/3">
+              <p className="text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
                 It identifies four drivers of change that will impact workforce
                 planning in the short to medium term, aligned with the nine
                 megatrends detailed in previous Workforce Insights Reports, that
@@ -108,7 +108,7 @@ export default function ExecutiveSummaryView({
           </div>
           <button
             onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-            className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+            className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
           >
             Present Drivers of Change <ArrowRight className="h-3.5 w-3.5" />
           </button>
@@ -140,7 +140,7 @@ export default function ExecutiveSummaryView({
             </div>
             <button
               onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-              className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+              className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
             >
               Present Workforce Insights <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -402,7 +402,7 @@ export default function ExecutiveSummaryView({
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
-              className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+              className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
             >
               Present 2026 Strategies <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -653,7 +653,7 @@ export default function ExecutiveSummaryView({
           </div>
           <button
             onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+            className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
           >
             View 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
           </button>
@@ -665,7 +665,7 @@ export default function ExecutiveSummaryView({
             Supporting Sections:
           </span>
           <button
-            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+            onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-semibold text-xs px-4 py-2 rounded-full transition-colors cursor-pointer"
           >
             Update on 2025 Strategies

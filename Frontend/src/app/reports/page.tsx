@@ -21,6 +21,7 @@ import {
   ArrowRight,
   ShieldCheck,
   Users,
+  Menu,
 } from "lucide-react";
 
 interface ReportSummary {
@@ -115,6 +116,7 @@ export default function ReportsArchivePage() {
   const [error, setError] = useState<string | null>(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchDirectoryData();
@@ -236,8 +238,8 @@ export default function ReportsArchivePage() {
             </div>
           </div>
 
-          {/* Right Navigation Links */}
-          <nav className="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm font-normal">
+          {/* Right Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs sm:text-sm font-normal">
             <a
               href="https://publicskillsaustralia.org.au"
               target="_blank"
@@ -264,7 +266,63 @@ export default function ReportsArchivePage() {
               CONTACT US
             </a>
           </nav>
+
+          {/* Mobile Hamburger Toggle Button */}
+          <div className="flex md:hidden items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 text-white" />
+              ) : (
+                <Menu className="h-6 w-6 text-white" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Dropdown Nav Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#1E2503] border-t border-white/10 px-4 py-3 space-y-1.5 animate-expand-down shadow-xl">
+            <a
+              href="https://publicskillsaustralia.org.au"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold uppercase no-underline"
+            >
+              <span>PSA WEBSITE</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+            </a>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                router.push("/reports");
+              }}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/10 text-[#85CC00] text-xs font-bold uppercase transition-colors text-left cursor-pointer"
+            >
+              <span>ALL REPORTS</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                const el = document.getElementById("contact");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold uppercase no-underline"
+            >
+              <span>CONTACT US</span>
+            </a>
+          </div>
+        )}
       </header>
 
       {/* ── MAIN CONTENT CONTAINER ── */}

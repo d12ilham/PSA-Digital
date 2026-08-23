@@ -901,320 +901,6 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
   },
 ];
 
-// SVG Mini Map of Australia
-function AustraliaMiniMap({
-  activeState,
-  className = "w-28 h-20",
-}: {
-  activeState: string;
-  className?: string;
-}) {
-  const isStateActive = (code: string) =>
-    activeState.toUpperCase() === code.toUpperCase();
-
-  const getFill = (code: string) =>
-    isStateActive(code) ? "#8FA84A" : "#D6DFBF";
-
-  return (
-    <svg
-      viewBox="28 18 304 314"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* WA */}
-      <path
-        d="M 40 100 L 140 100 L 140 250 L 80 250 L 50 200 L 30 160 Z"
-        fill={getFill("WA")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* NT */}
-      <path
-        d="M 140 50 L 220 50 L 220 160 L 140 160 Z"
-        fill={getFill("NT")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* SA */}
-      <path
-        d="M 140 160 L 220 160 L 220 200 L 250 200 L 245 250 L 220 260 L 195 240 L 180 250 L 140 250 Z"
-        fill={getFill("SA")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* QLD */}
-      <path
-        d="M 220 30 L 245 20 L 255 70 L 310 130 L 330 180 L 320 200 L 220 200 Z"
-        fill={getFill("QLD")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* NSW */}
-      <path
-        d="M 220 200 L 320 200 L 305 265 L 285 260 L 270 250 L 250 245 L 220 230 Z"
-        fill={getFill("NSW")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* VIC */}
-      <path
-        d="M 220 230 L 250 245 L 270 250 L 285 260 L 265 285 L 225 270 Z"
-        fill={getFill("VIC")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* TAS */}
-      <path
-        d="M 255 300 L 280 300 L 285 325 L 260 330 Z"
-        fill={getFill("TAS")}
-        stroke="#FFFFFF"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-// Zoomed State Silhouette
-function ZoomedStateMap({
-  stateCode,
-  className = "w-full h-full",
-}: {
-  stateCode: string;
-  className?: string;
-}) {
-  const code = stateCode.toUpperCase();
-
-  switch (code) {
-    case "NSW":
-      return (
-        <svg
-          viewBox="0 0 500 450"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* NSW Detailed Silhouette */}
-          <path
-            d="M 60 45 
-               L 395 45 
-               L 415 70 
-               L 435 95 
-               L 440 135 
-               L 425 165 
-               L 445 195 
-               L 420 245 
-               L 410 275 
-               L 395 305 
-               L 375 355 
-               L 345 385 
-               L 320 370 
-               L 300 350 
-               L 260 320 
-               L 210 325 
-               L 165 310 
-               L 120 310 
-               L 95 330 
-               L 60 330 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          {/* ACT cutout */}
-          <path
-            d="M 310 280 L 330 275 L 335 295 L 315 300 Z"
-            fill="#EFF3E7"
-            stroke="#8A9D41"
-            strokeWidth="1.5"
-          />
-        </svg>
-      );
-
-    case "VIC":
-      return (
-        <svg
-          viewBox="0 0 500 350"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 50 50 
-               L 130 50 
-               L 180 80 
-               L 260 75 
-               L 350 130 
-               L 420 150 
-               L 440 170 
-               L 390 260 
-               L 340 270 
-               L 290 280 
-               L 260 250 
-               L 230 280 
-               L 170 275 
-               L 110 260 
-               L 50 250 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    case "QLD":
-      return (
-        <svg
-          viewBox="0 0 450 500"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 50 170 
-               L 120 170 
-               L 150 40 
-               L 175 20 
-               L 190 60 
-               L 205 130 
-               L 250 170 
-               L 330 230 
-               L 380 320 
-               L 410 420 
-               L 380 460 
-               L 50 460 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    case "WA":
-      return (
-        <svg
-          viewBox="0 0 450 500"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 50 80 
-               L 120 40 
-               L 200 60 
-               L 350 60 
-               L 350 450 
-               L 180 450 
-               L 100 420 
-               L 40 330 
-               L 30 220 
-               L 60 150 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    case "SA":
-      return (
-        <svg
-          viewBox="0 0 450 450"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 60 50 
-               L 380 50 
-               L 380 180 
-               L 400 240 
-               L 380 380 
-               L 330 390 
-               L 290 340 
-               L 270 380 
-               L 230 350 
-               L 180 380 
-               L 60 380 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    case "TAS":
-      return (
-        <svg
-          viewBox="0 0 400 400"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 80 70 
-               L 320 65 
-               L 340 180 
-               L 320 280 
-               L 280 340 
-               L 180 350 
-               L 90 320 
-               L 60 210 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    case "NT":
-      return (
-        <svg
-          viewBox="0 0 400 450"
-          className={className}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 60 120 
-               L 120 40 
-               L 200 40 
-               L 270 90 
-               L 320 90 
-               L 320 420 
-               L 60 420 
-               Z"
-            fill="#9BAF4E"
-            stroke="#8A9D41"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-
-    default:
-      return null;
-  }
-}
-
 export default function StateTerritoryView({
   slug,
   report,
@@ -1496,9 +1182,10 @@ export default function StateTerritoryView({
                     {/* National Map Image */}
                     <div className="w-full flex items-center justify-center p-2">
                       <img
+                        key="national-map"
                         src="/images/reports/australia-national-map.png"
                         alt="Australia National Map"
-                        className="w-full h-auto object-contain max-h-[500px]"
+                        className="w-full h-auto object-contain max-h-[500px] animate-zoom-in"
                       />
                     </div>
 
@@ -1742,9 +1429,11 @@ export default function StateTerritoryView({
 
                     {/* Top Right Australia Mini Map - Aligned to the far right */}
                     <div className="shrink-0 -mr-2 flex justify-end">
-                      <AustraliaMiniMap
-                        activeState={selectedState}
-                        className="w-48 h-32 sm:w-52 sm:h-36"
+                      <img
+                        key={`${selectedState.toLowerCase()}-country`}
+                        src={`/images/reports/state-territory/${selectedState.toLowerCase()}-country.png`}
+                        alt={`${currentState.name} Australia Map`}
+                        className="w-36 h-24 sm:w-44 sm:h-28 object-contain animate-zoom-in"
                       />
                     </div>
                   </div>
@@ -1752,9 +1441,11 @@ export default function StateTerritoryView({
                   {/* Center Zoomed Map with Overlaid Stat Cards (Reduced gap) */}
                   <div className="relative w-full h-72 sm:h-80 -mt-2 flex items-center justify-center p-2">
                     <div className="w-full h-full max-h-76 flex items-center justify-center">
-                      <ZoomedStateMap
-                        stateCode={selectedState}
-                        className="w-full h-full max-h-72 object-contain"
+                      <img
+                        key={`${selectedState.toLowerCase()}-state`}
+                        src={`/images/reports/state-territory/${selectedState.toLowerCase()}-state.png`}
+                        alt={`${currentState.name} State Map`}
+                        className="w-full h-full max-h-72 object-contain animate-zoom-in"
                       />
                     </div>
 

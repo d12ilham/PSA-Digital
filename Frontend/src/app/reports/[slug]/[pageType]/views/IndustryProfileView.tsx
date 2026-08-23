@@ -42,7 +42,7 @@ export default function IndustryProfileView({
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     if (chartsRef.current) {
@@ -126,7 +126,7 @@ export default function IndustryProfileView({
           </div>
 
           {/* Right Icon Illustration */}
-          <div className="lg:col-span-4 flex items-center justify-end p-2">
+          <div className="lg:col-span-4 flex items-center justify-center lg:justify-end p-2">
             <img
               src="/images/reports/industry-profile/hero.png"
               alt="Industry Profile Illustration"

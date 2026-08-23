@@ -36,7 +36,7 @@ export default function ExistingStrategiesView({
       <ReportHeader
         slug={slug}
         report={report}
-        currentPage="existing_strategies"
+        currentPage="update_2025_strategies"
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
@@ -51,7 +51,7 @@ export default function ExistingStrategiesView({
             Workforce Strategies
           </button>
           <button
-            onClick={() => router.push(`/reports/${slug}/federal_initiatives`)}
+            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
             className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
             Next Section: Existing Industry-Sector Strategies{" "}
@@ -138,7 +138,7 @@ export default function ExistingStrategiesView({
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-2/3">
+          <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full xl:w-2/3">
             To support the Local Government industry-sector with these
             challenges, Public Skills Australia commenced two projects in 2025.
             These projects provide deeper insights into how these challenges

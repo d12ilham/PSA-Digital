@@ -65,7 +65,7 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Right Diagram Image */}
-            <div className="lg:col-span-4 flex justify-end p-2">
+            <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
               <img
                 src="/images/reports/industry-overview/hero.svg"
                 alt="Industry Overview Diagram"

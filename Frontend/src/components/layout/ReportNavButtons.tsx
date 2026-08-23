@@ -27,9 +27,11 @@ export const REPORT_PAGES_ORDER = [
   { key: "industry_profile", label: "Industry Profile" },
   { key: "workforce_insights", label: "Workforce Insights" },
   { key: "workforce_strategies", label: "2026 Proposed Strategies" },
-  { key: "existing_strategies", label: "Existing Strategies" },
-  { key: "federal_initiatives", label: "Federal Initiatives" },
+  { key: "update_2025_strategies", label: "Update on 2025 Strategies" },
+  { key: "existing_strategies", label: "Existing Industry-Sector Strategies" },
+  { key: "federal_initiatives", label: "Federal Government Initiatives" },
   { key: "looking_forward", label: "Looking Forward" },
+  { key: "downloads", label: "Downloads & References" },
 ];
 
 export default function ReportNavButtons({

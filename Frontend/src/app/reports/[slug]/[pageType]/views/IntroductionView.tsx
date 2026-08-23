@@ -182,7 +182,7 @@ export default function IntroductionView({
                 THIS REPORT AT A GLANCE
               </span>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white rounded-xl p-4 flex justify-between gap-5 transition-all duration-300 hover:shadow-xs">
+                <div className="bg-white rounded-xl p-4 flex flex-col md:flex-row justify-between gap-5 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col flex-1 items-baseline gap-2 mb-1">
                     <span className="text-2xl font-semibold text-[#8AC900]">
                       <AnimatedCounter target={4} />
@@ -210,7 +210,7 @@ export default function IntroductionView({
                   </span>
                 </div>
 
-                <div className="bg-white rounded-xl p-4 flex justify-between gap-5 transition-all duration-300 hover:shadow-xs">
+                <div className="bg-white rounded-xl p-4 flex flex-col md:flex-row justify-between gap-5 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col flex-1 items-baseline gap-2 mb-1">
                     <span className="text-2xl font-semibold text-[#8AC900]">
                       <AnimatedCounter target={2} />
@@ -240,7 +240,7 @@ export default function IntroductionView({
               </div>
             </div>
 
-            <p className="text-xs text-gray600 leading-snug">
+            <p className="text-xs text-gray600 leading-normal">
               LG imagery from the brand library sits behind this panel in final
               design.
             </p>

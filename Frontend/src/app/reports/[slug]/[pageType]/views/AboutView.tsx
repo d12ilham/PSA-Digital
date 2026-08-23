@@ -168,7 +168,7 @@ export default function AboutView({
               <h3 className="font-bold text-base text-gray800">
                 Our commitment
               </h3>
-              <p className="text-sm text-gray600 leading-relaxed w-2/3">
+              <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                 Public Skills Australia remains committed to encouraging the
                 participation of First Nations people,<sup>1</sup> those from
                 culturally and linguistically diverse backgrounds, those living
@@ -180,7 +180,7 @@ export default function AboutView({
           </div>
 
           <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
-            <p className="w-2/3">
+            <p className="w-full xl:w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.
               When citing a data source (such as government strategies or state

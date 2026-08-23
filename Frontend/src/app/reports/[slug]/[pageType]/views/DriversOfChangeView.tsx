@@ -187,7 +187,7 @@ export default function DriversOfChangeView({
           </div>
 
           {/* Right Diagram Image */}
-          <div className="lg:col-span-4 flex justify-end p-2">
+          <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
             <img
               src="/images/reports/drivers-of-change-diagram.png"
               alt="Drivers of Change Diagram"
@@ -204,53 +204,82 @@ export default function DriversOfChangeView({
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {DRIVERS.map((driver) => {
               const isActive = activeDriverId === driver.id;
 
               return (
-                <div
-                  key={driver.id}
-                  onClick={() => setActiveDriverId(isActive ? null : driver.id)}
-                  className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all duration-200 ${
-                    isActive
-                      ? "bg-[#EBF1E4] border-active border-2 border-t-8"
-                      : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
-                  }`}
-                >
-                  <div className="space-y-3">
-                    <span className="text-xs font-bold text-notes uppercase block">
-                      {driver.number}
-                    </span>
-                    <h3 className="font-bold text-base text-gray800 leading-snug">
-                      {driver.shortTitle}
-                    </h3>
-                    <p className="text-xs text-gray600 leading-relaxed">
-                      {driver.shortDesc}
-                    </p>
+                <React.Fragment key={driver.id}>
+                  <div
+                    onClick={() =>
+                      setActiveDriverId(isActive ? null : driver.id)
+                    }
+                    className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#EBF1E4] border-active border-2 border-t-8"
+                        : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      <span className="text-xs font-bold text-notes uppercase block">
+                        {driver.number}
+                      </span>
+                      <h3 className="font-bold text-base text-gray800 leading-snug">
+                        {driver.shortTitle}
+                      </h3>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {driver.shortDesc}
+                      </p>
+                    </div>
+
+                    <div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveDriverId(isActive ? null : driver.id);
+                        }}
+                        className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer"
+                      >
+                        {isActive ? "Close ▴" : "Open ▾"}
+                      </button>
+                    </div>
                   </div>
 
-                  <div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveDriverId(isActive ? null : driver.id);
-                      }}
-                      className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer"
+                  {/* Active Driver Detail Panel (Mobile - displayed right below clicked item) */}
+                  {isActive && (
+                    <div
+                      key={`mobile-${driver.id}`}
+                      className="md:hidden bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-4 animate-expand-down"
                     >
-                      {isActive ? "Close ▴" : "Open ▾"}
-                    </button>
-                  </div>
-                </div>
+                      <span className="bg-active text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
+                        NOW PRESENTING - {driver.number}
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-gray800">
+                        {driver.fullTitle}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                        {driver.fullDesc}
+                      </p>
+                      {driver.sources && (
+                        <>
+                          <p className="text-xs text-active border-t border-gray200/60"></p>
+                          <p className="text-xs text-active leading-relaxed">
+                            {driver.sources}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </React.Fragment>
               );
             })}
           </div>
 
-          {/* Active Driver Detail Panel */}
+          {/* Active Driver Detail Panel (Desktop - displayed below the main grid container) */}
           {activeDriver && (
             <div
-              key={activeDriverId}
-              className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in"
+              key={`desktop-${activeDriverId}`}
+              className="hidden md:block bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in"
             >
               <div className="space-y-4">
                 <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
@@ -259,7 +288,7 @@ export default function DriversOfChangeView({
                 <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
                   {activeDriver.fullTitle}
                 </h3>
-                <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-2/3">
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                   {activeDriver.fullDesc}
                 </p>
                 {activeDriver.sources && (
@@ -283,59 +312,75 @@ export default function DriversOfChangeView({
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2">
             {MEGATRENDS.map((item) => {
               const isActive = activeMegatrendId === item.id;
 
               return (
-                <div
-                  key={item.id}
-                  onClick={() =>
-                    setActiveMegatrendId(isActive ? null : item.id)
-                  }
-                  className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all duration-200 ${
-                    isActive
-                      ? "bg-[#EBF1E4] border-active border-2"
-                      : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
-                  }`}
-                >
-                  <img
-                    src={
-                      isActive
-                        ? item.icon.replace(".svg", "-active.svg")
-                        : item.icon
+                <React.Fragment key={item.id}>
+                  <div
+                    onClick={() =>
+                      setActiveMegatrendId(isActive ? null : item.id)
                     }
-                    alt={item.title}
-                    className="w-17 h-17 shrink-0 object-contain"
-                  />
-                  <p
-                    className={`text-xs font-semibold leading-normal ${
-                      isActive ? "text-active" : "text-gray600"
+                    className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#EBF1E4] border-active border-2"
+                        : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
                     }`}
                   >
-                    {item.title}
-                  </p>
-                </div>
+                    <img
+                      src={
+                        isActive
+                          ? item.icon.replace(".svg", "-active.svg")
+                          : item.icon
+                      }
+                      alt={item.title}
+                      className="w-17 h-17 shrink-0 object-contain"
+                    />
+                    <p
+                      className={`text-xs font-semibold leading-normal ${
+                        isActive ? "text-active" : "text-gray600"
+                      }`}
+                    >
+                      {item.title}
+                    </p>
+                  </div>
+
+                  {/* Active Megatrend Detail Panel (Mobile - displayed right below clicked item) */}
+                  {isActive && (
+                    <div
+                      key={`mobile-megatrend-${item.id}`}
+                      className="col-span-2 md:hidden bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2 animate-expand-down"
+                    >
+                      <h3 className="text-base sm:text-lg font-bold text-gray800">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  )}
+                </React.Fragment>
               );
             })}
           </div>
 
-          {/* Active Megatrend Detail Panel */}
+          {/* Active Megatrend Detail Panel (Desktop - displayed below the main grid container) */}
           {activeMegatrend && (
             <div
-              key={activeMegatrendId}
-              className="bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in"
+              key={`desktop-megatrend-${activeMegatrendId}`}
+              className="hidden md:block bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in"
             >
               <h3 className="text-xl font-bold text-gray800">
                 {activeMegatrend.title}
               </h3>
-              <p className="text-sm text-gray600 leading-relaxed w-2/3">
+              <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                 {activeMegatrend.desc}
               </p>
             </div>
           )}
 
-          <p className="text-sm text-gray800 leading-relaxed pt-2 w-2/3">
+          <p className="text-sm text-gray800 leading-relaxed pt-2 w-full xl:w-2/3">
             These megatrends were identified in previous{" "}
             <span className="font-semibold text-lg-dark">
               Workforce Insights Reports
@@ -350,7 +395,7 @@ export default function DriversOfChangeView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
           <h3 className="font-bold text-xl text-gray800">Sources</h3>
 
-          <div className="space-y-3 text-xs text-gray600 leading-relaxed w-2/3">
+          <div className="space-y-3 text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
