@@ -167,7 +167,7 @@ export default function ReportLandingPage({
       <img
         src="/images/wave-right.png"
         alt=""
-        className="fixed top-0 right-0 pointer-events-none z-0 h-full object-top-right select-none"
+        className="fixed top-0 right-0 pointer-events-none z-0 h-100 xl:h-full object-top-right select-none"
       />
 
       {/* ── TOP HEADER ── */}
