@@ -408,14 +408,17 @@ export default function ReportsArchivePage() {
           {/* ── 3. VALUE PROPOSITION CARDS (2 SIDE-BY-SIDE) ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Card 1: An evidence-based view */}
-            <div className="bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
+            <div
+              style={{ animationDelay: "0.20s" }}
+              className="animate-card-entrance bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-notes hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group"
+            >
               <img
                 src="/images/reports/reports-main/evidence-based.svg"
                 alt="An evidence-based view"
-                className="w-16 h-16 shrink-0 object-contain"
+                className="w-16 h-16 shrink-0 object-contain group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
               />
               <div className="space-y-1.5">
-                <h3 className="font-bold text-sm sm:text-lg text-gray800">
+                <h3 className="font-bold text-sm sm:text-lg text-gray800 group-hover:text-lg-dark transition-colors duration-300">
                   An evidence-based view
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -429,14 +432,17 @@ export default function ReportsArchivePage() {
             </div>
 
             {/* Card 2: Grounded in lived experience */}
-            <div className="bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-[#38761D]/40 transition-colors">
+            <div
+              style={{ animationDelay: "0.32s" }}
+              className="animate-card-entrance bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-notes hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group"
+            >
               <img
                 src="/images/reports/reports-main/Grounded.svg"
                 alt="Grounded in lived experience"
-                className="w-16 h-16 shrink-0 object-contain"
+                className="w-16 h-16 shrink-0 object-contain group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
               />
               <div className="space-y-1.5">
-                <h3 className="font-extrabold text-sm sm:text-lg text-gray800">
+                <h3 className="font-extrabold text-sm sm:text-lg text-gray800 group-hover:text-lg-dark transition-colors duration-300">
                   Grounded in lived experience
                 </h3>
                 <p className="text-xs text-[#525B47] leading-relaxed">
@@ -489,14 +495,15 @@ export default function ReportsArchivePage() {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-2xl p-3 border border-gray200 flex flex-col items-center justify-center text-center gap-3 min-h-[135px] hover:border-lg-dark transition-colors group cursor-default"
+                style={{ animationDelay: `${0.12 + idx * 0.05}s` }}
+                className="animate-card-entrance bg-white rounded-2xl p-3 border border-gray200 flex flex-col items-center justify-center text-center gap-3 min-h-[135px] hover:border-lg-dark hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group cursor-default"
               >
                 <img
                   src={item.icon}
                   alt={item.title}
-                  className="w-16 h-16 shrink-0 object-contain"
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 />
-                <span className="font-semibold text-sm text-gray800 leading-tight">
+                <span className="font-semibold text-sm text-gray800 group-hover:text-lg-dark leading-tight transition-colors duration-300">
                   {item.title}
                 </span>
               </div>
@@ -518,9 +525,10 @@ export default function ReportsArchivePage() {
 
           {/* Grid of Sector Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SECTOR_REPORTS.map((sector) => (
+            {SECTOR_REPORTS.map((sector, idx) => (
               <div
                 key={sector.id}
+                style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
                 onClick={() => {
                   if (sector.targetUrl) {
                     router.push(sector.targetUrl);
@@ -528,18 +536,14 @@ export default function ReportsArchivePage() {
                     getSectorNavigation(sector.sectorKey)();
                   }
                 }}
-                className={`bg-white rounded-2xl overflow-hidden flex flex-col justify-between cursor-pointer group relative transition-all ${
-                  sector.isFirst
-                    ? "border-2 border-lg-dark"
-                    : "border border-gray200 hover:border-[#38761D]/50"
-                }`}
+                className="animate-card-entrance bg-white rounded-2xl overflow-hidden flex flex-col justify-between cursor-pointer group relative transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] border-2 border-gray200 hover:border-lg-dark hover:shadow-xl hover:-translate-y-1.5"
               >
                 {/* Graphic Banner Top */}
                 <div className="w-full relative overflow-hidden bg-gray-100 border-b border-gray200">
                   <img
                     src={sector.coverImage}
                     alt={sector.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 </div>
 
@@ -551,7 +555,7 @@ export default function ReportsArchivePage() {
                     >
                       {sector.badgeText}
                     </span>
-                    <h3 className="font-bold text-gray800 group-hover:text-[#38761D] transition-colors leading-snug">
+                    <h3 className="font-bold text-gray800 group-hover:text-lg-dark transition-colors duration-300 leading-snug">
                       {sector.title}
                     </h3>
                     {sector.subtitle && (
@@ -561,11 +565,16 @@ export default function ReportsArchivePage() {
                     )}
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-3">
                     <span
-                      className={`text-xs font-bold group-hover:underline inline-flex items-center gap-1 ${sector.isFirst ? "text-lg-dark" : "text-notes"}`}
+                      className={`text-xs font-bold inline-flex items-center gap-1.5 transition-all duration-300 ${
+                        sector.isFirst
+                          ? "text-lg-dark group-hover:text-[#035822]"
+                          : "text-notes group-hover:text-lg-dark"
+                      }`}
                     >
-                      {sector.actionText}
+                      <span>{sector.actionText}</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   </div>
                 </div>
@@ -577,7 +586,8 @@ export default function ReportsArchivePage() {
         {/* ── 6. BOTTOM CTA BANNER ── */}
         <section
           id="contact"
-          className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-3"
+          style={{ animationDelay: "0.45s" }}
+          className="animate-card-entrance bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-3"
         >
           <h3 className="text-lg font-bold text-gray800">
             Questions about the{" "}
