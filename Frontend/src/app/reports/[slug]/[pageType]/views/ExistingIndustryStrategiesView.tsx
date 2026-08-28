@@ -378,7 +378,7 @@ export default function ExistingIndustryStrategiesView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -402,10 +402,10 @@ export default function ExistingIndustryStrategiesView({
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="space-y-3 flex-1">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
               Existing Industry-Sector Strategies
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia's work is informed and guided by the
               existing Industry-Sector Strategies detailed below. Select any
               strategy on the left — its detail opens immediately beside the
@@ -417,7 +417,7 @@ export default function ExistingIndustryStrategiesView({
             <img
               src="/images/hero-graphic-existing.png"
               alt="Existing Industry-Sector Strategies Graphic"
-              className="w-full max-w-[340px] sm:max-w-[420px] object-contain"
+              className="w-full max-w-[340px] sm:max-w-[420px] object-contain animate-zoom-in"
             />
           </div>
         </div>
@@ -426,16 +426,26 @@ export default function ExistingIndustryStrategiesView({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* LEFT COLUMN: LIST OF 12 STRATEGIES */}
           <div className="lg:col-span-1 space-y-3">
-            {STRATEGIES_DATA.map((item) => {
+            {STRATEGIES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
               return (
                 <React.Fragment key={item.id}>
                   <div
-                    onClick={() => setSelectedId(isSelected ? (typeof window !== "undefined" && window.innerWidth < 1024 ? null : item.id) : item.id)}
-                    className={`rounded-2xl p-5 border transition-all duration-200 cursor-pointer flex items-center justify-between gap-4 ${
+                    style={{ animationDelay: `${0.06 + idx * 0.04}s` }}
+                    onClick={() =>
+                      setSelectedId(
+                        isSelected
+                          ? typeof window !== "undefined" &&
+                            window.innerWidth < 1024
+                            ? null
+                            : item.id
+                          : item.id,
+                      )
+                    }
+                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex items-center justify-between gap-4 ${
                       isSelected
-                        ? "bg-[#046D2A1A] border-2 border-lg-dark"
-                        : "bg-white border-gray200 hover:border-gray300"
+                        ? "bg-[#046D2A]/10 border-2 border-lg-dark shadow-xs"
+                        : "bg-white border-gray200 hover:border-[#9CAA54] hover:bg-[#FAFAF0] hover:shadow-xs"
                     }`}
                   >
                     <div className="space-y-4 flex-1">
@@ -448,10 +458,10 @@ export default function ExistingIndustryStrategiesView({
                     </div>
 
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isSelected
                           ? "bg-white text-gray800 border border-[#9CAA54] rotate-90 lg:rotate-0"
-                          : "bg-[#8AC900] text-gray800"
+                          : "bg-[#8AC900] text-gray800 group-hover:bg-[#77A60D]"
                       }`}
                     >
                       <ArrowRight className="h-4 w-4 text-gray800" />
@@ -462,7 +472,7 @@ export default function ExistingIndustryStrategiesView({
                   {isSelected && (
                     <div
                       key={`mobile-detail-${item.id}`}
-                      className="lg:hidden bg-[#E5E8DA] rounded-2xl p-4 sm:p-5 space-y-4 animate-expand-down"
+                      className="lg:hidden bg-[#E5E8DA] rounded-2xl p-4 sm:p-5 space-y-4 animate-content-switch"
                     >
                       {/* Inner Content Card */}
                       <div className="bg-[#FAFAF0] rounded-2xl p-5 sm:p-6 space-y-4">
@@ -490,10 +500,10 @@ export default function ExistingIndustryStrategiesView({
                           </span>
 
                           <div className="space-y-3">
-                            {item.impactItems.map((impact, idx) => (
+                            {item.impactItems.map((impact, impactIdx) => (
                               <div
-                                key={idx}
-                                className="bg-[#F0F5DF] rounded-xl border-l-8 sm:border-l-12 border-l-[#9CAA54] p-3.5 sm:p-4 space-y-2"
+                                key={impactIdx}
+                                className="bg-[#F0F5DF] rounded-xl border-l-8 sm:border-l-12 border-l-[#9CAA54] p-3.5 sm:p-4 space-y-2 transition-all duration-300"
                               >
                                 <h3 className="font-medium text-xs sm:text-sm text-gray800">
                                   {impact.title}
@@ -524,7 +534,7 @@ export default function ExistingIndustryStrategiesView({
                 {(selectedId ?? 1) > 1 && (
                   <button
                     onClick={handlePrev}
-                    className={`text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-colors flex items-center gap-1.5 ${
+                    className={`text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5 ${
                       (selectedId ?? 1) === STRATEGIES_DATA.length
                         ? "bg-[#8AC900] hover:bg-[#77A60D] text-gray800"
                         : "border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28]"
@@ -543,7 +553,7 @@ export default function ExistingIndustryStrategiesView({
                 {(selectedId ?? 1) < STRATEGIES_DATA.length && (
                   <button
                     onClick={handleNext}
-                    className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-colors flex items-center gap-1.5"
+                    className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5"
                   >
                     <span>Next</span>
                     <ArrowRight className="h-3.5 w-3.5 text-gray800" />
@@ -553,8 +563,8 @@ export default function ExistingIndustryStrategiesView({
             </div>
             {/* Inner White Content Card */}
             <div
-              key={selectedId ?? "default"}
-              className="bg-[#FAFAF0] rounded-2xl p-6 sm:p-8 space-y-5 animate-fade-in"
+              key={`desktop-strategy-content-${selectedId ?? "default"}`}
+              className="bg-[#FAFAF0] rounded-2xl p-6 sm:p-8 space-y-5 animate-content-switch"
             >
               {/* Title & Subtitle */}
               <div className="space-y-5">
@@ -584,7 +594,7 @@ export default function ExistingIndustryStrategiesView({
                   {selectedStrategy.impactItems.map((impact, idx) => (
                     <div
                       key={idx}
-                      className="bg-[#F0F5DF] rounded-xl border-l-12 border-l-[#9CAA54] p-4 sm:p-5 space-y-3"
+                      className="bg-[#F0F5DF] rounded-xl border-l-12 border-l-[#9CAA54] p-4 sm:p-5 space-y-3 transition-all duration-300"
                     >
                       <h3 className="font-medium text-gray800">
                         {impact.title}

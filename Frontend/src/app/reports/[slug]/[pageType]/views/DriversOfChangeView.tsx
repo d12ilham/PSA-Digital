@@ -121,9 +121,37 @@ export default function DriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
-  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(
-    "pathways",
-  );
+  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(null);
+
+  const driversRef = React.useRef<HTMLDivElement>(null);
+  const [isDriversVisible, setIsDriversVisible] = useState(false);
+
+  const megatrendsRef = React.useRef<HTMLDivElement>(null);
+  const [isMegatrendsVisible, setIsMegatrendsVisible] = useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === driversRef.current) {
+              setIsDriversVisible(true);
+            } else if (entry.target === megatrendsRef.current) {
+              setIsMegatrendsVisible(true);
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (driversRef.current) observer.observe(driversRef.current);
+    if (megatrendsRef.current) observer.observe(megatrendsRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   React.useEffect(() => {
     if (
@@ -153,37 +181,39 @@ export default function DriversOfChangeView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
               Drivers of Change
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-              In 2024, Public Skills Australia identified nine megatrends
-              impacting the Public Safety and Government industry-sectors. These
-              megatrends were further considered in the development of the 2025{" "}
-              <span className="font-semibold text-[#728C28]">
-                Workforce Insights Reports
-              </span>
-              .
-            </p>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-              While these megatrends will continue to have longer term
-              implications for workforce planning and development across the
-              Public Safety and Government industry-sectors, the 2026{" "}
-              <span className="font-semibold text-[#728C28]">
-                Workforce Insights Reports
-              </span>{" "}
-              have built on these and analysed four key drivers of change that
-              cut across most megatrends. This is important as these drivers of
-              change will likely impact the Public Safety and Government
-              industry-sectors in the short to medium term.
-            </p>
+            <div className="space-y-3 animate-slide-up-delay">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                In 2024, Public Skills Australia identified nine megatrends
+                impacting the Public Safety and Government industry-sectors. These
+                megatrends were further considered in the development of the 2025{" "}
+                <span className="font-semibold text-[#728C28]">
+                  Workforce Insights Reports
+                </span>
+                .
+              </p>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                While these megatrends will continue to have longer term
+                implications for workforce planning and development across the
+                Public Safety and Government industry-sectors, the 2026{" "}
+                <span className="font-semibold text-[#728C28]">
+                  Workforce Insights Reports
+                </span>{" "}
+                have built on these and analysed four key drivers of change that
+                cut across most megatrends. This is important as these drivers of
+                change will likely impact the Public Safety and Government
+                industry-sectors in the short to medium term.
+              </p>
+            </div>
           </div>
 
           {/* Right Diagram Image */}
@@ -191,30 +221,39 @@ export default function DriversOfChangeView({
             <img
               src="/images/reports/drivers-of-change-diagram.png"
               alt="Drivers of Change Diagram"
-              className="h-auto max-h-48 object-contain"
+              className="h-auto max-h-48 object-contain animate-zoom-in"
             />
           </div>
         </div>
 
         {/* ── SECTION 2: FOUR KEY DRIVERS ── */}
-        <div className="space-y-6">
+        <div ref={driversRef} className="space-y-6">
           <div className="border-b border-gray200 pb-3">
             <h2 className="text-xl sm:text-2xl font-bold text-gray800">
               Four Key Drivers
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {DRIVERS.map((driver) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            {DRIVERS.map((driver, index) => {
               const isActive = activeDriverId === driver.id;
 
               return (
                 <React.Fragment key={driver.id}>
                   <div
+                    style={
+                      isDriversVisible
+                        ? { animationDelay: `${index * 0.12}s` }
+                        : undefined
+                    }
                     onClick={() =>
                       setActiveDriverId(isActive ? null : driver.id)
                     }
-                    className={`rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all duration-200 ${
+                    className={`h-full rounded-2xl border p-6 space-y-4 flex flex-col justify-between cursor-pointer transition-all duration-200 ${
+                      isDriversVisible
+                        ? "animate-card-entrance"
+                        : "opacity-0 translate-y-6"
+                    } ${
                       isActive
                         ? "bg-[#EBF1E4] border-active border-2 border-t-8"
                         : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
@@ -232,13 +271,13 @@ export default function DriversOfChangeView({
                       </p>
                     </div>
 
-                    <div>
+                    <div className="pt-2">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveDriverId(isActive ? null : driver.id);
                         }}
-                        className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer"
+                        className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"
                       >
                         {isActive ? "Close ▴" : "Open ▾"}
                       </button>
@@ -246,83 +285,112 @@ export default function DriversOfChangeView({
                   </div>
 
                   {/* Active Driver Detail Panel (Mobile - displayed right below clicked item) */}
-                  {isActive && (
-                    <div
-                      key={`mobile-${driver.id}`}
-                      className="md:hidden bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-4 animate-expand-down"
-                    >
-                      <span className="bg-active text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
-                        NOW PRESENTING - {driver.number}
-                      </span>
-                      <h3 className="text-base sm:text-lg font-bold text-gray800">
-                        {driver.fullTitle}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                        {driver.fullDesc}
-                      </p>
-                      {driver.sources && (
-                        <>
-                          <p className="text-xs text-active border-t border-gray200/60"></p>
-                          <p className="text-xs text-active leading-relaxed">
-                            {driver.sources}
+                  <div
+                    className={`md:hidden grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isActive
+                        ? "grid-rows-[1fr] opacity-100 mt-3"
+                        : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden min-h-0">
+                      {isActive && (
+                        <div
+                          key={`mobile-driver-${driver.id}`}
+                          className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-4"
+                        >
+                          <span className="bg-active text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
+                            NOW PRESENTING - {driver.number}
+                          </span>
+                          <h3 className="text-base sm:text-lg font-bold text-gray800">
+                            {driver.fullTitle}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                            {driver.fullDesc}
                           </p>
-                        </>
+                          {driver.sources && (
+                            <>
+                              <p className="text-xs text-active border-t border-gray200/60"></p>
+                              <p className="text-xs text-active leading-relaxed">
+                                {driver.sources}
+                              </p>
+                            </>
+                          )}
+                        </div>
                       )}
                     </div>
-                  )}
+                  </div>
                 </React.Fragment>
               );
             })}
           </div>
 
           {/* Active Driver Detail Panel (Desktop - displayed below the main grid container) */}
-          {activeDriver && (
-            <div
-              key={`desktop-${activeDriverId}`}
-              className="hidden md:block bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 animate-fade-in"
-            >
-              <div className="space-y-4">
-                <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
-                  NOW PRESENTING - {activeDriver.number}
-                </span>
-                <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
-                  {activeDriver.fullTitle}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
-                  {activeDriver.fullDesc}
-                </p>
-                {activeDriver.sources && (
-                  <>
-                    <p className="text-xs text-active border-t border-gray200"></p>
-                    <p className="text-xs text-active w-2/3 leading-relaxed">
-                      {activeDriver.sources}
+          <div
+            className={`hidden md:grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              activeDriver
+                ? "grid-rows-[1fr] opacity-100 mt-6"
+                : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
+            }`}
+          >
+            <div className="overflow-hidden min-h-0">
+              {activeDriver && (
+                <div
+                  key={`desktop-driver-${activeDriverId}`}
+                  className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6"
+                >
+                  <div className="space-y-4">
+                    <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
+                      NOW PRESENTING - {activeDriver.number}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
+                      {activeDriver.fullTitle}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
+                      {activeDriver.fullDesc}
                     </p>
-                  </>
-                )}
-              </div>
+                    {activeDriver.sources && (
+                      <>
+                        <p className="text-xs text-active border-t border-gray200"></p>
+                        <p className="text-xs text-active w-2/3 leading-relaxed">
+                          {activeDriver.sources}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
 
         {/* ── SECTION 3: NINE MEGATRENDS ── */}
-        <div id="nine-megatrends" className="space-y-6">
+        <div id="nine-megatrends" ref={megatrendsRef} className="space-y-6">
           <div className="border-b border-gray200 pb-3">
             <h2 className="text-xl sm:text-2xl font-bold text-gray800">
               Nine Megatrends
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2">
-            {MEGATRENDS.map((item) => {
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
+            {MEGATRENDS.map((item, index) => {
               const isActive = activeMegatrendId === item.id;
 
               return (
                 <React.Fragment key={item.id}>
                   <div
+                    style={
+                      isMegatrendsVisible
+                        ? { animationDelay: `${index * 0.06}s` }
+                        : undefined
+                    }
                     onClick={() =>
                       setActiveMegatrendId(isActive ? null : item.id)
                     }
-                    className={`rounded-2xl border p-4 flex flex-col items-center text-center space-y-4 cursor-pointer transition-all duration-200 ${
+                    className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
+                      isMegatrendsVisible
+                        ? "animate-card-entrance"
+                        : "opacity-0 translate-y-6"
+                    } ${
                       isActive
                         ? "bg-[#EBF1E4] border-active border-2"
                         : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
@@ -347,38 +415,58 @@ export default function DriversOfChangeView({
                   </div>
 
                   {/* Active Megatrend Detail Panel (Mobile - displayed right below clicked item) */}
-                  {isActive && (
-                    <div
-                      key={`mobile-megatrend-${item.id}`}
-                      className="col-span-2 md:hidden bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2 animate-expand-down"
-                    >
-                      <h3 className="text-base sm:text-lg font-bold text-gray800">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                        {item.desc}
-                      </p>
+                  <div
+                    className={`col-span-2 md:hidden grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isActive
+                        ? "grid-rows-[1fr] opacity-100 mt-2"
+                        : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden min-h-0">
+                      {isActive && (
+                        <div
+                          key={`mobile-megatrend-${item.id}`}
+                          className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2"
+                        >
+                          <h3 className="text-base sm:text-lg font-bold text-gray800">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                            {item.desc}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </React.Fragment>
               );
             })}
           </div>
 
           {/* Active Megatrend Detail Panel (Desktop - displayed below the main grid container) */}
-          {activeMegatrend && (
-            <div
-              key={`desktop-megatrend-${activeMegatrendId}`}
-              className="hidden md:block bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2 animate-fade-in"
-            >
-              <h3 className="text-xl font-bold text-gray800">
-                {activeMegatrend.title}
-              </h3>
-              <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
-                {activeMegatrend.desc}
-              </p>
+          <div
+            className={`hidden md:grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              activeMegatrend
+                ? "grid-rows-[1fr] opacity-100 mt-4"
+                : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
+            }`}
+          >
+            <div className="overflow-hidden min-h-0">
+              {activeMegatrend && (
+                <div
+                  key={`desktop-megatrend-${activeMegatrendId}`}
+                  className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2"
+                >
+                  <h3 className="text-xl font-bold text-gray800">
+                    {activeMegatrend.title}
+                  </h3>
+                  <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
+                    {activeMegatrend.desc}
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
 
           <p className="text-sm text-gray800 leading-relaxed pt-2 w-full xl:w-2/3">
             These megatrends were identified in previous{" "}

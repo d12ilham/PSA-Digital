@@ -74,7 +74,7 @@ export default function ReportNavButtons({
       {prevTarget && (
         <button
           onClick={() => router.push(prevTarget.href)}
-          className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-[#e1e4d2] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+          className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to {prevTarget.label}
         </button>
@@ -82,7 +82,7 @@ export default function ReportNavButtons({
       {nextTarget && (
         <button
           onClick={() => router.push(nextTarget.href)}
-          className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+          className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer"
         >
           Next Section: {nextTarget.label} <ArrowRight className="h-3.5 w-3.5" />
         </button>

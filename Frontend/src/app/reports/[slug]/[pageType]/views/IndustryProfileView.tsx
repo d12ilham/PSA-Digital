@@ -107,17 +107,17 @@ export default function IndustryProfileView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="industry_profile" />
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark">
+            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
               Industry Profile
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               Key industry data from the 2026 Report: employment growth, asset
               management and Local Government Training Package activity. For
               sector-wide figures, see the Industry-Sector Overview; for
@@ -130,7 +130,7 @@ export default function IndustryProfileView({
             <img
               src="/images/reports/industry-profile/hero.png"
               alt="Industry Profile Illustration"
-              className="h-auto max-h-36 object-contain"
+              className="h-auto max-h-36 object-contain animate-zoom-in"
             />
           </div>
         </div>
@@ -138,7 +138,10 @@ export default function IndustryProfileView({
         {/* ── SECTION 2: TWO DATA CHARTS GRID ── */}
         <div ref={chartsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Chart 1: Employment Growth */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-2 flex flex-col justify-between">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-2 flex flex-col justify-between"
+          >
             <div className="space-y-2">
               <span className="text-xs text-active uppercase block">
                 SOURCE: ABS, PUBLIC SECTOR EMPLOYMENT AND EARNINGS, RELEASES
@@ -189,7 +192,10 @@ export default function IndustryProfileView({
           </div>
 
           {/* Chart 2: Training Package Enrolments & Completions */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 flex flex-col justify-between">
+          <div
+            style={{ animationDelay: "0.30s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 flex flex-col justify-between"
+          >
             <div className="space-y-2">
               <span className="text-xs text-active uppercase block">
                 SOURCE: NCVER, TOTAL VET STUDENTS AND COURSES
@@ -265,7 +271,10 @@ export default function IndustryProfileView({
           {/* 3 Stat Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Stat 1 */}
-            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+            <div
+              style={{ animationDelay: "0.15s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
+            >
               <img
                 src="/images/reports/industry-profile/item-1.svg"
                 alt="~1/3"
@@ -282,7 +291,10 @@ export default function IndustryProfileView({
             </div>
 
             {/* Stat 2 */}
-            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+            <div
+              style={{ animationDelay: "0.27s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
+            >
               <img
                 src="/images/reports/industry-profile/item-2.svg"
                 alt="77%"
@@ -299,7 +311,10 @@ export default function IndustryProfileView({
             </div>
 
             {/* Stat 3 */}
-            <div className="bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4">
+            <div
+              style={{ animationDelay: "0.39s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
+            >
               <img
                 src="/images/reports/industry-profile/item-3.svg"
                 alt="$643bn"

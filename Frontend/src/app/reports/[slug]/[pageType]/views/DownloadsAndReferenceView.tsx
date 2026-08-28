@@ -34,7 +34,7 @@ export default function DownloadsAndReferenceView({
       <ReportHeader slug={slug} report={report} currentPage="downloads" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
         <div>
           <button
@@ -51,7 +51,7 @@ export default function DownloadsAndReferenceView({
             <span className="text-xs font-bold text-[#9CAA54] uppercase tracking-wider block">
               Download PDF
             </span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
               Downloads and reference
             </h1>
           </div>
@@ -60,7 +60,7 @@ export default function DownloadsAndReferenceView({
             <img
               src="/images/hero-graphic-downloads.png"
               alt="Downloads and reference Graphic"
-              className="h-full w-auto object-contain object-right"
+              className="h-full w-auto object-contain object-right animate-zoom-in"
             />
           </div>
         </div>
@@ -68,7 +68,10 @@ export default function DownloadsAndReferenceView({
         {/* ── 3 COLUMN CARDS GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           {/* CARD 1: FULL REPORT (DEEP GREEN) */}
-          <div className="bg-[#046D2A] border border-gray200 text-white rounded-2xl p-6 flex flex-col justify-between space-y-6">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-[#046D2A] border border-gray200 text-white rounded-2xl p-6 flex flex-col justify-between space-y-6"
+          >
             <div className="space-y-6">
               <span className="text-xs font-bold text-white/80 uppercase tracking-wider block">
                 FULL REPORT
@@ -104,7 +107,7 @@ export default function DownloadsAndReferenceView({
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white hover:bg-white/90 text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors cursor-pointer"
+                  className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <span>Download 2026 PDF</span>
                   <Download className="h-3.5 w-3.5" />
@@ -112,7 +115,7 @@ export default function DownloadsAndReferenceView({
               ) : (
                 <button
                   onClick={() => router.push(`/reports/${slug}`)}
-                  className="bg-white hover:bg-white/90 text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors cursor-pointer"
+                  className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <span>Download 2026 PDF</span>
                   <Download className="h-3.5 w-3.5" />
@@ -122,7 +125,10 @@ export default function DownloadsAndReferenceView({
           </div>
 
           {/* CARD 2: PREVIOUS REPORT */}
-          <div className="bg-white border border-gray200 border-t-[12px] border-t-[#9CAA54] rounded-2xl p-6 flex flex-col justify-between space-y-6">
+          <div
+            style={{ animationDelay: "0.27s" }}
+            className="animate-card-entrance bg-white border border-gray200 border-t-[12px] border-t-[#9CAA54] rounded-2xl p-6 flex flex-col justify-between space-y-6"
+          >
             <div className="space-y-6">
               <span className="text-xs font-semibold text-gray600 uppercase tracking-wider block">
                 PREVIOUS REPORT
@@ -130,7 +136,10 @@ export default function DownloadsAndReferenceView({
 
               <div className="space-y-4">
                 {/* 2025 */}
-                <div className="bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors">
+                <div
+                  style={{ animationDelay: "0.33s" }}
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2025
                   </span>
@@ -138,7 +147,10 @@ export default function DownloadsAndReferenceView({
                 </div>
 
                 {/* 2024 */}
-                <div className="bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors">
+                <div
+                  style={{ animationDelay: "0.39s" }}
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2024
                   </span>
@@ -146,7 +158,10 @@ export default function DownloadsAndReferenceView({
                 </div>
 
                 {/* 2023 */}
-                <div className="bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors">
+                <div
+                  style={{ animationDelay: "0.45s" }}
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2023
                   </span>
@@ -157,7 +172,10 @@ export default function DownloadsAndReferenceView({
           </div>
 
           {/* CARD 3: ABOUT THE APPENDIX */}
-          <div className="bg-white border border-gray200 border-t-[12px] border-t-[#046D2A] rounded-2xl p-6 flex flex-col justify-between space-y-6">
+          <div
+            style={{ animationDelay: "0.39s" }}
+            className="animate-card-entrance bg-white border border-gray200 border-t-[12px] border-t-[#046D2A] rounded-2xl p-6 flex flex-col justify-between space-y-6"
+          >
             <div className="space-y-4">
               <span className="text-xs font-semibold text-gray600 uppercase tracking-wider block">
                 ABOUT THE APPENDIX

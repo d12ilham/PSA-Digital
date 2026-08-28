@@ -28,6 +28,30 @@ export default function AboutView({
   report: Report;
 }) {
   const router = useRouter();
+  const undertakesRef = React.useRef<HTMLDivElement>(null);
+  const [isUndertakesVisible, setIsUndertakesVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsUndertakesVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (undertakesRef.current) {
+      observer.observe(undertakesRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -35,21 +59,21 @@ export default function AboutView({
       <ReportHeader slug={slug} report={report} currentPage="about" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         <ReportNavButtons slug={slug} currentPage="about" />
 
         <div className="bg-white border border-gray200 rounded-2xl p-6 relative overflow-hidden space-y-6">
           <img
             src="/images/wave-right.png"
             alt=""
-            className="absolute top-0 right-0 w-80 pointer-events-none opacity-40 z-0 object-contain object-top-right select-none"
+            className="absolute top-0 right-0 w-80 pointer-events-none opacity-40 z-0 object-contain object-top-right select-none animate-zoom-in"
           />
 
           <div className="relative z-10 max-w-3xl space-y-4">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
               About Public Skills Australia
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               Public Skills Australia is the Jobs and Skills Council (JSC) for
               the Public Safety and Government industry, comprising Correctional
               Services, Defence, Federal, State/Territory and Local Government,
@@ -64,7 +88,7 @@ export default function AboutView({
             <img
               src="/images/reports/about/working-in-partnership.svg"
               alt="Working in partnership"
-              className="w-16 h-16 shrink-0 object-contain"
+              className="w-16 h-16 shrink-0 object-contain animate-zoom-in"
             />
             <div className="space-y-1">
               <h3 className="font-bold text-sm text-gray800">
@@ -79,15 +103,30 @@ export default function AboutView({
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div ref={undertakesRef} className="space-y-6">
           <div className="border-b border-gray200 pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray800">
+            <h2
+              className={`text-xl sm:text-2xl font-bold text-gray800 ${
+                isUndertakesVisible ? "animate-slide-up" : "opacity-0"
+              }`}
+            >
               Public Skills Australia Undertakes:
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
+            <div
+              style={
+                isUndertakesVisible
+                  ? { animationDelay: "0.10s" }
+                  : undefined
+              }
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+                isUndertakesVisible
+                  ? "animate-card-entrance"
+                  : "opacity-0 translate-y-6"
+              }`}
+            >
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Workforce.svg"
@@ -105,7 +144,18 @@ export default function AboutView({
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
+            <div
+              style={
+                isUndertakesVisible
+                  ? { animationDelay: "0.22s" }
+                  : undefined
+              }
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+                isUndertakesVisible
+                  ? "animate-card-entrance"
+                  : "opacity-0 translate-y-6"
+              }`}
+            >
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Training.svg"
@@ -122,7 +172,18 @@ export default function AboutView({
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
+            <div
+              style={
+                isUndertakesVisible
+                  ? { animationDelay: "0.34s" }
+                  : undefined
+              }
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+                isUndertakesVisible
+                  ? "animate-card-entrance"
+                  : "opacity-0 translate-y-6"
+              }`}
+            >
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Supports.svg"
@@ -140,7 +201,18 @@ export default function AboutView({
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
+            <div
+              style={
+                isUndertakesVisible
+                  ? { animationDelay: "0.46s" }
+                  : undefined
+              }
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+                isUndertakesVisible
+                  ? "animate-card-entrance"
+                  : "opacity-0 translate-y-6"
+              }`}
+            >
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Industry.svg"

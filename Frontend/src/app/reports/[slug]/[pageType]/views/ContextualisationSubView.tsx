@@ -42,31 +42,33 @@ export default function ContextualisationSubView({
 
       {/* ── TOP HERO CARD ── */}
       <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-4">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray800">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray800 animate-slide-up">
           Contextualisation of Qualifications to Local Government Service
           Delivery
         </h1>
-        <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-          Stakeholders expressed concern with the ability of qualifications to
-          be contextualised to accommodate the unique operating environments of
-          local councils. Some indicated a preference for training that:
-        </p>
-        <ul className="space-y-2 text-xs sm:text-sm text-gray600 font-normal pl-5 list-disc">
-          <li>
-            Includes cultural, geographic and operational contexts of working in
-            regional, rural and remote, and First Nations communities, with case
-            studies drawn from real-world experiences
-          </li>
-          <li>
-            Accurately reflects the realities of local council work and aligned
-            with operational priorities
-          </li>
-          <li>
-            Reflects jurisdiction-specific requirements, particularly for
-            modules covering regulations and local laws, which may differ across
-            LGAs
-          </li>
-        </ul>
+        <div className="space-y-4 animate-slide-up-delay">
+          <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+            Stakeholders expressed concern with the ability of qualifications to
+            be contextualised to accommodate the unique operating environments of
+            local councils. Some indicated a preference for training that:
+          </p>
+          <ul className="space-y-2 text-xs sm:text-sm text-gray600 font-normal pl-5 list-disc">
+            <li>
+              Includes cultural, geographic and operational contexts of working in
+              regional, rural and remote, and First Nations communities, with case
+              studies drawn from real-world experiences
+            </li>
+            <li>
+              Accurately reflects the realities of local council work and aligned
+              with operational priorities
+            </li>
+            <li>
+              Reflects jurisdiction-specific requirements, particularly for
+              modules covering regulations and local laws, which may differ across
+              LGAs
+            </li>
+          </ul>
+        </div>
       </div>
 
       {/* ── BOTTOM 2-COLUMN GRID ── */}

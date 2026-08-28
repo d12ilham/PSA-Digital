@@ -40,7 +40,7 @@ export default function ProposedStrategies2026View({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -64,10 +64,10 @@ export default function ProposedStrategies2026View({
             <span className="text-xs font-semibold text-notes uppercase tracking-wider block">
               THE CULMINATION OF THIS REPORT
             </span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
               2026 Proposed Local Government Workforce Strategies
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia proposes the following strategies aligned
               to the workforce insights identified, to support the Local
               Government industry-sector. Select a strategy to explore its
@@ -79,7 +79,7 @@ export default function ProposedStrategies2026View({
             <img
               src="/images/hero-graphic-2026.png"
               alt="2026 Proposed Strategies Diagram"
-              className="w-full max-w-[340px] sm:max-w-[380px] object-contain"
+              className="w-full max-w-[340px] sm:max-w-[380px] object-contain animate-zoom-in"
             />
           </div>
         </div>
@@ -87,7 +87,10 @@ export default function ProposedStrategies2026View({
         {/* ── TWO COLLAPSIBLE STRATEGY CARDS GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Card 1: Strategy 1 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-5">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-5"
+          >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 1
@@ -124,73 +127,88 @@ export default function ProposedStrategies2026View({
             </div>
 
             {/* EXPANDED CONTENT */}
-            {strategy1Open && (
-              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    JSC Function:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600">
-                    Implementation, Promotion and Monitoring.
-                  </p>
-                </div>
+            <div
+              className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                strategy1Open
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0 pointer-events-none"
+              }`}
+            >
+              <div className="overflow-hidden min-h-0">
+                <div
+                  className={`transition-opacity duration-[1000ms] ease-out pt-4 border-t border-gray200 space-y-4 ${
+                    strategy1Open ? "opacity-100 delay-150" : "opacity-0"
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      JSC Function:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600">
+                      Implementation, Promotion and Monitoring.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">Approach:</h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    Map the most challenging occupational shortages (as
-                    identified through the JSA Occupation Shortage List and the
-                    Local Government Skills Audit) to relevant qualifications
-                    contained in both the LGA Local Government Training Package
-                    and other Training Packages, as well as the RTOs that
-                    deliver them.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">Approach:</h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      Map the most challenging occupational shortages (as
+                      identified through the JSA Occupation Shortage List and the
+                      Local Government Skills Audit) to relevant qualifications
+                      contained in both the LGA Local Government Training Package
+                      and other Training Packages, as well as the RTOs that
+                      deliver them.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Deliverable:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600">
-                    Occupational Shortage Map.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Deliverable:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600">
+                      Occupational Shortage Map.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Anticipated timing:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600">
-                    12-month project.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Anticipated timing:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600">
+                      12-month project.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">Impact:</h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    An Occupational Shortage Map connecting the most challenging
-                    shortages to the qualifications and RTOs that can address
-                    them — enabling the sector to meet expanding and increasing
-                    service delivery requirements.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      An Occupational Shortage Map connecting the most challenging
+                      shortages to the qualifications and RTOs that can address
+                      them — enabling the sector to meet expanding and increasing
+                      service delivery requirements.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Key stakeholders:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    ALGA · state/territory LG Associations · LG Workforce
-                    Development Group · RTOs · STTAs/SROs · state/territory LG
-                    Departments.
-                  </p>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Key stakeholders:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      ALGA · state/territory LG Associations · LG Workforce
+                      Development Group · RTOs · STTAs/SROs · state/territory LG
+                      Departments.
+                    </p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Card 2: Strategy 2 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-5">
+          <div
+            style={{ animationDelay: "0.30s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-5"
+          >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 2
@@ -225,82 +243,94 @@ export default function ProposedStrategies2026View({
             </div>
 
             {/* EXPANDED CONTENT */}
-            {strategy2Open && (
-              <div className="animate-expand-down pt-4 border-t border-gray200 space-y-4">
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    JSC Function:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600">
-                    Industry Stewardship, Training Product Development
-                  </p>
-                </div>
+            <div
+              className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                strategy2Open
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0 pointer-events-none"
+              }`}
+            >
+              <div className="overflow-hidden min-h-0">
+                <div
+                  className={`transition-opacity duration-[1000ms] ease-out pt-4 border-t border-gray200 space-y-4 ${
+                    strategy2Open ? "opacity-100 delay-150" : "opacity-0"
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      JSC Function:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600">
+                      Industry Stewardship, Training Product Development
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Approach – Part A:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    Bring together state and territory decision makers,
-                    STTAs/SROs, Local Government Partners, TAFEs and RTOs to
-                    facilitate conversations about whole of VET system responses
-                    to Local Government industry-sector challenges. This should
-                    include discussions about training delivery, funding of
-                    training for occupations in shortage in local councils and
-                    could see potential agreements between local councils and
-                    RTOs regarding training delivery.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Approach – Part A:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      Bring together state and territory decision makers,
+                      STTAs/SROs, Local Government Partners, TAFEs and RTOs to
+                      facilitate conversations about whole-of-VET-system responses
+                      to Local Government industry-sector challenges. This should
+                      include discussions about training delivery, funding of
+                      training for occupations in shortage in local councils and
+                      could see potential agreements between local councils and
+                      RTOs regarding training delivery.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Approach – Part B (optional):
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    If gaps in specialist local council skills are identified in
-                    Strategy 1 (Map Local Government occupational shortages to
-                    relevant VET training products), an evaluation of the
-                    current LGA Local Government Training Package may be
-                    undertaken, with a focus on the number of qualifications,
-                    training pathways, design of specialisation areas and the
-                    potential utility of skill sets.
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Approach – Part B (optional):
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      If gaps in specialist local council skills are identified in
+                      Strategy 1 (Map Local Government occupational shortages to
+                      relevant VET training products), an evaluation of the
+                      current LGA Local Government Training Package may be
+                      undertaken, with a focus on the number of qualifications,
+                      training pathways, design of specialisation areas and the
+                      potential utility of skill sets.
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Deliverable:
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    Part A: Roundtable discussions and summary report of
-                    discussions.
-                    <br />
-                    Part B: Reviewed training product/s
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Deliverable:
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      Part A: Roundtable discussions and summary report of
+                      discussions.
+                      <br />
+                      Part B: Reviewed training product/s
+                    </p>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">
-                    Key Stakeholders:
-                  </h3>
-                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
-                    <li>Australian Local Government Association</li>
-                    <li>State/Territory Local Government Associations</li>
-                    <li>Local Government Workforce Development Group</li>
-                    <li>Jobs and Skills Councils &gt; RTOs &gt; STTA/SROs</li>
-                    <li>State/Territory Local Government Departments</li>
-                  </ul>
-                </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Key stakeholders:
+                    </h3>
+                    <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
+                      <li>Australian Local Government Association</li>
+                      <li>State/Territory Local Government Associations</li>
+                      <li>Local Government Workforce Development Group</li>
+                      <li>Jobs and Skills Councils &gt; RTOs &gt; STTA/SROs</li>
+                      <li>State/Territory Local Government Departments</li>
+                    </ul>
+                  </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-xs font-bold text-gray800">Impact:</h3>
-                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    Support the Local Government industry-sector by facilitating
-                    access to whole of VET sector stakeholders.
-                  </p>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      Support the Local Government industry-sector by
+                      facilitating access to whole of VET sector stakeholders.
+                    </p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </main>

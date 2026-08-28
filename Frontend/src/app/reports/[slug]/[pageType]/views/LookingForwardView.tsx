@@ -34,7 +34,7 @@ export default function LookingForwardView({
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
         <div className="flex items-center">
           <button
@@ -51,32 +51,34 @@ export default function LookingForwardView({
             <span className="text-xs font-semibold text-notes uppercase tracking-wider block">
               LOOKING FORWARD
             </span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
               2027 and Beyond
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
-              Public Skills Australia has built on the 2024 Workforce Plans and
-              the 2025 Local Government Workforce Insights Report. These reports
-              continue to be the strategic centerpiece guiding annual Business
-              Plans for Public Skills Australia, alongside Ministerial,
-              industry-sector and other priorities (e.g. Royal Commissions and
-              Inquiries).
-            </p>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
-              The 2027{" "}
-              <span className="font-bold text-[#728C28]">
-                Workforce Insights Reports
-              </span>{" "}
-              will firstly focus on broader priorities detailed below and may be
-              delivered throughout 2026/27:
-            </p>
+            <div className="space-y-3 animate-slide-up-delay">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
+                Public Skills Australia has built on the 2024 Workforce Plans and
+                the 2025 Local Government Workforce Insights Report. These reports
+                continue to be the strategic centerpiece guiding annual Business
+                Plans for Public Skills Australia, alongside Ministerial,
+                industry-sector and other priorities (e.g. Royal Commissions and
+                Inquiries).
+              </p>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
+                The 2027{" "}
+                <span className="font-bold text-[#728C28]">
+                  Workforce Insights Reports
+                </span>{" "}
+                will firstly focus on broader priorities detailed below and may be
+                delivered throughout 2026/27:
+              </p>
+            </div>
           </div>
 
           <div className="shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
             <img
               src="/images/hero-graphic-looking-forward.png"
               alt="2027 and Beyond Diagram"
-              className="w-full max-w-[340px] sm:max-w-[440px] object-contain"
+              className="w-full max-w-[340px] sm:max-w-[440px] object-contain animate-zoom-in"
             />
           </div>
         </div>
@@ -84,7 +86,10 @@ export default function LookingForwardView({
         {/* ── 3 CARDS GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           {/* Card 1: Line of Inquiry 1 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between"
+          >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
                 <img
@@ -104,7 +109,10 @@ export default function LookingForwardView({
           </div>
 
           {/* Card 2: Line of Inquiry 2 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between">
+          <div
+            style={{ animationDelay: "0.27s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between"
+          >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
                 <img
@@ -124,7 +132,10 @@ export default function LookingForwardView({
           </div>
 
           {/* Card 3: Continuing */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between">
+          <div
+            style={{ animationDelay: "0.39s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between"
+          >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
                 <img
@@ -154,8 +165,8 @@ export default function LookingForwardView({
 
         {/* ── LIGHT GREEN SUMMARY BOX ── */}
         <div
-          className="border border-[#B2DB79] rounded-2xl p-5"
-          style={{ backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
+          style={{ animationDelay: "0.48s", backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
+          className="animate-card-entrance border border-[#B2DB79] rounded-2xl p-5"
         >
           <p className="text-sm text-gray600 leading-relaxed w-full xl:w-1/2">
             Beyond these focused lines of inquiry, the 2027{" "}

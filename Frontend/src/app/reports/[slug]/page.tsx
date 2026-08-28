@@ -162,12 +162,12 @@ export default function ReportLandingPage({
       <img
         src="/images/wave-left.png"
         alt=""
-        className="fixed bottom-0 left-0 pointer-events-none z-0 object-bottom-left select-none"
+        className="fixed bottom-0 left-0 pointer-events-none z-0 object-bottom-left select-none animate-zoom-in"
       />
       <img
         src="/images/wave-right.png"
         alt=""
-        className="fixed top-0 right-0 pointer-events-none z-0 h-100 xl:h-full object-top-right select-none"
+        className="fixed top-0 right-0 pointer-events-none z-0 h-100 xl:h-full object-top-right select-none animate-zoom-in"
       />
 
       {/* ── TOP HEADER ── */}
@@ -194,16 +194,18 @@ export default function ReportLandingPage({
       </header>
 
       {/* ── MAIN CONTENT (TOP ALIGNED) ── */}
-      <main className="animate-fade-in flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">
+      <main className="flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">
         {/* Title Section */}
         <div className="max-w-5xl mx-auto text-center mb-8 sm:mb-10 space-y-6">
-          <p className="text-xs sm:text-xs font-semibold text-notes uppercase">
-            {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
-          </p>
-          <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
-            {report.title}
-          </h1>
-          <p className="text-lg font-medium text-notes">
+          <div className="animate-slide-up space-y-4">
+            <p className="text-xs sm:text-xs font-semibold text-notes uppercase">
+              {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
+            </p>
+            <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
+              {report.title}
+            </h1>
+          </div>
+          <p className="text-lg font-medium text-notes animate-slide-up-delay">
             Select your reading experience
           </p>
         </div>
@@ -211,7 +213,10 @@ export default function ReportLandingPage({
         {/* Pathways Selection Cards */}
         <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Pathway 1: Introduction */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-8 flex flex-col justify-between transition-all">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-8 flex flex-col justify-between transition-all"
+          >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
                 <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
@@ -228,7 +233,7 @@ export default function ReportLandingPage({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer"
               >
                 Explore the Introduction{" "}
                 <span className="text-base font-normal">→</span>
@@ -237,7 +242,10 @@ export default function ReportLandingPage({
           </div>
 
           {/* Pathway 2: Executive Summary */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all">
+          <div
+            style={{ animationDelay: "0.30s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all"
+          >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
                 <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
@@ -259,7 +267,7 @@ export default function ReportLandingPage({
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
-                className="bg-lg-light hover:bg-[#77A60D] text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-light text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer"
               >
                 Open the Executive Summary{" "}
                 <span className="text-base font-normal">→</span>
@@ -273,7 +281,7 @@ export default function ReportLandingPage({
       <footer className="w-full bg-white border-t border-gray200 z-10 relative py-4 px-4 flex items-center justify-center gap-3">
         <button
           onClick={() => router.push("/reports")}
-          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 transition-all cursor-pointer"
+          className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer"
         >
           <span>←</span> Back to PSA Website
         </button>
@@ -283,7 +291,7 @@ export default function ReportLandingPage({
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-white hover:bg-gray-50 border border-gray200 text-gray800 font-semibold text-sm px-5 py-2 rounded-full transition-all no-underline"
+          className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-sm px-5 py-2 rounded-full cursor-pointer no-underline"
         >
           Contact Us
         </a>

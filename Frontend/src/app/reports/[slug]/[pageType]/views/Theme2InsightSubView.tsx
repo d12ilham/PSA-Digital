@@ -86,14 +86,14 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight One
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Access to TAFE or RTOs in regional, rural and remote locations
                 is limited.
               </h1>
             </div>
           </div>
 
-          <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3">
+          <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3 animate-slide-up-delay">
             <h2 className="text-base font-bold text-gray800">Theme context.</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               <p>
@@ -143,7 +143,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Two
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Few TAFEs and RTOs are willing to travel to geographically
                 isolated locations to deliver required qualifications.
               </h1>
@@ -162,7 +162,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Three
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Limited training budgets to support course enrolment and travel
                 to access training
               </h1>
@@ -181,7 +181,7 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Four
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Course delivery is often not tailored to suit those from
                 regional, rural or remoted locations
               </h1>

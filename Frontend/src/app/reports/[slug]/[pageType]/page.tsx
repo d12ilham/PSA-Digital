@@ -480,7 +480,7 @@ export default function PublicReportReaderPage({
                     {activePage.parentPathway.replace("_", " ")}
                   </span>
                 )}
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-primary leading-tight">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-primary leading-tight animate-slide-up">
                   {activePage.title}
                 </h1>
               </div>

@@ -40,7 +40,7 @@ export default function ExistingStrategiesView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -65,10 +65,10 @@ export default function ExistingStrategiesView({
             <span className="text-xs font-semibold text-notes uppercase tracking-wider block">
               THE CULMINATION OF THIS REPORT
             </span>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#046D2A]">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#046D2A] animate-slide-up">
               Update on 2025 Workforce Strategies
             </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               Public Skills Australia's 2025 Local Government Workforce Insights
               Report identified three challenges currently impacting Local
               Government workforces:
@@ -78,12 +78,15 @@ export default function ExistingStrategiesView({
           {/* 3 Mini Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Card 1: Access to Training */}
-            <div className="border border-gray200 rounded-2xl p-5 flex items-start gap-4">
+            <div
+              style={{ animationDelay: "0.15s" }}
+              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+            >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-teacher.svg"
                   alt="Access to Training"
-                  className="w-7 h-7 object-contain"
+                  className="w-7 h-7 object-contain animate-zoom-in"
                 />
               </div>
               <div className="space-y-1">
@@ -98,12 +101,15 @@ export default function ExistingStrategiesView({
             </div>
 
             {/* Card 2: Skills Gaps */}
-            <div className="border border-gray200 rounded-2xl p-5 flex items-start gap-4">
+            <div
+              style={{ animationDelay: "0.27s" }}
+              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+            >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-briefcase.svg"
                   alt="Skills Gaps"
-                  className="w-7 h-7 object-contain"
+                  className="w-7 h-7 object-contain animate-zoom-in"
                 />
               </div>
               <div className="space-y-1">
@@ -117,12 +123,15 @@ export default function ExistingStrategiesView({
             </div>
 
             {/* Card 3: Resourcing and Recruitment */}
-            <div className="border border-gray200 rounded-2xl p-5 flex items-start gap-4">
+            <div
+              style={{ animationDelay: "0.39s" }}
+              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+            >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-search.svg"
                   alt="Resourcing and Recruitment"
-                  className="w-7 h-7 object-contain"
+                  className="w-7 h-7 object-contain animate-zoom-in"
                 />
               </div>
               <div className="space-y-1">
@@ -150,7 +159,10 @@ export default function ExistingStrategiesView({
         {/* ── TWO COLLAPSIBLE STRATEGY CARDS GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {/* Card 1: Project 1 - 2025 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-5">
+          <div
+            style={{ animationDelay: "0.15s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-5"
+          >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 PROJECT 1 - 2025
@@ -297,7 +309,10 @@ export default function ExistingStrategiesView({
           </div>
 
           {/* Card 2: Strategy 2 */}
-          <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-5">
+          <div
+            style={{ animationDelay: "0.30s" }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-5"
+          >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 2

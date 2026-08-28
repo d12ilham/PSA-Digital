@@ -30,49 +30,90 @@ export default function MethodologyView({
 }) {
   const router = useRouter();
 
+  const researchRef = React.useRef<HTMLDivElement>(null);
+  const [isResearchVisible, setIsResearchVisible] = React.useState(false);
+
+  const governanceRef = React.useRef<HTMLDivElement>(null);
+  const [isGovernanceVisible, setIsGovernanceVisible] = React.useState(false);
+
+  const sourcesRef = React.useRef<HTMLDivElement>(null);
+  const [isSourcesVisible, setIsSourcesVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === researchRef.current) {
+              setIsResearchVisible(true);
+            } else if (entry.target === governanceRef.current) {
+              setIsGovernanceVisible(true);
+            } else if (entry.target === sourcesRef.current) {
+              setIsSourcesVisible(true);
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (researchRef.current) observer.observe(researchRef.current);
+    if (governanceRef.current) observer.observe(governanceRef.current);
+    if (sourcesRef.current) observer.observe(sourcesRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         <ReportNavButtons slug={slug} currentPage="methodology" />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
                 Methodology
               </h1>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal font-medium">
-                Public Skills Australia's{" "}
-                <span className="text-lg-dark">Workforce Insights Reports</span>{" "}
-                are developed using a combination of qualitative and
-                quantitative methods obtained from primary and secondary
-                sources. This 2026 Local Government Workforce Insights Report is
-                supported by data obtained through stakeholder consultations and
-                engagements.
-              </p>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                These consultations were used to gain insight into challenges
-                the Local Government industry-sector is facing with the
-                development and maintenance of a skilled workforce. The
-                challenges identified through consultations were thematically
-                analysed to identify trends and priority areas to address for
-                the industry-sector. Specific to the Local Government
-                industry-sector, and in alignment with the tripartite approach
-                for Jobs and Skills Councils (JSCs), consultations were held
-                with employers, employee bodies and Government organisations,
-                both in-person and through online meetings, workshops and
-                presentations.
-              </p>
+              <div className="space-y-3 animate-slide-up-delay">
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal font-medium">
+                  Public Skills Australia's{" "}
+                  <span className="text-lg-dark">Workforce Insights Reports</span>{" "}
+                  are developed using a combination of qualitative and
+                  quantitative methods obtained from primary and secondary
+                  sources. This 2026 Local Government Workforce Insights Report is
+                  supported by data obtained through stakeholder consultations and
+                  engagements.
+                </p>
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                  These consultations were used to gain insight into challenges
+                  the Local Government industry-sector is facing with the
+                  development and maintenance of a skilled workforce. The
+                  challenges identified through consultations were thematically
+                  analysed to identify trends and priority areas to address for
+                  the industry-sector. Specific to the Local Government
+                  industry-sector, and in alignment with the tripartite approach
+                  for Jobs and Skills Councils (JSCs), consultations were held
+                  with employers, employee bodies and Government organisations,
+                  both in-person and through online meetings, workshops and
+                  presentations.
+                </p>
+              </div>
             </div>
 
             <div className="space-y-4 pt-2">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                <div
+                  style={{ animationDelay: "0.10s" }}
+                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-5"
+                >
                   <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 1
                   </span>
@@ -80,7 +121,7 @@ export default function MethodologyView({
                     <img
                       src="/images/reports/methodology/Data-sources.svg"
                       alt="Data sources"
-                      className="w-12 h-12 shrink-0 object-contain"
+                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
@@ -93,7 +134,10 @@ export default function MethodologyView({
                   </div>
                 </div>
 
-                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                <div
+                  style={{ animationDelay: "0.20s" }}
+                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-5"
+                >
                   <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 2
                   </span>
@@ -101,7 +145,7 @@ export default function MethodologyView({
                     <img
                       src="/images/reports/methodology/National-survey.svg"
                       alt="National survey"
-                      className="w-12 h-12 shrink-0 object-contain"
+                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
@@ -117,7 +161,10 @@ export default function MethodologyView({
                   </div>
                 </div>
 
-                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                <div
+                  style={{ animationDelay: "0.30s" }}
+                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-5"
+                >
                   <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 3
                   </span>
@@ -125,7 +172,7 @@ export default function MethodologyView({
                     <img
                       src="/images/reports/methodology/Workshops.svg"
                       alt="Workshops"
-                      className="w-12 h-12 shrink-0 object-contain"
+                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
                     <div>
                       <h4 className="font-bold text-xs text-gray800 mb-1">
@@ -143,7 +190,10 @@ export default function MethodologyView({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
-                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                <div
+                  style={{ animationDelay: "0.40s" }}
+                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-5"
+                >
                   <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 4
                   </span>
@@ -167,7 +217,10 @@ export default function MethodologyView({
                   </div>
                 </div>
 
-                <div className="border border-gray200 rounded-xl p-3.5 bg-white space-y-5">
+                <div
+                  style={{ animationDelay: "0.50s" }}
+                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-5"
+                >
                   <span className="text-xs font-bold text-[#8AC900] uppercase block">
                     STEP 5
                   </span>
@@ -200,7 +253,7 @@ export default function MethodologyView({
                 <img
                   src="/images/reports/methodology/industry-sector representatives.svg"
                   alt="Key industry-sector representatives"
-                  className="w-16 h-16 shrink-0 object-contain ml-auto"
+                  className="w-16 h-16 shrink-0 object-contain ml-auto animate-zoom-in"
                 />
               </div>
 
@@ -225,7 +278,8 @@ export default function MethodologyView({
                 ].map((rep, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-lg p-2.5 text-xs font-semibold text-gray600"
+                    style={{ animationDelay: `${idx * 0.04 + 0.15}s` }}
+                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-xs font-semibold text-gray600"
                   >
                     {rep}
                   </div>
@@ -236,7 +290,7 @@ export default function MethodologyView({
         </div>
 
         {/* RESEARCH & STATS CONTAINER */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
+        <div ref={researchRef} className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
           <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
             Following these consultations, Public Skills Australia conducted
             secondary qualitative and quantitative research to verify the
@@ -251,7 +305,12 @@ export default function MethodologyView({
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+            <div
+              style={isResearchVisible ? { animationDelay: "0.10s" } : undefined}
+              className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
+                isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <span className="text-3xl font-bold text-gray800">
                 <AnimatedCounter target={280} suffix="³" />
               </span>
@@ -261,7 +320,12 @@ export default function MethodologyView({
               </span>
             </div>
 
-            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+            <div
+              style={isResearchVisible ? { animationDelay: "0.22s" } : undefined}
+              className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
+                isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <span className="text-3xl font-bold text-gray800">
                 <AnimatedCounter target={137} />
               </span>
@@ -270,7 +334,12 @@ export default function MethodologyView({
               </span>
             </div>
 
-            <div className="bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3">
+            <div
+              style={isResearchVisible ? { animationDelay: "0.34s" } : undefined}
+              className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
+                isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <span className="text-3xl font-bold text-gray800">
                 <AnimatedCounter target={210} />
               </span>
@@ -291,14 +360,14 @@ export default function MethodologyView({
                 download
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-lg-dark hover:bg-[#8AC900] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
+                className="bg-lg-dark text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer shrink-0"
               >
                 Download 2026 PDF <Download className="h-3.5 w-3.5" />
               </a>
             ) : (
               <button
                 onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-lg-dark hover:bg-[#8AC900] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
+                className="bg-lg-dark text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer shrink-0"
               >
                 Download 2026 PDF <Download className="h-3.5 w-3.5" />
               </button>
@@ -307,16 +376,25 @@ export default function MethodologyView({
         </div>
 
         {/* GOVERNANCE PROCESS CONTAINER */}
-        <div className="space-y-6 bg-white rounded-2xl border border-gray200 p-6">
+        <div ref={governanceRef} className="space-y-6 bg-white rounded-2xl border border-gray200 p-6">
           <div>
-            <h2 className="text-xl font-bold text-gray800">
+            <h2
+              className={`text-xl font-bold text-gray800 ${
+                isGovernanceVisible ? "animate-slide-up" : "opacity-0"
+              }`}
+            >
               Drafts were subsequently progressed through Public Skills
               Australia's governance process that includes:
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+            <div
+              style={isGovernanceVisible ? { animationDelay: "0.10s" } : undefined}
+              className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
+                isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <h3 className="font-bold text-xl text-gray800">
                 1 · Government Subcommittee
               </h3>
@@ -332,7 +410,12 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+            <div
+              style={isGovernanceVisible ? { animationDelay: "0.22s" } : undefined}
+              className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
+                isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <h3 className="font-bold text-xl text-gray800">
                 2 · Industry Advisory Group
               </h3>
@@ -349,7 +432,12 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div className="bg-[#F0F5DF] rounded-lg p-6 space-y-4">
+            <div
+              style={isGovernanceVisible ? { animationDelay: "0.34s" } : undefined}
+              className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
+                isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
               <h3 className="font-bold text-xl text-gray800">
                 3 · Public Skills Australia Board
               </h3>
@@ -368,8 +456,13 @@ export default function MethodologyView({
         </div>
 
         {/* DATA SOURCES & WITH THANKS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
+        <div ref={sourcesRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            style={isSourcesVisible ? { animationDelay: "0.10s" } : undefined}
+            className={`bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4 ${
+              isSourcesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+            }`}
+          >
             <img
               src="/images/reports/methodology/Data-sources-bottom.svg"
               alt="Data sources"
@@ -394,7 +487,12 @@ export default function MethodologyView({
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4">
+          <div
+            style={isSourcesVisible ? { animationDelay: "0.22s" } : undefined}
+            className={`bg-white rounded-2xl border border-gray200 p-6 flex items-start gap-4 ${
+              isSourcesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+            }`}
+          >
             <img
               src="/images/reports/methodology/With-thanks.svg"
               alt="With thanks"

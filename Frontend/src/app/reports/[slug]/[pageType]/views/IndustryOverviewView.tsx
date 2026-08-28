@@ -40,7 +40,7 @@ export default function IndustryOverviewView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="industry_overview" />
 
@@ -48,10 +48,10 @@ export default function IndustryOverviewView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray800">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
                 Local Government Industry-Sector Overview
               </h1>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
                 Across Australia, there are 537 local councils. Of these local
                 councils, around 55 per cent are located in regional, rural or
                 remote areas with the other 45 per cent split across urban
@@ -69,7 +69,7 @@ export default function IndustryOverviewView({
               <img
                 src="/images/reports/industry-overview/hero.svg"
                 alt="Industry Overview Diagram"
-                className="h-auto max-h-48 object-contain"
+                className="h-auto max-h-48 object-contain animate-zoom-in"
               />
             </div>
           </div>
@@ -77,7 +77,10 @@ export default function IndustryOverviewView({
           {/* 4 Stat Boxes Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Stat 1 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
+            <div
+              style={{ animationDelay: "0.15s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs"
+            >
               <img
                 src="/images/reports/industry-overview/item1.svg"
                 alt="537 local councils"
@@ -94,7 +97,10 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 2 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
+            <div
+              style={{ animationDelay: "0.27s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs"
+            >
               <img
                 src="/images/reports/industry-overview/item2.svg"
                 alt="55% / 45%"
@@ -114,7 +120,10 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 3 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
+            <div
+              style={{ animationDelay: "0.39s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs"
+            >
               <img
                 src="/images/reports/industry-overview/item3.svg"
                 alt="218,000 employees"
@@ -131,7 +140,10 @@ export default function IndustryOverviewView({
             </div>
 
             {/* Stat 4 */}
-            <div className="bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs">
+            <div
+              style={{ animationDelay: "0.51s" }}
+              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:shadow-xs"
+            >
               <img
                 src="/images/reports/industry-overview/item4.svg"
                 alt="400+ occupations"

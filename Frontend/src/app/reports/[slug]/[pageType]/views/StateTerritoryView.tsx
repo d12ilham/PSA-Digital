@@ -1009,17 +1009,17 @@ export default function StateTerritoryView({
       <ReportHeader slug={slug} report={report} currentPage="state_territory" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <ReportNavButtons slug={slug} currentPage="state_territory" />
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
           <div className="space-y-6">
-            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark">
+            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
               Local Government Workforce Profile
             </h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               <p>
                 Across Australia, there are 537 local councils. Of these local
                 councils, around 55 per cent are located in regional, rural or
@@ -1108,7 +1108,10 @@ export default function StateTerritoryView({
                 {/* 3 National Stat Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Card 1 */}
-                  <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div
+                    style={{ animationDelay: "0.10s" }}
+                    className="animate-card-entrance border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4"
+                  >
                     <div className="space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
                         <AnimatedCounter target={218000} formatNumber={true} />
@@ -1127,7 +1130,10 @@ export default function StateTerritoryView({
                   </div>
 
                   {/* Card 2 */}
-                  <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div
+                    style={{ animationDelay: "0.22s" }}
+                    className="animate-card-entrance border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4"
+                  >
                     <div className="space-y-1">
                       <span className="text-3xl font-bold text-[#9CAA54] block leading-tight">
                         <AnimatedCounter target={49.1} decimals={1} suffix="% Female" />
@@ -1149,7 +1155,10 @@ export default function StateTerritoryView({
                   </div>
 
                   {/* Card 3 */}
-                  <div className="border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div
+                    style={{ animationDelay: "0.34s" }}
+                    className="animate-card-entrance border border-gray200 rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-4"
+                  >
                     <div className="space-y-2">
                       <span className="text-3xl font-bold text-lg-dark block">
                         <AnimatedCounter target={8.2} decimals={1} suffix="%" />
@@ -1495,7 +1504,10 @@ export default function StateTerritoryView({
 
                   {/* 2 Stat Cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-white border border-gray200 rounded-2xl p-5 space-y-2">
+                    <div
+                      style={{ animationDelay: "0.10s" }}
+                      className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-5 space-y-2"
+                    >
                       <span className="text-3xl font-bold text-lg-dark block">
                         <AnimatedCounter key={selectedState + "-card-emp"} target={Number(currentState.employees.replace(/,/g, "")) || 0} formatNumber={true} />
                       </span>
@@ -1509,7 +1521,10 @@ export default function StateTerritoryView({
                       </p>
                     </div>
 
-                    <div className="bg-white border border-gray200 rounded-2xl p-5 space-y-2">
+                    <div
+                      style={{ animationDelay: "0.22s" }}
+                      className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-5 space-y-2"
+                    >
                       <span className="text-3xl font-bold text-lg-dark block">
                         <AnimatedCounter key={selectedState + "-card-councils"} target={currentState.councils} />
                       </span>
@@ -1525,7 +1540,10 @@ export default function StateTerritoryView({
                   </div>
 
                   {/* Section 1: Skills Audit List */}
-                  <div className="space-y-5">
+                  <div
+                    style={{ animationDelay: "0.30s" }}
+                    className="animate-card-entrance space-y-5"
+                  >
                     <div className="flex items-center gap-3">
                       <span className="w-10 h-10 rounded-full bg-[#9CAA54] text-white font-bold text-xl flex items-center justify-center shrink-0">
                         1
@@ -1544,7 +1562,8 @@ export default function StateTerritoryView({
                         {currentState.topShortages.map((item, idx) => (
                           <span
                             key={idx}
-                            className="bg-lg-dark text-white text-[11px] font-semibold px-4 py-2 rounded-full"
+                            style={{ animationDelay: `${0.35 + idx * 0.06}s` }}
+                            className="animate-card-entrance bg-lg-dark text-white text-[11px] font-semibold px-4 py-2 rounded-full"
                           >
                             {item}
                           </span>
@@ -1559,7 +1578,10 @@ export default function StateTerritoryView({
                   </div>
 
                   {/* Section 2: OSL Validation Table */}
-                  <div className="space-y-3">
+                  <div
+                    style={{ animationDelay: "0.42s" }}
+                    className="animate-card-entrance space-y-3"
+                  >
                     <div className="flex items-center gap-3">
                       <span className="w-10 h-10 rounded-full bg-[#9CAA54] text-white font-bold text-xl flex items-center justify-center shrink-0">
                         2
@@ -1657,7 +1679,10 @@ export default function StateTerritoryView({
                   </div>
 
                   {/* Section 3: Relevant LG Specific Occupations List */}
-                  <div className="space-y-3">
+                  <div
+                    style={{ animationDelay: "0.54s" }}
+                    className="animate-card-entrance space-y-3"
+                  >
                     <div className="flex items-center gap-3">
                       <span className="w-10 h-10 rounded-full bg-[#9CAA54] text-white font-bold text-xl flex items-center justify-center shrink-0">
                         3
@@ -1681,7 +1706,8 @@ export default function StateTerritoryView({
                         {currentState.lgSpecificShortages.map((item, idx) => (
                           <span
                             key={idx}
-                            className="bg-lg-dark text-white text-xs font-medium px-4 py-2 rounded-full"
+                            style={{ animationDelay: `${0.58 + idx * 0.06}s` }}
+                            className="animate-card-entrance bg-lg-dark text-white text-xs font-medium px-4 py-2 rounded-full"
                           >
                             {item}
                           </span>
@@ -1808,7 +1834,10 @@ export default function StateTerritoryView({
               {/* Right 2 Bar Chart Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Chart 1: Employees by state */}
-                <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col justify-between space-y-4">
+                <div
+                  style={{ animationDelay: "0.10s" }}
+                  className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-6 flex flex-col justify-between space-y-4"
+                >
                   <div className="space-y-2">
                     <span className="text-xs text-notes uppercase block">
                       SOURCE: ABS, PUBLIC SECTOR EMPLOYMENT AND EARNINGS, 2025,
@@ -1859,7 +1888,10 @@ export default function StateTerritoryView({
                 </div>
 
                 {/* Chart 2: Councils by state */}
-                <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col justify-between space-y-4">
+                <div
+                  style={{ animationDelay: "0.22s" }}
+                  className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-6 flex flex-col justify-between space-y-4"
+                >
                   <div className="space-y-2">
                     <span className="text-xs text-notes uppercase block">
                       SOURCE: STATE AND TERRITORY LOCAL GOVERNMENT ASSOCIATIONS

@@ -188,7 +188,7 @@ aside button.bg-\[\#8AC900\] {
 @keyframes expandDown {
   0% {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   100% {
     opacity: 1;
@@ -196,22 +196,40 @@ aside button.bg-\[\#8AC900\] {
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.animate-fade-in-fast {
-  animation: fadeInFast 0.5s ease-out forwards;
-}
-
 .animate-expand-down {
-  animation: expandDown 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: expandDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Theme Insights slow smooth hover transition */
+.theme-insight-item {
+  transition:
+    border-color 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.55s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.theme-insight-item:hover {
+  border-color: #728c28 !important;
+  background-color: #f6f8ed !important;
+  box-shadow: 0 4px 14px -3px rgba(114, 140, 40, 0.12) !important;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes zoomIn {
   0% {
     opacity: 0;
-    transform: scale(0.88);
+    transform: scale(0.92);
   }
   100% {
     opacity: 1;
@@ -219,6 +237,405 @@ aside button.bg-\[\#8AC900\] {
   }
 }
 
+.animate-slide-up {
+  animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-up-delay {
+  animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
 .animate-zoom-in {
-  animation: zoomIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: zoomIn 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-entrance {
+  animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes contentSwitch {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-content-switch {
+  animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ==========================================================================
+   Button Hover Sweep Effects (Left to Right)
+   ========================================================================== */
+
+/* 1. LG-DARK BUTTONS: Base bg #046d2a -> Hover bg #598303 (notes) sweeping from left to right */
+button.bg-lg-dark,
+button.bg-\[\#046D2A\],
+button.bg-\[\#046d2a\],
+a.bg-lg-dark,
+a.bg-\[\#046D2A\],
+a.bg-\[\#046d2a\],
+.btn-sweep-lg-dark {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  color: #ffffff !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-lg-dark::before,
+button.bg-\[\#046D2A\]::before,
+button.bg-\[\#046d2a\]::before,
+a.bg-lg-dark::before,
+a.bg-\[\#046D2A\]::before,
+a.bg-\[\#046d2a\]::before,
+.btn-sweep-lg-dark::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-lg-dark:hover::before,
+button.bg-\[\#046D2A\]:hover::before,
+button.bg-\[\#046d2a\]:hover::before,
+a.bg-lg-dark:hover::before,
+a.bg-\[\#046D2A\]:hover::before,
+a.bg-\[\#046d2a\]:hover::before,
+.btn-sweep-lg-dark:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-lg-dark:hover,
+button.bg-\[\#046D2A\]:hover,
+button.bg-\[\#046d2a\]:hover,
+a.bg-lg-dark:hover,
+a.bg-\[\#046D2A\]:hover,
+a.bg-\[\#046d2a\]:hover,
+.btn-sweep-lg-dark:hover {
+  background-color: var(--color-lg-dark, #046d2a) !important;
+}
+
+/* 2. NOTES BUTTONS: Base bg #598303 -> Hover bg #046d2a (lg-dark) sweeping from left to right */
+button.bg-notes,
+button.bg-\[\#598303\],
+a.bg-notes,
+a.bg-\[\#598303\],
+.btn-sweep-notes {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-notes, #598303) !important;
+  color: #ffffff !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-notes::before,
+button.bg-\[\#598303\]::before,
+a.bg-notes::before,
+a.bg-\[\#598303\]::before,
+.btn-sweep-notes::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-notes:hover::before,
+button.bg-\[\#598303\]:hover::before,
+a.bg-notes:hover::before,
+a.bg-\[\#598303\]:hover::before,
+.btn-sweep-notes:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-notes:hover,
+button.bg-\[\#598303\]:hover,
+a.bg-notes:hover,
+a.bg-\[\#598303\]:hover,
+.btn-sweep-notes:hover {
+  background-color: var(--color-notes, #598303) !important;
+}
+
+/* 3. LG-LIGHT BUTTONS: Base bg #8ac900 -> Hover bg #046d2a (lg-dark) sweeping from left to right */
+button.bg-lg-light,
+button.bg-\[\#8AC900\],
+button.bg-\[\#8ac900\],
+button.bg-\[\#85B810\],
+button.bg-\[\#85b810\],
+a.bg-lg-light,
+a.bg-\[\#8AC900\],
+a.bg-\[\#8ac900\],
+a.bg-\[\#85B810\],
+a.bg-\[\#85b810\],
+.btn-sweep-lg-light {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-lg-light, #8ac900) !important;
+  color: #1c250e !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-lg-light::before,
+button.bg-\[\#8AC900\]::before,
+button.bg-\[\#8ac900\]::before,
+button.bg-\[\#85B810\]::before,
+button.bg-\[\#85b810\]::before,
+a.bg-lg-light::before,
+a.bg-\[\#8AC900\]::before,
+a.bg-\[\#8ac900\]::before,
+a.bg-\[\#85B810\]::before,
+a.bg-\[\#85b810\]::before,
+.btn-sweep-lg-light::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-lg-light:hover::before,
+button.bg-\[\#8AC900\]:hover::before,
+button.bg-\[\#8ac900\]:hover::before,
+button.bg-\[\#85B810\]:hover::before,
+button.bg-\[\#85b810\]:hover::before,
+a.bg-lg-light:hover::before,
+a.bg-\[\#8AC900\]:hover::before,
+a.bg-\[\#8ac900\]:hover::before,
+a.bg-\[\#85B810\]:hover::before,
+a.bg-\[\#85b810\]:hover::before,
+.btn-sweep-lg-light:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-lg-light:hover,
+button.bg-\[\#8AC900\]:hover,
+button.bg-\[\#8ac900\]:hover,
+button.bg-\[\#85B810\]:hover,
+button.bg-\[\#85b810\]:hover,
+a.bg-lg-light:hover,
+a.bg-\[\#8AC900\]:hover,
+a.bg-\[\#8ac900\]:hover,
+a.bg-\[\#85B810\]:hover,
+a.bg-\[\#85b810\]:hover,
+.btn-sweep-lg-light:hover {
+  background-color: var(--color-lg-light, #8ac900) !important;
+  color: #ffffff !important;
+}
+
+button.bg-lg-light:hover *,
+button.bg-\[\#8AC900\]:hover *,
+button.bg-\[\#8ac900\]:hover *,
+button.bg-\[\#85B810\]:hover *,
+button.bg-\[\#85b810\]:hover *,
+a.bg-lg-light:hover *,
+a.bg-\[\#8AC900\]:hover *,
+a.bg-\[\#8ac900\]:hover *,
+a.bg-\[\#85B810\]:hover *,
+a.bg-\[\#85b810\]:hover *,
+.btn-sweep-lg-light:hover * {
+  color: #ffffff !important;
+  transition: color 0.4s ease 200ms;
+}
+
+/* 4. BACK / LIGHT NAVIGATION BUTTONS: Base bg #FAFAF0 -> Hover bg #598303 (notes) sweeping from left to right */
+button.bg-\[\#FAFAF0\],
+button.bg-\[\#fafaf0\],
+a.bg-\[\#FAFAF0\],
+a.bg-\[\#fafaf0\],
+.btn-sweep-back,
+.btn-nav-back {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: #fafaf0 !important;
+  color: var(--color-notes, #598303) !important;
+  border-color: #b2db79 !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-\[\#FAFAF0\]::before,
+button.bg-\[\#fafaf0\]::before,
+a.bg-\[\#FAFAF0\]::before,
+a.bg-\[\#fafaf0\]::before,
+.btn-sweep-back::before,
+.btn-nav-back::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover::before,
+button.bg-\[\#fafaf0\]:hover::before,
+a.bg-\[\#FAFAF0\]:hover::before,
+a.bg-\[\#fafaf0\]:hover::before,
+.btn-sweep-back:hover::before,
+.btn-nav-back:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover,
+button.bg-\[\#fafaf0\]:hover,
+a.bg-\[\#FAFAF0\]:hover,
+a.bg-\[\#fafaf0\]:hover,
+.btn-sweep-back:hover,
+.btn-nav-back:hover {
+  background-color: #fafaf0 !important;
+  border-color: var(--color-notes, #598303) !important;
+  color: #ffffff !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover *,
+button.bg-\[\#fafaf0\]:hover *,
+a.bg-\[\#FAFAF0\]:hover *,
+a.bg-\[\#fafaf0\]:hover *,
+.btn-sweep-back:hover *,
+.btn-nav-back:hover * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition:
+    color 0.4s ease 200ms,
+    stroke 0.4s ease 200ms;
+}
+
+/* 5. WHITE BUTTONS: Base bg #ffffff -> Hover bg #598303 (notes) sweeping from left to right */
+.btn-sweep-white-notes {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: #ffffff !important;
+  color: #252b37 !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+.btn-sweep-white-notes::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+.btn-sweep-white-notes:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+.btn-sweep-white-notes:hover {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.btn-sweep-white-notes:hover *,
+.btn-sweep-white-notes:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition:
+    color 0.4s ease 200ms,
+    stroke 0.4s ease 200ms;
+}
+
+/* Ensure direct children of sweeping buttons stay on top of the pseudo-element */
+button.bg-lg-dark > *,
+button.bg-\[\#046D2A\] > *,
+button.bg-\[\#046d2a\] > *,
+a.bg-lg-dark > *,
+a.bg-\[\#046D2A\] > *,
+a.bg-\[\#046d2a\] > *,
+button.bg-notes > *,
+button.bg-\[\#598303\] > *,
+a.bg-notes > *,
+a.bg-\[\#598303\] > *,
+button.bg-lg-light > *,
+button.bg-\[\#8AC900\] > *,
+button.bg-\[\#8ac900\] > *,
+button.bg-\[\#85B810\] > *,
+button.bg-\[\#85b810\] > *,
+a.bg-lg-light > *,
+a.bg-\[\#8AC900\] > *,
+a.bg-\[\#8ac900\] > *,
+a.bg-\[\#85B810\] > *,
+a.bg-\[\#85b810\] > *,
+button.bg-\[\#FAFAF0\] > *,
+button.bg-\[\#fafaf0\] > *,
+a.bg-\[\#FAFAF0\] > *,
+a.bg-\[\#fafaf0\] > *,
+.btn-sweep-lg-dark > *,
+.btn-sweep-notes > *,
+.btn-sweep-lg-light > *,
+.btn-sweep-back > *,
+.btn-nav-back > *,
+.btn-sweep-white-notes > * {
+  position: relative;
+  z-index: 1;
 }

@@ -109,7 +109,7 @@ export default function WorkforceInsightsView({
       />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         {isContextualisation ? (
           <ContextualisationSubView
             slug={slug}
@@ -147,10 +147,10 @@ export default function WorkforceInsightsView({
             {/* Hero Card */}
             <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
-                <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark">
+                <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
                   Workforce Insights
                 </h1>
-                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
                   This Report identifies the following themes and
                   industry-sector insights relating to Local Government. Select
                   any insight to open its detail page.
@@ -162,15 +162,18 @@ export default function WorkforceInsightsView({
                 <img
                   src="/images/reports/workforce-insights.png"
                   alt="Workforce Insights"
-                  className="h-auto max-h-36 max-w-full object-contain"
+                  className="h-auto max-h-36 max-w-full object-contain animate-zoom-in"
                 />
               </div>
             </div>
 
             {/* ── SECTION 2: TWO THEMES GRID ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
               {/* Theme 1 Container */}
-              <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-6 space-y-6">
+              <div
+                style={{ animationDelay: "0.15s" }}
+                className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-6 space-y-6"
+              >
                 <div className="space-y-3">
                   <span className="text-xs font-bold text-[#728C28] uppercase block">
                     THEME 1 · 3 INSIGHTS
@@ -180,38 +183,52 @@ export default function WorkforceInsightsView({
                   </h2>
                   <button
                     onClick={() => setShowTheme1Overview(!showTheme1Overview)}
-                    className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                    className="bg-[#85B810] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                   >
                     Theme Overview {showTheme1Overview ? "▴" : "▾"}
                   </button>
-                </div>
 
-                {showTheme1Overview && (
-                  <div className="animate-expand-down text-xs text-gray600 leading-relaxed space-y-2 font-normal">
-                    <p>
-                      In support of both the 2024 Federal, State/Territory &amp;
-                      Local Government Workforce Plan and the 2025 Local
-                      Government Workforce Insights Report, local council
-                      employers continue to emphasise the broad scope of
-                      occupations employed in their workforce. Role expansion
-                      has been a consistent theme, further examined through two
-                      Parliamentary inquiries — which confirmed that the role of
-                      local councils has expanded over time and that this
-                      expansion is impacting both financial and workforce
-                      sustainability.
-                    </p>
+                  {/* Theme 1 Overview Accordion */}
+                  <div
+                    className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      showTheme1Overview
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    <div className="overflow-hidden min-h-0">
+                      <div
+                        className={`transition-opacity duration-[1000ms] ease-out pt-2 text-xs text-gray600 leading-relaxed space-y-2 font-normal ${
+                          showTheme1Overview ? "opacity-100 delay-150" : "opacity-0"
+                        }`}
+                      >
+                        <p>
+                          In support of both the 2024 Federal, State/Territory &amp;
+                          Local Government Workforce Plan and the 2025 Local
+                          Government Workforce Insights Report, local council
+                          employers continue to emphasise the broad scope of
+                          occupations employed in their workforce. Role expansion
+                          has been a consistent theme, further examined through two
+                          Parliamentary inquiries — which confirmed that the role of
+                          local councils has expanded over time and that this
+                          expansion is impacting both financial and workforce
+                          sustainability.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
 
                 <div className="space-y-4">
                   {/* Insight 1 */}
                   <div
+                    style={{ animationDelay: "0.25s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme1-insight1`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -235,12 +252,13 @@ export default function WorkforceInsightsView({
 
                   {/* Insight 2 */}
                   <div
+                    style={{ animationDelay: "0.35s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme1-insight2`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -264,12 +282,13 @@ export default function WorkforceInsightsView({
 
                   {/* Insight 3 */}
                   <div
+                    style={{ animationDelay: "0.45s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme1-insight3`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -294,7 +313,10 @@ export default function WorkforceInsightsView({
               </div>
 
               {/* Theme 2 Container */}
-              <div className="bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-6">
+              <div
+                style={{ animationDelay: "0.25s" }}
+                className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-6"
+              >
                 <div className="space-y-3">
                   <span className="text-xs font-bold text-[#728C28] uppercase block">
                     THEME 2 · 4 INSIGHTS
@@ -304,40 +326,54 @@ export default function WorkforceInsightsView({
                   </h2>
                   <button
                     onClick={() => setShowTheme2Overview(!showTheme2Overview)}
-                    className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                    className="bg-[#85B810] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                   >
                     Theme Overview {showTheme2Overview ? "▴" : "▾"}
                   </button>
-                </div>
 
-                {showTheme2Overview && (
-                  <div className="animate-expand-down text-xs text-gray600 leading-relaxed space-y-2 font-normal">
-                    <p>
-                      Access to training has consistently been raised as a
-                      challenge for local council employers in regional, rural
-                      and remote locations — affirmed in the Interim Report into
-                      Local Government Sustainability, PSA’s 2025 LG WIR and
-                      ALGA’s 2022 Workforce Skills and Capability Survey. VET
-                      was consistently identified as the most relevant pathway
-                      for roles requiring technical expertise and compliance
-                      assurance, such as Water Operator, Mechanic and Childcare
-                      Educator. Access to VET Training: consultations for the
-                      2024 Workforce Plan, the 2025 LG WIR and the Skills Audit
-                      project re-affirmed the challenges relating to access to
-                      qualifications and training delivery.
-                    </p>
+                  {/* Theme 2 Overview Accordion */}
+                  <div
+                    className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      showTheme2Overview
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    <div className="overflow-hidden min-h-0">
+                      <div
+                        className={`transition-opacity duration-[1000ms] ease-out pt-2 text-xs text-gray600 leading-relaxed space-y-2 font-normal ${
+                          showTheme2Overview ? "opacity-100 delay-150" : "opacity-0"
+                        }`}
+                      >
+                        <p>
+                          Access to training has consistently been raised as a
+                          challenge for local council employers in regional, rural
+                          and remote locations — affirmed in the Interim Report into
+                          Local Government Sustainability, PSA’s 2025 LG WIR and
+                          ALGA’s 2022 Workforce Skills and Capability Survey. VET
+                          was consistently identified as the most relevant pathway
+                          for roles requiring technical expertise and compliance
+                          assurance, such as Water Operator, Mechanic and Childcare
+                          Educator. Access to VET Training: consultations for the
+                          2024 Workforce Plan, the 2025 LG WIR and the Skills Audit
+                          project re-affirmed the challenges relating to access to
+                          qualifications and training delivery.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
 
                 <div className="space-y-4">
                   {/* Insight 1 */}
                   <div
+                    style={{ animationDelay: "0.30s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme2-insight1`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -361,12 +397,13 @@ export default function WorkforceInsightsView({
 
                   {/* Insight 2 */}
                   <div
+                    style={{ animationDelay: "0.38s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme2-insight2`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -389,12 +426,13 @@ export default function WorkforceInsightsView({
 
                   {/* Insight 3 */}
                   <div
+                    style={{ animationDelay: "0.46s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme2-insight3`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">
@@ -416,12 +454,13 @@ export default function WorkforceInsightsView({
 
                   {/* Insight 4 */}
                   <div
+                    style={{ animationDelay: "0.54s" }}
                     onClick={() =>
                       router.push(
                         `/reports/${slug}/workforce_insights?insight=theme2-insight4`,
                       )
                     }
-                    className="bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer hover:border-[#728C28] hover:shadow-sm transition-all group"
+                    className="animate-card-entrance theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-2xl p-6 flex items-center justify-between gap-4 cursor-pointer group"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-[50px] font-bold text-notes/10 group-hover:text-[#728C28]/20 leading-none transition-colors">

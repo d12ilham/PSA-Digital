@@ -326,7 +326,7 @@ export default function ReportsArchivePage() {
       </header>
 
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <main className="animate-fade-in flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── 2. HERO INTRO SECTION ── */}
         <section className="bg-white rounded-2xl p-4 sm:p-6 border border-gray200 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -336,7 +336,7 @@ export default function ReportsArchivePage() {
                 PUBLIC SKILLS AUSTRALIA
               </span>
 
-              <div className="space-y-1">
+              <div className="space-y-1 animate-slide-up">
                 <h1 className="text-4xl font-bold text-gray800">
                   Welcome to the Public Skills Australia
                 </h1>
@@ -345,16 +345,18 @@ export default function ReportsArchivePage() {
                 </h2>
               </div>
 
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
-                This platform brings together workforce insights and strategies
-                across six priority sectors.
-              </p>
+              <div className="space-y-2 animate-slide-up-delay">
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
+                  This platform brings together workforce insights and strategies
+                  across six priority sectors.
+                </p>
 
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
-                The reports are structured to help you quickly access key
-                insights and strategies, while providing the depth of analysis
-                supporting the strategy and plans.
-              </p>
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
+                  The reports are structured to help you quickly access key
+                  insights and strategies, while providing the depth of analysis
+                  supporting the strategy and plans.
+                </p>
+              </div>
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3 pt-3">
@@ -375,7 +377,7 @@ export default function ReportsArchivePage() {
             </div>
 
             {/* Right Video Card Placeholder (Non-interactive) */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 animate-zoom-in">
               <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
                 {/* Video Thumbnail Box */}
                 <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden">
