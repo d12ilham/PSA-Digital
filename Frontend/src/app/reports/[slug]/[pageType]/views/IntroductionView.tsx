@@ -98,6 +98,19 @@ export default function IntroductionView({
   const structureRef = React.useRef<HTMLDivElement>(null);
   const [isStructureVisible, setIsStructureVisible] = React.useState(false);
 
+  const getPreviousReportSlug = () => {
+    const currentYear = parseInt(report?.year?.label || "2026", 10);
+    const prevYear = isNaN(currentYear) ? 2025 : currentYear - 1;
+
+    if (slug.endsWith(`-${currentYear}`)) {
+      return slug.replace(new RegExp(`-${currentYear}$`), `-${prevYear}`);
+    }
+    if (/-\d{4}$/.test(slug)) {
+      return slug.replace(/-\d{4}$/, `-${prevYear}`);
+    }
+    return `${slug}-${prevYear}`;
+  };
+
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -165,26 +178,15 @@ export default function IntroductionView({
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              {report.pdfFileUrl ? (
-                <a
-                  href={report.pdfFileUrl}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-                >
-                  Download 2026 PDF <Download className="h-3.5 w-3.5" />
-                </a>
-              ) : (
-                <button
-                  onClick={() => router.push(`/reports/${slug}`)}
-                  className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-                >
-                  Download 2026 PDF <Download className="h-3.5 w-3.5" />
-                </button>
-              )}
               <button
-                onClick={() => router.push("/reports")}
+                onClick={() => router.push(`/reports/${slug}/downloads`)}
+                className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>Download {report?.year?.label || "2026"} PDF</span>
+                <Download className="h-3.5 w-3.5" />
+              </button>
+              <button
+                onClick={() => router.push(`/reports/${getPreviousReportSlug()}`)}
                 className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
@@ -295,7 +297,10 @@ export default function IntroductionView({
                       ? { animationDelay: `${index * 0.12 + 0.1}s` }
                       : undefined
                   }
-                  className={`bg-white rounded-2xl border border-border border-t-12 border-t-lg-dark p-6 flex flex-col justify-between space-y-6 ${
+                  onClick={() =>
+                    router.push(`/reports/${slug}/${section.path}`)
+                  }
+                  className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 flex flex-col justify-between space-y-6 cursor-pointer transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
                     isStructureVisible
                       ? "animate-card-entrance"
                       : "opacity-0 translate-y-6"
@@ -342,9 +347,10 @@ export default function IntroductionView({
                   {/* Bottom: Explore Button */}
                   <div>
                     <button
-                      onClick={() =>
-                        router.push(`/reports/${slug}/${section.path}`)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/reports/${slug}/${section.path}`);
+                      }}
                       className="bg-lg-light text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer"
                     >
                       Explore <ArrowRight className="h-3.5 w-3.5" />

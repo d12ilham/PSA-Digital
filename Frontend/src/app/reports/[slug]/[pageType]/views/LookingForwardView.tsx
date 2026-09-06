@@ -181,12 +181,10 @@ export default function LookingForwardView({
         {/* ── ACTION BUTTONS ROW ── */}
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2">
           <button
-            onClick={() => {
-              if (report.pdfFileUrl) window.open(report.pdfFileUrl, "_blank");
-            }}
+            onClick={() => router.push(`/reports/${slug}/downloads`)}
             className="bg-[#046D2A] hover:bg-[#035822] text-white text-sm font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
-            <span>Download 2026 PDF</span>
+            <span>Download {report?.year?.label || "2026"} PDF</span>
             <Download className="h-4 w-4" />
           </button>
 
@@ -197,14 +195,14 @@ export default function LookingForwardView({
             Revisit the Executive Summary
           </button>
 
-          <button
-            onClick={() => {
-              if (report.contactUrl) window.open(report.contactUrl, "_blank");
-            }}
-            className="border border-gray200 hover:bg-gray200 text-gray800 text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-colors"
+          <a
+            href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-gray200 hover:bg-gray200 text-gray800 text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-colors no-underline inline-flex items-center justify-center"
           >
             Contact Public Skills Australia
-          </button>
+          </a>
         </div>
       </main>
 

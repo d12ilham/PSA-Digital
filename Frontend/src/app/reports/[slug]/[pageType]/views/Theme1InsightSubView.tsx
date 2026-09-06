@@ -153,13 +153,16 @@ export default function Theme1InsightSubView({
           {/* 2-Column Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left Box: A diverse, multidisciplinary workforce */}
-            <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col">
+            <div
+              style={{ animationDelay: "0.10s" }}
+              className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col"
+            >
               <div className="space-y-4">
                 <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0">
                   <img
                     src="/images/frame-6.svg"
                     alt="A diverse, multidisciplinary workforce"
-                    className="w-8 h-8 object-contain"
+                    className="w-8 h-8 object-contain animate-zoom-in"
                   />
                 </div>
                 <h3 className="text-xl font-bold text-gray800">
@@ -185,14 +188,17 @@ export default function Theme1InsightSubView({
             </div>
 
             {/* Right Box: Industry Insight */}
-            <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between">
+            <div
+              style={{ animationDelay: "0.22s" }}
+              className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
+            >
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
                     <img
                       src="/images/frame-7.svg"
                       alt="Industry Insight"
-                      className="w-8 h-8 object-contain"
+                      className="w-8 h-8 object-contain animate-zoom-in"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray800">
@@ -307,14 +313,17 @@ export default function Theme1InsightSubView({
           {/* Right Column (2 Light Green Cards) */}
           <div className="space-y-6">
             {/* Card 1: Industry Insight */}
-            <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between">
+            <div
+              style={{ animationDelay: "0.15s" }}
+              className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
+            >
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
                     <img
                       src="/images/frame-7.svg"
                       alt="Industry Insight"
-                      className="w-8 h-8 object-contain"
+                      className="w-8 h-8 object-contain animate-zoom-in"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray800">
@@ -338,14 +347,17 @@ export default function Theme1InsightSubView({
             </div>
 
             {/* Card 2: Industry Insight */}
-            <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between">
+            <div
+              style={{ animationDelay: "0.28s" }}
+              className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
+            >
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
                     <img
                       src="/images/frame-7.svg"
                       alt="Industry Insight"
-                      className="w-8 h-8 object-contain"
+                      className="w-8 h-8 object-contain animate-zoom-in"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray800">

@@ -9,10 +9,15 @@ interface ReportFooterProps {
 }
 
 export default function ReportFooter({
-  contactUrl = "https://publicskillsaustralia.org.au/contact",
+  contactUrl,
   reportName = "Local Government Workforce Insights Report",
   variant = "dark",
 }: ReportFooterProps) {
+  const finalContactUrl =
+    contactUrl && contactUrl.trim().length > 0
+      ? contactUrl
+      : "https://publicskillsaustralia.org.au/contact";
+
   if (variant === "pill") {
     return (
       <footer className="w-full bg-white border-t border-gray200 py-4 px-4">
@@ -21,7 +26,7 @@ export default function ReportFooter({
             © Public Skills Australia 2026 - {reportName}
           </div>
           <a
-            href={contactUrl}
+            href={finalContactUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="border border-gray200 bg-white text-gray800 text-xs font-semibold px-5 py-2 rounded-full hover:bg-gray-50 transition-colors no-underline text-center cursor-pointer leading-relaxed"
@@ -40,7 +45,7 @@ export default function ReportFooter({
           © Public Skills Australia 2026 · {reportName}
         </p>
         <a
-          href={contactUrl}
+          href={finalContactUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-white font-semibold no-underline"

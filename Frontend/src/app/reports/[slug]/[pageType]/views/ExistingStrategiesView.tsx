@@ -285,13 +285,10 @@ export default function ExistingStrategiesView({
                 {/* Buttons */}
                 <div className="flex flex-col items-stretch sm:items-start gap-3 pt-2">
                   <button
-                    onClick={() => {
-                      if (report.pdfFileUrl)
-                        window.open(report.pdfFileUrl, "_blank");
-                    }}
+                    onClick={() => router.push(`/reports/${slug}/downloads`)}
                     className="bg-[#046D2A] hover:bg-[#035822] text-white text-xs font-bold px-5 py-2.5 rounded-full flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
-                    <span>Download 2026 PDF for participant list</span>
+                    <span>Download {report?.year?.label || "2026"} PDF for participant list</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                   <button

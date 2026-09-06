@@ -920,7 +920,7 @@ export default function StateTerritoryView({
       return () => clearTimeout(timer);
     }
   }, [viewMode]);
-  const [selectedState, setSelectedState] = useState<string>("NSW");
+  const [selectedState, setSelectedState] = useState<string>("NATIONAL");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"alpha" | "shortages">("alpha");
   const [ratingFilter, setRatingFilter] = useState<
@@ -1340,43 +1340,76 @@ export default function StateTerritoryView({
                     </div>
 
                     {/* Table with borders around and between columns */}
-                    <div className="overflow-auto h-[500px] border border-gray200 rounded-xl relative">
-                      <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                        <thead className="sticky top-0 z-10 bg-[#F5F5F5] shadow-xs">
+                    <div
+                      style={{ height: "480px", maxHeight: "480px", overflowY: "auto", overflowX: "auto" }}
+                      className="border border-gray200 rounded-xl"
+                    >
+                      <table
+                        style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                        className="text-left text-xs sm:text-sm"
+                      >
+                        <thead className="bg-[#F5F5F5]">
                           <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
-                            <th className="p-4 font-bold text-left tracking-wider bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-4 font-bold text-left tracking-wider border-b border-gray-200 shadow-xs"
+                            >
                               OCCUPATION
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               AUS
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               NSW
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               NT
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               QLD
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               SA
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               TAS
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               VIC
                             </th>
-                            <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                            <th
+                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                            >
                               WA
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray200 bg-white">
+                        <tbody className="bg-white">
                           {filteredOccupations.map((item, idx) => (
                             <tr key={idx} className="hover:bg-gray-50/50">
-                              <td className="p-4 font-medium text-gray600 text-xs">
+                              <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                                 <div>{item.name}</div>
                                 {item.lgSpecific && (
                                   <div className="text-[11px] font-semibold text-notes mt-2">
@@ -1384,28 +1417,28 @@ export default function StateTerritoryView({
                                   </div>
                                 )}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.aus)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.nsw)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.nt)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.qld)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.sa)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.tas)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.vic)}
                               </td>
-                              <td className="p-2 text-center border-l border-gray-200">
+                              <td className="p-2 text-center border-l border-b border-gray-200">
                                 {renderBadge(item.wa)}
                               </td>
                             </tr>
@@ -1624,29 +1657,44 @@ export default function StateTerritoryView({
                       </div>
 
                       {/* Table */}
-                      <div className="overflow-x-auto border border-gray200 rounded-xl">
-                        <table className="w-full text-left text-sm border-collapse">
-                          <thead>
+                      <div
+                        style={{ height: "260px", maxHeight: "260px", overflowY: "auto" }}
+                        className="border border-gray200 rounded-xl"
+                      >
+                        <table
+                          style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                          className="text-left text-sm"
+                        >
+                          <thead className="bg-[#F5F5F5]">
                             <tr className="bg-[#F5F5F5] text-[#252D02] font-bold">
-                              <th className="p-4 font-bold leading-snug">
+                              <th
+                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                className="p-4 font-bold leading-snug border-b border-gray-200 shadow-xs"
+                              >
                                 Occupation identified in shortage in{" "}
                                 {currentState.code} through Skills Audit
                               </th>
-                              <th className="p-4 font-bold leading-snug border-l border-gray200 w-[200px] min-w-[200px] max-w-[200px]">
+                              <th
+                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                className="p-4 font-bold leading-snug border-l border-b border-gray-200 w-[140px] sm:w-[200px] min-w-[140px] sm:min-w-[200px] max-w-[200px] text-center shadow-xs"
+                              >
                                 OSL — {currentState.code} specific shortage
                               </th>
-                              <th className="p-4 font-bold leading-snug border-l border-gray200 w-[200px] min-w-[200px] max-w-[200px]">
+                              <th
+                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                className="p-4 font-bold leading-snug border-l border-b border-gray-200 w-[140px] sm:w-[200px] min-w-[140px] sm:min-w-[200px] max-w-[200px] text-center shadow-xs"
+                              >
                                 OSL — Australia wide shortage
                               </th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-gray200">
+                          <tbody className="bg-white">
                             {currentState.oslTable.map((row, idx) => (
                               <tr key={idx} className="hover:bg-gray-50/50">
-                                <td className="p-4 text-xs font-medium text-gray600 bg-white">
+                                <td className="p-4 text-xs font-medium text-gray600 bg-white border-b border-gray-200">
                                   {row.occupation}
                                 </td>
-                                <td className="p-0 border-l border-gray200 w-[200px] min-w-[200px] max-w-[200px]">
+                                <td className="p-0 border-l border-b border-gray-200 w-[200px] min-w-[200px] max-w-[200px]">
                                   <div
                                     className={`w-full h-full min-h-12 py-4 font-bold text-sm flex items-center justify-center ${getCellRatingStyle(
                                       row.stateShortage,
@@ -1655,7 +1703,7 @@ export default function StateTerritoryView({
                                     {row.stateShortage}
                                   </div>
                                 </td>
-                                <td className="p-0 border-l border-gray200 w-[200px] min-w-[200px] max-w-[200px]">
+                                <td className="p-0 border-l border-b border-gray-200 w-[200px] min-w-[200px] max-w-[200px]">
                                   <div
                                     className={`w-full h-full min-h-12 py-4 font-bold text-xs sm:text-sm flex items-center justify-center ${getCellRatingStyle(
                                       row.nationalShortage,
@@ -1942,67 +1990,100 @@ export default function StateTerritoryView({
               </div>
 
               {/* Comprehensive Matrix Table */}
-              <div className="overflow-auto h-[500px] border border-gray200 rounded-xl relative">
-                <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                  <thead className="sticky top-0 z-10 bg-[#F5F5F5] shadow-xs">
+              <div
+                style={{ height: "480px", maxHeight: "480px", overflowY: "auto", overflowX: "auto" }}
+                className="border border-gray200 rounded-xl"
+              >
+                <table
+                  style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                  className="text-left text-xs sm:text-sm"
+                >
+                  <thead className="bg-[#F5F5F5]">
                     <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
-                      <th className="p-4 font-bold text-left tracking-wider bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-4 font-bold text-left tracking-wider border-b border-gray-200 shadow-xs"
+                      >
                         OCCUPATION
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         AUS
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         NSW
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         NT
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         QLD
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         SA
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         TAS
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         VIC
                       </th>
-                      <th className="p-3 text-center border-l border-gray-200 w-16 bg-[#F5F5F5]">
+                      <th
+                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
+                      >
                         WA
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray200 bg-white">
+                  <tbody className="bg-white">
                     {COMPARE_OCCUPATIONS.map((item, idx) => (
                       <tr key={idx} className="hover:bg-gray-50/50">
-                        <td className="p-4 font-medium text-gray600 text-xs">
+                        <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                           {item.name}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.aus)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.nsw)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.nt)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.qld)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.sa)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.tas)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.vic)}
                         </td>
-                        <td className="p-2 text-center border-l border-gray-200">
+                        <td className="p-2 text-center border-l border-b border-gray-200">
                           {renderCellBadge(item.wa)}
                         </td>
                       </tr>

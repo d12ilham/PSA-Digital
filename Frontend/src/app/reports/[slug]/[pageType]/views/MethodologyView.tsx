@@ -279,7 +279,7 @@ export default function MethodologyView({
                   <div
                     key={idx}
                     style={{ animationDelay: `${idx * 0.04 + 0.15}s` }}
-                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-xs font-semibold text-gray600"
+                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-xs font-semibold text-gray700 border border-gray200/60 hover:border-lg-dark hover:shadow-lg hover:-translate-y-1 hover:scale-[1.04] hover:text-lg-dark cursor-pointer relative hover:z-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   >
                     {rep}
                   </div>
@@ -354,24 +354,13 @@ export default function MethodologyView({
               A full list of councils that participated in these activities is
               provided at Appendix A.
             </p>
-            {report.pdfFileUrl ? (
-              <a
-                href={report.pdfFileUrl}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-lg-dark text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer shrink-0"
-              >
-                Download 2026 PDF <Download className="h-3.5 w-3.5" />
-              </a>
-            ) : (
-              <button
-                onClick={() => router.push(`/reports/${slug}`)}
-                className="bg-lg-dark text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer shrink-0"
-              >
-                Download 2026 PDF <Download className="h-3.5 w-3.5" />
-              </button>
-            )}
+            <button
+              onClick={() => router.push(`/reports/${slug}/downloads`)}
+              className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
+            >
+              <span>Download {report?.year?.label || "2026"} PDF</span>
+              <Download className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
 

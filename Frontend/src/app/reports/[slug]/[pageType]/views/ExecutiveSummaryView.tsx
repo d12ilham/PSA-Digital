@@ -104,13 +104,92 @@ export default function ExecutiveSummaryView({
             </p>
           </div>
 
-          {/* Right Flow Image Replacement */}
-          <div className="lg:col-span-5 flex items-center justify-end p-2">
-            <img
-              src="/images/reports/executive-summary-process.png"
-              alt="Executive Summary Process Flow"
-              className="h-auto max-h-20 object-contain animate-zoom-in"
-            />
+          {/* Right Flow Graphics with Sequential Entrance Animation */}
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end overflow-x-auto py-2">
+            <div className="flex items-center justify-center shrink-0">
+              {/* 1. Workforce (People & Gear) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "0.10s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-1-workforce.png"
+                    alt="Workforce"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 1: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "0.35s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 2. Insights (Lightbulb with Globe) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "0.60s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-2-insights.png"
+                    alt="Insights"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 2: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "0.85s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 3. Strategies (Map & Waypoints) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "1.10s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-3-strategies.png"
+                    alt="Strategies"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 3: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "1.35s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 4. Looking Forward (Arrows >>) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "1.60s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-4-forward.png"
+                    alt="Looking Forward"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

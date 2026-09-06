@@ -30,6 +30,7 @@ export default function IndustryProfileView({
 }) {
   const router = useRouter();
   const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(5); // 2025 default
+  const [activeTrainingBar, setActiveTrainingBar] = useState<number | null>(3); // 2024 default
   const [chartsLoaded, setChartsLoaded] = useState(false);
   const chartsRef = useRef<HTMLDivElement>(null);
 
@@ -221,26 +222,55 @@ export default function IndustryProfileView({
                 {trainingData.map((item, idx) => (
                   <div
                     key={item.year}
-                    className="flex-1 flex flex-col items-center h-full justify-end"
+                    onMouseEnter={() => setActiveTrainingBar(idx)}
+                    className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer"
                   >
+                    {/* Tooltip */}
+                    {activeTrainingBar === idx && (
+                      <div className="mb-2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md z-10">
+                        <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
+                          {item.year}
+                        </div>
+                        <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
+                          <span className="flex items-center gap-1.5 text-white/80 font-medium">
+                            <span className="w-2 h-2 rounded-xs bg-[#9CAA54] inline-block shrink-0" />
+                            Enrol:
+                          </span>
+                          <span className="font-bold text-[#B2DB79]">{item.enrol}</span>
+                        </div>
+                        <div className="flex items-center gap-2 justify-between text-[11px] leading-tight mt-0.5">
+                          <span className="flex items-center gap-1.5 text-white/80 font-medium">
+                            <span className="w-2 h-2 rounded-xs bg-lg-dark inline-block shrink-0" />
+                            Comp:
+                          </span>
+                          <span className="font-bold text-white">{item.comp}</span>
+                        </div>
+                      </div>
+                    )}
                     <div className="flex items-end gap-1.5 w-full justify-center h-full">
                       {/* Enrolment Bar */}
                       <div
-                        className="w-1/2 bg-[#9CAA54] rounded-t-md transition-all duration-1000 ease-out hover:bg-[#85B810]"
+                        className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
+                          activeTrainingBar === idx
+                            ? "bg-[#85B810]"
+                            : "bg-[#9CAA54] hover:bg-[#85B810]"
+                        }`}
                         style={{
                           height: chartsLoaded ? item.enrolH : "0%",
                           transitionDelay: `${idx * 120}ms`,
                         }}
-                        title={`Enrolments: ${item.enrol}`}
                       />
                       {/* Completion Bar */}
                       <div
-                        className="w-1/2 bg-lg-dark rounded-t-md transition-all duration-1000 ease-out hover:bg-[#046D2A]"
+                        className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
+                          activeTrainingBar === idx
+                            ? "bg-[#046D2A]"
+                            : "bg-lg-dark hover:bg-[#046D2A]"
+                        }`}
                         style={{
                           height: chartsLoaded ? item.compH : "0%",
                           transitionDelay: `${idx * 120 + 80}ms`,
                         }}
-                        title={`Completions: ${item.comp}`}
                       />
                     </div>
                     <span className="text-xs font-bold text-gray600 mt-2">
@@ -253,8 +283,8 @@ export default function IndustryProfileView({
 
             <p className="text-xs text-active leading-relaxed">
               Figure 2: LGA Local Government Training Package enrolment and
-              completion. Chart values to be verified against the report data at
-              content QA.
+              completion. Roll over any bar for its value. Chart values to be
+              verified against the report data at content QA.
             </p>
           </div>
         </div>

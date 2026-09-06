@@ -106,7 +106,7 @@ body {
 }
 
 table {
-  overflow: hidden !important;
+  overflow: visible;
 }
 
 /* Sidebar Nav Item Button Overrides */
@@ -278,6 +278,126 @@ aside button.bg-\[\#8AC900\] {
 .animate-content-switch {
   animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ==========================================================================
+   Hero Wave Graphic Auto Rotate (About Public Skills Australia)
+   ========================================================================== */
+@keyframes heroGraphicRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-hero-rotate {
+  transform-origin: center center;
+  animation: heroGraphicRotate 4.5s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
+}
+
+/* ==========================================================================
+   Executive Summary Sequential Flow Animation (Smooth & Calm)
+   ========================================================================== */
+@keyframes flowItemSmoothFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.86) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes flowSeparatorSmoothDraw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.animate-flow-item {
+  opacity: 0;
+  animation: flowItemSmoothFade 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-flow-separator {
+  opacity: 0;
+  transform-origin: left center;
+  animation: flowSeparatorSmoothDraw 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ==========================================================================
+   Drivers of Change Hero Graphic Spin & Settle Entrance (Slow & Silky Smooth)
+   ========================================================================== */
+@keyframes driversPopSettle {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes driversSmoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-drivers-pop-settle {
+  animation: driversPopSettle 5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-drivers-spin {
+  transform-origin: center center;
+  animation: driversSmoothSpin 5s cubic-bezier(0.35, 0, 0.2, 1) both;
+}
+
+/* ==========================================================================
+   Industry Overview Hero Graphic Entrance (Natural Flow: Zoom & Expand -> Settle)
+   ========================================================================== */
+@keyframes heroNaturalZoomFlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.68);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.35, 1);
+  }
+  52% {
+    opacity: 1;
+    transform: scale(1.15);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-hero-pulse-settle {
+  transform-origin: center center;
+  animation: heroNaturalZoomFlow 2.1s both;
+}
+
+
 
 /* ==========================================================================
    Button Hover Sweep Effects (Left to Right)

@@ -29,6 +29,11 @@ export default function IndustryOverviewView({
   report: Report;
 }) {
   const router = useRouter();
+  const [isHeroMounted, setIsHeroMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -69,7 +74,9 @@ export default function IndustryOverviewView({
               <img
                 src="/images/reports/industry-overview/hero.svg"
                 alt="Industry Overview Diagram"
-                className="h-auto max-h-48 object-contain animate-zoom-in"
+                className={`h-auto max-h-48 object-contain select-none pointer-events-none ${
+                  isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+                }`}
               />
             </div>
           </div>

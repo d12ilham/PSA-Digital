@@ -118,7 +118,7 @@ export default function ReportHeader({
             >
               Workforce Insights <span>▾</span>
             </button>
-            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-80 max-w-sm space-y-1 z-50 shadow-xl">
+            <div className="absolute top-full left-0 hidden group-hover:block bg-[#161b01] border border-white/10 rounded-xl p-2 min-w-56 space-y-1 z-50 shadow-xl">
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/workforce_insights`)
@@ -126,26 +126,6 @@ export default function ReportHeader({
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_insights" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Workforce Insights Overview
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme1-insight1`,
-                  )
-                }
-                className="w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-white/80 hover:text-white hover:bg-white/10"
-              >
-                Theme 1: Local Government Specific Occupational Shortages
-              </button>
-              <button
-                onClick={() =>
-                  router.push(
-                    `/reports/${slug}/workforce_insights?insight=theme2-insight1`,
-                  )
-                }
-                className="w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-white/80 hover:text-white hover:bg-white/10"
-              >
-                Theme 2: Access to VET Qualifications and Training Delivery Partners
               </button>
             </div>
           </div>

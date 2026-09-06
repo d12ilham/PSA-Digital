@@ -75,7 +75,7 @@ const SECTOR_REPORTS = [
     badgeBg: "bg-[#38485B]",
     title: "Public Safety Workforce Insights Report",
     subtitle: "Fire and Emergency Services · Police · Defence",
-    actionText: "Coming to the digital platform",
+    actionText: "View report",
     coverImage: "/images/reports/public-safety.png",
     isFirst: false,
   },
@@ -86,7 +86,7 @@ const SECTOR_REPORTS = [
     badgeBg: "bg-[#694834]",
     title: "Federal and State/Territory Government Workforce Insights Report",
     subtitle: "",
-    actionText: "Coming to the digital platform",
+    actionText: "View report",
     coverImage: "/images/reports/federal-state.png",
     isFirst: false,
   },
@@ -97,7 +97,7 @@ const SECTOR_REPORTS = [
     badgeBg: "bg-[#0B6DA8]",
     title: "Correctional Services Workforce Insights Report",
     subtitle: "",
-    actionText: "Coming to the digital platform",
+    actionText: "View report",
     coverImage: "/images/reports/correctional-services.png",
     isFirst: false,
   },
@@ -347,8 +347,8 @@ export default function ReportsArchivePage() {
 
               <div className="space-y-2 animate-slide-up-delay">
                 <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
-                  This platform brings together workforce insights and strategies
-                  across six priority sectors.
+                  This platform brings together workforce insights and
+                  strategies across six priority sectors.
                 </p>
 
                 <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
@@ -516,11 +516,8 @@ export default function ReportsArchivePage() {
           {/* Header Row */}
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-gray200 pb-3">
             <h2 className="text-lg sm:text-xl font-bold text-gray800">
-              Choose your sector Workforce Insights Report
+              Choose your sector
             </h2>
-            <span className="text-xs text-gray600 font-semibold">
-              Each report houses the 2026 and previous-year reports
-            </span>
           </div>
 
           {/* Grid of Sector Cards */}
@@ -567,11 +564,7 @@ export default function ReportsArchivePage() {
 
                   <div className="pt-3">
                     <span
-                      className={`text-xs font-bold inline-flex items-center gap-1.5 transition-all duration-300 ${
-                        sector.isFirst
-                          ? "text-lg-dark group-hover:text-[#035822]"
-                          : "text-notes group-hover:text-lg-dark"
-                      }`}
+                      className={`text-xs font-bold inline-flex items-center gap-1.5 transition-all duration-300 text-lg-dark group-hover:text-[#035822]`}
                     >
                       <span>{sector.actionText}</span>
                       <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -600,19 +593,14 @@ export default function ReportsArchivePage() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-3 pt-3">
-            <button
-              onClick={scrollToSectors}
-              className="bg-lg-light text-gray800 font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#78B800] transition-all cursor-pointer active:scale-95"
+            <a
+              href="https://publicskillsaustralia.org.au/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all cursor-pointer inline-flex items-center gap-2 no-underline active:scale-95"
             >
-              Choose your sector
-            </button>
-            <button
-              onClick={() => setIsPdfModalOpen(true)}
-              className="bg-lg-dark text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#2A3716] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
-            >
-              <span>All sector reports (PDFs)</span>
-              <Download className="w-4 h-4 text-white" />
-            </button>
+              <span>Contact Us</span>
+            </a>
           </div>
         </section>
       </main>

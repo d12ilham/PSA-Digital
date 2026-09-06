@@ -41,7 +41,7 @@ export default function AboutView({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (undertakesRef.current) {
@@ -66,7 +66,7 @@ export default function AboutView({
           <img
             src="/images/wave-right.png"
             alt=""
-            className="absolute top-0 right-0 w-80 pointer-events-none opacity-40 z-0 object-contain object-top-right select-none animate-zoom-in"
+            className="absolute top-0 right-0 w-80 pointer-events-none opacity-40 z-0 object-contain object-top-right select-none animate-hero-rotate"
           />
 
           <div className="relative z-10 max-w-3xl space-y-4">
@@ -117,11 +117,9 @@ export default function AboutView({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div
               style={
-                isUndertakesVisible
-                  ? { animationDelay: "0.10s" }
-                  : undefined
+                isUndertakesVisible ? { animationDelay: "0.10s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -131,9 +129,9 @@ export default function AboutView({
                 <img
                   src="/images/reports/about/Workforce.svg"
                   alt="Workforce Insight and Strategy"
-                  className="w-16 h-16 shrink-0 object-contain"
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
                   Workforce Insight and Strategy
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -146,11 +144,9 @@ export default function AboutView({
 
             <div
               style={
-                isUndertakesVisible
-                  ? { animationDelay: "0.22s" }
-                  : undefined
+                isUndertakesVisible ? { animationDelay: "0.22s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -160,9 +156,9 @@ export default function AboutView({
                 <img
                   src="/images/reports/about/Training.svg"
                   alt="Training Product Quality & Development"
-                  className="w-16 h-16 shrink-0 object-contain"
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
                   Training Product Quality & Development
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -174,11 +170,9 @@ export default function AboutView({
 
             <div
               style={
-                isUndertakesVisible
-                  ? { animationDelay: "0.34s" }
-                  : undefined
+                isUndertakesVisible ? { animationDelay: "0.34s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -188,9 +182,9 @@ export default function AboutView({
                 <img
                   src="/images/reports/about/Supports.svg"
                   alt="Supports Career Pathways"
-                  className="w-16 h-16 shrink-0 object-contain"
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
                   Supports Career Pathways
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -203,11 +197,9 @@ export default function AboutView({
 
             <div
               style={
-                isUndertakesVisible
-                  ? { animationDelay: "0.46s" }
-                  : undefined
+                isUndertakesVisible ? { animationDelay: "0.46s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -217,9 +209,9 @@ export default function AboutView({
                 <img
                   src="/images/reports/about/Industry.svg"
                   alt="Industry Stewardship"
-                  className="w-16 h-16 shrink-0 object-contain"
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
                   Industry Stewardship
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">

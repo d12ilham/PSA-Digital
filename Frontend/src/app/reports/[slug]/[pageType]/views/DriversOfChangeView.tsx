@@ -122,6 +122,11 @@ export default function DriversOfChangeView({
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
   const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(null);
+  const [isHeroMounted, setIsHeroMounted] = useState(false);
+
+  React.useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   const driversRef = React.useRef<HTMLDivElement>(null);
   const [isDriversVisible, setIsDriversVisible] = useState(false);
@@ -218,11 +223,19 @@ export default function DriversOfChangeView({
 
           {/* Right Diagram Image */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
-            <img
-              src="/images/reports/drivers-of-change-diagram.png"
-              alt="Drivers of Change Diagram"
-              className="h-auto max-h-48 object-contain animate-zoom-in"
-            />
+            <div
+              className={`flex items-center justify-center ${
+                isHeroMounted ? "animate-drivers-pop-settle" : "opacity-0"
+              }`}
+            >
+              <img
+                src="/images/reports/drivers-of-change-diagram.png"
+                alt="Drivers of Change Diagram"
+                className={`h-auto max-h-48 object-contain select-none pointer-events-none ${
+                  isHeroMounted ? "animate-drivers-spin" : ""
+                }`}
+              />
+            </div>
           </div>
         </div>
 
