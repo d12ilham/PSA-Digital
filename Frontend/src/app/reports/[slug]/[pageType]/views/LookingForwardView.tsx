@@ -27,6 +27,11 @@ export default function LookingForwardView({
   report: Report;
 }) {
   const router = useRouter();
+  const [isHeroMounted, setIsHeroMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -78,7 +83,9 @@ export default function LookingForwardView({
             <img
               src="/images/hero-graphic-looking-forward.png"
               alt="2027 and Beyond Diagram"
-              className="w-full max-w-[340px] sm:max-w-[440px] object-contain animate-zoom-in"
+              className={`w-full max-w-[340px] sm:max-w-[440px] object-contain select-none pointer-events-none ${
+                isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+              }`}
             />
           </div>
         </div>
@@ -87,8 +94,10 @@ export default function LookingForwardView({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           {/* Card 1: Line of Inquiry 1 */}
           <div
-            style={{ animationDelay: "0.15s" }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between"
+            style={{ animationDelay: "0.35s" }}
+            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between ${
+              isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
+            }`}
           >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
@@ -110,8 +119,10 @@ export default function LookingForwardView({
 
           {/* Card 2: Line of Inquiry 2 */}
           <div
-            style={{ animationDelay: "0.27s" }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between"
+            style={{ animationDelay: "0.85s" }}
+            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between ${
+              isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
+            }`}
           >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
@@ -133,8 +144,10 @@ export default function LookingForwardView({
 
           {/* Card 3: Continuing */}
           <div
-            style={{ animationDelay: "0.39s" }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between"
+            style={{ animationDelay: "1.35s" }}
+            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between ${
+              isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
+            }`}
           >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
@@ -165,8 +178,10 @@ export default function LookingForwardView({
 
         {/* ── LIGHT GREEN SUMMARY BOX ── */}
         <div
-          style={{ animationDelay: "0.48s", backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
-          className="animate-card-entrance border border-[#B2DB79] rounded-2xl p-5"
+          style={{ animationDelay: "1.85s", backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
+          className={`border border-[#B2DB79] rounded-2xl p-5 ${
+            isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
+          }`}
         >
           <p className="text-sm text-gray600 leading-relaxed w-full xl:w-1/2">
             Beyond these focused lines of inquiry, the 2027{" "}

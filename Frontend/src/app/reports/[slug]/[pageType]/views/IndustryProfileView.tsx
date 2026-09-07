@@ -32,9 +32,11 @@ export default function IndustryProfileView({
   const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(5); // 2025 default
   const [activeTrainingBar, setActiveTrainingBar] = useState<number | null>(3); // 2024 default
   const [chartsLoaded, setChartsLoaded] = useState(false);
+  const [isHeroMounted, setIsHeroMounted] = useState(false);
   const chartsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsHeroMounted(true);
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -131,7 +133,9 @@ export default function IndustryProfileView({
             <img
               src="/images/reports/industry-profile/hero.png"
               alt="Industry Profile Illustration"
-              className="h-auto max-h-36 object-contain animate-zoom-in"
+              className={`h-auto max-h-36 object-contain select-none pointer-events-none ${
+                isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+              }`}
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -38,6 +38,11 @@ export default function WorkforceInsightsView({
   const searchParams = useSearchParams();
   const [showTheme1Overview, setShowTheme1Overview] = useState(false);
   const [showTheme2Overview, setShowTheme2Overview] = useState(false);
+  const [isHeroMounted, setIsHeroMounted] = useState(false);
+
+  useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   // Determine selected theme and insight from query parameter or pageType
   const queryInsight = searchParams.get("insight");
@@ -162,7 +167,9 @@ export default function WorkforceInsightsView({
                 <img
                   src="/images/reports/workforce-insights.png"
                   alt="Workforce Insights"
-                  className="h-auto max-h-36 max-w-full object-contain animate-zoom-in"
+                  className={`h-auto max-h-36 max-w-full object-contain select-none pointer-events-none ${
+                    isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+                  }`}
                 />
               </div>
             </div>

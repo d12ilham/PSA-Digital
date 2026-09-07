@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -350,6 +350,11 @@ export default function ExistingIndustryStrategiesView({
 }) {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(1);
+  const [isHeroMounted, setIsHeroMounted] = useState(false);
+
+  useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   const selectedStrategy =
     STRATEGIES_DATA.find((s) => s.id === selectedId) || STRATEGIES_DATA[0];
@@ -417,7 +422,9 @@ export default function ExistingIndustryStrategiesView({
             <img
               src="/images/hero-graphic-existing.png"
               alt="Existing Industry-Sector Strategies Graphic"
-              className="w-full max-w-[340px] sm:max-w-[420px] object-contain animate-zoom-in"
+              className={`w-full max-w-[340px] sm:max-w-[420px] object-contain select-none pointer-events-none ${
+                isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+              }`}
             />
           </div>
         </div>

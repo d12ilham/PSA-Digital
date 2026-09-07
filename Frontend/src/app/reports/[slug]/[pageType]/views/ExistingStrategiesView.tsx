@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -29,6 +29,11 @@ export default function ExistingStrategiesView({
   const router = useRouter();
   const [project1Open, setProject1Open] = useState(false);
   const [strategy2Open, setStrategy2Open] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -79,14 +84,16 @@ export default function ExistingStrategiesView({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Card 1: Access to Training */}
             <div
-              style={{ animationDelay: "0.15s" }}
-              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+              style={{ animationDelay: "0.35s" }}
+              className={`border border-gray200 rounded-2xl p-5 flex items-start gap-4 ${
+                isMounted ? "animate-card-entrance-slow" : "opacity-0"
+              }`}
             >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-teacher.svg"
                   alt="Access to Training"
-                  className="w-7 h-7 object-contain animate-zoom-in"
+                  className="w-7 h-7 object-contain"
                 />
               </div>
               <div className="space-y-1">
@@ -102,14 +109,16 @@ export default function ExistingStrategiesView({
 
             {/* Card 2: Skills Gaps */}
             <div
-              style={{ animationDelay: "0.27s" }}
-              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+              style={{ animationDelay: "0.85s" }}
+              className={`border border-gray200 rounded-2xl p-5 flex items-start gap-4 ${
+                isMounted ? "animate-card-entrance-slow" : "opacity-0"
+              }`}
             >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-briefcase.svg"
                   alt="Skills Gaps"
-                  className="w-7 h-7 object-contain animate-zoom-in"
+                  className="w-7 h-7 object-contain"
                 />
               </div>
               <div className="space-y-1">
@@ -124,14 +133,16 @@ export default function ExistingStrategiesView({
 
             {/* Card 3: Resourcing and Recruitment */}
             <div
-              style={{ animationDelay: "0.39s" }}
-              className="animate-card-entrance border border-gray200 rounded-2xl p-5 flex items-start gap-4"
+              style={{ animationDelay: "1.35s" }}
+              className={`border border-gray200 rounded-2xl p-5 flex items-start gap-4 ${
+                isMounted ? "animate-card-entrance-slow" : "opacity-0"
+              }`}
             >
               <div className="w-14 h-14 rounded-full bg-[#F0F5DF] flex items-center justify-center shrink-0 border border-gray200">
                 <img
                   src="/images/frame-search.svg"
                   alt="Resourcing and Recruitment"
-                  className="w-7 h-7 object-contain animate-zoom-in"
+                  className="w-7 h-7 object-contain"
                 />
               </div>
               <div className="space-y-1">

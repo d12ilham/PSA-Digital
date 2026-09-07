@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -42,6 +42,11 @@ export default function FederalGovernmentInitiativesView({
 }) {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(1);
+  const [isHeroMounted, setIsHeroMounted] = useState(false);
+
+  useEffect(() => {
+    setIsHeroMounted(true);
+  }, []);
 
   const selectedItem =
     INITIATIVES_DATA.find((s) => s.id === selectedId) || INITIATIVES_DATA[0];
@@ -106,7 +111,9 @@ export default function FederalGovernmentInitiativesView({
             <img
               src="/images/hero-graphic-federal.png"
               alt="Federal Government Initiatives Graphic"
-              className="w-full max-w-[340px] sm:max-w-[420px] object-contain animate-zoom-in"
+              className={`w-full max-w-[340px] sm:max-w-[420px] object-contain select-none pointer-events-none ${
+                isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
+              }`}
             />
           </div>
         </div>
