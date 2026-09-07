@@ -7,6 +7,7 @@ import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowLeft, ArrowRight, Download, Search } from "lucide-react";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
+import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 
 interface Report {
   id: string;
@@ -1136,10 +1137,18 @@ export default function StateTerritoryView({
                   >
                     <div className="space-y-1">
                       <span className="text-3xl font-bold text-[#9CAA54] block leading-tight">
-                        <AnimatedCounter target={49.1} decimals={1} suffix="% Female" />
+                        <AnimatedCounter
+                          target={49.1}
+                          decimals={1}
+                          suffix="% Female"
+                        />
                       </span>
                       <span className="text-3xl font-bold text-lg-dark block leading-tight">
-                        <AnimatedCounter target={50.9} decimals={1} suffix="% Male" />
+                        <AnimatedCounter
+                          target={50.9}
+                          decimals={1}
+                          suffix="% Male"
+                        />
                       </span>
                       <p className="text-sm font-semibold text-gray600 pt-1">
                         National Workforce Composition
@@ -1184,22 +1193,25 @@ export default function StateTerritoryView({
                   <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-xl font-bold text-gray800 pt-1">
-                        National Map
+                        National
                       </h3>
                     </div>
 
-                    {/* National Map Image */}
-                    <div className="w-full flex items-center justify-center p-2">
-                      <img
-                        key="national-map"
-                        src="/images/reports/australia-national-map.png"
-                        alt="Australia National Map"
-                        className="w-full h-auto object-contain max-h-[500px] animate-zoom-in"
-                      />
+                    {/* National Interactive Map with 1px #252D0221 border and 12px rounded corner */}
+                    <div className="w-full flex items-center justify-center p-0">
+                      <div className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
+                        <AustraliaInteractiveMap
+                          selectedState="NATIONAL"
+                          onSelectState={setSelectedState}
+                          statesData={STATES_DATA}
+                        />
+                      </div>
                     </div>
 
-                    <p className="text-xs text-active leading-relaxed pt-2">
-                      Source: ABS, Public sector employment and earnings, 2025.
+                    <p className="text-xs text-active leading-relaxed pt-1">
+                      Source: ABS, Public sector employment and earnings, 2025,
+                      Table 2 · state and territory Local Government
+                      associations (see state profiles for full references).
                     </p>
                   </div>
 
@@ -1341,65 +1353,119 @@ export default function StateTerritoryView({
 
                     {/* Table with borders around and between columns */}
                     <div
-                      style={{ height: "480px", maxHeight: "480px", overflowY: "auto", overflowX: "auto" }}
+                      style={{
+                        height: "480px",
+                        maxHeight: "480px",
+                        overflowY: "auto",
+                        overflowX: "auto",
+                      }}
                       className="border border-gray200 rounded-xl"
                     >
                       <table
-                        style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                        style={{
+                          borderCollapse: "separate",
+                          borderSpacing: 0,
+                          width: "100%",
+                        }}
                         className="text-left text-xs sm:text-sm"
                       >
                         <thead className="bg-[#F5F5F5]">
                           <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-4 font-bold text-left tracking-wider border-b border-gray-200 shadow-xs"
                             >
                               OCCUPATION
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               AUS
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               NSW
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               NT
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               QLD
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               SA
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               TAS
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               VIC
                             </th>
                             <th
-                              style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                              style={{
+                                position: "sticky",
+                                top: 0,
+                                zIndex: 20,
+                                backgroundColor: "#F5F5F5",
+                              }}
                               className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                             >
                               WA
@@ -1461,7 +1527,10 @@ export default function StateTerritoryView({
               </div>
             ) : (
               /* SPECIFIC STATE DASHBOARD (NSW, TAS, QLD, NT, SA, VIC, WA) */
-              <div key={selectedState} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+              <div
+                key={selectedState}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in"
+              >
                 {/* Left Zoomed Map Box */}
                 <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                   <div className="flex items-start justify-between gap-2">
@@ -1475,45 +1544,20 @@ export default function StateTerritoryView({
                         key={`${selectedState.toLowerCase()}-country`}
                         src={`/images/reports/state-territory/${selectedState.toLowerCase()}-country.png`}
                         alt={`${currentState.name} Australia Map`}
-                        className="w-36 h-24 sm:w-44 sm:h-28 object-contain animate-zoom-in"
+                        className="w-36 h-24 sm:w-44 sm:h-28 object-contain animate-zoom-in cursor-pointer hover:opacity-85 transition-opacity"
+                        title="Click to view full Australia map"
+                        onClick={() => setSelectedState("NATIONAL")}
                       />
                     </div>
                   </div>
 
-                  {/* Center Zoomed Map with Overlaid Stat Cards (Reduced gap) */}
-                  <div className="relative w-full h-72 sm:h-80 -mt-2 flex items-center justify-center p-2">
-                    <div className="w-full h-full max-h-76 flex items-center justify-center">
-                      <img
-                        key={`${selectedState.toLowerCase()}-state`}
-                        src={`/images/reports/state-territory/${selectedState.toLowerCase()}-state.png`}
-                        alt={`${currentState.name} State Map`}
-                        className="w-full h-full max-h-72 object-contain animate-zoom-in"
-                      />
-                    </div>
-
-                    {/* Stat Overlay Card 1 (Employees) */}
-                    <div className="absolute top-8 left-3 sm:left-4 bg-white rounded-xl shadow-md p-3 min-w-28 sm:min-w-32 z-10">
-                      <span className="text-2xl font-bold text-lg-dark block leading-tight">
-                        <AnimatedCounter key={selectedState + "-map-emp"} target={Number(currentState.employees.replace(/,/g, "")) || 0} formatNumber={true} />
-                      </span>
-                      <span className="text-xs font-semibold text-gray600">
-                        Employees
-                      </span>
-                      {/* Down caret in the center bottom */}
-                      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 rounded-xs shadow-[2px_2px_3px_rgba(0,0,0,0.12)]" />
-                    </div>
-
-                    {/* Stat Overlay Card 2 (Local Councils) */}
-                    <div className="absolute bottom-8 right-3 sm:right-4 bg-white rounded-xl shadow-md p-3 min-w-28 sm:min-w-32 z-10">
-                      <span className="text-2xl font-bold text-lg-dark block leading-tight">
-                        <AnimatedCounter key={selectedState + "-map-councils"} target={currentState.councils} />
-                      </span>
-                      <span className="text-xs font-semibold text-gray600">
-                        Local councils
-                      </span>
-                      {/* Down caret in the center bottom */}
-                      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 rounded-xs shadow-[2px_2px_3px_rgba(0,0,0,0.12)]" />
-                    </div>
+                  {/* Center Zoomed Map with Overlaid Stat Cards (Interactive Google Maps-style zoom) */}
+                  <div className="relative w-full -mt-2 flex items-center justify-center">
+                    <AustraliaInteractiveMap
+                      selectedState={selectedState}
+                      onSelectState={setSelectedState}
+                      statesData={STATES_DATA}
+                    />
                   </div>
 
                   <p className="text-xs text-active leading-relaxed pt-2">
@@ -1542,7 +1586,14 @@ export default function StateTerritoryView({
                       className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-5 space-y-2"
                     >
                       <span className="text-3xl font-bold text-lg-dark block">
-                        <AnimatedCounter key={selectedState + "-card-emp"} target={Number(currentState.employees.replace(/,/g, "")) || 0} formatNumber={true} />
+                        <AnimatedCounter
+                          key={selectedState + "-card-emp"}
+                          target={
+                            Number(currentState.employees.replace(/,/g, "")) ||
+                            0
+                          }
+                          formatNumber={true}
+                        />
                       </span>
                       <p className="text-xs font-bold text-gray600">
                         Employees
@@ -1559,7 +1610,10 @@ export default function StateTerritoryView({
                       className="animate-card-entrance bg-white border border-gray200 rounded-2xl p-5 space-y-2"
                     >
                       <span className="text-3xl font-bold text-lg-dark block">
-                        <AnimatedCounter key={selectedState + "-card-councils"} target={currentState.councils} />
+                        <AnimatedCounter
+                          key={selectedState + "-card-councils"}
+                          target={currentState.councils}
+                        />
                       </span>
                       <p className="text-xs font-bold text-gray600">
                         Local councils
@@ -1658,30 +1712,53 @@ export default function StateTerritoryView({
 
                       {/* Table */}
                       <div
-                        style={{ height: "260px", maxHeight: "260px", overflowY: "auto" }}
+                        style={{
+                          height: "260px",
+                          maxHeight: "260px",
+                          overflowY: "auto",
+                        }}
                         className="border border-gray200 rounded-xl"
                       >
                         <table
-                          style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                          style={{
+                            borderCollapse: "separate",
+                            borderSpacing: 0,
+                            width: "100%",
+                          }}
                           className="text-left text-sm"
                         >
                           <thead className="bg-[#F5F5F5]">
                             <tr className="bg-[#F5F5F5] text-[#252D02] font-bold">
                               <th
-                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                style={{
+                                  position: "sticky",
+                                  top: 0,
+                                  zIndex: 20,
+                                  backgroundColor: "#F5F5F5",
+                                }}
                                 className="p-4 font-bold leading-snug border-b border-gray-200 shadow-xs"
                               >
                                 Occupation identified in shortage in{" "}
                                 {currentState.code} through Skills Audit
                               </th>
                               <th
-                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                style={{
+                                  position: "sticky",
+                                  top: 0,
+                                  zIndex: 20,
+                                  backgroundColor: "#F5F5F5",
+                                }}
                                 className="p-4 font-bold leading-snug border-l border-b border-gray-200 w-[140px] sm:w-[200px] min-w-[140px] sm:min-w-[200px] max-w-[200px] text-center shadow-xs"
                               >
                                 OSL — {currentState.code} specific shortage
                               </th>
                               <th
-                                style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                                style={{
+                                  position: "sticky",
+                                  top: 0,
+                                  zIndex: 20,
+                                  backgroundColor: "#F5F5F5",
+                                }}
                                 className="p-4 font-bold leading-snug border-l border-b border-gray-200 w-[140px] sm:w-[200px] min-w-[140px] sm:min-w-[200px] max-w-[200px] text-center shadow-xs"
                               >
                                 OSL — Australia wide shortage
@@ -1771,7 +1848,10 @@ export default function StateTerritoryView({
 
         {/* ── MODE B: COMPARE ALL STATES VIEW ── */}
         {viewMode === "compare" && (
-          <div key="compare-mode" className="animate-fade-in flex flex-col lg:flex-row gap-8 items-start">
+          <div
+            key="compare-mode"
+            className="animate-fade-in flex flex-col lg:flex-row gap-8 items-start"
+          >
             {/* Left Column: National Green Card */}
             <div className="w-full lg:w-[330px] lg:min-w-[330px] lg:max-w-[330px] bg-lg-dark text-white rounded-2xl p-6 flex flex-col justify-between space-y-6 shrink-0">
               <div className="space-y-4">
@@ -1825,7 +1905,11 @@ export default function StateTerritoryView({
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-lg sm:text-xl font-bold text-[#9CAA54] leading-tight">
-                        <AnimatedCounter target={49.1} decimals={1} suffix="%" />
+                        <AnimatedCounter
+                          target={49.1}
+                          decimals={1}
+                          suffix="%"
+                        />
                       </span>
                       <span className="text-xs text-[#33380F] font-medium">
                         Female
@@ -1859,7 +1943,11 @@ export default function StateTerritoryView({
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-lg sm:text-xl font-bold text-[#0C582B] leading-tight">
-                        <AnimatedCounter target={50.9} decimals={1} suffix="%" />
+                        <AnimatedCounter
+                          target={50.9}
+                          decimals={1}
+                          suffix="%"
+                        />
                       </span>
                       <span className="text-xs text-[#33380F] font-medium">
                         Male
@@ -1872,7 +1960,11 @@ export default function StateTerritoryView({
               {/* First Nations Pill */}
               <div className="bg-[#9CAA54] rounded-full py-2 px-4">
                 <span className="text-xs font-bold text-white">
-                  <AnimatedCounter target={8.2} decimals={1} suffix="% identify as First Nations" />
+                  <AnimatedCounter
+                    target={8.2}
+                    decimals={1}
+                    suffix="% identify as First Nations"
+                  />
                 </span>
               </div>
             </div>
@@ -1922,7 +2014,10 @@ export default function StateTerritoryView({
                             />
                           </div>
                           <span className="w-12 text-right font-semibold text-gray-700">
-                            <AnimatedCounter target={Number(item.val.replace(/,/g, "")) || 0} formatNumber={true} />
+                            <AnimatedCounter
+                              target={Number(item.val.replace(/,/g, "")) || 0}
+                              formatNumber={true}
+                            />
                           </span>
                         </div>
                       ))}
@@ -1991,65 +2086,119 @@ export default function StateTerritoryView({
 
               {/* Comprehensive Matrix Table */}
               <div
-                style={{ height: "480px", maxHeight: "480px", overflowY: "auto", overflowX: "auto" }}
+                style={{
+                  height: "480px",
+                  maxHeight: "480px",
+                  overflowY: "auto",
+                  overflowX: "auto",
+                }}
                 className="border border-gray200 rounded-xl"
               >
                 <table
-                  style={{ borderCollapse: "separate", borderSpacing: 0, width: "100%" }}
+                  style={{
+                    borderCollapse: "separate",
+                    borderSpacing: 0,
+                    width: "100%",
+                  }}
                   className="text-left text-xs sm:text-sm"
                 >
                   <thead className="bg-[#F5F5F5]">
                     <tr className="bg-[#F5F5F5] text-[#252D02] font-bold text-xs uppercase">
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-4 font-bold text-left tracking-wider border-b border-gray-200 shadow-xs"
                       >
                         OCCUPATION
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         AUS
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         NSW
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         NT
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         QLD
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         SA
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         TAS
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         VIC
                       </th>
                       <th
-                        style={{ position: "sticky", top: 0, zIndex: 20, backgroundColor: "#F5F5F5" }}
+                        style={{
+                          position: "sticky",
+                          top: 0,
+                          zIndex: 20,
+                          backgroundColor: "#F5F5F5",
+                        }}
                         className="p-3 text-center border-l border-b border-gray-200 w-16 shadow-xs"
                       >
                         WA
