@@ -157,31 +157,47 @@ export default function IndustryProfileView({
               </h3>
 
               {/* Bar Chart Visualization */}
-              <div className="pt-4 pb-2 relative h-64 flex items-end justify-between gap-3">
+              <div className="pt-8 pb-2 relative h-64 flex items-end justify-between gap-3">
                 {growthData.map((item, idx) => (
                   <div
                     key={item.year}
                     onMouseEnter={() => setActiveGrowthBar(idx)}
                     className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer"
                   >
-                    {/* Tooltip */}
-                    {activeGrowthBar === idx && (
-                      <div className="mb-2 bg-[#1B240E] text-white text-xs font-bold px-2.5 py-1 rounded-md animate-fade-in text-center">
-                        {item.year}: {item.val}
-                      </div>
-                    )}
-                    <div
-                      className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
-                        activeGrowthBar === idx
-                          ? "bg-[#728C28]"
-                          : "bg-[#A1C950]/80 hover:bg-[#85B810]"
-                      }`}
-                      style={{
-                        height: chartsLoaded ? item.height : "0%",
-                        transitionDelay: `${idx * 100}ms`,
-                      }}
-                    />
-                    <span className="text-xs font-bold text-gray600 mt-2">
+                    <div className="w-full flex-1 flex items-end justify-center relative">
+                      {/* Tooltip */}
+                      {activeGrowthBar === idx && (
+                        <div
+                          style={{
+                            bottom: `calc(${chartsLoaded ? item.height : "0%"} + 8px)`,
+                          }}
+                          className="absolute left-1/2 -translate-x-1/2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md pointer-events-none z-20"
+                        >
+                          <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
+                            {item.year}
+                          </div>
+                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
+                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
+                              <span className="w-2 h-2 rounded-xs bg-[#728C28] inline-block shrink-0" />
+                              Employees:
+                            </span>
+                            <span className="font-bold text-[#B2DB79]">{item.val}</span>
+                          </div>
+                        </div>
+                      )}
+                      <div
+                        className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
+                          activeGrowthBar === idx
+                            ? "bg-[#728C28]"
+                            : "bg-[#A1C950]/80 hover:bg-[#85B810]"
+                        }`}
+                        style={{
+                          height: chartsLoaded ? item.height : "0%",
+                          transitionDelay: `${idx * 100}ms`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-xs font-bold text-gray600 mt-2 shrink-0">
                       {item.year}
                     </span>
                   </div>
@@ -222,62 +238,69 @@ export default function IndustryProfileView({
               </div>
 
               {/* Bar Chart Visualization */}
-              <div className="pt-8 pb-4 relative h-64 flex items-end justify-between gap-6">
+              <div className="pt-8 pb-2 relative h-64 flex items-end justify-between gap-6">
                 {trainingData.map((item, idx) => (
                   <div
                     key={item.year}
                     onMouseEnter={() => setActiveTrainingBar(idx)}
                     className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer"
                   >
-                    {/* Tooltip */}
-                    {activeTrainingBar === idx && (
-                      <div className="mb-2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md z-10">
-                        <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
-                          {item.year}
+                    <div className="w-full flex-1 flex items-end justify-center relative">
+                      {/* Tooltip */}
+                      {activeTrainingBar === idx && (
+                        <div
+                          style={{
+                            bottom: `calc(${chartsLoaded ? item.enrolH : "0%"} + 8px)`,
+                          }}
+                          className="absolute left-1/2 -translate-x-1/2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md pointer-events-none z-20"
+                        >
+                          <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
+                            {item.year}
+                          </div>
+                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
+                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
+                              <span className="w-2 h-2 rounded-xs bg-[#9CAA54] inline-block shrink-0" />
+                              Enrol:
+                            </span>
+                            <span className="font-bold text-[#B2DB79]">{item.enrol}</span>
+                          </div>
+                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight mt-0.5">
+                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
+                              <span className="w-2 h-2 rounded-xs bg-lg-dark inline-block shrink-0" />
+                              Comp:
+                            </span>
+                            <span className="font-bold text-white">{item.comp}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
-                          <span className="flex items-center gap-1.5 text-white/80 font-medium">
-                            <span className="w-2 h-2 rounded-xs bg-[#9CAA54] inline-block shrink-0" />
-                            Enrol:
-                          </span>
-                          <span className="font-bold text-[#B2DB79]">{item.enrol}</span>
-                        </div>
-                        <div className="flex items-center gap-2 justify-between text-[11px] leading-tight mt-0.5">
-                          <span className="flex items-center gap-1.5 text-white/80 font-medium">
-                            <span className="w-2 h-2 rounded-xs bg-lg-dark inline-block shrink-0" />
-                            Comp:
-                          </span>
-                          <span className="font-bold text-white">{item.comp}</span>
-                        </div>
+                      )}
+                      <div className="flex items-end gap-1.5 w-full justify-center h-full">
+                        {/* Enrolment Bar */}
+                        <div
+                          className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
+                            activeTrainingBar === idx
+                              ? "bg-[#85B810]"
+                              : "bg-[#9CAA54] hover:bg-[#85B810]"
+                          }`}
+                          style={{
+                            height: chartsLoaded ? item.enrolH : "0%",
+                            transitionDelay: `${idx * 120}ms`,
+                          }}
+                        />
+                        {/* Completion Bar */}
+                        <div
+                          className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
+                            activeTrainingBar === idx
+                              ? "bg-[#046D2A]"
+                              : "bg-lg-dark hover:bg-[#046D2A]"
+                          }`}
+                          style={{
+                            height: chartsLoaded ? item.compH : "0%",
+                            transitionDelay: `${idx * 120 + 80}ms`,
+                          }}
+                        />
                       </div>
-                    )}
-                    <div className="flex items-end gap-1.5 w-full justify-center h-full">
-                      {/* Enrolment Bar */}
-                      <div
-                        className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
-                          activeTrainingBar === idx
-                            ? "bg-[#85B810]"
-                            : "bg-[#9CAA54] hover:bg-[#85B810]"
-                        }`}
-                        style={{
-                          height: chartsLoaded ? item.enrolH : "0%",
-                          transitionDelay: `${idx * 120}ms`,
-                        }}
-                      />
-                      {/* Completion Bar */}
-                      <div
-                        className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
-                          activeTrainingBar === idx
-                            ? "bg-[#046D2A]"
-                            : "bg-lg-dark hover:bg-[#046D2A]"
-                        }`}
-                        style={{
-                          height: chartsLoaded ? item.compH : "0%",
-                          transitionDelay: `${idx * 120 + 80}ms`,
-                        }}
-                      />
                     </div>
-                    <span className="text-xs font-bold text-gray600 mt-2">
+                    <span className="text-xs font-bold text-gray600 mt-2 shrink-0">
                       {item.year}
                     </span>
                   </div>
