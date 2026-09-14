@@ -4,6 +4,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+import { resolveSector } from "@/config/reports/sectors";
+
 export interface NavTarget {
   label: string;
   href: string;
@@ -12,6 +14,8 @@ export interface NavTarget {
 export interface ReportNavButtonsProps {
   slug?: string;
   currentPage?: string;
+  industrySlug?: string;
+  pagesOrder?: { key: string; label: string }[];
   prev?: NavTarget;
   next?: NavTarget;
 }
@@ -37,6 +41,8 @@ export const REPORT_PAGES_ORDER = [
 export default function ReportNavButtons({
   slug,
   currentPage,
+  industrySlug,
+  pagesOrder,
   prev,
   next,
 }: ReportNavButtonsProps) {
@@ -45,20 +51,26 @@ export default function ReportNavButtons({
   let prevTarget = prev;
   let nextTarget = next;
 
+  const activePagesOrder =
+    pagesOrder ||
+    (slug || industrySlug
+      ? resolveSector(industrySlug, slug).defaultChapters
+      : REPORT_PAGES_ORDER);
+
   if (slug && currentPage && (!prevTarget || !nextTarget)) {
-    const currentIndex = REPORT_PAGES_ORDER.findIndex(
+    const currentIndex = activePagesOrder.findIndex(
       (p) => p.key === currentPage
     );
     if (currentIndex >= 0) {
       if (!prevTarget && currentIndex > 0) {
-        const prevDef = REPORT_PAGES_ORDER[currentIndex - 1];
+        const prevDef = activePagesOrder[currentIndex - 1];
         prevTarget = {
           label: prevDef.label,
           href: `/reports/${slug}/${prevDef.key}`,
         };
       }
-      if (!nextTarget && currentIndex < REPORT_PAGES_ORDER.length - 1) {
-        const nextDef = REPORT_PAGES_ORDER[currentIndex + 1];
+      if (!nextTarget && currentIndex < activePagesOrder.length - 1) {
+        const nextDef = activePagesOrder[currentIndex + 1];
         nextTarget = {
           label: nextDef.label,
           href: `/reports/${slug}/${nextDef.key}`,

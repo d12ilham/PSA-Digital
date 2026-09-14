@@ -4,11 +4,14 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { Download } from "lucide-react";
 
+import { resolveSector } from "@/config/reports/sectors";
+
 interface ReportHeaderProps {
   slug: string;
   report: {
     year?: { label: string };
     pdfFileUrl?: string;
+    industry?: { slug?: string; name?: string };
   };
   currentPage?: string;
 }
@@ -19,18 +22,22 @@ export default function ReportHeader({
   currentPage,
 }: ReportHeaderProps) {
   const router = useRouter();
+  const sector = resolveSector(report?.industry?.slug || report?.industry?.name, slug);
 
   return (
-    <header className="bg-[#252D02] text-white sticky top-0 z-50">
+    <header
+      className="text-white sticky top-0 z-50 transition-colors"
+      style={{ backgroundColor: sector.theme.headerBg }}
+    >
       <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
         <div
           onClick={() => router.push(`/reports/${slug}`)}
-          className="flex items-center gap-2 cursor-pointer font-bold text-base text-white hover:text-accent transition-colors"
+          className="flex items-center gap-2 cursor-pointer font-bold text-base text-white transition-colors"
         >
           <span>
-            LG WIR{" "}
-            <span className="text-[#B2DB79]">
-              {report?.year?.label || "2026"}
+            {sector.shortCode}{" "}
+            <span style={{ color: sector.theme.accentColor }}>
+              {report?.year?.label || sector.defaultYear}
             </span>
           </span>
         </div>
@@ -191,9 +198,10 @@ export default function ReportHeader({
         <div>
           <button
             onClick={() => router.push(`/reports/${slug}/downloads`)}
-            className="bg-lg-dark hover:bg-[#046D2A] text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            className="text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            style={{ backgroundColor: sector.theme.primaryColor }}
           >
-            <span>Download 2026 PDF</span>
+            <span>Download {report?.year?.label || sector.defaultYear} PDF</span>
             <Download className="h-3.5 w-3.5" />
           </button>
         </div>
