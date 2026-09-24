@@ -12,6 +12,17 @@ import PublicSafetySkillsRecognitionView from "./views/PublicSafetySkillsRecogni
 import PublicSafetyDefenceView from "./views/PublicSafetyDefenceView";
 import PublicSafetyDefenceOverviewView from "./views/PublicSafetyDefenceOverviewView";
 import PublicSafetyDefenceProfileView from "./views/PublicSafetyDefenceProfileView";
+import PublicSafetyDefenceWorkforceInsightsView from "./views/PublicSafetyDefenceWorkforceInsightsView";
+import PublicSafetyDefenceEmergingTechnologyView from "./views/PublicSafetyDefenceEmergingTechnologyView";
+import PublicSafetyDefenceEmergingTechnologyTwoView from "./views/PublicSafetyDefenceEmergingTechnologyTwoView";
+import PublicSafetyDefenceTransitioningVeteransView from "./views/PublicSafetyDefenceTransitioningVeteransView";
+import PublicSafetyDefenceTransitioningVeteransTwoView from "./views/PublicSafetyDefenceTransitioningVeteransTwoView";
+import PublicSafetyDefenceWorkforceStrategiesView from "./views/PublicSafetyDefenceWorkforceStrategiesView";
+import PublicSafetyDefenceStrategyUpdatesView from "./views/PublicSafetyDefenceStrategyUpdatesView";
+import PublicSafetyDefenceExistingStrategiesView from "./views/PublicSafetyDefenceExistingStrategiesView";
+import PublicSafetyDefenceFederalInitiativesView from "./views/PublicSafetyDefenceFederalInitiativesView";
+import PublicSafetyFesView from "./views/PublicSafetyFesView";
+import PublicSafetyFesOverviewView from "./views/PublicSafetyFesOverviewView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -35,6 +46,17 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   defence: PublicSafetyDefenceView,
   defence_industry_overview: PublicSafetyDefenceOverviewView,
   defence_industry_profile: PublicSafetyDefenceProfileView,
+  defence_workforce_insights: PublicSafetyDefenceWorkforceInsightsView,
+  defence_emerging_technology: PublicSafetyDefenceEmergingTechnologyView,
+  defence_emerging_technology_2: PublicSafetyDefenceEmergingTechnologyTwoView,
+  defence_transitioning_veterans: PublicSafetyDefenceTransitioningVeteransView,
+  defence_transitioning_veterans_2: PublicSafetyDefenceTransitioningVeteransTwoView,
+  defence_workforce_strategies: PublicSafetyDefenceWorkforceStrategiesView,
+  defence_update_2025_strategies: PublicSafetyDefenceStrategyUpdatesView,
+  defence_existing_strategies: PublicSafetyDefenceExistingStrategiesView,
+  defence_federal_initiatives: PublicSafetyDefenceFederalInitiativesView,
+  fes: PublicSafetyFesView,
+  fes_industry_overview: PublicSafetyFesOverviewView,
 };
 
 export {
@@ -51,4 +73,15 @@ export {
   PublicSafetyDefenceView,
   PublicSafetyDefenceOverviewView,
   PublicSafetyDefenceProfileView,
+  PublicSafetyDefenceWorkforceInsightsView,
+  PublicSafetyDefenceEmergingTechnologyView,
+  PublicSafetyDefenceEmergingTechnologyTwoView,
+  PublicSafetyDefenceTransitioningVeteransView,
+  PublicSafetyDefenceTransitioningVeteransTwoView,
+  PublicSafetyDefenceWorkforceStrategiesView,
+  PublicSafetyDefenceStrategyUpdatesView,
+  PublicSafetyDefenceExistingStrategiesView,
+  PublicSafetyDefenceFederalInitiativesView,
+  PublicSafetyFesView,
+  PublicSafetyFesOverviewView,
 };

@@ -14,7 +14,7 @@ export interface PublicSafetyReport {
   year?: { label: string };
 }
 
-export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string } }) {
+export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string } }) {
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} />
@@ -25,6 +25,7 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
           prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : undefined)}
           next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
           back={navigation?.back}
+          backSecondary={navigation?.backSecondary}
           prevPrefix={navigation?.prevPrefix}
           nextPrefix={navigation?.nextPrefix}
         />
