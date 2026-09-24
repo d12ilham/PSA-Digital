@@ -6,12 +6,16 @@ interface ReportFooterProps {
   contactUrl?: string;
   reportName?: string;
   variant?: "dark" | "pill";
+  className?: string;
+  containerClassName?: string;
 }
 
 export default function ReportFooter({
   contactUrl,
   reportName = "Local Government Workforce Insights Report",
   variant = "dark",
+  className = "",
+  containerClassName = "",
 }: ReportFooterProps) {
   const finalContactUrl =
     contactUrl && contactUrl.trim().length > 0
@@ -39,8 +43,8 @@ export default function ReportFooter({
   }
 
   return (
-    <footer className="bg-[#252D02] text-white py-4 border-t border-[#E2E8F0] w-full">
-      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+    <footer className={`bg-[#252D02] text-white py-4 border-t border-[#E2E8F0] w-full ${className}`}>
+      <div className={`max-w-360 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs ${containerClassName}`}>
         <p className="text-white text-center leading-relaxed">
           © Public Skills Australia 2026 · {reportName}
         </p>

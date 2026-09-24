@@ -1,120 +1,107 @@
 "use client";
 
-import React from "react";
-import ReportHeader from "@/components/layout/ReportHeader";
-import ReportFooter from "@/components/layout/ReportFooter";
-import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import { ArrowRight, BookOpen, ShieldCheck, Target } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ArrowRight, Download } from "lucide-react";
+import PublicSafetyPageShell, { PublicSafetyEyebrow, type PublicSafetyReport } from "./PublicSafetyPageShell";
+import { PUBLIC_SAFETY_AT_A_GLANCE, PUBLIC_SAFETY_SECTIONS } from "../data/overview";
 
-export default function PublicSafetyIntroductionView({
-  slug,
-  report,
-}: {
-  slug: string;
-  report: any;
-}) {
+const sectorTagColours: Record<string, string> = {
+  defence: "bg-[#FFF7DA] text-[#946800]",
+  fire: "bg-[#FCEBE5] text-[#A63814]",
+  police: "bg-[#E8F3F8] text-[#075D87]",
+};
+
+export default function PublicSafetyIntroductionView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const router = useRouter();
 
-  const sections = [
-    {
-      title: "Executive Summary",
-      desc: "The cross-sector Public Safety workforce narrative on one page.",
-      path: "executive_summary",
-    },
-    {
-      title: "Drivers of Change",
-      desc: "Climate resilience, cyber transformation, and demographic shifts.",
-      path: "drivers_of_change",
-    },
-    {
-      title: "Industry Overview",
-      desc: "Detailed profile and data breakdown across Police, Fire, and Defence.",
-      path: "industry_overview",
-    },
-    {
-      title: "Workforce Insights",
-      desc: "Key strategic themes and capability needs across frontline agencies.",
-      path: "workforce_insights",
-    },
-    {
-      title: "Workforce Strategies",
-      desc: "National and jurisdictional strategies to strengthen capability.",
-      path: "workforce_strategies",
-    },
-    {
-      title: "Looking Forward",
-      desc: "Future outlook, priorities, and emerging skill horizons for 2027+.",
-      path: "looking_forward",
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F7F8F0] text-[#1B240E] font-sans flex flex-col justify-between antialiased">
-      <ReportHeader slug={slug} report={report} currentPage="introduction" />
-
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="introduction" />
-
-        {/* Hero Card */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-10 space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="bg-[#38485B] text-white font-bold text-xs px-3.5 py-1.5 rounded-full uppercase">
-              PUBLIC SAFETY
-            </span>
-            <span className="text-xs text-gray-500 font-semibold uppercase">
-              {report?.year?.label || "2026"} • Introduction
-            </span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1E293B]">
-            Public Safety Workforce Insights Report
-          </h1>
-
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-4xl font-normal">
-            Welcome to the Public Safety Workforce Insights Report. This report explores workforce trends, capability challenges, and strategic directions across Australia's public safety sector.
-          </p>
-
-          <div className="pt-2">
-            <button
-              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-              className="bg-[#38485B] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#1E293B] transition-colors flex items-center gap-2 cursor-pointer"
-            >
-              <span>Explore Executive Summary</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* Report Structure Grid */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-[#1E293B]">Report Structure</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sections.map((sec, idx) => (
-              <div
-                key={idx}
-                onClick={() => router.push(`/reports/${slug}/${sec.path}`)}
-                className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col justify-between hover:border-[#38485B] hover:shadow-md transition-all cursor-pointer group"
-              >
-                <div className="space-y-2">
-                  <h3 className="font-bold text-base text-gray-900 group-hover:text-[#38485B] transition-colors">
-                    {sec.title}
-                  </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {sec.desc}
-                  </p>
-                </div>
-                <div className="pt-4 flex items-center gap-1.5 text-xs font-bold text-[#38485B]">
-                  <span>View Chapter</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
+    <PublicSafetyPageShell slug={slug} report={report} currentPage="introduction">
+      <section className="min-h-[532px] rounded-2xl border border-[#E9EAEB] bg-white p-6">
+        <div className="grid min-h-[484px] gap-10 lg:grid-cols-[minmax(0,800px)_552px]">
+          <div className="flex flex-col justify-between">
+            <div>
+              <PublicSafetyEyebrow>Public Safety WIR 2026</PublicSafetyEyebrow>
+              <h1 className="mt-4 max-w-[623px] text-[40px] font-bold leading-[1.35] text-[#252D02]">
+                Public Safety Workforce Insights Report 2026
+              </h1>
+              <div className="mt-4 max-w-[800px] space-y-4 text-sm font-normal leading-6 text-[#535862]">
+                <p>The 2026 Public Safety Workforce Insights Report (the Report) is the fourth report generated by Public Skills Australia for the Public Safety industry-sectors since 2023.<sup>2</sup> It builds on the previous iterations to identify workforce challenges and strategic initiatives to mitigate them. This Report represents the insights, commitment and efforts of the Public Safety industry-sectors (including Defence, Police and Fire and Emergency Services), shared with Public Skills Australia.</p>
+                <p>Public Skills Australia&apos;s Workforce Insights Reports are developed using a combination of qualitative and quantitative data obtained from primary and secondary sources and supported by stakeholder consultations.</p>
+                <p>Choose to download the PDF report or read on to our interactive digital version.</p>
               </div>
-            ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button type="button" onClick={() => router.push(`/reports/${slug}/downloads`)} className="flex h-10 items-center gap-2 rounded-full bg-[#046D2A] px-5 text-xs font-bold text-white hover:bg-[#035A23]">
+                Download 2026 PDF <Download className="h-3.5 w-3.5" />
+              </button>
+              <button type="button" onClick={() => router.push(`/reports/${slug}/about`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-bold text-[#252D02]">About Public Skills Australia</button>
+              <button type="button" onClick={() => router.push(`/reports/${slug}/methodology`)} className="h-10 rounded-full border border-[#B2DB79] bg-white px-5 text-xs font-bold text-[#252D02]">Methodology</button>
+            </div>
           </div>
-        </div>
-      </main>
 
-      <ReportFooter />
-    </div>
+          <aside className="rounded-2xl border border-[#E9EAEB] bg-[#F5F5F5] p-5">
+            <PublicSafetyEyebrow>The 2026 report at a glance</PublicSafetyEyebrow>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {PUBLIC_SAFETY_AT_A_GLANCE.map((stat) => (
+                <div key={stat.label} className="min-h-[124px] rounded-lg border border-[#E9EAEB] bg-white p-6">
+                  <strong className="block text-2xl font-semibold leading-8 text-[#8AC900]">{stat.value}</strong>
+                  <span className="mt-2 block text-xs font-normal leading-[18px] text-[#535862]">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex min-h-12 items-start justify-between border-b border-[#D5D7DA]">
+          <h2 className="text-2xl font-bold leading-8 text-[#252D02]">The Digital Report Structure</h2>
+          <p className="pt-2 text-sm leading-6 text-[#535862]">Six parts - select any to explore it</p>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {PUBLIC_SAFETY_SECTIONS.map((section) => (
+            <article key={section.title} className="relative flex min-h-[388px] flex-col overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white p-6 pt-[42px]">
+              <span className="absolute inset-x-0 top-0 h-3" style={{ backgroundColor: section.accent }} />
+              <Image src={section.icon} alt="" width={64} height={64} className="absolute right-5 top-[30px] h-16 w-16 object-contain" />
+              <div className="max-w-[234px]">
+                <h3 className="pr-4 text-base font-bold leading-7 text-[#252D02]">{section.title}</h3>
+                {"subtitle" in section && section.subtitle && <p className="mt-3 text-xs font-medium leading-[18px] text-[#598303]">{section.subtitle}</p>}
+                {"description" in section && section.description && <p className="mt-3 text-xs leading-6 text-[#535862]">{section.description}</p>}
+                {"tags" in section && section.tags && (
+                  <div className="mt-4 flex flex-wrap gap-1">
+                    {section.tags.map((tag) => <span key={tag} className={`rounded-full px-3 py-1 text-[9px] font-semibold leading-[18px] ${"sector" in section && section.sector ? sectorTagColours[section.sector] : "bg-[#F0F5DF] text-[#598303]"}`}>{tag}</span>)}
+                  </div>
+                )}
+              </div>
+              <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className="mt-auto flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] hover:bg-[#78AF00]">
+                Explore <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-6 md:grid-cols-2">
+        {[
+          { title: "About Public Skills Australia", description: "Who we are and how we support the sector.", path: "about", icon: "/images/reports/introduction/About.svg" },
+          { title: "Methodology", description: "How the insights and strategies were developed.", path: "methodology", icon: "/images/reports/introduction/Methodology.svg" },
+        ].map((item) => (
+          <div key={item.path} className="flex min-h-28 items-center gap-5 rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6">
+            <Image src={item.icon} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
+            <div><h3 className="text-base font-bold leading-7 text-[#252D02]">{item.title}</h3><p className="mt-1 text-sm leading-6 text-[#535862]">{item.description}</p></div>
+            <button type="button" onClick={() => router.push(`/reports/${slug}/${item.path}`)} className="ml-auto flex h-10 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">View <ArrowRight className="h-3.5 w-3.5" /></button>
+          </div>
+        ))}
+      </section>
+
+      <div className="flex flex-wrap gap-6">
+        {["2026 Proposed Strategies Summary", "Federal Government Initiatives", "Looking Forward / 2027 and Beyond"].map((label) => (
+          <button key={label} type="button" className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
+        ))}
+      </div>
+      <p className="text-xs font-semibold uppercase leading-6 text-[#598303]">Source: <sup>2</sup> Public Safety Industry-Sectors refer to Defence, Fire and Emergency Services and Police.</p>
+    </PublicSafetyPageShell>
   );
 }
