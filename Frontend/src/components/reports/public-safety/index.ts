@@ -8,6 +8,10 @@ import PublicSafetyDriverDetailView from "./views/PublicSafetyDriverDetailView";
 import PublicSafetyCrossSectorAnalysisView from "./views/PublicSafetyCrossSectorAnalysisView";
 import PublicSafetyCoreSkillAlignmentView from "./views/PublicSafetyCoreSkillAlignmentView";
 import PublicSafetySpecialistSkillAlignmentView from "./views/PublicSafetySpecialistSkillAlignmentView";
+import PublicSafetySkillsRecognitionView from "./views/PublicSafetySkillsRecognitionView";
+import PublicSafetyDefenceView from "./views/PublicSafetyDefenceView";
+import PublicSafetyDefenceOverviewView from "./views/PublicSafetyDefenceOverviewView";
+import PublicSafetyDefenceProfileView from "./views/PublicSafetyDefenceProfileView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -27,6 +31,10 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   cross_sector_analysis: PublicSafetyCrossSectorAnalysisView,
   cross_sector_core_skill_alignment: PublicSafetyCoreSkillAlignmentView,
   cross_sector_specialist_skill_alignment: PublicSafetySpecialistSkillAlignmentView,
+  cross_sector_skills_recognition: PublicSafetySkillsRecognitionView,
+  defence: PublicSafetyDefenceView,
+  defence_industry_overview: PublicSafetyDefenceOverviewView,
+  defence_industry_profile: PublicSafetyDefenceProfileView,
 };
 
 export {
@@ -39,4 +47,8 @@ export {
   PublicSafetyCrossSectorAnalysisView,
   PublicSafetyCoreSkillAlignmentView,
   PublicSafetySpecialistSkillAlignmentView,
+  PublicSafetySkillsRecognitionView,
+  PublicSafetyDefenceView,
+  PublicSafetyDefenceOverviewView,
+  PublicSafetyDefenceProfileView,
 };

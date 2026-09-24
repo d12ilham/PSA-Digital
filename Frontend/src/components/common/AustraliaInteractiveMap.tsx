@@ -30,17 +30,6 @@ interface MapData {
 
 const mapData = mapDataRaw as unknown as MapData;
 
-const STATE_PALETTE: Record<string, string> = {
-  WA: "#9CAA54",
-  NT: "#85B810",
-  SA: "#728C28",
-  QLD: "#8AC900",
-  NSW: "#9CAA54",
-  VIC: "#046D2A",
-  TAS: "#85B810",
-  ACT: "#1B240E",
-};
-
 interface StateInfo {
   name: string;
   employees: string;
@@ -52,6 +41,9 @@ interface AustraliaInteractiveMapProps {
   onSelectState: (code: string) => void;
   statesData?: Record<string, StateInfo>;
   className?: string;
+  highlightedState?: string;
+  variant?: "default" | "defence";
+  compact?: boolean;
 }
 
 export default function AustraliaInteractiveMap({
@@ -59,6 +51,9 @@ export default function AustraliaInteractiveMap({
   onSelectState,
   statesData = {},
   className = "",
+  highlightedState,
+  variant = "default",
+  compact = false,
 }: AustraliaInteractiveMapProps) {
   const isNational = selectedState === "NATIONAL";
 
@@ -85,13 +80,15 @@ export default function AustraliaInteractiveMap({
 
   const prevSelectedStateRef = useRef<string | null>(null);
   const currentViewBoxRef = useRef(currentViewBox);
-  currentViewBoxRef.current = currentViewBox;
   const animFrameRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    currentViewBoxRef.current = currentViewBox;
+  }, [currentViewBox]);
+
   // Smooth Google Maps-style camera zoom interpolation
   useEffect(() => {
-    const prevCode = prevSelectedStateRef.current;
     prevSelectedStateRef.current = selectedState;
 
     const targetVB = getTargetViewBox(selectedState);
@@ -197,7 +194,7 @@ export default function AustraliaInteractiveMap({
     <div
       ref={containerRef}
       className={`relative w-full overflow-hidden select-none flex flex-col items-center justify-center ${className}`}
-      style={{ minHeight: isNational ? "460px" : "420px" }}
+      style={{ minHeight: compact ? "330px" : isNational ? "460px" : "420px" }}
     >
       {/* Zoom / Reset to National Button in State View */}
       {!isNational && (
@@ -233,15 +230,17 @@ export default function AustraliaInteractiveMap({
             const isHovered = hoveredState === state.code;
 
             // Map color is #9CAA54 for all states
-            let fill = "#9CAA54";
+            let fill = variant === "defence" ? "#F0DEB6" : "#9CAA54";
             let opacity = 1;
             let stroke = isNational ? "#ffffff" : "none";
             let strokeWidth = isNational ? 1.5 : 0;
-            let filter = "none";
+            const filter = "none";
 
             if (isNational) {
-              if (isHovered) {
-                fill = "#8AC900";
+              if (variant === "defence" && highlightedState === state.code) {
+                fill = "#D7A31A";
+              } else if (isHovered) {
+                fill = variant === "defence" ? "#E5C36E" : "#8AC900";
                 stroke = "#ffffff";
                 strokeWidth = 2;
               }
@@ -317,7 +316,7 @@ export default function AustraliaInteractiveMap({
                       height={32}
                       rx={16}
                       ry={16}
-                      fill="#046D2A"
+                      fill={variant === "defence" ? (highlightedState === state.code ? "#61645E" : "#D7A31A") : "#046D2A"}
                       stroke="#E5E7EB"
                       strokeWidth={1.2}
                     />
