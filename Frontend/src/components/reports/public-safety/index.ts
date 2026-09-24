@@ -23,6 +23,10 @@ import PublicSafetyDefenceExistingStrategiesView from "./views/PublicSafetyDefen
 import PublicSafetyDefenceFederalInitiativesView from "./views/PublicSafetyDefenceFederalInitiativesView";
 import PublicSafetyFesView from "./views/PublicSafetyFesView";
 import PublicSafetyFesOverviewView from "./views/PublicSafetyFesOverviewView";
+import PublicSafetyFesProfileView from "./views/PublicSafetyFesProfileView";
+import PublicSafetyFesWorkforceInsightsView from "./views/PublicSafetyFesWorkforceInsightsView";
+import PublicSafetyFesDisasterRecoveryView from "./views/PublicSafetyFesDisasterRecoveryView";
+import PublicSafetyFesDisasterRecoveryTwoView from "./views/PublicSafetyFesDisasterRecoveryTwoView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -57,6 +61,10 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   defence_federal_initiatives: PublicSafetyDefenceFederalInitiativesView,
   fes: PublicSafetyFesView,
   fes_industry_overview: PublicSafetyFesOverviewView,
+  fes_industry_profile: PublicSafetyFesProfileView,
+  fes_workforce_insights: PublicSafetyFesWorkforceInsightsView,
+  fes_disaster_recovery: PublicSafetyFesDisasterRecoveryView,
+  fes_disaster_recovery_2: PublicSafetyFesDisasterRecoveryTwoView,
 };
 
 export {
@@ -84,4 +92,8 @@ export {
   PublicSafetyDefenceFederalInitiativesView,
   PublicSafetyFesView,
   PublicSafetyFesOverviewView,
+  PublicSafetyFesProfileView,
+  PublicSafetyFesWorkforceInsightsView,
+  PublicSafetyFesDisasterRecoveryView,
+  PublicSafetyFesDisasterRecoveryTwoView,
 };

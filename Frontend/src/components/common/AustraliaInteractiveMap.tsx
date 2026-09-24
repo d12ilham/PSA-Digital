@@ -42,7 +42,7 @@ interface AustraliaInteractiveMapProps {
   statesData?: Record<string, StateInfo>;
   className?: string;
   highlightedState?: string;
-  variant?: "default" | "defence";
+  variant?: "default" | "defence" | "fire";
   compact?: boolean;
 }
 
@@ -230,17 +230,17 @@ export default function AustraliaInteractiveMap({
             const isHovered = hoveredState === state.code;
 
             // Map color is #9CAA54 for all states
-            let fill = variant === "defence" ? "#F0DEB6" : "#9CAA54";
+            let fill = variant === "defence" ? "#F0DEB6" : variant === "fire" ? "#F8E8E3" : "#9CAA54";
             let opacity = 1;
             let stroke = isNational ? "#ffffff" : "none";
             let strokeWidth = isNational ? 1.5 : 0;
             const filter = "none";
 
             if (isNational) {
-              if (variant === "defence" && highlightedState === state.code) {
-                fill = "#D7A31A";
+              if ((variant === "defence" || variant === "fire") && highlightedState === state.code) {
+                fill = variant === "fire" ? "#D95222" : "#D7A31A";
               } else if (isHovered) {
-                fill = variant === "defence" ? "#E5C36E" : "#8AC900";
+                fill = variant === "defence" ? "#E5C36E" : variant === "fire" ? "#E78A69" : "#8AC900";
                 stroke = "#ffffff";
                 strokeWidth = 2;
               }
@@ -316,7 +316,7 @@ export default function AustraliaInteractiveMap({
                       height={32}
                       rx={16}
                       ry={16}
-                      fill={variant === "defence" ? (highlightedState === state.code ? "#61645E" : "#D7A31A") : "#046D2A"}
+                      fill={variant === "defence" ? (highlightedState === state.code ? "#61645E" : "#D7A31A") : variant === "fire" ? "#D95222" : "#046D2A"}
                       stroke="#E5E7EB"
                       strokeWidth={1.2}
                     />
