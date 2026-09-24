@@ -18,6 +18,9 @@ export interface ReportNavButtonsProps {
   pagesOrder?: { key: string; label: string }[];
   prev?: NavTarget;
   next?: NavTarget;
+  back?: NavTarget;
+  prevPrefix?: string;
+  nextPrefix?: string;
 }
 
 export const REPORT_PAGES_ORDER = [
@@ -45,6 +48,9 @@ export default function ReportNavButtons({
   pagesOrder,
   prev,
   next,
+  back,
+  prevPrefix = "Back to",
+  nextPrefix = "Next Section:",
 }: ReportNavButtonsProps) {
   const router = useRouter();
 
@@ -83,12 +89,17 @@ export default function ReportNavButtons({
 
   return (
     <div className="flex flex-wrap items-center gap-3">
+      {back && (
+        <button onClick={() => router.push(back.href)} className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer">
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to {back.label}
+        </button>
+      )}
       {prevTarget && (
         <button
           onClick={() => router.push(prevTarget.href)}
           className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to {prevTarget.label}
+          <ArrowLeft className="h-3.5 w-3.5" /> {prevPrefix} {prevTarget.label}
         </button>
       )}
       {nextTarget && (
@@ -96,7 +107,7 @@ export default function ReportNavButtons({
           onClick={() => router.push(nextTarget.href)}
           className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer"
         >
-          Next Section: {nextTarget.label} <ArrowRight className="h-3.5 w-3.5" />
+          {nextPrefix} {nextTarget.label} <ArrowRight className="h-3.5 w-3.5" />
         </button>
       )}
     </div>

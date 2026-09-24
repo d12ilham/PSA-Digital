@@ -92,7 +92,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section className="flex min-h-10 flex-wrap items-center gap-3">
         <h2 className="mr-1 text-2xl font-bold leading-8 text-[#252D02]">Supporting Sections:</h2>
-        {["Public Safety Cross-Sector Analysis", "DEF CHAPTER", "FES CHAPTER", "POL CHAPTER"].map((label) => <button key={label} type="button" onClick={() => router.push(`/reports/${slug}/industry_overview`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-semibold text-[#598303]">{label}</button>)}
+        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["DEF CHAPTER", "defence"], ["FES CHAPTER", "fes"], ["POL CHAPTER", "police"]].map(([label, path]) => <button key={label} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-semibold text-[#598303]">{label}</button>)}
       </section>
     </PublicSafetyPageShell>
   );

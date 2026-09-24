@@ -5,6 +5,7 @@ import { ChevronDown, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import type { NavTarget } from "@/components/layout/ReportNavButtons";
 
 export interface PublicSafetyReport {
   contactUrl?: string;
@@ -13,7 +14,7 @@ export interface PublicSafetyReport {
   year?: { label: string };
 }
 
-export default function PublicSafetyPageShell({ slug, report, currentPage, children }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode }) {
+export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string } }) {
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} />
@@ -21,8 +22,11 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
         <ReportNavButtons
           slug={slug}
           currentPage={currentPage}
-          prev={currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : undefined}
-          next={currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined}
+          prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : undefined)}
+          next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
+          back={navigation?.back}
+          prevPrefix={navigation?.prevPrefix}
+          nextPrefix={navigation?.nextPrefix}
         />
         {children}
       </main>
@@ -42,11 +46,11 @@ function PublicSafetyHeader({ slug, report }: { slug: string; report: PublicSafe
     { label: "About", path: "about", dropdown: true },
     { label: "Executive Summary", path: "executive_summary" },
     { label: "Drivers of Change", path: "drivers_of_change" },
-    { label: "Cross-Sector Analysis", path: "industry_overview", dropdown: true },
-    { label: "DEF", path: "industry_overview", dropdown: true, dot: true },
-    { label: "FES", path: "industry_overview", dropdown: true, dot: true },
-    { label: "POL", path: "industry_overview", dropdown: true, dot: true },
-    { label: "Cross-Sector Strategies", path: "workforce_strategies", dropdown: true },
+    { label: "Cross-Sector Analysis", path: "cross_sector_analysis", dropdown: true },
+    { label: "DEF", path: "defence", dropdown: true, dot: true },
+    { label: "FES", path: "fes", dropdown: true, dot: true },
+    { label: "POL", path: "police", dropdown: true, dot: true },
+    { label: "Cross-Sector Strategies", path: "cross_sector_analysis", dropdown: true },
     { label: "Looking Forward", path: "looking_forward" },
   ];
 
