@@ -27,6 +27,12 @@ import PublicSafetyFesProfileView from "./views/PublicSafetyFesProfileView";
 import PublicSafetyFesWorkforceInsightsView from "./views/PublicSafetyFesWorkforceInsightsView";
 import PublicSafetyFesDisasterRecoveryView from "./views/PublicSafetyFesDisasterRecoveryView";
 import PublicSafetyFesDisasterRecoveryTwoView from "./views/PublicSafetyFesDisasterRecoveryTwoView";
+import PublicSafetyFesDisasterRecoveryThreeView from "./views/PublicSafetyFesDisasterRecoveryThreeView";
+import PublicSafetyFesSurfLifeSavingFirstAidView from "./views/PublicSafetyFesSurfLifeSavingFirstAidView";
+import PublicSafetyFesHazardousMaterialsView from "./views/PublicSafetyFesHazardousMaterialsView";
+import PublicSafetyFesWorkforceStrategiesView from "./views/PublicSafetyFesWorkforceStrategiesView";
+import PublicSafetyFesStrategyUpdatesView from "./views/PublicSafetyFesStrategyUpdatesView";
+import PublicSafetyFesExistingStrategiesView from "./views/PublicSafetyFesExistingStrategiesView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -65,6 +71,12 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   fes_workforce_insights: PublicSafetyFesWorkforceInsightsView,
   fes_disaster_recovery: PublicSafetyFesDisasterRecoveryView,
   fes_disaster_recovery_2: PublicSafetyFesDisasterRecoveryTwoView,
+  fes_disaster_recovery_3: PublicSafetyFesDisasterRecoveryThreeView,
+  fes_surf_life_saving_first_aid: PublicSafetyFesSurfLifeSavingFirstAidView,
+  fes_hazardous_materials: PublicSafetyFesHazardousMaterialsView,
+  fes_workforce_strategies: PublicSafetyFesWorkforceStrategiesView,
+  fes_update_2025_strategies: PublicSafetyFesStrategyUpdatesView,
+  fes_existing_strategies: PublicSafetyFesExistingStrategiesView,
 };
 
 export {
@@ -96,4 +108,10 @@ export {
   PublicSafetyFesWorkforceInsightsView,
   PublicSafetyFesDisasterRecoveryView,
   PublicSafetyFesDisasterRecoveryTwoView,
+  PublicSafetyFesDisasterRecoveryThreeView,
+  PublicSafetyFesSurfLifeSavingFirstAidView,
+  PublicSafetyFesHazardousMaterialsView,
+  PublicSafetyFesWorkforceStrategiesView,
+  PublicSafetyFesStrategyUpdatesView,
+  PublicSafetyFesExistingStrategiesView,
 };
