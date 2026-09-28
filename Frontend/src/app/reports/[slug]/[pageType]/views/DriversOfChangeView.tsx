@@ -14,7 +14,7 @@ const DRIVERS = [
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc:
-      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyberattacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that support systemwide preparedness, robust governance and the ability to maintain critical functions under stress.",
+      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyberattacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that support systemwide preparedness, robust governance and the ability to maintain critical functions under stress.⁴",
     sources:
       "Sources (4): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
   },
@@ -25,7 +25,7 @@ const DRIVERS = [
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
-      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.",
+      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations⁵. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.⁶",
     sources:
       "Sources (5, 6): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026 · Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
   },
@@ -38,7 +38,7 @@ const DRIVERS = [
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
     fullDesc:
-      "AI, automation and accelerated digital transformation are powerful drivers of organisational and systemlevel change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.",
+      "AI, automation and accelerated digital transformation are powerful drivers of organisational and systemlevel change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies⁷. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.⁸",
     sources:
       "Sources (7, 8): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026 · Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025, accessed 25 February 2026 · Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
   },
@@ -121,7 +121,9 @@ export default function DriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
-  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(
+    null,
+  );
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   React.useEffect(() => {
@@ -147,7 +149,7 @@ export default function DriversOfChangeView({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (driversRef.current) observer.observe(driversRef.current);
@@ -199,8 +201,9 @@ export default function DriversOfChangeView({
             <div className="space-y-3 animate-slide-up-delay">
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
                 In 2024, Public Skills Australia identified nine megatrends
-                impacting the Public Safety and Government industry-sectors. These
-                megatrends were further considered in the development of the 2025{" "}
+                impacting the Public Safety and Government industry-sectors.
+                These megatrends were further considered in the development of
+                the 2025{" "}
                 <span className="font-semibold text-[#728C28]">
                   Workforce Insights Reports
                 </span>
@@ -214,8 +217,8 @@ export default function DriversOfChangeView({
                   Workforce Insights Reports
                 </span>{" "}
                 have built on these and analysed four key drivers of change that
-                cut across most megatrends. This is important as these drivers of
-                change will likely impact the Public Safety and Government
+                cut across most megatrends. This is important as these drivers
+                of change will likely impact the Public Safety and Government
                 industry-sectors in the short to medium term.
               </p>
             </div>
@@ -320,14 +323,14 @@ export default function DriversOfChangeView({
                           <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                             {driver.fullDesc}
                           </p>
-                          {driver.sources && (
+                          {/* {driver.sources && (
                             <>
                               <p className="text-xs text-active border-t border-gray200/60"></p>
                               <p className="text-xs text-active leading-relaxed">
                                 {driver.sources}
                               </p>
                             </>
-                          )}
+                          )} */}
                         </div>
                       )}
                     </div>
