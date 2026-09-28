@@ -364,14 +364,14 @@ export default function DriversOfChangeView({
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                       {activeDriver.fullDesc}
                     </p>
-                    {activeDriver.sources && (
+                    {/* {activeDriver.sources && (
                       <>
                         <p className="text-xs text-active border-t border-gray200"></p>
                         <p className="text-xs text-active w-2/3 leading-relaxed">
                           {activeDriver.sources}
                         </p>
                       </>
-                    )}
+                    )} */}
                   </div>
                 </div>
               )}
