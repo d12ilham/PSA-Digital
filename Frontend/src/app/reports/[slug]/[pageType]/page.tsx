@@ -21,22 +21,10 @@ import {
   ChevronUp,
 } from "lucide-react";
 
-import IntroductionView from "./views/IntroductionView";
-import AboutView from "./views/AboutView";
-import MethodologyView from "./views/MethodologyView";
-import ExecutiveSummaryView from "./views/ExecutiveSummaryView";
-import DriversOfChangeView from "./views/DriversOfChangeView";
-import IndustryOverviewView from "./views/IndustryOverviewView";
-import StateTerritoryView from "./views/StateTerritoryView";
-import IndustryProfileView from "./views/IndustryProfileView";
-import WorkforceInsightsView from "./views/WorkforceInsightsView";
-import ExistingStrategiesView from "./views/ExistingStrategiesView";
-import ProposedStrategies2026View from "./views/ProposedStrategies2026View";
-import ExistingIndustryStrategiesView from "./views/ExistingIndustryStrategiesView";
-import FederalGovernmentInitiativesView from "./views/FederalGovernmentInitiativesView";
-import LookingForwardView from "./views/LookingForwardView";
-import DownloadsAndReferenceView from "./views/DownloadsAndReferenceView";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
+
+import { getReportView } from "@/components/reports/registry";
+import { resolveSector } from "@/config/reports/sectors";
 
 interface PageItem {
   id: string;
@@ -65,6 +53,7 @@ interface Report {
   contactUrl?: string;
   industry?: {
     name: string;
+    slug?: string;
   };
   year?: {
     label: string;
@@ -112,8 +101,31 @@ export default function PublicReportReaderPage({
       const publishedPages = pagesRes.filter((p) => p.isPublished);
       setPagesList(publishedPages.sort((a, b) => a.sortOrder - b.sortOrder));
     } catch (err: any) {
-      console.error("Fetch reader report failed:", err);
-      setError(err.message || "Report or chapters not found.");
+      console.warn("Fetch reader report from API failed, using sector fallback:", err);
+      const sector = resolveSector(null, slug);
+      setReport({
+        id: sector.id,
+        title: `${sector.name} Workforce Insights Report`,
+        slug: slug,
+        status: "published",
+        industry: {
+          name: sector.name,
+          slug: sector.industrySlugs[0],
+        },
+        year: {
+          label: sector.defaultYear,
+        },
+      });
+      setPagesList(
+        sector.defaultChapters.map((c, idx) => ({
+          id: c.key,
+          title: c.label,
+          pageType: c.key,
+          slug: c.key,
+          sortOrder: idx + 1,
+          isPublished: true,
+        }))
+      );
     } finally {
       setLoading(false);
     }
@@ -179,68 +191,8 @@ export default function PublicReportReaderPage({
     );
   }
 
-  // ── SPECIAL PAGE VIEWS MATCHING DESIGN MOCKUPS ──
-  const renderSpecialView = () => {
-    if (pageType === "introduction") {
-      return <IntroductionView slug={slug} report={report} />;
-    }
-    if (pageType === "about") {
-      return <AboutView slug={slug} report={report} />;
-    }
-    if (pageType === "methodology") {
-      return <MethodologyView slug={slug} report={report} />;
-    }
-    if (pageType === "executive_summary") {
-      return <ExecutiveSummaryView slug={slug} report={report} />;
-    }
-    if (pageType === "drivers_of_change") {
-      return <DriversOfChangeView slug={slug} report={report} />;
-    }
-    if (pageType === "industry_overview") {
-      return <IndustryOverviewView slug={slug} report={report} />;
-    }
-    if (pageType === "state_territory") {
-      return <StateTerritoryView slug={slug} report={report} />;
-    }
-    if (pageType === "industry_profile") {
-      return <IndustryProfileView slug={slug} report={report} />;
-    }
-    if (
-      pageType === "workforce_insights" ||
-      pageType.startsWith("workforce_insights_") ||
-      pageType === "contextualisation_of_qualifications" ||
-      pageType === "contextualisation"
-    ) {
-      return <WorkforceInsightsView slug={slug} report={report} pageType={pageType} />;
-    }
-    if (pageType === "workforce_strategies" || pageType === "proposed_strategies") {
-      return <ProposedStrategies2026View slug={slug} report={report} />;
-    }
-    if (pageType === "update_2025_strategies" || pageType === "workforce_strategies_2025") {
-      return <ExistingStrategiesView slug={slug} report={report} />;
-    }
-    if (pageType === "existing_strategies" || pageType === "existing_industry_strategies") {
-      return <ExistingIndustryStrategiesView slug={slug} report={report} />;
-    }
-    if (pageType === "federal_initiatives" || pageType === "federal_government_initiatives") {
-      return <FederalGovernmentInitiativesView slug={slug} report={report} />;
-    }
-    if (pageType === "looking_forward" || pageType === "2027_and_beyond") {
-      return <LookingForwardView slug={slug} report={report} />;
-    }
-    if (
-      pageType === "downloads" ||
-      pageType === "downloads_and_reference" ||
-      pageType === "download_pdf" ||
-      pageType === "downloads_reference" ||
-      pageType === "download"
-    ) {
-      return <DownloadsAndReferenceView slug={slug} report={report} />;
-    }
-    return null;
-  };
-
-  const specialView = renderSpecialView();
+  // ── SPECIAL PAGE VIEWS FROM SECTOR REGISTRY ──
+  const specialView = getReportView({ slug, pageType, report });
   if (specialView) {
     return specialView;
   }

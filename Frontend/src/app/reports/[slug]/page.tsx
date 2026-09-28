@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { Loader2 } from "lucide-react";
 
+import { resolveSector } from "@/config/reports/sectors";
+
 interface Report {
   id: string;
   title: string;
@@ -19,6 +21,7 @@ interface Report {
   industry?: {
     id: string;
     name: string;
+    slug?: string;
   };
   year?: {
     id: string;
@@ -99,8 +102,24 @@ export default function ReportLandingPage({
       if (settingsRes) setSiteSettings(settingsRes);
       setReport(reportRes);
     } catch (err: any) {
-      console.error("Fetch landing page report failed:", err);
-      setError(err.message || "Report not found or unavailable.");
+      console.warn("API report fetch failed, using sector fallback:", err);
+      // Fallback to static sector definition so developers can work without DB seeding
+      const sector = resolveSector(null, slug);
+      setReport({
+        id: sector.id,
+        title: `${sector.name} Workforce Insights Report`,
+        slug: slug,
+        status: "published",
+        industry: {
+          id: sector.id,
+          name: sector.name,
+          slug: sector.industrySlugs[0],
+        },
+        year: {
+          id: "default",
+          label: sector.defaultYear,
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -156,8 +175,10 @@ export default function ReportLandingPage({
   const defaultExecDesc =
     "Straight to the key insights and strategies — the workforce story on one page, built for large screens and briefings.";
 
+  const sector = resolveSector(report.industry?.slug || report.industry?.name, slug);
+
   return (
-    <div className="min-h-screen bg-[#F7F8F0] relative overflow-hidden flex flex-col justify-between font-sans selection:bg-[#85B810]/30 antialiased">
+    <div className="min-h-screen bg-[#F7F8F0] relative overflow-hidden flex flex-col justify-between font-sans antialiased">
       {/* ── BACKGROUND WAVE GRAPHICS ── */}
       <img
         src="/images/wave-left.png"
@@ -187,8 +208,8 @@ export default function ReportLandingPage({
               <PSALogo />
             )}
           </div>
-          <span className="bg-lg-dark text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase">
-            {report.industry?.name || "LOCAL GOVERNMENT"}
+          <span className={`${sector.theme.badgeBg} text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase`}>
+            {report.industry?.name || sector.badgeText}
           </span>
         </div>
       </header>
@@ -198,14 +219,14 @@ export default function ReportLandingPage({
         {/* Title Section */}
         <div className="max-w-5xl mx-auto text-center mb-8 sm:mb-10 space-y-6">
           <div className="animate-slide-up space-y-4">
-            <p className="text-xs sm:text-xs font-semibold text-notes uppercase">
-              {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
+            <p className="text-xs sm:text-xs font-semibold uppercase tracking-wider" style={{ color: sector.theme.primaryColor }}>
+              {report.year?.label || sector.defaultYear} • PUBLIC SKILLS AUSTRALIA
             </p>
             <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
               {report.title}
             </h1>
           </div>
-          <p className="text-lg font-medium text-notes animate-slide-up-delay">
+          <p className="text-lg font-medium text-gray-600 animate-slide-up-delay">
             Select your reading experience
           </p>
         </div>
@@ -214,8 +235,8 @@ export default function ReportLandingPage({
         <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Pathway 1: Introduction */}
           <div
-            style={{ animationDelay: "0.15s" }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-8 flex flex-col justify-between transition-all"
+            style={{ animationDelay: "0.15s", borderTopColor: sector.theme.accentColor }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
           >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
@@ -223,7 +244,7 @@ export default function ReportLandingPage({
                   NEW TO THE REPORT?
                 </span>
               </div>
-              <h2 className="text-2xl font-bold text-LG-LIGHT mb-4">
+              <h2 className="text-2xl font-bold mb-4" style={{ color: sector.theme.primaryColor }}>
                 Introduction
               </h2>
               <p className="text-xs text-gray600 leading-relaxed mb-8">
@@ -233,7 +254,11 @@ export default function ReportLandingPage({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="bg-lg-light text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer"
+                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
+                style={{
+                  backgroundColor: sector.theme.accentColor,
+                  color: sector.id === "local-government" ? "#1B240E" : "#FFFFFF",
+                }}
               >
                 Explore the Introduction{" "}
                 <span className="text-base font-normal">→</span>
@@ -243,19 +268,16 @@ export default function ReportLandingPage({
 
           {/* Pathway 2: Executive Summary */}
           <div
-            style={{ animationDelay: "0.30s" }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-8 flex flex-col justify-between transition-all"
+            style={{ animationDelay: "0.30s", borderTopColor: sector.theme.primaryColor }}
+            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
           >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
                 <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
-                  READY FOR THE KEY INSIGHTS?
-                </span>
-                <span className="bg-lg-dark text-white text-[11px] font-bold px-3 py-1 rounded-full shrink-0">
-                  Presentation View
+                  SHORT ON TIME?
                 </span>
               </div>
-              <h2 className="text-2xl font-bold text-lg-dark mb-4">
+              <h2 className="text-2xl font-bold mb-4" style={{ color: sector.theme.primaryColor }}>
                 Executive Summary
               </h2>
               <p className="text-xs text-gray600 leading-relaxed mb-8">
@@ -264,12 +286,11 @@ export default function ReportLandingPage({
             </div>
             <div>
               <button
-                onClick={() =>
-                  router.push(`/reports/${slug}/executive_summary`)
-                }
-                className="bg-lg-light text-gray800 font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer"
+                onClick={() => router.push(`/reports/${slug}/executive_summary`)}
+                className="text-white font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
+                style={{ backgroundColor: sector.theme.primaryColor }}
               >
-                Open the Executive Summary{" "}
+                Explore the Executive Summary{" "}
                 <span className="text-base font-normal">→</span>
               </button>
             </div>

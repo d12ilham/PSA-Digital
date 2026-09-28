@@ -78,6 +78,7 @@ const SECTOR_REPORTS = [
     actionText: "View report",
     coverImage: "/images/reports/public-safety.png",
     isFirst: false,
+    targetUrl: "/reports/public-safety-wir-2026",
   },
   {
     id: "federal-state",
@@ -89,6 +90,7 @@ const SECTOR_REPORTS = [
     actionText: "View report",
     coverImage: "/images/reports/federal-state.png",
     isFirst: false,
+    targetUrl: "/reports/federal-state-territory-wir-2026",
   },
   {
     id: "correctional-services",
@@ -100,6 +102,7 @@ const SECTOR_REPORTS = [
     actionText: "View report",
     coverImage: "/images/reports/correctional-services.png",
     isFirst: false,
+    targetUrl: "/reports/correctional-services-wir-2026",
   },
 ];
 
@@ -527,7 +530,15 @@ export default function ReportsArchivePage() {
                 key={sector.id}
                 style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
                 onClick={() => {
-                  if (sector.targetUrl) {
+                  const matched = reports.find(
+                    (r) =>
+                      r.slug === sector.id ||
+                      r.slug.includes(sector.id) ||
+                      r.title.toLowerCase().includes(sector.sectorKey.toLowerCase())
+                  );
+                  if (matched) {
+                    router.push(`/reports/${matched.slug}`);
+                  } else if (sector.targetUrl) {
                     router.push(sector.targetUrl);
                   } else {
                     getSectorNavigation(sector.sectorKey)();
