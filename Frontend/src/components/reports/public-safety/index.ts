@@ -33,6 +33,17 @@ import PublicSafetyFesHazardousMaterialsView from "./views/PublicSafetyFesHazard
 import PublicSafetyFesWorkforceStrategiesView from "./views/PublicSafetyFesWorkforceStrategiesView";
 import PublicSafetyFesStrategyUpdatesView from "./views/PublicSafetyFesStrategyUpdatesView";
 import PublicSafetyFesExistingStrategiesView from "./views/PublicSafetyFesExistingStrategiesView";
+import PublicSafetyFesDisasterRecoveryTrainingProductsView from "./views/PublicSafetyFesDisasterRecoveryTrainingProductsView";
+import PublicSafetyPoliceView from "./views/PublicSafetyPoliceView";
+import PublicSafetyPoliceOverviewView from "./views/PublicSafetyPoliceOverviewView";
+import PublicSafetyPoliceProfileView from "./views/PublicSafetyPoliceProfileView";
+import PublicSafetyPoliceWorkforceInsightsView from "./views/PublicSafetyPoliceWorkforceInsightsView";
+import PublicSafetyPoliceDigitalForensicsView from "./views/PublicSafetyPoliceDigitalForensicsView";
+import PublicSafetyPoliceDigitalForensicsTwoView from "./views/PublicSafetyPoliceDigitalForensicsTwoView";
+import PublicSafetyPoliceRegionalLeadershipView from "./views/PublicSafetyPoliceRegionalLeadershipView";
+import PublicSafetyPoliceWorkforceStrategiesView from "./views/PublicSafetyPoliceWorkforceStrategiesView";
+import PublicSafetyPoliceStrategyUpdatesView from "./views/PublicSafetyPoliceStrategyUpdatesView";
+import PublicSafetyPoliceExistingStrategiesView from "./views/PublicSafetyPoliceExistingStrategiesView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -77,6 +88,17 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   fes_workforce_strategies: PublicSafetyFesWorkforceStrategiesView,
   fes_update_2025_strategies: PublicSafetyFesStrategyUpdatesView,
   fes_existing_strategies: PublicSafetyFesExistingStrategiesView,
+  fes_disaster_recovery_training_products: PublicSafetyFesDisasterRecoveryTrainingProductsView,
+  police: PublicSafetyPoliceView,
+  police_industry_overview: PublicSafetyPoliceOverviewView,
+  police_industry_profile: PublicSafetyPoliceProfileView,
+  police_workforce_insights: PublicSafetyPoliceWorkforceInsightsView,
+  police_digital_forensics: PublicSafetyPoliceDigitalForensicsView,
+  police_digital_forensics_2: PublicSafetyPoliceDigitalForensicsTwoView,
+  police_regional_remote_leadership: PublicSafetyPoliceRegionalLeadershipView,
+  police_workforce_strategies: PublicSafetyPoliceWorkforceStrategiesView,
+  police_update_2025_strategies: PublicSafetyPoliceStrategyUpdatesView,
+  police_existing_strategies: PublicSafetyPoliceExistingStrategiesView,
 };
 
 export {
@@ -114,4 +136,15 @@ export {
   PublicSafetyFesWorkforceStrategiesView,
   PublicSafetyFesStrategyUpdatesView,
   PublicSafetyFesExistingStrategiesView,
+  PublicSafetyFesDisasterRecoveryTrainingProductsView,
+  PublicSafetyPoliceView,
+  PublicSafetyPoliceOverviewView,
+  PublicSafetyPoliceProfileView,
+  PublicSafetyPoliceWorkforceInsightsView,
+  PublicSafetyPoliceDigitalForensicsView,
+  PublicSafetyPoliceDigitalForensicsTwoView,
+  PublicSafetyPoliceRegionalLeadershipView,
+  PublicSafetyPoliceWorkforceStrategiesView,
+  PublicSafetyPoliceStrategyUpdatesView,
+  PublicSafetyPoliceExistingStrategiesView,
 };

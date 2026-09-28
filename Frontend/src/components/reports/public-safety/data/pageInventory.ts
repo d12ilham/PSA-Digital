@@ -45,6 +45,7 @@ export const PUBLIC_SAFETY_PAGE_INVENTORY: PublicSafetyPageDefinition[] = [
   { key: "police_industry_profile", title: "Police Industry Profile", group: "Police" },
   { key: "police_workforce_insights", title: "Police Workforce Insights", group: "Police" },
   { key: "police_digital_forensics", title: "Digital Forensics", group: "Police" },
+  { key: "police_digital_forensics_2", title: "Digital Forensics Insight Two", group: "Police" },
   { key: "police_regional_remote_leadership", title: "Regional and Remote Police Leadership", group: "Police" },
   { key: "police_workforce_strategies", title: "Police 2026 Workforce Strategies", group: "Police" },
   { key: "police_update_2025_strategies", title: "Police Update on 2025 Strategies", group: "Police" },

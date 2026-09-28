@@ -9,9 +9,12 @@ const strategies = [
     { owner: "Volunteering Australia", title: "National Strategy for Volunteering 2023–2033", period: "Volunteering Australia 2023–2033" },
     { owner: "Champions of Change Coalition – Fire and Emergency Group", title: "Champions of Change Coalition – Fire and Emergency", period: "Champions of Change Coalition" },
 ];
-
-function AustralianDisasterRecoveryDetail() {
-    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-598px]">
+function AustralianDisasterRecoveryDetail({ onNext }: { onNext: () => void }) {
+    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-680px]">
+        <div className="mb-5 flex items-center justify-between gap-4">
+            <span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">02 · National Emergency Management Organisation (NEMA)</span>
+            <button type="button" onClick={onNext} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button>
+        </div>
         <div className="rounded-lg bg-white p-6">
             <div className="flex flex-wrap items-center justify-between gap-4"><h2 className="text-xl font-bold text-[#252D02]">Australian Disaster Recovery Framework</h2><span className="rounded-full bg-[#EEF0E7] px-4 py-2 text-[10px] text-[#535862]">National Emergency Management Organisation (NEMA) 2022 – ongoing</span></div>
             <div className="mt-6 text-xs leading-5 text-[#535862]"><strong className="mb-2 block uppercase text-[#719926]">Summary</strong><p>This framework provides a practical and comprehensive description of disaster recovery context, governance, doctrine and policy. Although each state and territory in Australia has their own disaster recovery policies, the framework provides a common understanding for how disaster recovery can be undertaken.</p><p className="mt-4">The framework further supports recovery activities for all individuals that may be involved in recovery, including practitioners or leaders at all levels of government, private companies, community personnel and charities. As the stewards of the framework, NEMA will review the framework periodically as required.</p></div>
@@ -20,9 +23,10 @@ function AustralianDisasterRecoveryDetail() {
         </div>
     </section>;
 }
-
-function AfacStrategicPlanDetail({ onNext }: { onNext: () => void }) {
-    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-598px]">
+function AfacStrategicPlanDetail({ onNext }: {
+    onNext: () => void;
+}) {
+    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-680px]">
         <div className="mb-5 flex items-center justify-between gap-4">
             <span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">03 · Australasian Fire and Emergency Services Authorities Council (AFAC)</span>
             <button type="button" onClick={onNext} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button>
@@ -71,9 +75,10 @@ function AfacStrategicPlanDetail({ onNext }: { onNext: () => void }) {
         </div>
     </section>;
 }
-
-function VolunteeringStrategyDetail({ onNext }: { onNext: () => void }) {
-    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-598px]">
+function VolunteeringStrategyDetail({ onNext }: {
+    onNext: () => void;
+}) {
+    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-680px]">
         <div className="mb-5 flex items-center justify-between gap-4">
             <span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">04 · Volunteering Australia</span>
             <button type="button" onClick={onNext} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button>
@@ -118,6 +123,52 @@ function VolunteeringStrategyDetail({ onNext }: { onNext: () => void }) {
         </div>
     </section>;
 }
+function ChampionsOfChangeDetail({ onNext }: { onNext: () => void }) {
+    return <section className="rounded-xl bg-[#EEF0E7] p-5 lg:ml-[320px] lg:mt-[-680px]">
+        <div className="mb-5 flex items-center justify-between gap-4">
+            <span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">05 · Champions of Change Coalition – Fire and Emergency Group</span>
+            <button type="button" onClick={onNext} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button>
+        </div>
+        <div className="rounded-lg bg-white p-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+                <h2 className="max-w-[430px] text-xl font-bold text-[#252D02]">Champions of Change Coalition – Fire and Emergency</h2>
+                <span className="rounded-full bg-[#EEF0E7] px-4 py-2 text-[10px] text-[#535862]">Champions of Change Coalition – Fire and Emergency Group 2025 – ongoing</span>
+            </div>
+            <div className="mt-6 text-xs leading-5 text-[#535862]">
+                <strong className="mb-2 block uppercase text-[#719926]">Summary</strong>
+                <p>The Champions of Change Coalition is a sector-wide leadership initiative supported by AFAC that brings together senior personnel from fire, emergency and land management organisations across Australia and New Zealand. The Coalition&apos;s aim is to drive sustained gender equity, build inclusive, respectful workplaces and increase women&apos;s representation especially in frontline and leadership roles through collective action, inclusive leadership, flexible workplace practices and transparent reporting.</p>
+                <p className="mt-2">The annual impact report released in 2025 highlights the achievements of the coalition and includes, but is not limited to:</p>
+                <ul className="ml-5 mt-2 list-disc space-y-1">
+                    <li>Capturing and publicly reporting gender equality data.</li>
+                    <li>Research undertaken to enhance gender appropriate PPE and PPC. This work will result in the release of a Fit for All framework in early 2026.</li>
+                    <li>Facilitating inter-organisation workshops to discuss recruitment and retention, career progression and workplace culture to improve gender equality.</li>
+                </ul>
+            </div>
+            <h3 className="mt-7 text-xs font-bold text-[#719926]">How this informs Public Skills Australia&apos;s work</h3>
+            <div className="mt-4 space-y-4">
+                <div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5">
+                    <strong className="text-sm text-[#252D02]">Consultation and engagement:</strong>
+                    <p className="mt-2 text-xs leading-5 text-[#535862]">Provided context on the Fire and Emergency Services approach to improving gender equality and diversity, informing consultation with Fire and Emergency Services stakeholders.</p>
+                </div>
+                <div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5">
+                    <strong className="text-sm text-[#252D02]">2025 Workforce Strategies</strong>
+                    <p className="mt-2 text-xs leading-5 text-[#535862]">Informed the development of:</p>
+                    <ul className="ml-5 mt-2 list-disc text-xs leading-5 text-[#535862]">
+                        <li>Volunteer Leadership Project</li>
+                        <li>Understanding the Youth Volunteer</li>
+                        <li>Emerging Technologies Skills Review</li>
+                    </ul>
+                    <p className="mt-2 text-xs leading-5 text-[#535862]">All three strategies were informed by the data, strategies and actions of the Coalition which aim to enhance gender equality, representation, safety and inclusivity across the breadth of roles within Fire and Emergency Services.</p>
+                </div>
+                <div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5">
+                    <strong className="text-sm text-[#252D02]">2026 Workforce Strategies</strong>
+                    <p className="mt-2 text-xs leading-5 text-[#535862]">Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident will be informed by the Coalition, especially as it pertains to flexible work and ensuring tools and technology are gender appropriate.</p>
+                </div>
+            </div>
+        </div>
+    </section>;
+}
+
 export default function PublicSafetyFesExistingStrategiesView({ slug, report }: {
     slug: string;
     report: PublicSafetyReport;
@@ -129,9 +180,10 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
     <section className="relative min-h-[205px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-8 lg:px-8"><div className="relative z-10 max-w-[850px]"><span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold uppercase text-white">FES · Industry-Sector Analysis</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Existing Industry-Sector Strategies</h1><p className="mt-4 text-xs leading-5 text-[#535862]">Select a strategy to open its detail and how it informs Public Skills Australia&apos;s work.</p></div><div className="absolute right-8 top-7 hidden h-[150px] w-[370px] lg:block"><span className="absolute left-0 top-20 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Settings size={22}/></span><span className="absolute left-16 top-5 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Network size={22}/></span><span className="absolute left-[125px] top-20 grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><ClipboardList size={26}/></span><span className="absolute left-[190px] top-6 grid size-16 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Landmark size={29}/></span><span className="absolute right-16 top-20 grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><BriefcaseBusiness size={25}/></span><span className="absolute right-0 top-5 grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><FileSearch size={25}/></span></div></section>
 
     <section className="grid items-start gap-5 lg:grid-cols-[300px_1fr]"><aside><h2 className="mb-3 text-lg font-bold uppercase text-[#252D02]">Strategies · 5 · Select to open</h2><div className="space-y-3">{strategies.map((item, index) => <button key={item.title} type="button" onClick={() => setActive(index)} className={`flex min-h-[102px] w-full items-center justify-between gap-4 rounded-lg border px-5 py-4 text-left ${active === index ? "border-[#D95222] !bg-[#FBECE7] shadow-[inset_0_0_0_1px_#D95222] hover:!bg-[#FBECE7] focus:!bg-[#FBECE7]" : "border-[#E9EAEB] bg-white hover:bg-[#F7F8F2]"}`}><span><span className="block text-[9px] font-medium uppercase leading-4 text-[#D95222]">0{index + 1} · {item.owner}</span><strong className="mt-3 block text-sm leading-5 text-[#252D02]">{item.title}</strong></span><span className={`grid size-9 shrink-0 place-items-center rounded-full ${active === index ? "bg-white text-[#719926]" : "bg-[#7BC900] text-[#253100]"}`}><ArrowRight size={15}/></span></button>)}</div></aside><article className="rounded-xl bg-[#EEF0E7] p-5"><div className="flex items-center justify-between gap-4"><span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">0{active + 1} · {strategy.owner}</span><div className="flex gap-2"><button type="button" aria-label="Previous strategy" onClick={() => showStrategy(active - 1)} className="grid size-9 place-items-center rounded-full border border-[#C5CBB6] bg-white text-[#5D791B]"><ArrowLeft size={15}/></button><button type="button" onClick={() => showStrategy(active + 1)} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button></div></div><div className="mt-5 rounded-lg bg-white p-6"><div className="flex flex-wrap items-center justify-between gap-4"><h2 className="text-xl font-bold text-[#252D02]">{strategy.title}</h2><span className="rounded-full bg-[#EEF0E7] px-4 py-2 text-[10px] text-[#535862]">{strategy.period}</span></div>{active === 0 ? <><div className="mt-6 text-xs leading-5 text-[#535862]"><strong className="mb-2 block uppercase text-[#719926]">Summary</strong><p>The National Disaster Risk Reduction Framework was developed as an advancement to the 2011 National Strategy for Disaster Resilience and in line with the global Sendai Disaster Risk Reduction 2015–2030. The framework was co-designed by all levels of government, industry and community representatives and intends to guide Australia&apos;s capability in reducing disaster risk associated with natural hazards.</p><p className="mt-4">The four priorities of the framework are:</p><ul className="ml-5 mt-2 list-disc space-y-1"><li>Understand disaster risk</li><li>Accountable decisions</li><li>Enhanced investment</li><li>Governance, ownership and responsibility</li></ul><p className="mt-5">In August 2023, the Second National Action Plan was endorsed by all Emergency Management Ministers and provides an update on how the National Disaster Risk Reduction Framework can continue to be implemented. Specifically, National Action 21 describes that Australia must better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</p></div><h3 className="mt-7 text-xs font-bold text-[#719926]">How this informs Public Skills Australia&apos;s work</h3><div className="mt-4 space-y-4"><div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><strong className="text-sm text-[#252D02]">Consultation and engagement:</strong><p className="mt-2 text-xs leading-5 text-[#535862]">Provided context and guidance on Australia&apos;s whole-of-society approach to disaster risk reduction, informing consultation with Fire and Emergency Services stakeholders.</p></div><div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><strong className="text-sm text-[#252D02]">2025 Workforce Strategies</strong><p className="mt-2 text-xs leading-5 text-[#535862]">Informed the development of:</p><ul className="ml-5 mt-2 list-disc text-xs leading-5 text-[#535862]"><li>Volunteer Leadership Project</li><li>Emergency Tree Operations</li><li>Emerging Technologies Skills Review</li></ul><p className="mt-2 text-xs leading-5 text-[#535862]">Specifically, all three strategies were informed by National Action 8 – Facilitate greater common emergency management sector professionalisation, capability and participation, including volunteerism.</p></div><div className="rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><strong className="text-sm text-[#252D02]">2026 Workforce Strategies</strong><p className="mt-2 text-xs leading-5 text-[#535862]">Support uptake of disaster recovery training products will be informed by National Action 21 from the Second National Action Plan: better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</p></div></div></> : <div className="mt-6 text-xs leading-6 text-[#535862]"><strong className="mb-2 block uppercase text-[#719926]">Summary</strong><p>Selecting this strategy provides its detailed relationship to Fire and Emergency Services workforce priorities and Public Skills Australia&apos;s current work program.</p></div>}</div></article></section>
-    {(active === 1 || active === 2 || active === 3) && <style jsx global>{`section.grid.items-start article { display: none; }`}</style>}
-    {active === 1 && <AustralianDisasterRecoveryDetail />}
-    {active === 2 && <AfacStrategicPlanDetail onNext={() => showStrategy(3)} />}
-    {active === 3 && <VolunteeringStrategyDetail onNext={() => showStrategy(4)} />}
+    {(active === 1 || active === 2 || active === 3 || active === 4) && <style jsx global>{`section.grid.items-start article { display: none; }`}</style>}
+    {active === 1 && <AustralianDisasterRecoveryDetail onNext={() => showStrategy(2)}/>}
+    {active === 2 && <AfacStrategicPlanDetail onNext={() => showStrategy(3)}/>}
+    {active === 3 && <VolunteeringStrategyDetail onNext={() => showStrategy(4)}/>}
+    {active === 4 && <ChampionsOfChangeDetail onNext={() => showStrategy(0)}/>}
   </PublicSafetyPageShell>;
 }
