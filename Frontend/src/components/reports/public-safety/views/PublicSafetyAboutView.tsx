@@ -1,8 +1,26 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 import { PUBLIC_SAFETY_FUNCTIONS } from "../data/overview";
 
 export default function PublicSafetyAboutView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
+  const undertakesRef = React.useRef<HTMLElement>(null);
+  const [isUndertakesVisible, setIsUndertakesVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsUndertakesVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.1 });
+
+    if (undertakesRef.current) observer.observe(undertakesRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <PublicSafetyPageShell slug={slug} report={report} currentPage="about">
       <section className="relative h-[402px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6">
@@ -12,16 +30,16 @@ export default function PublicSafetyAboutView({ slug, report }: { slug: string; 
           width={420}
           height={540}
           priority
-          className="pointer-events-none absolute -right-10 top-0 h-full w-auto object-cover object-left opacity-80"
+          className="pointer-events-none absolute -right-10 top-0 h-full w-auto select-none object-cover object-left opacity-80 animate-hero-rotate"
         />
         <div className="relative z-10 w-[800px] max-w-[calc(100%_-_280px)]">
-          <h1 className="text-[40px] font-bold leading-[54px] text-[#252D02]">About Public Skills Australia</h1>
-          <p className="mt-4 text-sm leading-6 text-[#535862]">
+          <h1 className="text-[40px] font-bold leading-[54px] text-[#252D02] animate-slide-up">About Public Skills Australia</h1>
+          <p className="mt-4 text-sm leading-6 text-[#535862] animate-slide-up-delay">
             Public Skills Australia is the Jobs and Skills Council (JSC) for the Public Safety and Government industry, comprising Correctional Services, Defence, Federal, State/Territory and Local Government, Fire and Emergency Services and Police industry-sectors.
           </p>
 
           <div className="mt-10 flex h-[172px] items-start rounded-2xl border border-[#E9EAEB] bg-white p-5">
-            <Image src="/images/reports/about/working-in-partnership.svg" alt="" width={92} height={92} className="h-[92px] w-[92px] shrink-0" />
+            <Image src="/images/reports/about/working-in-partnership.svg" alt="" width={92} height={92} className="h-[92px] w-[92px] shrink-0 animate-zoom-in" />
             <div className="ml-5">
               <h2 className="text-base font-bold leading-7 text-[#252D02]">Working in partnership</h2>
               <p className="mt-2 text-sm leading-6 text-[#535862]">
@@ -32,16 +50,16 @@ export default function PublicSafetyAboutView({ slug, report }: { slug: string; 
         </div>
       </section>
 
-      <section className="space-y-6">
+      <section ref={undertakesRef} className="space-y-6">
         <div className="flex h-[49px] items-start border-b border-[#D5D7DA]">
-          <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Public Skills Australia Undertakes:</h2>
+          <h2 className={`text-2xl font-bold leading-8 text-[#252D02] ${isUndertakesVisible ? "animate-slide-up" : "opacity-0"}`}>Public Skills Australia Undertakes:</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {PUBLIC_SAFETY_FUNCTIONS.map((item) => (
-            <article key={item.title} className="h-[376px] rounded-[14px] border border-[#E9EAEB] bg-white p-6">
-              <Image src={item.icon} alt="" width={100} height={100} className="h-[100px] w-[100px]" />
+          {PUBLIC_SAFETY_FUNCTIONS.map((item, index) => (
+            <article key={item.title} style={isUndertakesVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`group h-[376px] cursor-pointer rounded-[14px] border border-[#E9EAEB] bg-white p-6 transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:scale-[1.02] hover:border-[#252D02] hover:shadow-xl ${isUndertakesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
+              <Image src={item.icon} alt="" width={100} height={100} className="h-[100px] w-[100px] transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110" />
               <div className="mt-10">
-                <h3 className="max-w-[294px] text-base font-bold leading-7 text-[#252D02]">{item.title}</h3>
+                <h3 className="max-w-[294px] text-base font-bold leading-7 text-[#252D02] transition-colors duration-500 group-hover:text-[#046D2A]">{item.title}</h3>
                 <p className="mt-3 max-w-[294px] text-sm leading-6 text-[#535862]">{item.description}</p>
               </div>
             </article>

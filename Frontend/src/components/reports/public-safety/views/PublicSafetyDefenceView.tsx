@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CarFront, Plane, Ship } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -16,6 +17,17 @@ const sections = [
 
 export default function PublicSafetyDefenceView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const router = useRouter();
+  const sectionsRef = useRef<HTMLElement>(null);
+  const [sectionsVisible, setSectionsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) setSectionsVisible(true);
+    }, { threshold: 0.08 });
+
+    if (sectionsRef.current) observer.observe(sectionsRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <PublicSafetyPageShell
@@ -30,25 +42,25 @@ export default function PublicSafetyDefenceView({ slug, report }: { slug: string
         nextPrefix: "Next Section:",
       }}
     >
-      <section className="relative min-h-[230px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:pr-[500px]">
-        <span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold uppercase text-white">DEF · Industry-Sector Analysis</span>
-        <h1 className="mt-5 text-[40px] font-bold leading-[52px] text-[#252D02]">Defence</h1>
-        <p className="mt-3 max-w-[850px] text-sm leading-6 text-[#535862]">This chapter of the 2026 Public Safety Workforce Insights Report covers the Defence industry-sector - the permanent and reserve Australian Defence Force and the civilian Australian Public Service workforce of the Department of Defence. Open any section below, or move through the chapter in report order.</p>
+      <section className="relative min-h-[230px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-500 hover:shadow-lg lg:pr-[500px]">
+        <div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold uppercase text-white">DEF · Industry-Sector Analysis</span>
+        <h1 className="mt-5 text-[40px] font-bold leading-[52px] text-[#252D02]">Defence</h1></div>
+        <p className="mt-3 max-w-[850px] animate-slide-up-delay text-sm leading-6 text-[#535862]">This chapter of the 2026 Public Safety Workforce Insights Report covers the Defence industry-sector - the permanent and reserve Australian Defence Force and the civilian Australian Public Service workforce of the Department of Defence. Open any section below, or move through the chapter in report order.</p>
 
-        <div aria-hidden="true" className="absolute right-8 top-14 hidden h-[130px] w-[420px] items-center justify-between lg:flex">
-          <span className="absolute left-4 right-4 top-1/2 border-t border-dashed border-[#D7A31A]/60" />
+        <div aria-hidden="true" className="absolute right-8 top-14 hidden h-[130px] w-[420px] animate-zoom-in items-center justify-between lg:flex">
+          <span style={{ animationDelay: "0.5s" }} className="absolute left-4 right-4 top-1/2 origin-left animate-alignment-line-x border-t border-dashed border-[#D7A31A]/60" />
           {[CarFront, Ship, Plane].map((Icon, index) => (
-            <span key={index} className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full bg-[#FFF8E8] text-[#D7A31A]"><Icon className="h-12 w-12" strokeWidth={1.35} /></span>
+            <span key={index} style={{ animationDelay: `${index * 0.16 + 0.12}s` }} className="group relative z-10 flex h-24 w-24 animate-cross-sector-icon items-center justify-center rounded-full bg-[#FFF8E8] text-[#D7A31A] transition-all duration-300 hover:-translate-y-1 hover:bg-[#FFF1CC] hover:shadow-lg"><Icon className={`h-12 w-12 transition-transform duration-300 group-hover:scale-110 ${index === 2 ? "group-hover:-rotate-6" : "group-hover:rotate-3"}`} strokeWidth={1.35} /></span>
           ))}
         </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {sections.map((section) => (
-          <article key={section.title} className="relative flex min-h-[260px] flex-col rounded-lg border border-[#E9EAEB] border-t-[6px] border-t-[#6D7067] bg-white p-6">
+      <section ref={sectionsRef} className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {sections.map((section, index) => (
+          <article key={section.title} style={sectionsVisible ? { animationDelay: `${index * 0.1 + 0.1}s` } : undefined} className={`group relative flex min-h-[260px] flex-col rounded-lg border border-[#E9EAEB] border-t-[6px] border-t-[#6D7067] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#D7A31A] hover:border-t-[#D7A31A] hover:shadow-lg ${sectionsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
             <h2 className="text-xl font-bold leading-7 text-[#252D02]">{section.title}</h2>
             <p className="mt-4 text-sm leading-6 text-[#535862]">{section.description}</p>
-            <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-3 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">Open <ArrowRight className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-3 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] transition-all duration-300 hover:scale-105 hover:shadow-md">Open <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" /></button>
           </article>
         ))}
       </section>

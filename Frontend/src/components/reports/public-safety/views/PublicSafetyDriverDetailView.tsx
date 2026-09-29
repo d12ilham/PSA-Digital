@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -112,23 +112,47 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
   const initialIndex = drivers.findIndex((driver) => driver.key === pageType);
   const [activeIndex, setActiveIndex] = useState<number | null>(initialIndex >= 0 ? initialIndex : null);
   const [activeMegatrendIndex, setActiveMegatrendIndex] = useState<number | null>(null);
+  const driversSectionRef = useRef<HTMLElement>(null);
+  const megatrendsSectionRef = useRef<HTMLElement>(null);
+  const sourcesSectionRef = useRef<HTMLElement>(null);
+  const [driversVisible, setDriversVisible] = useState(false);
+  const [megatrendsVisible, setMegatrendsVisible] = useState(false);
+  const [sourcesVisible, setSourcesVisible] = useState(false);
   const active = activeIndex === null ? null : drivers[activeIndex];
   const activeMegatrend = activeMegatrendIndex === null ? null : megatrends[activeMegatrendIndex];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (entry.target === driversSectionRef.current) setDriversVisible(true);
+        if (entry.target === megatrendsSectionRef.current) setMegatrendsVisible(true);
+        if (entry.target === sourcesSectionRef.current) setSourcesVisible(true);
+      });
+    }, { threshold: 0.08 });
+
+    if (driversSectionRef.current) observer.observe(driversSectionRef.current);
+    if (megatrendsSectionRef.current) observer.observe(megatrendsSectionRef.current);
+    if (sourcesSectionRef.current) observer.observe(sourcesSectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <PublicSafetyPageShell slug={slug} report={report} currentPage="drivers_of_change" navigation={{ back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` }, prev: { label: "Methodology", href: `/reports/${slug}/methodology` }, next: { label: "Cross-Sector Analysis", href: `/reports/${slug}/cross_sector_analysis` }, prevPrefix: "Previous Section:" }}>
-      <section className="relative overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:h-[318px]">
-        <div className="w-full max-w-[800px]">
+      <section className="relative overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-500 hover:shadow-lg lg:h-[318px]">
+        <div className="w-full max-w-[800px] animate-slide-up">
           <p className="text-xs font-semibold uppercase leading-6 text-[#598303]">Public Safety WIR 2026 · Common to all WIRs</p>
           <h1 className="mt-4 text-[40px] font-bold leading-[54px] text-[#252D02]">Drivers of Change</h1>
           <p className="mt-4 text-xs leading-6 text-[#535862]">In 2024, Public Skills Australia identified nine megatrends impacting the Public Safety and Government industry-sectors. These megatrends were further considered in the development of the 2025 Workforce Insights Reports.</p>
           <p className="mt-4 text-xs leading-6 text-[#535862]">While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the 2026 Workforce Insights Reports have built on these and analysed four key drivers of change that cut across most megatrends. This is important as these drivers of change will likely impact the Public Safety and Government industry-sectors in the short to medium term.</p>
         </div>
-        <Image src="/images/reports/drivers-of-change-diagram.png" alt="Four connected drivers of change" width={250} height={240} className="absolute right-20 top-[39px] hidden h-[240px] w-[250px] min-[1200px]:block" />
+        <div className="absolute right-20 top-[39px] hidden h-[240px] w-[250px] animate-drivers-pop-settle items-center justify-center min-[1200px]:flex">
+          <Image src="/images/reports/drivers-of-change-diagram.png" alt="Four connected drivers of change" width={250} height={240} className="h-[240px] w-[250px] animate-drivers-spin select-none object-contain transition-transform duration-500 hover:scale-105" />
+        </div>
       </section>
 
-      <section style={{ "--driver-section-height": `${active ? 374 + active.panelHeight : 350}px` } as CSSProperties} className="h-auto lg:h-[var(--driver-section-height)]">
-        <div className="h-[76px] border-b border-[#E9EAEB]">
+      <section ref={driversSectionRef} style={{ "--driver-section-height": `${active ? 374 + active.panelHeight : 350}px` } as CSSProperties} className={`h-auto lg:h-[var(--driver-section-height)] ${driversVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
+        <div className="h-[76px] border-b border-[#E9EAEB] transition-colors duration-300 hover:border-[#8AC900]">
           <h2 className="text-2xl font-bold leading-8 text-[#252D02]">The four key drivers of change</h2>
           <p className="mt-3 text-sm leading-6 text-[#535862]">Select a driver to open its detail</p>
         </div>
@@ -136,16 +160,16 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
           {drivers.map((driver, index) => {
             const selected = index === activeIndex;
             return (
-              <article key={driver.key} className={`flex min-h-[250px] flex-col rounded-lg border bg-white p-6 pt-7 ${selected ? "border-[#598303] border-t-4 border-t-[#598303]" : "border-[#E9EAEB] border-t-4 border-t-[#8AC900]"}`}>
+              <article key={driver.key} style={driversVisible ? { animationDelay: `${index * 0.1 + 0.1}s` } : undefined} className={`group flex min-h-[250px] flex-col rounded-lg border bg-white p-6 pt-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${driversVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"} ${selected ? "border-[#598303] border-t-4 border-t-[#598303]" : "border-[#E9EAEB] border-t-4 border-t-[#8AC900] hover:border-[#8AC900]"}`}>
                 <p className="text-xs font-bold leading-6 text-[#598303]">DRIVER {index + 1}</p>
                 <h3 className="mt-5 text-xl font-bold leading-7 text-[#252D02]">{driver.title}</h3>
-                <button type="button" onClick={() => { setActiveIndex(selected ? null : index); if (!selected) setActiveMegatrendIndex(null); }} aria-expanded={selected} className={`mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full px-5 text-xs font-bold ${selected ? "bg-[#598303] text-white" : "bg-[#8AC900] text-[#252D02]"}`}>{selected ? "Close" : "Open"}{selected ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}</button>
+                <button type="button" onClick={() => { setActiveIndex(selected ? null : index); if (!selected) setActiveMegatrendIndex(null); }} aria-expanded={selected} className={`mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full px-5 text-xs font-bold transition-all duration-300 hover:scale-105 hover:shadow-md ${selected ? "bg-[#598303] text-white" : "bg-[#8AC900] text-[#252D02]"}`}>{selected ? "Close" : "Open"}{selected ? <ChevronUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" /> : <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />}</button>
               </article>
             );
           })}
         </div>
         {active && activeIndex !== null && (
-          <article style={{ "--driver-panel-height": `${active.panelHeight}px` } as CSSProperties} className="mt-6 min-h-[268px] rounded-2xl border border-[#598303] border-l-4 border-l-[#598303] bg-[#F0F3E5] px-8 py-6 lg:h-[var(--driver-panel-height)]">
+          <article style={{ "--driver-panel-height": `${active.panelHeight}px` } as CSSProperties} className="mt-6 min-h-[268px] animate-card-entrance rounded-2xl border border-[#598303] border-l-4 border-l-[#598303] bg-[#F0F3E5] px-8 py-6 transition-shadow duration-300 hover:shadow-md lg:h-[var(--driver-panel-height)]">
             <span className="inline-flex h-10 items-center rounded-full bg-[#416102] px-5 text-xs font-bold uppercase text-white">Now presenting · Driver {activeIndex + 1}</span>
             <h2 className="mt-4 text-xl font-bold leading-7 text-[#252D02]">{active.detailTitle}</h2>
             <p className="mt-4 max-w-[800px] text-xs leading-6 text-[#535862]">{active.body}{active.reference && <sup className="ml-0.5 font-bold text-[#598303]">{active.reference}</sup>}</p>
@@ -153,7 +177,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         )}
       </section>
 
-      <section style={activeMegatrend ? { "--megatrend-section-height": `${369 + activeMegatrend.panelHeight}px` } as CSSProperties : undefined} className={activeMegatrend ? "h-auto lg:h-[var(--megatrend-section-height)]" : "h-auto lg:h-[200px]"}>
+      <section ref={megatrendsSectionRef} style={activeMegatrend ? { "--megatrend-section-height": `${369 + activeMegatrend.panelHeight}px` } as CSSProperties : undefined} className={`${activeMegatrend ? "h-auto lg:h-[var(--megatrend-section-height)]" : "h-auto lg:h-[200px]"} ${megatrendsVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         {activeMegatrend && <div className="h-[49px] border-b border-[#E9EAEB]"><h2 className="inline-flex h-[41px] items-start border-b-2 border-[#8AC900] text-2xl font-bold leading-8 text-[#252D02]">Nine Megatrends</h2></div>}
         <div className={`${activeMegatrend ? "mt-6" : ""} grid grid-cols-2 gap-2 sm:grid-cols-3 lg:h-[200px] lg:grid-cols-9`}>
           {megatrends.map((megatrend, index) => {
@@ -165,10 +189,11 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
                 aria-expanded={selected}
                 aria-controls="megatrend-detail"
                 onClick={() => { setActiveMegatrendIndex(selected ? null : index); if (!selected) setActiveIndex(null); }}
-                className={`flex min-h-[200px] flex-col items-center rounded-lg border px-5 py-5 text-center transition-colors ${selected ? "border-2 border-[#598303] bg-[#F0F3E5]" : "border-[#E9EAEB] bg-white hover:border-[#8AC900]"}`}
+                style={megatrendsVisible ? { animationDelay: `${index * 0.06 + 0.15}s` } : undefined}
+                className={`group flex min-h-[200px] flex-col items-center rounded-lg border px-5 py-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${megatrendsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"} ${selected ? "border-2 border-[#598303] bg-[#F0F3E5]" : "border-[#E9EAEB] bg-white hover:border-[#8AC900]"}`}
               >
                 <div className={`flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full ${selected ? "bg-white" : "bg-[#F0F3E5]"}`}>
-                  <Image src={`/images/reports/drivers-of-change/${megatrend.icon}${selected ? "-active" : ""}.svg`} alt="" width={48} height={48} />
+                  <Image src={`/images/reports/drivers-of-change/${megatrend.icon}${selected ? "-active" : ""}.svg`} alt="" width={48} height={48} className="transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <h3 className={`mt-3 text-xs leading-6 ${selected ? "font-bold text-[#598303]" : "font-medium text-[#252D02]"}`}>{megatrend.title}</h3>
               </button>
@@ -177,7 +202,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         {activeMegatrend && (
           <>
-            <article id="megatrend-detail" style={{ "--megatrend-panel-height": `${activeMegatrend.panelHeight}px` } as CSSProperties} className="mt-6 mr-2 rounded-lg border border-[#598303] border-l-4 bg-[#F0F3E5] px-8 py-6 lg:h-[var(--megatrend-panel-height)]">
+            <article id="megatrend-detail" style={{ "--megatrend-panel-height": `${activeMegatrend.panelHeight}px` } as CSSProperties} className="mt-6 mr-2 animate-card-entrance rounded-lg border border-[#598303] border-l-4 bg-[#F0F3E5] px-8 py-6 transition-shadow duration-300 hover:shadow-md lg:h-[var(--megatrend-panel-height)]">
               <h2 className="text-xl font-bold leading-7 text-[#252D02]">{activeMegatrend.title}</h2>
               <p className="mt-3 max-w-[800px] text-xs leading-6 text-[#535862]">{activeMegatrend.body}</p>
             </article>
@@ -186,9 +211,9 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         )}
       </section>
 
-      <section className="h-[456px] rounded-2xl border border-[#E9EAEB] bg-white p-6">
+      <section ref={sourcesSectionRef} className={`h-[456px] rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-300 hover:border-[#8AC900] hover:shadow-md ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
-        <ol className="mt-6 w-full max-w-[800px] space-y-4">{sources.map(([number, source]) => <li key={number} className="grid grid-cols-[20px_1fr] gap-3 text-xs leading-6 text-[#535862]"><span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0F3E5] text-xs font-bold text-[#598303]">{number}</span><span>{source}</span></li>)}</ol>
+        <ol className="mt-6 w-full max-w-[800px] space-y-4">{sources.map(([number, source], index) => <li key={number} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.15}s` } : undefined} className={`group grid grid-cols-[20px_1fr] gap-3 text-xs leading-6 text-[#535862] ${sourcesVisible ? "animate-card-entrance" : "translate-y-4 opacity-0"}`}><span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0F3E5] text-xs font-bold text-[#598303] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#598303] group-hover:text-white">{number}</span><span>{source}</span></li>)}</ol>
       </section>
     </PublicSafetyPageShell>
   );

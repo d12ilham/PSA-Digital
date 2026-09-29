@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,7 @@ const strategies = [
 const iconPath = (name: string) => `/images/reports/introduction/${name}.svg`;
 
 function ActionButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
-  return <button type="button" onClick={onClick} className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{children}<ArrowRight className="h-3.5 w-3.5" /></button>;
+  return <button type="button" onClick={onClick} className="group inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#78AF00] hover:shadow-md">{children}<ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" /></button>;
 }
 
 function SectionHeading({ icon, title, description, action, onClick }: { icon: string; title: string; description?: string; action: string; onClick?: () => void }) {
@@ -36,9 +37,9 @@ function SectionHeading({ icon, title, description, action, onClick }: { icon: s
   );
 }
 
-function SectorColumn({ sector, strategy = false }: { sector: typeof insights[number] | typeof strategies[number]; strategy?: boolean }) {
+function SectorColumn({ sector, strategy = false, visible = true, delay = 0 }: { sector: typeof insights[number] | typeof strategies[number]; strategy?: boolean; visible?: boolean; delay?: number }) {
   return (
-    <article className="overflow-hidden rounded-lg border border-[#E9EAEB] bg-white">
+    <article style={visible ? { animationDelay: `${delay}s` } : undefined} className={`group overflow-hidden rounded-lg border border-[#E9EAEB] bg-white transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1 hover:border-[#728C28] hover:shadow-lg ${visible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
       <div className="h-2" style={{ backgroundColor: sector.color }} />
       <div className="p-6">
         <div className="flex h-10 items-start justify-between gap-3">
@@ -47,9 +48,9 @@ function SectorColumn({ sector, strategy = false }: { sector: typeof insights[nu
         </div>
         <div className="mt-4 space-y-2">
           {sector.items.map(([eyebrow, title, number, height]) => (
-            <div key={number} style={{ minHeight: `${height}px` }} className="relative flex items-start overflow-hidden rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] p-5 pr-16">
+            <div key={number} style={{ minHeight: `${height}px` }} className="relative flex items-start overflow-hidden rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] p-5 pr-16 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B8C9A0] hover:bg-white hover:shadow-sm">
               <div><p className="text-xs font-semibold leading-4" style={{ color: sector.color }}>{eyebrow}</p><p className="mt-2 text-sm font-bold leading-5 text-[#252D02]">{title}</p></div>
-              <span className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: sector.color }}>{number}</span>
+              <span className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: sector.color }}>{number}</span>
             </div>
           ))}
         </div>
@@ -60,39 +61,58 @@ function SectorColumn({ sector, strategy = false }: { sector: typeof insights[nu
 
 export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const router = useRouter();
+  const insightsRef = React.useRef<HTMLElement>(null);
+  const strategiesRef = React.useRef<HTMLElement>(null);
+  const [isInsightsVisible, setIsInsightsVisible] = React.useState(false);
+  const [isStrategiesVisible, setIsStrategiesVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (entry.target === insightsRef.current) setIsInsightsVisible(true);
+        if (entry.target === strategiesRef.current) setIsStrategiesVisible(true);
+      });
+    }, { threshold: 0.1 });
+
+    if (insightsRef.current) observer.observe(insightsRef.current);
+    if (strategiesRef.current) observer.observe(strategiesRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <PublicSafetyPageShell slug={slug} report={report} currentPage="executive_summary">
       <section className="h-auto rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:h-[302px]">
         <div className="flex h-full flex-col justify-between gap-8 lg:flex-row lg:items-center">
-          <div className="w-full max-w-[800px] shrink-0 self-start min-[1500px]:w-[800px]">
-            <h1 className="text-[40px] font-bold leading-[54px] text-[#046D2A]">Executive Summary</h1>
-            <p className="mt-4 text-base leading-6 text-[#535862]">Public Skills Australia&apos;s 2026 Public Safety Workforce Insights Report considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
-            <p className="mt-4 text-base leading-6 text-[#535862]">The Report analyses themes consistent across all three Public Safety industry-sectors before examining each Public Safety industry-sector individually. The report provides data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.</p>
+          <div className="w-full min-w-0 flex-1 self-start lg:max-w-[760px]">
+            <h1 className="text-[40px] font-bold leading-[54px] text-[#046D2A] animate-slide-up">Executive Summary</h1>
+            <div className="animate-slide-up-delay"><p className="mt-4 text-base leading-6 text-[#535862]">Public Skills Australia&apos;s 2026 Public Safety Workforce Insights Report considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
+            <p className="mt-4 text-base leading-6 text-[#535862]">The Report analyses themes consistent across all three Public Safety industry-sectors before examining each Public Safety industry-sector individually. The report provides data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.</p></div>
           </div>
-          <div className="relative hidden h-[120px] w-[570px] shrink-0 items-center justify-between min-[1500px]:flex">
-            <div className="absolute left-[60px] right-[60px] top-[56px] h-2 border-y-2 border-[#8AC900]" />
-            {["Drivers", "Insights", "Strategies", "Summary"].map((icon) => <Image key={icon} src={iconPath(icon)} alt="" width={120} height={120} className="relative h-[120px] w-[120px]" />)}
+          <div className="relative hidden h-[120px] w-[420px] shrink-0 items-center justify-between lg:flex xl:w-[500px] min-[1500px]:w-[570px]">
+            <div className="absolute left-12 right-12 top-[46px] h-2 border-y-2 border-[#8AC900] animate-flow-separator xl:left-14 xl:right-14 xl:top-[52px] min-[1500px]:left-[60px] min-[1500px]:right-[60px] min-[1500px]:top-[56px]" style={{ animationDelay: "0.35s" }} />
+            {["Drivers", "Insights", "Strategies", "Summary"].map((icon, index) => <Image key={icon} src={iconPath(icon)} alt="" width={120} height={120} style={{ animationDelay: `${index * 0.5 + 0.1}s` }} className="relative h-24 w-24 animate-flow-item xl:h-[108px] xl:w-[108px] min-[1500px]:h-[120px] min-[1500px]:w-[120px]" />)}
           </div>
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:h-[136px]"><SectionHeading icon="Drivers" title="Drivers of Change" description="Four drivers of change impacting workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports." action="Explore Drivers of Change" onClick={() => router.push(`/reports/${slug}/drivers_of_change`)} /></section>
+      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#728C28] hover:shadow-md lg:h-[136px]"><SectionHeading icon="Drivers" title="Drivers of Change" description="Four drivers of change impacting workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports." action="Explore Drivers of Change" onClick={() => router.push(`/reports/${slug}/drivers_of_change`)} /></section>
 
-      <section className="overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white lg:h-[700px]">
+      <section ref={insightsRef} className={`overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white lg:h-[700px] ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className="p-6"><SectionHeading icon="Insights" title="Seven industry insights" description="OPEN reveals the content on this page." action="Expand Workforce Insights" /></div>
-        <div className="border-t border-[#E9EAEB] px-6 pt-6"><div className="grid gap-6 lg:h-[540px] lg:grid-cols-3">{insights.map((sector) => <SectorColumn key={sector.title} sector={sector} />)}</div></div>
+        <div className="border-t border-[#E9EAEB] px-6 pt-6"><div className="grid gap-6 lg:h-[540px] lg:grid-cols-3">{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div></div>
       </section>
 
-      <section className="overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white lg:h-[948px]">
+      <section ref={strategiesRef} className={`overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white lg:h-[948px] ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className="p-6 lg:h-[136px]"><SectionHeading icon="Strategies" title="2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights." action="Expand Workforce Strategies" /></div>
-        <div className="border-t border-[#E9EAEB] px-6 pt-6"><div className="grid gap-6 lg:h-[764px] lg:grid-cols-3">{strategies.map((sector) => <SectorColumn key={sector.title} sector={sector} strategy />)}</div></div>
+        <div className="border-t border-[#E9EAEB] px-6 pt-6"><div className="grid gap-6 lg:h-[764px] lg:grid-cols-3">{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} strategy visible={isStrategiesVisible} delay={index * 0.12 + 0.18} />)}</div></div>
       </section>
 
-      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:h-[184px]"><SectionHeading icon="Summary" title="2027 and Beyond" description="This report concludes by looking towards the 2027 Workforce Insights Reports and beyond. Future work will focus on broader priorities, including the participation of First Nations people, women and other genders in the Public Safety and Government workforces, in addition to examining the implications of artificial intelligence (AI) and digital transformation." action="View 2027 and Beyond" onClick={() => router.push(`/reports/${slug}/looking_forward`)} /></section>
+      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#728C28] hover:shadow-md lg:h-[184px]"><SectionHeading icon="Summary" title="2027 and Beyond" description="This report concludes by looking towards the 2027 Workforce Insights Reports and beyond. Future work will focus on broader priorities, including the participation of First Nations people, women and other genders in the Public Safety and Government workforces, in addition to examining the implications of artificial intelligence (AI) and digital transformation." action="View 2027 and Beyond" onClick={() => router.push(`/reports/${slug}/looking_forward`)} /></section>
 
       <section className="flex min-h-10 flex-wrap items-center gap-3">
         <h2 className="mr-1 text-2xl font-bold leading-8 text-[#252D02]">Supporting Sections:</h2>
-        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["DEF CHAPTER", "defence"], ["FES CHAPTER", "fes"], ["POL CHAPTER", "police"]].map(([label, path]) => <button key={label} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-semibold text-[#598303]">{label}</button>)}
+        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["DEF CHAPTER", "defence"], ["FES CHAPTER", "fes"], ["POL CHAPTER", "police"]].map(([label, path]) => <button key={label} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-semibold text-[#598303] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#728C28] hover:bg-[#F0F5DF] hover:shadow-sm">{label}</button>)}
       </section>
     </PublicSafetyPageShell>
   );

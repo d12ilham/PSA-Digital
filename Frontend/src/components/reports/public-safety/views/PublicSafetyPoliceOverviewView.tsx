@@ -2,7 +2,7 @@
 
 import { ChevronDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 const datapoints = [
@@ -31,10 +31,10 @@ function NationalWorkforceChart() {
         return <g key={tick}><line x1="52" x2="454" y1={y} y2={y} stroke="#E7E8E3" /><text x="44" y={y + 4} textAnchor="end" fontSize="9" fill="#69706A">{tick.toLocaleString()}</text></g>;
       })}
       <line x1="52" x2="454" y1="210" y2="210" stroke="#AEB1AA" />
-      <polyline points={points} fill="none" stroke="#0D71A3" strokeWidth="3" />
+      <polyline points={points} fill="none" stroke="#0D71A3" strokeWidth="3" pathLength="1" strokeDasharray="1" className="animate-profile-chart-line" />
       {values.map((value, index) => {
         const [x, y] = points.split(" ")[index].split(",").map(Number);
-        return <g key={value}><circle cx={x} cy={y} r="4" fill="#0D71A3" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#0D71A3">{value.toLocaleString()}</text><text x={x} y="232" textAnchor="middle" fontSize="8" fill="#535862">{labels[index]}</text></g>;
+        return <g key={value} className="animate-radar-point" style={{ animationDelay: `${index * 0.1 + 0.3}s` }}><circle cx={x} cy={y} r="4" fill="#0D71A3" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#0D71A3">{value.toLocaleString()}</text><text x={x} y="232" textAnchor="middle" fontSize="8" fill="#535862">{labels[index]}</text></g>;
       })}
       <line x1="140" x2="140" y1="54" y2="238" stroke="#C34D3C" strokeWidth="1.5" />
       <text x="148" y="66" fontSize="9" fontWeight="700" fill="#C34D3C">COVID-19</text>
@@ -78,20 +78,24 @@ function JurisdictionChartLibrary() {
     label: endpointsOnly ? (index === 0 ? labels[0] : labels[5]) : labels[index],
   }));
   const points = chartPoints.map(({ x, y }) => `${x},${y}`).join(" ");
+  const selectChart = (index: number) => {
+    setSelected(index);
+    setAnimationKey((key) => key + 1);
+  };
 
   return <div className="mt-6">
     <h3 className="mb-4 text-sm font-bold uppercase text-[#252D02]">Chart Library · Select a chart to open</h3>
     <div className="grid items-start gap-5 lg:grid-cols-[300px_1fr]">
-      <div className="space-y-3">{jurisdictionCharts.map((item, index) => <button key={item.short} type="button" onClick={() => setSelected(index)} className={`flex min-h-[74px] w-full items-center justify-between rounded-lg border bg-white px-4 text-left ${selected === index ? "border-[#1685A6] shadow-[inset_0_0_0_1px_#1685A6]" : "border-[#E9EAEB]"}`}>
+      <div className="space-y-3">{jurisdictionCharts.map((item, index) => <button key={item.short} type="button" onClick={() => selectChart(index)} className={`group flex min-h-[74px] w-full items-center justify-between rounded-lg border bg-white px-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1685A6] hover:shadow-md ${selected === index ? "border-[#1685A6] shadow-[inset_0_0_0_1px_#1685A6]" : "border-[#E9EAEB]"}`}>
         <span><span className="block text-[8px] font-bold uppercase text-[#1685A6]">{item.code}</span><span className="mt-2 block text-[11px] font-bold leading-4 text-[#252D02]">Yearly Sworn Police Officer FTE -<br />{item.name}</span></span>
-        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#8AC900] text-sm font-bold text-[#252D02]">{selected === index ? "−" : "+"}</span>
+        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#8AC900] text-sm font-bold text-[#252D02] transition-transform duration-300 group-hover:scale-110">{selected === index ? "−" : "+"}</span>
       </button>)}</div>
       <div className="rounded-xl border border-[#E9EAEB] bg-white p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4"><div><span className="text-[8px] font-bold uppercase text-[#1685A6]">Presenting · {selected + 1} of {jurisdictionCharts.length} · Selected from the list</span><h4 className="mt-2 text-lg font-bold leading-6 text-[#252D02]">Yearly Sworn Police Officer FTE - {chart.name}</h4></div><div className="flex items-center gap-2"><button type="button" onClick={() => setSelected((selected - 1 + jurisdictionCharts.length) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6]"><ChevronLeft className="size-3" /> Prev</button><button type="button" onClick={() => setSelected((selected + 1) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6]">Next <ChevronRight className="size-3" /></button><button type="button" onClick={() => setAnimationKey((key) => key + 1)} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-[#1685A6] px-3 text-[9px] font-bold uppercase text-white"><Play className="size-3 fill-current" /> Replay Animation</button></div></div>
+        <div className="flex flex-wrap items-start justify-between gap-4"><div><span className="text-[8px] font-bold uppercase text-[#1685A6]">Presenting · {selected + 1} of {jurisdictionCharts.length} · Selected from the list</span><h4 className="mt-2 text-lg font-bold leading-6 text-[#252D02]">Yearly Sworn Police Officer FTE - {chart.name}</h4></div><div className="flex items-center gap-2"><button type="button" onClick={() => selectChart((selected - 1 + jurisdictionCharts.length) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6] transition-all hover:-translate-y-0.5 hover:shadow-sm"><ChevronLeft className="size-3" /> Prev</button><button type="button" onClick={() => selectChart((selected + 1) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6] transition-all hover:-translate-y-0.5 hover:shadow-sm">Next <ChevronRight className="size-3" /></button><button type="button" onClick={() => setAnimationKey((key) => key + 1)} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-[#1685A6] px-3 text-[9px] font-bold uppercase text-white transition-all hover:-translate-y-0.5 hover:bg-[#0D6F91] hover:shadow-sm"><Play className="size-3 fill-current" /> Replay Animation</button></div></div>
         <svg viewBox="0 0 520 300" className="mt-5 w-full" role="img" aria-label={`Yearly sworn police officer FTE for ${chart.name}`}>
           {(isAct ? [500, 600, 700, 800, 900] : isNsw ? [14500, 15375, 16250, 17125, 18000] : isNt ? [1100, 1187.5, 1275, 1362.5, 1450] : isQld ? [11900, 12075, 12250, 12425, 12600] : isSa ? [4350, 4437.5, 4525, 4612.5, 4700] : isVic ? [15800, 15975, 16150, 16325, 16500] : isTas ? [1200, 1262.5, 1325, 1387.5, 1450] : isWa ? [5800, 6150, 6500, 6850, 7200] : [0, 1, 2, 3].map((step) => min + ((max - min) * step) / 3)).map((value) => { const y = 220 - ((value - min) / Math.max(max - min, 1)) * 145; return <g key={value}><line x1="58" x2="478" y1={y} y2={y} stroke="#E7E8E3" /><text x="50" y={y + 4} textAnchor="end" fontSize="9" fill="#69706A">{value.toLocaleString()}</text></g>; })}
           <polyline key={animationKey} points={points} fill="none" stroke="#1685A6" strokeWidth="2.5" strokeDasharray="4 5" pathLength="1" strokeDashoffset="0"><animate attributeName="stroke-dashoffset" from="1" to="0" dur="1.2s" /></polyline>
-          {chartPoints.map(({ value, x, y, label }, index) => <g key={`${value}-${index}`}><circle cx={x} cy={y} r="4" fill="#1685A6" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#1685A6">{value.toLocaleString()}</text><text x={x} y="242" textAnchor="middle" fontSize="8" fill="#535862">{label}</text></g>)}
+          {chartPoints.map(({ value, x, y, label }, index) => <g key={`${animationKey}-${value}-${index}`} className="animate-radar-point" style={{ animationDelay: `${index * 0.12 + 0.25}s` }}><circle cx={x} cy={y} r="4" fill="#1685A6" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#1685A6">{value.toLocaleString()}</text><text x={x} y="242" textAnchor="middle" fontSize="8" fill="#535862">{label}</text></g>)}
           <line x1="146" x2="146" y1="60" y2="250" stroke="#C34D3C" /><text x="154" y="72" fontSize="8" fontWeight="700" fill="#C34D3C">COVID-19</text><text x="146" y="264" textAnchor="middle" fontSize="8" fontWeight="700" fill="#C87C38">JAN 2020</text>
           <line x1="298" x2="298" y1="60" y2="250" stroke="#D18A4B" strokeDasharray="3 3" /><text x="306" y="264" fontSize="8" fontWeight="700" fill="#C87C38">OCT 2022</text>
         </svg>
@@ -108,6 +112,23 @@ const sources = [
 
 export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [open, setOpen] = useState<number | null>(null);
+  const contentRef = useRef<HTMLElement>(null);
+  const sourcesRef = useRef<HTMLElement>(null);
+  const [contentVisible, setContentVisible] = useState(false);
+  const [sourcesVisible, setSourcesVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (entry.target === contentRef.current) setContentVisible(true);
+        if (entry.target === sourcesRef.current) setSourcesVisible(true);
+      });
+    }, { threshold: 0.08 });
+    if (contentRef.current) observer.observe(contentRef.current);
+    if (sourcesRef.current) observer.observe(sourcesRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <PublicSafetyPageShell
@@ -123,28 +144,27 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
         nextPrefix: "Next Section:",
       }}
     >
-      <section className="relative min-h-[230px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:pr-[280px]">
-        <span className="inline-flex rounded-full bg-[#1685A6] px-4 py-1.5 text-[10px] font-bold uppercase text-white">POL · Industry-Sector Analysis</span>
-        <h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Industry-Sector Overview</h1>
-        <p className="mt-4 max-w-[1020px] text-sm leading-6 text-[#535862]">Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
-        <div aria-hidden="true" className="absolute right-8 top-8 hidden size-40 place-items-center rounded-full bg-[#E5F2F7] lg:grid">
-          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} className="size-[136px]" />
+      <section className="relative min-h-[230px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 hover:border-[#9AC7D6] hover:shadow-lg lg:pr-[280px]">
+        <div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#1685A6] px-4 py-1.5 text-[10px] font-bold uppercase text-white">POL · Industry-Sector Analysis</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Industry-Sector Overview</h1></div>
+        <p className="mt-4 max-w-[1020px] animate-slide-up-delay text-sm leading-6 text-[#535862]">Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
+        <div aria-hidden="true" className="absolute right-8 top-8 hidden size-40 animate-zoom-in place-items-center rounded-full bg-[#E5F2F7] transition-all duration-500 hover:scale-105 hover:bg-[#D7ECF3] lg:grid">
+          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} className="size-[136px] transition-transform duration-500 hover:-translate-x-1" />
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
+      <section ref={contentRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-lg ${contentVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <p className="max-w-[1110px] text-sm leading-6 text-[#535862]">Operational (sworn) officers are increasingly supported by additional auxiliary officers (at times known as semi-sworn) such as Protective Service Officers and a rapidly growing cohort of unsworn specialists in intelligence, forensics, digital investigations, cybercrime and emergency management. Police must maintain a 24/7 operational readiness to respond to crime, maintain public safety and support community resilience.</p>
         <h2 className="mt-6 max-w-[780px] border-b border-[#DADDD4] pb-4 text-2xl font-bold leading-8 text-[#252D02]">The following datapoints have been identified through this Industry Overview for the Police workforce:</h2>
 
         <div className="mt-5 space-y-4">
           {datapoints.map((item, index) => {
             const isOpen = open === index;
-            return <article key={item.title} className="overflow-hidden rounded-xl border border-[#83B6C7] border-l-[8px] border-l-[#1685A6] bg-[#E9F3F6]">
+            return <article key={item.title} style={contentVisible ? { animationDelay: `${index * 0.12 + 0.15}s` } : undefined} className={`overflow-hidden rounded-xl border border-[#83B6C7] border-l-[8px] border-l-[#1685A6] bg-[#E9F3F6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${contentVisible ? "animate-card-entrance" : "opacity-0"}`}>
               <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : index)} className={`flex min-h-[60px] w-full items-center justify-between gap-5 px-5 text-left ${isOpen ? "bg-[#1685A6] text-white" : ""}`}>
                 <span className={`font-semibold ${isOpen ? "text-white" : "text-[#252D02]"}`}>{item.title}</span>
                 <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{isOpen ? "Close" : "Open"}<ChevronDown className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`} /></span>
               </button>
-              {isOpen && <div className={`border-t border-[#A7C9D4] bg-[#FAFAF0] ${index === 0 ? "grid lg:grid-cols-[1fr_520px]" : "px-6 py-5"}`}>
+              {isOpen && <div className={`animate-content-switch border-t border-[#A7C9D4] bg-[#FAFAF0] ${index === 0 ? "grid lg:grid-cols-[1fr_520px]" : "px-6 py-5"}`}>
                 <div className={index === 0 ? "px-6 py-7" : ""}><p className="text-sm leading-6 text-[#535862]">{item.copy}</p></div>
                 {index === 0 && <NationalWorkforceChart />}
                 {index === 1 && <JurisdictionChartLibrary />}
@@ -154,10 +174,10 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
+      <section ref={sourcesRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-lg ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
         <ol className="mt-5 space-y-4 text-xs leading-5 text-[#535862]">
-          {sources.map((source, index) => <li key={source} className="grid grid-cols-[24px_1fr] gap-3"><span className="grid size-5 place-items-center rounded-full bg-[#8AC900] text-[9px] font-bold text-[#252D02]">{index + 65}</span><span>{source}</span></li>)}
+          {sources.map((source, index) => <li key={source} style={sourcesVisible ? { animationDelay: `${index * 0.1 + 0.12}s` } : undefined} className={`grid grid-cols-[24px_1fr] gap-3 ${sourcesVisible ? "animate-card-entrance" : "opacity-0"}`}><span className="grid size-5 place-items-center rounded-full bg-[#8AC900] text-[9px] font-bold text-[#252D02] transition-transform duration-300 hover:scale-110">{index + 65}</span><span>{source}</span></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>
