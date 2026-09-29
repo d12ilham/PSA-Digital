@@ -14,7 +14,7 @@ export interface PublicSafetyReport {
   year?: { label: string };
 }
 
-export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string } }) {
+export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string; pagesOrder?: { key: string; label: string }[] } }) {
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} />
@@ -28,6 +28,7 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
           backSecondary={navigation?.backSecondary}
           prevPrefix={navigation?.prevPrefix}
           nextPrefix={navigation?.nextPrefix}
+          pagesOrder={navigation?.pagesOrder}
         />
         {children}
       </main>

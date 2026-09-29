@@ -50,6 +50,7 @@ export const PUBLIC_SAFETY_PAGE_INVENTORY: PublicSafetyPageDefinition[] = [
   { key: "police_workforce_strategies", title: "Police 2026 Workforce Strategies", group: "Police" },
   { key: "police_update_2025_strategies", title: "Police Update on 2025 Strategies", group: "Police" },
   { key: "police_existing_strategies", title: "Police Existing Industry-Sector Strategies", group: "Police" },
+  { key: "police_proposed_strategies_summary", title: "Proposed Strategies Summary", group: "Cross-Sector Strategies" },
   { key: "police_federal_initiatives", title: "Police Federal Government Initiatives", group: "Police" },
   { key: "looking_forward", title: "2027 and Beyond", group: "Report" },
   { key: "downloads", title: "Downloads and References", group: "Report" },

@@ -44,6 +44,9 @@ import PublicSafetyPoliceRegionalLeadershipView from "./views/PublicSafetyPolice
 import PublicSafetyPoliceWorkforceStrategiesView from "./views/PublicSafetyPoliceWorkforceStrategiesView";
 import PublicSafetyPoliceStrategyUpdatesView from "./views/PublicSafetyPoliceStrategyUpdatesView";
 import PublicSafetyPoliceExistingStrategiesView from "./views/PublicSafetyPoliceExistingStrategiesView";
+import PublicSafetyProposedStrategiesSummaryView from "./views/PublicSafetyProposedStrategiesSummaryView";
+import PublicSafetyFederalInitiativesView from "./views/PublicSafetyFederalInitiativesView";
+import PublicSafetyLookingForwardView from "./views/PublicSafetyLookingForwardView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -99,6 +102,9 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   police_workforce_strategies: PublicSafetyPoliceWorkforceStrategiesView,
   police_update_2025_strategies: PublicSafetyPoliceStrategyUpdatesView,
   police_existing_strategies: PublicSafetyPoliceExistingStrategiesView,
+  police_proposed_strategies_summary: PublicSafetyProposedStrategiesSummaryView,
+  police_federal_initiatives: PublicSafetyFederalInitiativesView,
+  looking_forward: PublicSafetyLookingForwardView,
 };
 
 export {
