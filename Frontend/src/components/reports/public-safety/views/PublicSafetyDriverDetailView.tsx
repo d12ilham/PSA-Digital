@@ -110,8 +110,8 @@ const sources = [
 
 export default function PublicSafetyDriverDetailView({ slug, report, pageType }: { slug: string; report: PublicSafetyReport; pageType?: string }) {
   const initialIndex = drivers.findIndex((driver) => driver.key === pageType);
-  const [activeIndex, setActiveIndex] = useState<number | null>(initialIndex >= 0 ? initialIndex : null);
-  const [activeMegatrendIndex, setActiveMegatrendIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(initialIndex >= 0 ? initialIndex : 0);
+  const [activeMegatrendIndex, setActiveMegatrendIndex] = useState<number | null>(0);
   const driversSectionRef = useRef<HTMLElement>(null);
   const megatrendsSectionRef = useRef<HTMLElement>(null);
   const sourcesSectionRef = useRef<HTMLElement>(null);
@@ -163,7 +163,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
               <article key={driver.key} style={driversVisible ? { animationDelay: `${index * 0.1 + 0.1}s` } : undefined} className={`group flex min-h-[250px] flex-col rounded-lg border bg-white p-6 pt-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${driversVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"} ${selected ? "border-[#598303] border-t-4 border-t-[#598303]" : "border-[#E9EAEB] border-t-4 border-t-[#8AC900] hover:border-[#8AC900]"}`}>
                 <p className="text-xs font-bold leading-6 text-[#598303]">DRIVER {index + 1}</p>
                 <h3 className="mt-5 text-xl font-bold leading-7 text-[#252D02]">{driver.title}</h3>
-                <button type="button" onClick={() => { setActiveIndex(selected ? null : index); if (!selected) setActiveMegatrendIndex(null); }} aria-expanded={selected} className={`mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full px-5 text-xs font-bold transition-all duration-300 hover:scale-105 hover:shadow-md ${selected ? "bg-[#598303] text-white" : "bg-[#8AC900] text-[#252D02]"}`}>{selected ? "Close" : "Open"}{selected ? <ChevronUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" /> : <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />}</button>
+                <button type="button" onClick={() => setActiveIndex(selected ? null : index)} aria-expanded={selected} className={`mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full px-5 text-xs font-bold transition-all duration-300 hover:scale-105 hover:shadow-md ${selected ? "bg-[#598303] text-white" : "bg-[#8AC900] text-[#252D02]"}`}>{selected ? "Close" : "Open"}{selected ? <ChevronUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" /> : <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />}</button>
               </article>
             );
           })}
@@ -188,7 +188,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
                 type="button"
                 aria-expanded={selected}
                 aria-controls="megatrend-detail"
-                onClick={() => { setActiveMegatrendIndex(selected ? null : index); if (!selected) setActiveIndex(null); }}
+                onClick={() => setActiveMegatrendIndex(selected ? null : index)}
                 style={megatrendsVisible ? { animationDelay: `${index * 0.06 + 0.15}s` } : undefined}
                 className={`group flex min-h-[200px] flex-col items-center rounded-lg border px-5 py-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${megatrendsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"} ${selected ? "border-2 border-[#598303] bg-[#F0F3E5]" : "border-[#E9EAEB] bg-white hover:border-[#8AC900]"}`}
               >
