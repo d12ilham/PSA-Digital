@@ -501,6 +501,19 @@ aside button.bg-\[\#8AC900\] {
 .animate-alignment-line-y { opacity: 0; animation: alignmentLineY .8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .animate-alignment-centre { animation: alignmentCentreSettle .8s .8s cubic-bezier(0.25, 1, 0.5, 1) both; }
 
+@keyframes alignmentFrameDraw {
+  from { opacity: 0; stroke-dashoffset: 120; }
+  to { opacity: .95; stroke-dashoffset: 0; }
+}
+
+@keyframes alignmentCrossDraw {
+  from { opacity: 0; stroke-dasharray: 720; stroke-dashoffset: 720; }
+  to { opacity: .95; stroke-dasharray: 720; stroke-dashoffset: 0; }
+}
+
+.animate-alignment-frame { animation: alignmentFrameDraw 1.1s .35s ease-out both; }
+.animate-alignment-cross { animation: alignmentCrossDraw 1s .55s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
 /* Defence overview charts */
 @keyframes defenceBarGrow {
   0% { opacity: 0; scale: 1 0; }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -62,53 +63,16 @@ function LocationChart() {
 }
 
 function OperationsChart() {
-  const cards = [
-    { text:"Operation Kudu", sub:"Ukraine", left:"29%", top:"8%", width:"16%" },
-    { text:"Operation Fortitude", sub:"Syria", left:"29%", top:"18%", width:"16%" },
-    { text:"Operation Accordion\nOperation Beech\nOperation Manitou\nOperation Okra\nOperation Paladin\nOperation Steadfast", sub:"Middle East region", left:"29%", top:"31%", width:"16%" },
-    { text:"Operation Augury", sub:"Global", left:"1%", top:"53%", width:"16%" },
-    { text:"Operation Dyurra", sub:"Space", left:"1%", top:"66%", width:"16%" },
-    { text:"Operation Mazurka", sub:"Egypt", left:"29%", top:"55%", width:"16%" },
-    { text:"Operation Aslan", sub:"South Sudan", left:"29%", top:"67%", width:"16%" },
-    { text:"Operation Hydranth", sub:"Red Sea", left:"29%", top:"79%", width:"16%" },
-    { text:"Operation Argos\nOperation Linesman", sub:"Republic of Korea", left:"61%", top:"29%", width:"16%" },
-    { text:"Exercise Rim of the Pacific", sub:"Hawaii", left:"86%", top:"8%", width:"13%" },
-    { text:"Operation Gateway", sub:"South-East Asia", left:"84%", top:"42%", width:"15%" },
-    { text:"Operation Lilia", sub:"Solomon Islands", left:"84%", top:"52%", width:"15%" },
-    { text:"Exercise Austral Shield", sub:"Australia", left:"61%", top:"61%", width:"17%" },
-    { text:"Operation Resolute", sub:"Australian borders", left:"61%", top:"73%", width:"15%" },
-    { text:"Operation Southern Discovery", sub:"Antarctica", left:"61%", top:"84%", width:"15%" },
-    { text:"Operation Render Safe\nOperation Solania\nOperation Vaea\nOperation Vanuatu Assist", sub:"Pacific Islands", left:"80%", top:"78%", width:"19%" },
-  ];
-  return <div className="mt-5">
-    <p className="mb-3 text-[9px] leading-3 text-[#535862]">List of Operations and Activities Undertaken by the Australian Defence Force<br/>Throughout 2024 and 2025</p>
-    <div
-      className="relative aspect-[1.85/1] min-h-[440px] overflow-hidden bg-white bg-contain bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/reports/defence-world-operations-map.svg')" }}
-      role="img"
-      aria-label="World map of Australian Defence Force operations"
-    >
-      <svg viewBox="0 0 1000 540" className="pointer-events-none absolute inset-0 z-10 size-full" aria-hidden="true">
-        <g fill="none" stroke="#24351D" strokeWidth="3">
-          <polyline points="450,76 560,76 560,208"/><polyline points="450,130 520,130 520,248 580,248"/>
-          <polyline points="450,224 575,224"/><polyline points="450,260 575,260"/><polyline points="450,304 560,304 560,276"/>
-          <polyline points="450,365 590,365 590,293"/><polyline points="450,425 608,425 608,270"/>
-          <polyline points="770,188 800,188 800,250"/><polyline points="860,78 920,78 920,155"/>
-          <polyline points="835,244 802,244 802,310"/><polyline points="835,292 821,292 821,354"/>
-          <polyline points="780,348 800,348 800,382"/><polyline points="760,406 780,406 780,394"/>
-          <polyline points="760,458 760,493"/><polyline points="800,438 875,438 875,393"/>
-        </g>
-        <g fill="#24351D">{[[560,208],[580,248],[575,224],[575,260],[560,276],[590,293],[608,270],[800,250],[920,155],[802,310],[821,354],[800,382],[780,394],[760,493],[875,393]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="5"/>)}</g>
-        <circle cx="580" cy="245" r="30" fill="#D7A31A" opacity=".88"/><circle cx="875" cy="393" r="26" fill="#F2BE35" opacity=".88"/>
-      </svg>
-      {cards.map((card,index)=><div key={`${card.text}-${card.sub}`} className="absolute z-20 animate-card-entrance bg-[#D8B474]/95 px-3 py-2 text-[9px] leading-[12px] text-[#4C5049] transition-all duration-300 hover:z-30 hover:-translate-y-1 hover:bg-[#C99E55] hover:shadow-md" style={{left:card.left,top:card.top,width:card.width,animationDelay:`${index * 0.05 + 0.3}s`}}><span className="whitespace-pre-line font-medium">{card.text}</span><span className="block text-white">{card.sub}</span></div>)}
-    </div>
-    <p className="mt-3 text-[10px] text-[#535862]"><span className="font-semibold">NOTE:</span> Does not include ADF assistance to domestic emergency response.</p>
-  </div>;
+  return <div
+    className="mt-5 aspect-[1519/1165] min-h-[540px] w-full animate-zoom-in bg-white bg-contain bg-center bg-no-repeat"
+    style={{ backgroundImage: "url('/images/reports/public-safety/defence-world-operations-map.png')" }}
+    role="img"
+    aria-label="World map of Australian Defence Force operations and activities throughout 2024 and 2025"
+  />;
 }
 
 function ActiveChart({ active }: { active: number }) {
-  return <div className="min-w-0 animate-card-entrance rounded-lg border border-[#E9EAEB] bg-white px-8 py-7 transition-shadow duration-300 hover:shadow-lg"><p className="text-[10px] font-semibold uppercase text-[#789329]">DEF · Presentation View</p>{active!==4&&<h2 className="mt-2 max-w-[720px] text-lg font-semibold leading-6 text-[#252D02]">{charts[active]}</h2>}{active===0&&<LineChart/>}{active===1&&<LineChart separation/>}{active===2&&<GenderChart/>}{active===3&&<FirstNationsChart/>}{active===4&&<LocationChart/>}{active===5&&<OperationsChart/>}<p className="mt-5 text-[10px] font-semibold uppercase text-[#6F8B24]">Source: Defence Annual Report 2024-25, 2025</p></div>;
+  return <div className="min-w-0 animate-card-entrance rounded-lg border border-[#E9EAEB] bg-white px-8 py-7 transition-shadow duration-300 hover:shadow-lg"><p className="text-[10px] font-semibold uppercase text-[#789329]">DEF · Presentation View</p>{active!==4&&<h2 className="mt-2 max-w-[720px] text-lg font-semibold leading-6 text-[#252D02]">{charts[active]}</h2>}{active===0&&<LineChart/>}{active===1&&<LineChart separation/>}{active===2&&<GenderChart/>}{active===3&&<FirstNationsChart/>}{active===4&&<LocationChart/>}{active===5&&<OperationsChart/>}{active!==5&&<p className="mt-5 text-[10px] font-semibold uppercase text-[#6F8B24]">Source: Defence Annual Report 2024-25, 2025</p>}</div>;
 }
 
 export default function PublicSafetyDefenceProfileView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
@@ -121,7 +85,13 @@ export default function PublicSafetyDefenceProfileView({ slug, report }: { slug:
     return () => observer.disconnect();
   }, []);
   return <PublicSafetyPageShell slug={slug} report={report} currentPage="defence_industry_profile" navigation={{ back:{label:"Defence chapter",href:`/reports/${slug}/defence`}, prev:{label:"Industry-Sector Overview",href:`/reports/${slug}/defence_industry_overview`}, next:{label:"Workforce Insights",href:`/reports/${slug}/defence_workforce_insights`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="rounded-2xl border border-[#E9EAEB] bg-white px-6 py-5 transition-shadow duration-500 hover:shadow-lg"><div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold uppercase text-white">DEF · Industry-Sector Analysis</span><h1 className="mt-4 text-[40px] font-bold leading-[48px] text-[#252D02]">Industry Profile</h1></div><p className="mt-2 animate-slide-up-delay text-xs text-[#535862]">Select a chart to open it in a large presentation view.</p></section>
+    <section className="relative min-h-[184px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-5 transition-shadow duration-500 hover:shadow-lg lg:pr-[500px]">
+      <div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold uppercase text-white">DEF · Industry-Sector Analysis</span><h1 className="mt-4 text-[40px] font-bold leading-[48px] text-[#252D02]">Industry Profile</h1></div>
+      <p className="mt-2 animate-slide-up-delay text-xs text-[#535862]">Select a chart to open it in a large presentation view.</p>
+      <div className="absolute right-6 top-[42px] hidden h-[100px] w-[446px] animate-zoom-in transition-transform duration-300 hover:scale-[1.02] lg:block">
+        <Image src="/images/reports/public-safety/defence-industry-overview-group-93.svg" alt="Australian Defence Force land, maritime and air capabilities" width={446} height={100} priority />
+      </div>
+    </section>
     <section ref={libraryRef} className={libraryVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}><h2 className="border-b border-[#D8DBD2] pb-4 text-xl font-bold uppercase text-[#252D02]">Chart Library · Select a chart to open</h2><div className="mt-6 grid items-start gap-6 lg:grid-cols-[340px_1fr]"><div className="space-y-2">{charts.map((label,i)=><button key={label} type="button" onClick={()=>setActive(i)} aria-pressed={active===i} style={libraryVisible ? { animationDelay: `${i * 0.08 + 0.08}s` } : undefined} className={`group grid w-full grid-cols-[1fr_34px] items-center gap-4 rounded-lg border px-5 py-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${libraryVisible?"animate-card-entrance":"opacity-0"} ${active===i?"border-[#D7A31A] bg-[#FBF3DF]":"border-[#E9EAEB] bg-white hover:border-[#D7A31A]"}`}><span><small className="mb-3 block text-[10px] font-semibold uppercase text-[#C79A26]">0{i+1} · DEF · Presentation View</small><strong className="block text-sm leading-5 text-[#252D02]">{label}</strong></span><span className={`grid size-8 place-items-center rounded-full border transition-transform duration-300 group-hover:scale-110 ${active===i?"border-[#CDD2C7] bg-white text-[#252D02]":"border-[#7BC900] bg-[#7BC900] text-[#243000]"}`}><ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5"/></span></button>)}</div><ActiveChart key={active} active={active}/></div></section>
   </PublicSafetyPageShell>;
 }
