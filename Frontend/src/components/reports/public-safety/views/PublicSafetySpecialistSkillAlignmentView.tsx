@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Search } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 const packages = [
@@ -47,19 +46,20 @@ const comparisonRows = [
 function AlignmentDiagram() {
   const items = ["Investigations", "Incident Command", "Intelligence", "Search and Rescue"];
   return (
-    <div className="relative grid min-h-[210px] grid-cols-2 gap-x-20 gap-y-10 overflow-hidden rounded-2xl bg-[#252D02] p-6">
-      <span className="pointer-events-none absolute inset-0 z-30 grid place-items-center">
-        <span className="animate-alignment-centre rounded-full bg-[#8AC900] px-5 py-3 text-[10px] font-bold uppercase text-[#252D02] shadow-sm">Skills alignment</span>
-      </span>
-      <span style={{ animationDelay: "0.45s" }} className="absolute left-[23%] top-[28%] h-px w-[54%] origin-left animate-alignment-line-x border-t border-dashed border-[#8AC900]" />
-      <span style={{ animationDelay: "0.6s" }} className="absolute left-[23%] top-[70%] h-px w-[54%] origin-left animate-alignment-line-x border-t border-dashed border-[#8AC900]" />
-      <span style={{ animationDelay: "0.75s" }} className="absolute left-1/2 top-[26%] h-[46%] origin-top animate-alignment-line-y border-l border-dashed border-[#8AC900]" />
+    <div className="relative aspect-[702/268] min-h-[237px] w-full overflow-hidden rounded-[32px] bg-[#598303]">
+      <svg viewBox="0 0 702 268" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
+        <g fill="none" stroke="#8AC900" strokeWidth="2.5" opacity=".95">
+          <path d="M110 47H592V163H110Z" strokeDasharray="9 5" className="animate-alignment-frame" />
+          <path d="M112 47 351 110 590 47M112 163l239-53 239 53" className="animate-alignment-cross" />
+        </g>
+      </svg>
+      <span className="animate-alignment-centre pointer-events-none absolute left-1/2 top-[42%] z-30 flex h-11 w-[28%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#355700] text-[13px] font-bold uppercase text-white shadow-[0_8px_24px_rgba(37,45,2,0.18)]">Skills alignment</span>
       {items.map((item, index) => (
-        <div key={item} style={{ animationDelay: `${index * 0.12 + 0.12}s` }} className="group relative z-20 flex h-10 animate-alignment-item items-center gap-3 rounded-full bg-white px-3 text-[11px] font-semibold text-[#252D02] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F0F3E5] hover:shadow-md">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#252D02] text-[#8AC900] transition-transform duration-300 group-hover:scale-110"><Search className="h-3 w-3 transition-transform duration-300 group-hover:rotate-12" /></span>{item}
+        <div key={item} style={{ animationDelay: `${index * 0.12 + 0.12}s` }} className={`group absolute z-20 flex h-11 animate-alignment-item items-center gap-3 whitespace-nowrap rounded-full px-4 text-xs font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${index === 0 ? "left-[6%] top-[10%] w-[29%]" : index === 1 ? "right-[6%] top-[10%] w-[32%]" : index === 2 ? "left-[6%] top-[51%] w-[32%]" : "right-[6%] top-[51%] w-[32%]"} ${index === 3 ? "bg-[#355700] text-white" : "bg-white text-[#252D02] hover:bg-[#F0F3E5]"}`}>
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#252D02] text-[#8AC900] transition-transform duration-300 group-hover:scale-110"><span className="h-3 w-3 rounded-full border-2 border-current shadow-[inset_0_0_0_2px_#252D02] ring-2 ring-current" /></span>{item}
         </div>
       ))}
-      <p className="absolute bottom-3 left-6 right-6 text-[9px] leading-4 text-white/70">The connecting lines show the specialist skills alignment that exists between all four areas. Search and Rescue is the worked example below.</p>
+      <p className="absolute bottom-[8%] left-[6%] right-[6%] text-[11px] leading-[17px] text-white">The connecting lines show the specialist skills alignment that exists between all four areas.<br />Search and Rescue is the worked example below.</p>
     </div>
   );
 }

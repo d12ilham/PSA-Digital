@@ -88,11 +88,8 @@ export default function ReportLandingPage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchData();
-  }, [slug]);
-
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
+    await Promise.resolve();
     setLoading(true);
     setError(null);
     try {
@@ -102,7 +99,7 @@ export default function ReportLandingPage({
       ]);
       if (settingsRes) setSiteSettings(settingsRes);
       setReport(reportRes);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.warn("API report fetch failed, using sector fallback:", err);
       // Fallback to static sector definition so developers can work without DB seeding
       const sector = resolveSector(null, slug);
@@ -124,7 +121,12 @@ export default function ReportLandingPage({
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
+
+  useEffect(() => {
+    const fetchTimer = window.setTimeout(() => void fetchData(), 0);
+    return () => window.clearTimeout(fetchTimer);
+  }, [fetchData]);
 
   const getLogoUrl = (rawUrl?: string) => {
     if (!rawUrl) return null;
@@ -178,6 +180,7 @@ export default function ReportLandingPage({
 
   const sector = resolveSector(report.industry?.slug || report.industry?.name, slug);
 
+
   if (sector.id === "federal-state") {
     return (
       <FederalStateLandingView
@@ -185,6 +188,183 @@ export default function ReportLandingPage({
         report={report}
         siteSettings={siteSettings}
       />
+    );
+  }
+
+  if (sector.id === "public-safety") {
+    const primaryCards = [
+      {
+        title: "Introduction",
+        description:
+          "For readers who want the report background — how it was developed, the methodology and the full report structure.",
+        button: "Open the Introduction",
+        path: "introduction",
+        color: "#606D9E",
+      },
+      {
+        title: "Executive Summary",
+        description:
+          "Straight to the key insights and strategies on one page, built for large screens and briefings.",
+        button: "Open the Executive Summary",
+        path: "executive_summary",
+        color: "#122453",
+        badge: "Presentation View",
+      },
+    ];
+
+    const sectorCards = [
+      { title: "Defence", path: "defence", color: "#D6A52D" },
+      {
+        title: "Fire & Emergency Services",
+        path: "fes",
+        color: "#CF4C2C",
+      },
+      { title: "Police", path: "police", color: "#1685AD" },
+    ];
+
+    return (
+      <div className="relative flex min-h-screen flex-col overflow-hidden bg-[#FAFAF0] font-sans antialiased text-[#252D02]">
+        <img
+          src="/images/wave-left.png"
+          alt=""
+          className="pointer-events-none absolute bottom-0 left-0 z-0 w-[41vw] max-w-[790px] select-none animate-zoom-in"
+        />
+        <img
+          src="/images/wave-right.png"
+          alt=""
+          className="pointer-events-none absolute right-0 top-[58px] z-0 w-[24vw] max-w-[470px] select-none animate-zoom-in"
+        />
+
+        <header className="relative z-20 h-[58px] shrink-0 border-b border-[#E9EADC] bg-[#FAFAF0]">
+          <div className="mx-auto flex h-full max-w-[960px] items-center justify-between px-5 sm:px-8">
+            <button
+              type="button"
+              onClick={() => router.push("/reports")}
+              className="cursor-pointer"
+              aria-label="Back to reports"
+            >
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={siteSettings?.title || "Public Skills Australia"}
+                  className="h-[34px] w-auto object-contain"
+                />
+              ) : (
+                <PSALogo />
+              )}
+            </button>
+            <span className="rounded-full bg-[#122453] px-3 py-1 text-[10px] font-bold text-white">
+              Public Safety
+            </span>
+          </div>
+        </header>
+
+        <main className="relative z-10 flex flex-1 flex-col items-center px-5 pb-5 pt-5 sm:px-8 sm:pt-6">
+          <section className="w-full max-w-[960px] text-center">
+            <p className="animate-slide-up text-[10px] font-semibold uppercase text-[#73930B]">
+              {report.year?.label || "2026"} · Public Skills Australia
+            </p>
+            <h1 className="animate-slide-up mt-3 text-[28px] font-extrabold leading-[1.2] text-[#252D02] sm:text-[32px]">
+              Public Safety Workforce Insights Report
+            </h1>
+            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[900px] text-[11px] font-medium leading-5 text-[#60636B] sm:text-xs">
+              Covering the Defence, Fire and Emergency Services and Police
+              industry-sectors - with cross-sector analysis of the skills that
+              connect them.
+            </p>
+            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[800px] text-[15px] font-semibold leading-5 text-[#648605] sm:text-base">
+              Choose how you enter the digital report. Either start at the
+              beginning from the Introduction or go straight to the Executive
+              Summary.
+            </p>
+          </section>
+
+          <section className="mt-5 grid w-full max-w-[950px] grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+            {primaryCards.map((card, index) => (
+              <article
+                key={card.path}
+                className="animate-card-entrance flex min-h-[190px] flex-col overflow-hidden rounded-[8px] border border-[#E0E2D8] border-t-[8px] bg-white px-6 pb-5 pt-5 shadow-[0_1px_3px_rgba(37,45,2,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,45,2,0.10)]"
+                style={{
+                  borderTopColor: card.color,
+                  animationDelay: `${index * 0.12 + 0.12}s`,
+                }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h2
+                    className="text-left text-[18px] font-bold leading-6"
+                    style={{ color: card.color }}
+                  >
+                    {card.title}
+                  </h2>
+                  {card.badge ? (
+                    <span className="shrink-0 rounded-full bg-[#122453] px-2.5 py-1 text-[9px] font-semibold text-white">
+                      {card.badge}
+                    </span>
+                  ) : null}
+                </div>
+                <p className="mt-3 text-left text-[11px] leading-[1.7] text-[#60636B]">
+                  {card.description}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/reports/${slug}/${card.path}`)}
+                  className="mt-auto flex w-fit cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-[10px] font-bold text-[#252D02] transition-all duration-300 hover:bg-[#79B700] hover:shadow-md"
+                >
+                  {card.button} <span aria-hidden="true">→</span>
+                </button>
+              </article>
+            ))}
+          </section>
+
+          <p className="mt-5 text-[15px] font-semibold text-[#648605] sm:text-base">
+            Or go straight to a sector chapter
+          </p>
+
+          <section className="mt-5 grid w-full max-w-[950px] grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
+            {sectorCards.map((card, index) => (
+              <article
+                key={card.path}
+                className="animate-card-entrance relative flex min-h-[116px] flex-col rounded-[8px] border border-[#E0E2D8] bg-white px-5 py-4 shadow-[0_1px_3px_rgba(37,45,2,0.04)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,45,2,0.10)]"
+                style={{ animationDelay: `${index * 0.1 + 0.36}s` }}
+              >
+                <span
+                  className="absolute inset-y-0 left-0 w-[6px] rounded-l-[7px]"
+                  style={{ backgroundColor: card.color }}
+                  aria-hidden="true"
+                />
+                <h2 className="text-left text-[12px] font-bold leading-5 text-[#252D02]">
+                  {card.title}
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/reports/${slug}/${card.path}`)}
+                  className="mt-auto flex w-fit cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-[10px] font-bold text-[#252D02] transition-all duration-300 hover:bg-[#79B700] hover:shadow-md"
+                >
+                  Open Chapter <span aria-hidden="true">→</span>
+                </button>
+              </article>
+            ))}
+          </section>
+        </main>
+
+        <footer className="relative z-20 flex h-[58px] shrink-0 items-center justify-center gap-3 border-t border-[#E9EADC] bg-white px-4">
+          <button
+            type="button"
+            onClick={() => router.push("/reports")}
+            className="cursor-pointer rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 py-2 text-[10px] font-semibold text-[#598303] transition-colors hover:bg-[#F1F5E5]"
+          >
+            ← Back to PSA Website
+          </button>
+          <a
+            href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 py-2 text-[10px] font-semibold text-[#598303] no-underline transition-colors hover:bg-[#F1F5E5]"
+          >
+            Contact Us
+          </a>
+        </footer>
+      </div>
     );
   }
 
