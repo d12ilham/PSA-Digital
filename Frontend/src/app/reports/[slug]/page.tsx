@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { Loader2 } from "lucide-react";
 
 import { resolveSector } from "@/config/reports/sectors";
+import FederalStateLandingView from "@/components/reports/federal-state/views/FederalStateLandingView";
 
 interface Report {
   id: string;
@@ -176,6 +177,16 @@ export default function ReportLandingPage({
     "Straight to the key insights and strategies — the workforce story on one page, built for large screens and briefings.";
 
   const sector = resolveSector(report.industry?.slug || report.industry?.name, slug);
+
+  if (sector.id === "federal-state") {
+    return (
+      <FederalStateLandingView
+        slug={slug}
+        report={report}
+        siteSettings={siteSettings}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F8F0] relative overflow-hidden flex flex-col justify-between font-sans antialiased">
