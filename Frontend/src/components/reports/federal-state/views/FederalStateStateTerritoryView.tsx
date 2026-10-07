@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -263,6 +263,10 @@ export default function FederalStateStateTerritoryView({
   report: Report;
 }) {
   const [selectedState, setSelectedState] = useState<string>("ACT");
+  useEffect(() => {
+    const jurisdiction = new URLSearchParams(window.location.search).get("jurisdiction")?.toUpperCase();
+    if (jurisdiction && JURISDICTIONS[jurisdiction]) setSelectedState(jurisdiction);
+  }, []);
   const current = JURISDICTIONS[selectedState] || JURISDICTIONS["ACT"];
 
   return (

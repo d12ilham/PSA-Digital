@@ -119,7 +119,6 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
       { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "state_territory", label: "State and Territory Profile" },
       { key: "industry_profile", label: "Industry Profile" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "2026 Proposed Strategies" },

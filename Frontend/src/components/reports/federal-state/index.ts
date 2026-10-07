@@ -6,6 +6,14 @@ import FederalStateDriversOfChangeView from "./views/FederalStateDriversOfChange
 import FederalStateIndustryOverviewView from "./views/FederalStateIndustryOverviewView";
 import FederalStateStateTerritoryView from "./views/FederalStateStateTerritoryView";
 import FederalStateIndustryProfileView from "./views/FederalStateIndustryProfileView";
+import FederalStateActProfileView from "./views/FederalStateActProfileView";
+import FederalStateNswProfileView from "./views/FederalStateNswProfileView";
+import FederalStateNtProfileView from "./views/FederalStateNtProfileView";
+import FederalStateQldProfileView from "./views/FederalStateQldProfileView";
+import FederalStateSaProfileView from "./views/FederalStateSaProfileView";
+import FederalStateTasProfileView from "./views/FederalStateTasProfileView";
+import FederalStateVicProfileView from "./views/FederalStateVicProfileView";
+import FederalStateWaProfileView from "./views/FederalStateWaProfileView";
 import FederalStateWorkforceInsightsView from "./views/FederalStateWorkforceInsightsView";
 import FederalStateProposedStrategiesView from "./views/FederalStateProposedStrategiesView";
 import FederalStateExistingStrategiesView from "./views/FederalStateExistingStrategiesView";
@@ -26,6 +34,14 @@ export const federalStateViews: Record<
   industry_overview: FederalStateIndustryOverviewView,
   state_territory: FederalStateStateTerritoryView,
   industry_profile: FederalStateIndustryProfileView,
+  industry_profile_act: FederalStateActProfileView,
+  industry_profile_nsw: FederalStateNswProfileView,
+  industry_profile_nt: FederalStateNtProfileView,
+  industry_profile_qld: FederalStateQldProfileView,
+  industry_profile_sa: FederalStateSaProfileView,
+  industry_profile_tas: FederalStateTasProfileView,
+  industry_profile_vic: FederalStateVicProfileView,
+  industry_profile_wa: FederalStateWaProfileView,
   workforce_insights: FederalStateWorkforceInsightsView,
   workforce_strategies: FederalStateProposedStrategiesView,
   proposed_strategies: FederalStateProposedStrategiesView,

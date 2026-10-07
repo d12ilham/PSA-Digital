@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -19,7 +19,7 @@ interface Report {
   };
 }
 
-function EmploymentProjectionsChart() {
+function EmploymentProjectionsChart({ animate }: { animate: boolean }) {
   return (
     <div className="bg-white rounded-2xl border border-gray200 border-t-8 border-t-[#694834] p-5 sm:p-6 space-y-4">
       <h4 className="text-base sm:text-lg font-bold text-gray900">
@@ -39,10 +39,11 @@ function EmploymentProjectionsChart() {
             stroke="#694834"
             strokeWidth="2"
             strokeDasharray="4 4"
+            className={animate ? "animate-industry-projection-line" : ""}
           />
 
           {/* Projection data points */}
-          <circle cx="35" cy="68" r="4.5" fill="#694834" />
+          <circle cx="35" cy="68" r="4.5" fill="#694834" className={animate ? "animate-industry-chart-point" : ""} style={animate ? { animationDelay: "0.55s" } : undefined} />
           <text
             x="35"
             y="94"
@@ -54,7 +55,7 @@ function EmploymentProjectionsChart() {
             202,200
           </text>
 
-          <circle cx="230" cy="46" r="4.5" fill="#694834" />
+          <circle cx="230" cy="46" r="4.5" fill="#694834" className={animate ? "animate-industry-chart-point" : ""} style={animate ? { animationDelay: "0.7s" } : undefined} />
           <text
             x="230"
             y="72"
@@ -66,7 +67,7 @@ function EmploymentProjectionsChart() {
             219,400
           </text>
 
-          <circle cx="425" cy="32" r="4.5" fill="#694834" />
+          <circle cx="425" cy="32" r="4.5" fill="#694834" className={animate ? "animate-industry-chart-point" : ""} style={animate ? { animationDelay: "0.85s" } : undefined} />
           <text
             x="395"
             y="58"
@@ -145,13 +146,15 @@ function SkillsBarChart({
   title,
   bars,
   source,
+  animate,
 }: {
   title: string;
   bars: BarItem[];
   source: string;
+  animate: boolean;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-gray200 p-5 sm:p-6 flex flex-col justify-between space-y-6">
+    <div className="group bg-white rounded-2xl border border-gray200 p-5 sm:p-6 flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:shadow-lg">
       <h4 className="text-base sm:text-lg font-bold text-gray900 leading-snug">
         {title}
       </h4>
@@ -174,8 +177,9 @@ function SkillsBarChart({
                 style={{
                   height: `${bar.percentage}%`,
                   backgroundColor: bar.color,
+                  animationDelay: `${idx * 0.1}s`,
                 }}
-                className="w-full rounded-t-md transition-all duration-500 ease-out"
+                className={`w-full rounded-t-md transition-all duration-700 ease-out group-hover:brightness-105 ${animate ? "animate-industry-chart-bar" : ""}`}
               />
             </div>
           ))}
@@ -212,9 +216,50 @@ export default function FederalStateIndustryOverviewView({
   const [scopeOpen, setScopeOpen] = useState(true);
   const [growthOpen, setGrowthOpen] = useState(true);
   const [skillsOpen, setSkillsOpen] = useState(false);
+  const scopeRef = useRef<HTMLDivElement>(null);
+  const growthRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const sourcesRef = useRef<HTMLDivElement>(null);
+  const [scopeVisible, setScopeVisible] = useState(false);
+  const [growthVisible, setGrowthVisible] = useState(false);
+  const [skillsVisible, setSkillsVisible] = useState(false);
+  const [sourcesVisible, setSourcesVisible] = useState(false);
 
   useEffect(() => {
     setIsHeroMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const targets = [
+      { ref: scopeRef, setVisible: setScopeVisible },
+      { ref: growthRef, setVisible: setGrowthVisible },
+      { ref: skillsRef, setVisible: setSkillsVisible },
+      { ref: sourcesRef, setVisible: setSourcesVisible },
+    ];
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") {
+      targets.forEach(({ setVisible }) => setVisible(true));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const match = targets.find(({ ref }) => ref.current === entry.target);
+          match?.setVisible(true);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    targets.forEach(({ ref }) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -239,7 +284,7 @@ export default function FederalStateIndustryOverviewView({
         />
 
         {/* Hero Card */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6 transition-all duration-300 hover:shadow-md">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up leading-tight">
@@ -273,12 +318,12 @@ export default function FederalStateIndustryOverviewView({
             {/* Stat 1: 102 agencies */}
             <div
               style={{ animationDelay: "0.15s" }}
-              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300"
+              className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
               <img
                 src="/images/reports/federal-state/industry-overview/stat-agencies.png"
                 alt="102 agencies"
-                className="w-14 h-14 shrink-0 object-contain"
+                className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
@@ -291,12 +336,12 @@ export default function FederalStateIndustryOverviewView({
             {/* Stat 2: 198,529 employees */}
             <div
               style={{ animationDelay: "0.27s" }}
-              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300"
+              className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
               <img
                 src="/images/reports/federal-state/industry-overview/stat-aps-employees.png"
                 alt="198,529 employees"
-                className="w-14 h-14 shrink-0 object-contain"
+                className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
@@ -312,12 +357,12 @@ export default function FederalStateIndustryOverviewView({
             {/* Stat 3: 60.5% women */}
             <div
               style={{ animationDelay: "0.39s" }}
-              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300"
+              className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
               <img
                 src="/images/reports/federal-state/industry-overview/stat-women.png"
                 alt="60.5% women"
-                className="w-14 h-14 shrink-0 object-contain"
+                className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
@@ -330,12 +375,12 @@ export default function FederalStateIndustryOverviewView({
             {/* Stat 4: 3.4% First Nations employees */}
             <div
               style={{ animationDelay: "0.51s" }}
-              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300"
+              className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
               <img
                 src="/images/reports/federal-state/industry-overview/stat-first-nations.png"
                 alt="3.4% First Nations employees"
-                className="w-14 h-14 shrink-0 object-contain"
+                className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
                 <span className="text-2xl font-bold text-gray800 block leading-none">
@@ -371,7 +416,7 @@ export default function FederalStateIndustryOverviewView({
         </div>
 
         {/* Section 2: Scope of this industry-sector overview (Accordion Card) */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
+        <div ref={scopeRef} className={`bg-white border border-gray200 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:border-[#BAABA0] hover:shadow-lg ${scopeVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
           <div className="flex items-center justify-between gap-4">
             <div className="space-y-1">
               <h2 className="text-lg sm:text-xl font-bold text-gray800">
@@ -383,7 +428,7 @@ export default function FederalStateIndustryOverviewView({
             </div>
             <button
               onClick={() => setScopeOpen(!scopeOpen)}
-              className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1 hover:bg-[#79B700] transition-colors shrink-0"
+              className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
             >
               {scopeOpen ? "Close ▴" : "Open ▾"}
             </button>
@@ -398,7 +443,7 @@ export default function FederalStateIndustryOverviewView({
           >
             <div className="overflow-hidden min-h-0">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray200 text-xs text-gray600 leading-relaxed font-normal">
-                <div>
+                <div className={scopeVisible ? "animate-content-switch" : ""}>
                   <p>
                     As there are a breadth of roles across the public sector,
                     several occupations are in the remit of other JSCs, such as
@@ -409,7 +454,7 @@ export default function FederalStateIndustryOverviewView({
                     Australia.
                   </p>
                 </div>
-                <div>
+                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.12s" } : undefined}>
                   <p>
                     The 2026 Federal and State/Territory Government Workforce
                     Insights Report focuses on non-frontline occupations that
@@ -423,7 +468,7 @@ export default function FederalStateIndustryOverviewView({
                     challenges.
                   </p>
                 </div>
-                <div>
+                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.24s" } : undefined}>
                   <p>
                     In the subsequent sections that follow, data profiles have
                     been created to present the workforces for the Federal and
@@ -442,10 +487,10 @@ export default function FederalStateIndustryOverviewView({
         </div>
 
         {/* Section 3: Future Workforce Growth (Collapsible Tab + Content) */}
-        <div className="space-y-4">
+        <div ref={growthRef} className={`space-y-4 transition-all duration-500 ${growthVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
           {/* Tab Header */}
           <div
-            className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 ${
+            className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
               growthOpen
                 ? "bg-[#EDE9DC] border border-[#694834] border-t-8 border-t-[#694834]"
                 : "bg-white border border-gray200 border-t-8 border-t-[#694834]"
@@ -460,7 +505,7 @@ export default function FederalStateIndustryOverviewView({
                       : "/images/reports/federal-state/industry-overview/tab-growth-inactive.png"
                   }
                   alt="Future Workforce Growth"
-                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none"
+                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none transition-transform duration-300 hover:scale-110"
                 />
                 <div>
                   <h3 className="font-bold text-base sm:text-lg text-gray800">
@@ -473,7 +518,7 @@ export default function FederalStateIndustryOverviewView({
               </div>
               <button
                 onClick={() => setGrowthOpen(!growthOpen)}
-                className="bg-[#8AC900] text-gray800 font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer hover:bg-[#79B700] transition-colors shrink-0"
+                className="bg-[#8AC900] text-gray800 font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
               >
                 {growthOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -491,7 +536,7 @@ export default function FederalStateIndustryOverviewView({
             <div className="overflow-hidden min-h-0">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-1">
                 {/* Left Narrative Text */}
-                <div className="lg:col-span-6 text-xs sm:text-sm text-gray700 leading-relaxed font-normal">
+                <div className={`lg:col-span-6 text-xs sm:text-sm text-gray700 leading-relaxed font-normal ${growthVisible ? "animate-content-switch" : ""}`}>
                   <p>
                     While the number of APS employees grew by over 13,000 (7.1
                     per cent) between 2024 and 2025, JSA projects this rate of
@@ -507,8 +552,8 @@ export default function FederalStateIndustryOverviewView({
                 </div>
 
                 {/* Right Chart Box */}
-                <div className="lg:col-span-6">
-                  <EmploymentProjectionsChart />
+                <div className={`lg:col-span-6 ${growthVisible ? "animate-card-entrance" : ""}`} style={growthVisible ? { animationDelay: "0.18s" } : undefined}>
+                  <EmploymentProjectionsChart animate={growthOpen} />
                 </div>
               </div>
             </div>
@@ -516,10 +561,10 @@ export default function FederalStateIndustryOverviewView({
         </div>
 
         {/* Section 4: Future Workforce Skills Needs (Collapsible Tab + Content) */}
-        <div className="space-y-4">
+        <div ref={skillsRef} className={`space-y-4 transition-all duration-500 ${skillsVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
           {/* Tab Header */}
           <div
-            className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 ${
+            className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
               skillsOpen
                 ? "bg-[#EDE9DC] border border-[#694834] border-t-8 border-t-[#694834]"
                 : "bg-white border border-gray200 border-t-8 border-t-[#694834]"
@@ -534,7 +579,7 @@ export default function FederalStateIndustryOverviewView({
                       : "/images/reports/federal-state/industry-overview/tab-skills-inactive.png"
                   }
                   alt="Future Workforce Skills Needs"
-                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none"
+                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none transition-transform duration-300 hover:scale-110"
                 />
                 <div>
                   <h3 className="font-bold text-base sm:text-lg text-gray800">
@@ -547,7 +592,7 @@ export default function FederalStateIndustryOverviewView({
               </div>
               <button
                 onClick={() => setSkillsOpen(!skillsOpen)}
-                className="bg-[#8AC900] text-gray800 font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer hover:bg-[#79B700] transition-colors shrink-0"
+                className="bg-[#8AC900] text-gray800 font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
               >
                 {skillsOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -564,7 +609,7 @@ export default function FederalStateIndustryOverviewView({
           >
             <div className="overflow-hidden min-h-0 space-y-6 pt-1">
               {/* Narrative Text */}
-              <div className="text-xs sm:text-sm text-gray700 leading-relaxed font-normal">
+              <div className={`text-xs sm:text-sm text-gray700 leading-relaxed font-normal ${skillsVisible ? "animate-content-switch" : ""}`}>
                 <p>
                   The Federal Government is strengthening workforce planning
                   capability to meet future workforce needs. This includes the
@@ -582,8 +627,10 @@ export default function FederalStateIndustryOverviewView({
 
               {/* Two Bar Charts Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className={skillsVisible ? "animate-card-entrance" : ""} style={skillsVisible ? { animationDelay: "0.14s" } : undefined}>
                 <SkillsBarChart
                   title="Top 5 Skills Shortages Identified by APS Agencies"
+                  animate={skillsOpen}
                   bars={[
                     {
                       percentage: 38,
@@ -613,9 +660,12 @@ export default function FederalStateIndustryOverviewView({
                   ]}
                   source="SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-36"
                 />
+                </div>
 
+                <div className={skillsVisible ? "animate-card-entrance" : ""} style={skillsVisible ? { animationDelay: "0.26s" } : undefined}>
                 <SkillsBarChart
                   title="Digital and ICT Skills Identified as being in Critical Shortage"
+                  animate={skillsOpen}
                   bars={[
                     {
                       percentage: 42,
@@ -648,11 +698,12 @@ export default function FederalStateIndustryOverviewView({
                   ]}
                   source="SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-37"
                 />
+                </div>
               </div>
 
               {/* Two Highlight Stat Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-[#EDE9DC] rounded-2xl p-6 flex flex-col justify-between space-y-4">
+                <div className="group bg-[#EDE9DC] rounded-2xl p-6 flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                   <div className="space-y-2">
                     <span className="text-3xl sm:text-4xl font-bold text-gray900 block leading-none">
                       85%
@@ -668,7 +719,7 @@ export default function FederalStateIndustryOverviewView({
                   </p>
                 </div>
 
-                <div className="bg-[#EDE9DC] rounded-2xl p-6 flex flex-col justify-between space-y-4">
+                <div className="group bg-[#EDE9DC] rounded-2xl p-6 flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                   <div className="space-y-2">
                     <span className="text-3xl sm:text-4xl font-bold text-gray900 block leading-none">
                       79%
@@ -689,7 +740,7 @@ export default function FederalStateIndustryOverviewView({
         </div>
 
         {/* Section 5: Sources Card */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-4">
+        <div ref={sourcesRef} className={`bg-white border border-gray200 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:border-[#BAABA0] hover:shadow-lg ${sourcesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
           <h3 className="font-bold text-xl text-gray800">Sources</h3>
 
           <div className="space-y-3 text-xs text-gray600 leading-relaxed">

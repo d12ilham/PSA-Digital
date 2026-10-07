@@ -90,7 +90,7 @@ export default function ReportHeader({
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "state_territory" || currentPage === "industry_profile" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "industry_profile" ? "text-accent font-bold" : "text-white/80 hover:text-white"}`}
             >
               Industry Overview <span>▾</span>
             </button>
@@ -102,12 +102,6 @@ export default function ReportHeader({
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "industry_overview" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
               >
                 Industry-Sector Overview
-              </button>
-              <button
-                onClick={() => router.push(`/reports/${slug}/state_territory`)}
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "state_territory" ? "text-accent font-bold bg-white/10" : "text-white/80 hover:text-white hover:bg-white/10"}`}
-              >
-                State and Territory Profile
               </button>
               <button
                 onClick={() => router.push(`/reports/${slug}/industry_profile`)}
