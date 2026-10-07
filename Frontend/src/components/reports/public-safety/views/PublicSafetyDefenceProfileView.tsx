@@ -63,16 +63,98 @@ function LocationChart() {
 }
 
 function OperationsChart() {
-  return <div
-    className="mt-5 aspect-[1519/1165] min-h-[540px] w-full animate-zoom-in bg-white bg-contain bg-center bg-no-repeat"
-    style={{ backgroundImage: "url('/images/reports/public-safety/defence-world-operations-map.png')" }}
-    role="img"
-    aria-label="World map of Australian Defence Force operations and activities throughout 2024 and 2025"
-  />;
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.08 });
+    observer.observe(chart);
+    return () => observer.disconnect();
+  }, []);
+
+  const map = "/images/reports/public-safety/defence-world-map-only.png";
+  const connectorPaths = [
+    "M625 325H776V584",
+    "M625 420H719V645H804",
+    "M625 661H804",
+    "M625 741H776V689",
+    "M625 836H776V757",
+    "M625 930H814V720",
+    "M1078 532H1116V630",
+    "M1324 381V528",
+    "M1192 646H1117V736",
+    "M1210 760V811",
+    "M1103 778H1132V837",
+    "M1059 869H1107",
+    "M851 967H794V1038",
+    "M1262 892V824H1324V892",
+  ];
+  const markers = [
+    [776,584],[804,645],[804,661],[776,689],[776,757],[814,720],
+    [1116,630],[1324,528],[1117,736],[1210,811],[1132,837],
+    [1107,869],[794,1038],[1262,824],
+  ];
+  const operations = [
+    { x:399, y:286, w:226, h:77, names:["Operation Kudu"], place:"Ukraine" },
+    { x:399, y:383, w:226, h:73, names:["Operation Fortitude"], place:"Syria" },
+    { x:399, y:496, w:226, h:186, names:["Operation Accordion","Operation Beech","Operation Manitou","Operation Okra","Operation Paladin","Operation Steadfast"], place:"Middle East region" },
+    { x:399, y:703, w:226, h:75, names:["Operation Mazurka"], place:"Egypt" },
+    { x:399, y:798, w:226, h:75, names:["Operation Aslan"], place:"South Sudan" },
+    { x:399, y:891, w:226, h:77, names:["Operation Hydranth"], place:"Red Sea" },
+    { x:0, y:703, w:228, h:76, names:["Operation Augury"], place:"Global" },
+    { x:0, y:798, w:228, h:75, names:["Operation Dyurra"], place:"Space" },
+    { x:851, y:476, w:227, h:95, names:["Operation Argos","Operation Linesman"], place:"Republic of Korea" },
+    { x:1215, y:283, w:190, h:95, names:["Exercise Rim","of the Pacific"], place:"Hawaii" },
+    { x:1192, y:590, w:207, h:75, names:["Operation Gateway"], place:"South-East Asia" },
+    { x:1192, y:684, w:207, h:76, names:["Operation Lilia"], place:"Solomon Islands" },
+    { x:856, y:737, w:247, h:76, names:["Exercise Austral Shield"], place:"Australia", dark:true },
+    { x:851, y:836, w:208, h:57, names:["Operation Resolute"], place:"Australian borders" },
+    { x:851, y:930, w:209, h:95, names:["Operation Southern","Discovery"], place:"Antarctica" },
+    { x:1135, y:892, w:265, h:132, names:["Operation Render Safe","Operation Solania","Operation Vaea","Operation Vanuatu Assist"], place:"Pacific Islands" },
+  ];
+
+  return <div ref={chartRef} className="mt-5 overflow-x-auto" aria-label="ADF operations and activities in 2024 and 2025">
+    <svg viewBox="0 0 1519 1165" className="block h-auto min-w-[900px] w-full" role="img" aria-labelledby="defence-operations-title defence-operations-description">
+      <title id="defence-operations-title">ADF operations and activities throughout 2024 and 2025</title>
+      <desc id="defence-operations-description">World map with fixed callouts for operations in Ukraine, Syria, the Middle East, Egypt, South Sudan, the Red Sea, Korea, Hawaii, South-East Asia, the Solomon Islands, Australia, Antarctica, and the Pacific Islands.</desc>
+      <rect width="1519" height="1165" fill="#fff" />
+      <image href={map} x="-136" y="100" width="1624" height="1026" />
+      <text x="0" y="168" fill="#1D1D1D" fontSize="14">List of Operations and Activities Undertaken by the Australian Defence Force</text>
+      <text x="0" y="190" fill="#1D1D1D" fontSize="14">Throughout 2024 and 2025</text>
+      <g fill="none" stroke="#1B2F1B" strokeWidth="3" strokeLinejoin="round">
+        {connectorPaths.map((path, index) => <path key={index} d={path} />)}
+      </g>
+      <circle cx="804" cy="653" r="28" fill="#DAB136" opacity=".88" />
+      <circle cx="1258" cy="826" r="28" fill="#EFC345" opacity=".88" />
+      <g fill="#1B2F1B">
+        {markers.map(([cx,cy], index) => <circle key={index} cx={cx} cy={cy} r="5.5" />)}
+      </g>
+      {operations.map(({ x,y,w,h,names,place,dark }, index) => <g key={`${x}-${y}`}>
+        <rect x={x} y={y} width={w} height={h} fill={dark ? "#BB9254" : "#E1BE89"} fillOpacity=".92"
+          className={isVisible ? "animate-profile-operation-box" : "profile-operation-pending"}
+          style={isVisible ? { animationDelay: `${0.12 + index * 0.1}s` } : undefined} />
+        <text x={x+7} y={y+28} fill="#42574B" fontSize="18" fontWeight="300" fontFamily="Arial, sans-serif"
+          className={isVisible ? "animate-profile-operation-text" : "profile-operation-pending"}
+          style={isVisible ? { animationDelay: `${0.38 + index * 0.1}s` } : undefined}>
+          {names.map((name, index) => <tspan key={name} x={x+7} dy={index===0 ? 0 : 21}>{name}</tspan>)}
+          <tspan x={x+7} dy="22" fill="#fff" fontSize="16">{place}</tspan>
+        </text>
+      </g>)}
+      <text x="0" y="1021" fill="#222" fontSize="10">NOTE: Does not include ADF assistance to domestic emergency response.</text>
+      <text x="0" y="1041" fill="#222" fontSize="10">Source: Defence Annual Report 2024-25, 2025</text>
+    </svg>
+  </div>;
 }
 
 function ActiveChart({ active }: { active: number }) {
-  return <div className="min-w-0 animate-card-entrance rounded-lg border border-[#E9EAEB] bg-white px-8 py-7 transition-shadow duration-300 hover:shadow-lg"><p className="text-[10px] font-semibold uppercase text-[#789329]">DEF · Presentation View</p>{active!==4&&<h2 className="mt-2 max-w-[720px] text-lg font-semibold leading-6 text-[#252D02]">{charts[active]}</h2>}{active===0&&<LineChart/>}{active===1&&<LineChart separation/>}{active===2&&<GenderChart/>}{active===3&&<FirstNationsChart/>}{active===4&&<LocationChart/>}{active===5&&<OperationsChart/>}{active!==5&&<p className="mt-5 text-[10px] font-semibold uppercase text-[#6F8B24]">Source: Defence Annual Report 2024-25, 2025</p>}</div>;
+  return <div className="min-w-0 animate-card-entrance rounded-lg border border-[#E9EAEB] bg-white px-8 py-7 transition-shadow duration-300 hover:shadow-lg"><p className="text-[10px] font-semibold uppercase text-[#789329]">DEF · Presentation View</p>{active!==4&&active!==5&&<h2 className="mt-2 max-w-[720px] text-lg font-semibold leading-6 text-[#252D02]">{charts[active]}</h2>}{active===0&&<LineChart/>}{active===1&&<LineChart separation/>}{active===2&&<GenderChart/>}{active===3&&<FirstNationsChart/>}{active===4&&<LocationChart/>}{active===5&&<OperationsChart/>}{active!==5&&<p className="mt-5 text-[10px] font-semibold uppercase text-[#6F8B24]">Source: Defence Annual Report 2024-25, 2025</p>}</div>;
 }
 
 export default function PublicSafetyDefenceProfileView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
