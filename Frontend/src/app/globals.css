@@ -294,6 +294,34 @@ aside button.bg-\[\#8AC900\] {
   animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.fstg-existing-strategies-page .border-l-\[6px\] {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fstg-existing-strategies-page .border-l-\[6px\]:hover {
+  background-color: #f0ebe1;
+  box-shadow: 0 4px 12px rgba(117, 77, 50, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-insights-page .animate-slide-up,
+  .fstg-insights-page .animate-zoom-in,
+  .fstg-insights-page .animate-card-entrance,
+  .fstg-insights-page .animate-content-switch,
+  .fstg-existing-strategies-page .animate-slide-up,
+  .fstg-existing-strategies-page .animate-slide-up-delay,
+  .fstg-existing-strategies-page .animate-card-entrance,
+  .fstg-existing-strategies-page .animate-content-switch {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .fstg-existing-strategies-page .border-l-\[6px\] {
+    transition: none;
+  }
+}
+
 @keyframes industryProjectionDraw {
   from { opacity: 0; stroke-dashoffset: 40; }
   to { opacity: 1; stroke-dashoffset: 0; }

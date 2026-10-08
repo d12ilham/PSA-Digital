@@ -15,8 +15,13 @@ import FederalStateTasProfileView from "./views/FederalStateTasProfileView";
 import FederalStateVicProfileView from "./views/FederalStateVicProfileView";
 import FederalStateWaProfileView from "./views/FederalStateWaProfileView";
 import FederalStateWorkforceInsightsView from "./views/FederalStateWorkforceInsightsView";
+import FederalStateWorkforceInsightOneView from "./views/FederalStateWorkforceInsightOneView";
+import FederalStateWorkforceInsightTwoView from "./views/FederalStateWorkforceInsightTwoView";
+import FederalStateWorkforceInsightThreeView from "./views/FederalStateWorkforceInsightThreeView";
 import FederalStateProposedStrategiesView from "./views/FederalStateProposedStrategiesView";
-import FederalStateExistingStrategiesView from "./views/FederalStateExistingStrategiesView";
+import FederalStateUpdate2025StrategiesView from "./views/FederalStateUpdate2025StrategiesView";
+import FederalState2025ProjectView from "./views/FederalState2025ProjectView";
+import FederalStateExistingStrategiesView from "./views/FederalStateExistingStrategiesFrameView";
 import FederalStateInitiativesView from "./views/FederalStateInitiativesView";
 import FederalStateLookingForwardView from "./views/FederalStateLookingForwardView";
 import FederalStateDownloadsView from "./views/FederalStateDownloadsView";
@@ -43,10 +48,16 @@ export const federalStateViews: Record<
   industry_profile_vic: FederalStateVicProfileView,
   industry_profile_wa: FederalStateWaProfileView,
   workforce_insights: FederalStateWorkforceInsightsView,
+  workforce_insight_1: FederalStateWorkforceInsightOneView,
+  workforce_insight_2: FederalStateWorkforceInsightTwoView,
+  workforce_insight_3: FederalStateWorkforceInsightThreeView,
   workforce_strategies: FederalStateProposedStrategiesView,
   proposed_strategies: FederalStateProposedStrategiesView,
-  update_2025_strategies: FederalStateExistingStrategiesView,
-  workforce_strategies_2025: FederalStateExistingStrategiesView,
+  update_2025_strategies: FederalStateUpdate2025StrategiesView,
+  workforce_strategies_2025: FederalStateUpdate2025StrategiesView,
+  update_2025_project_1: FederalState2025ProjectView,
+  update_2025_project_2: FederalState2025ProjectView,
+  update_2025_project_3: FederalState2025ProjectView,
   existing_strategies: FederalStateExistingStrategiesView,
   existing_industry_strategies: FederalStateExistingStrategiesView,
   federal_initiatives: FederalStateInitiativesView,
