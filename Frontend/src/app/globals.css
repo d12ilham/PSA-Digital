@@ -294,6 +294,26 @@ aside button.bg-\[\#8AC900\] {
   animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes fstgForwardIconReveal {
+  from { opacity: 0; transform: scale(0.65); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fstg-forward-connectors {
+  animation: fadeInFast 0.5s ease-out both;
+}
+
+.fstg-forward-icon {
+  animation: fstgForwardIconReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-forward-connectors,
+  .fstg-forward-icon {
+    animation: none;
+  }
+}
+
 .fstg-existing-strategies-page .border-l-\[6px\] {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }

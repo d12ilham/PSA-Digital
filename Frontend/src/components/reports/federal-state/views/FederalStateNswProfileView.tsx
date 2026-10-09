@@ -55,12 +55,19 @@ export function RepresentationChart({ title, years, values, target, source, min,
 }
 
 const sources = [
-  "NSW Government, Workforce Profile Report 2025, 2025.",
-  "NSW Government, NSW Women’s Strategy 2023–2026, 2023.",
-  "NSW Government, NSW Public Sector Report 2025, 2025.",
-  "NSW Government, NSW Aboriginal Employment Strategy 2019–2025: Refresh 2022, 2022.",
-  "Jobs and Skills Australia, Employment projections - Outlook for states and territories, 2025.",
-  "NSW Government, NSW Skills Plan 2024–28, 2024.",
+  { number: 23, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 24, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 25, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 26, text: "NSW Government, NSW Women’s Strategy 2023–2026, NSW Government, 2022, accessed on 6 February 2026." },
+  { number: 27, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 28, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 29, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 30, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 31, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 32, text: "NSW Government, NSW Aboriginal Employment Strategy 2019–2025: Refresh 2022, NSW Government, 2022, accessed 12 February 2026." },
+  { number: 33, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
+  { number: 34, text: "Jobs and Skills Australia (JSA), Employment Projections – Outlook for states territories, JSA, 2025, accessed 6 February 2026." },
+  { number: 35, text: "NSW Department of Education, NSW Skills Plan 2024–28: Building Skills and Shaping Success, NSW Government, 2024, accessed 4 February 2026." },
 ];
 
 export default function FederalStateNswProfileView({ slug, report }: { slug: string; report: Report }) {
@@ -140,7 +147,21 @@ export default function FederalStateNswProfileView({ slug, report }: { slug: str
           </div>
         </Section>
 
-        <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">{sources.map((source, index) => <li key={source} className="flex gap-2 text-[11px] leading-5 text-[#42463B]"><span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{index + 23}</span>{source}</li>)}</ul></section>
+        <section className="rounded-md border border-[#E9E6DF] bg-white p-5 sm:p-6">
+          <h2 className="text-xl font-bold">Sources</h2>
+          <div className="mt-5 grid gap-x-8 gap-y-3 md:grid-cols-2">
+            {[sources.slice(0, 7), sources.slice(7)].map((column, index) => (
+              <ol key={index} className="space-y-3">
+                {column.map(({ number, text }) => (
+                  <li key={number} className="flex items-start gap-3 text-xs leading-5 text-[#252D02]">
+                    <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ol>
+            ))}
+          </div>
+        </section>
       </main>
       <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>

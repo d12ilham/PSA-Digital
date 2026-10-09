@@ -5,7 +5,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import federalInitiativesData from "@/data/federalInitiatives.json";
 
 interface Report {
   id: string;
@@ -200,21 +199,16 @@ const vetRecommendations = [
   "The Training Package Organising Framework should be updated, where necessary.",
 ];
 
-const sources = [
-  "Department of the Prime Minister and Cabinet",
-  "Australian Government – Minister for Women",
-  "Jobs and Skills Australia",
-  "Department of Home Affairs",
-  "Qualification Reform Design Group",
-  "Australian Bureau of Statistics",
-  "Jobs and Skills Australia",
-  "Jobs and Skills Australia",
-  "Skills and Workforce Ministerial Council",
-  "Productivity Commission",
-  "Jobs and Skills Australia",
-  "Jobs and Skills Australia",
-  "Jobs and Skills Australia",
-];
+const occupationalShortageList = {
+  title: "Occupational Shortage List",
+  source: "Jobs and Skills Australia",
+  period: "Ongoing",
+  paragraphs: [
+    "The Occupational Shortage List (OSL), which was formerly the Skills Priority List, offers an annual point-in-time review of the status of Australian occupations. Specifically, the OSL reports on whether occupations (at the 4-digit and 6-digit ANZSCO level, and the 6-digit OSCA level) are experiencing shortages nationally and for each state and territory in regional or metropolitan areas.",
+    "The OSL was last updated in 2025. The latest OSL differed from previous iterations due to the fact that in 2024 the ANZSCO classification framework for occupations was replaced with the OSCA framework. In terms of the 2025 OSL results, it was reported that 29 per cent of occupations (293 out of 1022 assessed) were in national shortage, which was 4 per cent lower than 2024 (33 per cent) and more than 7 per cent lower than 2023 (36 per cent). The OSL in 2025 also added 29 occupations newly in shortage compared to 2024, most of which were roles related to health, science, technicians and trades and machinery operators and drivers. As of February 2026, JSA had started the 2026 OSL survey but it had not yet confirmed a publication date for this year's list.",
+    "The OSL provided important context for stakeholder consultation preparation for the 2026 Federal and State/Territory Government Workforce Insights Report. This list indicates on a national level where specific occupation demands currently exist and enabled Public Skills Australia to proactively pursue conversations with Federal, State and Territory Government stakeholders on whether these demands exist within their contexts.",
+  ],
+};
 
 const initiatives = [
   closingTheGap,
@@ -230,12 +224,7 @@ const initiatives = [
   productivityInquiries,
   tertiaryHarmonisationRoadmap,
   genderEconomicEqualityStudy,
-  ...federalInitiativesData.slice(12).map((item, index) => ({
-    title: index === 0 ? "Occupational Shortage List" : item.title,
-    source: sources[index + 12],
-    period: item.subtitle.split(" · ").at(-1) ?? "",
-    paragraphs: item.description.split("\n\n"),
-  })),
+  occupationalShortageList,
 ];
 
 export default function FederalStateInitiativesView({ slug, report }: { slug: string; report: Report }) {
@@ -246,7 +235,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
     <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
       <ReportNavButtons slug={slug} currentPage="federal_initiatives" prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} next={{ label: "2027 and Beyond", href: `/reports/${slug}/looking_forward` }} prevPrefix="" />
-      <header className="rounded-md border border-[#ECECE5] bg-white px-5 py-6 sm:px-6 sm:py-7">
+      <header className="animate-slide-up rounded-md border border-[#ECECE5] bg-white px-5 py-6 motion-reduce:animate-none sm:px-6 sm:py-7">
         <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">Workforce Strategies</span>
         <h1 className="mt-5 text-[30px] font-bold leading-tight sm:text-[38px]">Federal Government Initiatives</h1>
         <p className="mt-4 text-xs leading-6">Public Skills Australia&apos;s work is informed and guided by the Federal Government initiatives detailed in the table below.</p>
@@ -254,7 +243,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(240px,0.28fr)_minmax(0,0.72fr)]">
         <nav aria-label="Federal Government initiatives" className="space-y-2">
-          {initiatives.map((item, index) => <button key={item.title} type="button" onClick={() => setSelected(index)} aria-current={selected === index ? "page" : undefined} className={`group flex min-h-[114px] w-full items-center justify-between gap-4 rounded-md border px-5 py-4 text-left transition-[background-color,border-color,box-shadow] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] ${selected === index ? "border-[#698C1C] bg-[#EBEEDB] ring-1 ring-[#698C1C]" : "border-[#ECECE5] bg-white hover:border-[#698C1C] hover:bg-[#F5F7EA] hover:shadow-sm"}`}>
+          {initiatives.map((item, index) => <button key={item.title} type="button" onClick={() => setSelected(index)} aria-current={selected === index ? "page" : undefined} style={{ animationDelay: `${0.08 + index * 0.055}s` }} className={`animate-card-entrance group flex min-h-[114px] w-full items-center justify-between gap-4 rounded-md border px-5 py-4 text-left transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:animate-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] ${selected === index ? "border-[#698C1C] bg-[#EBEEDB] ring-1 ring-[#698C1C] hover:bg-[#E4EACB] hover:shadow-sm" : "border-[#ECECE5] bg-white hover:border-[#698C1C] hover:bg-[#F5F7EA] hover:shadow-sm"}`}>
             <span className="min-w-0">
               <span className="block text-xs leading-5 text-[#54710F]">{String(index + 1).padStart(2, "0")} · {item.source}</span>
               <span className="mt-4 block text-base font-semibold leading-6">{item.title}</span>
@@ -263,21 +252,21 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
           </button>)}
         </nav>
 
-        <section aria-live="polite" className="rounded-md bg-[#E5E8DC] p-4 sm:p-6">
+        <section aria-live="polite" className="animate-card-entrance rounded-md bg-[#E5E8DC] p-4 motion-reduce:animate-none sm:p-6" style={{ animationDelay: "0.18s" }}>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="inline-flex max-w-full rounded-full bg-[#5A8900] px-5 py-2 text-xs font-medium text-white">{String(selected + 1).padStart(2, "0")} · {initiative.source}{selected < 3 && initiative.period ? ` ${initiative.period}` : ""}</span>
             <div className="flex items-center gap-2">
-              {selected > 0 && <button type="button" onClick={() => setSelected(selected - 1)} aria-label="Previous initiative" className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 text-xs font-semibold transition-colors hover:bg-white"><ArrowLeft className="h-4 w-4" /> Previous</button>}
-              {selected < initiatives.length - 1 && <button type="button" onClick={() => setSelected(selected + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-semibold transition-colors hover:bg-[#9BDC16]">Next <ArrowRight className="h-4 w-4" /></button>}
+              {selected > 0 && <button type="button" onClick={() => setSelected(selected - 1)} aria-label="Previous initiative" className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 text-xs font-semibold transition-[background-color,box-shadow] hover:bg-white hover:shadow-sm"><ArrowLeft className="h-4 w-4" /> Previous</button>}
+              {selected < initiatives.length - 1 && <button type="button" onClick={() => setSelected(selected + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-semibold transition-[background-color,box-shadow] hover:bg-[#9BDC16] hover:shadow-sm">Next <ArrowRight className="h-4 w-4" /></button>}
             </div>
           </div>
-          <article key={selected} className="mt-5 rounded-md bg-[#FAFAF0] p-6 sm:p-8">
+          <article key={selected} className="animate-content-switch mt-5 rounded-md bg-[#FAFAF0] p-6 ring-1 ring-transparent transition-[box-shadow] hover:shadow-sm hover:ring-[#B5CA8F] motion-reduce:animate-none sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4 sm:flex-nowrap">
               <h2 className="min-w-0 flex-1 text-lg font-bold leading-7">{selected + 1}. {initiative.title}</h2>
               {initiative.period && <span className="shrink-0 rounded-full bg-[#E5E8DC] px-5 py-1.5 text-xs text-[#696969]">{initiative.period}</span>}
             </div>
             <h3 className="mt-7 text-lg font-medium text-[#5A8900]">SUMMARY</h3>
-            <div className="mt-3 space-y-4 text-sm leading-6 text-[#696969]">{initiative.paragraphs.map((paragraph, index) => <div key={paragraph}>
+            <div className="mt-3 space-y-4 text-sm leading-6 text-[#696969]">{initiative.paragraphs.map((paragraph, index) => <div key={paragraph} className="animate-content-switch motion-reduce:animate-none" style={{ animationDelay: `${0.08 + index * 0.1}s` }}>
               <p>{paragraph}</p>
               {selected === 5 && index === 0 && <ul className="mt-3 list-disc space-y-1 pl-6">{vetRecommendations.map((recommendation) => <li key={recommendation}>{recommendation}</li>)}</ul>}
               {selected === 8 && index === 0 && <ul className="mt-3 list-disc space-y-1 pl-6">{betterTogetherPillars.map((pillar) => <li key={pillar}>{pillar}</li>)}</ul>}

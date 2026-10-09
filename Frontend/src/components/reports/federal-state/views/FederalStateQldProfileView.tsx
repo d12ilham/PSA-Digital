@@ -16,11 +16,16 @@ interface Report {
 }
 
 const sources = [
-  "Queensland Government, State of the Sector Report 2025, accessed 6 February 2026.",
-  "Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025.",
-  "Queensland Government, Public Sector Act 2022.",
-  "Queensland Government, Regional employment projections data, tables 2010-11 to 2040-41.",
-  "Queensland Government, Aboriginal peoples and Torres Strait Islander peoples employment data, 2025.",
+  { number: 43, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 44, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 45, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 46, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 47, text: "Queensland Government, Aboriginal peoples and Torres Strait Islander peoples, Queensland Government, 2024, accessed 11 February 2026." },
+  { number: 48, text: "Queensland Government, Aboriginal peoples and Torres Strait Islander peoples, Queensland Government, 2024, accessed 11 February 2026." },
+  { number: 49, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 50, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
+  { number: 51, text: "Jobs and Skills Australia (JSA), Employment Projections – Outlook for states territories, Australian Government, 2025, accessed 6 February 2026." },
+  { number: 52, text: "Queensland Government, State of the Sector Report 2025, Queensland Government, 2025, accessed on 6 February 2026." },
 ];
 
 function RepresentationChart() {
@@ -109,7 +114,17 @@ export default function FederalStateQldProfileView({ slug, report }: { slug: str
           <ProjectionChart />
         </div>
       </Section>
-      <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">{sources.map((source) => <li key={source} className="flex gap-2 text-[11px] leading-5 text-[#42463B]"><span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#8AC900]" />{source}</li>)}</ul></section>
+      <section className="rounded-md border border-[#E9E6DF] bg-white p-5 sm:p-6">
+        <h2 className="text-xl font-bold">Sources</h2>
+        <ol className="mt-5 space-y-3">
+          {sources.map(({ number, text }) => (
+            <li key={number} className="flex items-start gap-3 text-xs leading-5 text-[#252D02]">
+              <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
     </main>
     <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
   </div>;
