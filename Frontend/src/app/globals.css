@@ -294,7 +294,85 @@ aside button.bg-\[\#8AC900\] {
   animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ==========================================================================
+@keyframes fstgForwardIconReveal {
+  from { opacity: 0; transform: scale(0.65); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fstg-forward-connectors {
+  animation: fadeInFast 0.5s ease-out both;
+}
+
+.fstg-forward-icon {
+  animation: fstgForwardIconReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-forward-connectors,
+  .fstg-forward-icon {
+    animation: none;
+  }
+}
+
+.fstg-existing-strategies-page .border-l-\[6px\] {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fstg-existing-strategies-page .border-l-\[6px\]:hover {
+  background-color: #f0ebe1;
+  box-shadow: 0 4px 12px rgba(117, 77, 50, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-insights-page .animate-slide-up,
+  .fstg-insights-page .animate-zoom-in,
+  .fstg-insights-page .animate-card-entrance,
+  .fstg-insights-page .animate-content-switch,
+  .fstg-existing-strategies-page .animate-slide-up,
+  .fstg-existing-strategies-page .animate-slide-up-delay,
+  .fstg-existing-strategies-page .animate-card-entrance,
+  .fstg-existing-strategies-page .animate-content-switch {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .fstg-existing-strategies-page .border-l-\[6px\] {
+    transition: none;
+  }
+}
+
+@keyframes industryProjectionDraw {
+  from { opacity: 0; stroke-dashoffset: 40; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+
+@keyframes industryChartPointEnter {
+  from { opacity: 0; scale: 0; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes industryChartBarGrow {
+  from { opacity: 0.35; scale: 1 0; }
+  to { opacity: 1; scale: 1 1; }
+}
+
+.animate-industry-projection-line {
+  animation: industryProjectionDraw 1.1s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-industry-chart-point {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: industryChartPointEnter 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-industry-chart-bar {
+  transform-origin: bottom;
+  animation: industryChartBarGrow 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* ===========================================================================
    Hero Wave Graphic Auto Rotate (About Public Skills Australia)
    ========================================================================== */
 @keyframes heroGraphicRotate {
@@ -385,6 +463,193 @@ aside button.bg-\[\#8AC900\] {
 .animate-drivers-spin {
   transform-origin: center center;
   animation: driversSmoothSpin 5s cubic-bezier(0.35, 0, 0.2, 1) both;
+}
+
+/* Cross-sector hero SVG cluster entrance */
+@keyframes crossSectorIconEntrance {
+  0% {
+    opacity: 0;
+    translate: 0 14px;
+    scale: 0.72;
+    rotate: -8deg;
+  }
+  65% {
+    opacity: 1;
+    translate: 0 -3px;
+    scale: 1.06;
+    rotate: 2deg;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    rotate: 0deg;
+  }
+}
+
+@keyframes crossSectorLineDraw {
+  0% {
+    opacity: 0;
+    scale: 0 1;
+  }
+  100% {
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+.animate-cross-sector-icon {
+  opacity: 0;
+  animation: crossSectorIconEntrance 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-cross-sector-line {
+  opacity: 0;
+  animation: crossSectorLineDraw 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Core skill radar SVG sequence */
+@keyframes radarGridDraw {
+  from { opacity: 0; stroke-dasharray: 900; stroke-dashoffset: 900; }
+  to { opacity: .65; stroke-dasharray: 900; stroke-dashoffset: 0; }
+}
+
+@keyframes radarShapeDraw {
+  0% { fill-opacity: 0; stroke-dasharray: 1100; stroke-dashoffset: 1100; }
+  70% { fill-opacity: .05; stroke-dashoffset: 0; }
+  100% { fill-opacity: .14; stroke-dashoffset: 0; }
+}
+
+@keyframes radarPointPop {
+  0% { opacity: 0; scale: 0; }
+  70% { opacity: 1; scale: 1.35; }
+  100% { opacity: 1; scale: 1; }
+}
+
+@keyframes radarCentreSettle {
+  0% { opacity: 0; scale: .65; }
+  70% { opacity: 1; scale: 1.12; }
+  100% { opacity: 1; scale: 1; }
+}
+
+.animate-radar-grid { animation: radarGridDraw 1.3s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-radar-shape { animation: radarShapeDraw 1.5s .55s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-radar-point { opacity: 0; transform-box: fill-box; transform-origin: center; animation: radarPointPop .55s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-radar-centre { animation: radarCentreSettle .8s 1.4s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes radarLabelEnter {
+  0% { opacity: 0; translate: 0 8px; scale: .92; }
+  70% { opacity: 1; translate: 0 -1px; scale: 1.03; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.animate-radar-label { opacity: 0; animation: radarLabelEnter .65s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+@keyframes group92RouteDraw {
+  from { opacity: 0; stroke-dashoffset: 80; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+
+@keyframes group92NodeEnter {
+  0% { opacity: 0; translate: 0 10px; scale: .72; }
+  70% { opacity: 1; translate: 0 -2px; scale: 1.06; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.animate-group92-route { animation: group92RouteDraw 1.5s .15s ease-out both; }
+.animate-group92-node { opacity: 0; transform-box: fill-box; transform-origin: center; animation: group92NodeEnter .7s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+/* Specialist skill alignment diagram sequence */
+@keyframes alignmentItemEnter {
+  0% { opacity: 0; translate: 0 12px; scale: .82; }
+  70% { opacity: 1; translate: 0 -2px; scale: 1.04; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes alignmentLineX { from { opacity: 0; scale: 0 1; } to { opacity: 1; scale: 1 1; } }
+@keyframes alignmentLineY { from { opacity: 0; scale: 1 0; } to { opacity: 1; scale: 1 1; } }
+@keyframes alignmentCentreSettle {
+  0% { opacity: 0; scale: .7; }
+  70% { opacity: 1; scale: 1.12; }
+  100% { opacity: 1; scale: 1; }
+}
+
+.animate-alignment-item { opacity: 0; animation: alignmentItemEnter .9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-line-x { opacity: 0; animation: alignmentLineX .8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-line-y { opacity: 0; animation: alignmentLineY .8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-centre { animation: alignmentCentreSettle .8s .8s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes alignmentFrameDraw {
+  from { opacity: 0; stroke-dashoffset: 120; }
+  to { opacity: .95; stroke-dashoffset: 0; }
+}
+
+@keyframes alignmentCrossDraw {
+  from { opacity: 0; stroke-dasharray: 720; stroke-dashoffset: 720; }
+  to { opacity: .95; stroke-dasharray: 720; stroke-dashoffset: 0; }
+}
+
+.animate-alignment-frame { animation: alignmentFrameDraw 1.1s .35s ease-out both; }
+.animate-alignment-cross { animation: alignmentCrossDraw 1s .55s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+/* Defence overview charts */
+@keyframes defenceBarGrow {
+  0% { opacity: 0; scale: 1 0; }
+  100% { opacity: 1; scale: 1 1; }
+}
+
+.animate-defence-bar {
+  opacity: 0;
+  animation: defenceBarGrow .9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Defence profile chart drawing */
+@keyframes profileLineDraw {
+  from { opacity: 0; stroke-dasharray: 900; stroke-dashoffset: 900; }
+  to { opacity: 1; stroke-dasharray: 900; stroke-dashoffset: 0; }
+}
+
+@keyframes profileBarExpand {
+  from { opacity: 0; scale: 0 1; }
+  to { opacity: 1; scale: 1 1; }
+}
+
+.animate-profile-grid-line { animation: profileLineDraw .65s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-chart-line { animation: profileLineDraw 1s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-map-line { animation: profileLineDraw 1.1s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-bar { animation: profileBarExpand .8s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes profileOperationBoxReveal {
+  from { opacity: 0; transform: scaleX(0.08); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes profileOperationTextReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-operation-pending { opacity: 0; }
+.animate-profile-operation-box {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: profileOperationBoxReveal .65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-profile-operation-text {
+  animation: profileOperationTextReveal .55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-operation-pending,
+  .animate-profile-operation-box,
+  .animate-profile-operation-text,
+  .animate-industry-projection-line,
+  .animate-industry-chart-point,
+  .animate-industry-chart-bar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==========================================================================
