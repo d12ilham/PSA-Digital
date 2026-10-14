@@ -12,21 +12,21 @@ const datapoints = [
   },
   {
     title: "State/Territory Police and the Australian Federal Police Workforce",
-    copy: "Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with announced recruitment drives, have taken considered action to increase their workforce numbers and improve retention. All governments, through either election commitments or public reports, have made long-term commitments to sworn police officer workforce increases to meet police workforce recruitment and retention targets.",
+    copy: "Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with enhanced recruitment drives, have taken considered action to increase their workforce numbers and improve retention rates. Importantly, these actions have positively impacted their workforce numbers, with six out of eight jurisdictions recording increases in sworn police officer FTE from June 2023 to June 2024. Some jurisdictions continue to face challenges in meeting their total workforce targets.",
   },
 ];
 
 function NationalWorkforceChart() {
-  const values = [59718, 61031, 60589, 59242, 58631];
-  const labels = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024"];
-  const min = 58000;
+  const values = [59750, 61031, 60589, 59600, 59359, 59376];
+  const labels = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"];
+  const min = 58500;
   const max = 61500;
-  const points = values.map((value, index) => `${64 + index * 92},${210 - ((value - min) / (max - min)) * 148}`).join(" ");
+  const points = values.map((value, index) => `${64 + index * 76},${210 - ((value - min) / (max - min)) * 148}`).join(" ");
 
   return <div className="border-l border-[#E3E5DF] bg-white px-7 py-6">
     <h3 className="text-center text-xs font-bold text-[#252D02]">Yearly National Sworn Police Officer FTE – AUSTRALIA</h3>
     <svg viewBox="0 0 500 285" className="mt-4 w-full" role="img" aria-label="Yearly National Sworn Police Officer FTE in Australia">
-      {[58000, 59000, 60000, 61000].map((tick) => {
+      {[58500, 59500, 60500, 61500].map((tick) => {
         const y = 210 - ((tick - min) / (max - min)) * 148;
         return <g key={tick}><line x1="52" x2="454" y1={y} y2={y} stroke="#E7E8E3" /><text x="44" y={y + 4} textAnchor="end" fontSize="9" fill="#69706A">{tick.toLocaleString()}</text></g>;
       })}
@@ -107,7 +107,7 @@ function JurisdictionChartLibrary() {
 
 const sources = [
   "Productivity Commission, Police services - Table 6A.2 [data set], Productivity Commission, 2026, accessed 24 February 2026.",
-  "A Mayes, The 2025 WA state election promises made by Labor, Liberal, Greens and Nationals, ABC, 2 March 2025, accessed 29 January 2026; ABC, Victoria Police to shorten training course to boost policing, 25 May 2025, accessed 29 January 2026; ACT Government, ACT Policing media releases; Australian Federal Police and state and territory police workforce publications, accessed January 2026.",
+  "A Mayes, 'The 2025 WA state election promises made by Labor, Liberal, Greens and Nationals', ABC, 2 March 2025, accessed 29 January 2026; ABC, 'Victoria Police to shorten training course to boost policing', 23 May 2025, accessed 29 January 2026; ACT Government, New Ministerial directions for ACT Policing [media release], 1 October 2025, accessed 29 January 2026; Government of South Australia, Highest number of police applications on record [media release], 21 January 2026, accessed 29 January 2026; Parliamentary Budget Office, 2023 ALP election policy costings, 2023, accessed 29 January 2026; Queensland Government, Crisafulli Government delivers 118 new police officers to frontline to make Queensland safer [media release], 4 December 2025, accessed 29 January 2026; S Vivian, 'NT government pledges 200 more police officers to bolster force in $200m funding announcement', ABC, 3 April 2024, accessed 29 January 2026; Tasmanian Government, Strong Plan to Crack Down on Crime, 2025, accessed 29 January 2026.",
 ];
 
 export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
@@ -165,7 +165,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
                 <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{isOpen ? "Close" : "Open"}<ChevronDown className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`} /></span>
               </button>
               {isOpen && <div className={`animate-content-switch border-t border-[#A7C9D4] bg-[#FAFAF0] ${index === 0 ? "grid lg:grid-cols-[1fr_520px]" : "px-6 py-5"}`}>
-                <div className={index === 0 ? "px-6 py-7" : ""}><p className="text-sm leading-6 text-[#535862]">{item.copy}</p></div>
+                <div className={index === 0 ? "px-6 py-7" : ""}><p className="text-sm leading-6 text-[#535862]">{item.copy}<sup>{index === 0 ? 67 : 68}</sup></p></div>
                 {index === 0 && <NationalWorkforceChart />}
                 {index === 1 && <JurisdictionChartLibrary />}
               </div>}
@@ -177,7 +177,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
       <section ref={sourcesRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-lg ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
         <ol className="mt-5 space-y-4 text-xs leading-5 text-[#535862]">
-          {sources.map((source, index) => <li key={source} style={sourcesVisible ? { animationDelay: `${index * 0.1 + 0.12}s` } : undefined} className={`grid grid-cols-[24px_1fr] gap-3 ${sourcesVisible ? "animate-card-entrance" : "opacity-0"}`}><span className="grid size-5 place-items-center rounded-full bg-[#8AC900] text-[9px] font-bold text-[#252D02] transition-transform duration-300 hover:scale-110">{index + 65}</span><span>{source}</span></li>)}
+          {sources.map((source, index) => <li key={source} style={sourcesVisible ? { animationDelay: `${index * 0.1 + 0.12}s` } : undefined} className={`grid grid-cols-[24px_1fr] gap-3 ${sourcesVisible ? "animate-card-entrance" : "opacity-0"}`}><span className="grid size-5 place-items-center rounded-full bg-[#8AC900] text-[9px] font-bold text-[#252D02] transition-transform duration-300 hover:scale-110">{index + 67}</span><span>{source}</span></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

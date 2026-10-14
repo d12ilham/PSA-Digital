@@ -28,15 +28,15 @@ const sources = [
 ];
 
 function CurrentWorkforceCharts() {
-  const stats = [["6,228", "The ADF enlisted 6,228 members entering the permanent workforce in 2024-25"], ["1,296", "Had prior military service in the Reserves"], ["4,932", "Had no prior military experience. This is lower than previous to 2023-24"], ["20.6%", "Women represented 20.6% of enlistments, and had begun to grow in representation"]];
+  const stats = [["6,228", "The ADF enlisted 6,228 members entering the permanent workforce in 2024-25"], ["1,296", "Had prior military service in the Reserves"], ["4,932", "Had no prior military experience. This is lower than previous to 2023-24"], ["20.6%", "Women represented 20.6% of enlistments, and Indigenous people represented 5.8% of enlistments"]];
   const bars = [
     { value: 20545, label: <>Australian Public<br />Service Employees</> },
-    { value: 35269, label: <>Reserves<br />(Navy, Army, Air)</> },
+    { value: 33269, label: <>Reserves<br />(Navy, Army, Air)</> },
     { value: 58909, label: <>Permanent Force<br />(Navy, Army, Air)</> },
   ];
 
   return <div className="animate-card-entrance space-y-5">
-    <p className="max-w-[980px] text-xs leading-6 text-[#535862]">The 2024-25 financial year saw a significant increase in ADF recruitment alongside a decrease in separations, increasing the total ADF permanent workforce headcount.</p>
+    <p className="max-w-[980px] text-xs leading-6 text-[#535862]">The 2024-25 financial year saw a significant increase in ADF recruitment alongside a decrease in separations, increasing the total ADF permanent workforce headcount by 1,664.<sup>13</sup> The Federal Government has further budgeted for increases in the ADF permanent workforce to 61,049 for 2026-27 and 63,272 for 2027-28.<sup>14</sup></p>
     <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="flex min-h-[748px] flex-col rounded-lg border border-[#D8D9D3] bg-white p-6 transition-shadow duration-300 hover:shadow-md">
         <span className="text-[9px] font-bold uppercase text-[#D3992C]">DEF | Presentation View</span>
@@ -75,7 +75,7 @@ function FutureWorkforceCharts() {
   const forecastYears = ["2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"];
 
   return <div className="animate-card-entrance space-y-5">
-    <p className="max-w-[1050px] text-xs leading-6 text-[#535862]">To meet targets set in the Defence Workforce Plan 2024, the ADF will need a net growth of around 6,500 permanent personnel each year. This will require an average recruitment intake of 7,500 per year between 2024-2030, should the ADF maintain its current separation rate, and a further increase in recruitment to meet the permanent workforce growth targets.</p>
+    <p className="max-w-[1050px] text-xs leading-6 text-[#535862]">To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654 and 6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year between 2026 and 2040. Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
 
     <div className="flex min-h-[560px] flex-col rounded-lg border border-[#D8D9D3] bg-white p-6 transition-shadow duration-300 hover:shadow-md">
       <h3 className="text-xl font-bold text-[#252D02]">Australian Defence Force Separation Rate, June 2019 - June 2025</h3>
@@ -121,7 +121,7 @@ function FutureWorkforceCharts() {
 function VeteransCharts() {
   const stats = [["1,057", "RPL assessments conducted in 2024-25"], ["2,093", "Managed over 2,093 enquiries"], ["2,439", "Issued 2,439 qualifications"], ["2,174", "Issued 2,174 micro-credentials"]];
   return <div className="animate-card-entrance space-y-5">
-    <p className="max-w-[1100px] text-xs leading-6 text-[#535862]">The ADF has issued more than 4,000 qualifications and micro-credentials, ranging from Certificate III to Advanced Diploma, to ADF personnel considering their transition to civilian life, and recently separated Veterans in the 2024-25 financial year. This has been supported through ADF use of Recognition of Prior Learning (RPL) with 1,057 RPL assessments conducted in the 2024-25 financial year.</p>
+    <p className="max-w-[1100px] text-xs leading-6 text-[#535862]">The ADF has issued more than 4,000 qualifications and micro-credentials, ranging from Certificate III to Advanced Diploma, to ADF personnel considering their transition to civilian life, and recently separated Veterans in the 2024-25 financial year. This has been supported through ADF use of Recognition of Prior Learning (RPL) with 1,057 RPL assessments conducted in the 2024-25 financial year.<sup>15</sup></p>
     <h3 className="text-[10px] font-bold uppercase text-[#535862]">Veterans Transition Training Support 2024-25</h3>
     <p className="max-w-[1100px] text-xs leading-6 text-[#535862]">To support serving members and transitioned veterans the ADF Transition and Civil Recognition Cell completed the following in 2024-25:</p>
     <div className="rounded-lg bg-[#FBF5EA] p-6">
@@ -181,7 +181,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
       </section>
 
       <section ref={introRef} className={`max-w-[1040px] ${introVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
-        <p className="text-sm leading-6 text-[#535862]">The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the Defence Workforce Plan 2024. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.</p>
+        <p className="text-sm leading-6 text-[#535862]">The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the Defence Workforce Plan 2024. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.<sup>12</sup></p>
         <h2 className="mt-6 max-w-[760px] text-2xl font-bold leading-8 text-[#252D02]">The following datapoints were identified through this industry-sector overview for the Defence workforce:</h2>
       </section>
 

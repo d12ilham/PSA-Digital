@@ -42,60 +42,15 @@ const drivers = [
 ];
 
 const megatrends = [
-  {
-    icon: "Limitations",
-    title: "Limitations in career pathways",
-    body: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Climate",
-    title: "Climate change",
-    body: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
-    panelHeight: 112,
-  },
-  {
-    icon: "Competition",
-    title: "Competition for labour",
-    body: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Expansion",
-    title: "Expansion of core duties",
-    body: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Diversity",
-    title: "Diversity and inclusion",
-    body: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Demographic",
-    title: "Demographic shifts",
-    body: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Technological",
-    title: "Technological development",
-    body: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Recruitment",
-    title: "Recruitment and retention",
-    body: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
-    panelHeight: 136,
-  },
-  {
-    icon: "Public",
-    title: "Public trust and perceptions",
-    body: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
-    panelHeight: 136,
-  },
+  { icon: "Limitations", title: "Limitations in career pathways" },
+  { icon: "Climate", title: "Climate change" },
+  { icon: "Competition", title: "Competition for labour" },
+  { icon: "Expansion", title: "Expansion of core duties" },
+  { icon: "Diversity", title: "Diversity and inclusion" },
+  { icon: "Demographic", title: "Demographic shifts" },
+  { icon: "Technological", title: "Technological development" },
+  { icon: "Recruitment", title: "Recruitment and retention" },
+  { icon: "Public", title: "Public trust and perceptions" },
 ];
 
 const megatrendsSummary = "These megatrends were identified in previous Workforce Insights Reports and will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors.";
@@ -195,7 +150,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
       </section>
 
-      <section ref={megatrendsSectionRef} style={activeMegatrend ? { "--megatrend-section-height": `${369 + activeMegatrend.panelHeight}px` } as CSSProperties : undefined} className={`${activeMegatrend ? "h-auto lg:h-[var(--megatrend-section-height)]" : "h-auto lg:h-[200px]"} transition-[height] delay-100 duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${megatrendsVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
+      <section ref={megatrendsSectionRef} style={activeMegatrend ? { "--megatrend-section-height": "505px" } as CSSProperties : undefined} className={`${activeMegatrend ? "h-auto lg:h-[var(--megatrend-section-height)]" : "h-auto lg:h-[200px]"} transition-[height] delay-100 duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${megatrendsVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         {activeMegatrend && <div className="h-[49px] border-b border-[#E9EAEB]"><h2 className="inline-flex h-[41px] items-start border-b-2 border-[#8AC900] text-2xl font-bold leading-8 text-[#252D02]">Nine Megatrends</h2></div>}
         <div className={`${activeMegatrend ? "mt-6" : ""} grid grid-cols-2 gap-2 sm:grid-cols-3 lg:h-[200px] lg:grid-cols-9`}>
           {megatrends.map((megatrend, index) => {
@@ -220,10 +175,10 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         <div className={`grid transition-[grid-template-rows,opacity,margin] delay-100 duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeMegatrend ? "mt-6 grid-rows-[1fr] opacity-100" : "mt-0 grid-rows-[0fr] opacity-0"}`}>
           <div className="overflow-hidden">
-            <><article id="megatrend-detail" style={{ "--megatrend-panel-height": `${displayedMegatrend.panelHeight}px` } as CSSProperties} className="mr-2 rounded-lg border border-[#598303] border-l-4 bg-[#F0F3E5] px-8 py-6 transition-shadow duration-300 hover:shadow-md lg:h-[var(--megatrend-panel-height)]">
+            <article id="megatrend-detail" className="mr-2 rounded-lg border border-[#598303] border-l-4 bg-[#F0F3E5] px-8 py-6 transition-shadow duration-300 hover:shadow-md lg:min-h-[136px]">
               <h2 className="text-xl font-bold leading-7 text-[#252D02]">{displayedMegatrend.title}</h2>
-              <p className="mt-3 max-w-[800px] text-xs leading-6 text-[#535862]">{displayedMegatrend.body}</p>
-            </article><p className="mt-6 max-w-[800px] text-xs leading-6 text-[#535862]">{megatrendsSummary}</p></>
+              <p className="mt-3 max-w-[800px] text-xs leading-6 text-[#535862]">{megatrendsSummary}</p>
+            </article>
           </div>
         </div>
       </section>

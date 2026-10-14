@@ -57,15 +57,15 @@ export default function IndustryOverviewView({
                 Local Government Industry-Sector Overview
               </h1>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
-                Across Australia, there are 537 local councils. Of these local
+                Across Australia, there are 537 local councils.<sup>9</sup> Of these local
                 councils, around 55 per cent are located in regional, rural or
                 remote areas with the other 45 per cent split across urban
-                regions, urban fringe and urban areas. Local councils manage
+                regions, urban fringe and urban areas.<sup>10</sup> Local councils manage
                 approximately one-third of Australia's public infrastructure
-                assets, including roads, airports, facilities and other assets
+                assets, including roads, airports, facilities and other assets<sup>11</sup>
                 and make up 77 per cent of the national road network (by
                 length). The public assets managed by local councils are valued
-                at an estimated $643 billion.
+                at an estimated $643 billion.<sup>12</sup>
               </p>
             </div>
 
@@ -183,18 +183,18 @@ export default function IndustryOverviewView({
               </h3>
               <p className="text-xs text-gray600 leading-relaxed">
                 The Local Government workforce is multidisciplinary, employing
-                over an estimated 400 different occupations. Their workforces
+                over an estimated 400 different occupations.<sup>13</sup> Their workforces
                 are managed individually at the local council level but are
                 brought together and commonly represented through state and
                 territory associations and the Australian Local Government
                 Association (ALGA). It is estimated that the Local Government
-                workforce is made up of approximately 218,000 employees. While
+                workforce is made up of approximately 218,000 employees.<sup>14</sup> While
                 employment projections have estimated significant growth in the
                 Local Government workforce over the next ten years, successive
-                Workforce Plans and Parliamentary Commissions of Inquiry have
+                Workforce Plans<sup>15</sup> and Parliamentary Commissions of Inquiry have
                 noted extensive challenges with recruitment and retention, and a
                 significant expansion of roles and responsibilities for the
-                Local Government industry-sector.
+                Local Government industry-sector.<sup>16</sup>
               </p>
             </div>
 
@@ -245,9 +245,9 @@ export default function IndustryOverviewView({
                 The Local Government workforce is spread across a diverse
                 geographical area. The workforce profile consists of a balanced
                 gender representation and high representation of First Nations
-                employees (9.2 per cent of total national workforce) when
+                employees (8.2 per cent of total national workforce) when
                 compared to the total national population (3.8 per cent of total
-                Australian population).
+                Australian population).<sup>17</sup>
               </p>
             </div>
 

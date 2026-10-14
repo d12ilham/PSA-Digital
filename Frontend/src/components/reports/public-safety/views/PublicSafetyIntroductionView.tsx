@@ -75,7 +75,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
       <section ref={structureRef} className="space-y-6">
         <div className="flex min-h-12 items-start justify-between border-b border-[#D5D7DA]">
           <h2 className={`text-2xl font-bold leading-8 text-[#252D02] ${isStructureVisible ? "animate-slide-up" : "opacity-0"}`}>The Digital Report Structure</h2>
-          <p className="pt-2 text-sm leading-6 text-[#535862]">Six parts - select any to explore it</p>
+          <p className="pt-2 text-sm leading-6 text-[#535862]">{PUBLIC_SAFETY_SECTIONS.length} sections - select any to explore</p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -115,8 +115,12 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
       </section>
 
       <div className="flex flex-wrap gap-6">
-        {["2026 Proposed Strategies Summary", "Federal Government Initiatives", "Looking Forward / 2027 and Beyond"].map((label) => (
-          <button key={label} type="button" className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
+        {[
+          { label: "2026 Proposed Strategies Summary", path: "police_proposed_strategies_summary" },
+          { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
+          { label: "Looking Forward / 2027 and Beyond", path: "looking_forward" },
+        ].map(({ label, path }) => (
+          <button key={path} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
         ))}
       </div>
       <p className="text-xs font-semibold uppercase leading-6 text-[#598303]">Source: <sup>2</sup> Public Safety Industry-Sectors refer to Defence, Fire and Emergency Services and Police.</p>

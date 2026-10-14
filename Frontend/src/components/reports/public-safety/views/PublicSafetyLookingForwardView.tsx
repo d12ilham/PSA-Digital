@@ -38,10 +38,10 @@ export default function PublicSafetyLookingForwardView({ slug, report }: { slug:
 
   return <PublicSafetyPageShell slug={slug} report={report} currentPage="looking_forward" navigation={{
     back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
-    prev: { label: "Federal Government Strategies", href: `/reports/${slug}/police_federal_initiatives` },
+    prev: { label: "Commonwealth Government Initiatives", href: `/reports/${slug}/police_federal_initiatives` },
     prevPrefix: "Previous Section:",
     pagesOrder: [
-      { key: "police_federal_initiatives", label: "Federal Government Strategies" },
+      { key: "police_federal_initiatives", label: "Commonwealth Government Initiatives" },
       { key: "looking_forward", label: "Looking Forward" },
     ],
   }}>

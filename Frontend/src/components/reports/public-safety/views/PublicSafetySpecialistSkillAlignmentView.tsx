@@ -6,7 +6,7 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 const packages = [
   { tag: "Defence training package", code: "DEFMIL024", title: "Conduct military searches", color: "#D7A31A" },
   { tag: "Public Safety training package", code: "PUAAMS007", title: "Coordinate search and rescue operations", color: "#C94F27" },
-  { tag: "Police training package", code: "POLSAR012", title: "Coordinate police search and rescue operations", color: "#1383A5" },
+  { tag: "Police training package", code: "POLSAR012", title: "Coordinate police search and rescue (SAR) operations", color: "#1383A5" },
 ];
 
 const sharedSkills = [
@@ -19,27 +19,27 @@ const sharedSkills = [
 const comparisonRows = [
   {
     skill: "Planning and preparation",
-    defence: ["Identify purpose, timing, environment and type of search from supervisor", "Select relevant appropriate personal protection equipment", "Identify, obtain, inspect and test tools and search equipment", "Deploy to an incident site or search area"],
-    emergency: ["Search and rescue assets and potential assets are identified and recorded in databases", "Search requirements and techniques are identified in accordance with legislative and organisational guidelines", "Hazards are identified, risks assessed and control measures implemented"],
-    police: ["Assess environmental factors to determine impact on SAR operation", "Assess stress areas required to undertake SAR operations based on information about environmental factors", "Develop rescue plan to assist in managing SAR operation"],
+    defence: ["Identify purpose, timing, environment and type of search from supervisor", "Select and use appropriate personal protective equipment", "Identify, obtain, inspect and test tools and search equipment appropriate to the type of search and report any faults", "Deploy to an incident site or search area."],
+    emergency: ["Search and rescue assets and potential assets are identified and recorded in databases", "Strategic and tactical objectives are identified, in accordance with search and rescue unit plans", "Hazards are identified, risks assessed and control measures implemented."],
+    police: ["Assess environmental factors to determine impact on SAR operation", "Assess resources required to undertake SAR operations based on information about environmental factors", "Develop rescue plan to assist in managing SAR operation."],
   },
   {
     skill: "Communication and coordination",
-    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations"],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people"],
-    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities"],
+    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people."],
+    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities."],
   },
   {
     skill: "Information management and recording",
-    defence: ["Record information and complete reports"],
-    emergency: ["Information management strategies are identified and applied"],
-    police: ["Maintain critical decisions records for accountability purposes"],
+    defence: ["Record information and complete report."],
+    emergency: ["Information management strategies are identified and applied."],
+    police: ["Maintain critical decision records for accountability purposes."],
   },
   {
     skill: "Search techniques and procedures",
-    defence: ["Carry out search and drill procedures applicable to the type of search", "Protect potential evidence and other items or material of interest from contamination, improper handling or removal"],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations", "Initial search procedures are implemented in accordance with organisational policies"],
-    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation"],
+    defence: ["Carry out search drills/procedures applicable to the type of search", "Protect potential evidence and/or other items or material of interest from contamination, improper handling or removal."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people", "Initial search procedures are implemented, in accordance with search and rescue organisational policies."],
+    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation."],
   },
 ];
 

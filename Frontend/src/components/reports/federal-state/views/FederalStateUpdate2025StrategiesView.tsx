@@ -43,7 +43,6 @@ export default function FederalStateUpdate2025StrategiesView({ slug, report }: {
       <ReportNavButtons slug={slug} currentPage="update_2025_strategies" prev={{ label: "2026 Proposed Federal and State/Territory Government Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
 
       <section className="rounded-md border border-[#ECECE5] bg-white px-5 py-6 animate-slide-up sm:px-6 sm:py-7">
-        <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">Status: Consulted – not progressed further</span>
         <h1 className="mt-5 text-[30px] font-bold leading-tight sm:text-[38px]">Update on 2025 Strategies</h1>
         <p className="mt-5 max-w-[800px] text-xs leading-6">Public Skills Australia&apos;s 2025 Federal and State/Territory Government Workforce Insights Report identified the following strategies to support identified workforce challenges:</p>
       </section>

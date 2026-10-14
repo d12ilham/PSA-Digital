@@ -49,14 +49,14 @@ const strategies = [
   {
     number: "03",
     jurisdiction: "Queensland",
-    period: "2022 - 2029",
-    title: "Mental Health Strategy 2022-2027 and Queensland Corrective Services Strategic Plan 2025-2029",
+    period: "2022 - 2027",
+    title: "Mental Health Strategy 2022-2027",
     summary:
-      "The Mental Health Strategy aims to improve mental health support for persons in custody through enhanced initiatives and health-focused facilities. The QCS Strategic Plan sets priorities around community safety, reducing reoffending, supporting a safer workplace and building strong community partnerships.",
+      "The Queensland Corrective Services Mental Health Strategy 2022-2027 aims to improve mental health support for persons in custody by enhancing existing initiatives and establishing new ones. It emphasises case management, health-focused facilities, trauma-informed initiatives and a system that recognises and supports all persons in custody.",
     consultation:
-      "The Strategy informed engagement with Queensland corrective services stakeholders on skills for delivering mental health services. The Strategic Plan informed consultation approach and focus.",
+      "The Strategy provided detail on Queensland Corrective Services' approach to mental health support for persons in custody and informed engagement on skills for delivering mental health services.",
     update2024:
-      "Provides context for workforce capability and safety priorities that shape implementation and training conversations.",
+      "Not applicable.",
     update2025:
       "Informs next steps from the Correctional Services Training Implementation Report, including a good practice forum to share professional development practice between jurisdictions.",
     update2026:
@@ -64,22 +64,70 @@ const strategies = [
   },
   {
     number: "04",
-    jurisdiction: "South Australia",
-    period: "2022 - 2029",
-    title: "Department for Correctional Services Strategic Plan and inclusion strategies",
+    jurisdiction: "Queensland",
+    period: "2025 - 2029",
+    title: "Queensland Corrective Services Strategic Plan 2025-2029",
     summary:
-      "South Australia's strategic material includes the Department for Correctional Services Strategic Plan 2022-2026, the Anti-Racism Action Plan 2023-2028 and the Aboriginal Employment, Retention & Professional Development Strategy 2024-2029. Together these plans focus on reducing reoffending, Closing the Gap, high performing teams, innovation, safety, anti-racism and culturally safe employment pathways.",
+      "The Plan sets out four priorities for Queensland Corrective Services: restoring community safety by holding offenders to account; reducing reoffending by delivering rehabilitative corrective services; supporting a safer workplace for employees; and building strong community partnerships, including improving outcomes for First Nations people.",
     consultation:
-      "The plans provided insight into South Australian corrections priorities and informed consultations with South Australian Correctional Services and broader government stakeholders.",
+      "The Plan provided high-level insight to the key priorities of Queensland Corrective Services and informed consultation approach and focus.",
     update2024:
-      "Informed the Drivers Report and the Correctional Services Training Implementation Report, particularly through alignment with training and development requirements.",
+      "Not applicable.",
     update2025:
-      "Informs the Skills and Training Pathways project and the First Nations Workforce Participation project through Closing the Gap, First Nations employment and leadership priorities.",
+      "Informs the Correctional Services Skills and Training Pathways project, particularly the objective of supporting a safer workplace by enhancing capability and capacity.",
+    update2026:
+      "Will inform the 2026 proposed strategy through its objectives of delivering rehabilitative corrective services and supporting a safer workplace by providing the workforce with the training they need.",
+  },
+  {
+    number: "05",
+    jurisdiction: "South Australia",
+    period: "2022 - 2026",
+    title: "Department for Correctional Services Strategic Plan 2022-2026",
+    summary:
+      "The Plan sets out five priorities for South Australian Correctional Services: reducing reoffending, Closing the Gap, creating high performing teams, building innovation and contemporary practice, and being safe at work.",
+    consultation:
+      "The Plan provided high-level insight to South Australian corrections priorities and informed Public Skills Australia's consultation approach.",
+    update2024:
+      "Informed the Drivers for Recruitment, Attrition and Retention (Corrections) Report 2025 and the Correctional Services Training Implementation Report 2025, particularly through alignment with training and development requirements.",
+    update2025:
+      "Informs the Correctional Services Skills and Training Pathways project and the First Nations Workforce Participation project through Closing the Gap, First Nations employment and leadership priorities.",
     update2026:
       "Will inform the proposed 2026 strategy in relation to training requirements, employee expertise and end-to-end case management.",
   },
   {
-    number: "05",
+    number: "06",
+    jurisdiction: "South Australia",
+    period: "2023 - 2028",
+    title: "Anti-Racism Action Plan 2023-2028",
+    summary:
+      "The South Australian Public Sector Anti-Racism Action Plan outlines priorities to enable employees to act against racism, embed anti-racism into leadership and decision making, strengthen inclusive and safe workplaces, reinforce anti-racism through communications and maintain accountability.",
+    consultation:
+      "The Plan provided detail on anti-racism priorities for South Australian Government workforces, including Correctional Services, and informed consultation with South Australian stakeholders.",
+    update2024:
+      "Not applicable.",
+    update2025:
+      "Informs the First Nations Workforce Participation project through its priority of strengthening inclusive and safe workplaces.",
+    update2026:
+      "Will inform the proposed 2026 strategy around communications for training package updates and the commitment to anti-racism.",
+  },
+  {
+    number: "07",
+    jurisdiction: "South Australia",
+    period: "2024 - 2029",
+    title: "Aboriginal Employment, Retention & Professional Development Strategy 2024-2029",
+    summary:
+      "The Strategy recognises and supports the unique contributions of First Nations employees in South Australia's correctional system. It focuses on improving employment outcomes through culturally safe practices, professional development and retention initiatives.",
+    consultation:
+      "The Strategy provided detail on First Nations employment priorities and informed wider considerations in consultation with South Australian Correctional Services and Government stakeholders.",
+    update2024:
+      "Not applicable.",
+    update2025:
+      "Informs the First Nations Workforce Participation project, specifically through its focus on improving First Nations recruitment, retention and professional development in Correctional Services.",
+    update2026:
+      "Will inform future workforce planning where culturally safe employment, retention and professional development pathways are relevant.",
+  },
+  {
+    number: "08",
     jurisdiction: "Tasmania",
     period: "2022 - 2026",
     title: "Changing Lives, Creating Futures - A Strategic Plan for Corrections in Tasmania 2023",
@@ -95,7 +143,7 @@ const strategies = [
       "Will inform the proposed 2026 strategy through targeted rehabilitation and reintegration priorities, as well as professional development and training for correctional employees.",
   },
   {
-    number: "06",
+    number: "09",
     jurisdiction: "Victoria",
     period: "2024 - 2034",
     title: "Prison Workforce Strategy 2024-2034",
@@ -111,7 +159,7 @@ const strategies = [
       "Will inform the proposed 2026 strategy by underscoring activities to assess training against evolving capability requirements.",
   },
   {
-    number: "07",
+    number: "10",
     jurisdiction: "Western Australia",
     period: "2025 - 2030",
     title: "Corrective Services Strategic Plan 2025-2030",

@@ -54,9 +54,9 @@ const detailSections = [
 ];
 
 const compactStrategies = [
-  { column: 0, label: "Strategy 2", title: "Support transition of Defence Veterans to civilian workforce", text: "Support Recommendation 8 of the Royal Commission into Defence and Veteran Suicide by facilitating up-to-date information and transition pathways for veterans.", colour: "#D69A20", pale: "#FBF3E3" },
+  { column: 0, label: "Strategy 2", title: "Support transition of Defence Veterans to civilian workforce", text: "Support Recommendation 83(c) of the Royal Commission into Defence and Veteran Suicide by facilitating up-to-date information and transition pathways for veterans.", colour: "#D69A20", pale: "#FBF3E3" },
   { column: 1, label: "Strategy 2", title: "Review first aid units of competency for Surf Life Saving in the Certificate II in Public Safety (Aquatic Rescue)", text: "Ensure the Certificate II in Public Safety (Aquatic Rescue) reflects the first aid requirements of Surf Life Saving.", colour: "#C94824", pale: "#FCECE8" },
-  { column: 1, label: "Strategy 3", title: "Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident", text: "Support consultation to review prerequisite requirements identified by the Fire and Emergency Services industry.", colour: "#C94824", pale: "#FCECE8" },
+  { column: 1, label: "Strategy 3", title: "Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident", text: "Support increased access to hazardous materials training by reviewing a key unit of competency for the Fire and Emergency Services industry.", colour: "#C94824", pale: "#FCECE8" },
 ];
 
 export default function PublicSafetyProposedStrategiesSummaryView({ slug, report }: { slug: string; report: PublicSafetyReport }) {

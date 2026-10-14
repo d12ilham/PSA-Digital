@@ -56,7 +56,7 @@ export default function CorrectionalServicesLookingForwardView({
         <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
           <div className="lg:col-span-8 space-y-4">
             <p className="animate-slide-up text-xs font-semibold uppercase leading-6 text-[#0B6DA8]">
-              Federal Government Initiatives 2026 · Looking Forward
+              2027 and Beyond
             </p>
             <h1 className="animate-slide-up text-3xl sm:text-4xl font-bold text-[#063B5D]">
               2027 and Beyond

@@ -94,6 +94,10 @@ const sources = [
     "15",
     "Productivity Commission 2026, Report on Government Service - Table C Justice Services, Productivity Commission 2026, accessed 5 March 2026.",
   ],
+  [
+    "16",
+    "Productivity Commission 2026, Report on Government Services, Corrective Services Table 8A.3. Data comparison for individuals in corrections is 2023-4 to 2024-5. Individuals also serve non-custodial sentences in the community. This group has not been included in the rate of growth for the custodial population.",
+  ],
 ];
 
 function StatValue({
@@ -164,10 +168,20 @@ export default function CorrectionalServicesIndustryOverviewView({
                 Correctional Services Industry-Sector Overview
               </h1>
               <p className="animate-slide-up-delay text-sm text-[#535862] leading-relaxed">
+                The Correctional Services industry-sector plays a critical role
+                in managing offenders. The workforce spans a broad range of
+                occupations, including COs, who deliver custodial services in
+                correctional facilities, and CCOs, who supervise offenders
+                serving non-custodial sentences or parole in the community. The
+                workforce also includes public servants working inside and
+                outside correctional environments across functions such as
+                administration, education, health, policy and intelligence.
+              </p>
+              <p className="animate-slide-up-delay text-sm text-[#535862] leading-relaxed">
                 In 2024-25, the net operating expenditure and capital costs for
                 custodial corrections was $7.3 billion and just under $984
-                million for community corrections. Across Australia, there are
-                114 custodial facilities and a total workforce of 46,500. An
+                million for community corrections.<sup>8</sup> Across Australia, there are
+                114 custodial facilities and a total workforce of 46,500.<sup>9</sup> An
                 analysis of the Correctional Services workforce profile
                 identified the following trends:
               </p>
@@ -241,14 +255,14 @@ export default function CorrectionalServicesIndustryOverviewView({
               <p className="text-sm leading-6 text-[#535862]">
                 The Correctional Services industry-sector workforce has grown at
                 an average rate of 4.3 per cent per annum over the past five
-                years. Despite overall industry-sector growth, the number of COs
+                years.<sup>10</sup> Despite overall industry-sector growth, the number of COs
                 has decreased by 13.5 per cent over the same period, declining
-                nationally from approximately 21,500 to 18,600. The workforce is
+                nationally from approximately 21,500 to 18,600.<sup>11</sup> The workforce is
                 projected to increase by 6.3 per cent over the next five years,
-                and 11.2 per cent over the next ten years. Therefore, the
+                and 11.2 per cent over the next ten years.<sup>12</sup> Therefore, the
                 current rate of growth is not keeping pace with the increased
                 number of individuals serving custodial sentences, which has
-                risen by an average of 5.9 per cent.
+                risen by an average of 5.9 per cent.<sup>13</sup>
               </p>
             </div>
 
@@ -291,14 +305,14 @@ export default function CorrectionalServicesIndustryOverviewView({
               <p className="text-sm leading-6 text-[#535862]">
                 The number of individuals serving a community corrections order
                 has increased, rising by 3.9 per cent since 2020, growing on
-                average 1.5 per cent per year. Recidivism rates tend to be lower
+                average 1.5 per cent per year.<sup>14</sup> Recidivism rates tend to be lower
                 for adults completing community orders (15.4 per cent returning
                 to community corrections within two years) compared to persons
                 in custody released from correctional facilities (44.5 per cent
-                returning to correctional facilities within two years). At the
+                returning to correctional facilities within two years).<sup>15</sup> At the
                 same time, the ratio of individuals serving community
                 corrections orders per CCOs has decreased from 16.5 in 2015-16
-                to 15.4 in 2024-25.
+                to 15.4 in 2024-25.<sup>16</sup>
               </p>
             </div>
 

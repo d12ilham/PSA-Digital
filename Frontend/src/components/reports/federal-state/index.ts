@@ -4,7 +4,6 @@ import FederalStateAboutView from "./views/FederalStateAboutView";
 import FederalStateMethodologyView from "./views/FederalStateMethodologyView";
 import FederalStateDriversOfChangeView from "./views/FederalStateDriversOfChangeView";
 import FederalStateIndustryOverviewView from "./views/FederalStateIndustryOverviewView";
-import FederalStateStateTerritoryView from "./views/FederalStateStateTerritoryView";
 import FederalStateIndustryProfileView from "./views/FederalStateIndustryProfileView";
 import FederalStateActProfileView from "./views/FederalStateActProfileView";
 import FederalStateNswProfileView from "./views/FederalStateNswProfileView";
@@ -37,7 +36,7 @@ export const federalStateViews: Record<
   executive_summary: FederalStateExecutiveSummaryView,
   drivers_of_change: FederalStateDriversOfChangeView,
   industry_overview: FederalStateIndustryOverviewView,
-  state_territory: FederalStateStateTerritoryView,
+  state_territory: FederalStateIndustryProfileView,
   industry_profile: FederalStateIndustryProfileView,
   industry_profile_act: FederalStateActProfileView,
   industry_profile_nsw: FederalStateNswProfileView,
@@ -78,7 +77,6 @@ export {
   FederalStateMethodologyView,
   FederalStateDriversOfChangeView,
   FederalStateIndustryOverviewView,
-  FederalStateStateTerritoryView,
   FederalStateIndustryProfileView,
   FederalStateWorkforceInsightsView,
   FederalStateProposedStrategiesView,

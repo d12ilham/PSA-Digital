@@ -43,9 +43,9 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
           <article className="group flex h-full min-h-[370px] flex-col rounded-md bg-[#006C30] p-6 text-white transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:bg-[#007B38] hover:shadow-lg motion-reduce:hover:translate-y-0 sm:p-8">
             <p className="text-xs font-medium">FULL REPORT</p>
             <Image src="/images/downloads-full-report-icon.png" alt="" width={100} height={100} className="animate-zoom-in mt-6 h-[100px] w-[100px] transition-transform duration-300 group-hover:scale-105 motion-reduce:animate-none motion-reduce:transform-none" />
-            <h2 className="mt-6 text-xl font-semibold leading-7">2026 Government Workforce Insights Report</h2>
+            <h2 className="mt-6 text-xl font-semibold leading-7">2026 Federal and State/Territory Government Workforce Insights Report</h2>
             <p className="mt-3 max-w-[600px] text-sm leading-6 text-white/90">
-              Includes Appendix A: participants in the Local Government Skills Audit — the full list of participating councils by state.
+              The approved report covers workforce trends, industry insights and proposed strategies across Federal and State/Territory Governments.
             </p>
             <div className="mt-auto pt-6">
               {report.pdfFileUrl ? (
@@ -69,7 +69,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
               <div className="mt-9 space-y-4">
                 {previousReports.map((year) => (
                   <button key={year} type="button" disabled title={`The ${year} PDF is not available yet`} className="animate-content-switch flex min-h-[60px] w-full cursor-not-allowed items-center justify-between gap-4 rounded-full border border-[#9EAD59] bg-[#E9EDDB] px-5 text-left text-sm font-semibold text-[#252D02] transition-[background-color,box-shadow] duration-300 hover:bg-[#E2EACF] hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: `${0.5 + (2025 - year) * 0.13}s` }}>
-                    <span>Local Government Workforce Insights Reports - {year}</span>
+                    <span>Federal and State/Territory Government Workforce Insights Report - {year}</span>
                     <Download aria-hidden="true" className="h-4 w-4 shrink-0" />
                   </button>
                 ))}

@@ -227,28 +227,6 @@ export default function CorrectionalServicesMethodologyView({
             ))}
           </div>
 
-          <div className="flex min-h-[156px] items-center rounded-2xl border border-[#E9EAEB] bg-white p-6">
-            <Image
-              src="/images/reports/about/Commitment.svg"
-              alt=""
-              width={100}
-              height={100}
-              className="h-[100px] w-[100px] shrink-0 object-contain animate-zoom-in"
-            />
-            <div className="ml-6 self-start pt-1">
-              <h2 className="text-base font-bold leading-7 text-[#252D02]">
-                Our commitment
-              </h2>
-              <p className="mt-2 max-w-[860px] text-sm leading-6 text-[#535862]">
-                Public Skills Australia remains committed to encouraging the
-                participation of First Nations people,<sup>1</sup> those from
-                culturally and linguistically diverse backgrounds, those living
-                with or experiencing disabilities, women and other gender
-                diverse people and mature people in the Public Safety and
-                Government industry workforces.
-              </p>
-            </div>
-          </div>
         </section>
 
         <section

@@ -33,14 +33,6 @@ type ReportSection = {
 
 const reportSections: ReportSection[] = [
   {
-    title: "Executive Summary",
-    icon: "/images/reports/introduction/Executive.svg",
-    subtitle: "The Correctional Services workforce story on one page",
-    description:
-      "A concise view of the operating context, workforce challenges and the strategic priorities shaping this report.",
-    path: "executive_summary",
-  },
-  {
     title: "Drivers of Change",
     icon: "/images/reports/introduction/Drivers.svg",
     description:
@@ -49,7 +41,7 @@ const reportSections: ReportSection[] = [
     path: "drivers_of_change",
   },
   {
-    title: "Industry Overview",
+    title: "Industry-Sector Analysis",
     icon: "/images/reports/introduction/Overview.svg",
     description:
       "Examines Correctional Services industry-sector data across custodial and community corrections settings.",
@@ -57,24 +49,28 @@ const reportSections: ReportSection[] = [
     path: "industry_overview",
   },
   {
-    title: "Workforce Insights",
+    title: "Proposed Strategies Summary",
     icon: "/images/reports/introduction/Insights.svg",
     description:
-      "Details the 2026 workforce insights with a focus on community corrections roles and capability needs.",
-    tags: ["Community Corrections", "Insight Detail Pages"],
-    path: "workforce_insights",
+      "Summarises the proposed 2026 workforce strategy that responds to the approved workforce insights.",
+    tags: ["Workforce Insights", "Proposed Strategy"],
+    path: "workforce_strategies",
   },
   {
-    title: "Workforce Strategies",
+    title: "Existing Industry-Sector Strategies",
     icon: "/images/reports/introduction/Strategies.svg",
     description:
-      "The proposed, existing and government strategies informing Public Skills Australia's future work.",
-    tags: [
-      "2026 Proposed Strategies",
-      "Existing Strategies",
-      "Federal Initiatives",
-    ],
-    path: "workforce_strategies",
+      "Reviews jurisdictional strategies already shaping Correctional Services workforce and capability priorities.",
+    tags: ["Existing Strategies"],
+    path: "existing_strategies",
+  },
+  {
+    title: "Federal Government Initiatives",
+    icon: "/images/reports/introduction/Executive.svg",
+    description:
+      "Identifies federal initiatives relevant to Correctional Services workforce planning and training priorities.",
+    tags: ["Federal Initiatives"],
+    path: "federal_initiatives",
   },
   {
     title: "Looking Forward",
@@ -149,7 +145,7 @@ export default function CorrectionalServicesIntroductionView({
                   Introduction
                 </span>
                 <h1 className="max-w-[760px] text-3xl sm:text-4xl font-bold leading-[1.35] text-[#063B5D]">
-                  Correctional industry-sector workforce insight report 2026
+                  2026 Correctional Services Workforce Insights Report
                 </h1>
               </div>
 

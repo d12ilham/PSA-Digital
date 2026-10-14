@@ -22,83 +22,90 @@ const jurisdictions = [
   {
     code: "ACT",
     name: "Australian Capital Territory",
-    employees: "2,255",
-    facilities: 1,
-    capacity: 82,
-    imprisonment: 99,
-    expenditure: "$145m",
+    employees: "568",
+    facilities: 2,
+    capacity: null,
+    imprisonment: null,
+    expenditure: "$113m",
   },
   {
     code: "NSW",
     name: "New South Wales",
-    employees: "9,839",
-    facilities: 35,
-    capacity: 94,
-    imprisonment: 65,
+    employees: "10,610",
+    facilities: 47,
+    capacity: null,
+    imprisonment: null,
     expenditure: "$1.83b",
   },
   {
     code: "NT",
     name: "Northern Territory",
-    employees: "14,111",
-    facilities: 6,
-    capacity: 81,
-    imprisonment: 96,
+    employees: "1,443",
+    facilities: 5,
+    capacity: null,
+    imprisonment: null,
     expenditure: "$254m",
   },
   {
     code: "QLD",
     name: "Queensland",
-    employees: "26,448",
+    employees: "8,114",
     facilities: 14,
-    capacity: 91,
-    imprisonment: 77,
+    capacity: null,
+    imprisonment: null,
     expenditure: "$1.37b",
   },
   {
     code: "SA",
     name: "South Australia",
-    employees: "33,646",
+    employees: "2,067",
     facilities: 9,
-    capacity: 86,
-    imprisonment: 72,
+    capacity: null,
+    imprisonment: null,
     expenditure: "$360m",
   },
   {
     code: "TAS",
     name: "Tasmania",
-    employees: "70,221",
-    facilities: 4,
-    capacity: 76,
-    imprisonment: 53,
-    expenditure: "$178m",
+    employees: "767",
+    facilities: 5,
+    capacity: null,
+    imprisonment: null,
+    expenditure: "$168m",
   },
   {
     code: "VIC",
     name: "Victoria",
-    employees: "35,679",
-    facilities: 14,
-    capacity: 89,
-    imprisonment: 58,
-    expenditure: "$1.08b",
+    employees: "4,419",
+    facilities: 15,
+    capacity: null,
+    imprisonment: null,
+    expenditure: "$1.3b",
   },
   {
     code: "WA",
     name: "Western Australia",
-    employees: "4,734",
-    facilities: 16,
-    capacity: 96,
-    imprisonment: 94,
+    employees: "3,314",
+    facilities: 17,
+    capacity: null,
+    imprisonment: null,
     expenditure: "$982m",
   },
 ];
 
 const sources = [
-  "Correctional Services Employment Headcount by Jurisdiction (2025), State/Territory Correctional Services annual reports.",
-  "Correctional Custodial Facilities, Number (at 30 June 2025), Australian Government, State of the Service Report 2024-25, Table 13.",
-  "Prison Capacity Utilisation by State and Territory, Productivity Commission 2025, Report on Government Services, Justice Part C - Corrective Services, Table 8A.5.",
-  "Average Daily Imprisonment Rate by State and Territory, Australian Bureau of Statistics, Corrective Services Australia - December quarter 2025, Table 3.",
-  "Real Net Prisons and Community Corrections Operating Expenditure 2024-25FY, Productivity Commission 2026 Report on Government Services, Justice Part C - 8 Corrective Services, Table 8A.2.",
+  [
+    "",
+    "Correctional Services Employment Headcount by Jurisdiction (2025), State/Territory Correctional Services annual reports. See the annual reports of State/Territory Correctional Services and Departments of Justice for Australian Capital Territory, Queensland, New South Wales, Northern Territory, South Australia, Tasmania, Victoria and Western Australia.",
+  ],
+  [
+    "",
+    "Correctional Custodial Facilities, Number (at 30 June 2025), Productivity Commission Report on Government Services, Justice Part C - 8 Corrective Services, Table 8A.3.",
+  ],
+  [
+    "",
+    "Real Net Prisons and Community Corrections Operating Expenditure 2024-25FY, Productivity Commission 2026 Report on Government Services, Justice Part C - 8 Corrective Services, Table 8A.2.",
+  ],
 ];
 
 export default function CorrectionalServicesStateTerritoryView({
@@ -136,8 +143,9 @@ export default function CorrectionalServicesStateTerritoryView({
             </h1>
             <p className="animate-slide-up-delay max-w-3xl text-sm leading-relaxed text-[#535862]">
               Choose a state or territory to compare Correctional Services employment headcount,
-              custodial facilities, prison capacity utilisation, imprisonment rate and operating
-              expenditure signals.
+              custodial facilities and operating expenditure signals. Prison capacity utilisation
+              and state/territory imprisonment rate charts require the approved underlying datasets
+              before numerical values are shown.
             </p>
           </div>
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
@@ -204,8 +212,8 @@ export default function CorrectionalServicesStateTerritoryView({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
                 ["Custodial facilities", String(active.facilities), "Total at 30 June 2025"],
-                ["Capacity utilisation", `${active.capacity}%`, "2024-25 grouped jurisdiction view"],
-                ["Imprisonment rate index", String(active.imprisonment), "State and territory comparison"],
+                ["Capacity utilisation", "Dataset required", "Approved source dataset required for 3 financial years"],
+                ["Imprisonment rate", "Dataset required", "Approved source dataset required for 5 quarters"],
                 ["Operating expenditure", active.expenditure, "Prisons and community corrections"],
               ].map(([label, value, meta], index) => (
                 <article
@@ -254,11 +262,15 @@ export default function CorrectionalServicesStateTerritoryView({
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 space-y-4">
           <h2 className="text-xl font-bold text-[#252D02]">Sources</h2>
           <div className="grid grid-cols-1 gap-4 text-xs leading-relaxed text-[#535862] md:grid-cols-2">
-            {sources.map((source, index) => (
+            {sources.map(([number, source]) => (
               <div key={source} className="flex items-start gap-2.5">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F7FE] text-xs font-bold text-[#0B6DA8]">
-                  {index + 17}
-                </span>
+                {number ? (
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F7FE] text-xs font-bold text-[#0B6DA8]">
+                    {number}
+                  </span>
+                ) : (
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0B6DA8]" />
+                )}
                 <p>{source}</p>
               </div>
             ))}

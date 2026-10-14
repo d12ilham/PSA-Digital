@@ -14,10 +14,11 @@ const DRIVERS = [
     shortDesc: "Compounding crises have exposed structural vulnerabilities...",
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
-    fullDesc:
-      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyberattacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that support systemwide preparedness, robust governance and the ability to maintain critical functions under stress.4",
+    fullDesc: <>
+      Organisational resilience is emerging as a critical driver of change across Australia&apos;s Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress.<sup>2</sup>
+    </>,
     sources:
-      "Sources (4): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
+      "Sources (2): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
   },
   {
     id: 2,
@@ -25,10 +26,11 @@ const DRIVERS = [
     shortTitle: "Challenges to workforce productivity",
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
-    fullDesc:
-      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.5 These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.6",
+    fullDesc: <>
+      In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup>3</sup> These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup>4</sup>
+    </>,
     sources:
-      "Sources (5, 6): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026 · Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
+      "Sources (3, 4): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026 · Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
   },
   {
     id: 3,
@@ -38,10 +40,11 @@ const DRIVERS = [
     shortDesc: "Capability uplift — and a growing security risk...",
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
-    fullDesc:
-      "AI, automation and accelerated digital transformation are powerful drivers of organisational and systemlevel change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.7 These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.8",
+    fullDesc: <>
+      AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.<sup>5</sup> These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.<sup>6</sup>
+    </>,
     sources:
-      "Sources (7, 8): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026 · Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025, accessed 25 February 2026 · Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
+      "Sources (5, 6): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026 · Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025, accessed 25 February 2026 · Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
   },
   {
     id: 4,
@@ -60,55 +63,46 @@ const MEGATRENDS = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
-    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
-  },
-  {
-    id: "climate",
-    icon: "/images/reports/drivers-of-change/Climate.svg",
-    title: "Climate change",
-    desc: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
     id: "labour",
     icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
-    desc: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
-    id: "duties",
-    icon: "/images/reports/drivers-of-change/Expansion.svg",
-    title: "Expansion of core duties",
-    desc: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
-  },
-  {
-    id: "diversity",
-    icon: "/images/reports/drivers-of-change/Diversity.svg",
-    title: "Diversity and inclusion",
-    desc: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
+    id: "climate",
+    icon: "/images/reports/drivers-of-change/Climate.svg",
+    title: "Climate change",
   },
   {
     id: "demographics",
     icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
-    desc: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
-    id: "tech",
-    icon: "/images/reports/drivers-of-change/Technological.svg",
-    title: "Technological development",
-    desc: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
+    id: "diversity",
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
+    title: "Diversity and inclusion",
   },
   {
-    id: "recruitment",
-    icon: "/images/reports/drivers-of-change/Recruitment.svg",
-    title: "Recruitment and retention",
-    desc: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
+    id: "duties",
+    icon: "/images/reports/drivers-of-change/Expansion.svg",
+    title: "Expansion of core duties",
   },
   {
     id: "trust",
     icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
-    desc: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
+  },
+  {
+    id: "recruitment",
+    icon: "/images/reports/drivers-of-change/Recruitment.svg",
+    title: "Recruitment and retention",
+  },
+  {
+    id: "tech",
+    icon: "/images/reports/drivers-of-change/Technological.svg",
+    title: "Technological development",
   },
 ];
 
@@ -122,9 +116,6 @@ export default function FederalStateDriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
-  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(
-    null,
-  );
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   React.useEffect(() => {
@@ -177,7 +168,6 @@ export default function FederalStateDriversOfChangeView({
   }, []);
 
   const activeDriver = DRIVERS.find((d) => d.id === activeDriverId);
-  const activeMegatrend = MEGATRENDS.find((m) => m.id === activeMegatrendId);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -374,100 +364,16 @@ export default function FederalStateDriversOfChangeView({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
-            {MEGATRENDS.map((item, index) => {
-              const isActive = activeMegatrendId === item.id;
-
-              return (
-                <React.Fragment key={item.id}>
-                  <div
-                    style={
-                      isMegatrendsVisible
-                        ? { animationDelay: `${index * 0.06}s` }
-                        : undefined
-                    }
-                    onClick={() =>
-                      setActiveMegatrendId(isActive ? null : item.id)
-                    }
-                    className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
-                      isMegatrendsVisible
-                        ? "animate-card-entrance"
-                        : "opacity-0 translate-y-6"
-                    } ${
-                      isActive
-                        ? "bg-[#EBF1E4] border-active border-2"
-                        : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
-                    }`}
-                  >
-                    <img
-                      src={
-                        isActive
-                          ? item.icon.replace(".svg", "-active.svg")
-                          : item.icon
-                      }
-                      alt={item.title}
-                      className="w-17 h-17 shrink-0 object-contain"
-                    />
-                    <p
-                      className={`text-xs font-semibold leading-normal ${
-                        isActive ? "text-active" : "text-gray600"
-                      }`}
-                    >
-                      {item.title}
-                    </p>
-                  </div>
-
-                  {/* Active Megatrend Detail Panel (Mobile - displayed right below clicked item) */}
-                  <div
-                    className={`col-span-2 md:hidden grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      isActive
-                        ? "grid-rows-[1fr] opacity-100 mt-2"
-                        : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden min-h-0">
-                      {isActive && (
-                        <div
-                          key={`mobile-megatrend-${item.id}`}
-                          className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2"
-                        >
-                          <h3 className="text-base sm:text-lg font-bold text-gray800">
-                            {item.title}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                            {item.desc}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </React.Fragment>
-              );
-            })}
-          </div>
-
-          {/* Active Megatrend Detail Panel (Desktop - displayed below the main grid container) */}
-          <div
-            className={`hidden md:grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              activeMegatrend
-                ? "grid-rows-[1fr] opacity-100 mt-4"
-                : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
-            }`}
-          >
-            <div className="overflow-hidden min-h-0">
-              {activeMegatrend && (
-                <div
-                  key={`desktop-megatrend-${activeMegatrendId}`}
-                  className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2"
-                >
-                  <h3 className="text-xl font-bold text-gray800">
-                    {activeMegatrend.title}
-                  </h3>
-                  <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
-                    {activeMegatrend.desc}
-                  </p>
-                </div>
-              )}
-            </div>
+            {MEGATRENDS.map((item, index) => (
+              <div
+                key={item.id}
+                style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
+                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
+              >
+                <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
+                <p className="text-xs font-semibold leading-normal text-gray600">{item.title}</p>
+              </div>
+            ))}
           </div>
 
           <p className="text-sm text-gray800 leading-relaxed pt-2 w-full xl:w-2/3">
@@ -488,7 +394,7 @@ export default function FederalStateDriversOfChangeView({
           <div className="space-y-3 text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
-                4
+                2
               </span>
               <p>
                 Australian Government Department of Home Affairs, Organisational
@@ -499,7 +405,7 @@ export default function FederalStateDriversOfChangeView({
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
-                5
+                3
               </span>
               <p>
                 Productivity Commission, Five pillars of productivity inquiries
@@ -510,7 +416,7 @@ export default function FederalStateDriversOfChangeView({
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
-                6
+                4
               </span>
               <p>
                 Productivity Commission, Five pillars of productivity inquiries
@@ -520,7 +426,7 @@ export default function FederalStateDriversOfChangeView({
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
-                7
+                5
               </span>
               <p>
                 Australian Government Department of Finance, National framework
@@ -535,7 +441,7 @@ export default function FederalStateDriversOfChangeView({
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
-                8
+                6
               </span>
               <p>
                 Australian Security Intelligence Organisation (ASIO),
@@ -548,7 +454,7 @@ export default function FederalStateDriversOfChangeView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter contactUrl={report?.contactUrl} />
+      <ReportFooter contactUrl={report?.contactUrl} reportName={report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

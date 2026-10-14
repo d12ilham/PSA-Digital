@@ -1039,3 +1039,22 @@ a.bg-\[\#fafaf0\] > *,
   position: relative;
   z-index: 1;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-fes-overview .animate-slide-up,
+  .ps-fes-overview .animate-slide-up-delay,
+  .ps-fes-overview .animate-zoom-in,
+  .ps-fes-overview .animate-card-entrance,
+  .ps-fes-overview .animate-content-switch,
+  .ps-fes-overview .animate-industry-projection-line,
+  .ps-fes-overview .animate-industry-chart-point,
+  .ps-fes-overview .animate-industry-chart-bar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ps-fes-overview .opacity-0 {
+    opacity: 1;
+  }
+}

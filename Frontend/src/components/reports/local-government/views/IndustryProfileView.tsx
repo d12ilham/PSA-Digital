@@ -21,6 +21,96 @@ interface Report {
   };
 }
 
+interface ChartSeries {
+  name: string;
+  values: number[];
+  color: string;
+  labelBelow?: boolean;
+}
+
+function ReportLineChart({
+  years,
+  series,
+  min,
+  max,
+  step,
+  loaded,
+  activeIndex,
+  onActiveIndexChange,
+}: {
+  years: string[];
+  series: ChartSeries[];
+  min: number;
+  max: number;
+  step: number;
+  loaded: boolean;
+  activeIndex: number | null;
+  onActiveIndexChange: (index: number | null) => void;
+}) {
+  const left = 100;
+  const right = 580;
+  const top = 30;
+  const bottom = 220;
+  const x = (index: number) => left + (index * (right - left)) / (years.length - 1);
+  const y = (value: number) => bottom - ((value - min) / (max - min)) * (bottom - top);
+  const ticks = Array.from({ length: (max - min) / step + 1 }, (_, index) => min + index * step);
+
+  return (
+    <div className="overflow-x-auto" onMouseLeave={() => onActiveIndexChange(null)}>
+      <svg viewBox="0 0 620 260" className="w-full min-w-[520px] h-auto" role="img" aria-label={`${series.map((item) => item.name).join(" and ")} by year`}>
+        {ticks.map((tick) => (
+          <g key={tick}>
+            <line x1={left} x2={right} y1={y(tick)} y2={y(tick)} stroke="#D3D8D0" strokeWidth="1" />
+            <text x={left - 20} y={y(tick) + 4} textAnchor="end" className="fill-gray600 text-[11px]">
+              {tick.toLocaleString("en-AU")}
+            </text>
+          </g>
+        ))}
+        {years.map((year, index) => (
+          <text key={year} x={x(index)} y="245" textAnchor="middle" className="fill-gray600 text-[11px]">
+            {year}
+          </text>
+        ))}
+        {series.map((item) => (
+          <g key={item.name}>
+            <path
+              d={item.values.map((value, index) => `${index === 0 ? "M" : "L"}${x(index)} ${y(value)}`).join(" ")}
+              fill="none"
+              stroke={item.color}
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              pathLength={1}
+              strokeDasharray="1"
+              strokeDashoffset={loaded ? 0 : 1}
+              className="transition-[stroke-dashoffset] duration-1000 ease-out"
+            />
+            {item.values.map((value, index) => (
+              <g key={`${item.name}-${years[index]}`} onMouseEnter={() => onActiveIndexChange(index)}>
+                <circle cx={x(index)} cy={y(value)} r="13" fill="transparent" />
+                <circle
+                  cx={x(index)} cy={y(value)} r={activeIndex === index ? 6.5 : 5}
+                  fill="white" stroke={item.color} strokeWidth="3"
+                  opacity={loaded ? 1 : 0}
+                  className="transition-all duration-500"
+                />
+                <text
+                  x={x(index)} y={y(value) + (item.labelBelow ? 20 : -12)}
+                  textAnchor="middle" className="fill-gray800 text-[12px] font-semibold"
+                  opacity={loaded ? 1 : 0}
+                >
+                  {value.toLocaleString("en-AU")}
+                </text>
+                <title>{`${years[index]}: ${item.name} ${value.toLocaleString("en-AU")}`}</title>
+              </g>
+            ))}
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 export default function IndustryProfileView({
   slug,
   report,
@@ -29,8 +119,8 @@ export default function IndustryProfileView({
   report: Report;
 }) {
   const router = useRouter();
-  const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(5); // 2025 default
-  const [activeTrainingBar, setActiveTrainingBar] = useState<number | null>(3); // 2024 default
+  const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(null);
+  const [activeTrainingBar, setActiveTrainingBar] = useState<number | null>(null);
   const [chartsLoaded, setChartsLoaded] = useState(false);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
   const chartsRef = useRef<HTMLDivElement>(null);
@@ -61,43 +151,20 @@ export default function IndustryProfileView({
   }, []);
 
   const growthData = [
-    { year: "2020", val: "194,500", height: "60%" },
-    { year: "2021", val: "198,200", height: "66%" },
-    { year: "2022", val: "205,000", height: "74%" },
-    { year: "2023", val: "209,400", height: "80%" },
-    { year: "2024", val: "213,800", height: "88%" },
-    { year: "2025", val: "218,000", height: "100%" },
+    { year: "2020–2021", value: 190800 },
+    { year: "2021–2022", value: 192500 },
+    { year: "2022–2023", value: 208200 },
+    { year: "2023–2024", value: 213500 },
+    { year: "2024–2025", value: 218000 },
   ];
 
   const trainingData = [
-    {
-      year: "2021",
-      enrol: "7,800",
-      comp: "4,200",
-      enrolH: "75%",
-      compH: "52%",
-    },
-    {
-      year: "2022",
-      enrol: "8,100",
-      comp: "4,500",
-      enrolH: "82%",
-      compH: "55%",
-    },
-    {
-      year: "2023",
-      enrol: "8,400",
-      comp: "4,700",
-      enrolH: "88%",
-      compH: "58%",
-    },
-    {
-      year: "2024",
-      enrol: "8,650",
-      comp: "4,900",
-      enrolH: "95%",
-      compH: "62%",
-    },
+    { year: "2019", enrol: 945, comp: 285 },
+    { year: "2020", enrol: 735, comp: 300 },
+    { year: "2021", enrol: 555, comp: 220 },
+    { year: "2022", enrol: 365, comp: 155 },
+    { year: "2023", enrol: 470, comp: 90 },
+    { year: "2024", enrol: 600, comp: 135 },
   ];
 
   return (
@@ -156,59 +223,18 @@ export default function IndustryProfileView({
                 2020–2025 Employment Growth in Local Government
               </h3>
 
-              {/* Bar Chart Visualization */}
-              <div className="pt-8 pb-2 relative h-64 flex items-end justify-between gap-3">
-                {growthData.map((item, idx) => (
-                  <div
-                    key={item.year}
-                    onMouseEnter={() => setActiveGrowthBar(idx)}
-                    className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer"
-                  >
-                    <div className="w-full flex-1 flex items-end justify-center relative">
-                      {/* Tooltip */}
-                      {activeGrowthBar === idx && (
-                        <div
-                          style={{
-                            bottom: `calc(${chartsLoaded ? item.height : "0%"} + 8px)`,
-                          }}
-                          className="absolute left-1/2 -translate-x-1/2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md pointer-events-none z-20"
-                        >
-                          <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
-                            {item.year}
-                          </div>
-                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
-                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
-                              <span className="w-2 h-2 rounded-xs bg-[#728C28] inline-block shrink-0" />
-                              Employees:
-                            </span>
-                            <span className="font-bold text-[#B2DB79]">{item.val}</span>
-                          </div>
-                        </div>
-                      )}
-                      <div
-                        className={`w-full rounded-t-lg transition-all duration-1000 ease-out ${
-                          activeGrowthBar === idx
-                            ? "bg-[#728C28]"
-                            : "bg-[#A1C950]/80 hover:bg-[#85B810]"
-                        }`}
-                        style={{
-                          height: chartsLoaded ? item.height : "0%",
-                          transitionDelay: `${idx * 100}ms`,
-                        }}
-                      />
-                    </div>
-                    <span className="text-xs font-bold text-gray600 mt-2 shrink-0">
-                      {item.year}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <ReportLineChart
+                years={growthData.map((item) => item.year)}
+                series={[{ name: "Employees", values: growthData.map((item) => item.value), color: "#086B37" }]}
+                min={190000} max={220000} step={5000}
+                loaded={chartsLoaded}
+                activeIndex={activeGrowthBar}
+                onActiveIndexChange={setActiveGrowthBar}
+              />
             </div>
 
             <p className="text-xs text-active leading-relaxed">
-              Figure 1: 2020–2025 Employment Growth in Local Government. Roll
-              over any bar for its value. Bar values to be verified against the
-              report data at content QA.
+              Figure 1: 2020–2025 Employment Growth in Local Government.
             </p>
           </div>
 
@@ -219,99 +245,33 @@ export default function IndustryProfileView({
           >
             <div className="space-y-2">
               <span className="text-xs text-active uppercase block">
-                SOURCE: NCVER, TOTAL VET STUDENTS AND COURSES
+                SOURCE: NCVER, TOTAL VET STUDENTS AND COURSES 2024: DATABUILDER
+                [DATASET], 2024
               </span>
               <h3 className="font-bold text-lg text-gray800 mb-6">
                 Local Government Training Package — Enrolment and Completion
               </h3>
 
-              {/* Legend */}
-              <div className="flex items-center gap-6 text-xs font-bold">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-sm bg-[#9CAA54]" />
-                  <span className="text-gray600">Enrolments</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-sm bg-lg-dark" />
-                  <span className="text-gray600">Completions</span>
-                </div>
-              </div>
-
-              {/* Bar Chart Visualization */}
-              <div className="pt-8 pb-2 relative h-64 flex items-end justify-between gap-6">
-                {trainingData.map((item, idx) => (
-                  <div
-                    key={item.year}
-                    onMouseEnter={() => setActiveTrainingBar(idx)}
-                    className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer"
-                  >
-                    <div className="w-full flex-1 flex items-end justify-center relative">
-                      {/* Tooltip */}
-                      {activeTrainingBar === idx && (
-                        <div
-                          style={{
-                            bottom: `calc(${chartsLoaded ? item.enrolH : "0%"} + 8px)`,
-                          }}
-                          className="absolute left-1/2 -translate-x-1/2 bg-[#1B240E] text-white text-xs font-bold px-3 py-1.5 rounded-md animate-fade-in text-center whitespace-nowrap shadow-md pointer-events-none z-20"
-                        >
-                          <div className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">
-                            {item.year}
-                          </div>
-                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight">
-                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
-                              <span className="w-2 h-2 rounded-xs bg-[#9CAA54] inline-block shrink-0" />
-                              Enrol:
-                            </span>
-                            <span className="font-bold text-[#B2DB79]">{item.enrol}</span>
-                          </div>
-                          <div className="flex items-center gap-2 justify-between text-[11px] leading-tight mt-0.5">
-                            <span className="flex items-center gap-1.5 text-white/80 font-medium">
-                              <span className="w-2 h-2 rounded-xs bg-lg-dark inline-block shrink-0" />
-                              Comp:
-                            </span>
-                            <span className="font-bold text-white">{item.comp}</span>
-                          </div>
-                        </div>
-                      )}
-                      <div className="flex items-end gap-1.5 w-full justify-center h-full">
-                        {/* Enrolment Bar */}
-                        <div
-                          className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
-                            activeTrainingBar === idx
-                              ? "bg-[#85B810]"
-                              : "bg-[#9CAA54] hover:bg-[#85B810]"
-                          }`}
-                          style={{
-                            height: chartsLoaded ? item.enrolH : "0%",
-                            transitionDelay: `${idx * 120}ms`,
-                          }}
-                        />
-                        {/* Completion Bar */}
-                        <div
-                          className={`w-1/2 rounded-t-md transition-all duration-1000 ease-out ${
-                            activeTrainingBar === idx
-                              ? "bg-[#046D2A]"
-                              : "bg-lg-dark hover:bg-[#046D2A]"
-                          }`}
-                          style={{
-                            height: chartsLoaded ? item.compH : "0%",
-                            transitionDelay: `${idx * 120 + 80}ms`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold text-gray600 mt-2 shrink-0">
-                      {item.year}
-                    </span>
-                  </div>
-                ))}
+              <ReportLineChart
+                years={trainingData.map((item) => item.year)}
+                series={[
+                  { name: "Enrolments", values: trainingData.map((item) => item.enrol), color: "#086B37" },
+                  { name: "Completions", values: trainingData.map((item) => item.comp), color: "#A6C9A2", labelBelow: true },
+                ]}
+                min={0} max={1000} step={100}
+                loaded={chartsLoaded}
+                activeIndex={activeTrainingBar}
+                onActiveIndexChange={setActiveTrainingBar}
+              />
+              <div className="flex items-center gap-6 text-xs font-bold text-gray600">
+                <span className="flex items-center gap-2"><span className="w-5 border-t-2 border-[#086B37]" />Enrolments</span>
+                <span className="flex items-center gap-2"><span className="w-5 border-t-2 border-[#A6C9A2]" />Completions</span>
               </div>
             </div>
 
             <p className="text-xs text-active leading-relaxed">
-              Figure 2: LGA Local Government Training Package enrolment and
-              completion. Roll over any bar for its value. Chart values to be
-              verified against the report data at content QA.
+              Figure 2: LGA Local Government Training Package enrolments and
+              completions.
             </p>
           </div>
         </div>

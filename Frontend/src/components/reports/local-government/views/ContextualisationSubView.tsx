@@ -105,56 +105,15 @@ export default function ContextualisationSubView({
               </h3>
             </div>
 
-            <div className="space-y-3 text-xs sm:text-sm text-gray600 font-normal">
-              <div>
-                <p className="font-bold text-gray800 mb-1.5">
-                  1. Local Government Specific Occupational Shortages
-                </p>
-                <ul className="space-y-1 pl-4 list-disc">
-                  <li>
-                    Local council employers require a diverse range of skills to
-                    maintain the breadth of responsibilities undertaken by local
-                    councils.
-                  </li>
-                  <li>
-                    Skills needs are changing due to workforce pressures,
-                    technological advancements and shifting community
-                    expectations.
-                  </li>
-                  <li>
-                    While local council employers are experiencing some
-                    shortages in identified national shortage occupations,
-                    several Local Government specific shortages were also
-                    identified.
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-bold text-gray800 mb-1.5">
-                  2. Access to VET Qualifications and Training Delivery Partners
-                </p>
-                <ul className="space-y-1 pl-4 list-disc">
-                  <li>
-                    Access to TAFE or RTO in regional, rural and remote
-                    locations is limited.
-                  </li>
-                  <li>
-                    Few TAFEs and RTOs are willing to travel to geographically
-                    isolated locations to deliver required qualifications.
-                  </li>
-                  <li>
-                    Local councils have limited training budgets to support
-                    financial impost of course enrolments as well as travel to
-                    and from training.
-                  </li>
-                  <li>
-                    Course delivery is often not tailored to suit those from
-                    regional, rural or remote locations.
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+              Stakeholders from New South Wales noted challenges with delivery
+              of some civil qualifications which were deemed not sufficiently
+              flexible and included modules that did not align with operational
+              needs. Stakeholders indicated a preference for tailored electives
+              that directly address workforce requirements and ensure modules
+              are specific to LGA contexts, since regulatory demands differ
+              across regions.
+            </p>
           </div>
         </div>
       </div>

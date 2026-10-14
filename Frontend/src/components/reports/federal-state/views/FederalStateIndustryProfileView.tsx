@@ -29,10 +29,10 @@ const mapData = mapDataRaw as unknown as {
 };
 
 const stateEmployees: Record<string, string> = {
-  WA: "8,839",
-  NT: "2,285",
+  WA: "9,839",
+  NT: "2,255",
   QLD: "26,448",
-  SA: "14,311",
+  SA: "14,111",
   NSW: "33,646",
   VIC: "35,679",
   TAS: "4,734",
@@ -64,7 +64,7 @@ const profileDetails = {
     name: "New South Wales",
     apsEmployees: "33,646",
     publicServiceEmployees: "84,780",
-    publicServiceLabel: "ACT Public Service Employees",
+    publicServiceLabel: "NSW Public Service Employees",
     workforceCode: "NSW",
   },
   NT: {

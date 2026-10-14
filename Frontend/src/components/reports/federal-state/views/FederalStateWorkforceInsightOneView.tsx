@@ -18,17 +18,17 @@ const metrics = [
   {
     value: "3.3%",
     description: "ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.",
-    source: "Australian Bureau of Statistics (ABS), Public sector employment and earnings, ABS, 2025",
+    source: "85. Australian Bureau of Statistics (ABS), Public sector employment and earnings, ABS, 2025, accessed 1 December 2025. This data also includes Local Government, which is classified as part of public sector employment and earnings.",
   },
   {
     value: "505,200",
     description: "Public Administration industry group baseline, May 2025",
-    source: "Jobs and Skills Australia (JSA), Employment Projections - May 2025 to May 2035 Table 5: Industry Group",
+    source: "86. Jobs and Skills Australia (JSA), Jobs and Skills Australia, Employment Projections - May 2025 to May 2035 Table 5: Industry Group [data set], JSA, 2025, accessed 1 December 2025.",
   },
   {
     value: "574,900",
     description: "Public Administration industry group projection, May 2035",
-    source: "Jobs and Skills Australia (JSA), Employment Projections - May 2025 to May 2035 Table 5: Industry Group",
+    source: "86. Jobs and Skills Australia (JSA), Jobs and Skills Australia, Employment Projections - May 2025 to May 2035 Table 5: Industry Group [data set], JSA, 2025, accessed 1 December 2025.",
   },
 ];
 

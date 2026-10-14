@@ -51,10 +51,10 @@ const insights = [
     title:
       "Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community",
     short:
-      "The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.",
+      "This means that CCOs require the capability to support the reduction of recidivism and enable rehabilitation.",
     detailTitle: "The Role of a Community Corrections Officer (CCO)",
     detail:
-      "CCOs assess and manage risk, monitor compliance with legal conditions such as bail, parole and sentencing requirements, and respond to breaches. They provide case management and risk assessment for people serving custodial and non-custodial sentences, supporting behavioural change and reducing the likelihood of reoffending.",
+      "Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community. This means that CCOs require the capability to support the reduction of recidivism and enable rehabilitation.",
     sections: [
       [
         "A. Entry Level Training and Specialisations for Community Corrections Officers",
@@ -62,7 +62,15 @@ const insights = [
       ],
       [
         "B. Career progression-related training",
-        "As CCOs progress through government grades or salary bands, stakeholders indicated that this progression often does not correspond with accredited skills development.",
+        "As CCOs progress through government grades or salary bands, stakeholders indicated that this progression often does not correspond with accredited skills development, including pathways connected to the Diploma of Correctional Administration and Advanced Diploma of Correctional Management.[20]",
+      ],
+      [
+        "C. In-sector transition",
+        "Stakeholders described anecdotal pathways for employees transitioning from custodial Correctional Officer roles into Community Corrections Officer roles, including where employees move as part of injury management or return-to-work planning.",
+      ],
+      [
+        "D. Regional recruitment",
+        "Stakeholders identified regional and remote recruitment as an ongoing challenge for community corrections, particularly where services must be delivered across dispersed communities.",
       ],
     ],
   },
@@ -70,12 +78,12 @@ const insights = [
     id: "certificate-training",
     number: "2",
     title:
-      "CCO roles require more specialised capability provided in Certificate IV in Correctional Practice",
+      "The CCO role is comparatively complex and more specialised than the current Certificate III in Correctional Practice offers",
     short:
-      "Certificates III and IV do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health.",
+      "Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.",
     detailTitle: "Certificate III and IV in Correctional Practice",
     detail:
-      "The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders.",
+      "The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. As such, it is seen as more specialised than what the current Certificate III in Correctional Practice offers. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.",
     sections: [
       [
         "Certificate III specialisations",
@@ -83,7 +91,7 @@ const insights = [
       ],
       [
         "Certificate IV specialisations",
-        "Adult Custodial specialisation, Adult Community specialisation, Youth Custodial specialisation and Youth Community specialisation.",
+        "Case Management; Community; Emergency Response; Supervision; Health and Safety electives; Dog Handling electives; and General electives.",
       ],
     ],
   },
@@ -92,10 +100,10 @@ const insights = [
     number: "3",
     title: "Higher Education requirements may constrain the CO-to-CCO pathway",
     short:
-      "Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.",
+      "This pathway is often limited by recruitment requirements for higher education qualifications.",
     detailTitle: "Enrolment and Completion Rates",
     detail:
-      "Consultations indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of return-to-work support. This pipeline into CCO roles can be limited by recruitment requirements for higher education qualifications.",
+      "Consultations with the Correctional Services industry-sector indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. However, this pipeline into CCO roles is often limited by the recruitment requirement for higher education qualifications, which may impact the eligibility of COs to apply.",
     sections: [
       [
         "Community corrections specialisations",
@@ -109,20 +117,26 @@ const insights = [
   },
 ];
 
+const trainingPackageChallenges = [
+  "Certificate III does not fully reflect complexity of community corrections roles.",
+  "Certificates III and IV do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health, including suicidal ideation.",
+  "Delivery of Certificates III and IV was identified by RTOs as challenging to contextualise for community corrections settings.",
+];
+
 const certThreeData = [
   ["2020", 5229, 3275],
-  ["2021", 4800, 3100],
-  ["2022", 4550, 2920],
-  ["2023", 4320, 2700],
-  ["2024", 4234, 2460],
+  ["2021", 4419, 2540],
+  ["2022", 3952, 2060],
+  ["2023", 5301, 2180],
+  ["2024", 5762, 2298],
 ] as const;
 
 const certFourData = [
-  ["2020", 995, 620],
-  ["2021", 1210, 760],
-  ["2022", 1390, 840],
-  ["2023", 1550, 970],
-  ["2024", 1680, 1080],
+  ["2020", 1516, 670],
+  ["2021", 1648, 809],
+  ["2022", 1288, 716],
+  ["2023", 1167, 561],
+  ["2024", 1558, 763],
 ] as const;
 
 function QualificationChart({
@@ -165,6 +179,9 @@ function QualificationChart({
               />
             </div>
             <span className="text-xs font-bold text-[#535862]">{year}</span>
+            <span className="text-[10px] font-semibold leading-tight text-[#535862]">
+              {enrolments.toLocaleString()} / {completions.toLocaleString()}
+            </span>
           </div>
         ))}
       </div>
@@ -209,7 +226,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
               Recent trends across Australia&apos;s Correctional Services industry-sector underscore
               the growing importance of community-based supervision and the workforce required to
               deliver it. While previous Workforce Insights Reports focused primarily on the
-              custodial setting, this report focuses on community corrections roles.
+              custodial setting, this report focuses on community corrections roles.<sup>19</sup>
             </p>
           </div>
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
@@ -260,9 +277,9 @@ export default function CorrectionalServicesWorkforceInsightsView({
               CSC Correctional Services Training Package
             </h2>
             <p className="mt-3 max-w-4xl text-sm leading-6 text-[#535862]">
-              Stakeholders generally supported all specialisations in both the Certificate III
-              and IV in Correctional Practice; however, the following challenges were identified.
-              Select any insight to open its detail page.
+              Select any approved industry insight to open its detail page. The separate CSC Training
+              Package challenge statements are listed below so they remain distinct from the
+              industry insights.
             </p>
           </div>
 
@@ -300,6 +317,34 @@ export default function CorrectionalServicesWorkforceInsightsView({
           </div>
         </section>
 
+        <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
+          <p className="text-xs font-bold uppercase text-[#0B6DA8]">
+            Separate CSC Training Package challenges
+          </p>
+          <h2 className="mt-2 text-xl font-bold text-[#252D02]">
+            Challenges identified through stakeholder engagement
+          </h2>
+          <p className="mt-3 max-w-4xl text-sm leading-6 text-[#535862]">
+            These challenge statements are sourced from the Corrections Implementation Report.<sup>23</sup>
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {trainingPackageChallenges.map((challenge, index) => (
+              <article
+                key={challenge}
+                style={{ animationDelay: `${index * 0.08}s` }}
+                className="animate-card-entrance rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md"
+              >
+                <span className="text-[10px] font-bold uppercase text-[#0B6DA8]">
+                  Challenge {index + 1}
+                </span>
+                <p className="mt-3 text-sm font-semibold leading-6 text-[#535862]">
+                  {challenge}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="rounded-2xl border-2 border-[#0B6DA8] bg-white p-6">
           <div className="mb-5 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
             <div>
@@ -332,26 +377,31 @@ export default function CorrectionalServicesWorkforceInsightsView({
           </div>
         </section>
 
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <QualificationChart
-            title="Certificate III in Correctional Practice"
-            data={certThreeData}
-            max={6000}
-            loaded={loaded}
-          />
-          <QualificationChart
-            title="Certificate IV in Correctional Practice"
-            data={certFourData}
-            max={1800}
-            loaded={loaded}
-          />
+        <section className="space-y-4">
+          <p className="text-xs font-semibold leading-5 text-[#535862]">
+            Qualification graph data is based on NCVER VOCSTATS.<sup>22</sup>
+          </p>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <QualificationChart
+              title="Certificate III in Correctional Practice"
+              data={certThreeData}
+              max={6000}
+              loaded={loaded}
+            />
+            <QualificationChart
+              title="Certificate IV in Correctional Practice"
+              data={certFourData}
+              max={1800}
+              loaded={loaded}
+            />
+          </div>
         </section>
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["~160", "enrolments in units of competency unique to community corrections specialisations · Certificate III"],
-            ["~300", "enrolments in units of competency for community corrections specialisations · Certificate IV"],
-            ["4,234", "more enrolments in Certificate III compared to Certificate IV in 2024"],
+            ["~160", "enrolments in units of competency unique to community corrections specialisations · Certificate III · estimate"],
+            ["~300", "enrolments in units of competency for community corrections specialisations · Certificate IV · estimate"],
+            ["4,234", "more enrolments in Certificate III compared to Certificate IV in 2024 · NCVER VOCSTATS"],
           ].map(([value, label], index) => (
             <article
               key={value}
@@ -359,7 +409,10 @@ export default function CorrectionalServicesWorkforceInsightsView({
               className="animate-card-entrance rounded-xl border border-[#E9EAEB] bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md"
             >
               <strong className="block text-3xl font-bold text-[#0B6DA8]">{value}</strong>
-              <p className="mt-2 text-xs font-semibold leading-5 text-[#535862]">{label}</p>
+              <p className="mt-2 text-xs font-semibold leading-5 text-[#535862]">
+                {label}
+                {index < 2 ? <sup>21</sup> : null}
+              </p>
             </article>
           ))}
         </section>
@@ -368,12 +421,20 @@ export default function CorrectionalServicesWorkforceInsightsView({
           <h2 className="text-xl font-bold text-[#252D02]">Sources</h2>
           <div className="space-y-3 text-xs leading-6 text-[#535862]">
             <p>
-              Victorian Government, Correctional Practice Framework, Victorian Government, 2024.
-              Public Skills Australia 2025, Corrections Implementation Report, unpublished.
+              19 Victorian Government, Correctional Practice Framework, Victorian Government, 2024.
             </p>
             <p>
-              NCVER 2025, Total VET students and courses 2024. Jobs and Skills Australia,
-              Occupational Shortage List, 2025.
+              20 Australian Qualifications Framework Council, Australian Qualifications Framework, Second Edition, 2013.
+            </p>
+            <p>
+              21 Public Skills Australia estimate based on National Centre for Vocational Education Research (NCVER), Total VET students and courses: VOCSTATS, [data set], NCVER, 2025, accessed 23 March 2026.
+            </p>
+            <p>
+              22 Graph data based on NCVER, Total VET students and courses: VOCSTATS,
+              [data set], NCVER, 2025, accessed 23 March 2026.
+            </p>
+            <p>
+              23 Public Skills Australia 2025, Corrections Implementation Report, unpublished.
             </p>
           </div>
         </section>

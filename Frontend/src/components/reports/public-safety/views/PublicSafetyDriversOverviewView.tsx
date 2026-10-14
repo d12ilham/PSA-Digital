@@ -15,7 +15,7 @@ const drivers = [
 const megatrends = [
   ["Limitations", "Limitations in career pathways"],
   ["Climate", "Climate change"],
-  ["Competition", "Competition for labor"],
+  ["Competition", "Competition for labour"],
   ["Expansion", "Expansion of core duties"],
   ["Diversity", "Diversity and inclusion"],
   ["Demographic", "Demographic shifts"],
