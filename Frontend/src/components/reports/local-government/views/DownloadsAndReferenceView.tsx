@@ -114,11 +114,11 @@ export default function DownloadsAndReferenceView({
                 </a>
               ) : (
                 <button
-                  onClick={() => router.push(`/reports/${slug}`)}
-                  className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
+                  type="button"
+                  disabled
+                  className="bg-white/70 text-gray800/70 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-not-allowed"
                 >
-                  <span>Download 2026 PDF</span>
-                  <Download className="h-3.5 w-3.5" />
+                  <span>2026 PDF unavailable</span>
                 </button>
               )}
             </div>
@@ -138,34 +138,34 @@ export default function DownloadsAndReferenceView({
                 {/* 2025 */}
                 <div
                   style={{ animationDelay: "0.33s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
                 >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2025
                   </span>
-                  <Download className="h-4 w-4 text-gray800 shrink-0" />
+                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
                 </div>
 
                 {/* 2024 */}
                 <div
                   style={{ animationDelay: "0.39s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
                 >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2024
                   </span>
-                  <Download className="h-4 w-4 text-gray800 shrink-0" />
+                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
                 </div>
 
                 {/* 2023 */}
                 <div
                   style={{ animationDelay: "0.45s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] hover:border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer transition-colors"
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
                 >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
                     Local Government WIR - 2023
                   </span>
-                  <Download className="h-4 w-4 text-gray800 shrink-0" />
+                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
                 </div>
               </div>
             </div>
@@ -182,10 +182,9 @@ export default function DownloadsAndReferenceView({
               </span>
 
               <p className="text-sm text-gray600 leading-relaxed font-normal pt-1">
-                The appendix relates to the Local Government Skills Audit
-                project and is available in the downloadable PDF only — it is
-                not reproduced as webpages. Instructions for locating it sit on
-                the relevant project page.
+                Appendix A lists the councils that participated in the Local
+                Government Skills Audit. It appears in the full report PDF and
+                is not reproduced as webpages.
               </p>
             </div>
 

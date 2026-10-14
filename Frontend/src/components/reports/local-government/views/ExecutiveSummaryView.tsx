@@ -328,7 +328,7 @@ export default function ExecutiveSummaryView({
                       <p className="text-xs text-gray600 leading-relaxed">
                         Local Government employers require a diverse range of
                         skills to maintain the breadth of responsibilities
-                        undertaken by local councils.
+                        undertaken by local councils.<sup>2</sup>
                       </p>
                     </div>
                   </div>
@@ -533,6 +533,12 @@ export default function ExecutiveSummaryView({
               </div>
             </div>
           </div>
+          <p className="text-xs text-gray600 leading-relaxed pt-3">
+            <sup>2</sup> In this report, Public Skills Australia uses Local Government
+            to refer to the national Local Government industry-sector. Local
+            councils, or local council, is used as a preferred term when
+            referring to a specific council or councils.
+          </p>
         </div>
 
         {/* Section 3: 2026 Proposed Strategies */}
