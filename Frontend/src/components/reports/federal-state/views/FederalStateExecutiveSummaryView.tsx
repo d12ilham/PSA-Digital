@@ -28,8 +28,6 @@ export default function FederalStateExecutiveSummaryView({
   report: Report;
 }) {
   const router = useRouter();
-  const [showTheme1Overview, setShowTheme1Overview] = useState(true);
-
   const themesRef = useRef<HTMLDivElement>(null);
   const [isThemesVisible, setIsThemesVisible] = useState(false);
 
@@ -209,7 +207,7 @@ export default function FederalStateExecutiveSummaryView({
           </button>
         </div>
 
-        {/* Section 2: One Theme, Three Insights */}
+        {/* Section 2: approved Executive Summary industry insights */}
         <div
           ref={themesRef}
           className="bg-white rounded-2xl border border-gray200 p-6 space-y-6"
@@ -226,7 +224,7 @@ export default function FederalStateExecutiveSummaryView({
               </div>
               <div>
                 <h3 className="font-bold text-base text-gray800 pb-2">
-                  One Theme, Three Insights
+                  Two Industry Insights
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
                   This report provides an overview of each Federal and
@@ -244,139 +242,24 @@ export default function FederalStateExecutiveSummaryView({
             </button>
           </div>
 
-          {/* Theme 1 Container inside the card */}
-          <div
-            style={isThemesVisible ? { animationDelay: "0.10s" } : undefined}
-            className={`bg-white rounded-2xl border border-gray200 border-t-8 border-t-[#D5B5A1] p-6 space-y-6 ${
-              isThemesVisible
-                ? "animate-card-entrance"
-                : "opacity-0 translate-y-6"
-            }`}
-          >
-            <div className="space-y-3">
-              <span className="text-xs font-bold text-[#728C28] uppercase block">
-                THEME 1 · 3 INSIGHTS
-              </span>
-              <h3 className="text-xl font-bold text-gray800">
-                Future of the Public Service
-              </h3>
-              <button
-                onClick={() => setShowTheme1Overview(!showTheme1Overview)}
-                className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1 hover:bg-[#79B700] transition-colors"
-              >
-                Theme Overview {showTheme1Overview ? "▴" : "▾"}
-              </button>
-
-              {/* Theme 1 Overview Accordion */}
-              <div
-                className={`grid transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  showTheme1Overview
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0 pointer-events-none"
-                }`}
-              >
-                <div className="overflow-hidden min-h-0">
-                  <div
-                    className={`transition-opacity duration-[600ms] ease-out pt-2 text-xs text-gray600 leading-relaxed space-y-2 font-normal ${
-                      showTheme1Overview ? "opacity-100 delay-100" : "opacity-0"
-                    }`}
-                  >
-                    <p>
-                      ABS data indicates that the Federal and State/Territory
-                      Government public sector has increased between 2024-25 by
-                      3.3 per cent.85 According to Jobs and Skills Australia&apos;s
-                      employment projections, employment in the Public
-                      Administration industry group is projected to steadily grow
-                      over the next 10 years from the current baseline of 505,200
-                      in May 2025 to 574,900 in May 2035.86 These projections
-                      encompass government activities at the federal, state and
-                      territory levels only.87 The future public service
-                      workforce will continue to have effects on national
-                      economic growth and productivity.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="space-y-3">
+            <div
+              style={isThemesVisible ? { animationDelay: "0.10s" } : undefined}
+              className={`theme-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#FAFAF0] p-4 sm:p-5 ${isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"}`}
+            >
+              <span className="w-8 shrink-0 select-none text-[50px] font-bold leading-none text-notes/10">1</span>
+              <p className="text-xs leading-relaxed text-gray600">
+                The Federal and State/Territory Government public sector workforce is facing a challenging fiscal environment coupled with the need to build sector capability to be future ready to continue to deliver high quality services for the community. Specifically, within the public service, stakeholders identified a skill gap in artificial intelligence (AI) and occupational shortages such as program/project administration, human resources and digital, Information and Computer Technology (ICT) and cybersecurity roles.
+              </p>
             </div>
-
-            {/* 3 Stacked Insights */}
-            <div className="space-y-3">
-              {/* Insight 1 */}
-              <div
-                style={isThemesVisible ? { animationDelay: "0.15s" } : undefined}
-                className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 sm:p-5 flex items-start gap-4 cursor-pointer ${
-                  isThemesVisible
-                    ? "animate-card-entrance"
-                    : "opacity-0 translate-y-4"
-                }`}
-              >
-                <span className="text-[50px] font-bold text-notes/10 leading-none shrink-0 w-8 select-none">
-                  1
-                </span>
-                <div>
-                  <span className="text-xs font-bold text-[#728C28] block mb-1">
-                    Theme One, Insight One
-                  </span>
-                  <p className="text-xs text-gray600 leading-relaxed">
-                    The Public Administration and Safety industry84 is projected
-                    to grow steadily over the next decade, in line with broader
-                    increases in public sector workforce participation. Federal
-                    and State/Territory Governments operate under differing
-                    legislative and governance arrangements for workforce
-                    planning, resulting in variable levels of workforce planning
-                    maturity.
-                  </p>
-                </div>
-              </div>
-
-              {/* Insight 2 */}
-              <div
-                style={isThemesVisible ? { animationDelay: "0.27s" } : undefined}
-                className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 sm:p-5 flex items-start gap-4 cursor-pointer ${
-                  isThemesVisible
-                    ? "animate-card-entrance"
-                    : "opacity-0 translate-y-4"
-                }`}
-              >
-                <span className="text-[50px] font-bold text-notes/10 leading-none shrink-0 w-8 select-none">
-                  2
-                </span>
-                <div>
-                  <span className="text-xs font-bold text-[#728C28] block mb-1">
-                    Theme One, Insight Two
-                  </span>
-                  <p className="text-xs text-gray600 leading-relaxed">
-                    As Australia&apos;s productivity growth remains relatively low,
-                    the effectiveness of the APS remains critical to supporting
-                    economic performance.
-                  </p>
-                </div>
-              </div>
-
-              {/* Insight 3 */}
-              <div
-                style={isThemesVisible ? { animationDelay: "0.39s" } : undefined}
-                className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 sm:p-5 flex items-start gap-4 cursor-pointer ${
-                  isThemesVisible
-                    ? "animate-card-entrance"
-                    : "opacity-0 translate-y-4"
-                }`}
-              >
-                <span className="text-[50px] font-bold text-notes/10 leading-none shrink-0 w-8 select-none">
-                  3
-                </span>
-                <div>
-                  <span className="text-xs font-bold text-[#728C28] block mb-1">
-                    Theme One, Insight Three
-                  </span>
-                  <p className="text-xs text-gray600 leading-relaxed">
-                    A skilled, adaptable and future-ready public service
-                    workforce has been identified as a priority, particularly in
-                    relation to technology, digital literacy and effective use of
-                    AI.
-                  </p>
-                </div>
-              </div>
+            <div
+              style={isThemesVisible ? { animationDelay: "0.22s" } : undefined}
+              className={`theme-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#FAFAF0] p-4 sm:p-5 ${isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"}`}
+            >
+              <span className="w-8 shrink-0 select-none text-[50px] font-bold leading-none text-notes/10">2</span>
+              <p className="text-xs leading-relaxed text-gray600">
+                While the Federal and State/Territory Government public sector workforce is diverse, meeting First Nations employment targets remains a challenge. There is a growing need to strengthen and expand entry pathways into government roles for First Nations people to meet national commitments and increase and support career development.
+              </p>
             </div>
           </div>
         </div>
@@ -438,11 +321,6 @@ export default function FederalStateExecutiveSummaryView({
               Identify future skills needs for Federal and State/Territory
               Government
             </h4>
-
-            <p className="text-xs text-gray-500 font-medium">
-              Workforce Insight: Emerging technologies | JSC Function: Training
-              Product Development
-            </p>
 
             <div className="border-t border-gray-200 my-4" />
 

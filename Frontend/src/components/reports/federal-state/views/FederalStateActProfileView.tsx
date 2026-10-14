@@ -128,7 +128,7 @@ function RepresentationChart() {
           <text x="582" y="158" textAnchor="end" fontSize="14" fontWeight="600" fill="#754D32">2.0%</text>
         </svg>
         <div className="mt-4 flex flex-wrap gap-5 text-xs text-[#694834]"><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#754D32]" />Percentage</span><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#E9CFC2]" />Target</span></div>
-        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
+        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4</p>
       </div>
     </div>
   );
@@ -173,7 +173,7 @@ const sources = [
   { number: 13, text: "ACT Government, State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
   { number: 14, text: "ACT Government, State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
   { number: 15, text: "ACT Government, State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
-  { number: 16, text: "ACT Government, State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
+  { number: 16, text: "ACT Government, State of the Service Report 2022–23, ACT Government, 2023, accessed 6 February 2026." },
   { number: 17, text: "ACT Government, State of the Service Report 2019–20, 2020; State of the Service Report 2020–21, 2021; State of the Service Report 2021–22, 2022; State of the Service Report 2022–23, 2023; State of the Service Report 2023–24, 2024; State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
   { number: 18, text: "ACT Government, State of the Service Report 2023–24, 2024; State of the Service Report 2024–25, ACT Government, 2025, accessed 6 February 2026." },
   { number: 19, text: "Please note, Public Safety and Government is the preferred terminology that more fully captures the industry-sectors within Public Skills Australia’s remit. Reference to the Public Administration and Safety industry is based on the ANZSIC classification system. When citing a data source (such as JSA Employment Projects), the terminology of the data source will be used to maintain accurate data representation." },
@@ -245,7 +245,7 @@ export default function FederalStateActProfileView({ slug, report }: { slug: str
               </div>
               <p className="mt-3 text-[9px] leading-4 text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</p>
             </div>
-            <ColumnChart title="Workforce Participation as Proportion of Total Workforce" data={[{ label: "First Nations participation", value: 2, text: "2.0%", muted: true }, { label: "People with disability", value: 3, text: "3.0%" }, { label: "CALD background", value: 26.6, text: "26.6%" }, { label: "LGBTQIA+", value: 2.8, text: "2.8%" }]} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Table A.1" />
+            <ColumnChart title="Workforce Participation as Proportion of Total Workforce" data={[{ label: "First Nations participation", value: 2, text: "2.0%", muted: true }, { label: "People with disability", value: 3, text: "3.0%" }, { label: "CALD background", value: 26.6, text: "26.6%" }, { label: "LGBTIQA+", value: 2.8, text: "2.8%" }]} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Table A.1" />
           </div>
         </Section>
 
@@ -265,7 +265,7 @@ export default function FederalStateActProfileView({ slug, report }: { slug: str
                 ["PSP30218", "Certificate III in Auslan", "Welfare Support Workers"],
                 ["PSP40818", "Certificate IV in Auslan", "Welfare Support Workers"],
                 ["PSP50922", "Diploma of Interpreting", "Social Professionals"],
-                ["PSP50118", "Diploma of Auslan", "Welfare Support Workers"],
+                ["PSP51018", "Diploma of Auslan", "Welfare Support Workers"],
               ].map(([code, qualification, occupation]) => <tr key={code}><td className="p-3">{code}</td><td className="p-3">{qualification}</td><td className="p-3">{occupation}</td></tr>)}</tbody></table></div>
             </div>
           </div>
