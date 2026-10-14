@@ -35,7 +35,7 @@ const strategies = [
     insight: "Hazardous Materials",
     jsc: "Training Product Development",
     objective: "Support increased access to hazardous materials training by reviewing a key unit of competency for the Fire and Emergency Services industry.",
-    approach: "Engage with key Fire and Emergency Services employers and unions, and mining stakeholders through AUSMESA, to review PUAFIR306 and its role as an incident and PUASAR025 Undertake confined space rescue units of competency.",
+    approach: "Engage with key Fire and Emergency Services employers and unions, and mining stakeholders through AUSMASA, to review PUAFIR306 and its role as an incident and PUASAR025 Undertake confined space rescue units of competency.",
     deliverables: ["Reviewed Units of Competency"],
     impact: "Increase accessible training to enable safe and effective hazardous materials response.",
     timing: "18-month project",

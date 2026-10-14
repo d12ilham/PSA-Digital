@@ -65,7 +65,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
     { label: "2026 Proposed Workforce Strategies", path: `${prefix}_workforce_strategies` },
     { label: "Update on 2025 Strategies", path: `${prefix}_update_2025_strategies` },
     { label: "Existing Industry-Sector Strategies", path: `${prefix}_existing_strategies` },
-    { label: "Federal Government Initiatives", path: `${prefix}_federal_initiatives` },
+    { label: "Commonwealth Government Initiatives", path: `${prefix}_federal_initiatives` },
   ];
 
   const items: MenuGroup[] = [
@@ -105,7 +105,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
       matches: (page) => page === "police_proposed_strategies_summary",
       children: [
         { label: "Proposed Strategies Summary", path: "police_proposed_strategies_summary" },
-        { label: "Federal Government Initiatives", path: "police_federal_initiatives" },
+        { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
       ],
     },
     { label: "Looking Forward", path: "looking_forward" },

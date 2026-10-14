@@ -11,7 +11,7 @@ const charts = [
   "Yearly Separation Rate for ADF Service Branches and ADF Combined",
   "Proportion of Male and Female ADF and ADF Reserve Members in 2025",
   "Proportion of First Nations Participation in the ADF and ADF Reserves Across 2024 and 2025",
-  "ADF Employees and Major Facilities by Location and ADF Reserves Across 2024 and 2025",
+  "ADF Employees and Major Facilities by Location",
   "List of Operations and Activities Undertaken by the Australian Defence Force Throughout 2024 and 2025",
 ];
 
@@ -19,12 +19,13 @@ const lineColours = ["#D7A31A", "#A9693D", "#ED8D61", "#61645E", "#D6A22A"];
 
 function LineChart({ separation = false }: { separation?: boolean }) {
   const names = separation ? ["Navy", "Total ADF", "Army", "Air Force"] : ["Total ADF", "ADF Reserves", "Army", "Air Force", "Navy"];
-  const left = separation ? [11.5, 9.5, 7.7, 7.6] : [57248, 32560, 27239, 15769, 15160];
-  const right = separation ? [9.4, 7.9, 6.9, 6.2] : [58909, 33260, 27701, 16088, 15706];
+  const left = separation ? [11.5, 9.5, 7.7, 7.6] : [57245, 32560, 27239, 15261, 14745];
+  const right = separation ? [9.4, 7.9, 6.9, 6.2] : [58909, 33269, 27701, 16085, 15123];
+  const percentChanges = ["2.9%", "2.2%", "1.7%", "5.4%", "2.6%"];
   const max = separation ? 12 : 60000;
   const min = separation ? 4 : 10000;
   const y = (value: number) => 245 - ((value - min) / (max - min)) * 190;
-  return <svg viewBox="0 0 700 340" className="mt-5 w-full" role="img" aria-label={separation ? "Yearly separation rate line chart" : "Yearly headcount line chart"}>
+  return <><svg viewBox="0 0 700 340" className="mt-5 w-full" role="img" aria-label={separation ? "Yearly separation rate line chart" : "Yearly headcount line chart"}>
     {[0,1,2,3,4].map(i => <line key={i} x1="75" x2="620" y1={55+i*47.5} y2={55+i*47.5} stroke="#E3E5DE" className="animate-profile-grid-line" style={{ animationDelay: `${i * 0.06}s` }} />)}
     {names.map((name,i) => <g key={name}>
       <line x1="190" y1={y(left[i])} x2="510" y2={y(right[i])} stroke={lineColours[i]} strokeWidth="3" className="animate-profile-chart-line" style={{ animationDelay: `${i * 0.12 + 0.35}s` }} />
@@ -34,7 +35,7 @@ function LineChart({ separation = false }: { separation?: boolean }) {
       <text x="526" y={y(right[i])+13} fontSize="12" fontWeight="700" fill="#50534D">{name}</text>
     </g>)}
     <text x="190" y="282" textAnchor="middle" fontSize="12" fill="#30342D">2024</text><text x="510" y="282" textAnchor="middle" fontSize="12" fill="#30342D">2025</text>
-  </svg>;
+  </svg>{!separation && <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">{names.map((name, index) => <span key={name} style={{ color: lineColours[index] }}>{name} <span aria-label="increase">↑</span> {percentChanges[index]}</span>)}</div>}</>;
 }
 
 function GenderChart() {
@@ -53,10 +54,10 @@ function FirstNationsChart() {
 }
 
 function LocationChart() {
-  const states = ["NSW","NT","QLD","SA","TAS","VIC","WA"];
+  const states = ["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"];
   const [selectedState, setSelectedState] = useState("WA");
   const locationData: Record<string, [string,string,string]> = {
-    NSW:["14,182","9,053","21"], NT:["4,826","2,104","8"], QLD:["11,421","7,316","18"], SA:["5,126","3,054","11"], TAS:["1,208","874","3"], VIC:["7,864","4,927","12"], WA:["4,276","3,173","10"],
+    ACT:["7,691","4,185","9"], NSW:["16,415","9,010","22"], NT:["4,179","970","5"], QLD:["16,081","8,254","11"], SA:["3,234","2,564","9"], TAS:["93","633","3"], VIC:["5,872","4,440","9"], WA:["4,276","3,173","10"],
   };
   const values = locationData[selectedState];
   return <><div className="mb-6 flex flex-wrap items-center justify-between gap-4"><h3 className="text-lg font-semibold">ADF Employees and Major Facilities by Location</h3><div className="flex flex-wrap gap-2">{states.map(s=><button type="button" key={s} onClick={()=>setSelectedState(s)} className={`rounded-full px-3 py-1 text-[10px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm ${s===selectedState?"bg-[#7BC900] text-[#253100]":"bg-[#FAFAF0] text-[#535862] hover:bg-[#F0F3E5]"}`}>{s}</button>)}</div></div><div className="grid gap-5 lg:grid-cols-[1fr_220px]"><div className="animate-zoom-in overflow-hidden rounded-lg border border-[#E9EAEB] bg-[#F7F0DC] px-4 transition-shadow duration-300 hover:shadow-md"><AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="defence" compact /></div><aside className="animate-card-entrance rounded-lg bg-[#F8F1E3] p-5"><h4 className="text-2xl font-bold">{selectedState}</h4>{[[values[0],"Permanent ADF"],[values[1],"ADF Reserves"],[values[2],"Major Defence"]].map(([v,l], index)=><div key={l} style={{ animationDelay: `${index * 0.1 + 0.15}s` }} className="mt-4 animate-card-entrance rounded bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm"><strong className="block text-xl text-[#D7A31A]">{v}</strong><span className="text-[11px]">{l}</span></div>)}</aside></div><p className="mt-4 text-[10px] leading-4 text-[#535862]">Major Defence bases. Please note total number of bases may change in the next 12 months in line with recommendations from the Defence Estate Audit.</p></>;
