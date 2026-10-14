@@ -100,10 +100,10 @@ export default function Theme2InsightSubView({
                 Access to training has consistently been raised as a challenge
                 for local council employers located in regional, rural and
                 remote locations. This challenge is affirmed in the Interim
-                Report into Local Government Sustainability, 34 Public Skills
-                Australia's 2025 Local Government Workforce Insights Report, 35
+                Report into Local Government Sustainability,<sup>34</sup> Public Skills
+                Australia's 2025 Local Government Workforce Insights Report,<sup>35</sup>
                 and the Australian Local Government Association's 2022 Local
-                Government Workforce Skills and Capability Survey. 36 Throughout
+                Government Workforce Skills and Capability Survey.<sup>36</sup> Throughout
                 consultation for the Local Government Skills Audit and Uptake
                 and Utility of the LGA Local Government Training Package
                 project, VET was consistently identified as the most relevant
@@ -113,7 +113,7 @@ export default function Theme2InsightSubView({
                 and risk management in functions such as water treatment and
                 civil construction, and for several technical positions that
                 require Certificate III or IV such as Water Operator, Mechanic
-                and Childcare Educator. However, while they acknowledged
+                and Childcare Educator. However, while they acknowledged VET
                 overwhelmingly supports work-related training, some stakeholders
                 noted concerns about their ability to access TAFEs and RTOs to
                 obtain qualifications that are contextualised to the Local
@@ -128,6 +128,11 @@ export default function Theme2InsightSubView({
                 access to qualifications and training delivery. These are
                 further detailed below:
               </p>
+            </div>
+            <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
+              <p><sup>34</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Interim Report into Local Government Sustainability</em>, 2025, page 21, accessed 11 February 2026.</p>
+              <p><sup>35</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, page 19, accessed 11 February 2026.</p>
+              <p><sup>36</sup> ALGA, <em>2022 Local Government Workforce Skills and Capability Survey</em>, 2022, page 10, accessed 11 February 2026.</p>
             </div>
           </div>
         </div>
@@ -183,7 +188,7 @@ export default function Theme2InsightSubView({
               </span>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Course delivery is often not tailored to suit those from
-                regional, rural or remoted locations
+                regional, rural or remote locations
               </h1>
             </div>
           </div>
@@ -330,7 +335,7 @@ export default function Theme2InsightSubView({
               training. In addition, for accessing full qualifications, some
               noted high costs and limited access to accredited training. For
               example, one local council body reported spending approximately
-              ,000 for water operator training for six participants.
+              $40,000 for water operator training for six participants.
             </p>
 
             <div className="pt-4 border-t border-gray200 mt-auto">
@@ -435,57 +440,12 @@ export default function Theme2InsightSubView({
                 </h3>
               </div>
 
-              <div className="space-y-3 text-xs sm:text-sm text-gray600 font-normal">
-                <div>
-                  <p className="font-bold text-gray800 mb-1.5">
-                    1. Local Government Specific Occupational Shortages
-                  </p>
-                  <ul className="space-y-1 pl-4 list-disc">
-                    <li>
-                      Local council employers require a diverse range of skills
-                      to maintain the breadth of responsibilities undertaken by
-                      local councils.
-                    </li>
-                    <li>
-                      Skills needs are changing due to workforce pressures,
-                      technological advancements and shifting community
-                      expectations.
-                    </li>
-                    <li>
-                      While local council employers are experiencing some
-                      shortages in identified national shortage occupations,
-                      several Local Government specific shortages were also
-                      identified.
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <p className="font-bold text-gray800 mb-1.5">
-                    2. Access to VET Qualifications and Training Delivery
-                    Partners
-                  </p>
-                  <ul className="space-y-1 pl-4 list-disc">
-                    <li>
-                      Access to TAFE or RTO in regional, rural and remote
-                      locations is limited.
-                    </li>
-                    <li>
-                      Few TAFEs and RTOs are willing to travel to geographically
-                      isolated locations to deliver required qualifications.
-                    </li>
-                    <li>
-                      Local councils have limited training budgets to support
-                      financial impost of course enrolments as well as travel to
-                      and from training.
-                    </li>
-                    <li>
-                      Course delivery is often not tailored to suit those from
-                      regional, rural or remote locations.
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                Stakeholders noted that closer engagement with government decision
+                makers, TAFEs, RTOs and councils to consider solutions to challenges
+                such as access to training, delivery options and costs may support
+                local councils to build the technical capability they need for the future.
+              </p>
             </div>
 
             <div className="pt-4 border-t border-gray200">

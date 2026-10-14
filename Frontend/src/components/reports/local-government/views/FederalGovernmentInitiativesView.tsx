@@ -41,7 +41,7 @@ export default function FederalGovernmentInitiativesView({
   report: Report;
 }) {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState<number | null>(1);
+  const [selectedId, setSelectedId] = useState<number | null>(INITIATIVES_DATA[0].id);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   useEffect(() => {
@@ -50,18 +50,17 @@ export default function FederalGovernmentInitiativesView({
 
   const selectedItem =
     INITIATIVES_DATA.find((s) => s.id === selectedId) || INITIATIVES_DATA[0];
+  const selectedIndex = INITIATIVES_DATA.findIndex((s) => s.id === selectedItem.id);
 
   const handlePrev = () => {
-    const current = selectedId ?? 1;
-    if (current > 1) {
-      setSelectedId(current - 1);
+    if (selectedIndex > 0) {
+      setSelectedId(INITIATIVES_DATA[selectedIndex - 1].id);
     }
   };
 
   const handleNext = () => {
-    const current = selectedId ?? 1;
-    if (current < INITIATIVES_DATA.length) {
-      setSelectedId(current + 1);
+    if (selectedIndex < INITIATIVES_DATA.length - 1) {
+      setSelectedId(INITIATIVES_DATA[selectedIndex + 1].id);
     }
   };
 
@@ -120,7 +119,7 @@ export default function FederalGovernmentInitiativesView({
 
         {/* ── MASTER-DETAIL 2-COLUMN GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          {/* LEFT COLUMN: LIST OF 13 INITIATIVES */}
+          {/* LEFT COLUMN: INITIATIVES */}
           <div className="lg:col-span-1 space-y-3">
             {INITIATIVES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
@@ -146,7 +145,7 @@ export default function FederalGovernmentInitiativesView({
                   >
                     <div className="space-y-4 flex-1">
                       <span className="text-xs font-semibold text-notes block">
-                        {item.number}
+                        {String(idx + 1).padStart(2, "0")}
                       </span>
                       <h3 className="font-bold text-gray800 leading-normal">
                         {item.title}
@@ -175,7 +174,7 @@ export default function FederalGovernmentInitiativesView({
                         {/* Title & Subtitle */}
                         <div className="space-y-2">
                           <h2 className="text-base sm:text-lg font-bold text-gray800 leading-snug">
-                            {item.number} · {item.title}
+                            {String(idx + 1).padStart(2, "0")} · {item.title}
                           </h2>
                           <p className="text-xs sm:text-sm font-semibold text-notes block">
                             {item.subtitle}
@@ -214,21 +213,21 @@ export default function FederalGovernmentInitiativesView({
             {/* Top Bar inside Detail Panel */}
             <div className="flex items-center justify-between gap-4">
               <span className="bg-lg-dark text-white text-xs font-semibold px-5 py-2.5 rounded-full uppercase">
-                {selectedItem.number}
+                {String(selectedIndex + 1).padStart(2, "0")}
               </span>
               <div className="flex items-center gap-3">
-                {(selectedId ?? 1) > 1 && (
+                {selectedIndex > 0 && (
                   <button
                     onClick={handlePrev}
                     className={`text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5 ${
-                      (selectedId ?? 1) === INITIATIVES_DATA.length
+                      selectedIndex === INITIATIVES_DATA.length - 1
                         ? "bg-[#8AC900] hover:bg-[#77A60D] text-gray800"
                         : "border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28]"
                     }`}
                   >
                     <ArrowLeft
                       className={`h-3.5 w-3.5 ${
-                        (selectedId ?? 1) === INITIATIVES_DATA.length
+                        selectedIndex === INITIATIVES_DATA.length - 1
                           ? "text-gray800"
                           : "text-[#728C28]"
                       }`}
@@ -236,7 +235,7 @@ export default function FederalGovernmentInitiativesView({
                     <span>Previous</span>
                   </button>
                 )}
-                {(selectedId ?? 1) < INITIATIVES_DATA.length && (
+                {selectedIndex < INITIATIVES_DATA.length - 1 && (
                   <button
                     onClick={handleNext}
                     className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5"
@@ -255,7 +254,7 @@ export default function FederalGovernmentInitiativesView({
               {/* Title & Subtitle */}
               <div className="space-y-5">
                 <h2 className="text-lg sm:text-xl font-bold text-gray800 leading-snug">
-                  {selectedItem.number} · {selectedItem.title}
+                  {String(selectedIndex + 1).padStart(2, "0")} · {selectedItem.title}
                 </h2>
                 <p className="text-sm font-semibold text-notes block">
                   {selectedItem.subtitle}

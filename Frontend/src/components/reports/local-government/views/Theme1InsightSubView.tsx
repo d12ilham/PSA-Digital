@@ -98,10 +98,14 @@ export default function Theme1InsightSubView({
               Insights Report, local council employers continue to emphasise the
               broad scope of occupations employed in their workforce. Role
               expansion has been a consistent theme, further examined through
-              two Parliamentary inquiries — which confirmed that the role of
+              two Parliamentary inquiries<sup>27</sup> — which confirmed that the role of
               local councils has expanded over time and that this expansion is
-              impacting both financial and workforce sustainability.
+              impacting both financial and workforce sustainability.<sup>28</sup>
             </p>
+            <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
+              <p><sup>27</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Parliamentary Inquiry into Local Government Funding and Fiscal Sustainability</em>, 2026; <em>Parliamentary Inquiry into Local Government Sustainability</em>, 2024, accessed 11 February 2026.</p>
+              <p><sup>28</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Interim Report into Local Government Sustainability</em>, 2025, pages 5 and 21, accessed 11 February 2026.</p>
+            </div>
           </div>
         </div>
       )}
@@ -267,10 +271,8 @@ export default function Theme1InsightSubView({
                 access to TAFE and RTOs.<sup>30</sup>
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal">
-                  Source: JSA, Connecting for Impact – The Jobs and Skills
-                  Report 2025, p. 81 · PSA, LG WIR 2025, pp.14–15.
-                </p>
+                <p className="text-xs text-notes font-normal"><sup>29</sup> Jobs and Skills Australia (JSA), <em>Connecting for Impact – The Jobs and Skills Report 2025</em>, 2025, page 81, accessed 19 November 2025.</p>
+                <p className="text-xs text-notes font-normal"><sup>30</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, pages 14–15, accessed 11 February 2026.</p>
               </div>
             </div>
 
@@ -301,11 +303,8 @@ export default function Theme1InsightSubView({
                 councils.
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal leading-normal">
-                  Source: Department of Health, Disability and Ageing, About the
-                  new rights-based Aged Care Act, 2025 · NSW EPA, FOGO mandates
-                  and rollout, 2025.
-                </p>
+                <p className="text-xs text-notes font-normal leading-normal"><sup>31</sup> Australian Government, Department of Health, Disability and Ageing, <em>About the new rights-based Aged Care Act</em>, 2025, accessed 11 February 2026.</p>
+                <p className="text-xs text-notes font-normal leading-normal"><sup>32</sup> New South Wales Environmental Protection Agency (NSW EPA), <em>FOGO mandates and rollout</em>, 2025, accessed 11 February 2026.</p>
               </div>
             </div>
           </div>
@@ -422,10 +421,7 @@ export default function Theme1InsightSubView({
                 industry-sector.
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal">
-                  Source: Local Government Skills Audit consultations · JSA
-                  Skills Priority List comparison.
-                </p>
+                <p className="text-xs text-notes font-normal"><sup>33</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, page 19, accessed 11 February 2026.</p>
               </div>
             </div>
 

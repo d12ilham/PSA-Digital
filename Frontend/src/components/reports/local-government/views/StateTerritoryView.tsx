@@ -36,6 +36,16 @@ interface StateData {
   lgSpecificShortages: string[];
 }
 
+const COUNCIL_SOURCES: Record<string, { footnote: number; citation: string }> = {
+  WA: { footnote: 18, citation: "Western Australia Local Government Association (WALGA), The Western Australian Government Local Government Directory 2025, WALGA, 2025, accessed 24 February 2026." },
+  NT: { footnote: 19, citation: "Northern Territory Government, Find your council, Northern Territory Government, 2026, accessed 24 February 2026." },
+  SA: { footnote: 20, citation: "Local Government Association South Australia (LGA SA), SA Councils list and map, LGASA, n.d., accessed 24 February 2026." },
+  QLD: { footnote: 21, citation: "Department of Local Government, Water and Volunteers, Local Government Directory, 2026, accessed 24 February 2026." },
+  NSW: { footnote: 22, citation: "Local Government New South Wales (LGNSW), NSW Council Links, LGNSW, n.d., accessed 24 February 2026." },
+  VIC: { footnote: 23, citation: "Victorian Government, Know Your Council, 2025, accessed 24 February 2026." },
+  TAS: { footnote: 24, citation: "Local Government Association Tasmania (LGAT), Tasmanian Councils, LGAT, n.d., accessed 24 February 2026." },
+};
+
 const STATES_DATA: Record<string, StateData> = {
   NSW: {
     code: "NSW",
@@ -77,21 +87,16 @@ const STATES_DATA: Record<string, StateData> = {
   NT: {
     code: "NT",
     name: "Northern Territory",
-    employees: "5,000",
+    employees: "3,000",
     councils: 18,
     topShortages: [
-      "Community Program Coordinator",
       "Community Service Roles",
       "Managerial Roles",
-      "Works Officer",
       "Tradesperson",
+      "Works Officer",
+      "Community Program Coordinator",
     ],
     oslTable: [
-      {
-        occupation: "Community Program Coordinator",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
       {
         occupation: "Community Service Roles",
         stateShortage: "S",
@@ -99,24 +104,27 @@ const STATES_DATA: Record<string, StateData> = {
       },
       {
         occupation: "Managerial Roles",
-        stateShortage: "R",
-        nationalShortage: "R",
+        stateShortage: "S",
+        nationalShortage: "NS",
       },
+      { occupation: "Tradesperson", stateShortage: "S", nationalShortage: "NS" },
       {
         occupation: "Works Officer",
         stateShortage: "S",
-        nationalShortage: "S",
+        nationalShortage: "NS",
       },
       {
-        occupation: "Tradesperson",
+        occupation: "Community Program Coordinator",
         stateShortage: "S",
         nationalShortage: "NS",
       },
     ],
     lgSpecificShortages: [
-      "Community Program Coordinator",
       "Community Service Roles",
+      "Managerial Roles",
+      "Tradesperson",
       "Works Officer",
+      "Community Program Coordinator",
     ],
   },
   QLD: {
@@ -125,39 +133,40 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "48,800",
     councils: 77,
     topShortages: [
-      "Water / Wastewater Operator",
-      "Civil Engineer",
       "Town Planner",
-      "Environmental Health Officer",
-      "Plant Operator",
+      "Engineer",
+      "Tradesperson",
+      "Water Operations Officer",
+      "IT Officer",
     ],
     oslTable: [
       {
-        occupation: "Water Operator",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      { occupation: "Town Planner", stateShortage: "R", nationalShortage: "R" },
-      {
-        occupation: "Environmental Health",
-        stateShortage: "S",
+        occupation: "Town Planner",
+        stateShortage: "R",
         nationalShortage: "R",
       },
       {
-        occupation: "Plant Operator",
-        stateShortage: "S",
+        occupation: "Engineer",
+        stateShortage: "NS",
+        nationalShortage: "S",
+      },
+      { occupation: "Tradesperson", stateShortage: "NS", nationalShortage: "NS" },
+      {
+        occupation: "Water Operations Officer",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "IT Officer",
+        stateShortage: "NS",
         nationalShortage: "NS",
       },
     ],
     lgSpecificShortages: [
-      "Water / Wastewater Operator",
-      "Environmental Health Officer",
-      "Plant Operator",
+      "Town Planner",
+      "Tradesperson",
+      "Water Operations Officer",
+      "IT Officer",
     ],
   },
   SA: {
@@ -166,39 +175,38 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "11,700",
     councils: 68,
     topShortages: [
+      "Civil Engineer/Operations",
+      "Arborist",
+      "Project Manager/Business Analyst",
       "Building Surveyor",
-      "Town Planner",
-      "Civil Engineer",
-      "Horticulturist / Parks Worker",
-      "IT Specialist",
+      "Community Development Officer",
     ],
     oslTable: [
+      {
+        occupation: "Civil Engineer/Operations",
+        stateShortage: "S",
+        nationalShortage: "S",
+      },
+      { occupation: "Arborist", stateShortage: "S", nationalShortage: "S" },
+      {
+        occupation: "Project Manager/Business Analyst",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
       {
         occupation: "Building Surveyor",
         stateShortage: "S",
         nationalShortage: "S",
       },
-      { occupation: "Town Planner", stateShortage: "R", nationalShortage: "R" },
       {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Horticulturist",
+        occupation: "Community Development Officer",
         stateShortage: "NS",
-        nationalShortage: "NS",
-      },
-      {
-        occupation: "IT Specialist",
-        stateShortage: "S",
         nationalShortage: "NS",
       },
     ],
     lgSpecificShortages: [
-      "Building Surveyor",
-      "Horticulturist / Parks Worker",
-      "IT Specialist",
+      "Project Manager/Business Analyst",
+      "Community Development Officer",
     ],
   },
   TAS: {
@@ -207,72 +215,16 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "4,800",
     councils: 29,
     topShortages: [
-      "Environmental Health Officer",
-      "Planning Officer",
-      "Civil Engineer",
-      "Heavy Diesel Mechanic",
-      "Rates & Revenue Officer",
-    ],
-    oslTable: [
-      {
-        occupation: "Environmental Health Officer",
-        stateShortage: "S",
-        nationalShortage: "R",
-      },
-      {
-        occupation: "Planning Officer",
-        stateShortage: "R",
-        nationalShortage: "R",
-      },
-      {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Heavy Diesel Mechanic",
-        stateShortage: "S",
-        nationalShortage: "NS",
-      },
-      {
-        occupation: "Rates & Revenue Officer",
-        stateShortage: "NS",
-        nationalShortage: "NS",
-      },
-    ],
-    lgSpecificShortages: [
-      "Environmental Health Officer",
-      "Heavy Diesel Mechanic",
-      "Rates & Revenue Officer",
-    ],
-  },
-  VIC: {
-    code: "VIC",
-    name: "Victoria",
-    employees: "56,100",
-    councils: 79,
-    topShortages: [
-      "Early Childhood Educator",
-      "Statutory Planner",
-      "Civil Engineer",
+      "Urban/Town Planner",
       "Building Surveyor",
-      "Aged Care Worker",
+      "Engineer",
+      "Plumbing Inspector",
     ],
     oslTable: [
       {
-        occupation: "Early Childhood Educator",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Statutory Planner",
+        occupation: "Urban and Regional Planner",
         stateShortage: "R",
         nationalShortage: "R",
-      },
-      {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
       },
       {
         occupation: "Building Surveyor",
@@ -280,15 +232,63 @@ const STATES_DATA: Record<string, StateData> = {
         nationalShortage: "S",
       },
       {
-        occupation: "Aged Care Worker",
+        occupation: "Civil Engineer",
+        stateShortage: "S",
+        nationalShortage: "S",
+      },
+      {
+        occupation: "Plumbing Inspector",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+    ],
+    lgSpecificShortages: [
+      "Plumbing Inspector",
+    ],
+  },
+  VIC: {
+    code: "VIC",
+    name: "Victoria",
+    employees: "58,100",
+    councils: 79,
+    topShortages: [
+      "Mechanic",
+      "Planner",
+      "Arborist",
+      "Human Resources",
+      "Maternal Child Health Nurse",
+    ],
+    oslTable: [
+      {
+        occupation: "Mechanic",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "Planner",
+        stateShortage: "R",
+        nationalShortage: "R",
+      },
+      {
+        occupation: "Arborist",
+        stateShortage: "S",
+        nationalShortage: "S",
+      },
+      {
+        occupation: "Human Resources",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "Maternal Child Health Nurse",
         stateShortage: "S",
         nationalShortage: "S",
       },
     ],
     lgSpecificShortages: [
-      "Early Childhood Educator",
-      "Statutory Planner",
-      "Building Surveyor",
+      "Mechanic",
+      "Planner",
+      "Human Resources",
     ],
   },
   WA: {
@@ -297,46 +297,52 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "26,500",
     councils: 139,
     topShortages: [
-      "Environmental Health Officer",
-      "Civil Engineer",
-      "Plant Operator",
-      "Building Surveyor",
-      "Governance & Compliance Officer",
+      "Corporate Performance",
+      "IT/Cyber/AI/ERP Specialist",
+      "Environmental Officer",
+      "Finance (rates) Officer",
+      "Urban Planner",
     ],
     oslTable: [
       {
-        occupation: "Environmental Health Officer",
-        stateShortage: "S",
-        nationalShortage: "R",
-      },
-      {
-        occupation: "Civil Engineer",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Plant Operator",
-        stateShortage: "S",
-        nationalShortage: "NS",
-      },
-      {
-        occupation: "Building Surveyor",
-        stateShortage: "S",
-        nationalShortage: "S",
-      },
-      {
-        occupation: "Governance Officer",
+        occupation: "Corporate Performance",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
+      {
+        occupation: "IT/Cyber/AI/ERP Specialist",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "Environmental Officer",
+        stateShortage: "R",
+        nationalShortage: "R",
+      },
+      {
+        occupation: "Finance (rates) Officer",
+        stateShortage: "NS",
+        nationalShortage: "NS",
+      },
+      {
+        occupation: "Urban Planner",
+        stateShortage: "R",
+        nationalShortage: "R",
+      },
     ],
     lgSpecificShortages: [
-      "Environmental Health Officer",
-      "Plant Operator",
-      "Governance & Compliance Officer",
+      "Corporate Performance",
+      "IT/Cyber/AI/ERP Specialist",
+      "Environmental Officer",
+      "Finance (rates) Officer",
+      "Urban Planner",
     ],
   },
 };
+
+const MAX_STATE_EMPLOYEES = Math.max(
+  ...Object.values(STATES_DATA).map((state) => Number(state.employees.replace(/,/g, ""))),
+);
 
 interface NationalOccupation {
   name: string;
@@ -1118,14 +1124,14 @@ export default function StateTerritoryView({
                         <AnimatedCounter target={218000} formatNumber={true} />
                       </span>
                       <p className="text-sm font-semibold text-gray600">
-                        Local Government employees as of June 2025
+                        Local Government employees as of June 2025<sup>25</sup>
                       </p>
                     </div>
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        Source: ABS, Public Sector Employment and Earnings,
-                        2025, Table 1
+                        <sup>25</sup> ABS, Public Sector Employment and Earnings,
+                        2025, Table 1.
                       </p>
                     </div>
                   </div>
@@ -1151,14 +1157,14 @@ export default function StateTerritoryView({
                         />
                       </span>
                       <p className="text-sm font-semibold text-gray600 pt-1">
-                        National Workforce Composition
+                        National Workforce Composition<sup>26</sup>
                       </p>
                     </div>
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        Source: ALGA, 2022 Workforce Skills and Capability
-                        Survey, Table D2
+                        <sup>26</sup> ALGA, 2022 Local Government Workforce Skills
+                        and Capability Survey, 2022, Table D2.
                       </p>
                     </div>
                   </div>
@@ -1174,14 +1180,14 @@ export default function StateTerritoryView({
                       </span>
                       <p className="text-sm font-semibold text-gray600">
                         of the national workforce identifies as First Nations
-                        (vs 3.8% of the population)
+                        (vs 3.8% of the population)<sup>26</sup>
                       </p>
                     </div>
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        Source: ALGA, 2022 Workforce Skills and Capability
-                        Survey, Table D3
+                        <sup>26</sup> ALGA, 2022 Local Government Workforce Skills
+                        and Capability Survey, 2022, Table D2.
                       </p>
                     </div>
                   </div>
@@ -1616,12 +1622,12 @@ export default function StateTerritoryView({
                         />
                       </span>
                       <p className="text-xs font-bold text-gray600">
-                        Local councils
+                        Local councils<sup>{COUNCIL_SOURCES[selectedState].footnote}</sup>
                       </p>
                       <div className="border-t border-gray-100 my-2" />
                       <p className="text-xs text-active">
-                        Source: state and territory Local Government
-                        associations
+                        <sup>{COUNCIL_SOURCES[selectedState].footnote}</sup>{" "}
+                        {COUNCIL_SOURCES[selectedState].citation}
                       </p>
                     </div>
                   </div>
@@ -1989,14 +1995,12 @@ export default function StateTerritoryView({
 
                     <div className="space-y-4 pt-2">
                       {[
-                        { code: "NSW", val: "65,200", pct: "90%" },
-                        { code: "VIC", val: "56,100", pct: "78%" },
-                        { code: "QLD", val: "48,800", pct: "68%" },
-                        { code: "WA", val: "26,500", pct: "37%" },
-                        { code: "SA", val: "11,700", pct: "16%" },
-                        { code: "TAS", val: "4,800", pct: "8%" },
-                        { code: "NT", val: "5,000", pct: "7%" },
-                      ].map((item, idx) => (
+                        "NSW", "VIC", "QLD", "WA", "SA", "TAS", "NT",
+                      ].map((code) => ({
+                        code,
+                        val: STATES_DATA[code].employees,
+                        pct: `${(Number(STATES_DATA[code].employees.replace(/,/g, "")) / MAX_STATE_EMPLOYEES) * 100}%`,
+                      })).map((item, idx) => (
                         <div
                           key={item.code}
                           className="flex items-center gap-3 text-xs"

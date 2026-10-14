@@ -1,23 +1,31 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "number": "01",
+    "title": "National Agreement on Closing the Gap (Closing the Gap)",
+    "subtitle": "National Cabinet (Formerly Council of Australian Governments) · 2020–2031",
+    "description": "Closing the Gap is a commitment from all Australian Governments and Aboriginal and Torres Strait Islander representatives to a fundamentally new way of developing and implementing policies and programs that impact the lives of Aboriginal and Torres Strait Islander people. This includes policies and programs impacting recruitment, health and social programs specific to First Nations peoples, many of which are relevant to the Public Safety and Government industry-sectors.\n\nClosing the Gap is jointly implemented by the Federal, State and Territory governments, along with Australian Local Government Associations and Coalitions of Peaks. It focuses on four priority reforms (strengthen formal partnerships and shared decision making; build the community-controlled sector; transform government organisations; and shared access to data) and 19 national socio-economic targets, covering areas such as life expectancy, education, employment, justice and child protection. Overall progress towards meeting Closing the Gap targets has been mixed. Implementation of Closing the Gap is ongoing to 2031. The Productivity Commission is tracking these targets.",
+    "impactDescription": "The National Agreement on Closing the Gap has informed the research and engagements undertaken as part of the 2026 Local Government Workforce Insights Report, as it highlights and reaffirms the importance of working toward programs and initiatives that impact First Nations communities. Closing the Gap has informed engagement with Local Government stakeholders, particularly with the First Nations Councils who participated in the Local Government Skills Audit and uptake and utility of the Local Government Training Package project. This has ensured that the policies and programs impacting First Nations peoples, employees, and community members, are reflected accurately and fairly in this Report."
+  },
+  {
+    "id": 1,
+    "number": "02",
     "title": "The Australian Government's Strategic Priorities",
     "subtitle": "Department of the Prime Minister and Cabinet · 2022-2026",
     "description": "A four-year policy direction for the Australian Government that frames national priorities informing PSA's planning.\n\nOutcomes to date include hosting the Jobs and Skills Summit, implementing fee-free TAFE and more university places, establishing the National Reconstruction Fund and introducing a national anti-corruption commission — with progress continuing on public health, aged care, housing supply and budget sustainability.",
-    "impactDescription": "The priorities identify where efforts can be made by the Local Government industry-sector, its stakeholders and Public Skills Australia in working toward shared goals."
+    "impactDescription": "The priorities guide the 2026 Local Government Workforce Insights Report and identify where the Local Government industry-sector, stakeholders and Public Skills Australia can work toward shared goals, including housing, TAFE funding and sustainability practices among government."
   },
   {
     "id": 2,
-    "number": "02",
+    "number": "03",
     "title": "Working for Women — A Strategy for Gender Equality",
-    "subtitle": "Australian Government · Minister for Women",
+    "subtitle": "Australian Government – Minister for Women · 2023–ongoing",
     "description": "The national strategy for gender equality, informing workforce inclusivity priorities across the industry-sectors.\n\nThe Strategy sets five priority areas reported annually. Priority Area 3 — economic equality and security — focuses on gender pay gaps, access to skills and training and reducing occupational and industrial gender segregation, supported by the Advancing Gender Equality in Gender Segregated Industries grant program (extended by $28.5 million in December 2025).",
-    "impactDescription": "These priorities informed the contextualisation of research for the 2026 Local Government Workforce Insights Report."
+    "impactDescription": "These priorities informed the contextualisation of research for the 2026 Local Government Workforce Insights Report. Public Skills Australia will continue to prioritise diversity and inclusion in its research and fairly report employment, skills and training challenges relating to gender equality."
   },
   {
     "id": 3,
-    "number": "03",
+    "number": "04",
     "title": "The Clean Energy Generation: Workforce Needs for a Net Zero Economy",
     "subtitle": "Jobs and Skills Australia · 2023–2025",
     "description": "Considers emerging and future clean-energy workforce requirements as Australia transitions to net zero.\n\nJSA's preliminary modelling estimates Australia's clean-energy workforce must grow from 53,000 to 84,000 employees by 2050, with 50 recommendations covering participation and attraction, hiring and retention, critical occupations, and education and training.",
@@ -25,7 +33,7 @@
   },
   {
     "id": 4,
-    "number": "04",
+    "number": "05",
     "title": "Australian Cyber Security Strategy",
     "subtitle": "Department of Home Affairs · 2023–2030",
     "description": "A roadmap for Australia's cyber security posture — relevant to councils' growing IT and cyber capability needs.\n\nThe Strategy is structured around six 'cyber shields' delivered across three horizons to 2030. Horizon 1 (2023–2025) has concentrated on incident reporting and response, legislative reform, threat-sharing pilots and raising government and critical-infrastructure security standards.",
@@ -33,15 +41,15 @@
   },
   {
     "id": 5,
-    "number": "05",
+    "number": "06",
     "title": "Unlocking the Potential of VET",
     "subtitle": "Qualification Reform Design Group · 2024",
     "description": "QRDG advice to Skills Ministers on reforming qualifications — directly relevant to training-product development.\n\nThe QRDG's final December 2024 recommendations centre on modernising VET qualifications through a purpose-led, principles-based approach to qualification design — JSCs are responsible for ensuring qualifications serve a clear purpose, link to workforce needs and are not unnecessarily duplicated.",
-    "impactDescription": "This work informed Public Skills Australia's research into the utilisation and purpose of the LGA Local Government Training Package, including a Demonstration Project delivered to the QRDG in Q3 2024."
+    "impactDescription": "This work informed Public Skills Australia's research into the utilisation and purpose of the LGA Local Government Training Package. The Review of the Uptake and Utility of the package aims to ensure training products are streamlined, purposeful and relevant to current skills and training challenges."
   },
   {
     "id": 6,
-    "number": "06",
+    "number": "07",
     "title": "Occupation Standard Classification for Australia",
     "subtitle": "Australian Bureau of Statistics · 2024–ongoing",
     "description": "Formerly ANZSCO — the occupation classification underpinning shortage analysis and workforce data.\n\nOSCA undergoes regular updates under the OSCA Maintenance Strategy (2025). The first round of stakeholder consultation completes in August 2026, with the next update published in March 2027 ahead of the 2026 Census data release.",
@@ -49,7 +57,7 @@
   },
   {
     "id": 7,
-    "number": "07",
+    "number": "08",
     "title": "2024 Core Skills Occupation List — Key Findings Report",
     "subtitle": "Jobs and Skills Australia · 2024–ongoing",
     "description": "Labour market analysis informing identification of core skills occupations.\n\nThe 2024 Key Findings Report compiled 456 occupations considered appropriate for the Core Skills Stream of the Skills in Demand visa, and identified 'suitability gap' and 'retention gap' occupation categories.",
@@ -57,7 +65,7 @@
   },
   {
     "id": 8,
-    "number": "08",
+    "number": "09",
     "title": "Better Together — The Jobs and Skills Report 2024",
     "subtitle": "Jobs and Skills Australia · 2024–ongoing",
     "description": "JSA's mandated annual insight report on the jobs and skills system.\n\nBetter Together details evidence aligned to five strategic pillars: fostering inclusive participation, understanding today's workforce, shaping Australia's future workforce, optimising pathways and system architecture, and activating an informed dialogue.",
@@ -65,7 +73,7 @@
   },
   {
     "id": 9,
-    "number": "09",
+    "number": "10",
     "title": "Training Package Organising Framework",
     "subtitle": "Skills and Workforce Ministerial Council · 2025–ongoing",
     "description": "Updated July 2025 on QRDG advice — the TPOF houses the training package policies and standards, setting out the process for developing and seeking approval of new VET training products for JSCs.\n\nAs a JSC, Public Skills Australia will continue to adhere to the TPOF to ensure the Australian VET system is high-performing and readily supports student and industry needs.",
@@ -73,23 +81,23 @@
   },
   {
     "id": 10,
-    "number": "10",
+    "number": "11",
     "title": "Five Pillars of Productivity Inquiries — Final Reports",
     "subtitle": "Productivity Commission · 2025–ongoing",
-    "description": "The Productivity Commission has provided 47 recommendations across five pillars of productivity policy: a more dynamic and resilient economy; a skilled and adaptable workforce; harnessing data and digital technology; delivering quality care more efficiently; and investing in cheaper, cleaner energy.\n\nThe pillars span: creating a more dynamic and resilient economy; building a skilled and adaptable workforce; harnessing data and digital technology; delivering quality care more efficiently; and investing in cheaper, cleaner energy.",
-    "impactDescription": "The inquiries underpin this Report's productivity driver of change — Australia is experiencing its slowest productivity growth in 60 years, shaping workforce planning priorities across the industry-sectors."
+    "description": "The Productivity Commission has provided 47 recommendations across five pillars of productivity policy: creating a more dynamic and resilient economy; building a skilled and adaptable workforce; harnessing data and digital technology; delivering quality care more efficiently; and investing in cheaper, cleaner energy and the net zero transformation. At the time of drafting this Report, the Australian Government had not yet responded to the recommendations.",
+    "impactDescription": "Public Skills Australia follows the Commission's advice so that Local Government research and training products address relevant challenges. Building a skilled and adaptable workforce is the most relevant pillar for this industry-sector; Public Skills Australia will monitor the government response and its impact."
   },
   {
     "id": 11,
-    "number": "11",
-    "title": "Opportunity and Productivity: Towards a Tertiary Harmonisation Roadmap",
+    "number": "12",
+    "title": "Opportunity and Productivity: Towards a Tertiary Harmonisation Roadmap Report",
     "subtitle": "Jobs and Skills Australia · 2025–ongoing",
     "description": "Articulates the benefits of a deeper harmonised tertiary sector across VET and higher education.\n\nThe Report outlines 19 recommendations across three categories, working towards a harmonised tertiary system that can tackle national challenges, address skilled workforce shortages and improve productivity.",
     "impactDescription": "Provides insights on best practice within the tertiary education system and how these practices compare to the VET system used by the Local Government industry-sector."
   },
   {
     "id": 12,
-    "number": "12",
+    "number": "13",
     "title": "Gender Economic Equality Study",
     "subtitle": "Jobs and Skills Australia · 2025–ongoing",
     "description": "Explores three challenges for the jobs and skills systems relating to gender economic equality.\n\nReported over three papers, concluding with Speeding up progress towards gender economic equality (October 2025), which sets out 10 recommendations spanning gender segregation, early career learning, National Skills Agreement targets and support for First Nations women.",
@@ -97,7 +105,7 @@
   },
   {
     "id": 13,
-    "number": "13",
+    "number": "14",
     "title": "Occupational Shortage List (OSL)",
     "subtitle": "Jobs and Skills Australia · Ongoing",
     "description": "Formerly the Skills Priority List — the annual point-in-time review of occupational shortages used throughout this Report.\n\nLast updated in 2025 under the new OSCA classifications: 29 per cent of assessed occupations (293 of 1,022) were in national shortage — down from 33 per cent in 2024 — with 29 occupations newly in shortage, mostly health, science, technician, trade and machinery roles.",

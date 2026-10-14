@@ -182,10 +182,10 @@ export default function ProposedStrategies2026View({
                   <div className="space-y-1">
                     <h3 className="text-xs font-bold text-gray800">Impact:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                      An Occupational Shortage Map connecting the most challenging
-                      shortages to the qualifications and RTOs that can address
-                      them — enabling the sector to meet expanding and increasing
-                      service delivery requirements.
+                      Support the Local Government workforce by identifying current
+                      qualifications which may support appropriate and timely
+                      skilling, resulting in increased enrolments and completions
+                      of relevant qualifications.
                     </p>
                   </div>
 
@@ -316,7 +316,9 @@ export default function ProposedStrategies2026View({
                       <li>Australian Local Government Association</li>
                       <li>State/Territory Local Government Associations</li>
                       <li>Local Government Workforce Development Group</li>
-                      <li>Jobs and Skills Councils &gt; RTOs &gt; STTA/SROs</li>
+                      <li>Jobs and Skills Councils</li>
+                      <li>RTOs</li>
+                      <li>STTA/SROs</li>
                       <li>State/Territory Local Government Departments</li>
                     </ul>
                   </div>
@@ -326,6 +328,12 @@ export default function ProposedStrategies2026View({
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       Support the Local Government industry-sector by
                       facilitating access to whole of VET sector stakeholders.
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">Anticipated timing:</h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      Part A: 12-month project.<br />Part B: TBC if required.
                     </p>
                   </div>
                 </div>

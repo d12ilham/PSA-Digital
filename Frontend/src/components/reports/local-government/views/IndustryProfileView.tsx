@@ -61,44 +61,31 @@ export default function IndustryProfileView({
   }, []);
 
   const growthData = [
-    { year: "2020", val: "194,500", height: "60%" },
-    { year: "2021", val: "198,200", height: "66%" },
-    { year: "2022", val: "205,000", height: "74%" },
-    { year: "2023", val: "209,400", height: "80%" },
-    { year: "2024", val: "213,800", height: "88%" },
-    { year: "2025", val: "218,000", height: "100%" },
-  ];
+    { year: "2020–2021", value: 190800 },
+    { year: "2021–2022", value: 192500 },
+    { year: "2022–2023", value: 208200 },
+    { year: "2023–2024", value: 213500 },
+    { year: "2024–2025", value: 218000 },
+  ].map(({ year, value }) => ({
+    year,
+    val: value.toLocaleString("en-AU"),
+    height: `${(value / 220000) * 100}%`,
+  }));
 
   const trainingData = [
-    {
-      year: "2021",
-      enrol: "7,800",
-      comp: "4,200",
-      enrolH: "75%",
-      compH: "52%",
-    },
-    {
-      year: "2022",
-      enrol: "8,100",
-      comp: "4,500",
-      enrolH: "82%",
-      compH: "55%",
-    },
-    {
-      year: "2023",
-      enrol: "8,400",
-      comp: "4,700",
-      enrolH: "88%",
-      compH: "58%",
-    },
-    {
-      year: "2024",
-      enrol: "8,650",
-      comp: "4,900",
-      enrolH: "95%",
-      compH: "62%",
-    },
-  ];
+    { year: "2019", enrol: 945, comp: 285 },
+    { year: "2020", enrol: 735, comp: 300 },
+    { year: "2021", enrol: 555, comp: 220 },
+    { year: "2022", enrol: 365, comp: 155 },
+    { year: "2023", enrol: 470, comp: 90 },
+    { year: "2024", enrol: 600, comp: 135 },
+  ].map(({ year, enrol, comp }) => ({
+    year,
+    enrol,
+    comp,
+    enrolH: `${(enrol / 1000) * 100}%`,
+    compH: `${(comp / 1000) * 100}%`,
+  }));
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -206,9 +193,7 @@ export default function IndustryProfileView({
             </div>
 
             <p className="text-xs text-active leading-relaxed">
-              Figure 1: 2020–2025 Employment Growth in Local Government. Roll
-              over any bar for its value. Bar values to be verified against the
-              report data at content QA.
+              Figure 1: 2020–2025 Employment Growth in Local Government.
             </p>
           </div>
 
@@ -309,9 +294,8 @@ export default function IndustryProfileView({
             </div>
 
             <p className="text-xs text-active leading-relaxed">
-              Figure 2: LGA Local Government Training Package enrolment and
-              completion. Roll over any bar for its value. Chart values to be
-              verified against the report data at content QA.
+              Figure 2: LGA Local Government Training Package enrolments and
+              completions.
             </p>
           </div>
         </div>
