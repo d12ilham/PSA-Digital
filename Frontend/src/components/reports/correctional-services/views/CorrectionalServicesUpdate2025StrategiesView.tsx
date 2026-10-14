@@ -50,9 +50,9 @@ const projects = [
     title: "First Nations Workforce Participation",
     focus: "Barriers, participation and retention",
     challenge:
-      "The high attrition of First Nations employees is a challenge for the Correctional Services industry-sector, with formal cultural safety and wellbeing supports adding further complexity in small and regional facilities.",
+      "The high attrition of First Nations employees is a challenge for the Correctional Services industry-sector. The project responds to Closing the Gap priorities and the Ministerial Statement of Expectations, while recognising that small and regional facilities can face resource constraints when providing formal cultural safety and wellbeing supports.",
     summary:
-      "A proposal to Investigate Barriers to First Nations Workforce Participation was put forward in the 2025 Correctional Services Workforce Insights Report. The strategy sought to investigate barriers for First Nations people to participate in the Correctional Services workforce, focusing on attraction, attrition and retention.",
+      "A proposal to investigate barriers to First Nations workforce participation was put forward in the 2025 Correctional Services Workforce Insights Report. The strategy sought to investigate barriers for First Nations people to participate in the Correctional Services workforce, focusing on attraction, attrition and retention, and to support priorities aligned with Closing the Gap.",
     progress:
       "Public Skills Australia has begun commissioning a research project through a First Nations-led research organisation on First Nations workforce participation across Public Safety and Government industry-sectors, including Correctional Services.",
     nextSteps: [
@@ -62,10 +62,10 @@ const projects = [
       "Understand challenges faced by First Nations people and the factors that supported successful employment or aligned training.",
     ],
     aims: [
-      "Advance Closing the Gap priority reforms through industry research.",
+      "Advance Closing the Gap priority reforms and the Ministerial Statement of Expectations through industry research.",
       "Inform attraction, retention and attrition responses.",
       "Strengthen evidence for culturally safe workforce participation pathways.",
-      "Support future workforce planning for regional and custodial contexts.",
+      "Support future workforce planning for regional and custodial contexts where resources for cultural safety and wellbeing supports may be constrained.",
     ],
   },
 ];

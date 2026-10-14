@@ -16,9 +16,9 @@ type CorrectionalServicesReport = {
 const initiatives = [
   {
     number: "01",
-    owner: "National Cabinet",
+    owner: "National Cabinet (Formerly Council of Australian Governments)",
     period: "2020 - 2031",
-    title: "National Agreement on Closing the Gap",
+    title: "National Agreement on Closing the Gap (Closing the Gap)",
     summary:
       "Closing the Gap is a commitment from all Australian governments and Aboriginal and Torres Strait Islander representatives to a fundamentally new way of developing and implementing policies and programs that impact the lives of First Nations people. It focuses on four priority reforms and 19 national socio-economic targets.",
     relevance:
@@ -127,7 +127,7 @@ const initiatives = [
   {
     number: "12",
     owner: "Jobs and Skills Australia",
-    period: "2020 - 2031",
+    period: "2025 - ongoing",
     title: "Opportunity and Productivity: Towards a Tertiary Harmonisation Roadmap Report",
     summary:
       "The report articulates the benefits of a more harmonised tertiary sector and provides recommendations to create a sustainable pathway forward.",

@@ -33,34 +33,29 @@ const challengeCards = [
     description:
       "A priority challenge connected to the currency, relevance and delivery of Correctional Practice qualifications across custodial and community settings.",
   },
-  {
-    title: "Primary focus: community corrections workforce",
-    description:
-      "The related projects focused on Correctional Officer occupations in custodial settings, so the community corrections workforce became the primary focus for this Report.",
-  },
 ];
 
 const insights = [
   {
     number: "1",
     title:
-      "The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.",
+      "Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community.",
     detail:
-      "Stakeholders identified that contemporary community corrections roles require broader capability than is currently reflected in the Certificate III in Correctional Practice.",
+      "CCOs require the capability to support the reduction of recidivism and enable rehabilitation.",
   },
   {
     number: "2",
     title:
-      "Certificates III and IV do not include emerging capability requirements.",
+      "The CCO role is comparatively complex and requires more specialised capability than Certificate III in Correctional Practice offers.",
     detail:
-      "Emerging requirements include trauma-informed practice, domestic and family violence, sex offenders in the community and mental health, including suicidal ideation.",
+      "Advanced concepts include behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.",
   },
   {
     number: "3",
     title:
-      "Delivery of qualifications is challenging to contextualise for community corrections settings.",
+      "Higher education requirements may constrain the CO-to-CCO pathway.",
     detail:
-      "Registered Training Organisations identified delivery challenges in contextualising Certificates III and IV in Correctional Practice for community corrections environments.",
+      "Consultations indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. This pipeline can be limited by higher education qualification requirements.",
   },
 ];
 
@@ -225,7 +220,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
               onClick={() => router.push(`/reports/${slug}/industry_overview`)}
             />
           </div>
-          <div className="grid gap-4 border-t border-[#E9EAEB] p-6 lg:grid-cols-3">
+          <div className="grid gap-4 border-t border-[#E9EAEB] p-6 lg:grid-cols-2">
             {challengeCards.map((card, index) => (
               <article
                 key={card.title}
@@ -369,10 +364,10 @@ export default function CorrectionalServicesExecutiveSummaryView({
                 Certificate IV in Correctional Practice.
               </h3>
               <p className="mt-4 max-w-[900px] text-sm leading-6 text-[#535862]">
-                To provide the Correctional Services Subcommittee an analysis of
-                contemporary community services practice that could inform the
-                Community Corrections specialisations in the Certificate III and
-                Certificate IV in Correctional Practice.
+                To provide the Correctional Services Subcommittee with an
+                analysis of the suitability of contemporary practices outlined
+                in the CHC Community Services Training Package for potential
+                application to Community Corrections Officer training.
               </p>
             </article>
           </div>
@@ -393,8 +388,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
             HumanAbility is the Jobs and Skills council for the care and support
             sectors. They are responsible for maintaining and updating the CHC
             Community Services, HLT Health, and SIS Sports, Fitness and
-            Recreation Training Packages. Public Skills Australia 2025,
-            Corrections Implementation Report, unpublished.
+            Recreation Training Packages.
           </p>
         </section>
       </main>

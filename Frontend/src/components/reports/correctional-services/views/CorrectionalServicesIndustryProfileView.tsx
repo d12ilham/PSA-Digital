@@ -39,22 +39,22 @@ const charts: ChartTab[] = [
     id: "facilities",
     number: "CHART 2 OF 8",
     title: "Correctional Custodial Facilities, Number (at 30 June 2025)",
-    source: "Australian Government, State of the Service Report 2024-25, Table 13",
+    source: "Productivity Commission Report on Government Services, Justice Part C - 8 Corrective Services, Table 8A.3",
   },
   {
     id: "characteristics",
     number: "CHART 3 OF 8",
     title: "Workforce Characteristics - Custodial Settings and Community Corrections",
     axis: "Y axis: Percentage of Total Workforce, 0-80%",
-    source: "Jobs and Skills Australia 2025, Occupation - Demographic data (table)",
-    note: "Footnote 18: Data for the Community Corrections workforce - female and part time employment is from Jobs and Skills Australia Occupation profile 2025.",
+    source: "Jobs and Skills Australia, Atlas Pro Overview - Correctional Services, 2025; Jobs and Skills Australia, Occupation and Industry Profiles - Occupations, 2025; Australian Bureau of Statistics.",
+    note: "18 Data for the Community Corrections workforce - female and part time employment is from Jobs and Skills Australia Occupation profile 2025 based on ANZSCO classification 411714 Parole and Probation Officers. First Nations and workforce living outside capital cities data is from ABS Table Builder using ABS 2021 Census dataset on ANZSCO classification 411714 Parole and Probation Officers. A Community Corrections Officer (411631) occupation has been created under the new OSCA classification; however, data is not yet available.",
   },
   {
     id: "training",
     number: "CHART 4 OF 8",
     title: "Correctional Services Training Package Enrolments",
     axis: "X axis: 0-6,000, rows by year",
-    source: "NCVER Total VET students and courses, 2025 release",
+    source: "NCVER 2025, Total VET students and courses 2024: program enrolments Total, Training Package, CSC Correctional Services, Program Name, [data set].",
   },
   {
     id: "imprisonment-australia",
@@ -68,7 +68,7 @@ const charts: ChartTab[] = [
     number: "CHART 6 OF 8",
     title: "Prison Capacity Utilisation by State and Territory",
     axis: "Y axis: Percentage, 65-100% - grouped columns per jurisdiction, three financial years",
-    source: "Productivity Commission 2025, Report on Government Services, Justice Part C - Corrective Services, Table 8A.5",
+    source: "Productivity Commission 2026 Report on Government Services, Justice Part C - 8 Corrective Services, Table 8A.15",
   },
   {
     id: "imprisonment-state",
@@ -86,50 +86,52 @@ const charts: ChartTab[] = [
 ];
 
 const ageData = [
-  ["15-19", 4],
-  ["20-24", 12],
-  ["25-34", 26],
-  ["35-44", 28],
-  ["45-54", 21],
-  ["55-59", 14],
-  ["60-64", 7],
-  ["65+", 3],
+  ["15-19", 0.1],
+  ["20-24", 3.0],
+  ["25-34", 21.5],
+  ["35-44", 23.5],
+  ["45-54", 28.0],
+  ["55-59", 12.0],
+  ["60-64", 8.1],
+  ["65+", 3.8],
 ] as const;
 
 const facilityData = [
-  ["ACT", 1],
-  ["NSW", 35],
-  ["NT", 6],
-  ["QLD", 14],
-  ["SA", 9],
-  ["TAS", 4],
-  ["VIC", 14],
-  ["WA", 16],
+  ["ACT", 1, 0, 1, 0],
+  ["NSW", 30, 2, 2, 13],
+  ["NT", 5, 0, 0, 0],
+  ["QLD", 14, 0, 0, 0],
+  ["SA", 7, 2, 0, 0],
+  ["TAS", 5, 0, 0, 0],
+  ["VIC", 11, 3, 1, 0],
+  ["WA", 16, 1, 0, 0],
 ] as const;
 
 const characteristicData = [
-  ["Outside capital cities", 56, 34],
-  ["Part-time employment", 12, 24],
-  ["First Nations", 4, 6],
-  ["Female", 31, 71],
+  ["Female", 33, 72],
+  ["First Nations", 4, 5],
+  ["Part-time employment", 12, 14],
+  ["Workforce outside capital cities", 38, 40],
 ] as const;
 
 const trainingData = [
-  ["2021", 82, 48, 18],
-  ["2022", 88, 54, 24],
-  ["2023", 74, 50, 20],
-  ["2024", 92, 58, 28],
-  ["2025", 86, 52, 31],
+  ["2019", 5595, 5, 1370, 145, 260],
+  ["2020", 5230, 20, 1515, 230, 215],
+  ["2021", 4420, 490, 1645, 250, 120],
+  ["2022", 3955, 505, 1280, 190, 30],
+  ["2023", 5305, 230, 1170, 135, 30],
+  ["2024", 5765, 190, 1560, 170, 25],
 ] as const;
 
 const imprisonmentAusData = [
-  ["Dec 2022", 205],
-  ["Jun 2023", 208],
-  ["Dec 2023", 211],
-  ["Jun 2024", 214],
-  ["Dec 2024", 216],
-  ["Jun 2025", 217],
-  ["Dec 2025", 218],
+  ["Mar 24", 205.7],
+  ["Jun 24", 207.9],
+  ["Sep 24", 207.8],
+  ["Dec 24", 206.8],
+  ["Mar 25", 214.3],
+  ["Jun 25", 217.3],
+  ["Sep 25", 216.1],
+  ["Dec 25", 217.4],
 ] as const;
 
 const stateShort = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
@@ -159,11 +161,13 @@ const stateRateData = [
 const expenditureData = [
   ["AUSTRALIA", "$6.38 billion", 100],
   ["NSW", "$1.83 billion", 72],
+  ["VIC", "$1.3 billion", 52],
   ["QLD", "$1.37 billion", 55],
-  ["WA", "$982 million", 42],
   ["SA", "$360 million", 24],
+  ["WA", "$982 million", 42],
+  ["TAS", "$168 million", 15],
   ["NT", "$254 million", 19],
-  ["ACT", "$145 million", 14],
+  ["ACT", "$113 million", 12],
 ] as const;
 
 function MiniBarChart({
@@ -235,6 +239,66 @@ function HorizontalBars({
   );
 }
 
+function FacilityBreakdown({ loaded }: { loaded: boolean }) {
+  const max = Math.max(
+    ...facilityData.map(([, government, privateFacilities, transition, court]) =>
+      government + privateFacilities + transition + court,
+    ),
+  );
+  const legend = [
+    ["Government", "bg-[#0B6DA8]"],
+    ["Private", "bg-[#38BDF8]"],
+    ["Transition centres", "bg-[#BEEBFB]"],
+    ["24hr court cells", "bg-[#75D7FA]"],
+  ] as const;
+
+  return (
+    <div className="space-y-4 rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
+      <div className="flex flex-wrap gap-4 text-[11px] font-bold text-[#535862]">
+        {legend.map(([label, color]) => (
+          <span key={label} className="flex items-center gap-2">
+            <i className={`h-3 w-3 rounded-sm ${color}`} />
+            {label}
+          </span>
+        ))}
+      </div>
+      <div className="space-y-3">
+        {facilityData.map(([label, government, privateFacilities, transition, court], index) => {
+          const values = [government, privateFacilities, transition, court];
+          const total = values.reduce<number>((sum, value) => sum + value, 0);
+
+          return (
+            <div key={label} className="grid grid-cols-[58px_1fr_38px] items-center gap-3">
+              <span className="text-xs font-bold text-[#535862]">{label}</span>
+              <div className="flex h-5 overflow-hidden rounded-full bg-[#E8F7FE]">
+                {values.map((value, itemIndex) => (
+                  <div
+                    key={`${label}-${itemIndex}`}
+                    style={{
+                      width: loaded ? `${(value / max) * 100}%` : "0%",
+                      transitionDelay: `${index * 80 + itemIndex * 50}ms`,
+                    }}
+                    className={`h-full transition-all duration-1000 ease-out ${
+                      itemIndex === 0
+                        ? "bg-[#0B6DA8]"
+                        : itemIndex === 1
+                          ? "bg-[#38BDF8]"
+                          : itemIndex === 2
+                            ? "bg-[#BEEBFB]"
+                            : "bg-[#75D7FA]"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-right text-xs font-bold text-[#063B5D]">{total}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function GroupedBars({ loaded }: { loaded: boolean }) {
   return (
     <div className="rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
@@ -271,26 +335,44 @@ function GroupedBars({ loaded }: { loaded: boolean }) {
 }
 
 function StackedTraining({ loaded }: { loaded: boolean }) {
+  const max = Math.max(
+    ...trainingData.map(([, ...values]) =>
+      values.reduce<number>((sum, value) => sum + value, 0),
+    ),
+  );
+
   return (
     <div className="rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
       <div className="mb-5 flex flex-wrap gap-4 text-[11px] font-bold text-[#535862]">
-        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#0B6DA8]" />CSC50320 - Advanced Dip.</span>
-        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#38BDF8]" />CSC50122 - Dip.</span>
-        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#BEEBFB]" />CSC40122 - Cert. IV</span>
+        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#0B6DA8]" />CSC30122 - Cert. III in Correctional Practice</span>
+        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#38BDF8]" />CSC30222 - Cert. III in Immigration Detention Ops.</span>
+        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#BEEBFB]" />CSC40122 - Cert. IV in Correctional Practice</span>
+        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#75D7FA]" />CSC50122 - Dip. of Correctional Administration</span>
+        <span className="flex items-center gap-2"><i className="h-3 w-3 bg-[#063B5D]" />CSC60120 - Advanced Dip. of Correctional Management</span>
       </div>
       <div className="space-y-3">
-        {trainingData.map(([year, cert, dip, adv], index) => (
+        {trainingData.map(([year, certIII, immigration, certIV, diploma, advanced], index) => (
           <div key={year} className="grid grid-cols-[52px_1fr] items-center gap-3">
             <span className="text-xs font-bold text-[#535862]">{year}</span>
             <div className="flex h-6 overflow-hidden rounded-full bg-[#E8F7FE]">
-              {[cert, dip, adv].map((value, itemIndex) => (
+              {[certIII, immigration, certIV, diploma, advanced].map((value, itemIndex) => (
                 <div
                   key={`${year}-${itemIndex}`}
                   style={{
-                    width: loaded ? `${value / 2}%` : "0%",
+                    width: loaded ? `${(value / max) * 100}%` : "0%",
                     transitionDelay: `${index * 90 + itemIndex * 80}ms`,
                   }}
-                  className={`h-full transition-all duration-1000 ${itemIndex === 0 ? "bg-[#0B6DA8]" : itemIndex === 1 ? "bg-[#38BDF8]" : "bg-[#BEEBFB]"}`}
+                  className={`h-full transition-all duration-1000 ${
+                    itemIndex === 0
+                      ? "bg-[#0B6DA8]"
+                      : itemIndex === 1
+                        ? "bg-[#38BDF8]"
+                        : itemIndex === 2
+                          ? "bg-[#BEEBFB]"
+                          : itemIndex === 3
+                            ? "bg-[#75D7FA]"
+                            : "bg-[#063B5D]"
+                  }`}
                 />
               ))}
             </div>
@@ -320,6 +402,21 @@ function LineLikeBars({ loaded }: { loaded: boolean }) {
             <span className="text-center text-[10px] font-bold leading-tight text-[#535862]">{label.replace(" ", "\n")}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function DatasetRequiredNotice({ title }: { title: string }) {
+  return (
+    <div className="rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-6">
+      <div className="rounded-lg border-l-8 border-[#0B6DA8] bg-[#E8F7FE] p-5">
+        <h3 className="text-base font-bold text-[#252D02]">{title}</h3>
+        <p className="mt-3 text-sm leading-6 text-[#535862]">
+          The printed report does not expose every underlying numerical value for this chart.
+          The approved underlying dataset used to produce the final chart is required before this
+          visual can be implemented accurately. Values have not been estimated from the graph.
+        </p>
       </div>
     </div>
   );
@@ -382,12 +479,12 @@ function ExpenditureChart({ loaded }: { loaded: boolean }) {
 
 function ChartPreview({ chartId, loaded }: { chartId: string; loaded: boolean }) {
   if (chartId === "age") return <MiniBarChart data={ageData} loaded={loaded} />;
-  if (chartId === "facilities") return <HorizontalBars data={facilityData} loaded={loaded} />;
+  if (chartId === "facilities") return <FacilityBreakdown loaded={loaded} />;
   if (chartId === "characteristics") return <GroupedBars loaded={loaded} />;
   if (chartId === "training") return <StackedTraining loaded={loaded} />;
   if (chartId === "imprisonment-australia") return <LineLikeBars loaded={loaded} />;
-  if (chartId === "capacity") return <TripleGroupedBars data={capacityData} loaded={loaded} />;
-  if (chartId === "imprisonment-state") return <TripleGroupedBars data={stateRateData} loaded={loaded} />;
+  if (chartId === "capacity") return <DatasetRequiredNotice title="Prison Capacity Utilisation by State and Territory" />;
+  if (chartId === "imprisonment-state") return <DatasetRequiredNotice title="Average Daily Imprisonment Rate - State and Territory" />;
   return <ExpenditureChart loaded={loaded} />;
 }
 

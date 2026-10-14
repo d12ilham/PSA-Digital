@@ -28,7 +28,7 @@ const drivers = [
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc:
-      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress.",
+      "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress. [3]",
     sources:
       "Sources (3): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
   },
@@ -39,7 +39,7 @@ const drivers = [
     shortDesc: "Australia is experiencing the slowest productivity growth in 60 years.",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
-      "In its Five Pillars of Productivity enquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.",
+      "In its Five Pillars of Productivity enquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour. [4, 5]",
     sources:
       "Sources (4, 5): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026; Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
   },
@@ -52,7 +52,7 @@ const drivers = [
     fullTitle:
       "Driver 3 — Emergence of AI, greater automation and broader digital transformation",
     fullDesc:
-      "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.",
+      "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions. [6, 7]",
     sources:
       "Sources (6, 7): Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025; Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024; Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025.",
   },
@@ -73,55 +73,46 @@ const megatrends = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
-    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of career opportunities and pathways across Public Safety and Government workforces.",
   },
   {
     id: "climate",
     icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
-    desc: "Climate change impacts many Public Safety and Government functions, including emergency management, infrastructure planning, community resilience and operational readiness.",
   },
   {
     id: "labour",
     icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
-    desc: "Public Safety and Government workforces compete for labour with the private sector and other parts of the public sector, increasing attraction and retention pressures.",
   },
   {
     id: "duties",
     icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
-    desc: "Employees are increasingly taking on expanded responsibilities to meet community, operational and service delivery needs.",
   },
   {
     id: "diversity",
     icon: "/images/reports/drivers-of-change/Diversity.svg",
     title: "Diversity and inclusion",
-    desc: "Equitable participation of a diverse workforce remains an ongoing goal, particularly in leadership and specialised operational roles.",
   },
   {
     id: "demographics",
     icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
-    desc: "Ageing workforces can impact the transfer of institutional knowledge and contribute to future skills gaps.",
   },
   {
     id: "tech",
     icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
-    desc: "The implementation of new technology can be impacted by resource constraints, regulatory requirements and the availability of training.",
   },
   {
     id: "recruitment",
     icon: "/images/reports/drivers-of-change/Recruitment.svg",
     title: "Recruitment and retention",
-    desc: "Recruitment and retention challenges are heightened in specialised roles and in remote, regional and rural locations.",
   },
   {
     id: "trust",
     icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
-    desc: "Public Safety and Government organisations must balance resourcing constraints with community needs, expectations and public trust.",
   },
 ];
 
@@ -397,9 +388,6 @@ export default function CorrectionalServicesDriversOfChangeView({
                   <h3 className="text-xl font-bold text-[#252D02]">
                     {activeMegatrend.title}
                   </h3>
-                  <p className="mt-2 max-w-[960px] text-sm leading-6 text-[#535862]">
-                    {activeMegatrend.desc}
-                  </p>
                 </div>
               )}
             </div>

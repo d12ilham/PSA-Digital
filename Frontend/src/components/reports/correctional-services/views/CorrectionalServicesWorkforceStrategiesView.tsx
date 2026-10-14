@@ -41,6 +41,8 @@ const stakeholders = [
   "HumanAbility",
   "State and Territory Correctional Services",
   "Private Correctional Service organisations",
+  "Public Sector Unions",
+  "Enterprise RTOs/RTOs",
 ];
 
 const updateCards = [
@@ -76,10 +78,8 @@ const updateCards = [
       "Qualification reform principles for streamlined, relevant and future-ready qualifications.",
     ],
     recommendations: [
-      "Develop an Implementation Guide tailored to Certificate III in Correctional Practice.",
-      "Incorporate culturally appropriate learning and assessment guidance.",
-      "Facilitate national collaboration events to build capacity.",
-      "Address implementation challenges previously identified by stakeholders.",
+      "Develop an Implementation Guide tailored to Certificate III in Correctional Practice, incorporating culturally appropriate learning and assessment guidance.",
+      "Facilitate a series of events to foster national collaboration, build capacity and address implementation challenges previously identified.",
     ],
   },
   {
@@ -171,7 +171,9 @@ export default function CorrectionalServicesWorkforceStrategiesView({
               <p className="mt-4 text-sm leading-6 text-[#535862]">
                 The analysis will identify contemporary practice that could inform future updates
                 to the Community Corrections specialisations in the officers Certificate III and
-                Certificate IV in Correctional Practice.
+                Certificate IV in Correctional Practice. It will consider contemporary practice in
+                community services and case management and identify whether this may support CCO
+                skills requirements.
               </p>
             </div>
             <span className="w-fit rounded-full bg-[#E8F7FE] px-4 py-2 text-xs font-bold uppercase text-[#0B6DA8]">
@@ -198,7 +200,8 @@ export default function CorrectionalServicesWorkforceStrategiesView({
               <p className="mt-3 text-sm leading-6 text-[#535862]">
                 To provide the Correctional Services Subcommittee an analysis of contemporary
                 community services practice that could inform the Community Corrections
-                specialisations in the Certificate III and Certificate IV in Correctional Practice.
+                specialisations in the Certificate III and Certificate IV in Correctional Practice,
+                and identify whether this may support CCO skills requirements.
               </p>
             </article>
             <article className="rounded-xl border border-[#E9EAEB] bg-white p-5">
