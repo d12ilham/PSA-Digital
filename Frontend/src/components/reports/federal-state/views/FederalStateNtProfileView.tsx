@@ -77,7 +77,7 @@ export default function FederalStateNtProfileView({ slug, report }: { slug: stri
                 <p className="mt-1 text-xs leading-5 text-[#382219]">employees (23,754 FTE)</p>
                 <p className="mt-4 border-t border-[#DECFC5] pt-3 text-[10px] text-[#694834]">Source: Northern Territory Government, State of the Service Report 2024–2025, 2025, pg. 10</p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">33,646</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in New South Wales</p></div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">2,255</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in the Northern Territory</p></div>
             </div>
           </div>
           <JurisdictionMap slug={slug} selected="NT" />

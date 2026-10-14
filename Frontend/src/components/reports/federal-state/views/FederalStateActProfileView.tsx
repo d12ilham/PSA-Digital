@@ -128,7 +128,7 @@ function RepresentationChart() {
           <text x="582" y="158" textAnchor="end" fontSize="14" fontWeight="600" fill="#754D32">2.0%</text>
         </svg>
         <div className="mt-4 flex flex-wrap gap-5 text-xs text-[#694834]"><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#754D32]" />Percentage</span><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#E9CFC2]" />Target</span></div>
-        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4</p>
+        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
       </div>
     </div>
   );
@@ -162,7 +162,7 @@ function PayGapChart() {
           })}
         </div>
         <div className="grid grid-cols-5 gap-2 text-center text-[10px] leading-3 text-[#382219]">{payGapCohorts.map(({ label }, index) => <span key={index}>{label}</span>)}</div>
-        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
+        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4</p>
       </div>
     </div>
   );

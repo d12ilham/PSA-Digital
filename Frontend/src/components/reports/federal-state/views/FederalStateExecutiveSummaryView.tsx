@@ -321,6 +321,9 @@ export default function FederalStateExecutiveSummaryView({
               Identify future skills needs for Federal and State/Territory
               Government
             </h4>
+            <p className="text-xs leading-relaxed text-gray600">
+              Public Skills Australia will use a strategic-foresight approach to convene jurisdictional workshops to identify where nationally accredited Vocational Education and Training (VET) training can support capability development.
+            </p>
 
             <div className="border-t border-gray-200 my-4" />
 

@@ -65,24 +65,14 @@ const MEGATRENDS = [
     title: "Limitations in career pathways",
   },
   {
-    id: "climate",
-    icon: "/images/reports/drivers-of-change/Climate.svg",
-    title: "Climate change",
-  },
-  {
     id: "labour",
     icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
   },
   {
-    id: "duties",
-    icon: "/images/reports/drivers-of-change/Expansion.svg",
-    title: "Expansion of core duties",
-  },
-  {
-    id: "diversity",
-    icon: "/images/reports/drivers-of-change/Diversity.svg",
-    title: "Diversity and inclusion",
+    id: "climate",
+    icon: "/images/reports/drivers-of-change/Climate.svg",
+    title: "Climate change",
   },
   {
     id: "demographics",
@@ -90,9 +80,19 @@ const MEGATRENDS = [
     title: "Demographic shifts",
   },
   {
-    id: "tech",
-    icon: "/images/reports/drivers-of-change/Technological.svg",
-    title: "Technological development",
+    id: "diversity",
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
+    title: "Diversity and inclusion",
+  },
+  {
+    id: "duties",
+    icon: "/images/reports/drivers-of-change/Expansion.svg",
+    title: "Expansion of core duties",
+  },
+  {
+    id: "trust",
+    icon: "/images/reports/drivers-of-change/Public.svg",
+    title: "Public trust and perceptions",
   },
   {
     id: "recruitment",
@@ -100,9 +100,9 @@ const MEGATRENDS = [
     title: "Recruitment and retention",
   },
   {
-    id: "trust",
-    icon: "/images/reports/drivers-of-change/Public.svg",
-    title: "Public trust and perceptions",
+    id: "tech",
+    icon: "/images/reports/drivers-of-change/Technological.svg",
+    title: "Technological development",
   },
 ];
 
@@ -116,9 +116,6 @@ export default function FederalStateDriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
-  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>(
-    null,
-  );
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   React.useEffect(() => {
@@ -171,7 +168,6 @@ export default function FederalStateDriversOfChangeView({
   }, []);
 
   const activeDriver = DRIVERS.find((d) => d.id === activeDriverId);
-  const activeMegatrend = MEGATRENDS.find((m) => m.id === activeMegatrendId);
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
@@ -368,94 +364,16 @@ export default function FederalStateDriversOfChangeView({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
-            {MEGATRENDS.map((item, index) => {
-              const isActive = activeMegatrendId === item.id;
-
-              return (
-                <React.Fragment key={item.id}>
-                  <div
-                    style={
-                      isMegatrendsVisible
-                        ? { animationDelay: `${index * 0.06}s` }
-                        : undefined
-                    }
-                    onClick={() =>
-                      setActiveMegatrendId(isActive ? null : item.id)
-                    }
-                    className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
-                      isMegatrendsVisible
-                        ? "animate-card-entrance"
-                        : "opacity-0 translate-y-6"
-                    } ${
-                      isActive
-                        ? "bg-[#EBF1E4] border-active border-2"
-                        : "bg-white border-gray200 hover:border-2 hover:border-[#728C28]"
-                    }`}
-                  >
-                    <img
-                      src={
-                        isActive
-                          ? item.icon.replace(".svg", "-active.svg")
-                          : item.icon
-                      }
-                      alt={item.title}
-                      className="w-17 h-17 shrink-0 object-contain"
-                    />
-                    <p
-                      className={`text-xs font-semibold leading-normal ${
-                        isActive ? "text-active" : "text-gray600"
-                      }`}
-                    >
-                      {item.title}
-                    </p>
-                  </div>
-
-                  {/* Active Megatrend Detail Panel (Mobile - displayed right below clicked item) */}
-                  <div
-                    className={`col-span-2 md:hidden grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      isActive
-                        ? "grid-rows-[1fr] opacity-100 mt-2"
-                        : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden min-h-0">
-                      {isActive && (
-                        <div
-                          key={`mobile-megatrend-${item.id}`}
-                          className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2"
-                        >
-                          <h3 className="text-base sm:text-lg font-bold text-gray800">
-                            {item.title}
-                          </h3>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </React.Fragment>
-              );
-            })}
-          </div>
-
-          {/* Active Megatrend Detail Panel (Desktop - displayed below the main grid container) */}
-          <div
-            className={`hidden md:grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              activeMegatrend
-                ? "grid-rows-[1fr] opacity-100 mt-4"
-                : "grid-rows-[0fr] opacity-0 pointer-events-none mt-0"
-            }`}
-          >
-            <div className="overflow-hidden min-h-0">
-              {activeMegatrend && (
-                <div
-                  key={`desktop-megatrend-${activeMegatrendId}`}
-                  className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2"
-                >
-                  <h3 className="text-xl font-bold text-gray800">
-                    {activeMegatrend.title}
-                  </h3>
-                </div>
-              )}
-            </div>
+            {MEGATRENDS.map((item, index) => (
+              <div
+                key={item.id}
+                style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
+                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
+              >
+                <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
+                <p className="text-xs font-semibold leading-normal text-gray600">{item.title}</p>
+              </div>
+            ))}
           </div>
 
           <p className="text-sm text-gray800 leading-relaxed pt-2 w-full xl:w-2/3">

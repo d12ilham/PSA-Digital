@@ -86,7 +86,7 @@ export default function FederalStateQldProfileView({ slug, report }: { slug: str
           <p className="mt-5 text-xs font-medium text-[#668B17]">Workforce Overview</p>
           <div className="mt-3 max-w-[520px] space-y-3">
             <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-xs text-[#382219]">In 2025, the Queensland Public Service was comprised of</p><strong className="mt-1 block text-3xl text-[#754D32]">74,410</strong><p className="mt-1 text-xs leading-5 text-[#382219]">employees<br />20.9% FTE in Brisbane inner city<br />63.6% FTE in regional locations</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[10px] text-[#694834]">Source: Queensland Government, State of the Sector Report 2025, 2025, pg. 6</p></div>
-            <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">33,646</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in New South Wales</p></div>
+            <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">26,448</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in Queensland</p></div>
           </div>
         </div>
         <JurisdictionMap slug={slug} selected="QLD" />
