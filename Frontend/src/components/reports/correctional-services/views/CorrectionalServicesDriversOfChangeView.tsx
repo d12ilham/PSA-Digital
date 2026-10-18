@@ -24,7 +24,6 @@ const drivers = [
     id: 1,
     number: "DRIVER 1",
     shortTitle: "Resilience of organisations to respond to strategic shocks",
-    shortDesc: "Compounding crises have exposed structural vulnerabilities.",
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc:
@@ -36,7 +35,6 @@ const drivers = [
     id: 2,
     number: "DRIVER 2",
     shortTitle: "Challenges to workforce productivity",
-    shortDesc: "Australia is experiencing the slowest productivity growth in 60 years.",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
       "In its Five Pillars of Productivity enquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour. [4, 5]",
@@ -48,7 +46,6 @@ const drivers = [
     number: "DRIVER 3",
     shortTitle:
       "Emergence of AI, greater automation and broader digital transformation",
-    shortDesc: "Digital transformation represents both capability uplift and security risk.",
     fullTitle:
       "Driver 3 — Emergence of AI, greater automation and broader digital transformation",
     fullDesc:
@@ -60,7 +57,6 @@ const drivers = [
     id: 4,
     number: "DRIVER 4",
     shortTitle: "Workforce inclusivity",
-    shortDesc: "Recruiting, retaining and developing diverse cohorts remains a key focus.",
     fullTitle: "Driver 4 — Workforce inclusivity",
     fullDesc:
       "Workforce inclusivity has been a key focus across the labour market. In the Public Safety and Government industry-sectors this is likely to translate into a continued focus on recruiting, retaining and developing employees from diverse cultural, linguistic, gender, disability and neurodivergent backgrounds. As organisations seek to increase workforce participation from these cohorts, they will be required to adapt and change legacy systems and processes to respond to the needs of the modern workforce.",
@@ -73,46 +69,55 @@ const megatrends = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
+    description: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
   },
   {
     id: "climate",
     icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
+    description: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
     id: "labour",
     icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
+    description: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
     id: "duties",
     icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
+    description: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
   },
   {
     id: "diversity",
     icon: "/images/reports/drivers-of-change/Diversity.svg",
     title: "Diversity and inclusion",
+    description: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
   },
   {
     id: "demographics",
     icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
+    description: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
     id: "tech",
     icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
+    description: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
   },
   {
     id: "recruitment",
     icon: "/images/reports/drivers-of-change/Recruitment.svg",
     title: "Recruitment and retention",
+    description: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
   },
   {
     id: "trust",
     icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
+    description: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
   },
 ];
 
@@ -131,7 +136,7 @@ const sources = [
   ],
   [
     "6",
-    "Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025; Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024.",
+    "Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, Australian Government Digital Transformation Agency, 2025, accessed 25 February 2026; Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, Australian Government Department of Finance, 2024, accessed 25 February 2026.",
   ],
   [
     "7",
@@ -146,19 +151,12 @@ export default function CorrectionalServicesDriversOfChangeView({
   slug: string;
   report: CorrectionalServicesReport;
 }) {
-  const [activeDriverId, setActiveDriverId] = React.useState<number | null>(1);
-  const [activeMegatrendId, setActiveMegatrendId] = React.useState<string | null>(
-    "pathways",
-  );
-  const [isHeroMounted, setIsHeroMounted] = React.useState(false);
+  const [activeDriverId, setActiveDriverId] = React.useState<number | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = React.useState("pathways");
   const driversRef = React.useRef<HTMLDivElement>(null);
   const megatrendsRef = React.useRef<HTMLDivElement>(null);
   const [isDriversVisible, setIsDriversVisible] = React.useState(false);
   const [isMegatrendsVisible, setIsMegatrendsVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsHeroMounted(true);
-  }, []);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -183,106 +181,91 @@ export default function CorrectionalServicesDriversOfChangeView({
   );
 
   return (
-    <div className="min-h-screen bg-[#F7F8F0] text-[#1B240E] font-sans flex flex-col justify-between selection:bg-[#38BDF8]/30 antialiased">
+    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased selection:bg-[#8AC900]/30">
       <ReportHeader slug={slug} report={report} currentPage="drivers_of_change" />
 
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
+      <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+        <ReportNavButtons slug={slug} currentPage="drivers_of_change" prev={{ label: "Methodology", href: `/reports/${slug}/methodology` }} />
 
-        <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
-          <div className="lg:col-span-8 space-y-4">
-            <p className="animate-slide-up text-xs font-semibold uppercase leading-6 text-[#0B6DA8]">
-              Correctional Services WIR 2026 · Common to all WIRs
-            </p>
-            <h1 className="animate-slide-up text-3xl sm:text-4xl font-bold text-[#063B5D]">
+        <section className="flex min-h-[286px] flex-col justify-between gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:flex-row lg:items-center">
+          <div className="max-w-[800px] space-y-4">
+            <h1 className="animate-slide-up text-[32px] font-bold leading-tight text-[#252D02] sm:text-[40px]">
               Drivers of Change
             </h1>
-            <div className="space-y-3 animate-slide-up-delay">
-              <p className="text-sm text-[#535862] leading-relaxed">
+            <div className="animate-slide-up-delay space-y-4 text-sm font-medium leading-6 text-[#535862]">
+              <p>
                 In 2024, Public Skills Australia identified nine megatrends
                 impacting the Public Safety and Government industry. These
                 megatrends were further considered in the development of the
                 2025 Workforce Insights Reports.
               </p>
-              <p className="text-sm text-[#535862] leading-relaxed">
-                While these megatrends will continue to have longer-term
+              <p>
+                While these megatrends will continue to have longer term
                 implications for workforce planning and development across the
                 Public Safety and Government industry-sectors, the 2026
                 Workforce Insights Reports have built on these and analysed four
-                key drivers of change that cut across most megatrends.
+                key drivers of change that cut across most megatrends. This is
+                important as these drivers of change will likely impact the
+                Public Safety and Government industry-sectors in the short to
+                medium term.
               </p>
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
-            <div
-              className={`flex items-center justify-center ${
-                isHeroMounted ? "animate-drivers-pop-settle" : "opacity-0"
-              }`}
-            >
+          <div className="flex shrink-0 justify-center lg:justify-end">
+            <div className="flex items-center justify-center animate-drivers-pop-settle motion-reduce:animate-none">
               <Image
                 src="/images/reports/drivers-of-change-diagram.png"
-                alt="Drivers of Change Diagram"
-                width={260}
-                height={250}
-                className={`h-auto max-h-52 object-contain select-none ${
-                  isHeroMounted ? "animate-drivers-spin" : ""
-                }`}
+                alt="Four connected drivers of change"
+                width={250}
+                height={240}
+                className="h-[240px] w-[250px] object-contain select-none animate-drivers-spin motion-reduce:animate-none"
               />
             </div>
           </div>
         </section>
 
         <section ref={driversRef} className="space-y-6">
-          <div className="border-b border-[#D5D7DA] pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-[#252D02]">
+          <div className="border-b border-[#D5D7DA] pb-4">
+            <h2 className="text-2xl font-bold text-[#252D02]">
               Four Key Drivers
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {drivers.map((driver, index) => {
               const isActive = activeDriverId === driver.id;
               return (
                 <article
                   key={driver.id}
-                  style={
-                    isDriversVisible
-                      ? { animationDelay: `${index * 0.12}s` }
-                      : undefined
-                  }
-                  onClick={() => setActiveDriverId(driver.id)}
-                  className={`flex min-h-[250px] cursor-pointer flex-col justify-between rounded-2xl border bg-white p-6 transition-all duration-300 ${
+                  style={isDriversVisible ? { animationDelay: `${index * 0.12}s` } : undefined}
+                  className={`flex min-h-[260px] flex-col justify-between rounded-xl border border-t-[8px] border-t-[#8AC900] p-6 transition-[border-color,box-shadow] duration-300 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
                     isDriversVisible
                       ? "animate-card-entrance"
                       : "opacity-0 translate-y-6"
                   } ${
                     isActive
-                      ? "border-2 border-[#0B6DA8] border-t-8 border-t-[#0B6DA8] bg-[#E8F7FE]"
-                      : "border-[#E9EAEB] border-t-8 border-t-[#38BDF8] hover:border-2 hover:border-[#0B6DA8] hover:shadow-md"
+                      ? "border-[#728C28] bg-[#F0F5DF]"
+                      : "border-[#E9EAEB] bg-white hover:border-[#B8C9A0]"
                   }`}
                 >
-                  <div className="space-y-3">
-                    <span className="block text-xs font-bold uppercase text-[#0B6DA8]">
+                  <div>
+                    <span className="block text-xs font-medium uppercase text-[#598303]">
                       {driver.number}
                     </span>
-                    <h3 className="text-base font-bold leading-snug text-[#252D02]">
+                    <h3 className="mt-7 text-xl font-bold leading-7 text-[#252D02]">
                       {driver.shortTitle}
                     </h3>
-                    <p className="text-xs leading-relaxed text-[#535862]">
-                      {driver.shortDesc}
-                    </p>
                   </div>
                   <button
                     type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setActiveDriverId(driver.id);
-                    }}
-                    className="mt-5 inline-flex h-8 w-fit items-center gap-1.5 rounded-full bg-[#38BDF8] px-4 text-xs font-bold text-[#063B5D] transition-colors hover:bg-[#0B6DA8] hover:text-white"
+                    onClick={() => setActiveDriverId(isActive ? null : driver.id)}
+                    aria-expanded={isActive}
+                    aria-controls="driver-detail"
+                    className="inline-flex h-10 w-fit min-w-[100px] items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold text-[#252D02] transition-colors duration-300 hover:bg-[#78AF00] motion-reduce:transition-none"
                   >
-                    {isActive ? "Open" : "Open"}{" "}
-                    <ChevronDown className="h-3.5 w-3.5" />
+                    {isActive ? "Close" : "Open"}
+                    <ChevronDown className={`size-4 transition-transform duration-300 ${isActive ? "rotate-180" : ""}`} aria-hidden="true" />
                   </button>
                 </article>
               );
@@ -290,6 +273,7 @@ export default function CorrectionalServicesDriversOfChangeView({
           </div>
 
           <div
+            id="driver-detail"
             className={`grid transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
               activeDriver
                 ? "grid-rows-[1fr] opacity-100 mt-6"
@@ -300,9 +284,9 @@ export default function CorrectionalServicesDriversOfChangeView({
               {activeDriver && (
                 <div
                   key={activeDriver.id}
-                  className="animate-content-switch rounded-2xl border-2 border-[#0B6DA8] border-l-8 bg-[#E8F7FE] p-6"
+                  className="animate-content-switch rounded-xl border border-[#B8C9A0] border-l-[8px] border-l-[#728C28] bg-[#F0F5DF] p-6"
                 >
-                  <span className="inline-block rounded-full bg-[#0B6DA8] px-5 py-1.5 text-xs font-bold uppercase text-white">
+                  <span className="inline-block rounded-full bg-[#598303] px-5 py-1.5 text-xs font-bold uppercase text-white">
                     Now presenting · {activeDriver.number}
                   </span>
                   <h3 className="mt-4 max-w-[900px] text-xl font-bold text-[#252D02]">
@@ -312,7 +296,7 @@ export default function CorrectionalServicesDriversOfChangeView({
                     {activeDriver.fullDesc}
                   </p>
                   {activeDriver.sources && (
-                    <p className="mt-4 max-w-[960px] border-t border-[#0B6DA8]/20 pt-4 text-xs leading-6 text-[#075D87]">
+                    <p className="mt-4 max-w-[960px] border-t border-[#728C28]/20 pt-4 text-xs leading-6 text-[#598303]">
                       {activeDriver.sources}
                     </p>
                   )}
@@ -323,32 +307,43 @@ export default function CorrectionalServicesDriversOfChangeView({
         </section>
 
         <section id="nine-megatrends" ref={megatrendsRef} className="space-y-6">
-          <div className="border-b border-[#D5D7DA] pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-[#252D02]">
+          <div className="border-b border-[#D5D7DA] pb-4">
+            <h2 className="text-2xl font-bold text-[#252D02]">
               Nine Megatrends
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
+          <div role="tablist" aria-label="Nine Megatrends" className="grid grid-cols-2 items-stretch gap-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9">
             {megatrends.map((item, index) => {
               const isActive = activeMegatrendId === item.id;
               return (
-                <article
+                <button
                   key={item.id}
-                  style={
-                    isMegatrendsVisible
-                      ? { animationDelay: `${index * 0.06}s` }
-                      : undefined
-                  }
+                  id={`megatrend-tab-${item.id}`}
+                  type="button"
+                  role="tab"
+                  style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
                   onClick={() => setActiveMegatrendId(item.id)}
-                  className={`flex min-h-[190px] cursor-pointer flex-col items-center justify-between rounded-2xl border p-4 text-center transition-all duration-300 ${
+                  onKeyDown={(event) => {
+                    const offset = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+                    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? megatrends.length - 1 : offset ? (index + offset + megatrends.length) % megatrends.length : null;
+                    if (nextIndex === null) return;
+                    event.preventDefault();
+                    const nextId = megatrends[nextIndex].id;
+                    setActiveMegatrendId(nextId);
+                    document.getElementById(`megatrend-tab-${nextId}`)?.focus();
+                  }}
+                  aria-selected={isActive}
+                  aria-controls="megatrend-detail"
+                  tabIndex={isActive ? 0 : -1}
+                  className={`flex min-h-[200px] flex-col items-center justify-between rounded-lg border p-4 text-center transition-[border-color,box-shadow] duration-300 hover:shadow-sm motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
                     isMegatrendsVisible
                       ? "animate-card-entrance"
                       : "opacity-0 translate-y-6"
                   } ${
                     isActive
-                      ? "border-2 border-[#0B6DA8] bg-[#E8F7FE]"
-                      : "border-[#E9EAEB] bg-white hover:border-2 hover:border-[#0B6DA8] hover:shadow-md"
+                      ? "border-[#598303] bg-[#F0F3E5]"
+                      : "border-[#E9EAEB] bg-white hover:border-[#B8C9A0]"
                   }`}
                 >
                   <Image
@@ -356,23 +351,26 @@ export default function CorrectionalServicesDriversOfChangeView({
                       isActive ? item.icon.replace(".svg", "-active.svg") : item.icon
                     }
                     alt=""
-                    width={68}
-                    height={68}
-                    className="h-[68px] w-[68px] shrink-0 object-contain"
+                    width={100}
+                    height={100}
+                    className="size-[100px] shrink-0 object-contain"
                   />
                   <p
-                    className={`text-xs font-semibold leading-normal ${
-                      isActive ? "text-[#0B6DA8]" : "text-[#535862]"
+                    className={`text-sm font-medium leading-6 ${
+                      isActive ? "text-[#598303]" : "text-[#535862]"
                     }`}
                   >
-                    {item.title}
+                    {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
                   </p>
-                </article>
+                </button>
               );
             })}
           </div>
 
           <div
+            id="megatrend-detail"
+            role="tabpanel"
+            aria-labelledby={`megatrend-tab-${activeMegatrendId}`}
             className={`grid transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
               activeMegatrend
                 ? "grid-rows-[1fr] opacity-100 mt-4"
@@ -383,17 +381,20 @@ export default function CorrectionalServicesDriversOfChangeView({
               {activeMegatrend && (
                 <div
                   key={activeMegatrend.id}
-                  className="animate-content-switch rounded-2xl border-2 border-[#0B6DA8] border-l-8 bg-[#E8F7FE] p-6"
+                  className="animate-content-switch min-h-[136px] rounded-lg border border-[#598303] border-l-4 bg-[#F0F3E5] px-8 py-6"
                 >
                   <h3 className="text-xl font-bold text-[#252D02]">
                     {activeMegatrend.title}
                   </h3>
+                  <p className="mt-3 max-w-[960px] text-sm leading-6 text-[#535862]">
+                    {activeMegatrend.description}
+                  </p>
                 </div>
               )}
             </div>
           </div>
 
-          <p className="max-w-[900px] pt-2 text-sm leading-6 text-[#535862]">
+          <p className="max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
             These megatrends were identified in previous Workforce Insights
             Reports and will continue to have longer term implications for
             workforce planning and development across the Public Safety and
@@ -401,12 +402,12 @@ export default function CorrectionalServicesDriversOfChangeView({
           </p>
         </section>
 
-        <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 space-y-4">
-          <h2 className="text-xl font-bold text-[#252D02]">Sources</h2>
-          <div className="max-w-[980px] space-y-3 text-xs leading-6 text-[#535862]">
+        <section className="space-y-5 rounded-2xl border border-[#E9EAEB] bg-white p-6 sm:p-10">
+          <h2 className="text-2xl font-bold text-[#252D02]">Sources</h2>
+          <div className="max-w-[800px] space-y-4 text-sm leading-6 text-[#535862]">
             {sources.map(([number, source]) => (
               <div key={number} className="flex items-start gap-2.5">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F7FE] text-xs font-bold text-[#0B6DA8]">
+                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[#598303] text-xs font-bold text-white">
                   {number}
                 </span>
                 <p>{source}</p>
@@ -416,7 +417,7 @@ export default function CorrectionalServicesDriversOfChangeView({
         </section>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />
     </div>
   );
 }

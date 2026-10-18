@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
 import { api } from "@/lib/api";
@@ -60,48 +61,32 @@ const SECTOR_REPORTS = [
     id: "local-government",
     sectorKey: "Local Government",
     badgeText: "LOCAL GOVERNMENT",
-    badgeBg: "bg-lg-dark",
-    title: "Workforce Insights Reports",
-    subtitle: "",
-    actionText: "View report",
-    coverImage: "/images/reports/local-government.png",
-    isFirst: true,
+    title: "2026 Local Government Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-local-government.png",
     targetUrl: "/reports/local-government-workforce-insights-report",
   },
   {
     id: "public-safety",
     sectorKey: "Public Safety",
     badgeText: "PUBLIC SAFETY",
-    badgeBg: "bg-[#38485B]",
-    title: "Workforce Insights Reports",
-    subtitle: "Fire and Emergency Services · Police · Defence",
-    actionText: "View report",
-    coverImage: "/images/reports/public-safety.png",
-    isFirst: false,
+    title: "2026 Public Safety Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-public-safety.png",
     targetUrl: "/reports/public-safety-wir-2026",
   },
   {
     id: "federal-state",
     sectorKey: "Federal and State",
     badgeText: "FEDERAL AND STATE/TERRITORY GOVERNMENT",
-    badgeBg: "bg-[#694834]",
-    title: "Workforce Insights Reports",
-    subtitle: "",
-    actionText: "View report",
-    coverImage: "/images/reports/federal-state.png",
-    isFirst: false,
+    title: "2026 Federal and State/Territory Government Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-federal-state.png",
     targetUrl: "/reports/federal-state-territory-wir-2026",
   },
   {
     id: "correctional-services",
     sectorKey: "Correctional Services",
     badgeText: "CORRECTIONAL SERVICES",
-    badgeBg: "bg-[#0B6DA8]",
-    title: "Workforce Insights Reports",
-    subtitle: "",
-    actionText: "View report",
-    coverImage: "/images/reports/correctional-services.png",
-    isFirst: false,
+    title: "2026 Correctional Services Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-correctional-services.png",
     targetUrl: "/reports/correctional-services-wir-2026",
   },
 ];
@@ -122,71 +107,45 @@ export default function ReportsArchivePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetchDirectoryData();
-  }, []);
-
-  const fetchDirectoryData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [settingsRes, reportsRes, industriesRes, yearsRes] =
-        await Promise.all([
+    async function fetchDirectoryData() {
+      setLoading(true);
+      setError(null);
+      try {
+        const [settingsRes, reportsRes, industriesRes, yearsRes] = await Promise.all([
           api.get<SiteSettings>("/site-settings").catch(() => null),
-          api
-            .get<any>("/reports", { params: { limit: 100, page: 1 } })
-            .catch(() => []),
+          api.get<ReportSummary[] | { rows: ReportSummary[] }>("/reports", { params: { limit: 100, page: 1 } }).catch(() => [] as ReportSummary[]),
           api.get<Industry[]>("/industries").catch(() => []),
           api.get<Year[]>("/industries/years").catch(() => []),
         ]);
 
-      if (settingsRes) setSiteSettings(settingsRes);
+        if (settingsRes) setSiteSettings(settingsRes);
 
-      const reportsList = Array.isArray(reportsRes)
-        ? reportsRes
-        : reportsRes?.rows || [];
-      setReports(reportsList.filter((r: any) => r.status === "published"));
+        const reportsList = Array.isArray(reportsRes) ? reportsRes : reportsRes.rows;
+        setReports(reportsList.filter((report) => report.status === "published"));
 
-      if (Array.isArray(industriesRes)) {
         const indMap: Record<string, string> = {};
-        industriesRes.forEach((ind) => {
-          indMap[ind.id] = ind.name;
-        });
+        industriesRes.forEach((industry) => { indMap[industry.id] = industry.name; });
         setIndustries(indMap);
-      }
 
-      if (Array.isArray(yearsRes)) {
         const yrMap: Record<string, string> = {};
-        yearsRes.forEach((yr) => {
-          yrMap[yr.id] = yr.label;
-        });
+        yearsRes.forEach((year) => { yrMap[year.id] = year.label; });
         setYears(yrMap);
+      } catch (err) {
+        console.error("Fetch directory data failed:", err);
+        setError("Failed to load published workforce insights reports.");
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      console.error("Fetch directory data failed:", err);
-      setError("Failed to load published workforce insights reports.");
-    } finally {
-      setLoading(false);
     }
-  };
+
+    void fetchDirectoryData();
+  }, []);
 
   const scrollToSectors = () => {
     const el = document.getElementById("sectors-section");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  // Find dynamic report for a given industry keyword or return default slug navigation
-  const getSectorNavigation = (keyword: string) => {
-    const matched = reports.find((r) =>
-      r.title.toLowerCase().includes(keyword.toLowerCase()),
-    );
-    if (matched) {
-      return () => router.push(`/reports/${matched.slug}`);
-    }
-    // Fallback if no matching backend report exists yet
-    return () =>
-      router.push(`/reports/${keyword.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
   return (
@@ -476,7 +435,7 @@ export default function ReportsArchivePage() {
                 icon: "/images/reports/reports-main/Executive.svg",
               },
               {
-                title: "Driver of Changes",
+                title: "Driver of Change",
                 icon: "/images/reports/reports-main/Driver.svg",
               },
               {
@@ -517,73 +476,31 @@ export default function ReportsArchivePage() {
         {/* ── 5. SECTOR WORKFORCE INSIGHTS REPORTS GRID ── */}
         <section id="sectors-section" className="space-y-4 pt-2">
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-gray200 pb-3">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
             <h2 className="text-lg sm:text-xl font-bold text-gray800">
-              Choose your sector
+              Choose your sector Workforce Insights Report
             </h2>
+            <p className="text-xs text-gray600">Each report houses the 2026 and previous-year reports</p>
           </div>
 
           {/* Grid of Sector Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SECTOR_REPORTS.map((sector, idx) => (
-              <div
+            {SECTOR_REPORTS.map((sector, idx) => {
+              const matched = reports.find((report) =>
+                report.slug === sector.id ||
+                report.slug.includes(sector.id) ||
+                report.title.toLowerCase().includes(sector.sectorKey.toLowerCase()),
+              );
+              return <Link
                 key={sector.id}
+                href={matched ? `/reports/${matched.slug}` : sector.targetUrl}
                 style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
-                onClick={() => {
-                  const matched = reports.find(
-                    (r) =>
-                      r.slug === sector.id ||
-                      r.slug.includes(sector.id) ||
-                      r.title.toLowerCase().includes(sector.sectorKey.toLowerCase())
-                  );
-                  if (matched) {
-                    router.push(`/reports/${matched.slug}`);
-                  } else if (sector.targetUrl) {
-                    router.push(sector.targetUrl);
-                  } else {
-                    getSectorNavigation(sector.sectorKey)();
-                  }
-                }}
-                className="animate-card-entrance bg-white rounded-2xl overflow-hidden flex flex-col justify-between cursor-pointer group relative transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] border-2 border-gray200 hover:border-lg-dark hover:shadow-xl hover:-translate-y-1.5"
+                className="animate-card-entrance block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
+                aria-label={`View ${sector.title}`}
               >
-                {/* Graphic Banner Top */}
-                <div className="w-full relative overflow-hidden bg-gray-100 border-b border-gray200">
-                  <img
-                    src={sector.coverImage}
-                    alt={sector.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
-                </div>
-
-                {/* Content Body */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <span
-                      className={`${sector.badgeBg} text-white font-bold text-[10px] px-3 py-1 rounded-full uppercaser inline-block`}
-                    >
-                      {sector.badgeText}
-                    </span>
-                    <h3 className="font-bold text-gray800 group-hover:text-lg-dark transition-colors duration-300 leading-snug">
-                      {sector.title}
-                    </h3>
-                    {sector.subtitle && (
-                      <p className="text-xs text-gray600 font-medium leading-relaxed">
-                        {sector.subtitle}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="pt-3">
-                    <span
-                      className={`text-xs font-bold inline-flex items-center gap-1.5 transition-all duration-300 text-lg-dark group-hover:text-[#035822]`}
-                    >
-                      <span>{sector.actionText}</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+                <img src={sector.coverImage} alt="" className="block h-full w-full" />
+              </Link>;
+            })}
           </div>
         </section>
 
@@ -612,12 +529,19 @@ export default function ReportsArchivePage() {
             >
               <span>Contact Us</span>
             </a>
+            <button
+              type="button"
+              onClick={() => setIsPdfModalOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-lg-dark px-6 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#046D2A] sm:text-sm"
+            >
+              All sector reports (PDFs) <Download className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
         </section>
       </main>
 
       {/* ── 7. FOOTER ── */}
-      <ReportFooter />
+      <ReportFooter reportName="Workforce Insights Reports" />
 
       {/* ── 8. VIDEO INTRO MODAL ── */}
       {isVideoModalOpen && (
@@ -680,55 +604,40 @@ export default function ReportsArchivePage() {
               </p>
 
               <div className="space-y-2.5">
-                {[
-                  {
-                    title: "Local Government Workforce Insights Report (2026)",
-                    file: "/reports/local-government-2026.pdf",
-                    size: "4.2 MB",
-                  },
-                  {
-                    title: "Public Safety Workforce Insights Report (2025)",
-                    file: "/reports/public-safety-2025.pdf",
-                    size: "3.8 MB",
-                  },
-                  {
-                    title: "Federal & State/Territory Government Report (2025)",
-                    file: "/reports/federal-state-2025.pdf",
-                    size: "5.1 MB",
-                  },
-                  {
-                    title:
-                      "Correctional Services Workforce Insights Report (2025)",
-                    file: "/reports/correctional-services-2025.pdf",
-                    size: "3.4 MB",
-                  },
-                ].map((item, idx) => (
+                {SECTOR_REPORTS.map((sector) => {
+                  const publishedReport = reports.find((report) =>
+                    report.slug === sector.id ||
+                    report.slug.includes(sector.id) ||
+                    report.title.toLowerCase().includes(sector.sectorKey.toLowerCase()),
+                  );
+                  return (
                   <div
-                    key={idx}
+                    key={sector.id}
                     className="p-3.5 rounded-xl border border-[#E2DFD4] bg-[#F4F3EA]/50 flex items-center justify-between gap-3 hover:border-[#38761D] transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <FileText className="w-5 h-5 text-[#38761D] shrink-0" />
                       <div>
                         <h4 className="font-extrabold text-xs text-[#1B240E]">
-                          {item.title}
+                          {publishedReport?.title || sector.badgeText}
                         </h4>
                         <span className="text-[10px] text-[#6B755E]">
-                          PDF Document · {item.size}
+                          {publishedReport?.pdfFileUrl ? "PDF document" : "PDF not available"}
                         </span>
                       </div>
                     </div>
-                    <a
-                      href={item.file}
+                    {publishedReport?.pdfFileUrl ? <a
+                      href={publishedReport.pdfFileUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="bg-[#85CC00] text-[#1B240E] font-extrabold text-[11px] px-3 py-1.5 rounded-full hover:bg-[#78B800] transition-colors flex items-center gap-1 shrink-0"
                     >
                       <Download className="w-3 h-3" />
                       <span>Download</span>
-                    </a>
+                    </a> : null}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

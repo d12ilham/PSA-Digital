@@ -202,7 +202,14 @@ export default function CorrectionalServicesWorkforceInsightsView({
     insights.find((insight) => insight.id === activeInsightId) ?? insights[0];
 
   React.useEffect(() => {
-    setLoaded(false);
+    const insightNumber = Number(window.location.hash.replace("#insight-", ""));
+    const linkedInsight = insights[insightNumber - 1];
+    if (!linkedInsight) return;
+    const frame = requestAnimationFrame(() => setActiveInsightId(linkedInsight.id));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  React.useEffect(() => {
     const timer = window.setTimeout(() => setLoaded(true), 120);
     return () => window.clearTimeout(timer);
   }, [activeInsightId]);
@@ -212,7 +219,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
 
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="workforce_insights" />
+        <ReportNavButtons slug={slug} currentPage="workforce_insights" prev={{ label: "2026 Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }} next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }} />
 
         <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
           <div className="lg:col-span-8 space-y-4">
@@ -290,7 +297,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
                 <button
                   key={insight.id}
                   type="button"
-                  onClick={() => setActiveInsightId(insight.id)}
+                  onClick={() => { setLoaded(false); setActiveInsightId(insight.id); }}
                   style={{ animationDelay: `${index * 0.1}s` }}
                   className={`animate-card-entrance min-h-[230px] rounded-xl border p-5 text-left transition-all duration-300 ${
                     isActive
@@ -440,7 +447,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
         </section>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />
     </div>
   );
 }

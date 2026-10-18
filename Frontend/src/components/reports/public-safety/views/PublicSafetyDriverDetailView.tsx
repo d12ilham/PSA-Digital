@@ -168,7 +168,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
                 <div className={`flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full ${selected ? "bg-white" : "bg-[#F0F3E5]"}`}>
                   <Image src={`/images/reports/drivers-of-change/${megatrend.icon}${selected ? "-active" : ""}.svg`} alt="" width={48} height={48} className="transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <h3 className={`mt-3 text-xs leading-6 ${selected ? "font-bold text-[#598303]" : "font-medium text-[#252D02]"}`}>{megatrend.title}</h3>
+                <h3 className={`mt-3 text-xs leading-6 ${selected ? "font-bold text-[#598303]" : "font-medium text-[#252D02]"}`}>{megatrend.icon === "Climate" ? <>Climate<br />change</> : megatrend.icon === "Demographic" ? <>Demographic<br />shifts</> : megatrend.title}</h3>
               </button>
             );
           })}

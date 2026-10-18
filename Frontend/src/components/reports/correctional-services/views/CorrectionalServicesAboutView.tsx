@@ -2,21 +2,16 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
-import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 type CorrectionalServicesReport = {
   pdfFileUrl?: string;
   contactUrl?: string;
-  year?: {
-    label: string;
-  };
-  industry?: {
-    slug?: string;
-    name?: string;
-  };
+  year?: { label: string };
+  industry?: { slug?: string; name?: string };
 };
 
 const undertakes = [
@@ -24,34 +19,26 @@ const undertakes = [
     title: "Workforce Insight and Strategy",
     icon: "/images/reports/about/Workforce.svg",
     description:
-      "Undertakes data analysis, research and consultation to deepen understandings of contemporary workforce challenges and what can be done to mitigate these challenges.",
+      "undertakes data analysis, research and consultation to deepen understandings of contemporary workforce challenges and what can be done to mitigate these challenges",
   },
   {
     title: "Training Product Quality & Development",
     icon: "/images/reports/about/Training.svg",
     description:
-      "Develops quality training products to strengthen the skills and capabilities of Public Safety and Government workforces.",
+      "develops quality training products to strengthen the skills and capabilities of Public Safety and Government workforces",
   },
   {
     title: "Supports Career Pathways",
     icon: "/images/reports/about/Supports.svg",
     description:
-      "Monitors and promotes the implementation of training products to support career pathways for the Public Safety and Government industry-sectors.",
+      "monitors and promotes the implementation of training products to support career pathways for the Public Safety and Government industry-sectors",
   },
   {
     title: "Industry Stewardship",
     icon: "/images/reports/about/Industry.svg",
     description:
-      "Consults with, advocates for and promotes the needs of the Public Safety and Government industry-sectors.",
+      "consults with, advocates for and promotes the needs of the Public Safety and Government industry-sectors.",
   },
-];
-
-const sectors = [
-  "Correctional Services",
-  "Fire and Emergency Services",
-  "Police",
-  "Federal, State/Territory and Local Government",
-  "Defence",
 ];
 
 export default function CorrectionalServicesAboutView({
@@ -61,10 +48,12 @@ export default function CorrectionalServicesAboutView({
   slug: string;
   report: CorrectionalServicesReport;
 }) {
-  const undertakesRef = React.useRef<HTMLDivElement>(null);
+  const undertakesRef = React.useRef<HTMLElement>(null);
   const [isUndertakesVisible, setIsUndertakesVisible] = React.useState(false);
 
   React.useEffect(() => {
+    const node = undertakesRef.current;
+    if (!node) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -74,115 +63,88 @@ export default function CorrectionalServicesAboutView({
       },
       { threshold: 0.1 },
     );
-
-    if (undertakesRef.current) observer.observe(undertakesRef.current);
+    observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F8F0] text-[#1B240E] font-sans flex flex-col justify-between selection:bg-[#38BDF8]/30 antialiased">
+    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased selection:bg-[#B2DB79]/40">
       <ReportHeader slug={slug} report={report} currentPage="about" />
 
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="about" />
+      <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+        <nav className="flex flex-wrap items-center gap-3" aria-label="Report sections">
+          <Link
+            href={"/reports/" + slug + "/introduction"}
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-sm font-bold text-[#598303] no-underline transition-colors hover:bg-[#F0F5DF]"
+          >
+            <ArrowLeft className="size-4" aria-hidden="true" />
+            Back to Introduction
+          </Link>
+          <Link
+            href={"/reports/" + slug + "/methodology"}
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-bold text-[#252D02] no-underline transition-colors hover:bg-[#79B600]"
+          >
+            Next Section: Methodology
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        </nav>
 
-        <section className="relative overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 min-h-[430px]">
+        <section className="relative min-h-[400px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <Image
             src="/images/wave-right.png"
             alt=""
-            width={420}
-            height={540}
+            width={392}
+            height={936}
             priority
-            className="pointer-events-none absolute -right-10 top-0 h-full w-auto object-cover object-left opacity-70 animate-hero-rotate"
+            className="pointer-events-none absolute right-0 top-0 hidden h-full w-auto animate-hero-rotate object-contain lg:block"
           />
 
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,820px)_360px]">
-            <div className="space-y-6">
-              <div className="animate-slide-up space-y-4">
-                <h1 className="text-3xl sm:text-4xl font-bold leading-[1.35] text-[#063B5D]">
-                  About Public Skills Australia
-                </h1>
-                <p className="max-w-[820px] text-sm leading-6 text-[#535862] animate-slide-up-delay">
-                  Public Skills Australia is the Jobs and Skills Council (JSC)
-                  for the Public Safety and Government industry, comprising
-                  Correctional Services, Defence, Federal, State/Territory and
-                  Local Government, Fire and Emergency Services and Police
-                  industry-sectors.
-                </p>
-              </div>
-
-              <div className="flex max-w-[780px] items-start gap-5 rounded-2xl border border-[#E9EAEB] bg-white p-5 animate-card-entrance">
-                <Image
-                  src="/images/reports/about/working-in-partnership.svg"
-                  alt=""
-                  width={92}
-                  height={92}
-                  className="h-[92px] w-[92px] shrink-0 object-contain animate-zoom-in"
-                />
-                <div>
-                  <h2 className="text-base font-bold leading-7 text-[#252D02]">
-                    Working in partnership
-                  </h2>
-                  <p className="mt-2 text-sm leading-6 text-[#535862]">
-                    Through its work, Public Skills Australia actively supports
-                    employer and employee bodies in these industries and
-                    associated volunteer associations. Public Skills Australia
-                    works in partnership with the Department of Employment and
-                    Workplace Relations (DEWR) and other JSCs to give effect to
-                    broader Ministerial and government priorities.
-                  </p>
-                </div>
-              </div>
+          <div className="relative z-10 flex max-w-[800px] flex-col gap-10">
+            <div className="flex flex-col gap-4 animate-slide-up">
+              <h1 className="text-[32px] font-bold leading-[1.25] text-[#252D02] sm:text-[40px] sm:leading-[54px]">
+                About Public Skills Australia
+              </h1>
+              <p className="text-sm font-medium leading-6 text-[#535862]">
+                Public Skills Australia is the Jobs and Skills Council (JSC) for
+                the Public Safety and Government industry, comprising Correctional
+                Services, Defence, Federal, State/Territory and Local Government,
+                Fire and Emergency Services and Police industry-sectors.
+              </p>
             </div>
 
-            <aside className="relative z-10 rounded-2xl border border-[#BEEBFB] bg-[#E8F7FE] p-5 animate-zoom-in">
-              <span className="text-xs font-semibold uppercase text-[#0B6DA8]">
-                The Public Safety and Government industry
-              </span>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-white p-4">
-                  <strong className="block text-3xl font-semibold text-[#0B6DA8]">
-                    <AnimatedCounter target={6} />
-                  </strong>
-                  <span className="mt-2 block text-xs font-semibold leading-5 text-[#535862]">
-                    priority industry-sectors
-                  </span>
-                </div>
-                <div className="rounded-xl bg-white p-4">
-                  <strong className="block text-3xl font-semibold text-[#0B6DA8]">
-                    <AnimatedCounter target={10} />
-                  </strong>
-                  <span className="mt-2 block text-xs font-semibold leading-5 text-[#535862]">
-                    Jobs and Skills Councils nationally
-                  </span>
-                </div>
+            <div className="flex flex-col items-start gap-5 rounded-2xl border border-[#E9EAEB] bg-white p-5 animate-card-entrance sm:flex-row">
+              <Image
+                src="/images/reports/about/working-in-partnership.svg"
+                alt=""
+                width={92}
+                height={92}
+                className="size-[92px] shrink-0 object-contain animate-zoom-in"
+              />
+              <div className="flex flex-col gap-2">
+                <h2 className="text-xl font-bold leading-7 text-[#252D02]">
+                  Working in partnership
+                </h2>
+                <p className="text-sm font-medium leading-6 text-[#535862]">
+                  Through its work, Public Skills Australia actively supports
+                  employer and employee bodies in these industries and associated
+                  volunteer associations. Public Skills Australia works in
+                  partnership with the Department of Employment and Workplace
+                  Relations (DEWR) and other JSCs to give effect to broader
+                  Ministerial and government priorities.
+                </p>
               </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {sectors.map((sector) => (
-                  <span
-                    key={sector}
-                    className="rounded-full bg-white px-3 py-1 text-[10px] font-bold leading-5 text-[#075D87]"
-                  >
-                    {sector}
-                  </span>
-                ))}
-              </div>
-            </aside>
+            </div>
           </div>
         </section>
 
-        <section ref={undertakesRef} className="space-y-6">
-          <div className="border-b border-[#D5D7DA] pb-3">
-            <h2
-              className={`text-xl sm:text-2xl font-bold text-[#252D02] ${
-                isUndertakesVisible ? "animate-slide-up" : "opacity-0"
-              }`}
-            >
+        <section ref={undertakesRef} className="flex flex-col gap-6">
+          <div className="border-b border-[#D5D7DA] pb-2">
+            <h2 className="text-2xl font-bold leading-8 text-[#252D02]">
               Public Skills Australia Undertakes:
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {undertakes.map((item, index) => (
               <article
                 key={item.title}
@@ -191,46 +153,45 @@ export default function CorrectionalServicesAboutView({
                     ? { animationDelay: `${index * 0.12 + 0.1}s` }
                     : undefined
                 }
-                className={`group flex min-h-[376px] cursor-pointer flex-col justify-between rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:scale-[1.02] hover:border-[#0B6DA8] hover:shadow-xl ${
-                  isUndertakesVisible
+                className={
+                  "group flex min-h-[376px] flex-col gap-10 rounded-[14px] border border-[#E9EAEB] bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#B2DB79] hover:shadow-md " +
+                  (isUndertakesVisible
                     ? "animate-card-entrance"
-                    : "opacity-0 translate-y-6"
-                }`}
+                    : "opacity-0 translate-y-6")
+                }
               >
-                <div className="space-y-8">
-                  <Image
-                    src={item.icon}
-                    alt=""
-                    width={100}
-                    height={100}
-                    className="h-[100px] w-[100px] object-contain transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div>
-                    <h3 className="max-w-[294px] text-base font-bold leading-7 text-[#252D02] transition-colors duration-500 group-hover:text-[#0B6DA8]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 max-w-[294px] text-sm leading-6 text-[#535862]">
-                      {item.description}
-                    </p>
-                  </div>
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="size-[100px] shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-xl font-bold leading-7 text-[#252D02]">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm font-medium leading-6 text-[#535862]">
+                    {item.description}
+                  </p>
                 </div>
               </article>
             ))}
           </div>
 
-          <div className="flex min-h-[156px] items-center rounded-2xl border border-[#E9EAEB] bg-white p-6 animate-card-entrance">
+          <div className="flex flex-col items-start gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 sm:flex-row sm:items-center">
             <Image
               src="/images/reports/about/Commitment.svg"
               alt=""
               width={100}
               height={100}
-              className="h-[100px] w-[100px] shrink-0 object-contain animate-zoom-in"
+              className="size-[100px] shrink-0 object-contain"
             />
-            <div className="ml-6 self-start pt-1">
-              <h2 className="text-base font-bold leading-7 text-[#252D02]">
+            <div className="flex max-w-[800px] flex-col gap-2">
+              <h2 className="text-xl font-bold leading-7 text-[#252D02]">
                 Our commitment
               </h2>
-              <p className="mt-2 max-w-[860px] text-sm leading-6 text-[#535862]">
+              <p className="text-sm font-medium leading-6 text-[#535862]">
                 Public Skills Australia remains committed to encouraging the
                 participation of First Nations people,<sup>1</sup> those from
                 culturally and linguistically diverse backgrounds, those living
@@ -241,19 +202,24 @@ export default function CorrectionalServicesAboutView({
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-[#BEEBFB] bg-[#E8F7FE] p-6 text-xs leading-6 text-[#535862]">
-            <p className="max-w-[920px]">
-              <sup>1.</sup> Please note, First Nations people will be used as
-              preferred terminology inclusive of Aboriginal and Torres Strait
-              Islanders. When citing a data source (such as government
-              strategies or state of the sector reports) the terminology of the
-              data source will be used to maintain accurate data representation.
-            </p>
+          <aside className="rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862]">
+            <ol className="max-w-[800px] list-decimal pl-5">
+              <li>
+                Please note, First Nations people will be used as preferred
+                terminology inclusive of Aboriginal and Torres Strait Islanders.
+                When citing a data source (such as government strategies or state
+                of the sector reports) the terminology of the data source will be
+                used to maintain accurate data representation.
+              </li>
+            </ol>
           </aside>
         </section>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter
+        contactUrl={report.contactUrl}
+        reportName="Correctional Services Workforce Insights Report"
+      />
     </div>
   );
 }

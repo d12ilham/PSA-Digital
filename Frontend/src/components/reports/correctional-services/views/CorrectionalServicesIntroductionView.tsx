@@ -33,62 +33,86 @@ type ReportSection = {
 
 const reportSections: ReportSection[] = [
   {
-    title: "Drivers of Change",
+    title: "Executive Summary",
+    icon: "/images/reports/introduction/Executive.svg",
+    description:
+      "An executive overview of the workforce insights and strategies",
+    tags: ["Executive Summary"],
+    path: "executive_summary",
+  },
+  {
+    title: "Drivers Of Change",
     icon: "/images/reports/introduction/Drivers.svg",
     description:
-      "Four key drivers of change and the nine megatrends shaping long-term workforce planning and development.",
-    tags: ["Four Key Drivers", "Nine Megatrends"],
+      "Four key drivers of change and the nine megatrends shaping long-term workforce trends.",
+    tags: ["Drivers of Change", "Nine Megatrends"],
     path: "drivers_of_change",
   },
   {
-    title: "Industry-Sector Analysis",
+    title: "Industry Overview",
     icon: "/images/reports/introduction/Overview.svg",
-    description:
-      "Examines Correctional Services industry-sector data across custodial and community corrections settings.",
-    tags: ["Industry-Sector Overview", "Industry Profile"],
+    description: "An overview of the industry-sector and workforce profile data",
+    tags: [
+      "Federal Government Industry-Sector Overview",
+      "Industry Profile",
+      "Eight State and Territory Workforce Overviews",
+    ],
     path: "industry_overview",
   },
   {
-    title: "Proposed Strategies Summary",
+    title: "Workforce Insights",
     icon: "/images/reports/introduction/Insights.svg",
     description:
-      "Summarises the proposed 2026 workforce strategy that responds to the approved workforce insights.",
-    tags: ["Workforce Insights", "Proposed Strategy"],
-    path: "workforce_strategies",
+      "An overview of the workforce insights and supporting research, including industry insights.",
+    tags: [
+      "Summary of Workforce Themes and Insights",
+      "Supporting information details for each Insight",
+    ],
+    path: "workforce_insights",
   },
   {
-    title: "Existing Industry-Sector Strategies",
+    title: "Workforce Strategies",
     icon: "/images/reports/introduction/Strategies.svg",
     description:
-      "Reviews jurisdictional strategies already shaping Correctional Services workforce and capability priorities.",
-    tags: ["Existing Strategies"],
-    path: "existing_strategies",
-  },
-  {
-    title: "Federal Government Initiatives",
-    icon: "/images/reports/introduction/Executive.svg",
-    description:
-      "Identifies federal initiatives relevant to Correctional Services workforce planning and training priorities.",
-    tags: ["Federal Initiatives"],
-    path: "federal_initiatives",
+      "The Proposed Strategies, and other Strategies/Initiatives informing these.",
+    tags: [
+      "2026 Proposed Workforce Strategy",
+      "Update on 2024 Strategies",
+      "Update on 2025 Strategies",
+      "Existing Industry-Sector Strategies",
+    ],
+    path: "workforce_strategies",
   },
   {
     title: "Looking Forward",
     icon: "/images/reports/introduction/Summary.svg",
-    description:
-      "The future lines of inquiry and priorities for the 2027 Workforce Insights Reports.",
+    description: "The future lines of enquiry and priorities for the next reports.",
     tags: ["2027 and Beyond"],
     path: "looking_forward",
   },
 ];
 
 const atAGlanceStats = [
-  { value: 4, label: "Drivers of Change" },
-  { value: 9, label: "Megatrends" },
-  { value: 46500, label: "Correctional Services workforce", formatNumber: true },
-  { value: 114, label: "Custodial facilities" },
-  { value: 1, label: "Primary workforce focus" },
-  { value: 14, label: "Federal initiatives" },
+  {
+    metrics: [
+      { value: 4, label: "Drivers of Change" },
+      { value: 9, label: "Megatrends" },
+    ],
+  },
+  {
+    metrics: [
+      { value: 46500, label: "Workforce Employees", formatNumber: true },
+    ],
+  },
+  {
+    metrics: [
+      { value: 1, label: "Themes" },
+      { value: 3, label: "Workforce Insights" },
+    ],
+  },
+  {
+    metrics: [{ value: 1, label: "Proposed 2026 Strategies" }],
+  },
 ];
 
 export default function CorrectionalServicesIntroductionView({
@@ -131,7 +155,7 @@ export default function CorrectionalServicesIntroductionView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F8F0] text-[#1B240E] font-sans flex flex-col justify-between selection:bg-[#38BDF8]/30 antialiased">
+    <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col justify-between selection:bg-[#424996]/10 antialiased">
       <ReportHeader slug={slug} report={report} currentPage="introduction" />
 
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
@@ -141,11 +165,11 @@ export default function CorrectionalServicesIntroductionView({
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="animate-slide-up space-y-2">
-                <span className="text-xs font-semibold text-[#0B6DA8] uppercase block">
+                <span className="text-xs font-semibold text-[#598303] uppercase block">
                   Introduction
                 </span>
-                <h1 className="max-w-[760px] text-3xl sm:text-4xl font-bold leading-[1.35] text-[#063B5D]">
-                  2026 Correctional Services Workforce Insights Report
+                <h1 className="max-w-[760px] text-3xl sm:text-4xl font-bold leading-[1.35] text-[#252D02]">
+                  Correctional industry-sector Workforce Insights Report 2026
                 </h1>
               </div>
 
@@ -161,7 +185,7 @@ export default function CorrectionalServicesIntroductionView({
                 </p>
                 <p className="text-xs sm:text-sm text-[#535862] leading-relaxed font-normal">
                   Public Skills Australia&apos;s{" "}
-                  <span className="font-semibold text-[#063B5D]">
+                  <span className="font-semibold text-[#252D02]">
                     Workforce Insights Reports
                   </span>{" "}
                   are developed using a combination of qualitative and
@@ -179,7 +203,7 @@ export default function CorrectionalServicesIntroductionView({
               <button
                 type="button"
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
-                className="bg-[#0B6DA8] hover:bg-[#063B5D] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-[#046D2A] hover:bg-[#252D02] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
@@ -187,7 +211,7 @@ export default function CorrectionalServicesIntroductionView({
               <button
                 type="button"
                 onClick={() => router.push(`/reports/${getPreviousReportSlug()}`)}
-                className="border border-[#38BDF8] bg-[#F0F9FF] hover:bg-white text-[#063B5D] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
+                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-[#F0F5DF] text-[#598303] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
               </button>
@@ -207,34 +231,40 @@ export default function CorrectionalServicesIntroductionView({
 
           <aside className="lg:col-span-5 bg-[#F5F5F5] border border-[#E9EAEB] rounded-2xl p-5 flex flex-col space-y-4 animate-zoom-in">
             <div>
-              <span className="text-xs font-semibold text-[#0B6DA8] uppercase mb-4 block">
+              <span className="text-xs font-semibold text-[#598303] uppercase mb-3 block">
                 This report at a glance
               </span>
-              <div className="grid grid-cols-2 gap-3">
-                {atAGlanceStats.map((stat) => (
+              <div className="grid grid-cols-2 gap-2">
+                {atAGlanceStats.map((stat, index) => (
                   <div
-                    key={stat.label}
-                    className="min-h-[124px] bg-white rounded-xl border border-[#E9EAEB] p-4 flex flex-col justify-center transition-all duration-300 hover:shadow-xs hover:-translate-y-0.5"
+                    key={index}
+                    className={`min-h-[108px] bg-white rounded-lg border border-[#E9EAEB] p-5 transition-all duration-300 hover:shadow-xs hover:-translate-y-0.5 ${
+                      stat.metrics.length > 1
+                        ? "flex items-start gap-3"
+                        : "flex flex-col justify-center gap-3"
+                    }`}
                   >
-                    <span className="text-2xl font-semibold text-[#0B6DA8]">
-                      <AnimatedCounter
-                        target={stat.value}
-                        formatNumber={stat.formatNumber}
-                      />
-                    </span>
-                    <span className="text-xs font-semibold text-[#535862] leading-tight mt-2">
-                      {stat.label}
-                    </span>
+                    {stat.metrics.map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="flex min-w-0 flex-1 flex-col gap-3"
+                      >
+                        <span className="text-2xl font-semibold leading-8 text-[#424996]">
+                          <AnimatedCounter
+                            target={metric.value}
+                            formatNumber={metric.formatNumber}
+                          />
+                        </span>
+                        <span className="text-sm font-semibold leading-6 text-[#535862]">
+                          {metric.label}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
             </div>
 
-            <p className="text-xs text-[#535862] leading-normal">
-              This Report focuses on community corrections while recognising the
-              relationship between custodial services, community supervision and
-              future workforce capability.
-            </p>
           </aside>
         </section>
 
@@ -245,7 +275,7 @@ export default function CorrectionalServicesIntroductionView({
                 isStructureVisible ? "animate-slide-up" : "opacity-0"
               }`}
             >
-              This Report is structured as follows
+              The Digital Report Structure
             </h2>
             <p className="text-sm leading-6 text-[#535862]">
               Six parts - select any to explore it
@@ -262,7 +292,7 @@ export default function CorrectionalServicesIntroductionView({
                     : undefined
                 }
                 onClick={() => router.push(`/reports/${slug}/${section.path}`)}
-                className={`relative bg-white rounded-2xl border border-[#E9EAEB] border-t-12 border-t-[#063B5D] p-6 flex flex-col justify-between space-y-6 cursor-pointer transition-all duration-200 hover:border-2 hover:border-[#0B6DA8] hover:shadow-md ${
+                className={`relative bg-white rounded-2xl border border-[#E9EAEB] border-t-12 border-t-[#424996] p-6 flex flex-col justify-between space-y-6 cursor-pointer transition-all duration-200 hover:border-2 hover:border-[#424996] hover:shadow-md ${
                   isStructureVisible
                     ? "animate-card-entrance"
                     : "opacity-0 translate-y-6"
@@ -274,7 +304,7 @@ export default function CorrectionalServicesIntroductionView({
                       {section.title}
                     </h3>
                     {section.subtitle && (
-                      <p className="text-xs font-medium text-[#0B6DA8] leading-relaxed">
+                      <p className="text-xs font-medium text-[#424996] leading-relaxed">
                         {section.subtitle}
                       </p>
                     )}
@@ -286,7 +316,7 @@ export default function CorrectionalServicesIntroductionView({
                         {section.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="bg-[#E8F7FE] text-[#075D87] text-[10px] font-bold px-3 py-1 rounded-full"
+                            className="bg-[rgba(66,73,150,0.1)] text-[#424996] text-[10px] font-bold px-3 py-1 rounded-full"
                           >
                             {tag}
                           </span>
@@ -310,7 +340,7 @@ export default function CorrectionalServicesIntroductionView({
                     event.stopPropagation();
                     router.push(`/reports/${slug}/${section.path}`);
                   }}
-                  className="bg-[#38BDF8] hover:bg-[#0B6DA8] text-[#063B5D] hover:text-white font-bold text-xs px-5 py-2 rounded-full flex w-fit items-center gap-1.5 cursor-pointer transition-colors"
+                  className="bg-[#8AC900] hover:bg-[#B2DB79] text-[#252D02] font-bold text-xs px-5 py-2 rounded-full flex w-fit items-center gap-1.5 cursor-pointer transition-colors"
                 >
                   Explore <ArrowRight className="h-3.5 w-3.5" />
                 </button>
@@ -336,7 +366,7 @@ export default function CorrectionalServicesIntroductionView({
           ].map((item) => (
             <div
               key={item.path}
-              className="bg-[#E8F7FE] border border-[#BEEBFB] rounded-2xl p-5 flex items-center justify-between gap-4 transition-all duration-300 hover:shadow-xs"
+              className="bg-[#F0F5DF] border border-[#E9EAEB] rounded-2xl p-5 flex items-center justify-between gap-4 transition-all duration-300 hover:shadow-xs"
             >
               <div className="flex items-center gap-4">
                 <Image
@@ -356,7 +386,7 @@ export default function CorrectionalServicesIntroductionView({
               <button
                 type="button"
                 onClick={() => router.push(`/reports/${slug}/${item.path}`)}
-                className="bg-[#38BDF8] hover:bg-[#0B6DA8] text-[#063B5D] hover:text-white font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+                className="bg-[#8AC900] hover:bg-[#B2DB79] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
               >
                 View <ArrowRight className="h-3.5 w-3.5" />
               </button>
