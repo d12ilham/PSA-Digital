@@ -92,7 +92,17 @@ const reportSections: ReportSection[] = [
   },
 ];
 
-const atAGlanceStats = [
+type GlanceMetric = {
+  value: number;
+  label: string;
+  formatNumber?: boolean;
+};
+
+type GlanceStat = {
+  metrics: GlanceMetric[];
+};
+
+const atAGlanceStats: GlanceStat[] = [
   {
     metrics: [
       { value: 4, label: "Drivers of Change" },
