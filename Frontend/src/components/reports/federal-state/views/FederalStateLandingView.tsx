@@ -126,9 +126,7 @@ export default function FederalStateLandingView({
           </div>
 
           <p className="text-lg font-medium text-notes animate-slide-up-delay max-w-3xl mx-auto leading-relaxed">
-            Choose how you enter the digital report. Either start at the
-            beginning from the Introduction or go straight to the Executive
-            Summary.
+            Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
           </p>
         </div>
 
@@ -166,6 +164,7 @@ export default function FederalStateLandingView({
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
           >
             <div>
+              <p className="mb-2 text-xs font-semibold text-gray800">OVERVIEW</p>
               <div className="flex items-center justify-between gap-3 mb-4">
                 <h2 className="text-2xl font-bold text-[#694834]">
                   Executive Summary

@@ -274,9 +274,7 @@ export default function ReportLandingPage({
               connect them.
             </p>
             <p className="animate-slide-up-delay mx-auto mt-3 max-w-[800px] text-[15px] font-semibold leading-5 text-[#648605] sm:text-base">
-              Choose how you enter the digital report. Either start at the
-              beginning from the Introduction or go straight to the Executive
-              Summary.
+              Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
             </p>
           </section>
 
@@ -290,6 +288,9 @@ export default function ReportLandingPage({
                   animationDelay: `${index * 0.12 + 0.12}s`,
                 }}
               >
+                {card.path === "executive_summary" && (
+                  <p className="mb-2 text-[10px] font-semibold text-[#252D02]">OVERVIEW</p>
+                )}
                 <div className="flex items-center justify-between gap-3">
                   <h2
                     className="text-left text-[18px] font-bold leading-6"
@@ -419,7 +420,7 @@ export default function ReportLandingPage({
             </h1>
           </div>
           <p className={`text-lg font-medium animate-slide-up-delay ${isCorrectionalServices ? "text-[#535862]" : "text-gray-600"}`}>
-            Select your reading experience
+            Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
           </p>
         </div>
 
@@ -465,8 +466,8 @@ export default function ReportLandingPage({
           >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className={`text-xs sm:text-sm font-semibold uppercase leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
-                  SHORT ON TIME?
+                <span className={`text-xs sm:text-sm font-semibold leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
+                  OVERVIEW
                 </span>
               </div>
               <h2 className="text-2xl font-bold mb-4" style={{ color: isCorrectionalServices ? "#424996" : sector.theme.primaryColor }}>

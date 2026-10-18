@@ -80,7 +80,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
               <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-[#F0F3E5]">
                 <Image src={`/images/reports/drivers-of-change/${icon}.svg`} alt="" width={48} height={48} className="h-12 w-12" />
               </div>
-              <h3 className="mt-3 text-xs font-medium leading-6 text-[#252D02]">{title}</h3>
+              <h3 className="mt-3 text-xs font-medium leading-6 text-[#252D02]">{icon === "Climate" ? <>Climate<br />change</> : icon === "Demographic" ? <>Demographic<br />shifts</> : title}</h3>
             </article>
           ))}
       </section>

@@ -435,7 +435,7 @@ export default function ReportsArchivePage() {
                 icon: "/images/reports/reports-main/Executive.svg",
               },
               {
-                title: "Driver of Changes",
+                title: "Driver of Change",
                 icon: "/images/reports/reports-main/Driver.svg",
               },
               {

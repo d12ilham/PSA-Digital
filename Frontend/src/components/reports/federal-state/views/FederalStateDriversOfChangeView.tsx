@@ -371,7 +371,7 @@ export default function FederalStateDriversOfChangeView({
                 className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
               >
                 <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
-                <p className="text-xs font-semibold leading-normal text-gray600">{item.title}</p>
+                <p className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</p>
               </div>
             ))}
           </div>

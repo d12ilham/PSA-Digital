@@ -360,7 +360,7 @@ export default function CorrectionalServicesDriversOfChangeView({
                       isActive ? "text-[#598303]" : "text-[#535862]"
                     }`}
                   >
-                    {item.title}
+                    {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
                   </p>
                 </button>
               );

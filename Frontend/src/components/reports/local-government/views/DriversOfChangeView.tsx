@@ -436,7 +436,7 @@ export default function DriversOfChangeView({
                         isActive ? "text-active" : "text-gray600"
                       }`}
                     >
-                      {item.title}
+                      {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
                     </p>
                   </div>
 
