@@ -179,6 +179,7 @@ export default function ReportLandingPage({
     "Straight to the key insights and strategies — the workforce story on one page, built for large screens and briefings.";
 
   const sector = resolveSector(report.industry?.slug || report.industry?.name, slug);
+  const isCorrectionalServices = sector.id === "correctional-services";
 
 
   if (sector.id === "federal-state") {
@@ -369,7 +370,7 @@ export default function ReportLandingPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F8F0] relative overflow-hidden flex flex-col justify-between font-sans antialiased">
+    <div className={`min-h-screen ${isCorrectionalServices ? "bg-[#FAFAF0]" : "bg-[#F7F8F0]"} relative overflow-hidden flex flex-col justify-between font-sans antialiased`}>
       {/* ── BACKGROUND WAVE GRAPHICS ── */}
       <img
         src="/images/wave-left.png"
@@ -383,7 +384,7 @@ export default function ReportLandingPage({
       />
 
       {/* ── TOP HEADER ── */}
-      <header className="w-full bg-[#FAFAF0] z-10 relative border-b border-gray200">
+      <header className={`w-full bg-[#FAFAF0] z-10 relative border-b ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"}`}>
         <div className="max-w-360 mx-auto px-6 sm:px-12 py-4 flex items-center justify-between">
           <div
             onClick={() => router.push("/reports")}
@@ -399,7 +400,7 @@ export default function ReportLandingPage({
               <PSALogo />
             )}
           </div>
-          <span className={`${sector.theme.badgeBg} text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase`}>
+          <span className={`${isCorrectionalServices ? "bg-[#424996]" : sector.theme.badgeBg} text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase`}>
             {report.industry?.name || sector.badgeText}
           </span>
         </div>
@@ -410,14 +411,14 @@ export default function ReportLandingPage({
         {/* Title Section */}
         <div className="max-w-5xl mx-auto text-center mb-8 sm:mb-10 space-y-6">
           <div className="animate-slide-up space-y-4">
-            <p className="text-xs sm:text-xs font-semibold uppercase tracking-wider" style={{ color: sector.theme.primaryColor }}>
+            <p className="text-xs sm:text-xs font-semibold uppercase tracking-wider" style={{ color: isCorrectionalServices ? "#598303" : sector.theme.primaryColor }}>
               {report.year?.label || sector.defaultYear} • PUBLIC SKILLS AUSTRALIA
             </p>
-            <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
+            <h1 className={`text-4xl font-bold leading-tight sm:leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
               {report.title}
             </h1>
           </div>
-          <p className="text-lg font-medium text-gray-600 animate-slide-up-delay">
+          <p className={`text-lg font-medium animate-slide-up-delay ${isCorrectionalServices ? "text-[#535862]" : "text-gray-600"}`}>
             Select your reading experience
           </p>
         </div>
@@ -426,19 +427,19 @@ export default function ReportLandingPage({
         <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Pathway 1: Introduction */}
           <div
-            style={{ animationDelay: "0.15s", borderTopColor: sector.theme.accentColor }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
+            style={{ animationDelay: "0.15s", borderTopColor: isCorrectionalServices ? "#9CA9D2" : sector.theme.accentColor }}
+            className={`animate-card-entrance bg-white rounded-2xl border ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} border-t-12 p-8 flex flex-col justify-between transition-all`}
           >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
+                <span className={`text-xs sm:text-sm font-semibold uppercase leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
                   NEW TO THE REPORT?
                 </span>
               </div>
-              <h2 className="text-2xl font-bold mb-4" style={{ color: sector.theme.primaryColor }}>
+              <h2 className="text-2xl font-bold mb-4" style={{ color: isCorrectionalServices ? "#9CA9D2" : sector.theme.primaryColor }}>
                 Introduction
               </h2>
-              <p className="text-xs text-gray600 leading-relaxed mb-8">
+              <p className={`text-xs leading-relaxed mb-8 ${isCorrectionalServices ? "text-[#535862]" : "text-gray600"}`}>
                 {report.landingIntroDesc || defaultIntroDesc}
               </p>
             </div>
@@ -447,8 +448,8 @@ export default function ReportLandingPage({
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
                 className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
                 style={{
-                  backgroundColor: sector.theme.accentColor,
-                  color: sector.id === "local-government" ? "#1B240E" : "#FFFFFF",
+                  backgroundColor: isCorrectionalServices ? "#8AC900" : sector.theme.accentColor,
+                  color: isCorrectionalServices || sector.id === "local-government" ? "#252D02" : "#FFFFFF",
                 }}
               >
                 Explore the Introduction{" "}
@@ -459,27 +460,27 @@ export default function ReportLandingPage({
 
           {/* Pathway 2: Executive Summary */}
           <div
-            style={{ animationDelay: "0.30s", borderTopColor: sector.theme.primaryColor }}
-            className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
+            style={{ animationDelay: "0.30s", borderTopColor: isCorrectionalServices ? "#424996" : sector.theme.primaryColor }}
+            className={`animate-card-entrance bg-white rounded-2xl border ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} border-t-12 p-8 flex flex-col justify-between transition-all`}
           >
             <div>
               <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className="text-xs sm:text-sm font-semibold text-gray800 uppercase leading-normal">
+                <span className={`text-xs sm:text-sm font-semibold uppercase leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
                   SHORT ON TIME?
                 </span>
               </div>
-              <h2 className="text-2xl font-bold mb-4" style={{ color: sector.theme.primaryColor }}>
+              <h2 className="text-2xl font-bold mb-4" style={{ color: isCorrectionalServices ? "#424996" : sector.theme.primaryColor }}>
                 Executive Summary
               </h2>
-              <p className="text-xs text-gray600 leading-relaxed mb-8">
+              <p className={`text-xs leading-relaxed mb-8 ${isCorrectionalServices ? "text-[#535862]" : "text-gray600"}`}>
                 {report.landingExecDesc || defaultExecDesc}
               </p>
             </div>
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-                className="text-white font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
-                style={{ backgroundColor: sector.theme.primaryColor }}
+                className={`font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 ${isCorrectionalServices ? "text-[#252D02]" : "text-white"}`}
+                style={{ backgroundColor: isCorrectionalServices ? "#8AC900" : sector.theme.primaryColor }}
               >
                 Explore the Executive Summary{" "}
                 <span className="text-base font-normal">→</span>
@@ -490,10 +491,10 @@ export default function ReportLandingPage({
       </main>
 
       {/* ── FOOTER / BOTTOM NAV ── */}
-      <footer className="w-full bg-white border-t border-gray200 z-10 relative py-4 px-4 flex items-center justify-center gap-3">
+      <footer className={`w-full bg-white border-t ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} z-10 relative py-4 px-4 flex items-center justify-center gap-3`}>
         <button
           onClick={() => router.push("/reports")}
-          className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer"
+          className={`border ${isCorrectionalServices ? "border-[#E9EAEB] bg-white text-[#252D02]" : "border-[#B2DB79] bg-[#FAFAF0] text-notes"} font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer`}
         >
           <span>←</span> Back to PSA Website
         </button>
@@ -503,7 +504,7 @@ export default function ReportLandingPage({
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-sm px-5 py-2 rounded-full cursor-pointer no-underline"
+          className={`border ${isCorrectionalServices ? "border-[#E9EAEB] bg-white text-[#252D02]" : "border-[#B2DB79] bg-[#FAFAF0] text-notes"} font-semibold text-sm px-5 py-2 rounded-full cursor-pointer no-underline`}
         >
           Contact Us
         </a>

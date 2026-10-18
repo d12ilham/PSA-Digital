@@ -1,48 +1,87 @@
 import CorrectionalServicesAboutView from "./views/CorrectionalServicesAboutView";
 import CorrectionalServicesDriversOfChangeView from "./views/CorrectionalServicesDriversOfChangeView";
+import CorrectionalServicesDemandManagementView from "./views/CorrectionalServicesDemandManagementView";
+import CorrectionalServicesDownloadsView from "./views/CorrectionalServicesDownloadsView";
 import CorrectionalServicesExecutiveSummaryView from "./views/CorrectionalServicesExecutiveSummaryView";
 import CorrectionalServicesExistingStrategiesView from "./views/CorrectionalServicesExistingStrategiesView";
 import CorrectionalServicesFederalInitiativesView from "./views/CorrectionalServicesFederalInitiativesView";
 import CorrectionalServicesIndustryOverviewView from "./views/CorrectionalServicesIndustryOverviewView";
 import CorrectionalServicesIndustryProfileView from "./views/CorrectionalServicesIndustryProfileView";
+import CorrectionalServicesIndustryProfileCommunityView from "./views/CorrectionalServicesIndustryProfileCommunityView";
+import CorrectionalServicesIndustryProfilePresentationView from "./views/CorrectionalServicesIndustryProfilePresentationView";
 import CorrectionalServicesIntroductionView from "./views/CorrectionalServicesIntroductionView";
 import CorrectionalServicesLookingForwardView from "./views/CorrectionalServicesLookingForwardView";
 import CorrectionalServicesMethodologyView from "./views/CorrectionalServicesMethodologyView";
 import CorrectionalServicesStateTerritoryView from "./views/CorrectionalServicesStateTerritoryView";
 import CorrectionalServicesUpdate2025StrategiesView from "./views/CorrectionalServicesUpdate2025StrategiesView";
+import CorrectionalServicesSkillsTrainingPathwaysView from "./views/CorrectionalServicesSkillsTrainingPathwaysView";
+import CorrectionalServicesFirstNationsParticipationView from "./views/CorrectionalServicesFirstNationsParticipationView";
+import CorrectionalServicesUpdate2024StrategiesView from "./views/CorrectionalServicesUpdate2024StrategiesView";
 import CorrectionalServicesWorkforceInsightsView from "./views/CorrectionalServicesWorkforceInsightsView";
+import CorrectionalServicesWorkforceInsightsIntroductionView from "./views/CorrectionalServicesWorkforceInsightsIntroductionView";
+import CorrectionalServicesWorkforceInsightsOverviewView from "./views/CorrectionalServicesWorkforceInsightsOverviewView";
+import CorrectionalServicesWorkforceInsightOneView from "./views/CorrectionalServicesWorkforceInsightOneView";
+import CorrectionalServicesWorkforceInsightTwoView from "./views/CorrectionalServicesWorkforceInsightTwoView";
+import CorrectionalServicesWorkforceInsightThreeView from "./views/CorrectionalServicesWorkforceInsightThreeView";
 import CorrectionalServicesWorkforceStrategiesView from "./views/CorrectionalServicesWorkforceStrategiesView";
+import CorrectionalServicesWorkforceMobilityView from "./views/CorrectionalServicesWorkforceMobilityView";
 
 export const correctionalServicesViews: Record<string, React.ComponentType<{ slug: string; report: any }>> = {
   about: CorrectionalServicesAboutView,
   drivers_of_change: CorrectionalServicesDriversOfChangeView,
+  downloads: CorrectionalServicesDownloadsView,
+  update_2024_demand_management: CorrectionalServicesDemandManagementView,
+  update_2024_workforce_mobility: CorrectionalServicesWorkforceMobilityView,
   executive_summary: CorrectionalServicesExecutiveSummaryView,
   existing_strategies: CorrectionalServicesExistingStrategiesView,
   federal_initiatives: CorrectionalServicesFederalInitiativesView,
   industry_overview: CorrectionalServicesIndustryOverviewView,
   industry_profile: CorrectionalServicesIndustryProfileView,
+  industry_profile_community: CorrectionalServicesIndustryProfileCommunityView,
+  industry_profile_presentation: CorrectionalServicesIndustryProfilePresentationView,
   introduction: CorrectionalServicesIntroductionView,
   looking_forward: CorrectionalServicesLookingForwardView,
   methodology: CorrectionalServicesMethodologyView,
   state_territory: CorrectionalServicesStateTerritoryView,
   update_2025_strategies: CorrectionalServicesUpdate2025StrategiesView,
-  workforce_insights: CorrectionalServicesWorkforceInsightsView,
+  update_2025_training_pathways: CorrectionalServicesSkillsTrainingPathwaysView,
+  update_2025_first_nations_participation: CorrectionalServicesFirstNationsParticipationView,
+  update_2024_strategies: CorrectionalServicesUpdate2024StrategiesView,
+  workforce_insights: CorrectionalServicesWorkforceInsightsIntroductionView,
+  workforce_insights_2026: CorrectionalServicesWorkforceInsightsOverviewView,
+  workforce_insights_skills_capabilities: CorrectionalServicesWorkforceInsightOneView,
+  workforce_insights_specialisations: CorrectionalServicesWorkforceInsightTwoView,
+  workforce_insights_career_pathways: CorrectionalServicesWorkforceInsightThreeView,
+  workforce_insights_detail: CorrectionalServicesWorkforceInsightsView,
   workforce_strategies: CorrectionalServicesWorkforceStrategiesView,
 };
 
 export {
   CorrectionalServicesAboutView,
   CorrectionalServicesDriversOfChangeView,
+  CorrectionalServicesDemandManagementView,
+  CorrectionalServicesDownloadsView,
+  CorrectionalServicesWorkforceMobilityView,
   CorrectionalServicesExecutiveSummaryView,
   CorrectionalServicesExistingStrategiesView,
   CorrectionalServicesFederalInitiativesView,
   CorrectionalServicesIndustryOverviewView,
   CorrectionalServicesIndustryProfileView,
+  CorrectionalServicesIndustryProfileCommunityView,
+  CorrectionalServicesIndustryProfilePresentationView,
   CorrectionalServicesIntroductionView,
   CorrectionalServicesLookingForwardView,
   CorrectionalServicesMethodologyView,
   CorrectionalServicesStateTerritoryView,
   CorrectionalServicesUpdate2025StrategiesView,
+  CorrectionalServicesSkillsTrainingPathwaysView,
+  CorrectionalServicesFirstNationsParticipationView,
+  CorrectionalServicesUpdate2024StrategiesView,
   CorrectionalServicesWorkforceInsightsView,
+  CorrectionalServicesWorkforceInsightsIntroductionView,
+  CorrectionalServicesWorkforceInsightsOverviewView,
+  CorrectionalServicesWorkforceInsightOneView,
+  CorrectionalServicesWorkforceInsightTwoView,
+  CorrectionalServicesWorkforceInsightThreeView,
   CorrectionalServicesWorkforceStrategiesView,
 };

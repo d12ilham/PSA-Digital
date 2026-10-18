@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
-import { ArrowRight, Binoculars, Download } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { BrainCircuit, Download, Languages, MapPin, UsersRound } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -16,175 +16,112 @@ type CorrectionalServicesReport = {
 
 const broaderPriorities = [
   {
-    label: "Broader priority 1",
-    title:
-      "Inclusion and participation of First Nations people, women and other genders in the Public Safety and Government workforces.",
+    title: "Inclusion and participation of First Nations people, women and other genders in the Public Safety and Government workforces.",
+    Icon: UsersRound,
   },
   {
-    label: "Broader priority 2",
-    title:
-      "The use of AI and digital transformation and the impact of these technologies on the Public Safety and Government workforces.",
+    title: "The use of AI and digital transformation and the impact of these technologies on the Public Safety and Government workforces.",
+    Icon: BrainCircuit,
   },
 ];
 
 const emergingPriorities = [
-  "Workforce training, recruitment and retention in rural regional and remote areas.",
-  "Language, Literacy, Numeracy and Digital (LLND) skills support in training the Correctional Services workforce.",
+  {
+    title: "Workforce training, recruitment and retention in rural regional and remote areas.",
+    Icon: MapPin,
+  },
+  {
+    title: "Language, Literacy, Numeracy and Digital (LLND) skills support in training the Correctional Services workforce.",
+    Icon: Languages,
+  },
 ];
 
-export default function CorrectionalServicesLookingForwardView({
-  slug,
-  report,
-}: {
-  slug: string;
-  report: CorrectionalServicesReport;
-}) {
-  const router = useRouter();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
+export default function CorrectionalServicesLookingForwardView({ slug, report }: { slug: string; report: CorrectionalServicesReport }) {
   return (
-    <div className="min-h-screen bg-[#F7F8F0] text-[#1B240E] font-sans flex flex-col justify-between selection:bg-[#38BDF8]/30 antialiased">
+    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased selection:bg-[#B2DB79]">
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
-      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="looking_forward" />
+      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+        <ReportNavButtons
+          slug={slug}
+          currentPage="looking_forward"
+          pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
+          prev={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+        />
 
-        <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
-          <div className="lg:col-span-8 space-y-4">
-            <p className="animate-slide-up text-xs font-semibold uppercase leading-6 text-[#0B6DA8]">
-              2027 and Beyond
+        <section className="grid min-h-[285px] items-center gap-8 rounded-md border border-[#ECECE5] bg-white px-6 py-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] lg:px-8">
+          <div className="animate-slide-up motion-reduce:animate-none">
+            <p className="text-xs font-medium uppercase text-[#54710F]">Looking Forward</p>
+            <h1 className="mt-5 text-[34px] font-bold leading-tight text-[#006C30] sm:text-[40px]">2027 and Beyond</h1>
+            <p className="mt-5 max-w-[780px] text-sm leading-6">
+              Public Skills Australia has built on the 2024 Workforce Plans and the 2025 Correctional Services Workforce Insights Report in the development and delivery of the 2026 Correctional Services Insights Report. These reports continue to be the strategic centrepiece guiding annual Business Plans for Public Skills Australia, alongside Ministerial, industry-sector and other priorities (e.g. Royal Commissions and Inquiries).
             </p>
-            <h1 className="animate-slide-up text-3xl sm:text-4xl font-bold text-[#063B5D]">
-              2027 and Beyond
-            </h1>
-            <div className="animate-slide-up-delay space-y-3">
-              <p className="max-w-4xl text-sm leading-6 text-[#535862]">
-                Public Skills Australia has built on the 2024 Workforce Plans and the 2025
-                Correctional Services Workforce Insights Report in the development and delivery of
-                the 2026 Correctional Services Insights Report.
-              </p>
-              <p className="max-w-4xl text-sm leading-6 text-[#535862]">
-                These reports continue to be the strategic centrepiece guiding annual Business Plans
-                for Public Skills Australia, alongside Ministerial, industry-sector and other
-                priorities, including Royal Commissions and Inquiries.
-              </p>
-            </div>
           </div>
-          <div className="lg:col-span-4 flex justify-center lg:justify-end">
-            <div className="animate-hero-pulse-settle flex h-36 w-36 items-center justify-center rounded-full bg-[#E8F7FE]">
-              <Binoculars className="h-20 w-20 text-[#0B6DA8]" strokeWidth={1.5} />
-            </div>
-          </div>
+          <Image
+            src="/images/hero-graphic-looking-forward.png"
+            width={512}
+            height={240}
+            alt=""
+            className="mx-auto h-auto w-full max-w-[512px] animate-zoom-in transition-transform duration-300 hover:scale-[1.03] motion-reduce:animate-none motion-reduce:hover:transform-none"
+          />
         </section>
 
-        <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
-          <p className="text-xs font-bold uppercase text-[#0B6DA8]">
-            2027 Workforce Insights Reports
-          </p>
-          <h2 className="mt-2 text-2xl font-bold text-[#252D02]">
-            Broader priorities for 2026-27
-          </h2>
-          <p className="mt-3 max-w-4xl text-sm leading-6 text-[#535862]">
-            The 2027 Workforce Insights Reports will firstly focus on the broader priorities
-            detailed below and may be delivered throughout 2026-27.
-          </p>
+        <p className="animate-slide-up text-sm leading-6 motion-reduce:animate-none">
+          The 2027 Workforce Insights Reports will firstly focus on the broader priorities detailed below and may be delivered throughout 2026-27:
+        </p>
 
-          <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {broaderPriorities.map((priority, index) => (
-              <article
-                key={priority.label}
-                style={{ animationDelay: `${index * 0.15}s` }}
-                className={`rounded-2xl border border-[#BEEBFB] bg-[#E8F7FE] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md ${
-                  mounted ? "animate-card-entrance" : "opacity-0 translate-y-6"
-                }`}
-              >
-                <span className="text-xs font-bold uppercase text-[#0B6DA8]">
-                  {priority.label}
+        <section aria-label="Broader priorities" className="grid gap-6 md:grid-cols-2">
+          {broaderPriorities.map(({ title, Icon }, index) => (
+            <article key={title} className="group min-h-[208px] overflow-hidden rounded-md border border-[#ECECE5] bg-white animate-card-entrance transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#90AF57] hover:shadow-md motion-reduce:animate-none motion-reduce:hover:translate-y-0" style={{ animationDelay: `${0.12 + index * 0.12}s` }}>
+              <div className="h-2 bg-[#006C30]" />
+              <div className="p-6">
+                <span className="grid size-14 place-items-center rounded-full bg-[#E9EDDF] text-[#006C30] transition-transform duration-300 group-hover:scale-110 motion-reduce:transform-none">
+                  <Icon className="size-7" strokeWidth={1.5} aria-hidden="true" />
                 </span>
-                <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">
-                  {priority.title}
-                </h3>
-              </article>
-            ))}
-          </div>
+                <p className="mt-5 text-xs font-medium text-[#54710F]">Broader priority</p>
+                <h2 className="mt-2 text-lg font-semibold leading-6">{title}</h2>
+              </div>
+            </article>
+          ))}
         </section>
 
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <article className="rounded-2xl border-2 border-[#0B6DA8] bg-white p-6 lg:col-span-2">
-            <p className="text-xs font-bold uppercase text-[#0B6DA8]">
-              Emerging priority
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-[#063B5D]">
-              Correctional Services industry-sector priorities
-            </h2>
-            <div className="mt-5 grid gap-4">
-              {emergingPriorities.map((priority, index) => (
-                <div
-                  key={priority}
-                  style={{ animationDelay: `${index * 0.12}s` }}
-                  className={`rounded-xl border border-[#E9EAEB] bg-[#FBFCFD] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md ${
-                    mounted ? "animate-card-entrance" : "opacity-0 translate-y-6"
-                  }`}
-                >
-                  <span className="text-[10px] font-bold uppercase text-[#0B6DA8]">
-                    Emerging priority {index + 1}
-                  </span>
-                  <p className="mt-2 text-base font-bold leading-6 text-[#252D02]">
-                    {priority}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </article>
+        <p className="animate-slide-up text-sm leading-6 motion-reduce:animate-none">
+          Additionally, the 2027 Workforce Insights Reports will focus on any other emerging priorities impacting the Correctional Services industry-sector, including:
+        </p>
 
-          <article className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
-            <p className="text-xs font-bold uppercase text-[#0B6DA8]">Continuing focus</p>
-            <h2 className="mt-2 text-xl font-bold text-[#252D02]">
-              Drivers of Change
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-[#535862]">
-              Beyond these focused lines of enquiry, the 2027 Workforce Insights Reports will
-              examine the impact of the Drivers of Change identified in this year&apos;s reports on
-              industry-sector workforces.
-            </p>
-            <button
-              type="button"
-              onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-              className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#38BDF8] px-5 text-xs font-bold text-[#063B5D] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0B6DA8] hover:text-white hover:shadow-md"
-            >
-              Revisit Drivers of Change <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </article>
+        <section aria-label="Emerging priorities" className="grid gap-6 md:grid-cols-2">
+          {emergingPriorities.map(({ title, Icon }, index) => (
+            <article key={title} className="group min-h-[208px] overflow-hidden rounded-md border border-[#ECECE5] bg-white animate-card-entrance transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#9DA7D0] hover:shadow-md motion-reduce:animate-none motion-reduce:hover:translate-y-0" style={{ animationDelay: `${0.36 + index * 0.12}s` }}>
+              <div className={`h-2 ${index === 0 ? "bg-[#9DA7D0]" : "bg-[#424996]"}`} />
+              <div className="p-6">
+                <span className="grid size-14 place-items-center rounded-full bg-[#ECEEF8] text-[#424996] transition-transform duration-300 group-hover:scale-110 motion-reduce:transform-none">
+                  <Icon className="size-7" strokeWidth={1.5} aria-hidden="true" />
+                </span>
+                <p className="mt-5 text-xs font-medium text-[#424996]">Emerging priority</p>
+                <h2 className="mt-2 text-lg font-semibold leading-6">{title}</h2>
+              </div>
+            </article>
+          ))}
         </section>
 
-        <section className="rounded-2xl border border-[#BEEBFB] bg-[#E8F7FE] p-6">
-          <h2 className="text-xl font-bold text-[#252D02]">
-            Correctional Services Workforce Insights Reports downloadable PDFs
-          </h2>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => router.push(`/reports/${slug}/downloads`)}
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-[#0B6DA8] px-5 text-xs font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#063B5D] hover:shadow-md"
-            >
-              Download PDF <Download className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-[#0B6DA8] bg-white px-5 text-xs font-bold text-[#0B6DA8] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#FBFCFD] hover:shadow-md"
-            >
-              Revisit Executive Summary
-            </button>
-          </div>
-        </section>
+        <p className="animate-slide-up rounded-md border border-[#8AC900] bg-[#EFF4D6] px-6 py-5 text-sm leading-6 transition-colors duration-300 hover:bg-[#E9F1CE] motion-reduce:animate-none">
+          Beyond these focused lines of inquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-3 pb-4">
+          <Link href={`/reports/${slug}/downloads`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#006C30] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#005426]">
+            Download 2026 PDF <Download className="size-4" aria-hidden="true" />
+          </Link>
+          <Link href={`/reports/${slug}/executive_summary`} className="inline-flex min-h-10 items-center rounded-full border border-[#B2DB79] px-5 py-2 text-xs font-semibold text-[#54710F] transition-colors hover:bg-white">
+            Revisit the Executive Summary
+          </Link>
+          <a href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} className="inline-flex min-h-10 items-center rounded-full border border-[#ECECE5] px-5 py-2 text-xs font-semibold transition-colors hover:bg-white">
+            Contact Public Skills Australia
+          </a>
+        </div>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />
     </div>
   );
 }
