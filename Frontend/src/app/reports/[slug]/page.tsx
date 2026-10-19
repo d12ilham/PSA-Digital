@@ -432,11 +432,13 @@ export default function ReportLandingPage({
             className={`animate-card-entrance bg-white rounded-2xl border ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} border-t-12 p-8 flex flex-col justify-between transition-all`}
           >
             <div>
-              <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className={`text-xs sm:text-sm font-semibold uppercase leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
-                  NEW TO THE REPORT?
-                </span>
-              </div>
+              {!isCorrectionalServices && sector.id !== "local-government" && (
+                <div className="h-10 flex items-center justify-between gap-3 mb-1">
+                  <span className="text-xs sm:text-sm font-semibold uppercase leading-normal text-gray800">
+                    NEW TO THE REPORT?
+                  </span>
+                </div>
+              )}
               <h2 className="text-2xl font-bold mb-4" style={{ color: isCorrectionalServices ? "#9CA9D2" : sector.theme.primaryColor }}>
                 Introduction
               </h2>
@@ -465,11 +467,13 @@ export default function ReportLandingPage({
             className={`animate-card-entrance bg-white rounded-2xl border ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} border-t-12 p-8 flex flex-col justify-between transition-all`}
           >
             <div>
-              <div className="h-10 flex items-center justify-between gap-3 mb-1">
-                <span className={`text-xs sm:text-sm font-semibold leading-normal ${isCorrectionalServices ? "text-[#252D02]" : "text-gray800"}`}>
-                  OVERVIEW
-                </span>
-              </div>
+              {!isCorrectionalServices && sector.id !== "local-government" && (
+                <div className="h-10 flex items-center justify-between gap-3 mb-1">
+                  <span className="text-xs sm:text-sm font-semibold leading-normal text-gray800">
+                    OVERVIEW
+                  </span>
+                </div>
+              )}
               <h2 className="text-2xl font-bold mb-4" style={{ color: isCorrectionalServices ? "#424996" : sector.theme.primaryColor }}>
                 Executive Summary
               </h2>

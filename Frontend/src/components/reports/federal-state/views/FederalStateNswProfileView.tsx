@@ -70,19 +70,9 @@ const sources = [
   { number: 35, text: "NSW Department of Education, NSW Skills Plan 2024–28: Building Skills and Shaping Success, NSW Government, 2024, accessed 4 February 2026." },
 ];
 
-export default function FederalStateNswProfileView({ slug, report }: { slug: string; report: Report }) {
+export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = true }: { slug: string; showJurisdictionLinks?: boolean }) {
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-      <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
-      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_profile_nsw"
-          prev={{ label: "ACT Workforce Overview", href: `/reports/${slug}/industry_profile_act` }}
-          next={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }}
-          prevPrefix=""
-        />
-
+    <div className="space-y-5">
         <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
           <div>
             <p className="inline-block rounded-full bg-[#754D32] px-3 py-1 text-[10px] font-semibold text-white">New South Wales · Selected jurisdiction</p>
@@ -98,7 +88,7 @@ export default function FederalStateNswProfileView({ slug, report }: { slug: str
               <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">33,646</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in New South Wales</p></div>
             </div>
           </div>
-          <JurisdictionMap slug={slug} selected="NSW" />
+          <JurisdictionMap slug={slug} selected="NSW" showLinks={showJurisdictionLinks} />
         </section>
 
         <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
@@ -162,6 +152,23 @@ export default function FederalStateNswProfileView({ slug, report }: { slug: str
             ))}
           </div>
         </section>
+    </div>
+  );
+}
+
+export default function FederalStateNswProfileView({ slug, report }: { slug: string; report: Report }) {
+  return (
+    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
+      <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
+      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
+        <ReportNavButtons
+          slug={slug}
+          currentPage="industry_profile_nsw"
+          prev={{ label: "ACT Workforce Overview", href: `/reports/${slug}/industry_profile_act` }}
+          next={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }}
+          prevPrefix=""
+        />
+        <FederalStateNswProfileContent slug={slug} />
       </main>
       <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>

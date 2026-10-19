@@ -52,18 +52,19 @@ const sources = [
   "Northern Territory Government, State of the Service Report 2024–25, Figure 18.",
 ];
 
-export default function FederalStateNtProfileView({ slug, report }: { slug: string; report: Report }) {
+export default function FederalStateNtProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
+  const ContentTag = embedded ? "div" : "main";
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-      <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
-      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
+    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+      {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
+      <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
+        {!embedded && <ReportNavButtons
           slug={slug}
           currentPage="industry_profile_nt"
           prev={{ label: "NSW Workforce Overview", href: `/reports/${slug}/industry_profile_nsw` }}
           next={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }}
           prevPrefix=""
-        />
+        />}
 
         <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
           <div>
@@ -80,7 +81,7 @@ export default function FederalStateNtProfileView({ slug, report }: { slug: stri
               <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">2,255</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in the Northern Territory</p></div>
             </div>
           </div>
-          <JurisdictionMap slug={slug} selected="NT" />
+          <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />
         </section>
 
         <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
@@ -132,8 +133,8 @@ export default function FederalStateNtProfileView({ slug, report }: { slug: stri
         </Section>
 
         <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">{sources.map((source) => <li key={source} className="flex gap-2 text-[11px] leading-5 text-[#42463B]"><span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#8AC900]" />{source}</li>)}</ul></section>
-      </main>
-      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      </ContentTag>
+      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
     </div>
   );
 }

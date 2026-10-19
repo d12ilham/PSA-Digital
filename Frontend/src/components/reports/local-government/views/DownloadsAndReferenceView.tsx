@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
-import { ArrowLeft, ArrowRight, Download } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 
 interface Report {
   id: string;
@@ -101,26 +101,15 @@ export default function DownloadsAndReferenceView({
 
             {/* Download Button */}
             <div>
-              {report?.pdfFileUrl ? (
-                <a
-                  href={report.pdfFileUrl}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
-                >
-                  <span>Download 2026 PDF</span>
-                  <Download className="h-3.5 w-3.5" />
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  disabled
-                  className="bg-white/70 text-gray800/70 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-not-allowed"
-                >
-                  <span>2026 PDF unavailable</span>
-                </button>
-              )}
+              <a
+                href="https://psa-directus-prod.azurewebsites.net/assets/895e9b7a-2c55-4531-95a1-dafa90b60a1c.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
+              >
+                <span>Open 2026 PDF</span>
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
             </div>
           </div>
 
@@ -136,37 +125,32 @@ export default function DownloadsAndReferenceView({
 
               <div className="space-y-4">
                 {/* 2025 */}
-                <div
+                <a
+                  href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ animationDelay: "0.33s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 transition-colors hover:bg-[#EAF1D6] hover:border-[#728C28] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#728C28] no-underline"
                 >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
-                    Local Government WIR - 2025
+                    2025 Local Government Workforce Insights Report
                   </span>
-                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
-                </div>
+                  <ExternalLink className="h-4 w-4 text-[#728C28] shrink-0" aria-hidden="true" />
+                </a>
 
                 {/* 2024 */}
-                <div
+                <a
+                  href="https://psa-directus-prod.azurewebsites.net/assets/acd96fb3-8c56-4df4-9670-6a92e6eb696d"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ animationDelay: "0.39s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
+                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 transition-colors hover:bg-[#EAF1D6] hover:border-[#728C28] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#728C28] no-underline"
                 >
                   <span className="text-xs sm:text-sm font-bold text-gray800">
-                    Local Government WIR - 2024
+                    2024 Federal, State/Territory &amp; Local Government Workforce Plan
                   </span>
-                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
-                </div>
-
-                {/* 2023 */}
-                <div
-                  style={{ animationDelay: "0.45s" }}
-                  className="animate-card-entrance bg-[#9CAA5433] border border-[#9CAA54] rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4"
-                >
-                  <span className="text-xs sm:text-sm font-bold text-gray800">
-                    Local Government WIR - 2023
-                  </span>
-                  <span className="text-xs text-gray600 shrink-0">PDF unavailable</span>
-                </div>
+                  <ExternalLink className="h-4 w-4 text-[#728C28] shrink-0" aria-hidden="true" />
+                </a>
               </div>
             </div>
           </div>

@@ -44,14 +44,14 @@ export default function LookingForwardView({
         <div className="flex items-center">
           <button
             onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0 cursor-pointer"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Executive Summary
           </button>
         </div>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="group bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 transition-[border-color,box-shadow] duration-300 hover:border-[#B2DB79] hover:shadow-md">
           <div className="space-y-3 flex-1">
             <span className="text-xs font-semibold text-notes uppercase tracking-wider block">
               LOOKING FORWARD
@@ -79,7 +79,7 @@ export default function LookingForwardView({
             </div>
           </div>
 
-          <div className="shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
+          <div className="shrink-0 w-full lg:w-auto flex justify-center lg:justify-end transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transform-none">
             <img
               src="/images/hero-graphic-looking-forward.png"
               alt="2027 and Beyond Diagram"
@@ -95,12 +95,12 @@ export default function LookingForwardView({
           {/* Card 1: Line of Inquiry 1 */}
           <div
             style={{ animationDelay: "0.35s" }}
-            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between ${
+            className={`group bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
               isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
             }`}
           >
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0 transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#EAF1D6] motion-reduce:transform-none">
                 <img
                   src="/images/inquiry-1.svg"
                   alt="Line of Inquiry 1"
@@ -120,12 +120,12 @@ export default function LookingForwardView({
           {/* Card 2: Line of Inquiry 2 */}
           <div
             style={{ animationDelay: "0.85s" }}
-            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between ${
+            className={`group bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
               isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
             }`}
           >
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0 transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#EAF1D6] motion-reduce:transform-none">
                 <img
                   src="/images/inquiry-2.svg"
                   alt="Line of Inquiry 2"
@@ -145,12 +145,12 @@ export default function LookingForwardView({
           {/* Card 3: Continuing */}
           <div
             style={{ animationDelay: "1.35s" }}
-            className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between ${
+            className={`group bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 flex flex-col justify-between transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
               isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
             }`}
           >
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0 transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#EAF1D6] motion-reduce:transform-none">
                 <img
                   src="/images/inquiry-continuing.svg"
                   alt="Continuing"
@@ -179,7 +179,7 @@ export default function LookingForwardView({
         {/* ── LIGHT GREEN SUMMARY BOX ── */}
         <div
           style={{ animationDelay: "1.85s", backgroundColor: "rgba(138, 201, 0, 0.1)", borderWidth: 2 }}
-          className={`border border-[#B2DB79] rounded-2xl p-5 ${
+          className={`border border-[#B2DB79] rounded-2xl p-5 transition-[border-color,box-shadow] duration-300 hover:border-[#728C28] hover:shadow-md ${
             isHeroMounted ? "animate-card-entrance-slow" : "opacity-0"
           }`}
         >
@@ -197,7 +197,7 @@ export default function LookingForwardView({
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2">
           <button
             onClick={() => router.push(`/reports/${slug}/downloads`)}
-            className="bg-[#046D2A] hover:bg-[#035822] text-white text-sm font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            className="bg-[#046D2A] hover:bg-[#035822] text-white text-sm font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-md motion-reduce:hover:translate-y-0 cursor-pointer"
           >
             <span>Download {report?.year?.label || "2026"} PDF</span>
             <Download className="h-4 w-4" />
@@ -205,7 +205,7 @@ export default function LookingForwardView({
 
           <button
             onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-notes text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-colors"
+            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-notes text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0"
           >
             Revisit the Executive Summary
           </button>
@@ -214,7 +214,7 @@ export default function LookingForwardView({
             href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-gray200 hover:bg-gray200 text-gray800 text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-colors no-underline inline-flex items-center justify-center"
+            className="border border-gray200 hover:bg-gray200 text-gray800 text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0 no-underline inline-flex items-center justify-center"
           >
             Contact Public Skills Australia
           </a>
