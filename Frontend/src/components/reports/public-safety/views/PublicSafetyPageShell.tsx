@@ -125,13 +125,13 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
           PS WIR <span className="text-[#8AC900]">{report.year?.label || "2026"}</span>
         </button>
 
-        <nav className="hidden h-full items-center gap-[18px] text-[11px] font-semibold xl:flex" aria-label="Public Safety report navigation">
+        <nav className="hidden h-full items-center gap-[18px] text-xs font-semibold xl:flex" aria-label="Public Safety report navigation">
           {items.map((item) => (
             <div key={item.label} className="group relative flex h-full items-center">
               <button
                 type="button"
                 onClick={() => navigate(item.path)}
-                className={`flex cursor-pointer items-center gap-1 whitespace-nowrap transition-colors ${isActive(item) ? "text-[#8AC900]" : "text-white/85 hover:text-white"}`}
+                className={`flex cursor-pointer items-center gap-1 whitespace-nowrap transition-colors ${isActive(item) ? "font-bold text-[#8AC900]" : "text-white/80 hover:text-white"}`}
                 aria-haspopup={item.children ? "menu" : undefined}
               >
                 {item.accent ? <span className="text-[13px] leading-none" style={{ color: item.accent }}>•</span> : null}
@@ -147,7 +147,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
                       type="button"
                       role="menuitem"
                       onClick={() => navigate(child.path)}
-                      className={`block w-full cursor-pointer rounded-[5px] px-3 py-2 text-left text-[11px] leading-4 transition-colors ${currentPage === child.path ? "bg-[#8AC900] font-bold text-[#252D02]" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
+                      className={`block w-full cursor-pointer rounded-lg px-3 py-2 text-left text-xs leading-4 transition-colors ${currentPage === child.path ? "bg-white/10 font-bold text-[#8AC900]" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
                     >
                       {child.label}
                     </button>
@@ -159,7 +159,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => navigate("downloads")} className="hidden h-9 cursor-pointer items-center gap-2 rounded-full bg-[#087D37] px-4 text-[11px] font-bold text-white transition-colors hover:bg-[#0A9141] sm:flex">
+          <button type="button" onClick={() => navigate("downloads")} className="hidden h-9 cursor-pointer items-center gap-2 rounded-full bg-[#087D37] px-4 text-xs font-bold text-white transition-colors hover:bg-[#0A9141] sm:flex">
             Download {report.year?.label || "2026"} PDF <Download className="h-3.5 w-3.5" strokeWidth={2} />
           </button>
           <button

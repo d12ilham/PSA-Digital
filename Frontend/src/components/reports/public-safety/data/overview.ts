@@ -10,12 +10,28 @@ export const PUBLIC_SAFETY_SECTIONS = [
 ] as const;
 
 export const PUBLIC_SAFETY_AT_A_GLANCE = [
-  { value: "4th", label: "report generated for the Public Safety industry-sectors since 2023" },
-  { value: "3", label: "Public Safety industry-sectors: Defence, Fire and Emergency Services and Police" },
-  { value: "4", label: "key drivers of change in the short to medium term" },
-  { value: "9", label: "megatrends identified in previous Workforce Insights Reports" },
-  { value: "7", label: "industry insights across all the Public Safety industry-sectors" },
-  { value: "6", label: "strategies developed to support and address identified challenges" },
+  {
+    metrics: [
+      { value: "4th", label: "report generated for the Public Safety industry-sectors since 2023" },
+      { value: "3", label: "Public Safety industry-sectors: Defence, Fire and Emergency Services and Police" },
+    ],
+  },
+  {
+    metrics: [
+      { value: "4", label: "key drivers of change in the short to medium term" },
+      { value: "9", label: "megatrends identified in previous Workforce Insights Reports" },
+    ],
+  },
+  {
+    metrics: [
+      { value: "7", label: "industry insights across all the Public Safety industry-sectors" },
+    ],
+  },
+  {
+    metrics: [
+      { value: "6", label: "strategies developed to support and address identified challenges" },
+    ],
+  },
 ] as const;
 
 export const PUBLIC_SAFETY_DRIVERS = [
