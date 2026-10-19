@@ -52,11 +52,12 @@ function RepresentationChart() {
   </div>;
 }
 
-export default function FederalStateSaProfileView({ slug, report }: { slug: string; report: Report }) {
-  return <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-    <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
-    <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons slug={slug} currentPage="industry_profile_sa" prev={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }} next={{ label: "TAS Workforce Overview", href: `/reports/${slug}/industry_profile_tas` }} prevPrefix="" />
+export default function FederalStateSaProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
+  const ContentTag = embedded ? "div" : "main";
+  return <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+    {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
+    <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
+      {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_sa" prev={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }} next={{ label: "TAS Workforce Overview", href: `/reports/${slug}/industry_profile_tas` }} prevPrefix="" />}
       <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
         <div>
           <p className="inline-block rounded-full bg-[#754D32] px-3 py-1 text-[10px] font-semibold text-white">South Australia · Selected jurisdiction</p>
@@ -67,7 +68,7 @@ export default function FederalStateSaProfileView({ slug, report }: { slug: stri
             <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">14,111</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in South Australia</p></div>
           </div>
         </div>
-        <JurisdictionMap slug={slug} selected="SA" />
+        <JurisdictionMap slug={slug} selected="SA" showLinks={!embedded} />
       </section>
       <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
         <div className="grid gap-6 lg:grid-cols-2">
@@ -92,7 +93,7 @@ export default function FederalStateSaProfileView({ slug, report }: { slug: stri
         <div className="mt-6 rounded-md border border-[#E8E6DD] bg-[#FAFAF0] p-5"><span className="inline-block rounded-full bg-[#754D32] px-4 py-1.5 text-xs font-semibold text-white">Industry Insight</span><p className="mt-4 text-xs leading-6 text-[#42463B]">Alongside projected high-demand qualifications and occupations, stakeholders also identified future skills needs in AI, Digital Transformation, IT (architects and specialists).</p></div>
       </Section>
       <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={53} className="mt-4 space-y-3">{sources.map((source, index) => <li key={index} className="flex gap-3 text-[11px] leading-5 text-[#42463B]"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{53 + index}</span>{source}</li>)}</ol></section>
-    </main>
-    <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+    </ContentTag>
+    {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
   </div>;
 }

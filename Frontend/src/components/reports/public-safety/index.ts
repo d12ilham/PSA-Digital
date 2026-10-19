@@ -47,6 +47,7 @@ import PublicSafetyPoliceExistingStrategiesView from "./views/PublicSafetyPolice
 import PublicSafetyProposedStrategiesSummaryView from "./views/PublicSafetyProposedStrategiesSummaryView";
 import PublicSafetyFederalInitiativesView from "./views/PublicSafetyFederalInitiativesView";
 import PublicSafetyLookingForwardView from "./views/PublicSafetyLookingForwardView";
+import PublicSafetyDownloadsView from "./views/PublicSafetyDownloadsView";
 import { PUBLIC_SAFETY_BLANK_PAGES } from "./data/pageInventory";
 import type { PublicSafetyReport } from "./views/PublicSafetyPageShell";
 
@@ -105,6 +106,7 @@ export const publicSafetyViews: Record<string, React.ComponentType<{ slug: strin
   police_proposed_strategies_summary: PublicSafetyProposedStrategiesSummaryView,
   police_federal_initiatives: PublicSafetyFederalInitiativesView,
   looking_forward: PublicSafetyLookingForwardView,
+  downloads: PublicSafetyDownloadsView,
 };
 
 export {

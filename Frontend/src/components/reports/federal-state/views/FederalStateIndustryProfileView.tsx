@@ -5,6 +5,13 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import mapDataRaw from "@/data/australia_map_data.json";
+import { FederalStateNswProfileContent } from "./FederalStateNswProfileView";
+import FederalStateNtProfileView from "./FederalStateNtProfileView";
+import FederalStateQldProfileView from "./FederalStateQldProfileView";
+import FederalStateSaProfileView from "./FederalStateSaProfileView";
+import FederalStateTasProfileView from "./FederalStateTasProfileView";
+import FederalStateVicProfileView from "./FederalStateVicProfileView";
+import FederalStateWaProfileView from "./FederalStateWaProfileView";
 
 interface Report {
   id: string;
@@ -112,13 +119,15 @@ const profileDetails = {
 } as const;
 
 function WorkforceMap({ selectedState, onSelectState }: { selectedState: ProfileState; onSelectState: (state: Exclude<ProfileState, "NATIONAL">) => void }) {
+  const national = selectedState === "NATIONAL";
+
   return (
-    <div className="relative h-[310px] overflow-hidden rounded-md bg-[#FBF5F1] p-2 sm:h-[380px] lg:h-[390px]">
+    <div className={`relative rounded-md bg-[#FBF5F1] p-2 ${national ? "h-[470px] overflow-x-auto lg:h-[390px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
         aria-label="Australian Public Service employee locations by state and territory"
-        className="block h-full w-full"
+        className={national ? "block h-full min-w-[600px] w-full lg:min-w-0" : "block h-full w-full"}
       >
         {Object.values(mapData.states).map((state) => (
           <path
@@ -136,19 +145,19 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
         {Object.entries(stateLabelPositions).map(([code, [x, y]]) => (
           <g key={code} className="animate-profile-operation-text">
             <rect
-              x={x - 19}
-              y={y - 18}
-              width="38"
-              height="23"
-              rx="11.5"
+              x={x - (national ? 27 : 19)}
+              y={y - (national ? 23 : 18)}
+              width={national ? 54 : 38}
+              height={national ? 33 : 23}
+              rx={national ? 16.5 : 11.5}
               fill={selectedState === code ? "#F0D9CF" : "#694834"}
             />
             <text
               x={x}
-              y={y - 6}
+              y={y - (national ? 1 : 6)}
               fill={selectedState === code ? "#694834" : "#FFFFFF"}
               fontFamily="inherit"
-              fontSize="11"
+              fontSize={national ? 17 : 11}
               fontWeight="700"
               textAnchor="middle"
             >
@@ -156,11 +165,11 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
             </text>
             <text
               x={x}
-              y={y + 13}
+              y={y + (national ? 30 : 13)}
               fill={selectedState === code ? "#FFFFFF" : "#694834"}
               fontFamily="inherit"
-              fontSize="8.5"
-              fontWeight="500"
+              fontSize={national ? 16 : 8.5}
+              fontWeight={national ? 600 : 500}
               textAnchor="middle"
             >
               Employees {stateEmployees[code]}
@@ -169,32 +178,32 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
         ))}
 
         <circle cx="670" cy="455" r="5" fill="#694834" />
-        <path d="M670 455H728" stroke="#694834" strokeWidth="1.4" />
-        <rect x="728" y="444" width="48" height="23" rx="11.5" fill="#694834" />
+        <path d={national ? "M670 455H712" : "M670 455H728"} stroke="#694834" strokeWidth="1.4" />
+        <rect x={national ? 709 : 728} y={national ? 439 : 444} width={national ? 54 : 48} height={national ? 33 : 23} rx={national ? 16.5 : 11.5} fill="#694834" />
         <text
-          x="752"
-          y="459"
+          x={national ? 736 : 752}
+          y={national ? 462 : 459}
           fill="#FFFFFF"
           fontFamily="inherit"
-          fontSize="11"
+          fontSize={national ? 17 : 11}
           fontWeight="700"
           textAnchor="middle"
         >
           ACT
         </text>
         <text
-          x="752"
-          y="480"
+          x={national ? 720 : 752}
+          y={national ? 495 : 480}
           fill="#694834"
           fontFamily="inherit"
-          fontSize="8.5"
-          fontWeight="500"
+          fontSize={national ? 16 : 8.5}
+          fontWeight={national ? 600 : 500}
           textAnchor="middle"
         >
           Employees 70,221
         </text>
       </svg>
-      <p className="absolute bottom-3 left-4 text-[9px] leading-3 text-[#598303]">
+      <p className={`absolute bottom-3 left-4 text-[#598303] ${national ? "text-[11px] leading-4" : "text-[9px] leading-3"}`}>
         Source: Australian Government, State of the Service Report 2024–25,
         Table 13
       </p>
@@ -309,6 +318,13 @@ export default function FederalStateIndustryProfileView({
 }) {
   const [selectedState, setSelectedState] = useState<ProfileState>("NATIONAL");
   const profile = profileDetails[selectedState];
+  const otherStateView = selectedState === "NT" ? <FederalStateNtProfileView slug={slug} report={report} embedded />
+    : selectedState === "QLD" ? <FederalStateQldProfileView slug={slug} report={report} embedded />
+    : selectedState === "SA" ? <FederalStateSaProfileView slug={slug} report={report} embedded />
+    : selectedState === "TAS" ? <FederalStateTasProfileView slug={slug} report={report} embedded />
+    : selectedState === "VIC" ? <FederalStateVicProfileView slug={slug} report={report} embedded />
+    : selectedState === "WA" ? <FederalStateWaProfileView slug={slug} report={report} embedded />
+    : null;
 
   return (
     <div className="flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#1B240E] antialiased selection:bg-[#8AC900]/20">
@@ -377,6 +393,13 @@ export default function FederalStateIndustryProfileView({
               })}
             </div>
 
+            {selectedState === "NSW" ? (
+              <div className="mt-4">
+                <FederalStateNswProfileContent slug={slug} showJurisdictionLinks={false} />
+              </div>
+            ) : otherStateView ? (
+              <div className="mt-4">{otherStateView}</div>
+            ) : (
             <div className="mt-4 grid items-start gap-3 lg:grid-cols-[minmax(0,2.55fr)_minmax(270px,1fr)]">
               <div className="min-w-0 space-y-3">
                 <Reveal>
@@ -422,7 +445,7 @@ export default function FederalStateIndustryProfileView({
               </div>
 
               <div className="space-y-2.5">
-                <Reveal>
+                {selectedState !== "NATIONAL" && <Reveal>
                   <section className="rounded-md bg-[#F8EEE8] p-3.5">
                     <h3 className="text-sm font-bold text-[#382219]">
                       {profile.name}
@@ -444,13 +467,13 @@ export default function FederalStateIndustryProfileView({
                       </span>
                     </div>
                     <a
-                      href={selectedState === "NATIONAL" ? `/reports/${slug}/industry_profile_act` : selectedState === "NSW" ? `/reports/${slug}/industry_profile_nsw` : selectedState === "NT" ? `/reports/${slug}/industry_profile_nt` : selectedState === "QLD" ? `/reports/${slug}/industry_profile_qld` : selectedState === "SA" ? `/reports/${slug}/industry_profile_sa` : selectedState === "TAS" ? `/reports/${slug}/industry_profile_tas` : selectedState === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
+                      href={selectedState === "NT" ? `/reports/${slug}/industry_profile_nt` : selectedState === "QLD" ? `/reports/${slug}/industry_profile_qld` : selectedState === "SA" ? `/reports/${slug}/industry_profile_sa` : selectedState === "TAS" ? `/reports/${slug}/industry_profile_tas` : selectedState === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
                       className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-3 text-[9px] font-bold text-[#252D02] transition-colors hover:bg-[#79B700]"
                     >
                       {profile.workforceCode} Workforce Overview <span aria-hidden="true">→</span>
                     </a>
                   </section>
-                </Reveal>
+                </Reveal>}
 
                 <Reveal delay={0.06}>
                   <section className="rounded-md bg-[#754D32] p-3.5 text-white">
@@ -495,6 +518,7 @@ export default function FederalStateIndustryProfileView({
                 </Reveal>
               </div>
             </div>
+            )}
 
           </section>
         </Reveal>

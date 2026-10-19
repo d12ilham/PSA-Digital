@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
 
@@ -13,8 +13,19 @@ type CorrectionalServicesReport = {
   industry?: { slug?: string; name?: string };
 };
 
-const approvedPdf = "/reports/correctional-services-wir-2026.pdf";
-const previousYears = [2025, 2024, 2023];
+const approvedPdf = "https://psa-directus-prod.azurewebsites.net/assets/d5e36137-5d7a-4012-bd9e-c2b33b0bf232.pdf";
+const previousReports = [
+  {
+    year: 2025,
+    title: "Correctional Services Workforce Insights Report",
+    url: "https://psa-directus-prod.azurewebsites.net/assets/52d72bd2-e69c-415d-9890-493543b2ea1a",
+  },
+  {
+    year: 2024,
+    title: "Correctional Services Workforce Plan",
+    url: "https://psa-directus-prod.azurewebsites.net/assets/1795783e-35f3-4f0f-8ac4-6414b654a587",
+  },
+];
 
 export default function CorrectionalServicesDownloadsView({ slug, report }: { slug: string; report: CorrectionalServicesReport }) {
   return (
@@ -44,8 +55,8 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
             <Image src="/images/downloads-full-report-icon.png" alt="" width={100} height={100} className="mt-6 size-[100px] [filter:hue-rotate(90deg)] transition-transform duration-300 group-hover:scale-110 motion-reduce:transform-none" />
             <h2 className="mt-5 text-xl font-semibold leading-7">2026 Correctional Services Workforce Insights Report</h2>
             <div className="mt-auto pt-6">
-              <a href={approvedPdf} download className="group/download inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#424996] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
-                Download 2026 PDF <Download className="size-4 transition-transform duration-300 group-hover/download:translate-y-0.5 motion-reduce:transform-none" aria-hidden="true" />
+              <a href={approvedPdf} target="_blank" rel="noopener noreferrer" className="group/download inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#424996] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
+                Open 2026 PDF <ExternalLink className="size-4 transition-transform duration-300 group-hover/download:-translate-y-0.5 group-hover/download:translate-x-0.5 motion-reduce:transform-none" aria-hidden="true" />
               </a>
             </div>
           </article>
@@ -55,11 +66,11 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
             <div className="px-6 py-6 sm:px-8">
               <h2 className="text-xs font-medium text-[#535862]">PREVIOUS REPORTS</h2>
               <div className="mt-8 space-y-4">
-                {previousYears.map((year, index) => (
-                  <button key={year} type="button" disabled title={`The ${year} PDF is not available yet`} className="flex min-h-[58px] w-full cursor-not-allowed items-center justify-between gap-4 rounded-full border border-[#8589B5] bg-[#F0F0F7] px-5 text-left text-xs font-semibold text-[#424996] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#424996] hover:bg-[#E9EAF3] hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
-                    <span>Correctional Services Workforce Insights Reports - {year}</span>
-                    <Download className="size-4 shrink-0" aria-hidden="true" />
-                  </button>
+                {previousReports.map((previousReport, index) => (
+                  <a key={previousReport.year} href={previousReport.url} target="_blank" rel="noopener noreferrer" className="flex min-h-[58px] w-full items-center justify-between gap-4 rounded-full border border-[#8589B5] bg-[#F0F0F7] px-5 py-3 text-left text-xs font-semibold text-[#424996] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#424996] hover:bg-[#E9EAF3] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
+                    <span>{previousReport.year} {previousReport.title}</span>
+                    <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
+                  </a>
                 ))}
               </div>
             </div>

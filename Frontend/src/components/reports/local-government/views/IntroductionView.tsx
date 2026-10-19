@@ -34,8 +34,8 @@ const reportSections: ReportSection[] = [
   {
     title: "Executive Summary",
     icon: "/images/reports/introduction/Executive.svg",
-    subtitle: "The Local Government workforce story on one page",
-    description: "A concise, presentation-friendly view of the report story.",
+    description:
+      "An executive overview of the workforce insights and strategies.",
     path: "executive_summary",
   },
   {
@@ -49,7 +49,8 @@ const reportSections: ReportSection[] = [
   {
     title: "Industry Overview",
     icon: "/images/reports/introduction/Overview.svg",
-    description: "Examines the Local Government workforce data analysis.",
+    description:
+      "An overview of the industry-sector and workforce profile data.",
     tags: [
       "Industry-Sector Overview",
       "State and Territory Profile",
@@ -61,8 +62,11 @@ const reportSections: ReportSection[] = [
     title: "Workforce Insights",
     icon: "/images/reports/introduction/Insights.svg",
     description:
-      "Details the Local Government workforce insights across two themes and seven insights.",
-    tags: ["7 insight detail pages", "Insights overview"],
+      "An overview of the workforce insights and their supporting research, including industry insights.",
+    tags: [
+      "Workforce Themes and Insights",
+      "Detailed supporting information for each Insight",
+    ],
     path: "workforce_insights",
   },
   {
@@ -72,8 +76,8 @@ const reportSections: ReportSection[] = [
     tags: [
       "2026 Proposed Strategies",
       "Update on 2025 Strategies",
-      "Existing Strategies",
-      "Federal Initiatives",
+      "Existing Industry-Sector Strategies",
+      "Federal Government Initiatives",
     ],
     path: "workforce_strategies",
   },
@@ -269,7 +273,7 @@ export default function IntroductionView({
               isStructureVisible ? "animate-slide-up" : "opacity-0"
             }`}
           >
-            This Report is structured as follows
+            The 2026 Digital Report Structure
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

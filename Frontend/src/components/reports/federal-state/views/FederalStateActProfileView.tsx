@@ -34,7 +34,7 @@ const mapLabels: Record<string, { x: number; y: number; employees: string }> = {
 
 const jurisdictions = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
 
-export function JurisdictionMap({ slug, selected }: { slug: string; selected: "ACT" | "NSW" | "NT" | "QLD" | "SA" | "TAS" | "VIC" | "WA" }) {
+export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: string; selected: "ACT" | "NSW" | "NT" | "QLD" | "SA" | "TAS" | "VIC" | "WA"; showLinks?: boolean }) {
   return (
     <div>
       <svg viewBox="55 20 740 605" role="img" aria-label="Australian public service employees by jurisdiction" className="mx-auto block h-auto w-full max-w-[640px]">
@@ -43,30 +43,34 @@ export function JurisdictionMap({ slug, selected }: { slug: string; selected: "A
         ))}
         {Object.entries(mapLabels).map(([code, { x, y, employees }]) => (
           <g key={code}>
-            <circle cx={x} cy={y - 7} r="16" fill={code === selected ? "#F0D9CF" : "#754D32"} />
-            <text x={x} y={y - 3} textAnchor="middle" fontSize="10" fontWeight="700" fill={code === selected ? "#754D32" : "white"}>{code}</text>
-            <text x={code === "TAS" ? x - 34 : x} y={y + 15} textAnchor={code === "TAS" ? "end" : "middle"} fontSize="8.5" fill={code === "TAS" ? "#694834" : code === selected ? "white" : "#694834"}>Employees {employees}</text>
+            <circle cx={x} cy={y - 7} r="22" fill={code === selected ? "#F0D9CF" : "#754D32"} />
+            <text x={x} y={y - 2} textAnchor="middle" fontSize="15" fontWeight="700" fill={code === selected ? "#754D32" : "white"}>{code}</text>
+            <text x={code === "TAS" ? x - 34 : x} y={y + 28} textAnchor={code === "TAS" ? "end" : "middle"} fontSize="14" fontWeight="600" fill={code === "TAS" ? "#694834" : code === selected ? "white" : "#694834"}>Employees {employees}</text>
           </g>
         ))}
-        <path d="M662 454h57" stroke="#754D32" strokeWidth="1.5" />
+        <path d="M662 454h49" stroke="#754D32" strokeWidth="1.5" />
         <circle cx="662" cy="454" r="4" fill="#754D32" />
-        <circle cx="744" cy="454" r="17" fill="#754D32" />
-        <text x="744" y="458" textAnchor="middle" fontSize="10" fontWeight="700" fill="white">ACT</text>
-        <text x="744" y="478" textAnchor="middle" fontSize="8.5" fill="#694834">Employees 70,221</text>
+        <circle cx="733" cy="454" r="22" fill="#754D32" />
+        <text x="733" y="459" textAnchor="middle" fontSize="15" fontWeight="700" fill="white">ACT</text>
+        <text x="718" y="490" textAnchor="middle" fontSize="14" fontWeight="600" fill="#694834">Employees 70,221</text>
       </svg>
-      <p className="mt-2 text-[10px] font-semibold uppercase text-[#668B17]">Choose a state or territory</p>
-      <nav aria-label="Choose a state or territory" className="mt-2 flex flex-wrap gap-2">
-        {jurisdictions.map((code) => (
-          <Link
-            key={code}
-            href={code === "ACT" ? `/reports/${slug}/industry_profile_act` : code === "NSW" ? `/reports/${slug}/industry_profile_nsw` : code === "NT" ? `/reports/${slug}/industry_profile_nt` : code === "QLD" ? `/reports/${slug}/industry_profile_qld` : code === "SA" ? `/reports/${slug}/industry_profile_sa` : code === "TAS" ? `/reports/${slug}/industry_profile_tas` : code === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
-            aria-current={code === selected ? "page" : undefined}
-            className={`min-w-10 rounded-full border px-3 py-1.5 text-center text-[10px] font-semibold transition-colors hover:border-[#8AC900] ${code === selected ? "border-[#8AC900] bg-[#8AC900] text-[#252D02]" : "border-[#E7E3DC] bg-white text-[#252D02]"}`}
-          >
-            {code}
-          </Link>
-        ))}
-      </nav>
+      {showLinks && (
+        <>
+          <p className="mt-2 text-[10px] font-semibold uppercase text-[#668B17]">Choose a state or territory</p>
+          <nav aria-label="Choose a state or territory" className="mt-2 flex flex-wrap gap-2">
+            {jurisdictions.map((code) => (
+              <Link
+                key={code}
+                href={code === "ACT" ? `/reports/${slug}/industry_profile_act` : code === "NSW" ? `/reports/${slug}/industry_profile_nsw` : code === "NT" ? `/reports/${slug}/industry_profile_nt` : code === "QLD" ? `/reports/${slug}/industry_profile_qld` : code === "SA" ? `/reports/${slug}/industry_profile_sa` : code === "TAS" ? `/reports/${slug}/industry_profile_tas` : code === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
+                aria-current={code === selected ? "page" : undefined}
+                className={`min-w-10 rounded-full border px-3 py-1.5 text-center text-[10px] font-semibold transition-colors hover:border-[#8AC900] ${code === selected ? "border-[#8AC900] bg-[#8AC900] text-[#252D02]" : "border-[#E7E3DC] bg-white text-[#252D02]"}`}
+              >
+                {code}
+              </Link>
+            ))}
+          </nav>
+        </>
+      )}
     </div>
   );
 }
