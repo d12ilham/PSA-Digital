@@ -122,12 +122,12 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
   const national = selectedState === "NATIONAL";
 
   return (
-    <div className={`relative rounded-md bg-[#FBF5F1] p-2 ${national ? "h-[470px] overflow-x-auto lg:h-[390px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
+    <div className={`relative rounded-md bg-[#FBF5F1] p-2 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
         aria-label="Australian Public Service employee locations by state and territory"
-        className={national ? "block h-full min-w-[600px] w-full lg:min-w-0" : "block h-full w-full"}
+        className={national ? "block h-full min-w-[600px] w-full lg:mx-auto lg:min-w-0 lg:max-w-[640px]" : "block h-full w-full"}
       >
         {Object.values(mapData.states).map((state) => (
           <path
@@ -283,8 +283,8 @@ function Reveal({
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       typeof IntersectionObserver === "undefined"
     ) {
-      setVisible(true);
-      return;
+      const frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
     }
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -301,12 +301,47 @@ function Reveal({
   return (
     <div
       ref={ref}
-      className={`${visible ? "animate-card-entrance" : "translate-y-5 opacity-0"} ${className}`}
+      className={`${visible ? "animate-card-entrance motion-reduce:animate-none" : "translate-y-5 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100"} ${className}`}
       style={visible ? { animationDelay: `${delay}s` } : undefined}
     >
       {children}
     </div>
   );
+}
+
+function CountUp({ value, decimals = 0, suffix = "" }: { value: number; decimals?: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [current, setCurrent] = useState(0);
+  const formatted = (number: number) => `${number.toLocaleString("en-AU", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`;
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
+      const frame = requestAnimationFrame(() => setCurrent(value));
+      return () => cancelAnimationFrame(frame);
+    }
+
+    let frame = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      const start = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min((now - start) / 1200, 1);
+        setCurrent(value * (1 - (1 - progress) ** 3));
+        if (progress < 1) frame = requestAnimationFrame(step);
+      };
+      frame = requestAnimationFrame(step);
+    }, { threshold: 0.2 });
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value]);
+
+  return <span ref={ref} aria-label={formatted(value)} className="tabular-nums"><span aria-hidden="true">{formatted(current)}</span></span>;
 }
 
 export default function FederalStateIndustryProfileView({
@@ -331,22 +366,24 @@ export default function FederalStateIndustryProfileView({
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-3 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_profile"
-          prev={{
-            label: "Federal Government Industry-Sector Overview",
-            href: `/reports/${slug}/industry_overview`,
-          }}
-          next={{
-            label: "ACT Workforce Overview",
-            href: `/reports/${slug}/industry_profile_act`,
-          }}
-          prevPrefix=""
-          nextPrefix="Next Section:"
-        />
-
         <Reveal>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="industry_profile"
+            prev={{
+              label: "Federal Government Industry-Sector Overview",
+              href: `/reports/${slug}/industry_overview`,
+            }}
+            next={{
+              label: "ACT Workforce Overview",
+              href: `/reports/${slug}/industry_profile_act`,
+            }}
+            prevPrefix=""
+            nextPrefix="Next Section:"
+          />
+        </Reveal>
+
+        <Reveal delay={0.06}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white px-5 py-4 sm:px-6">
             <p className="text-[10px] font-medium text-[#598303]">Industry Overview</p>
             <h1 className="mt-2 text-2xl font-bold text-[#694834] sm:text-[28px]">
@@ -359,7 +396,7 @@ export default function FederalStateIndustryProfileView({
           </section>
         </Reveal>
 
-        <Reveal delay={0.08}>
+        <Reveal delay={0.12}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white p-4 sm:p-5">
             <h2 className="text-base font-bold text-[#252D02]">
               Location of Australian Public Service (APS) Employees
@@ -368,7 +405,7 @@ export default function FederalStateIndustryProfileView({
               <span className="mr-2 text-[9px] font-semibold uppercase text-[#598303]">
                 Choose a state or territory
               </span>
-              {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map((tab) => {
+              {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map((tab, index) => {
                 const active = tab === selectedState;
                 const available = tab === "NATIONAL" || selectableStates.some((code) => code === tab);
                 const className = `rounded-full border px-3 py-1 text-[9px] font-semibold ${
@@ -382,8 +419,8 @@ export default function FederalStateIndustryProfileView({
                     type="button"
                     aria-pressed={active}
                     onClick={() => setSelectedState(tab as ProfileState)}
-                    className={`${className} transition-colors hover:border-[#8AC900]`}
-                    style={active ? { backgroundColor: "#8AC900" } : undefined}
+                    className={`${className} animate-card-entrance transition-colors hover:border-[#8AC900] motion-reduce:animate-none`}
+                    style={{ animationDelay: `${0.18 + index * 0.045}s`, ...(active ? { backgroundColor: "#8AC900" } : {}) }}
                   >
                     {tab}
                   </button>
@@ -393,6 +430,7 @@ export default function FederalStateIndustryProfileView({
               })}
             </div>
 
+            <div key={selectedState} className="animate-content-switch motion-reduce:animate-none">
             {selectedState === "NSW" ? (
               <div className="mt-4">
                 <FederalStateNswProfileContent slug={slug} showJurisdictionLinks={false} />
@@ -400,8 +438,8 @@ export default function FederalStateIndustryProfileView({
             ) : otherStateView ? (
               <div className="mt-4">{otherStateView}</div>
             ) : (
-            <div className="mt-4 grid items-start gap-3 lg:grid-cols-[minmax(0,2.55fr)_minmax(270px,1fr)]">
-              <div className="min-w-0 space-y-3">
+            <div className="mt-4 grid items-start gap-3 lg:grid-cols-[minmax(270px,1fr)_minmax(0,2.55fr)]">
+              <div className="min-w-0 space-y-3 lg:order-2">
                 <Reveal>
                   <WorkforceMap selectedState={selectedState} onSelectState={setSelectedState} />
                 </Reveal>
@@ -444,7 +482,7 @@ export default function FederalStateIndustryProfileView({
                 </div>
               </div>
 
-              <div className="space-y-2.5">
+              <div className="space-y-2.5 lg:order-1">
                 {selectedState !== "NATIONAL" && <Reveal>
                   <section className="rounded-md bg-[#F8EEE8] p-3.5">
                     <h3 className="text-sm font-bold text-[#382219]">
@@ -477,9 +515,11 @@ export default function FederalStateIndustryProfileView({
 
                 <Reveal delay={0.06}>
                   <section className="rounded-md bg-[#754D32] p-3.5 text-white">
-                    <p className="text-[9px]">Total</p>
-                    <strong className="mt-0.5 block text-lg leading-5">198,529</strong>
-                    <p className="mt-1 text-[9px] leading-3.5 text-white/90">
+                    <p className={selectedState === "NATIONAL" ? "text-xs" : "text-[9px]"}>Total</p>
+                    <strong className={selectedState === "NATIONAL" ? "mt-1 block text-2xl leading-7" : "mt-0.5 block text-lg leading-5"}>
+                      {selectedState === "NATIONAL" ? <CountUp value={198529} /> : "198,529"}
+                    </strong>
+                    <p className={`mt-1 text-white/90 ${selectedState === "NATIONAL" ? "text-[11px] leading-4" : "text-[9px] leading-3.5"}`}>
                       The APS workforce spans 586 locations, 102 agencies and
                       234 job roles.
                     </p>
@@ -494,22 +534,22 @@ export default function FederalStateIndustryProfileView({
                   <Reveal key={item.label} delay={0.1 + index * 0.05}>
                     <div className="flex items-center justify-between rounded-md bg-[#F8EEE8] px-3.5 py-2.5">
                       <div>
-                        <p className="text-[9px] text-[#535862]">{item.label}</p>
-                        <strong className="mt-0.5 block text-base leading-5 text-[#694834]">
-                          {item.value}
+                        <p className={selectedState === "NATIONAL" ? "text-xs text-[#535862]" : "text-[9px] text-[#535862]"}>{item.label}</p>
+                        <strong className={selectedState === "NATIONAL" ? "mt-0.5 block text-xl leading-6 text-[#694834]" : "mt-0.5 block text-base leading-5 text-[#694834]"}>
+                          {selectedState === "NATIONAL" ? <CountUp value={Number(item.value.replaceAll(",", ""))} /> : item.value}
                         </strong>
                       </div>
-                      <span className="text-[9px] text-[#535862]">({item.share})</span>
+                      <span className={selectedState === "NATIONAL" ? "text-[11px] text-[#535862]" : "text-[9px] text-[#535862]"}>({item.share})</span>
                     </div>
                   </Reveal>
                 ))}
 
                 <Reveal delay={0.24}>
                   <section className="rounded-md bg-[#F0D7CC] p-3.5">
-                    <strong className="block text-base leading-5 text-[#694834]">
-                      4.4%
+                    <strong className={selectedState === "NATIONAL" ? "block text-xl leading-6 text-[#694834]" : "block text-base leading-5 text-[#694834]"}>
+                      {selectedState === "NATIONAL" ? <CountUp value={4.4} decimals={1} suffix="%" /> : "4.4%"}
                     </strong>
-                    <p className="text-[9px] text-[#535862]">Gender Pay Gap</p>
+                    <p className={selectedState === "NATIONAL" ? "mt-0.5 text-xs text-[#535862]" : "text-[9px] text-[#535862]"}>Gender Pay Gap</p>
                     <p className="mt-2 border-t border-[#D9BCAF] pt-2 text-[8px] leading-3 text-[#535862]">
                       Source: Australian Government, State of the Service
                       Report 2024–25, 2025.
@@ -519,6 +559,7 @@ export default function FederalStateIndustryProfileView({
               </div>
             </div>
             )}
+            </div>
 
           </section>
         </Reveal>

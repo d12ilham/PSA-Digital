@@ -45,7 +45,7 @@ export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: st
           <g key={code}>
             <circle cx={x} cy={y - 7} r="22" fill={code === selected ? "#F0D9CF" : "#754D32"} />
             <text x={x} y={y - 2} textAnchor="middle" fontSize="15" fontWeight="700" fill={code === selected ? "#754D32" : "white"}>{code}</text>
-            <text x={code === "TAS" ? x - 34 : x} y={y + 28} textAnchor={code === "TAS" ? "end" : "middle"} fontSize="14" fontWeight="600" fill={code === "TAS" ? "#694834" : code === selected ? "white" : "#694834"}>Employees {employees}</text>
+            <text x={code === "TAS" ? x - 34 : x} y={(code === "SA" && selected === "SA") || (code === "NSW" && selected === "NSW") ? y - 45 : y + (code === "VIC" && selected === "VIC" ? 48 : 28)} textAnchor={code === "TAS" ? "end" : "middle"} fontSize="14" fontWeight="600" fill={code === "TAS" || code === "VIC" ? "#694834" : code === selected ? "white" : "#694834"}>Employees {employees}</text>
           </g>
         ))}
         <path d="M662 454h49" stroke="#754D32" strokeWidth="1.5" />

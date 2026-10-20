@@ -100,15 +100,44 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
               <p className="mt-3 text-xs leading-6 text-[#42463B]">It operates under the Public Sector Employment and Management Act (1993).</p>
             </div>
           </div>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-md bg-[#F8EEE8] p-4">
-              <h3 className="text-sm font-bold">Northern Territory Public Sector Employees - Gender</h3>
-              <div className="mt-4 grid items-center gap-4 sm:grid-cols-[125px_1fr_130px]">
-                <div role="img" aria-label="Female 63.3%, male 36.5%, non-binary 0.2%" className="mx-auto h-28 w-28 rounded-full" style={{ background: "conic-gradient(#754D32 0 63.3%, #B6A79B 63.3% 99.8%, #E8DED6 99.8% 100%)" }}><div className="relative left-6 top-6 h-16 w-16 rounded-full bg-[#F8EEE8]" /></div>
-                <dl className="space-y-2 text-xs"><div className="flex justify-between gap-3"><dt>Female</dt><dd className="font-semibold">63.3%</dd></div><div className="flex justify-between gap-3"><dt>Male</dt><dd className="font-semibold">36.5%</dd></div><div className="flex justify-between gap-3"><dt>Non-Binary</dt><dd className="font-semibold">0.2%</dd></div></dl>
-                <div className="rounded-md bg-white p-3"><strong className="text-lg text-[#754D32]">5.3%</strong><p className="text-[10px]">Gender Pay Gap</p><p className="mt-3 text-[9px] text-[#694834]">Source: Northern Territory Government, State of the Service Report 2024–25, 2025, pg. 17</p></div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+            <div className="rounded-md border border-[#E8E3DF] bg-white p-4 sm:p-5">
+              <h3 className="text-base font-bold text-[#292522]">Northern Territory Public Sector Employees - Gender</h3>
+              <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
+                <div className="min-w-0">
+                  <div role="img" aria-label="Female 63.3%, male 36.5%, non-binary 0.2%" className="relative mx-auto w-full max-w-[340px] pb-8">
+                    <div className="mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#BBA38F 0 63.3%, #807064 63.3% 99.8%, #DFD3C6 99.8% 100%)" }}>
+                      <div className="h-[75%] w-[75%] rounded-full bg-white" />
+                    </div>
+                    <span className="absolute right-0 top-0 text-2xl font-bold text-[#807064]">63.3%</span>
+                    <span className="absolute bottom-7 left-0 text-2xl font-bold text-[#807064]">36.5%</span>
+                    <span className="absolute bottom-0 right-5 text-2xl font-bold text-[#807064]">0.2%</span>
+                  </div>
+                  <ul className="mt-3 space-y-1.5 text-xs text-[#292522]">
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Non-binary</li>
+                  </ul>
+                  <p className="mt-3 text-[10px] leading-4 text-[#42463B]">Source: Northern Territory Government, State of the Service Report 2024–25, 2025</p>
+                </div>
+                <div className="flex min-h-[310px] flex-col bg-[#807064] p-4 text-white">
+                  <svg viewBox="0 0 220 220" aria-hidden="true" className="mx-auto w-full max-w-[190px]">
+                    <g fill="#B9A18D" stroke="#E6D9CC" strokeWidth="5" strokeLinejoin="round">
+                      <circle cx="58" cy="36" r="21" />
+                      <path d="M36 72h44c6 0 9 4 10 10l9 76c1 8-2 12-10 12h-5l-5 40c-1 7-5 10-11 10H48c-6 0-10-3-11-10l-5-40h-5c-8 0-11-4-10-12l9-76c1-6 4-10 10-10Z" transform="translate(0 -17) scale(1 .96)" />
+                    </g>
+                    <g fill="#DFD3C6" stroke="#E6D9CC" strokeWidth="5" strokeLinejoin="round">
+                      <circle cx="162" cy="36" r="21" />
+                      <path d="M140 72h44c5 0 8 3 9 9l11 73c1 8-2 12-10 12h-3l7 22c2 5 0 8-6 8h-7l-4 14c-1 7-5 10-11 10h-16c-6 0-10-3-11-10l-4-14h-7c-6 0-8-3-6-8l7-22h-3c-8 0-11-4-10-12l11-73c1-6 4-9 9-9Z" transform="translate(0 -17) scale(1 .96)" />
+                    </g>
+                  </svg>
+                  <div className="mt-auto pt-3">
+                    <strong className="block text-4xl leading-none">5.3%</strong>
+                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <p className="mt-2 text-[10px] leading-4 text-white/90">Source: Northern Territory Government, State of the Service Report 2024–25, 2025, pg. 17</p>
+                  </div>
+                </div>
               </div>
-              <p className="mt-3 text-[9px] leading-4 text-[#694834]">Source: Northern Territory Government, State of the Service Report 2024–25, 2025</p>
             </div>
             <ColumnChart title="Workforce Diversity in the Northern Territory Public Sector" data={[{ label: "Aboriginal", value: 11.1, text: "11.1%" }, { label: "People with disability", value: 1.9, text: "1.9%" }, { label: "Culturally and linguistically diverse", value: 21.5, text: "21.5%" }]} source="SOURCE: Northern Territory Government, State of the Service Report 2024–25, 2025, Figure 18" />
           </div>
