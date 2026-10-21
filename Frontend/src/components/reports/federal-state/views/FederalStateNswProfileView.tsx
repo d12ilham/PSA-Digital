@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { MessageSquareText, UserRound } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -71,6 +73,25 @@ const sources = [
 ];
 
 export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = true }: { slug: string; showJurisdictionLinks?: boolean }) {
+  const genderBlockRef = useRef<HTMLDivElement>(null);
+  const [genderVisible, setGenderVisible] = useState(false);
+
+  useEffect(() => {
+    const node = genderBlockRef.current;
+    if (!node) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
+      const frame = requestAnimationFrame(() => setGenderVisible(true));
+      return () => cancelAnimationFrame(frame);
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setGenderVisible(true);
+      observer.disconnect();
+    }, { threshold: 0.2 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="space-y-5">
         <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
@@ -106,15 +127,44 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
               <p className="mt-3 text-xs leading-6 text-[#42463B]">The Government Sector comprises the Public Services, Teaching Service, the NSW Police Force, the NSW Health Service, the Transport Service of New South Wales and any other service of the Crown. It also includes bodies constituted by an Act or prescribed by regulations, such as a State owned corporation. The NSWPS incorporates the government sector and other government agencies (e.g. the Independent Commission Against Corruption). These areas of government are defined by the GSE Act (2013).</p>
             </div>
           </div>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-md bg-[#F8EEE8] p-4">
-              <h3 className="text-sm font-bold">NSW Public Sector Employees by Gender</h3>
-              <div className="mt-4 grid items-center gap-4 sm:grid-cols-[125px_1fr_130px]">
-                <div role="img" aria-label="Female 66.6%, male 33.3%, non-binary 0.1%" className="mx-auto h-28 w-28 rounded-full" style={{ background: "conic-gradient(#754D32 0 66.6%, #B6A79B 66.6% 99.9%, #E8DED6 99.9% 100%)" }}><div className="relative left-6 top-6 h-16 w-16 rounded-full bg-[#F8EEE8]" /></div>
-                <dl className="space-y-2 text-xs"><div className="flex justify-between gap-3"><dt>Female</dt><dd className="font-semibold">66.6%</dd></div><div className="flex justify-between gap-3"><dt>Male</dt><dd className="font-semibold">33.3%</dd></div><div className="flex justify-between gap-3"><dt>Non-Binary</dt><dd className="font-semibold">0.1%</dd></div></dl>
-                <div className="rounded-md bg-white p-3"><strong className="text-lg text-[#754D32]">7.3%</strong><p className="text-[10px]">Gender Pay Gap</p><p className="mt-3 text-[9px] text-[#694834]">Source: NSW Government, Workforce Profile Report 2025, pg. 3</p></div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+            <div ref={genderBlockRef} className={`rounded-md border border-[#E8E3DF] bg-white p-4 sm:p-5 ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0"}`}>
+              <h3 className="text-base font-bold text-[#292522]">NSW Public Sector Employees by Gender</h3>
+              <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
+                <div className="min-w-0">
+                  <div role="img" aria-label="Female 66.6%, male 33.3%, non-binary 0.1%" className="relative mx-auto w-full max-w-[340px] pb-8">
+                    <div className={`mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ background: "conic-gradient(#BBA38F 0 66.6%, #807064 66.6% 99.9%, #DFD3C6 99.9% 100%)", animationDelay: "0.12s" }}>
+                      <div className="h-[75%] w-[75%] rounded-full bg-white" />
+                    </div>
+                    <span className={`absolute right-0 top-0 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.22s" }}>66.6%</span>
+                    <span className={`absolute bottom-7 left-0 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.3s" }}>33.3%</span>
+                    <span className={`absolute bottom-0 right-5 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.38s" }}>0.1%</span>
+                  </div>
+                  <ul className={`mt-3 space-y-1.5 text-xs text-[#292522] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.42s" }}>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Non-binary</li>
+                  </ul>
+                  <p className="mt-3 text-[10px] leading-4 text-[#42463B]">Source: NSW Government, <span className="underline">Workforce Profile Report</span>, 2025, pg. 25</p>
+                </div>
+                <div className={`flex min-h-[310px] flex-col bg-[#807064] p-4 text-white ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.24s" }}>
+                  <svg viewBox="0 0 220 220" aria-hidden="true" className="mx-auto w-full max-w-[190px]">
+                    <g fill="#B9A18D" stroke="#E6D9CC" strokeWidth="5" strokeLinejoin="round">
+                      <circle cx="58" cy="36" r="21" />
+                      <path d="M36 72h44c6 0 9 4 10 10l9 76c1 8-2 12-10 12h-5l-5 40c-1 7-5 10-11 10H48c-6 0-10-3-11-10l-5-40h-5c-8 0-11-4-10-12l9-76c1-6 4-10 10-10Z" transform="translate(0 -17) scale(1 .96)" />
+                    </g>
+                    <g fill="#DFD3C6" stroke="#E6D9CC" strokeWidth="5" strokeLinejoin="round">
+                      <circle cx="162" cy="36" r="21" />
+                      <path d="M140 72h44c5 0 8 3 9 9l11 73c1 8-2 12-10 12h-3l7 22c2 5 0 8-6 8h-7l-4 14c-1 7-5 10-11 10h-16c-6 0-10-3-11-10l-4-14h-7c-6 0-8-3-6-8l7-22h-3c-8 0-11-4-10-12l11-73c1-6 4-9 9-9Z" transform="translate(0 -17) scale(1 .96)" />
+                    </g>
+                  </svg>
+                  <div className="mt-auto pt-3">
+                    <strong className="block text-4xl leading-none">7.3%</strong>
+                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <p className="mt-2 text-[10px] leading-4 text-white/90">Source: NSW Government,<br /><span className="underline">Workforce Profile Report</span> 2025, pg. 3</p>
+                  </div>
+                </div>
               </div>
-              <p className="mt-3 text-[9px] leading-4 text-[#694834]">Source: NSW Government, Workforce Profile Report, 2025, pg. 25</p>
             </div>
             <ColumnChart title="Diversity in the NSW Public Sector" data={[{ label: "Employees with a disability", value: 2.8, text: "2.8%", muted: true }, { label: "Employees who speak a language other than English", value: 20.8, text: "20.8%" }, { label: "Women", value: 66.6, text: "66.6%" }, { label: "Aboriginal and Torres Strait Islander employees", value: 4, text: "4.0%" }]} source="SOURCE: NSW Government, Workforce Profile Report, 2025, pg. 19" />
           </div>
@@ -125,15 +175,23 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
             <div>
               <p className="text-xs leading-6 text-[#42463B]">The number of employees in the NSWPS increased by 1.2 per cent in 2025. Employment projections from Jobs and Skills Australia suggest a projected growth rate for the Public Administration and Safety Industry in NSW of 11 per cent over 10 years.</p>
               <p className="mt-3 text-xs leading-6 text-[#42463B]">The NSW Skills Plan 2024–28 is the NSW Government strategic plan for skills and reform in VET. The non-government sector has previously provided many of these identified skills to government. The plan identifies six critical areas as a focus including &apos;Digital and cyber&apos; and &apos;Care and support economy&apos;, of which the following occupations are in demand (relevant to Public Administration and Safety):</p>
+              <div className="mt-4 flex flex-wrap gap-2">{occupations.map((occupation) => <span key={occupation} className="rounded-md bg-[#F8EEE8] px-3 py-1.5 text-[10px] font-medium text-[#754D32]">{occupation}</span>)}</div>
+              <div className="mt-6 space-y-4"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">11%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: Jobs and Skills Australia, Employment projections - Outlook for states and territories, Table 2</p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">1,410</strong><p className="mt-1 text-xs">Additional public servants in the workforce in 2025</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</p></div></div>
             </div>
             <div>
-              <div className="flex flex-wrap gap-2">{occupations.map((occupation) => <span key={occupation} className="rounded-md bg-[#F8EEE8] px-3 py-1.5 text-[10px] font-medium text-[#754D32]">{occupation}</span>)}</div>
-              <div className="mt-4 rounded-md bg-[#F8EEE8] p-4"><span className="inline-block rounded-full bg-[#754D32] px-4 py-1.5 text-xs text-white">Industry Insight</span><p className="mt-3 text-xs leading-6 text-[#42463B]">Building in-house capability, rather than relying on non-government sector resources, is becoming increasingly important due to increased community expectations on the NSW Public Service.</p></div>
+              <aside className="rounded-md border border-[#E8DED6] border-l-[10px] border-l-[#754D32] bg-[#F8EEE8] px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#754D32]" aria-hidden="true">
+                    <UserRound className="h-5 w-5 translate-x-[-4px] translate-y-[4px]" strokeWidth={1.7} />
+                    <MessageSquareText className="absolute right-2 top-2 h-4 w-4" strokeWidth={1.7} />
+                  </span>
+                  <h3 className="text-lg font-semibold text-[#382219]">Industry Insight</h3>
+                </div>
+                <p className="mt-4 text-xs leading-5 text-[#42463B]">Building in-house capability, rather than relying on non-government sector resources, is becoming increasingly important due to increased community expectations on the NSW Public Service.</p>
+                <p className="mt-5 border-t border-[#DECFC5] pt-3 text-[10px] font-medium uppercase leading-4 text-[#668B17]">Workforce Trends · NSW Public Service</p>
+              </aside>
+              <div className="mt-4"><RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source="SOURCE: NSW Government, Workforce Profile Report, 2025, Figure 5.3" /></div>
             </div>
-          </div>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="space-y-4"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">11%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: Jobs and Skills Australia, Employment projections - Outlook for states and territories, Table 2</p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">1,410</strong><p className="mt-1 text-xs">Additional public servants in the workforce in 2025</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</p></div></div>
-            <RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source="SOURCE: NSW Government, Workforce Profile Report, 2025, Figure 5.3" />
           </div>
         </Section>
 
