@@ -19,7 +19,7 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 | --- | --- | --- | --- | --- | --- | --- |
 | FSTG-UAT-001 | P0 | [Report navigation](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Apply the exact `Navigation Map` hierarchy. Industry Overview directly lists all eight jurisdictions; remove Theme 2. | 2-3 | Not Started (original workbook) | [x] Implemented and verified 2026-10-23; see verification below |
 | FSTG-UAT-002 | P1 | [All report pages](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Latest client revision 2026-10-24: title 20px, gray800, weight 700 on the same row as the original labelled buttons, aligned right; wrap on smaller screens. | 4 + client revision | Not Started (original workbook) | [x] Implemented and verified 2026-10-24, including client styling revision; see verification below |
-| FSTG-UAT-003 | P1 | [Transition pages](http://localhost:3000/reports/federal-state-territory-wir-2026/executive_summary) | Remove the `Overview` eyebrow and use black headline/body text; keep sector colour for accents. | 5 | Not Started | [ ] |
+| FSTG-UAT-003 | P1 | [Transition page](http://localhost:3000/reports/federal-state-territory-wir-2026) | Remove the `Overview` eyebrow and use black headline/body text; keep sector colour for accents. Client confirmed the report root is the transition page. | 5 | Not Started (original workbook) | [x] Implemented and verified 2026-10-24; see verification below |
 | FSTG-UAT-004 | P1 | [Introduction](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Make the annotated Digital Report Structure item navigate to its corresponding report section; preferably make the whole card clickable if consistent with existing behaviour. | 6 | Not Started | [ ] |
 | FSTG-UAT-005 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Back returns to the actual previous page, with a safe fallback when there is no in-report history. | 7 | Not Started | [ ] |
 | FSTG-UAT-006 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Replace Local Government colours with FSTG primary `#754C2D` and secondary `#EED4C4` on headings, accents, cards and buttons where appropriate. | 7 | Not Started | [ ] |
@@ -91,6 +91,14 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 - Current evidence: [revised desktop utility row](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-revised.png), [revised mobile utility row](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/mobile-revised.png).
 - Latest alignment verification: Methodology controls compute to `justify-content: flex-end`, with the last button flush to the utility row's right edge. [Current right-aligned buttons](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-right-aligned.png). Earlier screenshots above document the preceding styling revision.
 - Final same-row revision: title and original right-aligned buttons share a vertically centred flex row, with wrapping when necessary. Methodology verified at 1280px: matching vertical centres and no utility-row overflow. [Current same-row layout](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-same-row.png).
+
+### FSTG-UAT-003 - completed 24 October 2026
+
+- Client confirmed `/reports/federal-state-territory-wir-2026` as the transition page. Updated its `FederalStateLandingView.tsx` component.
+- Removed the `OVERVIEW` eyebrow above the Executive Summary pathway. Main title, year/PSA eyebrow, introduction text, both pathway headings/descriptions, pathway button labels and footer links now use black text. Coloured borders, backgrounds, branding and white-on-colour badges retain their existing treatment.
+- Validation: desktop 1280px and mobile 390px browser checks confirmed every main heading/paragraph computes to `rgb(0, 0, 0)` and no standalone Overview label remains. Both pathway buttons navigate to the correct Introduction and Executive Summary routes.
+- Targeted ESLint completed with zero errors and the three pre-existing image-element warnings. `git diff --check` passed.
+- Evidence: [desktop transition page](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-003/desktop.png), [mobile transition page](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-003/mobile.png).
 
 ## Part 2 supporting notes
 

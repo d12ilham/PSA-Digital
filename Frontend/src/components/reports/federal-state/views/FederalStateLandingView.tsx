@@ -124,17 +124,17 @@ export default function FederalStateLandingView({
         {/* Title Section */}
         <div className="max-w-5xl mx-auto text-center mb-8 sm:mb-10 space-y-6">
           <div className="animate-slide-up space-y-4">
-            <p className="text-xs sm:text-xs font-semibold uppercase tracking-wider text-[#598303]">
+            <p className="text-xs sm:text-xs font-semibold uppercase tracking-wider text-black">
               {report.year?.label || "2026"} • PUBLIC SKILLS AUSTRALIA
             </p>
 
-            <h1 className="text-4xl font-bold text-gray800 leading-tight sm:leading-normal">
+            <h1 className="text-4xl font-bold text-black leading-tight sm:leading-normal">
               Federal and State/Territory Government
               <br className="hidden sm:inline" /> Workforce Insights Report
             </h1>
           </div>
 
-          <p className="text-lg font-medium text-notes animate-slide-up-delay max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg font-medium text-black animate-slide-up-delay max-w-3xl mx-auto leading-relaxed">
             Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
           </p>
         </div>
@@ -147,10 +147,10 @@ export default function FederalStateLandingView({
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
           >
             <div>
-              <h2 className="text-2xl font-bold mb-4 text-[#AE907E]">
+              <h2 className="text-2xl font-bold mb-4 text-black">
                 Introduction
               </h2>
-              <p className="text-xs text-gray600 leading-relaxed mb-8">
+              <p className="text-xs text-black leading-relaxed mb-8">
                 For readers who want the report background — how it was
                 developed, the methodology and the full report structure.
               </p>
@@ -159,7 +159,7 @@ export default function FederalStateLandingView({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-[#1B240E]"
+                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
               >
                 <span>Explore the Introduction</span>
                 <span className="text-base font-normal">→</span>
@@ -173,16 +173,15 @@ export default function FederalStateLandingView({
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 p-8 flex flex-col justify-between transition-all"
           >
             <div>
-              <p className="mb-2 text-xs font-semibold text-gray800">OVERVIEW</p>
               <div className="flex items-center justify-between gap-3 mb-4">
-                <h2 className="text-2xl font-bold text-[#694834]">
+                <h2 className="text-2xl font-bold text-black">
                   Executive Summary
                 </h2>
                 <span className="bg-[#694834] text-white text-[11px] font-bold px-3 py-1 rounded-xl">
                   Presentation View
                 </span>
               </div>
-              <p className="text-xs text-gray600 leading-relaxed mb-8">
+              <p className="text-xs text-black leading-relaxed mb-8">
                 Straight to the key insights and strategies on one page, built
                 for large screens and briefings.
               </p>
@@ -193,7 +192,7 @@ export default function FederalStateLandingView({
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
-                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-[#1B240E]"
+                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
               >
                 <span>Open the Executive Summary</span>
                 <span className="text-base font-normal">→</span>
@@ -207,7 +206,7 @@ export default function FederalStateLandingView({
       <footer className="w-full bg-white border-t border-gray200 z-10 relative py-4 px-4 flex items-center justify-center gap-3">
         <button
           onClick={() => router.push("/reports")}
-          className="border border-[#E9EAEB] text-gray800 font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer hover:bg-black/5 transition-colors"
+          className="border border-[#E9EAEB] text-black font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer hover:bg-black/5 transition-colors"
         >
           <span>←</span> Back to PSA Website
         </button>
@@ -217,7 +216,7 @@ export default function FederalStateLandingView({
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-[#E9EAEB] text-gray800 font-semibold text-sm px-5 py-2 rounded-full cursor-pointer no-underline hover:bg-black/5 transition-colors"
+          className="border border-[#E9EAEB] text-black font-semibold text-sm px-5 py-2 rounded-full cursor-pointer no-underline hover:bg-black/5 transition-colors"
         >
           Contact Us
         </a>
