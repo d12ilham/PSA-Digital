@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { resolveSector } from "@/config/reports/sectors";
+import FederalStateReportUtilityRow from "@/components/reports/federal-state/FederalStateReportUtilityRow";
 
 export interface NavTarget {
   label: string;
@@ -87,9 +88,10 @@ export default function ReportNavButtons({
     }
   }
 
-  if (!prevTarget && !nextTarget) return null;
+  const isFederalState = (slug || industrySlug) && resolveSector(industrySlug, slug).id === "federal-state";
+  if (!prevTarget && !nextTarget && !isFederalState) return null;
 
-  return (
+  const controls = (
     <div className="flex flex-wrap items-center gap-3">
       {back && (
         <button onClick={() => router.push(back.href)} className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer">
@@ -119,4 +121,6 @@ export default function ReportNavButtons({
       )}
     </div>
   );
+
+  return isFederalState ? <FederalStateReportUtilityRow>{controls}</FederalStateReportUtilityRow> : controls;
 }

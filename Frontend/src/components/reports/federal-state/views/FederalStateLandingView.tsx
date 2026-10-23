@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 
 interface FederalStateLandingViewProps {
   slug: string;
@@ -109,6 +110,14 @@ export default function FederalStateLandingView({
           </span>
         </div>
       </header>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 lg:px-8">
+        <ReportNavButtons
+          slug={slug}
+          prev={{ label: "Workforce Insights Reports", href: "/reports" }}
+          next={{ label: "Introduction", href: `/reports/${slug}/introduction` }}
+        />
+      </div>
 
       {/* ── MAIN CONTENT (TOP ALIGNED) ── */}
       <main className="flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">

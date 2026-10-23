@@ -18,7 +18,7 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 | ID | Priority | Area / report page | Requested change and acceptance check | Client slide(s) | Source status | Progress |
 | --- | --- | --- | --- | --- | --- | --- |
 | FSTG-UAT-001 | P0 | [Report navigation](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Apply the exact `Navigation Map` hierarchy. Industry Overview directly lists all eight jurisdictions; remove Theme 2. | 2-3 | Not Started (original workbook) | [x] Implemented and verified 2026-10-23; see verification below |
-| FSTG-UAT-002 | P1 | [All report pages](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Add a slim row below the main nav: small report-name reminder left, Previous/Back and Next controls right. It must not read as a page heading. | 4 | Not Started | [ ] |
+| FSTG-UAT-002 | P1 | [All report pages](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Latest client revision 2026-10-24: title 20px, gray800, weight 700 on the same row as the original labelled buttons, aligned right; wrap on smaller screens. | 4 + client revision | Not Started (original workbook) | [x] Implemented and verified 2026-10-24, including client styling revision; see verification below |
 | FSTG-UAT-003 | P1 | [Transition pages](http://localhost:3000/reports/federal-state-territory-wir-2026/executive_summary) | Remove the `Overview` eyebrow and use black headline/body text; keep sector colour for accents. | 5 | Not Started | [ ] |
 | FSTG-UAT-004 | P1 | [Introduction](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Make the annotated Digital Report Structure item navigate to its corresponding report section; preferably make the whole card clickable if consistent with existing behaviour. | 6 | Not Started | [ ] |
 | FSTG-UAT-005 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Back returns to the actual previous page, with a safe fallback when there is no in-report history. | 7 | Not Started | [ ] |
@@ -79,6 +79,18 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 - Desktop dropdowns support hover, click, keyboard focus and Escape. Smaller screens use a collapsible menu with the same hierarchy and wrapping labels.
 - Validation: targeted ESLint passed; TypeScript `--noEmit --incremental false` passed; all 25 distinct menu/download destination routes returned HTTP 200. Live browser checks passed at desktop width 1280px and mobile width 390px, with no horizontal overflow. Checked About ordering, all eight jurisdiction entries, ACT navigation, Insight 3 navigation/active state, proposal anchor navigation and Escape closing.
 - Evidence: [desktop menu](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-001/desktop-menu.png), [mobile menu](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-001/mobile-menu.png).
+
+### FSTG-UAT-002 - completed 24 October 2026
+
+- Added `FederalStateReportUtilityRow.tsx`, rendered by the FSTG branch of `ReportNavButtons.tsx`. Each row displays the exact report name, `Federal and State/Territory Government Workforce Insights Report`.
+- Client styling revision, 24 October 2026: report-name text is `font-size: 20px`, `font-weight: 700`, `color: var(--color-gray800)` (computed `rgb(37, 43, 55)`). Original labelled Previous/Back and Next buttons retain their colours, padding, rounded styling, icons and prefixes. The latest client direction places the title and right-aligned controls on the same row, with responsive wrapping when space is insufficient.
+- Reused the original shared button rendering and retained existing destination definitions.
+- Replaced Downloads' separate Back link with the shared row. Added the row beneath the cover header, with a return link to the report directory and a forward link to Introduction.
+- Coverage checks for the shared row passed on all 29 canonical FSTG pages and 10 alternate routes. For the styling revision, verified exact computed title styles and left alignment on desktop 1280px; verified wrapping and button fit at mobile 390px on Introduction, Methodology, Industry Overview, Proposed Strategy, Update on 2025 Strategies and Downloads.
+- TypeScript `--noEmit --incremental false` and targeted ESLint passed for the revised shared components. The earlier cover-view lint check recorded three pre-existing image-element warnings. `git diff --check` passed.
+- Current evidence: [revised desktop utility row](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-revised.png), [revised mobile utility row](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/mobile-revised.png).
+- Latest alignment verification: Methodology controls compute to `justify-content: flex-end`, with the last button flush to the utility row's right edge. [Current right-aligned buttons](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-right-aligned.png). Earlier screenshots above document the preceding styling revision.
+- Final same-row revision: title and original right-aligned buttons share a vertically centred flex row, with wrapping when necessary. Methodology verified at 1280px: matching vertical centres and no utility-row overflow. [Current same-row layout](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-002/desktop-same-row.png).
 
 ## Part 2 supporting notes
 

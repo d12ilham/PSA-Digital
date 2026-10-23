@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
 
 interface Report {
   id: string;
@@ -24,9 +24,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-        <Link href={`/reports/${slug}/looking_forward`} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] px-5 text-xs font-semibold text-[#54710F] transition-[background-color,border-color,box-shadow] hover:border-[#8AC900] hover:bg-white hover:shadow-sm">
-          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back
-        </Link>
+        <ReportNavButtons slug={slug} currentPage="downloads" />
 
         <section className="relative flex min-h-[194px] items-center overflow-hidden rounded-md border border-[#ECECE5] bg-white px-6 py-8 sm:px-8">
           <div className="relative z-10 max-w-[1000px]">
