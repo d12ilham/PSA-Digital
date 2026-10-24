@@ -23,6 +23,7 @@ export interface ReportNavButtonsProps {
   backSecondary?: NavTarget;
   prevPrefix?: string;
   nextPrefix?: string;
+  onPrevious?: () => void;
 }
 
 export const REPORT_PAGES_ORDER = [
@@ -54,6 +55,7 @@ export default function ReportNavButtons({
   backSecondary,
   prevPrefix = "Back to",
   nextPrefix = "Next Section:",
+  onPrevious,
 }: ReportNavButtonsProps) {
   const router = useRouter();
 
@@ -105,7 +107,7 @@ export default function ReportNavButtons({
       )}
       {prevTarget && (
         <button
-          onClick={() => router.push(prevTarget.href)}
+          onClick={onPrevious ?? (() => router.push(prevTarget.href))}
           className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> {prevPrefix} {prevTarget.label}

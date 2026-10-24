@@ -20,10 +20,10 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 | FSTG-UAT-001 | P0 | [Report navigation](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Apply the exact `Navigation Map` hierarchy. Industry Overview directly lists all eight jurisdictions; remove Theme 2. | 2-3 | Not Started (original workbook) | [x] Implemented and verified 2026-10-23; see verification below |
 | FSTG-UAT-002 | P1 | [All report pages](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Latest client revision 2026-10-24: title 20px, gray800, weight 700 on the same row as the original labelled buttons, aligned right; wrap on smaller screens. | 4 + client revision | Not Started (original workbook) | [x] Implemented and verified 2026-10-24, including client styling revision; see verification below |
 | FSTG-UAT-003 | P1 | [Transition page](http://localhost:3000/reports/federal-state-territory-wir-2026) | Remove the `Overview` eyebrow and use black headline/body text; keep sector colour for accents. Client confirmed the report root is the transition page. | 5 | Not Started (original workbook) | [x] Implemented and verified 2026-10-24; see verification below |
-| FSTG-UAT-004 | P1 | [Introduction](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Make the annotated Digital Report Structure item navigate to its corresponding report section; preferably make the whole card clickable if consistent with existing behaviour. | 6 | Not Started | [ ] |
-| FSTG-UAT-005 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Back returns to the actual previous page, with a safe fallback when there is no in-report history. | 7 | Not Started | [ ] |
-| FSTG-UAT-006 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Replace Local Government colours with FSTG primary `#754C2D` and secondary `#EED4C4` on headings, accents, cards and buttons where appropriate. | 7 | Not Started | [ ] |
-| FSTG-UAT-007 | P2 | [Downloads / PSA links](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Update PSA website links only when PSA supplies the new URLs. Do not invent or substitute destinations. | 7 | **Blocked - awaiting PSA links** | [ ] |
+| FSTG-UAT-004 | P1 | [Introduction](http://localhost:3000/reports/federal-state-territory-wir-2026/introduction) | Make the annotated Digital Report Structure item navigate to its corresponding report section; preferably make the whole card clickable if consistent with existing behaviour. | 6 | Not Started (original workbook) | [x] Implemented and verified 2026-10-24; see verification below |
+| FSTG-UAT-005 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Back returns to the actual previous page, with a safe fallback when there is no in-report history. | 7 | Not Started (original workbook) | [x] Implemented and verified 2026-10-24; see verification below |
+| FSTG-UAT-006 | P1 | [Downloads](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Replace Local Government colours with FSTG primary `#754C2D` and secondary `#EED4C4` on headings, accents, cards and buttons where appropriate. | 7 | Not Started (original workbook) | [x] Implemented and verified 2026-10-24; see verification below |
+| FSTG-UAT-007 | P2 | [Downloads / PSA links](http://localhost:3000/reports/federal-state-territory-wir-2026/downloads) | Update PSA website links only when PSA supplies the new URLs. Do not invent or substitute destinations. | 7 | **Blocked - awaiting PSA links** (original workbook) | [x] Implemented 2026-10-24: official 2026/2025/2024 links connected; unavailable 2023 entry removed at client's request |
 | FSTG-UAT-008 | P0 | [Executive Summary](http://localhost:3000/reports/federal-state-territory-wir-2026/executive_summary) | **Client override:** replace `Two Industry Insights` with one theme and three insights matching Workforce Insights. No insight click-through CTA buttons in the Executive Summary; constrain text width. | 8 | Not Started | [ ] |
 | FSTG-UAT-009 | P1 | [Proposed Strategy](http://localhost:3000/reports/federal-state-territory-wir-2026/proposed_strategies) | Match its presentation to the Executive Summary strategy, wrap long copy and remove redundant Open/Close when already expanded. See Part 2 slide 37 for further header cleanup. | 9 | Not Started | [ ] |
 | FSTG-UAT-010 | P0 | [Industry Overview](http://localhost:3000/reports/federal-state-territory-wir-2026/industry_overview) | Follow document order: Scope first, then Federal Government Overview text, then data/stat boxes. | 10 | Not Started | [ ] |
@@ -99,6 +99,50 @@ Report URL prefix: `http://localhost:3000/reports/federal-state-territory-wir-20
 - Validation: desktop 1280px and mobile 390px browser checks confirmed every main heading/paragraph computes to `rgb(0, 0, 0)` and no standalone Overview label remains. Both pathway buttons navigate to the correct Introduction and Executive Summary routes.
 - Targeted ESLint completed with zero errors and the three pre-existing image-element warnings. `git diff --check` passed.
 - Evidence: [desktop transition page](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-003/desktop.png), [mobile transition page](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-003/mobile.png).
+
+### FSTG-UAT-004 - completed 24 October 2026
+
+- Converted all six Digital Report Structure cards in `FederalStateIntroductionView.tsx` into native Next.js links, replacing mouse-only wrapper handlers. Each card has an accessible section-specific name and a visible keyboard focus outline. The Explore pill remains visually styled as before and belongs to the same link, with no nested button.
+- Verified destinations: Executive Summary -> `executive_summary`; Drivers of Change -> `drivers_of_change`; Industry Overview -> `industry_overview`; Workforce Insights -> `workforce_insights`; Workforce Strategies -> `workforce_strategies`; Looking Forward -> `looking_forward`.
+- Browser validation: all six routes opened successfully. Checked Enter-key activation and clicks on headings, description text, icons, the Explore pill and the card body. At mobile 390px, all six cards fit their containers, and clicking the Executive Summary heading opens its correct route. Existing card styling and entrance animations are retained.
+- Targeted ESLint completed with zero errors and the three pre-existing image-element warnings. `git diff --check` passed.
+- Evidence: [desktop structure cards](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-004/desktop.png), [mobile structure cards](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-004/mobile.png).
+
+### FSTG-UAT-005 - completed 24 October 2026
+
+- Downloads now has a `Back` action using the browser history through `router.back()`, rather than the fixed Looking Forward destination. This preserves the originating URL's query string and hash, including after reloading Downloads.
+- If no previous entry is available, the button replaces the current route with this report's Introduction. Uses the browser Navigation API when available to distinguish a previous entry from forward-only history, with a history-length check for older browsers.
+- Added an optional `onPrevious` callback to the shared `ReportNavButtons` component and supplied it only from `FederalStateDownloadsView.tsx`. Original labelled button styling and utility-row layout are retained.
+- Browser validation: a fresh direct Downloads visit falls back to Introduction; Methodology -> Downloads -> reload -> Back returns to Methodology with its query string/hash preserved; the `downloads_reference` alias at the first history entry with forward history also falls back correctly. The return journey passed at desktop 1280px and mobile 390px.
+- Targeted ESLint, TypeScript `--noEmit --incremental false`, and `git diff --check` passed.
+- Evidence: [desktop Downloads Back button](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-005/desktop.png), [mobile Downloads Back button](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-005/mobile.png).
+
+### FSTG-UAT-006 - completed 24 October 2026
+
+- Recoloured Downloads headings, full-report card, previous-report controls, download icons, accents and Back button with FSTG primary `#754C2D` and secondary `#EED4C4`, plus neutral text and borders. Shared report navigation remains unchanged.
+- Reused the existing hero wave graphic as an alpha mask tinted with the exact sector primary. The document-download icon now uses a sector-coloured Lucide icon in the existing white circle.
+- Downloads renders its Back action in `FederalStateReportUtilityRow` directly so its colour can be scoped to this page. The UAT-005 history handler is retained: verified direct-entry fallback to Introduction and Introduction -> Downloads -> Back returning to Introduction.
+- Desktop and mobile 390px visual checks passed with no horizontal overflow. Computed heading and full-report card colours are `rgb(117, 76, 45)`. PDF availability and disabled states are unchanged; UAT-007 remains awaiting PSA links.
+- Targeted ESLint and TypeScript `--noEmit --incremental false` passed.
+- Evidence: [desktop Downloads](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-006/desktop.png), [mobile Downloads](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-006/mobile.png).
+
+### FSTG-UAT-007 - completed 24 October 2026
+
+- Client authorised sourcing links from [PSA's Workforce Insights Reports page](https://publicskillsaustralia.org.au/workforce-plans). Connected its 2026 FSTG PDF, 2025 FSTG PDF and 2024 Government Workforce Plan. Verified the title/year in each destination PDF. The 2024 label explicitly includes Local Government because this is a combined plan, not a standalone FSTG report.
+- All three PDF anchors use `target="_blank"` and `rel="noopener noreferrer"`; the browser chooses a new tab or window. Removed the download attribute so browsers can open the PDF instead of requesting a forced download. Accessible names announce the separate browsing context.
+- The official page does not list 2023. Client subsequently requested removal of that entry; removed its button and the now-unneeded disabled-control branch. Only the verified 2026, 2025 and 2024 PDF links remain.
+- Final PDF destinations in `FederalStateDownloadsView.tsx`:
+
+| Report | Official PDF URL |
+| --- | --- |
+| 2026 Federal and State/Territory Government Workforce Insights Report | https://psa-directus-prod.azurewebsites.net/assets/51b5fe57-c571-427b-ae72-917b57603b4b.pdf |
+| 2025 Federal and State/Territory Government Workforce Insights Report | https://psa-directus-prod.azurewebsites.net/assets/fc3d5c1a-e34b-4b5d-80c3-9439f94d219f |
+| 2024 Federal, State/Territory and Local Government Workforce Plan | https://psa-directus-prod.azurewebsites.net/assets/acd96fb3-8c56-4df4-9670-6a92e6eb696d |
+
+- Retained the FSTG sector colours, loading/hover animations and history-aware Back behaviour from UAT-005/006. No report content or shared navigation destinations were changed for this item.
+- Live page inspection confirmed all three exact destinations and new-context attributes. A 2025 click left Downloads in place, but the in-app browser did not expose a separate PDF tab, so popup rendering was not independently confirmed. Target PDFs were independently retrieved successfully. Targeted ESLint, TypeScript `--noEmit --incremental false`, and whitespace validation passed.
+- Final removal verification: live Downloads page shows only the 2025 and 2024 entries under Previous Reports, with the 2026 link in Full Report and no 2023 control. Targeted ESLint passed after removal. UAT-007 is complete; no 2023 link remains pending.
+- Evidence: [final Downloads without 2023](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-007/downloads-no-2023.png). The [earlier screenshot](C:/Users/wmsan/Documents/Codex/2026-09-23/ca/outputs/fstg-uat-007/downloads.png) records the state before removal.
 
 ## Part 2 supporting notes
 
