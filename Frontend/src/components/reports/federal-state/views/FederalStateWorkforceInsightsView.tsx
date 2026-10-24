@@ -7,6 +7,7 @@ import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { workforceInsightSummaries } from "../workforceInsightsContent";
 
 interface Report {
   id: string;
@@ -18,20 +19,10 @@ interface Report {
   year?: { label: string };
 }
 
-const insights = [
-  {
-    label: "Theme One, Insight One",
-    summary: "The Public Administration and Safety industry is projected to grow steadily over the next decade, in line with broader increases in public sector workforce participation. Federal and State/Territory Governments operate under differing legislative and governance arrangements for workforce planning, resulting in variable levels of workforce planning maturity.",
-  },
-  {
-    label: "Theme One, Insight Two",
-    summary: "As Australia’s productivity growth remains relatively low, the effectiveness of the APS remains critical to supporting economic performance.",
-  },
-  {
-    label: "Theme One, Insight Three",
-    summary: "A skilled, adaptable and future-ready public service workforce has been identified as a priority, particularly in relation to technology, digital literacy and effective use of AI.",
-  },
-];
+const insights = workforceInsightSummaries.map((insight, index) => ({
+  ...insight,
+  label: `Theme One, Insight ${index + 1} - ${insight.title}`,
+}));
 
 export default function FederalStateWorkforceInsightsView({ slug, report }: { slug: string; report: Report }) {
   const router = useRouter();

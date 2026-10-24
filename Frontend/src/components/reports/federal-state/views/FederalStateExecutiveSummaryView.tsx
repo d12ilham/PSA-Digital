@@ -6,6 +6,7 @@ import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight } from "lucide-react";
+import { themeOverviewSources, workforceInsightSummaries } from "../workforceInsightsContent";
 
 interface Report {
   id: string;
@@ -35,6 +36,13 @@ export default function FederalStateExecutiveSummaryView({
   const [isStrategiesVisible, setIsStrategiesVisible] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
+      const frame = window.requestAnimationFrame(() => {
+        setIsThemesVisible(true);
+        setIsStrategiesVisible(true);
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -59,7 +67,7 @@ export default function FederalStateExecutiveSummaryView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader
         slug={slug}
@@ -79,7 +87,7 @@ export default function FederalStateExecutiveSummaryView({
               Executive Summary
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
-              Public Skills Australia's 2026 Federal and State/Territory
+              Public Skills Australia&apos;s 2026 Federal and State/Territory
               Government Workforce Insights Report (the Report) considers the wider
               operational contexts impacting Public Safety and Government industry.
               It identifies four drivers of change that will impact workforce
@@ -207,10 +215,11 @@ export default function FederalStateExecutiveSummaryView({
           </button>
         </div>
 
-        {/* Section 2: approved Executive Summary industry insights */}
+        {/* Section 2: one theme, with non-interactive insight summaries */}
         <div
           ref={themesRef}
-          className="bg-white rounded-2xl border border-gray200 p-6 space-y-6"
+          aria-labelledby="summary-insights-title"
+          className="bg-white rounded-md border border-gray200 border-t-[6px] border-t-[#EED4C4] p-6 space-y-6"
         >
           {/* Header row inside card */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
@@ -223,44 +232,33 @@ export default function FederalStateExecutiveSummaryView({
                 />
               </div>
               <div>
-                <h3 className="font-bold text-base text-gray800 pb-2">
-                  Two Industry Insights
-                </h3>
-                <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
-                  This report provides an overview of each Federal and
-                  State/Territory Government public sector workforce and trends
-                  and identified the following two industry insights in the
-                  industry-sector:
-                </p>
+                <h2 id="summary-insights-title" className="font-bold text-base text-gray800 pb-2">One Theme, Three Insights</h2>
+                <h3 className="text-base font-bold text-[#754C2D]">Future of the Public Service</h3>
               </div>
             </div>
-            <button
-              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B700] transition-colors"
-            >
-              Present Workforce Insights <ArrowRight className="h-3.5 w-3.5" />
-            </button>
           </div>
 
-          <div className="space-y-3">
-            <div
-              style={isThemesVisible ? { animationDelay: "0.10s" } : undefined}
-              className={`theme-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#FAFAF0] p-4 sm:p-5 ${isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"}`}
-            >
-              <span className="w-8 shrink-0 select-none text-[50px] font-bold leading-none text-notes/10">1</span>
-              <p className="text-xs leading-relaxed text-gray600">
-                The Federal and State/Territory Government public sector workforce is facing a challenging fiscal environment coupled with the need to build sector capability to be future ready to continue to deliver high quality services for the community. Specifically, within the public service, stakeholders identified a skill gap in artificial intelligence (AI) and occupational shortages such as program/project administration, human resources and digital, Information and Computer Technology (ICT) and cybersecurity roles.
-              </p>
-            </div>
-            <div
-              style={isThemesVisible ? { animationDelay: "0.22s" } : undefined}
-              className={`theme-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#FAFAF0] p-4 sm:p-5 ${isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"}`}
-            >
-              <span className="w-8 shrink-0 select-none text-[50px] font-bold leading-none text-notes/10">2</span>
-              <p className="text-xs leading-relaxed text-gray600">
-                While the Federal and State/Territory Government public sector workforce is diverse, meeting First Nations employment targets remains a challenge. There is a growing need to strengthen and expand entry pathways into government roles for First Nations people to meet national commitments and increase and support career development.
-              </p>
-            </div>
+          <p className="max-w-[80ch] text-xs leading-6 text-gray600">
+            ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.<sup><a href="#summary-source-85" aria-label="Source 85" className="underline">85</a></sup> According to Jobs and Skills Australia&apos;s employment projections, employment in the Public Administration industry group is projected to steadily grow over the next 10 years from the current baseline of 505,200 in May 2025 to 574,900 in May 2035.<sup><a href="#summary-source-86" aria-label="Source 86" className="underline">86</a></sup> These projections encompass government activities at the federal, state and territory levels only.<sup><a href="#summary-source-87" aria-label="Source 87" className="underline">87</a></sup> The future public service workforce will continue to have effects on national economic growth and productivity.
+          </p>
+          <ol className="space-y-3" aria-label="Executive Summary insights">
+            {workforceInsightSummaries.map((insight, index) => (
+              <li key={insight.title}
+                style={isThemesVisible ? { animationDelay: `${0.10 + index * 0.12}s` } : undefined}
+                className={`summary-insight-item flex items-start gap-4 rounded-md border border-[#BDA28E] border-l-[5px] border-l-[#754C2D] bg-[#F8EEE8] p-4 sm:p-5 motion-safe:transition-shadow motion-safe:hover:shadow-sm ${isThemesVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0 motion-safe:translate-y-4"}`}>
+                <span aria-hidden="true" className="w-8 shrink-0 select-none text-[34px] font-light leading-none text-[#754C2D]">{index + 1}</span>
+                <div className="min-w-0 max-w-[80ch] text-xs">
+                  <h4 className="font-semibold leading-5 text-[#754C2D]">{insight.title}</h4>
+                  <p className="mt-2 leading-6 text-gray600">{insight.summary}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="border-t border-gray200 pt-4">
+            <h3 className="text-xs font-bold text-gray800">Sources</h3>
+            <ol className="mt-3 max-w-[80ch] space-y-3 text-xs leading-5 text-gray600">
+              {themeOverviewSources.map(({ number, text }) => <li key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3"><span className="font-semibold text-[#754C2D]">{number}</span><span>{text}</span></li>)}
+            </ol>
           </div>
         </div>
 
@@ -283,7 +281,7 @@ export default function FederalStateExecutiveSummaryView({
                 <h3 className="font-bold text-base text-gray800 pb-2">
                   2026 Proposed Strategy
                 </h3>
-                <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
+                <p className="text-xs text-gray600 leading-relaxed max-w-[80ch]">
                   Public Skills Australia proposes the following strategy
                   aligned to the workforce insights identified to support the
                   Federal and State/Territory Government industry-sector.
@@ -307,8 +305,8 @@ export default function FederalStateExecutiveSummaryView({
             }
             className={`bg-white rounded-2xl border border-gray200 border-t-8 border-t-[#694834] p-6 space-y-4 ${
               isStrategiesVisible
-                ? "animate-card-entrance"
-                : "opacity-0 translate-y-6"
+                ? "animate-card-entrance motion-reduce:animate-none"
+                : "motion-safe:opacity-0 motion-safe:translate-y-6"
             }`}
           >
             <div>
@@ -321,13 +319,13 @@ export default function FederalStateExecutiveSummaryView({
               Identify future skills needs for Federal and State/Territory
               Government
             </h4>
-            <p className="text-xs leading-relaxed text-gray600">
+            <p className="max-w-[80ch] text-xs leading-relaxed text-gray600">
               Public Skills Australia will use a strategic-foresight approach to convene jurisdictional workshops to identify where nationally accredited Vocational Education and Training (VET) training can support capability development.
             </p>
 
             <div className="border-t border-gray-200 my-4" />
 
-            <div className="space-y-3.5 pt-1">
+            <div className="max-w-[80ch] space-y-3.5 pt-1">
               <div>
                 <h5 className="text-xs font-bold text-gray800">
                   Workforce Insight:
@@ -355,7 +353,7 @@ export default function FederalStateExecutiveSummaryView({
               <div>
                 <h5 className="text-xs font-bold text-gray800">Approach:</h5>
                 <p className="text-xs text-gray600 leading-relaxed">
-                  Using a strategic foresight approach, convene &apos;Future
+                  Using a strategic-foresight approach, convene &apos;Future
                   Skills for the Public Service&apos; workshops to identify future
                   skilling needs across jurisdictions to support clarifying
                   emerging skills gaps and identify where nationally accredited
