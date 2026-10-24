@@ -213,7 +213,6 @@ export default function FederalStateIndustryOverviewView({
   report: Report;
 }) {
   const [isHeroMounted, setIsHeroMounted] = useState(false);
-  const [scopeOpen, setScopeOpen] = useState(true);
   const [growthOpen, setGrowthOpen] = useState(true);
   const [skillsOpen, setSkillsOpen] = useState(false);
   const scopeRef = useRef<HTMLDivElement>(null);
@@ -313,6 +312,78 @@ export default function FederalStateIndustryOverviewView({
             </div>
           </div>
 
+        </div>
+
+        {/* Scope copy remains visible before the Federal Government overview. */}
+        <div id="industry-overview-scope" ref={scopeRef} className={`bg-white border border-gray200 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:border-[#BAABA0] hover:shadow-lg ${scopeVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
+          <div id="industry-overview-scope-content">
+            <div className="overflow-hidden min-h-0">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-gray600 leading-relaxed font-normal">
+                <div className={scopeVisible ? "animate-content-switch" : ""}>
+                  <p>
+                    As there are a breadth of roles across the public sector,
+                    several occupations are in the remit of other JSCs, such as
+                    early childhood educators and allied health professionals.
+                    Other occupations that make up the public sector including
+                    Defence, Police and Local Government will be covered in
+                    other Workforce Insights Reports produced by Public Skills
+                    Australia.
+                  </p>
+                </div>
+                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.12s" } : undefined}>
+                  <p>
+                    The 2026 Federal and State/Territory Government Workforce
+                    Insights Report focuses on non-frontline occupations that
+                    support the business of Federal and State/Territory
+                    Government such as, but not limited to, policy analysts,
+                    project management, inspectors and regulatory officers and
+                    project administrators. As each Federal and State/Territory
+                    Government is unique, the following sections provide a
+                    snapshot of each workforce as well as any relevant industry
+                    insights to provide context for the overarching workforce
+                    challenges.
+                  </p>
+                </div>
+                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.24s" } : undefined}>
+                  <p>
+                    In the subsequent sections that follow, data profiles have
+                    been created to present the workforces for the Federal and
+                    State/Territory Government industry-sector. These data
+                    profiles primarily refer to the public service where such
+                    data is available, noting that, in some jurisdictions, data
+                    is only available for the broader public sector. Public
+                    Skills Australia notes that these figures are likely to
+                    include front-line roles including but not limited to,
+                    police, health and education-based roles.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div role="region" aria-labelledby="federal-government-overview-title" className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
+          <h2 id="federal-government-overview-title" className="text-lg sm:text-xl font-bold text-gray800">Federal Government Overview</h2>
+          {/* Federal Government narrative precedes its statistics. */}
+          <div className="pt-2">
+            <p className="text-xs text-gray600 leading-relaxed font-normal">
+              The Federal Government is made up of 102 agencies and 198,529
+              Australian Public Service (APS) employees (Federal Government
+              workforce, as of 30 June 2025).<sup>7</sup> While a large
+              proportion (35.4 per cent) of APS employees are based in the
+              Australian Capital Territory (ACT), APS employees are spread
+              across Australia, with a considerable proportion based in Victoria
+              (18 per cent), New South Wales (16.9 per cent) and Queensland
+              (13.3 per cent). The APS workforce is diverse with women
+              comprising a large proportion of employees (60.5 per cent).
+              <sup>8</sup> First Nations employees comprise 3.4 per cent of the
+              APS, however the Federal Government has committed to increasing
+              First Nations employment to 5 per cent of the APS by 2030.
+              <sup>9</sup> The following datapoints were identified through this
+              industry overview for the Federal Government workforce:
+            </p>
+          </div>
+
           {/* 4 Stat Boxes Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
             {/* Stat 1: 102 agencies */}
@@ -394,97 +465,8 @@ export default function FederalStateIndustryOverviewView({
             </div>
           </div>
 
-          {/* Narrative below stat boxes */}
-          <div className="pt-2">
-            <p className="text-xs text-gray600 leading-relaxed font-normal">
-              The Federal Government is made up of 102 agencies and 198,529
-              Australian Public Service (APS) employees (Federal Government
-              workforce, as of 30 June 2025).<sup>7</sup> While a large
-              proportion (35.4 per cent) of APS employees are based in the
-              Australian Capital Territory (ACT), APS employees are spread
-              across Australia, with a considerable proportion based in Victoria
-              (18 per cent), New South Wales (16.9 per cent) and Queensland
-              (13.3 per cent). The APS workforce is diverse with women
-              comprising a large proportion of employees (60.5 per cent).
-              <sup>8</sup> First Nations employees comprise 3.4 per cent of the
-              APS, however the Federal Government has committed to increasing
-              First Nations employment to 5 per cent of the APS by 2030.
-              <sup>9</sup> The following datapoints were identified through this
-              industry overview for the Federal Government workforce:
-            </p>
-          </div>
         </div>
 
-        {/* Section 2: Scope of this industry-sector overview (Accordion Card) */}
-        <div ref={scopeRef} className={`bg-white border border-gray200 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:border-[#BAABA0] hover:shadow-lg ${scopeVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-          <div className="flex items-center justify-between gap-4">
-            <div className="space-y-1">
-              <h2 className="text-lg sm:text-xl font-bold text-gray800">
-                Scope of this industry-sector overview
-              </h2>
-              <p className="text-xs text-gray500 font-medium">
-                Which occupations and data profiles this Report covers
-              </p>
-            </div>
-            <button
-              onClick={() => setScopeOpen(!scopeOpen)}
-              className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
-            >
-              {scopeOpen ? "Close ▴" : "Open ▾"}
-            </button>
-          </div>
-
-          <div
-            className={`grid transition-all duration-500 ease-in-out ${
-              scopeOpen
-                ? "grid-rows-[1fr] opacity-100"
-                : "grid-rows-[0fr] opacity-0 pointer-events-none"
-            }`}
-          >
-            <div className="overflow-hidden min-h-0">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray200 text-xs text-gray600 leading-relaxed font-normal">
-                <div className={scopeVisible ? "animate-content-switch" : ""}>
-                  <p>
-                    As there are a breadth of roles across the public sector,
-                    several occupations are in the remit of other JSCs, such as
-                    early childhood educators and allied health professionals.
-                    Other occupations that make up the public sector including
-                    Defence, Police and Local Government will be covered in
-                    other Workforce Insights Reports produced by Public Skills
-                    Australia.
-                  </p>
-                </div>
-                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.12s" } : undefined}>
-                  <p>
-                    The 2026 Federal and State/Territory Government Workforce
-                    Insights Report focuses on non-frontline occupations that
-                    support the business of Federal and State/Territory
-                    Government such as, but not limited to, policy analysts,
-                    project management, inspectors and regulatory officers and
-                    project administrators. As each Federal and State/Territory
-                    Government is unique, the following sections provide a
-                    snapshot of each workforce as well as any relevant industry
-                    insights to provide context for the overarching workforce
-                    challenges.
-                  </p>
-                </div>
-                <div className={scopeVisible ? "animate-content-switch" : ""} style={scopeVisible ? { animationDelay: "0.24s" } : undefined}>
-                  <p>
-                    In the subsequent sections that follow, data profiles have
-                    been created to present the workforces for the Federal and
-                    State/Territory Government industry-sector. These data
-                    profiles primarily refer to the public service where such
-                    data is available, noting that, in some jurisdictions, data
-                    is only available for the broader public sector. Public
-                    Skills Australia notes that these figures are likely to
-                    include front-line roles including but not limited to,
-                    police, health and education-based roles.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Section 3: Future Workforce Growth (Collapsible Tab + Content) */}
         <div ref={growthRef} className={`space-y-4 transition-all duration-500 ${growthVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
