@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Download } from "lucide-react";
 
 import { resolveSector } from "@/config/reports/sectors";
+import FederalStateReportHeader from "@/components/reports/federal-state/FederalStateReportHeader";
 
 interface ReportHeaderProps {
   slug: string;
@@ -14,12 +15,14 @@ interface ReportHeaderProps {
     industry?: { slug?: string; name?: string };
   };
   currentPage?: string;
+  sectorPalette?: boolean;
 }
 
 export default function ReportHeader({
   slug,
   report,
   currentPage,
+  sectorPalette = false,
 }: ReportHeaderProps) {
   const router = useRouter();
   const sector = resolveSector(report?.industry?.slug || report?.industry?.name, slug);
@@ -31,6 +34,10 @@ export default function ReportHeader({
     ? "text-white hover:text-[#8AC900]"
     : "text-white/80 hover:text-white";
   const dropdownClass = `absolute top-full left-0 hidden group-hover:block ${isCorrectionalServices ? "bg-[#252D02]" : "bg-[#161b01]"} border border-white/10 rounded-xl p-2 space-y-1 z-50 shadow-xl`;
+
+  if (sector.id === "federal-state") {
+    return <FederalStateReportHeader slug={slug} year={report?.year?.label || sector.defaultYear} sectorPalette={sectorPalette} />;
+  }
 
   return (
     <header

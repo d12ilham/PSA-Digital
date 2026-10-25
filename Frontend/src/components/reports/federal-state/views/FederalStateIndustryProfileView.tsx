@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import mapDataRaw from "@/data/australia_map_data.json";
+import FederalStateActProfileView from "./FederalStateActProfileView";
 import { FederalStateNswProfileContent } from "./FederalStateNswProfileView";
 import FederalStateNtProfileView from "./FederalStateNtProfileView";
 import FederalStateQldProfileView from "./FederalStateQldProfileView";
@@ -51,16 +53,23 @@ const stateLabelPositions: Record<string, [number, number]> = {
   NT: [404, 205],
   QLD: [572, 258],
   SA: [427, 385],
-  NSW: [602, 435],
+  NSW: [602, 410],
   VIC: [575, 498],
   TAS: [569, 581],
 };
 
-const selectableStates = ["NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"] as const;
+const selectableStates = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"] as const;
 type ProfileState = "NATIONAL" | (typeof selectableStates)[number];
 
 const profileDetails = {
   NATIONAL: {
+    name: "Australian Capital Territory",
+    apsEmployees: "70,221",
+    publicServiceEmployees: "31,825",
+    publicServiceLabel: "ACT Public Service Employees",
+    workforceCode: "ACT",
+  },
+  ACT: {
     name: "Australian Capital Territory",
     apsEmployees: "70,221",
     publicServiceEmployees: "31,825",
@@ -122,7 +131,7 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
   const national = selectedState === "NATIONAL";
 
   return (
-    <div className={`relative rounded-md bg-[#FBF5F1] p-2 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
+    <div className={`relative rounded-md bg-[#FBF5F1] p-2 pb-16 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
@@ -166,9 +175,9 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
             <text
               x={x}
               y={y + (national ? 30 : 13)}
-              fill={selectedState === code ? "#FFFFFF" : "#694834"}
+              fill={selectedState === code ? "#FFFFFF" : "#000000"}
               fontFamily="inherit"
-              fontSize={national ? 16 : 8.5}
+              fontSize={national ? 18 : 8.5}
               fontWeight={national ? 600 : 500}
               textAnchor="middle"
             >
@@ -194,16 +203,16 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
         <text
           x={national ? 720 : 752}
           y={national ? 495 : 480}
-          fill="#694834"
+          fill="#000000"
           fontFamily="inherit"
-          fontSize={national ? 16 : 8.5}
+          fontSize={national ? 18 : 8.5}
           fontWeight={national ? 600 : 500}
           textAnchor="middle"
         >
           Employees 70,221
         </text>
       </svg>
-      <p className={`absolute bottom-3 left-4 text-[#598303] ${national ? "text-[11px] leading-4" : "text-[9px] leading-3"}`}>
+      <p className={`absolute bottom-3 left-4 text-black ${national ? "pr-4 text-xs leading-5" : "text-[9px] leading-3"}`}>
         Source: Australian Government, State of the Service Report 2024–25,
         Table 13
       </p>
@@ -223,43 +232,24 @@ function BarChart({
   const maxValue = Math.max(...bars.map((bar) => bar.value));
 
   return (
-    <article className="rounded-md bg-[#FBF5F1] p-4 sm:p-5">
-      <h3 className="text-sm font-bold text-[#382219]">{title}</h3>
-      <div className="mt-4 grid h-[170px] grid-cols-6 items-end gap-2 border-b border-[#CDBEB5] px-1 sm:h-[190px] sm:gap-3">
-        {bars.map((bar, index) => (
-          <div
-            key={bar.label}
-            className={`flex h-full flex-col items-center justify-end gap-1 ${
-              bars.length === 2
-                ? index === 0
-                  ? "col-span-2 col-start-2"
-                  : "col-span-2 col-start-4"
-                : ""
-            }`}
-          >
-            <span
-              className="text-[9px] font-medium text-[#382219] animate-card-entrance"
-              style={{ animationDelay: `${index * 0.09}s` }}
-            >
-              {bar.display}
-            </span>
-            <div className="flex min-h-0 w-full flex-1 items-end">
-              <div
-                className="w-full origin-bottom animate-defence-bar rounded-t-[3px]"
-                style={{
-                  height: `${(bar.value / maxValue) * 76}%`,
-                  backgroundColor: bar.color,
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              />
-            </div>
-            <span className="min-h-7 text-center text-[8px] leading-[10px] text-[#382219]">
-              {bar.label}
-            </span>
+    <article data-national-chart className="flex h-full min-w-0 flex-col rounded-md bg-[#FBF5F1] p-4 text-black sm:p-5">
+      <h3 className="min-h-14 text-lg font-bold leading-7">{title}</h3>
+      <div role="region" aria-label={`${title} chart`} tabIndex={0} className="mt-4 overflow-x-auto pb-2 focus-visible:outline-2 focus-visible:outline-[#754C2D]">
+        <div className={bars.length === 2 ? "min-w-[260px]" : "min-w-[620px]"}>
+          <div className="grid h-[230px] items-end gap-3 border-b-2 border-[#CDBEB5] px-2" style={{ gridTemplateColumns: `repeat(${bars.length}, minmax(0, 1fr))` }}>
+            {bars.map((bar, index) => (
+              <div key={bar.label} className="relative h-full">
+                <span data-bar-value className="absolute left-1/2 -translate-x-1/2 text-base font-bold tabular-nums" style={{ bottom: `calc(${(bar.value / maxValue) * 76}% + 8px)` }}>{bar.display}</span>
+                <div data-bar className="absolute bottom-0 left-1/2 w-full max-w-[120px] -translate-x-1/2 origin-bottom animate-defence-bar rounded-t-[3px] motion-reduce:animate-none" style={{ height: `${(bar.value / maxValue) * 76}%`, backgroundColor: bar.color, animationDelay: `${index * 0.1}s` }} />
+              </div>
+            ))}
           </div>
-        ))}
+          <div className="mt-2 grid gap-3 px-2" style={{ gridTemplateColumns: `repeat(${bars.length}, minmax(0, 1fr))` }}>
+            {bars.map((bar) => <span key={bar.label} className="text-center text-sm leading-5">{bar.label}</span>)}
+          </div>
+        </div>
       </div>
-      <p className="mt-3 text-[9px] leading-3 text-[#598303]">{source}</p>
+      <p className="mt-auto pt-4 text-xs leading-5">{source}</p>
     </article>
   );
 }
@@ -353,7 +343,8 @@ export default function FederalStateIndustryProfileView({
 }) {
   const [selectedState, setSelectedState] = useState<ProfileState>("NATIONAL");
   const profile = profileDetails[selectedState];
-  const otherStateView = selectedState === "NT" ? <FederalStateNtProfileView slug={slug} report={report} embedded />
+  const otherStateView = selectedState === "ACT" ? <FederalStateActProfileView slug={slug} report={report} embedded />
+    : selectedState === "NT" ? <FederalStateNtProfileView slug={slug} report={report} embedded />
     : selectedState === "QLD" ? <FederalStateQldProfileView slug={slug} report={report} embedded />
     : selectedState === "SA" ? <FederalStateSaProfileView slug={slug} report={report} embedded />
     : selectedState === "TAS" ? <FederalStateTasProfileView slug={slug} report={report} embedded />
@@ -385,11 +376,11 @@ export default function FederalStateIndustryProfileView({
 
         <Reveal delay={0.06}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white px-5 py-4 sm:px-6">
-            <p className="text-[10px] font-medium text-[#598303]">Industry Overview</p>
-            <h1 className="mt-2 text-2xl font-bold text-[#694834] sm:text-[28px]">
+            <p className="text-sm font-medium text-black">Industry Overview</p>
+            <h1 className="mt-2 text-2xl font-bold text-black sm:text-[28px]">
               Industry Profile
             </h1>
-            <p className="mt-2 text-[10px] leading-4 text-[#535862]">
+            <p className="mt-2 text-base leading-6 text-black">
               Select a state or territory on the map, or from the list, to open
               its Workforce Overview.
             </p>
@@ -398,20 +389,20 @@ export default function FederalStateIndustryProfileView({
 
         <Reveal delay={0.12}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white p-4 sm:p-5">
-            <h2 className="text-base font-bold text-[#252D02]">
+            <h2 className="text-xl font-bold text-black">
               Location of Australian Public Service (APS) Employees
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-1.5 border-b border-[#E9E5DE] pb-3">
-              <span className="mr-2 text-[9px] font-semibold uppercase text-[#598303]">
+              <span className="mr-2 text-xs font-semibold uppercase text-black">
                 Choose a state or territory
               </span>
-              {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map((tab, index) => {
+              {["NATIONAL", ...selectableStates].map((tab, index) => {
                 const active = tab === selectedState;
                 const available = tab === "NATIONAL" || selectableStates.some((code) => code === tab);
-                const className = `rounded-full border px-3 py-1 text-[9px] font-semibold ${
+                const className = `rounded-full border px-3 py-2 text-xs font-semibold ${
                   active
-                    ? "border-[#8AC900] text-[#252D02]"
-                    : "border-[#E9E5DE] bg-white text-[#535862]"
+                    ? "border-[#8AC900] text-black"
+                    : "border-[#E9E5DE] bg-white text-black"
                 }`;
                 return available ? (
                   <button
@@ -444,42 +435,7 @@ export default function FederalStateIndustryProfileView({
                   <WorkforceMap selectedState={selectedState} onSelectState={setSelectedState} />
                 </Reveal>
 
-                <div className="grid gap-3 lg:grid-cols-2">
-                  <Reveal delay={0.12}>
-                    <BarChart
-                      title="First Nations Employment in the APS"
-                      bars={[
-                        {
-                          label: "First Nations employees at 30 June 2025",
-                          value: 3.4,
-                          display: "3.4%",
-                          color: "#BBA295",
-                        },
-                        {
-                          label: "Target First Nations employees by 2030",
-                          value: 5,
-                          display: "5.0%",
-                          color: "#754D32",
-                        },
-                      ]}
-                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table A8 and p.31"
-                    />
-                  </Reveal>
-                  <Reveal delay={0.18}>
-                    <BarChart
-                      title="Diversity in the APS"
-                      bars={[
-                        { label: "First Nations", value: 3.4, display: "3.4%", color: "#E8D9D1" },
-                        { label: "Employees with disability", value: 5.8, display: "5.8%", color: "#CDB9AD" },
-                        { label: "Neurodivergent", value: 10.8, display: "10.8%", color: "#BBA295" },
-                        { label: "LGBTQIA+", value: 9.5, display: "9.5%", color: "#8E654A" },
-                        { label: "CALD", value: 26.8, display: "26.8%", color: "#754D32" },
-                        { label: "Women", value: 60.5, display: "60.5%", color: "#694834" },
-                      ]}
-                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table 5"
-                    />
-                  </Reveal>
-                </div>
+
               </div>
 
               <div className="space-y-2.5 lg:order-1">
@@ -514,49 +470,79 @@ export default function FederalStateIndustryProfileView({
                 </Reveal>}
 
                 <Reveal delay={0.06}>
-                  <section className="rounded-md bg-[#754D32] p-3.5 text-white">
-                    <p className={selectedState === "NATIONAL" ? "text-xs" : "text-[9px]"}>Total</p>
-                    <strong className={selectedState === "NATIONAL" ? "mt-1 block text-2xl leading-7" : "mt-0.5 block text-lg leading-5"}>
-                      {selectedState === "NATIONAL" ? <CountUp value={198529} /> : "198,529"}
-                    </strong>
-                    <p className={`mt-1 text-white/90 ${selectedState === "NATIONAL" ? "text-[11px] leading-4" : "text-[9px] leading-3.5"}`}>
-                      The APS workforce spans 586 locations, 102 agencies and
-                      234 job roles.
-                    </p>
+                  <section className="rounded-md bg-[#EDE9DC] p-4 text-black">
+                    <p className="text-base font-semibold">Total</p>
+                    <strong className="mt-1 block text-3xl leading-tight"><CountUp value={198529} /></strong>
+                    <p className="mt-2 text-sm leading-6">The APS workforce spans 586 locations, 102 agencies and 234 job roles.</p>
                   </section>
                 </Reveal>
 
                 {[
-                  { label: "Capital Cities", value: "172,015", share: "86.6%" },
-                  { label: "Regional", value: "24,918", share: "12.6%" },
-                  { label: "Overseas", value: "1,596", share: "0.8%" },
+                  { label: "Capital Cities", value: 172015, share: "86.6%", graphic: "capital-cities" },
+                  { label: "Regional", value: 24918, share: "12.6%", graphic: "regional" },
+                  { label: "Overseas", value: 1596, share: "0.8%", graphic: "overseas" },
                 ].map((item, index) => (
                   <Reveal key={item.label} delay={0.1 + index * 0.05}>
-                    <div className="flex items-center justify-between rounded-md bg-[#F8EEE8] px-3.5 py-2.5">
-                      <div>
-                        <p className={selectedState === "NATIONAL" ? "text-xs text-[#535862]" : "text-[9px] text-[#535862]"}>{item.label}</p>
-                        <strong className={selectedState === "NATIONAL" ? "mt-0.5 block text-xl leading-6 text-[#694834]" : "mt-0.5 block text-base leading-5 text-[#694834]"}>
-                          {selectedState === "NATIONAL" ? <CountUp value={Number(item.value.replaceAll(",", ""))} /> : item.value}
-                        </strong>
+                    <div data-national-metric className="flex items-center gap-4 rounded-md bg-[#F8EEE8] p-4 text-black">
+                      <Image src={`/images/reports/federal-state/industry-profile/${item.graphic}-document.svg`} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
+                      <div className="min-w-0">
+                        <p className="text-base font-semibold">{item.label}</p>
+                        <strong className="mt-1 block text-2xl leading-7"><CountUp value={item.value} /></strong>
+                        <span className="mt-1 block text-base tabular-nums">({item.share})</span>
                       </div>
-                      <span className={selectedState === "NATIONAL" ? "text-[11px] text-[#535862]" : "text-[9px] text-[#535862]"}>({item.share})</span>
                     </div>
                   </Reveal>
                 ))}
 
                 <Reveal delay={0.24}>
-                  <section className="rounded-md bg-[#F0D7CC] p-3.5">
-                    <strong className={selectedState === "NATIONAL" ? "block text-xl leading-6 text-[#694834]" : "block text-base leading-5 text-[#694834]"}>
-                      {selectedState === "NATIONAL" ? <CountUp value={4.4} decimals={1} suffix="%" /> : "4.4%"}
-                    </strong>
-                    <p className={selectedState === "NATIONAL" ? "mt-0.5 text-xs text-[#535862]" : "text-[9px] text-[#535862]"}>Gender Pay Gap</p>
-                    <p className="mt-2 border-t border-[#D9BCAF] pt-2 text-[8px] leading-3 text-[#535862]">
-                      Source: Australian Government, State of the Service
-                      Report 2024–25, 2025.
-                    </p>
+                  <section className="rounded-md bg-[#F0D7CC] p-4 text-black">
+                    <div className="flex items-center gap-4">
+                      <Image src="/images/reports/federal-state/industry-profile/gender-document.svg" alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
+                      <div>
+                        <strong className="block text-3xl leading-tight"><CountUp value={4.4} decimals={1} suffix="%" /></strong>
+                        <p className="mt-1 text-base font-semibold">Gender Pay Gap</p>
+                      </div>
+                    </div>
+                    <p className="mt-3 border-t border-[#D9BCAF] pt-3 text-xs leading-5">Source: Australian Government, State of the Service Report 2024–25, 2025.</p>
                   </section>
                 </Reveal>
               </div>
+                <div className="grid min-w-0 items-stretch gap-3 lg:order-3 lg:col-span-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)]">
+                  <Reveal delay={0.12} className="h-full min-w-0">
+                    <BarChart
+                      title="First Nations Employment in the APS"
+                      bars={[
+                        {
+                          label: "First Nations employees at 30 June 2025",
+                          value: 3.4,
+                          display: "3.4%",
+                          color: "#BBA295",
+                        },
+                        {
+                          label: "Target First Nations employees by 2030",
+                          value: 5,
+                          display: "5.0%",
+                          color: "#754D32",
+                        },
+                      ]}
+                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table A8 and p.31"
+                    />
+                  </Reveal>
+                  <Reveal delay={0.18} className="h-full min-w-0">
+                    <BarChart
+                      title="Diversity in the APS"
+                      bars={[
+                        { label: "First Nations", value: 3.4, display: "3.4%", color: "#E8D9D1" },
+                        { label: "Employees with disability", value: 5.8, display: "5.8%", color: "#CDB9AD" },
+                        { label: "Neurodivergent", value: 10.8, display: "10.8%", color: "#BBA295" },
+                        { label: "LGBTQIA+", value: 9.5, display: "9.5%", color: "#8E654A" },
+                        { label: "CALD", value: 26.8, display: "26.8%", color: "#754D32" },
+                        { label: "Women", value: 60.5, display: "60.5%", color: "#694834" },
+                      ]}
+                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table 5"
+                    />
+                  </Reveal>
+                </div>
             </div>
             )}
             </div>

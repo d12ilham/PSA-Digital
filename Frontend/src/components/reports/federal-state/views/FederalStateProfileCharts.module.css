@@ -1,0 +1,42 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  color: #000;
+}
+.cardBody { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.card h3 { min-height: 84px; font-size: 18px; line-height: 28px; color: #000; }
+.card svg[role="img"] { display: block; width: 100%; min-width: 480px; }
+.card svg[role="img"] text { font-size: 18px; font-weight: 600; fill: #252b37; }
+.card svg[role="img"] polyline { stroke-width: 3; }
+.card svg[role="img"] line { stroke-width: 2; }
+.card svg[role="img"] circle { stroke-width: 2.5; }
+.card > p:last-child, .cardBody > p:last-child {
+  margin-top: auto; min-height: 80px; padding-top: 16px; font-size: 12px; line-height: 20px;
+}
+.card dl, .card ul { font-size: 14px; line-height: 22px; }
+.legend { display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; line-height: 22px; padding-bottom: 16px; }
+.genderSource { margin-top: auto; padding-top: 16px; font-size: 12px; line-height: 20px; }
+
+.card svg[role="img"] [stroke="#E7CDBF"], .card svg[role="img"] [stroke="#E9CFC2"] { stroke: #A58D7B; }
+.card svg[role="img"] circle[fill="#E9CFC2"] { fill: #A58D7B; }
+
+/* One surface per chart family, shared by standalone and embedded profiles. */
+.standard { background-color: #F8EEE8; border: 1px solid #E8E3DF; }
+.representation { background-color: #FFFFFF; border: 1px solid #E8E3DF; }
+
+/* ACT presentation pair: fixed-size HTML labels keep line and bar values equal. */
+.actPresentationPair [data-chart-value],
+.actPresentationPair [data-act-chart-value] {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #252b37;
+}
+.actPresentationPair [data-chart-plot] + div > span,
+.actPresentationPair [data-act-chart-year] {
+  font-size: 14px;
+  line-height: 20px;
+  color: #252b37;
+}

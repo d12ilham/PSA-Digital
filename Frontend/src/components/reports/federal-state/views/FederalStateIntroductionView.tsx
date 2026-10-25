@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -201,7 +202,7 @@ export default function FederalStateIntroductionView({
           {/* Right Panel: "THIS REPORT AT A GLANCE" */}
           <div className="w-full lg:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
-              <span className="text-xs font-semibold text-notes uppercase mb-4 block">
+              <span className="text-xs font-semibold text-[#252b37] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
               </span>
               <div className="grid grid-cols-2 gap-3">
@@ -281,17 +282,17 @@ export default function FederalStateIntroductionView({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reportSections.map((section, index) => (
-              <div
-                key={index}
+              <Link
+                key={section.path}
+                href={`/reports/${slug}/${section.path}`}
+                prefetch={false}
+                aria-label={`Explore ${section.title}`}
                 style={
                   isStructureVisible
                     ? { animationDelay: `${index * 0.12 + 0.1}s` }
                     : undefined
                 }
-                onClick={() =>
-                  router.push(`/reports/${slug}/${section.path}`)
-                }
-                className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#694834] p-6 flex flex-col justify-between space-y-6 cursor-pointer transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
+                className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#694834] p-6 flex flex-col justify-between space-y-6 cursor-pointer no-underline transition-all duration-200 hover:border-2 hover:border-[#728C28] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#694834] ${
                   isStructureVisible
                     ? "animate-card-entrance"
                     : "opacity-0 translate-y-6"
@@ -343,17 +344,13 @@ export default function FederalStateIntroductionView({
 
                 {/* Bottom: Explore Button */}
                 <div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/reports/${slug}/${section.path}`);
-                    }}
-                    className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer transition-colors"
+                  <span
+                    className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full inline-flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
-                    Explore <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
+                    Explore <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
