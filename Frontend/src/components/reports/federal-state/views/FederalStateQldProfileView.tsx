@@ -1,5 +1,10 @@
 "use client";
 
+import { GenderPayGapCard } from "./DocumentGenderGraphic";
+
+import { ChartScroll } from "./FederalStateProfileCharts";
+import chartStyles from "./FederalStateProfileCharts.module.css";
+
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -35,21 +40,21 @@ function RepresentationChart() {
   const x = (i: number) => 50 + i * 110;
   const y = (v: number) => 169 - (v - 2) * 67;
   return (
-    <div className="rounded-md bg-[#F8EEE8] p-4 sm:p-6">
+    <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md  p-4 sm:p-5`}>
       <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the Queensland Public Sector (2021-2025)</h3>
-      <svg viewBox="0 0 540 225" role="img" aria-label="Actual representation from 2.5% in 2021 to 2.7% in 2025; target 3% in 2021 and 2022, then 4%" className="mt-5 w-full">
-        <line x1="42" x2="502" y1="184" y2="184" stroke="#DFD6CF" />
-        <polyline points={target.map((v, i) => `${x(i)},${y(v)}`).join(" ")} fill="none" stroke="#E7CDBF" strokeWidth="2" strokeDasharray="5 4" />
-        <polyline points={actual.map((v, i) => `${x(i)},${y(v)}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="2.5" />
+      <ChartScroll><svg viewBox="0 0 540 337.5" role="img" aria-label="Actual representation from 2.5% in 2021 to 2.7% in 2025; target 3% in 2021 and 2022, then 4%" className="mt-5 w-full">
+        <line x1="42" x2="502" y1="276" y2="276" stroke="#DFD6CF" />
+        <polyline points={target.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#E7CDBF" strokeWidth="3" strokeDasharray="5 4" />
+        <polyline points={actual.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="2.5" />
         {years.map((year, i) => <g key={year}>
-          <circle cx={x(i)} cy={y(target[i])} r="4" fill="white" stroke="#E7CDBF" strokeWidth="2" />
-          <circle cx={x(i)} cy={y(actual[i])} r="4" fill="white" stroke="#754D32" strokeWidth="2" />
-          <text x={x(i)} y={y(target[i]) - 10} textAnchor="middle" fontSize="10" fill="#D9BFB1">{target[i].toFixed(1)}%</text>
-          <text x={x(i)} y={y(actual[i]) - 10} textAnchor="middle" fontSize="10" fontWeight="600" fill="#754D32">{actual[i].toFixed(1)}%</text>
-          <text x={x(i)} y="207" textAnchor="middle" fontSize="10" fill="#565A60">{year}</text>
+          <circle cx={x(i)} cy={(y(target[i])) * 1.5} r="4" fill="white" stroke="#E7CDBF" strokeWidth="3" />
+          <circle cx={x(i)} cy={(y(actual[i])) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" />
+          <text x={x(i)} y={(y(target[i]) - 10) * 1.5} textAnchor="middle" fontSize="10" fill="#D9BFB1">{target[i].toFixed(1)}%</text>
+          <text x={x(i)} y={(y(actual[i]) - 10) * 1.5} textAnchor="middle" fontSize="10" fontWeight="600" fill="#754D32">{actual[i].toFixed(1)}%</text>
+          <text x={x(i)} y="310.5" textAnchor="middle" fontSize="10" fill="#565A60">{year}</text>
         </g>)}
-      </svg>
-      <div className="flex gap-5 text-[10px] text-[#4B5260]"><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Target</span></div>
+      </svg></ChartScroll>
+      <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Target</span></div>
       <p className="mt-5 border-t border-[#E6DCD5] pt-3 text-[9px] text-[#694834]">SOURCE Queensland Government, State of the Sector Report, 2025, pg. 42</p>
     </div>
   );
@@ -58,18 +63,18 @@ function RepresentationChart() {
 function ProjectionChart() {
   const years = [2025, 2030, 2035];
   const values = [187041, 202717, 219138];
-  const points = values.map((v, i) => `${75 + i * 170},${168 - (v - 180000) / 460}`).join(" ");
-  return <div className="rounded-md bg-[#F8EEE8] p-4 sm:p-6">
+  const points = values.map((v, i) => `${75 + i * 170},${(168 - (v - 180000) / 460) * 1.5}`).join(" ");
+  return <div data-profile-chart data-chart-surface="standard" data-chart-type="projection" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
     <h3 className="text-sm font-bold text-[#252D02]">Queensland Employment Projections to 2035 - Public Administration and Safety Industry</h3>
-    <svg viewBox="0 0 500 230" role="img" aria-label="Employment projected at 187,041 in 2025, 202,717 in 2030 and 219,138 in 2035" className="mt-5 w-full">
-      <line x1="45" x2="455" y1="186" y2="186" stroke="#DFD6CF" />
+    <ChartScroll><svg viewBox="0 0 500 345" role="img" aria-label="Employment projected at 187,041 in 2025, 202,717 in 2030 and 219,138 in 2035" className="mt-5 w-full">
+      <line x1="45" x2="455" y1="279" y2="279" stroke="#DFD6CF" />
       <polyline points={points} fill="none" stroke="#754D32" strokeWidth="2.5" />
       {values.map((v, i) => {
         const x = 75 + i * 170;
         const y = 168 - (v - 180000) / 460;
-        return <g key={years[i]}><circle cx={x} cy={y} r="4" fill="white" stroke="#754D32" strokeWidth="2" /><text x={x} y={y - 16} textAnchor="middle" fontSize="12" fontWeight="600" fill="#754D32">{v.toLocaleString()}</text><text x={x} y="210" textAnchor="middle" fontSize="11" fill="#565A60">{years[i]}</text></g>;
+        return <g key={years[i]}><circle cx={x} cy={(y) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" /><text x={x} y={(y - 16) * 1.5} textAnchor="middle" fontSize="12" fontWeight="600" fill="#754D32">{v.toLocaleString()}</text><text x={x} y="315" textAnchor="middle" fontSize="11" fill="#565A60">{years[i]}</text></g>;
       })}
-    </svg>
+    </svg></ChartScroll>
     <p className="mt-4 border-t border-[#E6DCD5] pt-3 text-[9px] text-[#694834]">SOURCE Queensland Government, Regional employment projections data, Tables 2010-11 to 2040-41</p>
   </div>;
 }
@@ -80,14 +85,14 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
     {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
     <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
       {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_qld" prev={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }} next={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} prevPrefix="" />}
-      <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
-        <div>
-          <p className="inline-block rounded-full bg-[#754D32] px-3 py-1 text-[10px] font-semibold text-white">Queensland · Selected jurisdiction</p>
-          <h1 className="mt-4 text-[30px] font-bold leading-tight sm:text-[38px]">Queensland Public Service</h1>
-          <p className="mt-5 text-xs font-medium text-[#668B17]">Workforce Overview</p>
+      <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
+        <div className="min-w-0 [container-type:inline-size]">
+          <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Queensland · Selected jurisdiction</p>
+          <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Queensland<br /><span className="whitespace-nowrap">Public Service</span></h1>
+          <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
           <div className="mt-3 max-w-[520px] space-y-3">
-            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-xs text-[#382219]">In 2025, the Queensland Public Service was comprised of</p><strong className="mt-1 block text-3xl text-[#754D32]">74,410</strong><p className="mt-1 text-xs leading-5 text-[#382219]">employees<br />20.9% FTE in Brisbane inner city<br />63.6% FTE in regional locations</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[10px] text-[#694834]">Source: Queensland Government, State of the Sector Report 2025, 2025, pg. 6</p></div>
-            <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-3xl text-[#754D32]">26,448</strong><p className="mt-1 text-xs text-[#382219]">APS employees located in Queensland</p></div>
+            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the Queensland <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">74,410</strong><p className="mt-1 text-base leading-6 text-black">employees<br />20.9% FTE in Brisbane inner city<br />63.6% FTE in regional locations</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: Queensland Government, State of the Sector Report 2025, 2025, pg. 6</p></div>
+            <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">26,448</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in Queensland</p></div>
           </div>
         </div>
         <JurisdictionMap slug={slug} selected="QLD" showLinks={!embedded} />
@@ -102,7 +107,7 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
             ["13%", "Employment growth rate projection to May 2035 for Public Administration and Safety Industry", "Jobs and Skills Australia, Employment Projections - outlook for states and territories, 2025, Table 2"],
             ["6.7%", "Employment increase in public servant workforce from 2024 to 2025", "Queensland Government, State of the Sector Report 2025, pg. 6"],
             ["6.0%", "Gender Pay Gap", "Queensland Government, State of the Sector Report 2025, pg. 66"],
-          ].map(([value, label, source]) => <div key={value} className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">{value}</strong><p className="mt-2 min-h-12 text-xs leading-5">{label}</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Source: {source}</p></div>)}
+          ].map(([value, label, source]) => label === "Gender Pay Gap" ? <GenderPayGapCard key={value} value={value} source={`Source: ${source}`} /> : <div key={value} className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">{value}</strong><p className="mt-2 min-h-12 text-xs leading-5">{label}</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Source: {source}</p></div>)}
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <RepresentationChart />

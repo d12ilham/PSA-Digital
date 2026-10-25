@@ -85,17 +85,19 @@ const navigation: NavigationGroup[] = [
 export default function FederalStateReportHeader({
   slug,
   year,
+  sectorPalette = false,
 }: {
   slug: string;
   year: string;
+  sectorPalette?: boolean;
 }) {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const base = `/reports/${slug}`;
-  const activeClass = "font-bold text-[#8AC900]";
-  const focusClass = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]";
+  const activeClass = sectorPalette ? "font-bold text-[#EED4C4]" : "font-bold text-[#8AC900]";
+  const focusClass = `focus-visible:outline-2 focus-visible:outline-offset-2 ${sectorPalette ? "focus-visible:outline-[#EED4C4]" : "focus-visible:outline-[#8AC900]"}`;
 
   useEffect(() => {
     const closeOutside = (event: PointerEvent) => {
@@ -133,10 +135,10 @@ export default function FederalStateReportHeader({
   );
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 bg-[#252D02] text-white">
+    <header ref={headerRef} className={`sticky top-0 z-50 text-white ${sectorPalette ? "bg-[#754C2D]" : "bg-[#252D02]"}`}>
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3.5 sm:px-6 xl:flex-nowrap xl:px-8">
         <Link href={base} prefetch={false} onClick={closeMenu} className={`shrink-0 text-base font-bold ${focusClass}`}>
-          FSTG WIR <span className="text-[#8AC900]">{year}</span>
+          FSTG WIR <span className={sectorPalette ? "text-[#EED4C4]" : "text-[#8AC900]"}>{year}</span>
         </Link>
         <button
           type="button"
@@ -186,7 +188,7 @@ export default function FederalStateReportHeader({
                   {group.label}<ChevronDown size={13} aria-hidden="true" className={`shrink-0 transition-transform ${expanded ? "rotate-180" : ""}`} />
                 </button>
                 <div hidden={!expanded} className={`xl:absolute xl:top-full xl:z-50 xl:w-[360px] xl:pt-2 ${index >= 4 ? "xl:right-0" : "xl:left-0"}`}>
-                  <ul id={`fstg-menu-${index}`} className="space-y-1 rounded-md bg-[#161b01] p-2 xl:max-h-[calc(100dvh-100px)] xl:overflow-y-auto xl:border xl:border-white/10 xl:shadow-xl">
+                  <ul id={`fstg-menu-${index}`} className={`space-y-1 rounded-md p-2 xl:max-h-[calc(100dvh-100px)] xl:overflow-y-auto xl:border xl:border-white/10 xl:shadow-xl ${sectorPalette ? "bg-[#754C2D]" : "bg-[#161b01]"}`}>
                     {group.items?.map(renderItem)}
                   </ul>
                 </div>
@@ -194,7 +196,7 @@ export default function FederalStateReportHeader({
             );
           })}
         </nav>
-        <Link href={`${base}/downloads`} prefetch={false} onClick={closeMenu} className={`flex shrink-0 items-center gap-2 rounded-full bg-[#046D2A] px-3 py-2 text-xs font-bold transition-colors hover:bg-[#058237] ${focusClass}`}>
+        <Link href={`${base}/downloads`} prefetch={false} onClick={closeMenu} className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-bold transition-colors ${sectorPalette ? "bg-[#EED4C4] text-[#754C2D] hover:bg-white" : "bg-[#046D2A] hover:bg-[#058237]"} ${focusClass}`}>
           <span className="hidden sm:inline">Download {year} PDF</span>
           <Download className="h-3.5 w-3.5" aria-hidden="true" />
           <span className="sr-only sm:hidden">Download {year} PDF</span>

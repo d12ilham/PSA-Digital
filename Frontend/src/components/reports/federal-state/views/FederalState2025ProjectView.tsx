@@ -3,6 +3,7 @@
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import styles from "./FederalState2025ProjectView.module.css";
 
 interface Report {
   id: string;
@@ -44,17 +45,46 @@ const projectData = [
   },
 ];
 
+function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: number; title: string; intro: string }) {
+  return (
+    <section data-project-update-header className="rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8">
+      <div className="max-w-[1050px]">
+        <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Strategy 2</span>
+        <h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight text-gray800 sm:text-[38px]">{projectNumber}. {title}</h1>
+        <p className="mt-5 max-w-[96ch] text-xs leading-6 text-gray600">{intro}</p>
+      </div>
+    </section>
+  );
+}
+
 export default function FederalState2025ProjectView({ slug, report, pageType }: { slug: string; report: Report; pageType?: string }) {
   const projectNumber = Number(pageType?.match(/_(\d+)$/)?.[1] || 1);
   const project = projectData[projectNumber - 1] || projectData[0];
 
-  return <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-    <ReportHeader slug={slug} report={report} currentPage="update_2025_strategies" />
-    <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons slug={slug} currentPage={pageType} prev={{ label: "BACK TO update on 2025 strategies", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
-      <section className="rounded-md border border-[#ECECE5] bg-white px-5 py-6 animate-slide-up sm:px-6 sm:py-7"><span className="inline-flex max-w-full rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">Proposal to Conduct a Cross-Jurisdictional Current and Future Skills Audit for the Public Sector</span><h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight sm:text-[38px]">{projectNumber}. {project.title}</h1><p className="mt-5 max-w-[850px] text-xs leading-6">{project.intro}</p></section>
-      <div className="max-w-[1050px] space-y-5 pb-4 text-xs leading-6 animate-slide-up-delay">{project.sections.map(({ heading, text }, index) => <section key={index}>{heading && <h2 className="mb-2 text-sm font-bold">{heading}</h2>}<p>{text}</p></section>)}{projectNumber === 1 && <h2 className="text-sm font-bold">Consultation for this project has been undertaken with the following stakeholders:</h2>}<ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{project.stakeholders.map((name) => <li key={name} className="rounded-md bg-[#EDE9DF] px-4 py-3 text-[11px] font-medium text-[#694834]">{name}</li>)}</ul></div>
-    </main>
-    <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
-  </div>;
+  return (
+    <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
+      <ReportHeader sectorPalette slug={slug} report={report} currentPage="update_2025_strategies" />
+      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
+        <ReportNavButtons sectorPalette slug={slug} currentPage={pageType} prev={{ label: "BACK TO update on 2025 strategies", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
+        <ProjectUpdateHeader projectNumber={projectNumber} title={project.title} intro={project.intro} />
+        <div data-project-update-body className="rounded-2xl border border-gray200 bg-white p-6 text-xs leading-6 animate-slide-up-delay sm:p-8">
+          <div className="max-w-[1050px] space-y-5">
+            {project.sections.map(({ heading, text }, index) => (
+              <section key={index} className="max-w-[96ch]">
+                {heading && <h2 className="mb-2 text-sm font-bold text-gray800">{heading}</h2>}
+                <p className="text-gray600">{text}</p>
+              </section>
+            ))}
+            {projectNumber === 1 && <h2 className="text-sm font-bold text-gray800">Consultation for this project has been undertaken with the following stakeholders:</h2>}
+            <ul data-project-stakeholders className="grid auto-rows-fr gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {project.stakeholders.map((name) => (
+                <li key={name} className="flex min-h-[72px] min-w-0 items-center rounded-md bg-[#EED4C4] px-4 py-3 text-[11px] font-medium leading-5 text-[#754C2D]">{name}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </main>
+      <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+    </div>
+  );
 }

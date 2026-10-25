@@ -1,3 +1,5 @@
+export const workforceInsightsTheme = "Future of the Public Service";
+
 // Shared overview copy follows the approved report, pp. 66-69, and PPT heading order.
 export const workforceInsightSummaries = [
   {

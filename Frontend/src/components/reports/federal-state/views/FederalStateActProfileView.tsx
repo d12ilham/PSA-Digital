@@ -1,12 +1,17 @@
 "use client";
 
+import { GenderChartHeading, GenderPayGapCard } from "./DocumentGenderGraphic";
+
+import { ChartScroll, ProfileColumnChart } from "./FederalStateProfileCharts";
+import chartStyles from "./FederalStateProfileCharts.module.css";
+
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import mapDataRaw from "@/data/australia_map_data.json";
+import FederalStateJurisdictionMap from "./FederalStateJurisdictionMap";
 
 interface Report {
   id: string;
@@ -18,52 +23,22 @@ interface Report {
   year?: { label: string };
 }
 
-const mapData = mapDataRaw as {
-  states: Record<string, { code: string; d: string }>;
-};
-
-const mapLabels: Record<string, { x: number; y: number; employees: string }> = {
-  WA: { x: 215, y: 312, employees: "9,839" },
-  NT: { x: 404, y: 205, employees: "2,255" },
-  QLD: { x: 572, y: 258, employees: "26,448" },
-  SA: { x: 427, y: 385, employees: "14,111" },
-  NSW: { x: 602, y: 435, employees: "33,646" },
-  VIC: { x: 575, y: 498, employees: "35,679" },
-  TAS: { x: 569, y: 581, employees: "4,734" },
-};
-
 const jurisdictions = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
 
 export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: string; selected: "ACT" | "NSW" | "NT" | "QLD" | "SA" | "TAS" | "VIC" | "WA"; showLinks?: boolean }) {
   return (
     <div>
-      <svg viewBox="55 20 740 605" role="img" aria-label="Australian public service employees by jurisdiction" className="mx-auto block h-auto w-full max-w-[640px]">
-        {Object.values(mapData.states).map((state) => (
-          <path key={state.code} d={state.d} fill={state.code === selected ? "#754D32" : "#F0D9CF"} stroke="#FAFAF0" strokeWidth="2" />
-        ))}
-        {Object.entries(mapLabels).map(([code, { x, y, employees }]) => (
-          <g key={code}>
-            <circle cx={x} cy={y - 7} r="22" fill={code === selected ? "#F0D9CF" : "#754D32"} />
-            <text x={x} y={y - 2} textAnchor="middle" fontSize="15" fontWeight="700" fill={code === selected ? "#754D32" : "white"}>{code}</text>
-            <text x={code === "TAS" ? x - 34 : x} y={(code === "SA" && selected === "SA") || (code === "NSW" && selected === "NSW") ? y - 45 : y + (code === "VIC" && selected === "VIC" ? 48 : 28)} textAnchor={code === "TAS" ? "end" : "middle"} fontSize="14" fontWeight="600" fill={code === "TAS" || code === "VIC" ? "#694834" : code === selected ? "white" : "#694834"}>Employees {employees}</text>
-          </g>
-        ))}
-        <path d="M662 454h49" stroke="#754D32" strokeWidth="1.5" />
-        <circle cx="662" cy="454" r="4" fill="#754D32" />
-        <circle cx="733" cy="454" r="22" fill="#754D32" />
-        <text x="733" y="459" textAnchor="middle" fontSize="15" fontWeight="700" fill="white">ACT</text>
-        <text x="718" y="490" textAnchor="middle" fontSize="14" fontWeight="600" fill="#694834">Employees 70,221</text>
-      </svg>
+      <FederalStateJurisdictionMap key={selected} initialJurisdiction={selected} />
       {showLinks && (
         <>
-          <p className="mt-2 text-[10px] font-semibold uppercase text-[#668B17]">Choose a state or territory</p>
+          <p className="mt-3 text-sm font-semibold uppercase text-black">Choose a state or territory</p>
           <nav aria-label="Choose a state or territory" className="mt-2 flex flex-wrap gap-2">
             {jurisdictions.map((code) => (
               <Link
                 key={code}
                 href={code === "ACT" ? `/reports/${slug}/industry_profile_act` : code === "NSW" ? `/reports/${slug}/industry_profile_nsw` : code === "NT" ? `/reports/${slug}/industry_profile_nt` : code === "QLD" ? `/reports/${slug}/industry_profile_qld` : code === "SA" ? `/reports/${slug}/industry_profile_sa` : code === "TAS" ? `/reports/${slug}/industry_profile_tas` : code === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
                 aria-current={code === selected ? "page" : undefined}
-                className={`min-w-10 rounded-full border px-3 py-1.5 text-center text-[10px] font-semibold transition-colors hover:border-[#8AC900] ${code === selected ? "border-[#8AC900] bg-[#8AC900] text-[#252D02]" : "border-[#E7E3DC] bg-white text-[#252D02]"}`}
+                className={`min-w-10 rounded-full border px-3 py-2 text-center text-sm font-semibold transition-colors hover:border-[#8AC900] ${code === selected ? "border-[#8AC900] bg-[#8AC900] text-black" : "border-[#E7E3DC] bg-white text-black"}`}
               >
                 {code}
               </Link>
@@ -94,45 +69,29 @@ export function Section({ title, subtitle, children }: { title: string; subtitle
   );
 }
 
-export function ColumnChart({ title, data, source }: { title: string; data: { label: string; value: number; text: string; muted?: boolean }[]; source: string }) {
-  const max = Math.max(...data.map((item) => item.value));
-  return (
-    <div className="rounded-md bg-[#F8EEE8] p-4">
-      <h3 className="text-sm font-bold text-[#252D02]">{title}</h3>
-      <div className="mt-4 grid h-40 items-end gap-2 border-b border-[#C8B9AF]" style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}>
-        {data.map((item) => (
-          <div key={item.label} className="flex h-full min-w-0 flex-col items-center justify-end">
-            <span className="mb-1 text-[10px] font-semibold text-[#694834]">{item.text}</span>
-            <div className={`w-full max-w-12 rounded-t-sm ${item.muted ? "bg-[#B7A89D]" : "bg-[#754D32]"}`} style={{ height: `${Math.max(6, item.value / max * 80)}%` }} />
-          </div>
-        ))}
-      </div>
-      <div className="mt-2 grid gap-2" style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}>
-        {data.map((item) => <span key={item.label} className="text-center text-[9px] leading-3 text-[#382219]">{item.label}</span>)}
-      </div>
-      <p className="mt-4 text-[9px] leading-4 text-[#694834]">{source}</p>
-    </div>
-  );
-}
+export const ColumnChart = ProfileColumnChart;
 
 function RepresentationChart() {
   return (
-    <div className="overflow-hidden rounded-md border border-[#ECE9E5] bg-white">
+    <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} overflow-hidden rounded-md   `}>
       <div className="h-2.5 bg-[#E9CFC2]" />
-      <div className="p-4 sm:p-5">
+      <div className={`${chartStyles.cardBody} p-4 sm:p-5`}>
         <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the ACT Public Service (2023–2025)</h3>
-        <svg viewBox="0 0 600 215" className="mt-3 block h-auto w-full" role="img" aria-label="Representation was 2.1 percent in 2023, 2.1 percent in 2024, and 2.0 percent in 2025, against a 3.0 percent target each year">
-          <line x1="18" y1="35" x2="582" y2="35" stroke="#E9CFC2" strokeWidth="2" />
-          <polyline points="18,125 300,142 582,182" fill="none" stroke="#754D32" strokeWidth="2" strokeDasharray="6 6" />
-          {[18, 300, 582].map((x) => <circle key={`target-${x}`} cx={x} cy="35" r="5" fill="#E9CFC2" />)}
-          {[[18, 125], [300, 142], [582, 182]].map(([x, y]) => <circle key={`actual-${x}`} cx={x} cy={y} r="5" fill="#754D32" />)}
-          {[18, 300, 582].map((x) => <text key={`target-label-${x}`} x={x} y="71" textAnchor={x === 18 ? "start" : x === 582 ? "end" : "middle"} fontSize="14" fontWeight="600" fill="#754D32">3.0%</text>)}
-          <text x="18" y="162" fontSize="14" fontWeight="600" fill="#754D32">2.1%</text>
-          <text x="300" y="178" textAnchor="middle" fontSize="14" fontWeight="600" fill="#754D32">2.1%</text>
-          <text x="582" y="158" textAnchor="end" fontSize="14" fontWeight="600" fill="#754D32">2.0%</text>
-        </svg>
-        <div className="mt-4 flex flex-wrap gap-5 text-xs text-[#694834]"><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#754D32]" />Percentage</span><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#E9CFC2]" />Target</span></div>
-        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
+        <ChartScroll>
+          <div role="img" aria-label="Representation was 2.1 percent in 2023, 2.1 percent in 2024, and 2.0 percent in 2025, against a 3.0 percent target each year" className="relative mt-3 h-[322.5px] min-w-[500px]">
+            <svg viewBox="0 0 600 322.5" preserveAspectRatio="none" aria-hidden="true" className="absolute inset-0 h-full w-full">
+              <line x1="18" y1="52.5" x2="582" y2="52.5" stroke="#A58D7B" strokeWidth="3" />
+              <polyline points="18,187.5 300,213 582,273" fill="none" stroke="#754D32" strokeWidth="3" strokeDasharray="6 6" />
+              {[18, 300, 582].map((x) => <circle key={`target-${x}`} cx={x} cy="52.5" r="5" fill="#A58D7B" />)}
+              {[[18, 125], [300, 142], [582, 182]].map(([x, y]) => <circle key={`actual-${x}`} cx={x} cy={y * 1.5} r="5" fill="#754D32" />)}
+            </svg>
+            {[18, 300, 582].map((x, index) => <span data-act-chart-value key={`target-label-${x}`} className="absolute" style={{ left: `${x / 600 * 100}%`, top: `${11.5 / 322.5 * 100}%`, transform: `translateX(-${index * 50}%)` }}>3.0%</span>)}
+            {[[18, 166.5, "2.1%"], [300, 192, "2.1%"], [582, 252, "2.0%"]].map(([x, y, value], index) => <span data-act-chart-value key={`actual-label-${x}`} className="absolute" style={{ left: `${Number(x) / 600 * 100}%`, top: `${(Number(y) - 20) / 322.5 * 100}%`, transform: `translateX(-${index * 50}%)` }}>{value}</span>)}
+            {[2023, 2024, 2025].map((year, index) => <span data-act-chart-year key={year} className="absolute bottom-0" style={{ left: `${[18, 300, 582][index] / 600 * 100}%`, transform: `translateX(-${index * 50}%)` }}>{year}</span>)}
+          </div>
+        </ChartScroll>
+        <div className={chartStyles.legend}><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#754D32]" />Percentage</span><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#A58D7B]" />Target</span></div>
+        <p data-act-chart-source className="mt-5 border-t border-[#E6DCD5] text-xs leading-5 text-[#252b37]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
       </div>
     </div>
   );
@@ -147,29 +106,7 @@ const payGapCohorts = [
 ];
 
 function PayGapChart() {
-  return (
-    <div className="overflow-hidden rounded-md border border-[#ECE9E5] bg-white">
-      <div className="h-2.5 bg-[#754D32]" />
-      <div className="p-4 sm:p-5">
-        <h3 className="min-h-10 text-sm font-bold text-[#252D02]">ACT Public Service Pay Gap by Cohort</h3>
-        <div role="img" aria-label="Pay gap: women general minus 3.0 percent, First Nations minus 2.6 percent, people with disability minus 2.0 percent, CALD background 2.5 percent, LGBTQIA plus 5.7 percent" className="relative mt-3 grid h-44 grid-cols-5 gap-2 border-b border-transparent">
-          <div className="pointer-events-none absolute inset-x-0 top-[59%] border-t border-[#ADA9A5]" />
-          {payGapCohorts.map(({ label, value }, index) => {
-            const negative = value < 0;
-            const height = `${Math.abs(value) / 5.7 * 47}%`;
-            return (
-              <div key={index} className="relative min-w-0">
-                <span className={`absolute inset-x-0 z-10 text-center text-[10px] font-semibold text-[#405D0A] ${negative ? "top-[48%]" : ""}`} style={negative ? undefined : { bottom: `calc(41% + ${height} + 4px)` }}>{value.toFixed(1)}%</span>
-                <div className={`absolute inset-x-[15%] bg-[#754D32] ${negative ? "top-[59%] rounded-b-md" : "bottom-[41%] rounded-t-md"}`} style={{ height }} />
-              </div>
-            );
-          })}
-        </div>
-        <div className="grid grid-cols-5 gap-2 text-center text-[10px] leading-3 text-[#382219]">{payGapCohorts.map(({ label }, index) => <span key={index}>{label}</span>)}</div>
-        <p className="mt-5 text-[10px] leading-4 text-[#694834]">SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4</p>
-      </div>
-    </div>
-  );
+  return <ProfileColumnChart genderGraphic title="ACT Public Service Pay Gap by Cohort" data={payGapCohorts.map(item => ({ ...item, text: `${item.value.toFixed(1)}%` }))} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4" surface="standard" accent="#754D32" />;
 }
 
 const sources = [
@@ -186,38 +123,40 @@ const sources = [
   { number: 22, text: "ACT Government, Skills Needs List, ACT Government, 2025, accessed 6 February 2026." },
 ];
 
-export default function FederalStateActProfileView({ slug, report }: { slug: string; report: Report }) {
+export default function FederalStateActProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
+  const ContentTag = embedded ? "div" : "main";
+  const HeadingTag = embedded ? "h3" : "h1";
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-      <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
-      <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
+    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+      {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
+      <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
+        {!embedded && <ReportNavButtons
           slug={slug}
           currentPage="industry_profile_act"
           prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile` }}
           next={{ label: "NSW Workforce Overview", href: `/reports/${slug}/industry_profile_nsw` }}
           prevPrefix=""
-        />
+        />}
 
-        <section className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
-          <div>
-            <p className="inline-block rounded-full bg-[#754D32] px-3 py-1 text-[10px] font-semibold text-white">Australian Capital Territory · Selected jurisdiction</p>
-            <h1 className="mt-4 text-[30px] font-bold leading-tight text-[#252D02] sm:text-[38px]">Australian Capital Territory<br />Public Service</h1>
-            <p className="mt-5 text-xs font-medium text-[#668B17]">Workforce Overview</p>
+        <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
+          <div className="min-w-0 [container-type:inline-size]">
+            <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Australian Capital Territory · Selected jurisdiction</p>
+            <HeadingTag data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Australian Capital Territory<br /><span className="whitespace-nowrap">Public Service</span></HeadingTag>
+            <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
             <div className="mt-3 max-w-[520px] space-y-3">
               <div className="rounded-md bg-[#F8EEE8] p-4">
-                <p className="text-xs text-[#382219]">In 2025, the ACT Public Service was comprised of</p>
-                <strong className="mt-1 block text-3xl text-[#754D32]">31,825</strong>
-                <p className="mt-1 text-xs leading-5 text-[#382219]">employees (28,181 FTE) - ACT Public Servants represent 11.6% of the ACT workforce</p>
-                <p className="mt-4 border-t border-[#DECFC5] pt-3 text-[10px] text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, pg. 6</p>
+                <p className="text-base leading-6 text-black">In 2025, the ACT <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
+                <strong className="mt-1 block text-4xl text-black">31,825</strong>
+                <p className="mt-1 text-base leading-6 text-black">employees (28,181 FTE) - ACT Public Servants represent 11.6% of the ACT workforce</p>
+                <p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: ACT Government, State of the Service Report 2024–25, 2025, pg. 6</p>
               </div>
               <div className="rounded-md bg-[#F8EEE8] p-4">
-                <strong className="block text-3xl text-[#754D32]">70,221</strong>
-                <p className="mt-1 text-xs text-[#382219]">APS employees located in Australian Capital Territory</p>
+                <strong className="block text-4xl text-black">70,221</strong>
+                <p className="mt-1 text-base leading-6 text-black">APS employees located in Australian Capital Territory</p>
               </div>
             </div>
           </div>
-          <JurisdictionMap slug={slug} selected="ACT" />
+          <JurisdictionMap slug={slug} selected="ACT" showLinks={!embedded} />
         </section>
 
         <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
@@ -236,18 +175,18 @@ export default function FederalStateActProfileView({ slug, report }: { slug: str
             </div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-md bg-[#F8EEE8] p-4">
-              <h3 className="text-sm font-bold">ACT Public Service by Gender</h3>
-              <div className="mt-4 grid items-center gap-4 sm:grid-cols-[125px_1fr_130px]">
-                <div role="img" aria-label="Female 64.8%, male 35%, non-binary 0.2%" className="mx-auto h-28 w-28 rounded-full" style={{ background: "conic-gradient(#754D32 0 64.8%, #B6A79B 64.8% 99.8%, #E8DED6 99.8% 100%)" }}><div className="relative left-6 top-6 h-16 w-16 rounded-full bg-[#F8EEE8]" /></div>
-                <dl className="space-y-2 text-xs">
-                  <div className="flex justify-between gap-3"><dt className="flex items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Female</dt><dd className="font-semibold">64.8%</dd></div>
-                  <div className="flex justify-between gap-3"><dt className="flex items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#B6A79B]" />Male</dt><dd className="font-semibold">35%</dd></div>
-                  <div className="flex justify-between gap-3"><dt className="flex items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#E8DED6]" />Non-Binary</dt><dd className="font-semibold">0.2%</dd></div>
+            <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
+              <GenderChartHeading>ACT Public Service by Gender</GenderChartHeading>
+              <div className="mt-4 grid items-center gap-4 sm:grid-cols-[180px_minmax(0,1fr)]">
+                <div role="img" aria-label="Female 64.8%, male 35%, non-binary 0.2%" className="mx-auto flex aspect-square w-full max-w-[180px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#754D32 0 64.8%, #B6A79B 64.8% 99.8%, #E8DED6 99.8% 100%)" }}><div className="h-[60%] w-[60%] rounded-full bg-[#F8EEE8]" /></div>
+                <dl className="space-y-2 text-sm">
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Female</dt><dd className="font-semibold">64.8%</dd></div>
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#B6A79B]" />Male</dt><dd className="font-semibold">35%</dd></div>
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#E8DED6]" />Non-Binary</dt><dd className="font-semibold">0.2%</dd></div>
                 </dl>
-                <div className="rounded-md bg-white p-3"><strong className="text-lg text-[#754D32]">-0.3%</strong><p className="text-[10px]">Gender Pay Gap</p><p className="mt-2 border-t border-[#E6E4E0] pt-2 text-[9px] leading-4 text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.8</p></div>
+                <GenderPayGapCard value="-0.3%" source="Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.8" inset className="sm:col-span-2" />
               </div>
-              <p className="mt-3 text-[9px] leading-4 text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</p>
+              <p className="mt-3 text-xs leading-5 text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</p>
             </div>
             <ColumnChart title="Workforce Participation as Proportion of Total Workforce" data={[{ label: "First Nations participation", value: 2, text: "2.0%", muted: true }, { label: "People with disability", value: 3, text: "3.0%" }, { label: "CALD background", value: 26.6, text: "26.6%" }, { label: "LGBTIQA+", value: 2.8, text: "2.8%" }]} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Table A.1" />
           </div>
@@ -273,7 +212,7 @@ export default function FederalStateActProfileView({ slug, report }: { slug: str
               ].map(([code, qualification, occupation]) => <tr key={code}><td className="p-3">{code}</td><td className="p-3">{qualification}</td><td className="p-3">{occupation}</td></tr>)}</tbody></table></div>
             </div>
           </div>
-          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+          <div data-act-presentation-charts className={`${chartStyles.actPresentationPair} mt-5 grid gap-4 lg:grid-cols-2`}>
             <RepresentationChart />
             <PayGapChart />
           </div>
@@ -294,8 +233,8 @@ export default function FederalStateActProfileView({ slug, report }: { slug: str
             ))}
           </div>
         </section>
-      </main>
-      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      </ContentTag>
+      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
     </div>
   );
 }

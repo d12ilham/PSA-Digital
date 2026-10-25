@@ -1,0 +1,57 @@
+.workspace,
+.panel {
+  scroll-margin-top: 5.5rem;
+}
+
+.list {
+  max-height: 20rem;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  padding: 3px;
+}
+
+.panel,
+.detail {
+  min-width: 0;
+}
+
+.context {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 10;
+  flex-shrink: 0;
+  background: #e5e8dc;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .workspace {
+    height: calc(100dvh - 7rem);
+    min-height: 22rem;
+    align-items: stretch;
+  }
+
+  .list {
+    min-height: 0;
+    max-height: none;
+  }
+
+  .panel {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .context {
+    position: static;
+    padding-bottom: 0;
+  }
+
+  .detail {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+}
