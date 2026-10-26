@@ -92,8 +92,37 @@ export class ReportsService {
   }
 
   async create(data: typeof reports.$inferInsert) {
-    const [row] = await db.insert(reports).values(data).returning();
-    return row;
+    const existing = await db
+      .select({ id: reports.id })
+      .from(reports)
+      .where(eq(reports.slug, data.slug))
+      .limit(1);
+
+    if (existing.length > 0) {
+      throw new AppError(
+        `A report with the URL slug '${data.slug}' already exists. Please choose a different slug.`,
+        409,
+        'SLUG_ALREADY_EXISTS',
+      );
+    }
+
+    try {
+      const [row] = await db.insert(reports).values(data).returning();
+      return row;
+    } catch (err: any) {
+      if (
+        err.code === '23505' ||
+        err.message?.includes('duplicate key') ||
+        err.message?.includes('unique constraint')
+      ) {
+        throw new AppError(
+          `A report with the URL slug '${data.slug}' already exists. Please choose a different slug.`,
+          409,
+          'SLUG_ALREADY_EXISTS',
+        );
+      }
+      throw err;
+    }
   }
 
   async update(id: string, data: Partial<typeof reports.$inferInsert>) {

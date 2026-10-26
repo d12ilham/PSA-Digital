@@ -23,6 +23,7 @@ import {
   Flame,
   Landmark,
   Scale,
+  AlertCircle,
 } from "lucide-react";
 
 interface IndustryOption {
@@ -115,6 +116,38 @@ function slugify(text: string): string {
     .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
+function getAvailableSlug(baseSlug: string, existingReports: Report[]): string {
+  const norm = baseSlug.toLowerCase().trim();
+  if (!existingReports.some((r) => r.slug.toLowerCase().trim() === norm)) {
+    return baseSlug;
+  }
+  let counter = 2;
+  while (
+    existingReports.some(
+      (r) => r.slug.toLowerCase().trim() === `${norm}-v${counter}`.toLowerCase()
+    )
+  ) {
+    counter++;
+  }
+  return `${norm}-v${counter}`;
+}
+
+function getAvailableTitle(baseTitle: string, existingReports: Report[]): string {
+  const norm = baseTitle.toLowerCase().trim();
+  if (!existingReports.some((r) => r.title.toLowerCase().trim() === norm)) {
+    return baseTitle;
+  }
+  let counter = 2;
+  while (
+    existingReports.some(
+      (r) => r.title.toLowerCase().trim() === `${norm} (v${counter})`.toLowerCase()
+    )
+  ) {
+    counter++;
+  }
+  return `${baseTitle} (v${counter})`;
+}
+
 export default function ReportsManagementPage() {
   const { user } = useAuth();
   const router = useRouter();
@@ -201,8 +234,11 @@ export default function ReportsManagementPage() {
     }
 
     const yearLabel = yearsList.find((y) => y.id === newYearId)?.label || "2026";
-    setNewTitle(`${tmpl.defaultTitle} ${yearLabel}`);
-    setNewSlug(`${tmpl.slugPattern}-${yearLabel}`);
+    const rawTitle = `${tmpl.defaultTitle} ${yearLabel}`;
+    const rawSlug = `${tmpl.slugPattern}-${yearLabel}`;
+
+    setNewTitle(getAvailableTitle(rawTitle, reports));
+    setNewSlug(getAvailableSlug(rawSlug, reports));
     setError(null);
     setCreateModalOpen(true);
   };
@@ -219,8 +255,11 @@ export default function ReportsManagementPage() {
     }
 
     const yearLabel = yearsList.find((y) => y.id === newYearId)?.label || "2026";
-    setNewTitle(`${tmpl.defaultTitle} ${yearLabel}`);
-    setNewSlug(`${tmpl.slugPattern}-${yearLabel}`);
+    const rawTitle = `${tmpl.defaultTitle} ${yearLabel}`;
+    const rawSlug = `${tmpl.slugPattern}-${yearLabel}`;
+
+    setNewTitle(getAvailableTitle(rawTitle, reports));
+    setNewSlug(getAvailableSlug(rawSlug, reports));
   };
 
   // When year changes, update defaults if title matches pattern
@@ -229,8 +268,10 @@ export default function ReportsManagementPage() {
     const yearLabel = yearsList.find((y) => y.id === yearId)?.label || "2026";
     const tmpl = REPORT_TEMPLATES.find((t) => t.key === selectedTemplateKey);
     if (tmpl) {
-      setNewTitle(`${tmpl.defaultTitle} ${yearLabel}`);
-      setNewSlug(`${tmpl.slugPattern}-${yearLabel}`);
+      const rawTitle = `${tmpl.defaultTitle} ${yearLabel}`;
+      const rawSlug = `${tmpl.slugPattern}-${yearLabel}`;
+      setNewTitle(getAvailableTitle(rawTitle, reports));
+      setNewSlug(getAvailableSlug(rawSlug, reports));
     }
   };
 
@@ -244,6 +285,15 @@ export default function ReportsManagementPage() {
   const handleCreateReport = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newIndustryId || !newYearId || !newTitle || !newSlug) return;
+
+    const trimmedSlug = newSlug.trim().toLowerCase();
+    if (reports.some((r) => r.slug.toLowerCase().trim() === trimmedSlug)) {
+      setError(
+        `A report with URL slug "${trimmedSlug}" already exists. Please choose a different URL slug.`,
+      );
+      return;
+    }
+
     setCreating(true);
     setError(null);
     try {
@@ -251,8 +301,8 @@ export default function ReportsManagementPage() {
 
       // 1. Create report row in DB
       const report = await api.post<Report>("/reports", {
-        title: newTitle,
-        slug: newSlug,
+        title: newTitle.trim(),
+        slug: trimmedSlug,
         industryId: newIndustryId,
         yearId: newYearId,
         status: "draft",
@@ -260,7 +310,7 @@ export default function ReportsManagementPage() {
 
       // 2. Initialize sector-specific default chapters
       const sectorIdentifier =
-        selectedIndustry?.slug || selectedTemplateKey || newSlug;
+        selectedIndustry?.slug || selectedTemplateKey || trimmedSlug;
       await initializeReportPages(report.id, sectorIdentifier);
 
       setCreateModalOpen(false);
@@ -803,8 +853,20 @@ export default function ReportsManagementPage() {
                     value={newSlug}
                     onChange={(e) => setNewSlug(e.target.value)}
                     placeholder="e.g. public-safety-wir-2026"
-                    className="w-full border border-border bg-[#fdfdfc] px-3 py-2 text-xs text-primary focus:border-primary focus:outline-none rounded-lg font-mono"
+                    className={`w-full border px-3 py-2 text-xs focus:outline-none rounded-lg font-mono ${
+                      reports.some((r) => r.slug.toLowerCase().trim() === newSlug.toLowerCase().trim())
+                        ? "border-amber-400 bg-amber-50/40 text-amber-900 focus:border-amber-500"
+                        : "border-border bg-[#fdfdfc] text-primary focus:border-primary"
+                    }`}
                   />
+                  {reports.some((r) => r.slug.toLowerCase().trim() === newSlug.toLowerCase().trim()) && (
+                    <div className="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 font-sans mt-1">
+                      <AlertCircle className="h-3.5 w-3.5 shrink-0 text-amber-600" />
+                      <span>
+                        URL slug <strong>&quot;{newSlug}&quot;</strong> is already taken by an existing report. Please modify the slug.
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -848,7 +910,15 @@ export default function ReportsManagementPage() {
                 </button>
                 <button
                   type="submit"
-                  disabled={creating || !newTitle || !newSlug || !newIndustryId}
+                  disabled={
+                    creating ||
+                    !newTitle ||
+                    !newSlug ||
+                    !newIndustryId ||
+                    reports.some(
+                      (r) => r.slug.toLowerCase().trim() === newSlug.toLowerCase().trim(),
+                    )
+                  }
                   className="bg-primary px-5 py-2 font-mono text-xs uppercase text-white hover:bg-active transition-all rounded-lg disabled:opacity-50 font-bold shadow-xs cursor-pointer flex items-center gap-1.5"
                 >
                   {creating ? (
