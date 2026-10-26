@@ -1,7 +1,8 @@
 import { api } from './api';
+import { resolveSector } from '@/config/reports/sectors';
 
 export interface PageTemplate {
-  id: string;
+  id?: string;
   title: string;
   pageType: string;
   slug: string;
@@ -9,7 +10,7 @@ export interface PageTemplate {
   sortOrder: number;
 }
 
-// Legacy hardcoded fallback used only when no templates are defined in the DB
+// Legacy hardcoded fallback used only when no sector matches
 export const DEFAULT_REPORT_PAGES: Omit<PageTemplate, 'id'>[] = [
   { title: 'About', pageType: 'about', slug: 'about', sortOrder: 1 },
   { title: 'Introduction', pageType: 'introduction', slug: 'introduction', sortOrder: 2, parentPathway: 'about' },
@@ -20,32 +21,54 @@ export const DEFAULT_REPORT_PAGES: Omit<PageTemplate, 'id'>[] = [
   { title: 'State & Territory Profile', pageType: 'state_territory', slug: 'state-territory-profile', sortOrder: 7, parentPathway: 'executive_summary' },
   { title: 'Industry Profile', pageType: 'industry_profile', slug: 'industry-profile', sortOrder: 8, parentPathway: 'executive_summary' },
   { title: 'Workforce Insights', pageType: 'workforce_insights', slug: 'workforce-insights', sortOrder: 9 },
-  { title: 'Workforce Strategies', pageType: 'strategies', slug: 'workforce-strategies', sortOrder: 10 },
+  { title: 'Workforce Strategies', pageType: 'workforce_strategies', slug: 'workforce-strategies', sortOrder: 10 },
   { title: 'Looking Forward', pageType: 'looking_forward', slug: 'looking-forward', sortOrder: 11 },
+  { title: 'Downloads & References', pageType: 'downloads', slug: 'downloads', sortOrder: 12 },
 ];
 
 /**
- * Fetches templates from the API (admin-managed).
- * Falls back to hardcoded defaults if none exist yet.
+ * Returns chapter templates specifically configured for the requested sector/template.
  */
-export async function fetchPageTemplates(): Promise<Omit<PageTemplate, 'id'>[]> {
+export function getSectorTemplates(sectorOrIndustry?: string | null): Omit<PageTemplate, 'id'>[] {
+  const sector = resolveSector(sectorOrIndustry);
+  if (sector && sector.defaultChapters && sector.defaultChapters.length > 0) {
+    return sector.defaultChapters.map((ch, idx) => ({
+      title: ch.label,
+      pageType: ch.key,
+      slug: ch.key.replace(/_/g, '-'),
+      sortOrder: idx + 1,
+      parentPathway: ch.parentPathway ?? null,
+    }));
+  }
+  return DEFAULT_REPORT_PAGES;
+}
+
+/**
+ * Fetches templates from the API (admin-managed).
+ * Falls back to sector-specific templates or default fallback.
+ */
+export async function fetchPageTemplates(sectorOrIndustry?: string | null): Promise<Omit<PageTemplate, 'id'>[]> {
   try {
     const templates = await api.get<PageTemplate[]>('/page-templates');
     if (templates && templates.length > 0) {
       return templates.sort((a, b) => a.sortOrder - b.sortOrder);
     }
   } catch (err) {
-    console.warn('Could not fetch page templates from API, using defaults:', err);
+    console.warn('Could not fetch page templates from API, using sector defaults:', err);
   }
-  return DEFAULT_REPORT_PAGES;
+  return getSectorTemplates(sectorOrIndustry);
 }
 
 /**
- * Seeds chapter pages for a report using the global admin-defined template.
+ * Seeds chapter pages for a report using the sector-specific template.
+ * Automatically marks seeded chapters as published so they are immediately accessible in the reader.
  * Already-existing pages (same slug) are silently skipped.
  */
-export async function initializeReportPages(reportId: string): Promise<void> {
-  const templates = await fetchPageTemplates();
+export async function initializeReportPages(
+  reportId: string,
+  sectorOrIndustry?: string | null,
+): Promise<void> {
+  const templates = getSectorTemplates(sectorOrIndustry);
   for (const tpl of templates) {
     try {
       await api.post(`/reports/${reportId}/pages`, {
@@ -54,7 +77,7 @@ export async function initializeReportPages(reportId: string): Promise<void> {
         slug: tpl.slug,
         sortOrder: tpl.sortOrder,
         parentPathway: tpl.parentPathway ?? undefined,
-        isPublished: false,
+        isPublished: true,
       });
     } catch (error: any) {
       // Skip duplicate slug errors silently; log everything else

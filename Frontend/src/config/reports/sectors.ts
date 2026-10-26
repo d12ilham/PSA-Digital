@@ -17,7 +17,7 @@ export interface SectorConfig {
   defaultYear: string;
   defaultSlug: string;
   subsectors?: string[];
-  defaultChapters: { key: string; label: string }[];
+  defaultChapters: { key: string; label: string; parentPathway?: string | null }[];
 }
 
 export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
@@ -39,14 +39,14 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
     defaultYear: "2026",
     defaultSlug: "local-government-workforce-insights-report",
     defaultChapters: [
-      { key: "introduction", label: "Introduction" },
       { key: "about", label: "About Public Skills Australia" },
-      { key: "methodology", label: "Methodology" },
+      { key: "introduction", label: "Introduction", parentPathway: "about" },
+      { key: "methodology", label: "Methodology", parentPathway: "about" },
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
-      { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "state_territory", label: "State and Territory Profile" },
-      { key: "industry_profile", label: "Industry Profile" },
+      { key: "industry_overview", label: "Industry-Sector Overview", parentPathway: "executive_summary" },
+      { key: "state_territory", label: "State and Territory Profile", parentPathway: "executive_summary" },
+      { key: "industry_profile", label: "Industry Profile", parentPathway: "executive_summary" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "2026 Proposed Strategies" },
       { key: "update_2025_strategies", label: "Update on 2025 Strategies" },
@@ -76,13 +76,13 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
     defaultSlug: "public-safety-wir-2026",
     subsectors: ["Fire and Emergency Services", "Police", "Defence"],
     defaultChapters: [
-      { key: "introduction", label: "Introduction" },
       { key: "about", label: "About Public Skills Australia" },
-      { key: "methodology", label: "Methodology" },
+      { key: "introduction", label: "Introduction", parentPathway: "about" },
+      { key: "methodology", label: "Methodology", parentPathway: "about" },
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
-      { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "state_territory", label: "State and Territory Profile" },
+      { key: "industry_overview", label: "Industry-Sector Overview", parentPathway: "executive_summary" },
+      { key: "state_territory", label: "State and Territory Profile", parentPathway: "executive_summary" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "Workforce Strategies" },
       { key: "looking_forward", label: "Looking Forward" },
@@ -113,13 +113,13 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
     defaultSlug: "federal-state-territory-wir-2026",
     subsectors: ["Federal Public Service", "State & Territory Public Sector"],
     defaultChapters: [
-      { key: "introduction", label: "Introduction" },
       { key: "about", label: "About Public Skills Australia" },
-      { key: "methodology", label: "Methodology" },
+      { key: "introduction", label: "Introduction", parentPathway: "about" },
+      { key: "methodology", label: "Methodology", parentPathway: "about" },
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
-      { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "industry_profile", label: "Industry Profile" },
+      { key: "industry_overview", label: "Industry-Sector Overview", parentPathway: "executive_summary" },
+      { key: "industry_profile", label: "Industry Profile", parentPathway: "executive_summary" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "2026 Proposed Strategies" },
       { key: "existing_strategies", label: "Existing Industry-Sector Strategies" },
@@ -148,13 +148,13 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
     defaultSlug: "correctional-services-wir-2026",
     subsectors: ["Custodial Corrections", "Community Corrections"],
     defaultChapters: [
-      { key: "introduction", label: "Introduction" },
       { key: "about", label: "About Public Skills Australia" },
-      { key: "methodology", label: "Methodology" },
+      { key: "introduction", label: "Introduction", parentPathway: "about" },
+      { key: "methodology", label: "Methodology", parentPathway: "about" },
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
-      { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "state_territory", label: "State and Territory Profile" },
+      { key: "industry_overview", label: "Industry-Sector Overview", parentPathway: "executive_summary" },
+      { key: "state_territory", label: "State and Territory Profile", parentPathway: "executive_summary" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "Workforce Strategies" },
       { key: "looking_forward", label: "Looking Forward" },

@@ -349,7 +349,11 @@ export default function ReportEditPage({
       return;
     try {
       setSaving(true);
-      await initializeReportPages(report.id);
+      const indObj = industriesList.find((i) => i.id === report.industryId);
+      await initializeReportPages(
+        report.id,
+        report.industry?.slug || report.industry?.name || indObj?.name || report.slug,
+      );
       refreshReports();
       // Reload report details + pages manifest
       const [reportData, pagesData] = await Promise.all([

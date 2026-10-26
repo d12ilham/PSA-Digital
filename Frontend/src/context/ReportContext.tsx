@@ -23,6 +23,17 @@ export interface Report {
   landingIntroBullets?: string;
   landingExecDesc?: string;
   landingExecBullets?: string;
+  industry?: {
+    id: string;
+    name: string;
+    slug?: string;
+  };
+  year?: {
+    id: string;
+    label: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 
