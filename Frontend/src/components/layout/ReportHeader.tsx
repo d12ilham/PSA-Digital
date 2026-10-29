@@ -130,16 +130,26 @@ export default function ReportHeader({
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_insights" || currentPage === "contextualisation_of_qualifications" || currentPage === "contextualisation" ? activeNavClass : inactiveNavClass}`}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "workforce_insights" || (isCorrectionalServices && currentPage === "workforce_insights_2026") || currentPage === "contextualisation_of_qualifications" || currentPage === "contextualisation" ? activeNavClass : inactiveNavClass}`}
             >
               Workforce Insights <span>▾</span>
             </button>
-            <div className={`${dropdownClass} min-w-56`}>
+            <div className={`${dropdownClass} min-w-56 ${isCorrectionalServices ? "group-focus-within:block" : ""}`}>
+              {isCorrectionalServices && (
+                <button
+                  onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+                  aria-current={currentPage === "workforce_insights" ? "page" : undefined}
+                  className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_insights" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
+                >
+                  Community Corrections Introduction
+                </button>
+              )}
               <button
                 onClick={() =>
-                  router.push(`/reports/${slug}/workforce_insights`)
+                  router.push(`/reports/${slug}/${isCorrectionalServices ? "workforce_insights_2026" : "workforce_insights"}`)
                 }
-                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "workforce_insights" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
+                aria-current={isCorrectionalServices && currentPage === "workforce_insights_2026" ? "page" : undefined}
+                className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === (isCorrectionalServices ? "workforce_insights_2026" : "workforce_insights") ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
               >
                 Workforce Insights Overview
               </button>
@@ -196,7 +206,7 @@ export default function ReportHeader({
                 }
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "federal_initiatives" || currentPage === "federal_government_initiatives" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
               >
-                Federal Government Initiatives
+                {isCorrectionalServices ? "Commonwealth Government Initiatives" : "Federal Government Initiatives"}
               </button>
             </div>
           </div>

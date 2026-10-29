@@ -63,7 +63,7 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
-      <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
+      <ReportHeader slug={slug} report={report} currentPage="workforce_insights_2026" />
       <main ref={mainRef} className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
         <ReportNavButtons
           slug={slug}
@@ -73,7 +73,7 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
         />
 
         <section className="grid items-center gap-8 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:px-8">
-          <div className="max-w-[850px] animate-slide-up">
+          <div className="max-w-[850px] text-pretty animate-slide-up">
             <h1 className="text-[32px] font-semibold leading-tight text-[#424996] sm:text-[40px]">Workforce Insights</h1>
             <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail page.</p>
             <p className="mt-3 text-sm leading-6">The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</p>
@@ -97,7 +97,7 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
           <p className="text-xs font-medium uppercase text-[#424996]">Theme 1 · 3 insights</p>
           <h2 id="training-package-heading" className="mt-5 text-xl font-semibold">CSC Correctional Services Training Package</h2>
           <span className="mt-3 inline-flex rounded-full bg-[#8AC900] px-4 py-2 text-xs font-semibold">Theme Overview</span>
-          <div className="mt-6 max-w-[920px] text-sm leading-6">
+          <div className="mt-6 max-w-[1040px] text-pretty text-sm leading-6">
             <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
               <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>

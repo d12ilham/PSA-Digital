@@ -80,6 +80,7 @@ const reportSections: ReportSection[] = [
       "Update on 2024 Strategies",
       "Update on 2025 Strategies",
       "Existing Industry-Sector Strategies",
+      "Commonwealth Government Initiatives",
     ],
     path: "workforce_strategies",
   },
@@ -115,13 +116,13 @@ const atAGlanceStats: GlanceStat[] = [
     ],
   },
   {
-    metrics: [{ value: 114, label: "Custodial facilities" }],
+    metrics: [
+      { value: 1, label: "Theme" },
+      { value: 3, label: "Insights" },
+    ],
   },
   {
-    metrics: [
-      { value: 1, label: "Primary workforce focus" },
-      { value: 14, label: "Commonwealth Government initiatives" },
-    ],
+    metrics: [{ value: 1, label: "Proposed 2026 Strategy" }],
   },
 ];
 
@@ -231,11 +232,11 @@ export default function CorrectionalServicesIntroductionView({
               <span className="text-xs font-semibold text-[#598303] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
               </span>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2">
                 {atAGlanceStats.map((stat, index) => (
                   <div
                     key={index}
-                    className={`bg-white rounded-xl p-4 border border-gray200/60 transition-all duration-300 hover:shadow-xs ${
+                    className={`min-w-0 bg-white rounded-xl p-4 border border-gray200/60 transition-all duration-300 hover:shadow-xs ${
                       stat.metrics.length > 1
                         ? "flex items-start justify-between gap-4"
                         : "flex flex-col items-start justify-start"

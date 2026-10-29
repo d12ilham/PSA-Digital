@@ -33,48 +33,52 @@ const certificateFour: readonly ChartRow[] = [
 
 function QualificationChart({ title, rows, maximum, loaded }: { title: string; rows: readonly ChartRow[]; maximum: number; loaded: boolean }) {
   return (
-    <figure className="mt-auto rounded-lg border border-[#D5DBE8] bg-white px-3 py-4 sm:px-5">
-      <figcaption className="text-sm font-semibold text-[#12224F]">{title}</figcaption>
-      <p className="mt-1 text-[11px] text-[#68769A]">Y axis: Enrolments vs Completions, 0–{maximum.toLocaleString()}</p>
-      <div className="mt-5 grid h-[220px] grid-cols-5 gap-2 border-b border-[#3B4C77] px-1 sm:gap-4" role="img" aria-label={`${title}: ${rows.map(([year, enrolments, completions]) => `${year}, ${enrolments} enrolments and ${completions} completions`).join("; ")}`}>
-        {rows.map(([year, enrolments, completions], index) => (
-          <div key={year} className="flex min-w-0 items-end justify-center gap-1 sm:gap-2">
-            <div className="flex h-full w-[43%] flex-col justify-end">
-              <span className="mb-1 text-center text-[9px] font-semibold text-[#12224F] sm:text-[10px]">{enrolments.toLocaleString()}</span>
-              <span
-                className="block w-full origin-bottom bg-[#596990] transition-[height,background-color] duration-700 ease-out hover:bg-[#424996] motion-reduce:transition-none"
-                style={{ height: loaded ? `${(enrolments / maximum) * 175}px` : "0px", transitionDelay: `${index * 90}ms` }}
-                title={`${year}: ${enrolments.toLocaleString()} enrolments`}
-              />
-            </div>
-            <div className="flex h-full w-[43%] flex-col justify-end">
-              <span className="mb-1 text-center text-[9px] font-semibold text-[#12224F] sm:text-[10px]">{completions.toLocaleString()}</span>
-              <span
-                className="block w-full origin-bottom bg-[#12224F] transition-[height,background-color] duration-700 ease-out hover:bg-[#424996] motion-reduce:transition-none"
-                style={{ height: loaded ? `${(completions / maximum) * 175}px` : "0px", transitionDelay: `${index * 90 + 90}ms` }}
-                title={`${year}: ${completions.toLocaleString()} completions`}
-              />
-            </div>
+    <figure className="mt-auto min-w-0 rounded-lg border border-[#D5DBE8] bg-white px-3 py-4 sm:px-5">
+      <figcaption className="text-lg font-semibold leading-6 text-[#12224F]">{title}</figcaption>
+      <p className="mt-1 text-xs text-[#68769A]">Y axis: Enrolments vs Completions, 0–{maximum.toLocaleString()}</p>
+      <div role="region" aria-label={`${title} chart`} tabIndex={0} className="mt-5 overflow-x-auto rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]">
+        <div className="min-w-[580px]">
+          <div className="grid h-[220px] grid-cols-5 gap-3 border-b border-[#3B4C77] px-1" role="img" aria-label={`${title}: ${rows.map(([year, enrolments, completions]) => `${year}, ${enrolments} enrolments and ${completions} completions`).join("; ")}`}>
+            {rows.map(([year, enrolments, completions], index) => (
+              <div key={year} className="flex min-w-0 items-end justify-center gap-1 sm:gap-2">
+                <div className="flex h-full w-[43%] flex-col justify-end">
+                  <span className="mb-1 whitespace-nowrap text-center text-lg font-semibold leading-6 tabular-nums text-[#12224F]">{enrolments.toLocaleString()}</span>
+                  <span
+                    className="block w-full origin-bottom bg-[#596990] transition-[height,background-color] duration-700 ease-out hover:bg-[#424996] motion-reduce:transition-none"
+                    style={{ height: loaded ? `${(enrolments / maximum) * 175}px` : "0px", transitionDelay: `${index * 90}ms` }}
+                    title={`${year}: ${enrolments.toLocaleString()} enrolments`}
+                  />
+                </div>
+                <div className="flex h-full w-[43%] flex-col justify-end">
+                  <span className="mb-1 whitespace-nowrap text-center text-lg font-semibold leading-6 tabular-nums text-[#12224F]">{completions.toLocaleString()}</span>
+                  <span
+                    className="block w-full origin-bottom bg-[#12224F] transition-[height,background-color] duration-700 ease-out hover:bg-[#424996] motion-reduce:transition-none"
+                    style={{ height: loaded ? `${(completions / maximum) * 175}px` : "0px", transitionDelay: `${index * 90 + 90}ms` }}
+                    title={`${year}: ${completions.toLocaleString()} completions`}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+          <div className="grid grid-cols-5 gap-3 px-1 pt-3 text-center text-sm text-[#68769A]">
+            {rows.map(([year]) => <span key={year}>{year}</span>)}
+          </div>
+        </div>
       </div>
-      <div className="grid grid-cols-5 gap-2 px-1 pt-2 text-center text-[11px] text-[#68769A] sm:gap-4">
-        {rows.map(([year]) => <span key={year}>{year}</span>)}
-      </div>
-      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[11px] text-[#68769A]">
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-[#68769A]">
         <span className="inline-flex items-center gap-1"><span className="size-2.5 bg-[#596990]" />Enrolments</span>
         <span className="inline-flex items-center gap-1"><span className="size-2.5 bg-[#12224F]" />Completions</span>
       </div>
-      <p className="mt-1 text-[10px] text-[#68769A]">Source: NCVER 2025, Total VET students and courses 2024<a href="#correctional-insight-two-source-22" className="ml-0.5 text-[#424996] hover:underline"><sup>22</sup></a></p>
+      <p className="mt-2 text-xs leading-5 text-[#68769A]">Source: NCVER 2025, Total VET students and courses 2024<a href="#correctional-insight-two-source-22" className="ml-0.5 text-[#424996] hover:underline"><sup>22</sup></a></p>
     </figure>
   );
 }
 
 function SpecialisationPanel({ title, items, rows, maximum, accent, loaded }: { title: string; items: readonly string[]; rows: readonly ChartRow[]; maximum: number; accent: string; loaded: boolean }) {
   return (
-    <section className="flex flex-col rounded-lg border border-[#E9EAEB] border-t-[9px] bg-white px-5 py-6 sm:px-6" style={{ borderTopColor: accent }}>
+    <section className="flex min-w-0 flex-col rounded-lg border border-[#E9EAEB] border-t-[9px] bg-white px-5 py-6 sm:px-6" style={{ borderTopColor: accent }}>
       <h2 className="text-xl font-semibold">{title} specialisations</h2>
-      <ul className="mt-3 min-h-[175px] list-disc space-y-1 pl-5 text-sm leading-6 text-[#535862]">
+      <ul className="mb-8 mt-3 min-h-[175px] list-disc space-y-1 pl-5 text-sm leading-6 text-[#535862]">
         {items.map((item) => <li key={item}>{item}</li>)}
       </ul>
       <QualificationChart title={`${title} in Correctional Practice`} rows={rows} maximum={maximum} loaded={loaded} />
@@ -109,7 +113,6 @@ export default function CorrectionalServicesWorkforceInsightTwoView({ slug, repo
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">2</span>
               <div className="max-w-[810px]">
                 <p className="text-sm font-medium text-[#424996]">Theme One, Insight Two</p>
-                <p className="mt-5 text-xl font-semibold">Use of Specialisations</p>
                 <h1 className="mt-5 text-2xl font-semibold leading-8">CCO roles require more specialised capability provided in Certificate IV in Correctional Practice</h1>
                 <p className="mt-5 text-sm leading-6">The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. As such, it is seen as more specialised than what the current Certificate III in Correctional Practice offers. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.</p>
               </div>

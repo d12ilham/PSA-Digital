@@ -225,12 +225,21 @@ export default function CorrectionalServicesFederalInitiativesView({
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const detailRef = React.useRef<HTMLElement>(null);
+  const initiativeListRef = React.useRef<HTMLDivElement>(null);
   const initiative = initiatives[activeIndex];
+
+  React.useEffect(() => {
+    const list = initiativeListRef.current;
+    const selected = list?.querySelector<HTMLElement>('[aria-current="true"]');
+    if (!list || !selected) return;
+    const bounds = list.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    if (item.top < bounds.top || item.bottom > bounds.bottom) {
+      list.scrollTop += item.top - bounds.top;
+    }
+  }, [activeIndex]);
   const showInitiative = (index: number) => {
     setActiveIndex((index + initiatives.length) % initiatives.length);
-  };
-  const selectInitiative = (index: number) => {
-    setActiveIndex(index);
     window.requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
 
@@ -263,15 +272,24 @@ export default function CorrectionalServicesFederalInitiativesView({
           <Image src="/images/reports/correctional-federal-initiatives-group-88.svg" width={512} height={250} alt="" className="h-auto w-full max-w-[512px] shrink-0 animate-zoom-in motion-reduce:animate-none lg:w-[360px] xl:w-[512px]" />
         </section>
 
+        <div className="sticky top-[60px] z-30 flex h-24 flex-col justify-center gap-2 rounded-[14px] border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
+          <label htmlFor="commonwealth-initiative" className="text-sm font-semibold text-[#598303]">Selected Commonwealth initiative</label>
+          <select id="commonwealth-initiative" aria-label="Select Commonwealth initiative" value={activeIndex} onChange={(event) => showInitiative(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#598303] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#598303]">
+            {initiatives.map((item, index) => <option key={item.number} value={index}>{item.number} - {item.title}</option>)}
+          </select>
+        </div>
+
         <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Commonwealth Government initiatives" className="space-y-2">
+          <nav aria-label="Commonwealth Government initiatives" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+            <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#598303]">Selected initiative {initiative.number}</p>
+            <div ref={initiativeListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
               {initiatives.map((item, index) => {
                 const isActive = index === activeIndex;
                 return (
                   <button
                     key={item.number}
                     type="button"
-                    onClick={() => selectInitiative(index)}
+                    onClick={() => showInitiative(index)}
                     aria-current={isActive ? "true" : undefined}
                     className={`flex min-h-[140px] w-full items-center justify-between gap-4 rounded-[14px] border px-6 py-5 text-left transition-[transform,box-shadow,border-color] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] motion-reduce:transition-none ${
                       isActive
@@ -293,9 +311,11 @@ export default function CorrectionalServicesFederalInitiativesView({
                   </button>
                 );
               })}
+            </div>
           </nav>
 
-          <article ref={detailRef} key={activeIndex} className="scroll-mt-20 rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
+          <article ref={detailRef} key={activeIndex} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
+            <div data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-[76px]">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex max-w-full rounded-full bg-[#598303] px-5 py-3 text-sm font-semibold text-white">
                 {initiative.number} · {initiative.owner}{!["04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"].includes(initiative.number) && ` ${initiative.period}`}
@@ -314,15 +334,14 @@ export default function CorrectionalServicesFederalInitiativesView({
                 </button>}
             </div>
 
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+              <h2 className="max-w-[720px] text-xl font-semibold leading-8">{Number(initiative.number)}. {initiative.title}</h2>
+              <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">{initiative.period}</span>
+            </div>
+            </div>
+
             <div className="mt-6 rounded-[14px] bg-[#FAFAF0] p-6 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <h2 className="max-w-[720px] text-xl font-semibold leading-8">
-                  {Number(initiative.number)}. {initiative.title}
-                </h2>
-                <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">
-                  {initiative.period}
-                </span>
-              </div>
+
 
               <div className="mt-7">
                 <h3 className="text-lg font-medium text-[#598303]">SUMMARY</h3>

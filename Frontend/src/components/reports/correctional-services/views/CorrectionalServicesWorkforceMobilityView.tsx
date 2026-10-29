@@ -84,7 +84,7 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
 
         <section aria-label="Strategic priorities" className="grid gap-5 md:grid-cols-3">
           {priorities.map((priority, index) => (
-            <article key={priority.title} className="min-h-[200px] rounded-[14px] border border-[#E9EAEB] bg-white p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
+            <article key={priority.title} className="min-h-[200px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
               <h2 className="text-base font-semibold">{priority.title}</h2>
               <p className="mt-2 text-sm leading-6">{priority.description}</p>
             </article>
@@ -104,14 +104,14 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
         </section>
 
         <section className="space-y-2 pt-1 animate-slide-up motion-reduce:animate-none">
-          <h2 className="text-base font-semibold">The Implementation Report made the following recommendations:</h2>
+          <h2 className="px-6 text-base font-semibold">The Implementation Report made the following recommendations:</h2>
           <div className="overflow-x-auto rounded-[12px] border border-[#E9EAEB] bg-white">
             <table className="w-full min-w-[720px] border-collapse text-left text-sm leading-6">
-              <thead className="bg-[#F4F4F4]"><tr><th scope="col" className="w-[35.5%] border-r border-[#E9EAEB] px-5 py-3 font-medium">Recommendation</th><th scope="col" className="px-5 py-3 font-medium">Description</th></tr></thead>
+              <thead className="bg-[#F4F4F4]"><tr><th scope="col" className="w-[35.5%] border-r border-[#E9EAEB] px-6 py-3 font-medium">Recommendation</th><th scope="col" className="px-5 py-3 font-medium">Description</th></tr></thead>
               <tbody className="text-[#535862]">
-                {recommendations.map((recommendation) => (
+                {recommendations.map((recommendation, index) => (
                   <tr key={recommendation.title} className="border-t border-[#E9EAEB] transition-colors duration-200 hover:bg-[#F9FAF5] motion-reduce:transition-none">
-                    <th scope="row" className="border-r border-[#E9EAEB] px-5 py-5 text-left font-semibold">{recommendation.title}</th>
+                    <th scope="row" className="border-r border-[#E9EAEB] px-6 py-5 text-left font-semibold"><div className="flex items-start gap-3"><span data-finding-number className="shrink-0 font-semibold tabular-nums text-[#424996]">{index + 1}.</span><span>{recommendation.title}</span></div></th>
                     <td className="px-5 py-5">{recommendation.description}</td>
                   </tr>
                 ))}

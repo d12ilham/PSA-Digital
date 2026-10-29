@@ -64,7 +64,6 @@ export default function CorrectionalServicesWorkforceStrategiesView({ slug, repo
           <div className="p-6">
             <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold uppercase text-white">Strategy 1</span>
             <h2 className="mt-6 max-w-[870px] text-xl font-semibold leading-[1.3]">Collaborate with HumanAbility to analyse recent updates to the CHC Community Services Training Package to identify contemporary practice that could inform future updates to the Community Corrections specialisations in the officers Certificate III and Certificate IV in Correctional Practice.</h2>
-            <p className="mt-3 text-sm leading-6 text-[#535862]">Workforce Insight: Emerging technologies I · JSC Function: Training Product Development</p>
             <div className="mt-6 grid gap-10 border-t border-[#E9EAEB] pt-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.9fr)]">
               <div className="space-y-5 text-sm leading-6">
                 <div><h3 className="font-semibold">Workforce Insight:</h3><p className="mt-1 text-[#777B83]">Community Corrections</p></div>

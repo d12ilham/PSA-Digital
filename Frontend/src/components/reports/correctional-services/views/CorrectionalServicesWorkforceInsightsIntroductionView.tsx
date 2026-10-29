@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { FlaskConical } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -48,7 +47,7 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
           slug={slug}
           currentPage="workforce_insights"
           prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-          next={{ label: "2026 Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
+          next={{ label: "2026 Proposed Correctional Services Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
         />
 
         <section className="grid items-center gap-6 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,1fr)_389px] lg:px-8">
@@ -74,14 +73,9 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
         </section>
 
         <section aria-labelledby="challenges-heading" className="space-y-5">
-          <div className="flex items-start gap-4">
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#F0F1F9] text-[#424996]">
-              <FlaskConical size={22} strokeWidth={1.5} aria-hidden="true" />
-            </span>
-            <div>
-              <h2 id="challenges-heading" className="text-xl font-semibold text-[#424996]">Two challenges</h2>
-              <p className="mt-1 max-w-[880px] text-sm leading-6">Public Skills Australia&apos;s 2024 Correctional Services Workforce Plan and the 2025 Correctional Services Workforce Insights Report identified two key challenges impacting the Correctional Services workforce:</p>
-            </div>
+          <div>
+            <h2 id="challenges-heading" className="text-xl font-semibold text-[#424996]">Two challenges</h2>
+            <p className="mt-1 max-w-[880px] text-sm leading-6">Public Skills Australia&apos;s 2024 Correctional Services Workforce Plan and the 2025 Correctional Services Workforce Insights Report identified two key challenges impacting the Correctional Services workforce:</p>
           </div>
           <div className="grid gap-5 md:grid-cols-2">
             {challenges.map((challenge, index) => (
@@ -108,6 +102,9 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
               </article>
             ))}
           </div>
+          <p className="text-sm leading-6">
+            These projects focused on CO occupations in custodial settings rather than CCO occupations. Subsequently, the community corrections workforce became the primary focus for this Report. Stakeholder insights from the 2025 engagements, aided by further research, broadly identified that while CCO training is supported by the entry-level qualifications (<em>Certificate III and IV in Correctional Practice</em>), challenges remain with their implementation and delivery. This is being experienced and viewed in different ways by the industry-sector, with some reporting that the challenge was directly related to the qualifications and others reporting that it was related to how the qualifications are contextualised when implemented for training delivery. Both these perspectives will be considered to ensure that any mitigating strategies lead to the shared outcome sought by stakeholders.
+          </p>
         </section>
 
         <section aria-labelledby="sources-heading" className="rounded-lg border border-[#E9EAEB] bg-white px-6 py-5">

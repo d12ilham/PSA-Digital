@@ -80,11 +80,9 @@ export default function CorrectionalServicesUpdate2025StrategiesView({ slug, rep
           </article>
         </section>
 
-        <p className="text-sm leading-6">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into these challenges.</p>
-
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none">
           <h2 className="text-2xl font-semibold text-[#424996]">Two 2025 projects</h2>
-          <p className="mt-3 max-w-[850px] text-sm leading-6 text-[#535862]">To support the industry-sector to address these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into their causes and potential mitigation strategies. These included:</p>
+          <p className="mt-3 max-w-[850px] text-sm leading-6 text-[#535862]">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into their causes and potential mitigation strategies. These included:</p>
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             {projects.map((project) => (
               <Link key={project.href} href={`/reports/${slug}/${project.href}`} className="group overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white text-left transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">

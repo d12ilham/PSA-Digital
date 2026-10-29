@@ -188,6 +188,10 @@ const jurisdictionGroups = [
   { number: "07", jurisdiction: "Western Australia", indices: [9] },
 ];
 
+const strategyEntries = jurisdictionGroups.flatMap((group) =>
+  group.indices.map((index) => ({ ...group, index, title: strategies[index].title })),
+);
+
 export default function CorrectionalServicesExistingStrategiesView({
   slug,
   report,
@@ -197,9 +201,21 @@ export default function CorrectionalServicesExistingStrategiesView({
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const activeGroup = jurisdictionGroups.find((group) => group.indices.includes(activeIndex))!;
-  const visibleIndices = ["03", "04"].includes(activeGroup.number) ? activeGroup.indices : [activeIndex];
+  const visibleIndices = [activeIndex];
   const detailStartRef = React.useRef<HTMLDivElement>(null);
   const strategyPanelRefs = React.useRef<(HTMLElement | null)[]>([]);
+  const strategyListRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const list = strategyListRef.current;
+    const selected = list?.querySelector<HTMLElement>('[aria-current="true"]');
+    if (!list || !selected) return;
+    const bounds = list.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    if (item.top < bounds.top || item.bottom > bounds.bottom) {
+      list.scrollTop += item.top - bounds.top;
+    }
+  }, [activeIndex]);
 
   const showStrategy = (index: number) => {
     const nextIndex = (index + strategies.length) % strategies.length;
@@ -232,34 +248,45 @@ export default function CorrectionalServicesExistingStrategiesView({
           <Image src="/images/reports/correctional-existing-strategies-group-85.svg" width={487} height={104} alt="" className="h-auto w-full max-w-[487px] shrink-0 animate-zoom-in motion-reduce:animate-none lg:w-[487px]" />
         </section>
 
+        <div className="sticky top-[60px] z-30 flex h-24 flex-col justify-center gap-2 rounded-[14px] border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
+          <label htmlFor="jurisdiction-strategy" className="text-sm font-semibold text-[#424996]">Selected jurisdiction strategy</label>
+          <select id="jurisdiction-strategy" aria-label="Select jurisdiction strategy" value={activeIndex} onChange={(event) => showStrategy(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#424996] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#424996]">
+            {strategyEntries.map((group) => <option key={group.index} value={group.index}>{group.number} · {group.jurisdiction} - {group.title}</option>)}
+          </select>
+        </div>
+
         <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Jurisdiction strategies" className="space-y-2">
-            {jurisdictionGroups.map((group) => {
-              const isActive = group.indices.includes(activeIndex);
+          <nav aria-label="Jurisdiction strategies" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+            <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#424996]">Selected: {activeGroup.jurisdiction}</p>
+            <div ref={strategyListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
+            {strategyEntries.map((group) => {
+              const isActive = group.index === activeIndex;
               return (
                 <button
-                  key={group.number}
+                  key={group.index}
                   type="button"
                   aria-current={isActive ? "true" : undefined}
-                  onClick={() => setActiveIndex(group.indices[0])}
+                  onClick={() => showStrategy(group.index)}
                   className={`flex min-h-[140px] w-full items-center justify-between gap-4 rounded-[14px] border px-6 py-5 text-left transition-[transform,box-shadow,border-color] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none ${isActive ? "border-2 border-[#424996] bg-[#E8E9EF]" : "border-[#E9EAEB] bg-white hover:-translate-y-1 hover:shadow-md"}`}
                 >
                   <span className="min-w-0">
                     <span className="block text-sm font-medium text-[#424996]">{group.number} · {group.jurisdiction}</span>
                     <strong className="mt-5 block text-lg font-semibold leading-6">
-                      {group.indices.map((index) => strategies[index].title).join(" · ")}
+                      {group.title}
                     </strong>
                   </span>
                   <span className={`grid size-10 shrink-0 place-items-center rounded-full ${isActive ? "border border-[#9AB954] bg-white" : "bg-[#8AC900]"}`} aria-hidden="true"><ArrowRight size={18} /></span>
                 </button>
               );
             })}
+            </div>
           </nav>
 
-          <div ref={detailStartRef} className="space-y-6 scroll-mt-20" aria-live="polite">
+          <div ref={detailStartRef} className="min-w-0 space-y-6 scroll-mt-[172px] lg:scroll-mt-[76px]" aria-live="polite">
             {visibleIndices.map((index) => {
               const strategy = strategies[index];
-              return <article key={strategy.number} ref={(element) => { strategyPanelRefs.current[index] = element; }} className="scroll-mt-20 rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
+              return <article key={strategy.number} ref={(element) => { strategyPanelRefs.current[index] = element; }} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
+            <div data-strategy-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-[76px]">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
@@ -273,18 +300,15 @@ export default function CorrectionalServicesExistingStrategiesView({
               )}
             </div>
 
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+              <h2 className="max-w-[720px] text-xl font-semibold leading-8">{strategy.title}</h2>
+              <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">{strategy.period}</span>
+            </div>
+            </div>
+
             <div className="mt-6 rounded-[14px] bg-[#FAFAF0] p-6 sm:p-8">
-              {activeGroup.indices.length > 1 && !["03", "04"].includes(activeGroup.number) && (
-                <div className="mb-6 flex flex-wrap gap-2" aria-label={`${activeGroup.jurisdiction} strategies`}>
-                  {activeGroup.indices.map((index) => (
-                    <button key={strategies[index].number} type="button" onClick={() => setActiveIndex(index)} aria-pressed={activeIndex === index} className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${activeIndex === index ? "border-[#424996] bg-[#424996] text-white" : "border-[#C5C9D9] bg-white text-[#424996] hover:bg-[#E8E9EF]"}`}>{strategies[index].title}</button>
-                  ))}
-                </div>
-              )}
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <h2 className="max-w-[720px] text-xl font-semibold leading-8">{strategy.title}</h2>
-                <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">{strategy.period}</span>
-              </div>
+
+
 
               <div className="mt-6">
                 <h3 className="text-lg font-medium text-[#424996]">SUMMARY</h3>

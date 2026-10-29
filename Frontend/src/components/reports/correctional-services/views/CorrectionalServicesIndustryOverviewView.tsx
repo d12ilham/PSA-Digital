@@ -122,7 +122,7 @@ export default function CorrectionalServicesIndustryOverviewView({
         <ReportNavButtons
           slug={slug}
           currentPage="industry_overview"
-          next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile` }}
+          next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile_presentation` }}
         />
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
@@ -168,14 +168,14 @@ export default function CorrectionalServicesIndustryOverviewView({
           </div>
         </section>
 
-        <p className="max-w-[800px] text-sm leading-6 text-[#535862]">
+        <p className="mx-[25px] max-w-[800px] text-sm leading-6 text-[#535862]">
           In 2024-25, the net operating expenditure and capital costs for custodial corrections was $7.3 billion and just under $984 million for community corrections.<SourceMarker number="8" /> Across Australia, there are 114 custodial facilities and a total workforce of 46,500.<SourceMarker number="9" /> An analysis of the Correctional Services workforce profile identified the following trends:
         </p>
 
         <section className="grid gap-6 lg:grid-cols-2" aria-label="Industry data stories">
           {stories.map((story, index) => (
             <article key={story.number} className="flex min-h-[430px] flex-col rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-sm">
-              <p className="text-xs font-bold uppercase leading-5 text-[#598303]">Data Story {story.number}</p>
+              <p className="text-xs font-bold uppercase leading-5 text-[#424996]">Trend {story.number}</p>
               <h2 className="mt-2 text-2xl font-bold leading-8 text-[#252D02]">{story.title}</h2>
               {index === 0 ? (
                 <p className="mt-4 text-sm leading-6 text-[#535862]">
