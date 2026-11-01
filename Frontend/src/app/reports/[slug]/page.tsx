@@ -288,9 +288,6 @@ export default function ReportLandingPage({
                   animationDelay: `${index * 0.12 + 0.12}s`,
                 }}
               >
-                {card.path === "executive_summary" && (
-                  <p className="mb-2 text-[10px] font-semibold text-[#252D02]">OVERVIEW</p>
-                )}
                 <div className="flex items-center justify-between gap-3">
                   <h2
                     className="text-left text-[18px] font-bold leading-6"
