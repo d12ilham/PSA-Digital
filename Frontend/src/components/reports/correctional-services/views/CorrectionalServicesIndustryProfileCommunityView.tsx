@@ -102,7 +102,7 @@ function NationalRatioChart() {
 
   return (
     <div ref={ref} className="mt-5 overflow-x-auto">
-      <svg viewBox={`0 0 ${width} ${height}`} className="min-w-[660px] w-full" role="img" aria-label="Australia community corrections offender-to-staff ratio from 2015-16 to 2024-25">
+      <svg viewBox={`0 0 ${width} ${height}`} className="min-w-[1000px] w-full" role="img" aria-label="Australia community corrections offender-to-staff ratio from 2015-16 to 2024-25">
         {[17, 16.5, 16, 15.5, 15, 14.5].map((tick) => (
           <g key={tick}>
             <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} stroke="#ECEDEF" strokeWidth="1" />
@@ -122,7 +122,7 @@ function NationalRatioChart() {
         {nationalRatios.map(({ year, value }, index) => (
           <g key={year} style={{ opacity: visible ? 1 : 0, transition: `opacity 250ms ease-out ${350 + index * 95}ms` }}>
             <circle cx={x(index)} cy={y(value)} r="6" fill="#9DA8D0" />
-            <text x={x(index)} y={y(value) + (value === 15.3 || index > 4 ? 28 : -15)} textAnchor="middle" fill="#172036" fontSize="16" fontWeight="700">{value.toFixed(1)}</text>
+            <text x={x(index)} y={y(value) + (value === 15.3 || index > 4 ? 28 : -15)} textAnchor="middle" fill="#172036" fontSize="22" fontWeight="700">{value.toFixed(1)}</text>
             <text x={x(index)} y={height - 20} textAnchor="middle" fill="#252D02" fontSize="13">{year}</text>
             <title>{`${year}: ${value.toFixed(1)}`}</title>
           </g>
@@ -150,27 +150,27 @@ function OrderTypesChart() {
 
   return (
     <div ref={ref} className="mt-5 overflow-x-auto">
-      <div className="min-w-[680px]">
+      <div className="min-w-[760px]">
         <div className="space-y-4">
           {orders.map(({ year, values }, yearIndex) => (
             <div key={year} className="grid grid-cols-[90px_minmax(0,1fr)] items-center gap-4">
               <strong className="text-xs text-[#424996]">{year}</strong>
-              <div className="space-y-1.5">
+              <div className="mr-20 space-y-1.5">
                 {values.map((value, typeIndex) => (
-                  <div key={orderTypes[typeIndex].name} className="relative h-3.5">
+                  <div key={orderTypes[typeIndex].name} className="relative h-6">
                     <div
                       className="h-full rounded-r-sm transition-[width,filter] duration-700 ease-out hover:brightness-90"
                       style={{ width: visible ? `${(value / 80000) * 100}%` : "0%", backgroundColor: orderTypes[typeIndex].color, transitionDelay: `${yearIndex * 100 + typeIndex * 35}ms` }}
                       title={`${year} ${orderTypes[typeIndex].name}: ${value.toLocaleString()}`}
                     />
-                    <span className="absolute top-1/2 -translate-y-1/2 pl-2 text-[10px] font-semibold tabular-nums text-[#424996]" style={{ left: `${(value / 80000) * 100}%` }}>{value.toLocaleString()}</span>
+                    <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-2 text-lg font-semibold leading-6 tabular-nums text-[#424996]" style={{ left: `${(value / 80000) * 100}%` }}>{value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="ml-[106px] mt-3 grid grid-cols-9 border-t border-[#D5D7DA] pt-2 text-[10px] tabular-nums text-[#667085]">
+        <div className="ml-[106px] mr-20 mt-3 grid grid-cols-9 border-t border-[#D5D7DA] pt-2 text-[10px] tabular-nums text-[#667085]">
           {[0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000].map((tick) => <span key={tick} className="text-center first:text-left last:text-right">{tick.toLocaleString()}</span>)}
         </div>
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#424996]">
@@ -189,7 +189,7 @@ export default function CorrectionalServicesIndustryProfileCommunityView({ slug,
         <ReportNavButtons
           slug={slug}
           currentPage="industry_profile"
-          prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile` }}
+          prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }}
           next={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
         />
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">

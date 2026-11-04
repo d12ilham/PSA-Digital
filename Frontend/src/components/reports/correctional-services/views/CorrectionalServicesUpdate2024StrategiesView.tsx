@@ -49,6 +49,7 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
             <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">Workforce Strategies · Update on 2024 Workforce Strategies</span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.22]">Update on 2024 Strategies</h1>
             <p className="mt-4 text-sm leading-6">Public Skills Australia’s 2024 Correctional Services Workforce Plan, identified two challenges impacting the Correctional Services workforce:</p>
+            <p className="mt-4 text-sm leading-6">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into their causes.</p>
           </div>
           <div className="w-full max-w-[480px] shrink-0 animate-zoom-in motion-reduce:animate-none lg:w-[480px]" aria-hidden="true">
             <Image src="/images/reports/correctional-workforce-strategies-frame-436.svg" width={480} height={140} alt="" className="h-auto w-full" />
@@ -74,7 +75,6 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
           ))}
         </div>
 
-        <p className="text-sm leading-6">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into their causes.</p>
       </main>
       <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />
     </div>

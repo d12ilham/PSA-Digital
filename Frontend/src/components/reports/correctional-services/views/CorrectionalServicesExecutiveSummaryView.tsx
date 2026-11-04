@@ -186,12 +186,21 @@ export default function CorrectionalServicesExecutiveSummaryView({
 
         <section data-summary-reveal="insights" className={`min-h-[964px] overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("insights")}`}>
           <div className="p-6">
-            <SectionHeading
-              icon="Insights"
-              title="One Themes, Three Insights"
-              action="Present Workforce Insights"
-              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-            />
+            <div className="group/heading grid grid-cols-[24px_minmax(0,1fr)] items-center gap-x-px gap-y-4 sm:grid-cols-[32px_minmax(0,1fr)_auto]">
+              <Image
+                src={iconPath("Insights")}
+                alt=""
+                width={32}
+                height={32}
+                className="size-6 object-contain animate-zoom-in transition-transform duration-300 group-hover/heading:scale-105 motion-reduce:animate-none motion-reduce:transform-none motion-reduce:transition-none sm:size-8"
+              />
+              <h2 className="min-w-0 text-xl font-bold leading-7 text-[#252D02]">One Theme, Three Insights</h2>
+              <div className="col-span-2 justify-self-start sm:col-span-1">
+                <ActionButton onClick={() => router.push(`/reports/${slug}/workforce_insights`)}>
+                  Present Workforce Insights
+                </ActionButton>
+              </div>
+            </div>
           </div>
 
           <div className="px-6 pb-6">
@@ -280,9 +289,6 @@ export default function CorrectionalServicesExecutiveSummaryView({
               <h3 className="mt-5 max-w-[800px] text-lg font-bold leading-7 text-[#252D02] sm:text-xl">
                 Collaborate with HumanAbility<sup>2</sup> to analyse recent updates to the CHC Community Services Training Package to identify contemporary practice that could inform future updates to the Community Corrections specialisations in the officers Certificate III and Certificate IV in Correctional Practice.
               </h3>
-              <p className="mt-3 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
-                To provide the Correctional Services Subcommittee an analysis of contemporary community services practice that could inform the Community Corrections specialisations in the Certificate III and Certificate IV in Correctional Practice.
-              </p>
 
               <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${strategyOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">

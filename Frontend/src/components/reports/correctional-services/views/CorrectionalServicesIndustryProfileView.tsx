@@ -102,7 +102,7 @@ function GroupedColumns({ data, max, firstLabel, secondLabel, format }: {
 
   return (
     <div ref={ref} className="mt-5 overflow-x-auto">
-      <div className="min-w-[500px]">
+      <div className="min-w-[720px]">
         <div className="grid h-[282px] items-end border-b border-[#424996]" style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}>
           {data.map(({ period, first, second }, groupIndex) => (
             <div key={period} className="flex h-full items-end justify-center gap-2 px-1 sm:gap-3">
@@ -116,7 +116,7 @@ function GroupedColumns({ data, max, firstLabel, secondLabel, format }: {
                     transitionDelay: `${groupIndex * 90 + seriesIndex * 70}ms`,
                   }}
                 >
-                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 pb-1 text-[11px] font-bold tabular-nums text-[#424996]">{format(value)}</span>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 whitespace-nowrap pb-1 text-lg font-bold leading-6 tabular-nums text-[#424996]">{format(value)}</span>
                 </div>
               ))}
             </div>
@@ -138,23 +138,23 @@ function HeadcountBars() {
 
   return (
     <div ref={ref} className="mt-5 overflow-x-auto">
-      <div className="min-w-[500px]">
+      <div className="min-w-[640px]">
         <div className="space-y-3">
           {headcounts.map(({ jurisdiction, value }, index) => (
             <div key={jurisdiction} className="grid grid-cols-[40px_minmax(0,1fr)] items-center gap-3 text-xs">
               <span className="text-right font-bold text-[#424996]">{jurisdiction}</span>
-              <div className="relative h-6">
+              <div className="relative mr-20 h-7">
                 <div
                   title={`${jurisdiction}: ${value.toLocaleString()} employees`}
                   className="h-full rounded-r-[3px] bg-[#9DA8D0] transition-[width,background-color] duration-700 ease-out hover:bg-[#424996]"
                   style={{ width: visible ? `${(value / 12000) * 100}%` : "0%", transitionDelay: `${index * 70}ms` }}
                 />
-                <span className="absolute top-1/2 -translate-y-1/2 pl-2 font-bold tabular-nums text-[#424996]" style={{ left: `${(value / 12000) * 100}%` }}>{value.toLocaleString()}</span>
+                <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-2 text-lg font-bold leading-6 tabular-nums text-[#424996]" style={{ left: `${(value / 12000) * 100}%` }}>{value.toLocaleString()}</span>
               </div>
             </div>
           ))}
         </div>
-        <div className="ml-[52px] mt-4 grid grid-cols-7 border-t border-[#D5D7DA] pt-2 text-[10px] tabular-nums text-[#667085]">
+        <div className="ml-[52px] mr-20 mt-4 grid grid-cols-7 border-t border-[#D5D7DA] pt-2 text-[10px] tabular-nums text-[#667085]">
           {[0, 2000, 4000, 6000, 8000, 10000, 12000].map((tick) => <span key={tick} className="text-center first:text-left last:text-right">{tick.toLocaleString()}</span>)}
         </div>
       </div>

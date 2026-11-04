@@ -93,7 +93,7 @@ export default function ReportNavButtons({
   }
 
   const isFederalState = (slug || industrySlug) && resolveSector(industrySlug, slug).id === "federal-state";
-  if (!prevTarget && !nextTarget && !isFederalState) return null;
+  if (!prevTarget && !nextTarget && !back && !backSecondary && !isFederalState) return null;
 
   const secondaryClass = sectorPalette
     ? "border border-[#754C2D] bg-[#EED4C4] text-[#754C2D] font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]"

@@ -1,8 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, ChevronDown, Truck } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+
+import layout from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
+import styles from "./PublicSafetyFesStrategyUpdatesView.module.css";
 
 const projects = [
   {
@@ -29,7 +33,7 @@ const projects = [
     completion: "June 2026",
     title: "Understanding the Youth Volunteer",
     summary: "To identify drivers and challenges to recruiting, engaging and retaining youth volunteers.",
-    update: "In collaboration with Fire and Emergency Services volunteer organisations, this project aims to strengthen youth volunteer retention in Fire and Emergency Services by identifying the key drivers of attraction, recruitment and sustained engagement. A literature review was undertaken to inform the research design. This was followed by a facilitated workshop with a wide range of Fire and Emergency Services youth volunteer stakeholders. Initial feedback has indicated that while young people are highly motivated by a desire to contribute to their community, they often face barriers such as competing study and work commitments, and limited structural development pathways. When complete, this project will produce an evidence-based Insights Report outlining findings for organisations relating to attracting, recruiting, engaging and retaining youth volunteers.",
+    update: "In collaboration with Fire and Emergency Services volunteer organisations, this project aims to strengthen youth volunteer retention in Fire and Emergency Services by identifying the key drivers of attraction, recruitment and sustained engagement.\nA literature review was undertaken to inform the research design. This was followed by a facilitated workshop with a wide range of Fire and Emergency Services youth volunteer stakeholders. Initial feedback has indicated that while young people are highly motivated by a desire to contribute to their community, they often face barriers such as competing study and work commitments, and limited structural development pathways.\nWhen complete, this project will produce an evidence-based Insights Report outlining findings for organisations relating to attracting, recruiting, engaging and retaining youth volunteers.",
     stakeholders: ["AFAC", "National State Emergency Services Volunteers Association", "Australasian Fire and Emergency Service Authorities Council", "Bushfires NT", "Country Fire Authority", "Department of Fire and Emergency Services WA", "Emergency Management Victoria", "NT Emergency Service", "Rural Fire Service NSW", "NSW Surf Life Saving", "Surf Life Saving Australia", "SA Fire and Emergency Services Commission", "Tasmania Fire Service", "Queensland Fire and Emergency Services"],
     priority: "This project will contribute to addressing Australia’s productivity challenges, including undertaking activity that supports building a skilled, adaptable and inclusive workforce.",
     strategic: "Support our industry-sectors to continue to build and maintain capable and mobile workforces that are future-ready.",
@@ -57,14 +61,93 @@ const projects = [
   },
 ];
 
+function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: number) => void }) {
+  const project = projects[index];
+  const headingId = `fes-update-heading-${index}`;
+
+  return <article className={`${layout.panel} ${styles.panel}`} aria-labelledby={headingId}>
+    <div className={layout.panelHeader}>
+      <span className={`${layout.badge} ${styles.badge}`}>0{index + 1} · Completion: {project.completion}</span>
+      {onSelect && <div className={`${layout.controls} ${styles.controls}`}>
+        {index > 0 && <button type="button" className={layout.previous} onClick={() => onSelect(index - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+        <button type="button" onClick={() => onSelect((index + 1) % projects.length)}>Next <ArrowRight size={16} aria-hidden="true" /></button>
+      </div>}
+    </div>
+    <div key={index} className={`${layout.details} animate-content-switch`}>
+      <header className={`${layout.detailHeader} ${styles.detailHeader}`}>
+        <h3 id={headingId}>{project.title}</h3>
+        <span>Completion: {project.completion}</span>
+      </header>
+      <h4 className={`${layout.subheading} ${styles.subheading}`}>Summary</h4>
+      <p className={layout.copy}>{project.summary}</p>
+      <h4 className={`${layout.subheading} ${styles.subheading}`}>Update</h4>
+      <p className={layout.copy}>{project.update}</p>
+      <div className={layout.groups}>
+        <section className={`${layout.note} ${styles.note}`}>
+          <h4>Key Stakeholders</h4>
+          <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
+        </section>
+        <section className={`${layout.note} ${styles.note}`}>
+          <h4>Connection to 2026 Strategies</h4>
+          <dl>
+            <div><dt>Ministerial Priority 2026</dt><dd>{project.priority}</dd></div>
+            <div><dt>Strategic Plan Priorities 2026</dt><dd>{project.strategic}</dd></div>
+            <div><dt>Drivers of Change connections</dt><dd><ul><li>{project.driver}</li></ul></dd></div>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </article>;
+}
+
 export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const project = projects[active];
-  const showProject = (index: number) => setActive((index + projects.length) % projects.length);
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_update_2025_strategies" navigation={{ back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, backSecondary:{label:"Fire and Emergency Services chapter",href:`/reports/${slug}/fes`}, prev:{label:"2026 Proposed Workforce Strategies",href:`/reports/${slug}/fes_workforce_strategies`}, next:{label:"Existing Industry-Sector Strategies",href:`/reports/${slug}/fes_existing_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="relative min-h-[255px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-8 lg:px-8"><div className="max-w-[900px]"><span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold uppercase text-white">FES · Industry-Sector Analysis</span><h1 className="mt-5 max-w-[920px] text-[38px] font-bold leading-[46px] text-[#252D02]">2025 Public Safety Workforce Insights Report<br/>– Fire and Emergency Services Strategies Updates</h1><p className="mt-4 max-w-[840px] text-xs leading-5 text-[#535862]">Public Skills Australia identified workforce strategies for the Fire and Emergency Services industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p></div><div className="absolute right-20 top-10 hidden size-36 place-items-center rounded-full bg-[#FBECE7] text-[#D95222] lg:grid"><Truck size={68} strokeWidth={1.4}/></div><button type="button" onClick={()=>setExpanded(value=>!value)} className="absolute bottom-7 right-8 inline-flex h-10 items-center gap-2 rounded-full bg-[#7BC900] px-5 text-xs font-semibold text-[#253100]">{expanded ? "Close All" : "Open All"}<ChevronDown size={14} className={expanded ? "rotate-180" : ""}/></button></section>
+  const reportPath = `/reports/${slug}`;
 
-    <section className="grid items-start gap-5 lg:grid-cols-[300px_1fr]"><aside><h2 className="mb-3 text-lg font-bold uppercase text-[#252D02]">Projects · 5 · Select to open</h2><div className="space-y-3">{projects.map((item,index)=><button key={item.title} type="button" onClick={()=>setActive(index)} style={{backgroundColor:active===index?"#FBECE7":"#FFFFFF"}} className={`flex min-h-[88px] w-full items-center justify-between gap-4 rounded-lg border px-5 py-4 text-left ${active===index?"border-[#D95222] shadow-[inset_0_0_0_1px_#D95222]":"border-[#E9EAEB]"}`}><span><span className="block text-[10px] font-medium uppercase text-[#D95222]">0{index+1} · Completion: {item.completion}</span><strong className="mt-3 block text-sm leading-5 text-[#252D02]">{item.title}</strong></span><span className={`grid size-9 shrink-0 place-items-center rounded-full ${active===index?"bg-white text-[#719926]":"bg-[#7BC900] text-[#253100]"}`}><ArrowRight size={15}/></span></button>)}</div></aside><article className="rounded-xl bg-[#EEF0E7] p-5"><div className="flex items-center justify-between"><span className="rounded-full bg-[#D95222] px-4 py-2 text-[10px] font-bold uppercase text-white">0{active+1} · Completion: {project.completion}</span><div className="flex gap-2"><button type="button" aria-label="Previous project" onClick={()=>showProject(active-1)} className="grid size-9 place-items-center rounded-full border border-[#C5CBB6] bg-white text-[#5D791B]"><ArrowLeft size={15}/></button><button type="button" onClick={()=>showProject(active+1)} className="inline-flex h-9 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-xs font-semibold text-[#253100]">Next<ArrowRight size={14}/></button></div></div><div className="mt-5 rounded-lg bg-white p-6"><div className="flex flex-wrap items-center justify-between gap-4"><h2 className="text-xl font-bold text-[#252D02]">{project.title}</h2><span className="rounded-full bg-[#EEF0E7] px-4 py-2 text-[10px] text-[#535862]">Completion: {project.completion}</span></div><div className="mt-6 space-y-5 text-xs leading-5 text-[#535862]"><div><strong className="mb-2 block uppercase text-[#719926]">Summary</strong><p>{project.summary}</p></div><div><strong className="mb-2 block uppercase text-[#719926]">Update</strong><p>{project.update}</p></div></div><div className="mt-6 rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><strong className="text-sm text-[#252D02]">Key Stakeholders</strong><ul className="ml-5 mt-3 list-disc space-y-1 text-xs leading-5 text-[#535862]">{project.stakeholders.map(item=><li key={item}>{item}</li>)}</ul></div><div className="mt-5 rounded-lg border-l-[7px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><strong className="text-sm text-[#252D02]">Connection to 2026 Strategies</strong><div className="mt-4 space-y-3 text-xs leading-5 text-[#535862]"><p><b className="block text-[#252D02]">Ministerial Priority 2026</b>{project.priority}</p><p><b className="block text-[#252D02]">Strategic Plan Priorities 2026</b>{project.strategic}</p><p><b className="block text-[#252D02]">Drivers of Change connections</b>• {project.driver}</p></div></div>{expanded&&<div className="mt-5 rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] px-6 py-5 text-xs leading-5 text-[#535862]">This expanded view brings together the project’s current status, implementation context and relationship to the proposed 2026 workforce strategies.</div>}</div></article></section>
+  function selectProject(index: number) {
+    setActive(index);
+    setExpanded(false);
+  }
+
+  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_update_2025_strategies" contentClassName={`${layout.page} ${styles.page}`} navigation={{
+    back: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
+    backSecondary: { label: "Fire and Emergency Services chapter", href: `${reportPath}/fes` },
+    prev: { label: "2026 Proposed Workforce Strategies", href: `${reportPath}/fes_workforce_strategies` },
+    next: { label: "Existing Industry-Sector Strategies", href: `${reportPath}/fes_existing_strategies` },
+    prevPrefix: "Previous Section:",
+    nextPrefix: "Next Section:",
+  }}>
+    <section className={`${layout.hero} ${styles.hero}`}>
+      <div className={styles.heroCopy}>
+        <span className={`${layout.badge} ${styles.badge}`}>FES · Industry-Sector Analysis</span>
+        <h1>2025 Public Safety Workforce Insights Report<br />– Fire and Emergency Services Strategies Updates</h1>
+        <p>Public Skills Australia identified workforce strategies for the Fire and Emergency Services industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
+      </div>
+      <Image className={styles.artwork} src="/images/reports/public-safety/fes-chapter-fire-engine.svg" width={180} height={180} alt="" unoptimized priority />
+      <div className={`${layout.controls} ${styles.bulk}`}>
+        <button type="button" aria-expanded={expanded} aria-controls="fes-update-projects" onClick={() => setExpanded(value => !value)}>
+          {expanded ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
+        </button>
+      </div>
+    </section>
+
+    <section className={layout.projects} aria-labelledby="fes-update-projects-title">
+      <div>
+        <h2 id="fes-update-projects-title">Projects · 5 · Select to open</h2>
+        <div className={layout.projectList}>
+          {projects.map((project, index) => (
+            <button key={project.title} type="button" aria-pressed={expanded || index === active} aria-controls="fes-update-projects" onClick={() => selectProject(index)} className={`${layout.projectButton} ${styles.projectButton}`}>
+              <span><small>0{index + 1} · Completion: {project.completion}</small><strong>{project.title}</strong></span>
+              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div id="fes-update-projects" className={styles.panels}>
+        {expanded ? projects.map((project, index) => <ProjectPanel key={project.title} index={index} />)
+          : <ProjectPanel index={active} onSelect={selectProject} />}
+      </div>
+    </section>
   </PublicSafetyPageShell>;
 }

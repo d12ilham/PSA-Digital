@@ -14,11 +14,11 @@ export interface PublicSafetyReport {
   year?: { label: string };
 }
 
-export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string; pagesOrder?: { key: string; label: string }[] } }) {
+export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation, contentClassName = "" }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; contentClassName?: string; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string; pagesOrder?: { key: string; label: string }[] } }) {
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} currentPage={currentPage} />
-      <main className="mx-auto w-full max-w-[1488px] flex-1 space-y-6 px-4 py-6 sm:px-6">
+      <main className={`mx-auto w-full max-w-[1488px] flex-1 space-y-6 px-4 py-6 sm:px-6 ${contentClassName}`}>
         <ReportNavButtons
           slug={slug}
           currentPage={currentPage}

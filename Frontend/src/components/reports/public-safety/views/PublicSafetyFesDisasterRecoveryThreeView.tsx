@@ -1,7 +1,8 @@
-"use client";
-
-import { BarChart3, BrainCircuit, Cog, Lightbulb, Search, Users } from "lucide-react";
+import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import layout from "./PublicSafetyDefenceWorkforceInsightsView.module.css";
+import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
+import styles from "./PublicSafetyFesDisasterRecoveryView.module.css";
 
 const sources = [
   "Australian Institute for Disaster Resilience (AIDR), National Principles for Disaster Recovery, National Emergency Management Agency, AIDR, n.d., accessed 13 December 2025.",
@@ -9,16 +10,50 @@ const sources = [
   "PUAFIR201 Assist with prescribed burning; PUAFIR402 Conduct simple prescribed burns; PUAFIR406 Develop simple prescribed burn plans; PUAFIR506 Conduct complex prescribed burns; PUAFIR515 Develop complex prescribed burn plans.",
 ];
 
-function IconCluster() {
-  return <div className="absolute right-8 top-5 hidden h-[150px] w-[330px] lg:block"><span className="absolute left-2 top-16 grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Lightbulb size={26}/></span><span className="absolute left-16 top-5 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Users size={21}/></span><span className="absolute left-[125px] top-0 grid size-20 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Search size={35}/></span><span className="absolute left-[195px] top-[78px] grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Cog size={26}/></span><span className="absolute right-0 top-12 grid size-16 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><BarChart3 size={31}/></span><span className="absolute right-7 top-0 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><BrainCircuit size={22}/></span></div>;
-}
-
 export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_disaster_recovery" navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, next:{label:"2. Surf Life Saving First Aid",href:`/reports/${slug}/fes_surf_life_saving_first_aid`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="relative min-h-[190px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-7 lg:px-8"><div className="relative z-10 max-w-[920px]"><span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold text-white">Theme One. Disaster Recovery. Insight Three</span><h1 className="mt-5 text-[38px] font-bold leading-[46px] text-[#252D02]">3. Disaster Recovery. Insight Three.</h1><p className="mt-4 max-w-[980px] text-xs leading-5 text-[#535862]">Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression.</p></div><IconCluster/></section>
+  const reportPath = `/reports/${slug}`;
+  const insightsPath = `${reportPath}/fes_workforce_insights`;
 
-    <section className="rounded-xl border border-[#E9EAEB] bg-white p-6 lg:p-8"><h2 className="border-b border-[#E9EAEB] pb-5 text-2xl font-bold text-[#252D02]">Community recovery and prescribed burning</h2><div className="mt-7 space-y-5 text-xs leading-5 text-[#535862]"><p>As described in the National Principles for Disaster Recovery, community involvement in disaster recovery activities is critical for ensuring long-term disaster recovery success and community resilience.<sup>60</sup> Consequently, access to relevant and contemporary disaster recovery training is required to enable community, local government, and state, territory and federal government personnel and volunteers to adequately support communities in times of disaster.</p><p>Connected to this is the role of prescribed burning in decreasing the scale of recovery efforts required after a major fire. Prescribed burning reduces fuel hazards and can assist the success of suppression activities and reduce the intensity, extent and impact of subsequent bushfires. At the same time, insights gained during disaster recovery, such as patterns of fire behaviour, infrastructure vulnerability and ecological impacts can directly inform the planning and prioritisation of prescribed burns.<sup>61</sup></p><p>However, capability in the use of prescribed burning is declining. Changes in rural land use, primary industries and forest management, together with shifting policies for fire, land management, emergency services and the environment at different levels of government have contributed to the challenges of maintaining skills.</p></div><div className="mt-7 rounded-lg border border-[#F0D9D1] border-l-[8px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-full bg-white text-[#719926]"><Users size={20}/></span><strong className="text-sm text-[#252D02]">Industry Insight</strong></div><p className="mt-4 text-xs leading-5 text-[#535862]">Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression.</p></div><p className="mt-6 text-xs leading-5 text-[#535862]">The Australasian Fire and Emergency Services Authorities Council (AFAC) in conjunction with the Forest Fire Management Group developed a series of documents including principles, frameworks and guidelines as part of the National Burning Project. These documents are aimed at developing nationally consistent approaches to the use of prescribed burning by the Fire and Emergency Services industry-sector. This prescribed burning capability is supported by five units of competency in the PUA Public Safety Training Package.<sup>62</sup></p></section>
+  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_disaster_recovery_3" contentClassName={`${layout.page} ${styles.page}`} navigation={{
+    back: { label: "Workforce Insights", href: insightsPath },
+    backSecondary: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
+    prev: { label: "Workforce Insights", href: insightsPath },
+    next: { label: "2. Surf Life Saving First Aid", href: `${reportPath}/fes_surf_life_saving_first_aid` },
+    prevPrefix: "Previous Section:",
+    nextPrefix: "Next Section:",
+  }}>
+    <section className={`${layout.hero} ${styles.hero}`}>
+      <div className={`${styles.heroCopy} animate-slide-up`}>
+        <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
+        <h1>1. Disaster Recovery. Insight Three.</h1>
+        <div className={styles.summary}>
+          <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
+          <p>Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression.</p>
+        </div>
+      </div>
+      <div className={`${styles.house} ${styles.animatedHouse} animate-zoom-in`}>
+        <Image src="/images/reports/public-safety/fes-recovery-house.png" width={111} height={122} alt="" unoptimized priority />
+      </div>
+    </section>
 
-    <section className="rounded-xl border border-[#E9EAEB] bg-white p-6 lg:p-8"><h2 className="text-xl font-bold text-[#252D02]">Sources</h2><ul className="mt-5 space-y-3">{sources.map((source,index)=><li key={source} className="flex gap-3 text-[11px] leading-5 text-[#535862]"><span className="mt-1 grid size-4 shrink-0 place-items-center rounded-full bg-[#7F9C37] text-[8px] text-white">{60+index}</span><span>{source}</span></li>)}</ul></section>
+    <section className={`${styles.detail} ${styles.animatedSection} animate-slide-up-delay`}>
+      <h2>Community recovery and prescribed burning</h2>
+      <div className={styles.narrative}>
+        <div className="max-w-[800px] space-y-6">
+          <p>As described in the National Principles for Disaster Recovery, community involvement in disaster recovery activities is critical for ensuring long-term disaster recovery success and community resilience.<sup>60</sup> Consequently, access to relevant and contemporary disaster recovery training is required to enable community, local government, and state, territory and federal government personnel and volunteers to adequately support communities in times of disaster.</p>
+          <p>Connected to this is the role of prescribed burning in decreasing the scale of recovery efforts required after a major fire. Prescribed burning reduces fuel hazards and can assist the success of suppression activities and reduce the intensity, extent and impact of subsequent bushfires. At the same time, insights gained during disaster recovery, such as patterns of fire behaviour, infrastructure vulnerability and ecological impacts can directly inform the planning and prioritisation of prescribed burns.<sup>61</sup></p>
+          <p>However, capability in the use of prescribed burning is declining. Changes in rural land use, primary industries and forest management, together with shifting policies for fire, land management, emergency services and the environment at different levels of government have contributed to the challenges of maintaining skills.</p>
+          <p>The Australasian Fire and Emergency Services Authorities Council (AFAC) in conjunction with the Forest Fire Management Group developed a series of documents including principles, frameworks and guidelines as part of the National Burning Project. These documents are aimed at developing nationally consistent approaches to the use of prescribed burning by the Fire and Emergency Services industry-sector. This prescribed burning capability is supported by five units of competency in the PUA Public Safety Training Package.<sup>62</sup></p>
+        </div>
+      </div>
+    </section>
+
+    <hr className={styles.rule} />
+    <section className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
+      <h2>Sources</h2>
+      <ol start={60}>
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{60 + index}</span><span>{source}</span></li>)}
+      </ol>
+    </section>
   </PublicSafetyPageShell>;
 }

@@ -1,0 +1,54 @@
+.page {
+  --police-blue: #0d71a3;
+}
+
+.page .badge,
+.page .theme:nth-child(2)::before {
+  background: var(--police-blue);
+}
+
+.page .theme:first-child::before {
+  background: #93bcd1;
+}
+
+.page .artwork {
+  max-width: 38%;
+}
+
+.page .insight {
+  padding-left: 64px;
+  gap: 24px;
+  background: #e7f1f6;
+}
+
+.page .number {
+  color: rgb(13 113 163 / 10%);
+}
+
+.page .insightCopy strong {
+  color: var(--police-blue);
+}
+
+.page > :first-child button:nth-child(3) {
+  border-color: #598303 !important;
+}
+
+@media (min-width: 1488px) {
+  .page.page > :first-child button:nth-child(1) { width: 251px; }
+  .page.page > :first-child button:nth-child(2) { width: 215px; }
+  .page.page > :first-child button:nth-child(3) { width: 294px; }
+  .page.page > :first-child button:nth-child(4) { width: 396px; }
+  .page.page > :first-child button { justify-content: center; }
+}
+
+@media (hover: hover) {
+  .page .insight:hover {
+    outline-color: var(--police-blue);
+    background: #f2f8fb;
+  }
+}
+
+@media (max-width: 639px) {
+  .page .artwork { max-width: 100%; }
+  .page .insight { padding-left: 48px; gap: 12px; }
+}

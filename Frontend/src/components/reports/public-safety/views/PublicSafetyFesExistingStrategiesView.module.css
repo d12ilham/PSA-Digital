@@ -1,0 +1,40 @@
+.page .badge { background: #c9481a; }
+.page .heroBadge { text-transform: none; }
+.artwork { flex: 0 1 487px; min-width: 0; max-width: 100%; height: auto; }
+.page .projectButton small, .page .sectionHeading { color: #c9481a; }
+.page .projectButton[aria-pressed="true"] { outline-color: #c9481a; background: #f5e8db; }
+.page .panel, .page .note { background: #f5e8db; }
+.page .note { border-left-color: #c9481a; }
+.page .controls .previous { color: #598303; }
+.page .detailHeader > span { max-width: 100%; background: #e5e8da; }
+.detailHeader { grid-template-columns: minmax(0, 1fr) fit-content(64%); }
+.page .sectionHeading { font-size: 20px; font-weight: 600; line-height: 28px; }
+.groups { gap: 16px; }
+.note h5 { margin-bottom: 8px; color: #252d02; font-size: 16px; font-weight: 600; line-height: 24px; }
+.spacedSummary ul + p { margin-top: 24px; }
+
+@media (min-width: 1600px) {
+  .page > :first-child { width: max-content; }
+}
+@media (max-width: 767px) {
+  .artwork { flex: none; align-self: center; }
+  .page .detailHeader { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (hover: hover) {
+  .page .projectButton:hover {
+    outline-color: #c9481a;
+    box-shadow: 0 4px 14px #252d021a;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .artwork { transition: scale .25s; }
+  .artwork:hover { scale: 1.04; }
+
+  .page .projectButton {
+    transition: background .25s, outline-color .25s, box-shadow .25s, translate .25s;
+  }
+
+  .page .projectButton:hover { translate: 0 -2px; }
+}

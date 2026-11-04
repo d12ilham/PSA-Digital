@@ -1,0 +1,107 @@
+.page {
+  --police-blue: #0d71a3;
+  --police-tint: #e7f1f6;
+  padding-bottom: 24px;
+}
+
+.page .hero {
+  min-height: 208px;
+}
+
+.page .hero p {
+  font-weight: 400;
+}
+
+.page .badge {
+  width: 232px;
+  max-width: 100%;
+  background: var(--police-blue);
+}
+
+.page .heading {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d5d7da;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  text-transform: uppercase;
+}
+
+.page .profileTitle {
+  font-weight: 700;
+}
+
+.page .femaleChoice {
+  min-height: 164px;
+}
+
+.page .presentation {
+  min-height: 0;
+  padding: 24px 26px 20px;
+}
+
+.presentation .lineChart {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.lineChart circle {
+  stroke: white;
+  stroke-width: 1.5px;
+}
+
+.presentation figcaption {
+  padding-top: 4px;
+  color: #598303;
+  font: 11px/18px monospace;
+  text-transform: uppercase;
+}
+
+.presentation.female {
+  border-top-color: transparent;
+  padding-top: 8px;
+}
+
+.page .mapPresentation {
+  border-top: 0;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.mapPresentation figcaption {
+  padding-top: 24px;
+  font: 500 14px/24px Manrope, sans-serif;
+  text-transform: none;
+}
+
+.mapReplay {
+  margin-top: 16px;
+}
+
+.mapArtwork path[fill="#1685A6"],
+.mapArtwork rect[fill="#1685A6"] {
+  fill: var(--police-blue);
+}
+
+.mapArtwork path[fill="#E5F2F7"] {
+  fill: var(--police-tint);
+}
+
+@media (min-width: 1488px) {
+  .page.page > :first-child button:nth-child(2) { width: 229px; }
+  .page.page > :first-child button:nth-child(3) { width: 362px; }
+  .page.page > :first-child button:nth-child(4) { width: 288px; }
+}
+
+.page > :first-child button:nth-child(3) {
+  border-color: #598303 !important;
+}
+
+@media (max-width: 639px) {
+  .page .presentation,
+  .page .mapPresentation {
+    padding-inline: 16px;
+  }
+}

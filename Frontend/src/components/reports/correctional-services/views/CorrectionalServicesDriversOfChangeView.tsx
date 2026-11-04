@@ -28,8 +28,6 @@ const drivers = [
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc:
       "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress. [3]",
-    sources:
-      "Sources (3): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
   },
   {
     id: 2,
@@ -38,8 +36,6 @@ const drivers = [
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
       "In its Five Pillars of Productivity enquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour. [4, 5]",
-    sources:
-      "Sources (4, 5): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026; Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
   },
   {
     id: 3,
@@ -50,8 +46,6 @@ const drivers = [
       "Driver 3 — Emergence of AI, greater automation and broader digital transformation",
     fullDesc:
       "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions. [6, 7]",
-    sources:
-      "Sources (6, 7): Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025; Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024; Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025.",
   },
   {
     id: 4,
@@ -60,7 +54,6 @@ const drivers = [
     fullTitle: "Driver 4 — Workforce inclusivity",
     fullDesc:
       "Workforce inclusivity has been a key focus across the labour market. In the Public Safety and Government industry-sectors this is likely to translate into a continued focus on recruiting, retaining and developing employees from diverse cultural, linguistic, gender, disability and neurodivergent backgrounds. As organisations seek to increase workforce participation from these cohorts, they will be required to adapt and change legacy systems and processes to respond to the needs of the modern workforce.",
-    sources: "",
   },
 ];
 
@@ -295,11 +288,6 @@ export default function CorrectionalServicesDriversOfChangeView({
                   <p className="mt-4 max-w-[960px] text-sm leading-6 text-[#535862]">
                     {activeDriver.fullDesc}
                   </p>
-                  {activeDriver.sources && (
-                    <p className="mt-4 max-w-[960px] border-t border-[#728C28]/20 pt-4 text-xs leading-6 text-[#598303]">
-                      {activeDriver.sources}
-                    </p>
-                  )}
                 </div>
               )}
             </div>

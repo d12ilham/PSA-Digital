@@ -1,0 +1,116 @@
+.page { padding-bottom: 24px; }
+.page .badge { width: fit-content; background: #c9481a; }
+.page .artwork { width: 180px; height: 180px; flex: none; align-self: center; }
+.copy { max-width: 800px; font-size: 14px; font-weight: 500; line-height: 24px; }
+.copy sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.services, .callouts, .chartGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.services > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 14px 20px;
+  min-height: 92px;
+  border-radius: 8px;
+  background: #f5e8db;
+  color: #535862;
+  font-size: 24px;
+  line-height: 32px;
+}
+.services img { flex: none; }
+.services strong { max-width: 245px; }
+.servicesExpanded > div { flex-direction: column; gap: 12px; min-height: 136px; font-size: 18px; line-height: 24px; text-align: center; }
+.servicesExpanded strong { max-width: none; }
+.datapointsHeading { padding: 0 0 16px; border-bottom: 1px solid #d5d7da; }
+.datapointsHeading h2 { font-size: 24px; font-weight: 700; line-height: 32px; }
+.datapointsHeading .narrowHeading { max-width: 800px; }
+.datapoints { display: grid; gap: 24px; margin-top: 24px; }
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 16px 10px 24px;
+  border: 1px solid #c9481a;
+  border-left-width: 8px;
+  border-radius: 14px;
+  background: #f5e8db;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  cursor: pointer;
+}
+.toggle[aria-expanded="true"] { min-height: 68px; border-left-color: #edaf87; background: #c9481a; }
+.toggle[aria-expanded="true"] .toggleTitle { padding: 8px 16px; border-radius: 8px; background: #edaf87; }
+.pill { display: inline-flex; flex: none; align-items: center; gap: 12px; padding: 0 20px; min-height: 40px; border-radius: 999px; background: #8ac900; font-size: 14px; font-weight: 700; }
+.toggle[aria-expanded="true"] .pill svg { transform: rotate(180deg); }
+.toggle:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.panel { display: grid; gap: 24px; margin-top: 24px; }
+.callouts { gap: 8px; }
+.callouts > div { align-content: center; padding: 16px 24px; border-radius: 8px; background: #f5e8db; color: #535862; font-size: 18px; font-weight: 700; line-height: 24px; }
+.surfFacts { gap: 12px; padding: 24px; border-radius: 14px; background: #e5e8da; }
+.surfFacts > div { background: white; font-size: 24px; line-height: 38px; }
+.surfFacts strong { color: #c9481a; }
+.chart { display: grid; grid-template-rows: minmax(36px, auto) 1fr auto; min-width: 0; min-height: 600px; padding: 24px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
+.chart h3 { max-width: 500px; font-size: 14px; font-weight: 700; line-height: 18px; }
+.chart svg { align-self: center; width: 100%; font-size: 12px; fill: #252d02; overflow: visible; }
+.chart figcaption { color: #598303; font-size: 10px; line-height: 14px; text-transform: uppercase; }
+.barValue, .lineValue { font-weight: 700; }
+.lineValue { fill: #ad271b; }
+
+@media (min-width: 1488px) {
+  .page.page > :first-child button:nth-child(2) { width: 366px; border-color: #c7de9a; }
+  .page.page > :first-child button:nth-child(3) { width: 264px; }
+}
+@media (max-width: 900px) {
+  .chartGrid { grid-template-columns: minmax(0, 1fr); }
+  .chart { min-height: 0; }
+  .services > div { flex-direction: column; gap: 12px; text-align: center; font-size: 18px; line-height: 24px; }
+}
+@media (max-width: 639px) {
+  .services, .callouts { grid-template-columns: minmax(0, 1fr); }
+  .toggle { font-size: 16px; line-height: 24px; padding-inline: 10px; }
+  .pill { gap: 4px; padding-inline: 12px; }
+  .chart { padding: 12px; }
+}
+
+.services > div,
+.toggle,
+.chart,
+.callouts > div {
+  transition: box-shadow .25s, border-color .25s;
+}
+
+.services img,
+.pill,
+.pill svg {
+  transition: transform .25s, filter .25s;
+}
+
+.mark circle,
+.mark rect {
+  transition: fill .2s;
+}
+
+@media (hover: hover) {
+  .services > div:hover,
+  .toggle:hover,
+  .chart:hover,
+  .callouts > div:hover {
+    box-shadow: 0 4px 14px #252d021a;
+  }
+
+  .services > div:hover img { transform: scale(1.08); }
+  .toggle:hover .pill { transform: scale(1.04); filter: brightness(.96); }
+  .chart:hover { border-color: #c9481a; }
+  .mark:hover :is(circle, rect) { fill: #c9481a; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services > div:hover img,
+  .toggle:hover .pill { transform: none; }
+}

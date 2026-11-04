@@ -1,0 +1,15 @@
+export const defenceTechnologySources = [
+  "Jobs and Skills Australia (JSA), Connecting for Impact – The Jobs and Skills Report 2025, JSA, 2025, page 81, accessed 19 November 2025.",
+  "Australian Computer Society (ACS), Digital Tasmania Strategy 2026-2031, ACS, 2024, page 7, accessed 6 January 2026.",
+  "Australian Computer Society (ACS), Digital Tasmania Strategy 2026-2031, ACS, 2024, page 12, accessed 6 January 2026.",
+  "Department of Defence, 2024 National Defence Strategy and 2024 Integrated Investment Program, Department of Defence, Australian Government, 2024, page 7, accessed 19 November 2025.",
+  "Department of Defence, 2024 National Defence Strategy, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
+  "Department of Defence, 2024 National Defence Strategy, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
+  "Department of Defence, 2024 Integrated Investment Program, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
+  "Department of Defence, Albanese Government to invest up to $7 billion in counter drone defence [media release], Department of Defence, Australian Government, 21 April 2026, accessed 28 April 2026.",
+  "S Baker, ‘The drone war is moving too fast for old-school defense tech development, CEO warns’, Business Insider, 18 November 2025, accessed 5 January 2026; O Molloy, Drones in Modern Warfare: Lessons Learnt from the War in Ukraine, Australian Army Occasional Paper No. 29, 2024, accessed 6 January 2026.",
+  "S Baker, ‘The drone war is moving too fast for old-school defense tech development, CEO warns’, Business Insider, 18 November 2025, accessed 5 January 2026.",
+  "Department of Defence, Growing sovereign industrial base with 300 drones delivered to Defence [media release], Department of Defence, Australian Government, 19 August 2025; Department of Defence, 2024 National Defence Strategy and 2024 Integrated Investment Program, Department of Defence, Australian Government, 2024; Department of Defence, Counter-drone investment and drone championships [media release], Department of Defence, Australian Government, 24 July 2025; Department of Defence, Albanese Government invests over $100 million to deliver next generation drones [media release], Department of Defence, Australian Government, 15 July 2024.",
+  "Department of Defence, Drone Training Takes Off [media release], Australian Government, 14 April 2025, accessed 19 December 2025.",
+  "Ministers’ Media Centre, $28 million TAFE Centre of Excellence to boost national security and upskill workers for AUKUS [media release], Ministers of the Employment and Workplace Relations Portfolio, 26 September 2025, accessed 9 January 2026.",
+];

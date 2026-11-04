@@ -48,9 +48,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">1</span>
               <div className="max-w-[850px] animate-slide-up motion-reduce:animate-none">
                 <p className="text-sm font-medium text-[#424996]">Theme One, Insight One</p>
-                <p className="mt-5 text-xl font-semibold">Skills and Capabilities</p>
                 <h1 className="mt-5 text-2xl font-semibold leading-8">Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community</h1>
-                <p className="mt-5 text-sm leading-6">Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community. This means that CCOs require the capability to support the reduction of recidivism and enable rehabilitation.</p>
               </div>
             </div>
             <div className="grid size-[180px] shrink-0 place-items-center self-center rounded-full bg-white xl:size-[220px]" aria-hidden="true">
@@ -61,18 +59,20 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
           </div>
         </section>
 
-        <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">
-          <h2 className="text-2xl font-semibold">The Role of a Community Corrections Officer (CCO)</h2>
-          <div className="mt-5 max-w-[850px] space-y-5 text-sm leading-6">
-            <p>The role of CCOs is to assess and manage risk, monitor compliance with legal conditions (such as bail, parole and sentencing requirements) and respond to breaches of such conditions. CCOs provide case management and risk assessment of people who are serving a sentence (custodial and non-custodial) and assist in the transition and reintegration of offenders from custodial settings back into the community. They support behavioural change and seek to reduce the likelihood of reoffending.</p>
-            <p>Through research and consultation, Public Skills Australia identified several distinct challenges that have implications for the workforce and training specific to CCOs across jurisdictions within the Correctional Services industry-sector.</p>
+        <section className="grid items-center gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 lg:grid-cols-[minmax(0,1fr)_72px]">
+          <div>
+            <h2 className="text-2xl font-semibold">The Role of a Community Corrections Officer (CCO)</h2>
+            <div className="mt-5 max-w-[850px] space-y-5 text-sm leading-6">
+              <p>The role of CCOs is to assess and manage risk, monitor compliance with legal conditions (such as bail, parole and sentencing requirements) and respond to breaches of such conditions. CCOs provide case management and risk assessment of people who are serving a sentence (custodial and non-custodial) and assist in the transition and reintegration of offenders from custodial settings back into the community. They support behavioural change and seek to reduce the likelihood of reoffending.</p>
+              <p>Through research and consultation, Public Skills Australia identified several distinct challenges that have implications for the workforce and training specific to CCOs across jurisdictions within the Correctional Services industry-sector.</p>
+            </div>
           </div>
+          <span className="order-first grid size-[72px] place-items-center rounded-full bg-[#EDEDF5] text-[#424996] lg:order-last"><BriefcaseBusiness size={38} strokeWidth={1.5} aria-hidden="true" /></span>
         </section>
 
         <div className="grid gap-6 lg:grid-cols-2">
           <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">
-            <span className="grid size-[72px] place-items-center rounded-full bg-[#EDEDF5] text-[#424996]"><BriefcaseBusiness size={38} strokeWidth={1.5} aria-hidden="true" /></span>
-            <h2 className="mt-5 text-2xl font-semibold leading-8 text-[#424996]">A. Entry Level Training and Specialisations for Community Corrections Officers</h2>
+            <h2 className="text-2xl font-semibold leading-8 text-[#424996]">A. Entry Level Training and Specialisations for Community Corrections Officers</h2>
             <p className="mt-4 text-sm leading-6 text-[#535862]">Stakeholders noted challenges in accessing appropriate skills specialisations through the Certificate III in Correctional Practice for CCOs. These skills are captured in Adult and Youth Community Specialisations across both Certificate III and Certificate IV. However, consultations and data verified that organisations are electing to train CCOs through the Certificate IV in Correctional Practice rather than the Certificate III (due to specialisation units of competency in the Certificate III not providing the sufficient complex knowledge required for the role). In some jurisdictions, stakeholders reported that the skills possessed by CCOs are also becoming increasingly valued in the custodial environment for COs.<sup><a className="text-[#424996] hover:underline" href="#correctional-workforce-source-19">19</a></sup></p>
           </section>
           <IndustryInsight>Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community. This means that CCOs require the capability to support the reduction of recidivism and enable rehabilitation.</IndustryInsight>

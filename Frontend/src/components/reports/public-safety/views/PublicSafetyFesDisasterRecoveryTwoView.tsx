@@ -1,24 +1,57 @@
-"use client";
-
-import { BarChart3, BrainCircuit, Cog, Lightbulb, Search, Users } from "lucide-react";
+import Image from "next/image";
+import { fesDisasterRecoverySources } from "../data/fesDisasterRecoverySources";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
-
-const sources = [
-  "Australian Institute for Disaster Resilience, Australian Institute for Disaster Resilience Handbook Collection: Community Recovery, Australian Government Department of Home Affairs, 2018, pages 6–7.",
-  "Training.gov.au, Training package – PUA Public Safety, Australian Government, 2025, accessed 8 January 2026.",
-  "National Centre for Vocational Education Research (NCVER), Total VET students and courses: VOCSTATS, [data set], NCVER, 2025, accessed 13 December 2025.",
-];
-
-function IconCluster() {
-  return <div className="absolute right-8 top-5 hidden h-[150px] w-[330px] lg:block"><span className="absolute left-2 top-16 grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Lightbulb size={26}/></span><span className="absolute left-16 top-5 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Users size={21}/></span><span className="absolute left-[125px] top-0 grid size-20 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Search size={35}/></span><span className="absolute left-[195px] top-[78px] grid size-14 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Cog size={26}/></span><span className="absolute right-0 top-12 grid size-16 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><BarChart3 size={31}/></span><span className="absolute right-7 top-0 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><BrainCircuit size={22}/></span></div>;
-}
+import layout from "./PublicSafetyDefenceWorkforceInsightsView.module.css";
+import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
+import styles from "./PublicSafetyFesDisasterRecoveryView.module.css";
 
 export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_disaster_recovery" navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, next:{label:"2. Surf Life Saving First Aid",href:`/reports/${slug}/fes_surf_life_saving_first_aid`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="relative min-h-[190px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-7 lg:px-8"><div className="relative z-10 max-w-[920px]"><span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold text-white">Theme One. Disaster Recovery. Insight Two</span><h1 className="mt-5 text-[38px] font-bold leading-[46px] text-[#252D02]">2. Disaster Recovery. Insight Two.</h1><p className="mt-4 max-w-[980px] text-xs leading-5 text-[#535862]">Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters.</p></div><IconCluster/></section>
+  const reportPath = `/reports/${slug}`;
+  const insightsPath = `${reportPath}/fes_workforce_insights`;
 
-    <section className="rounded-xl border border-[#E9EAEB] bg-white p-6 lg:p-8"><h2 className="border-b border-[#E9EAEB] pb-5 text-2xl font-bold text-[#252D02]">Access to disaster recovery training</h2><div className="mt-7 text-xs leading-6 text-[#535862]"><p>Collectively, the disaster recovery training products are targeted at individuals without emergency service backgrounds, including community members, social service providers, local government personnel, spontaneous volunteers and recovery coordinators.<sup>57</sup></p><p className="mt-4">Despite the relevance and importance of disaster recovery training, there are limited TAFEs and RTOs equipped to deliver this training. For example:</p><ul className="ml-5 mt-2 list-disc space-y-1"><li>seven of the nine newly developed skill sets are not on scope for any RTO</li><li>only one RTO has the qualification and four associated units of competency on scope</li><li>only five RTOs have the PUASS00098 Manage a Recovery Centre skill set on scope.<sup>58</sup></li></ul><p className="mt-4">Additionally, there have been no enrolment or completion data for all 14 recovery training products since their release in 2022.<sup>59</sup></p></div><div className="mt-8 rounded-lg border border-[#F0D9D1] border-l-[8px] border-l-[#D95222] bg-[#FBECE7] px-6 py-5"><div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-full bg-white text-[#719926]"><Users size={20}/></span><strong className="text-sm text-[#252D02]">Industry Insight</strong></div><p className="mt-4 text-xs leading-5 text-[#535862]">Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters.</p></div></section>
+  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_disaster_recovery_2" contentClassName={`${layout.page} ${styles.page}`} navigation={{
+    back: { label: "Workforce Insights", href: insightsPath },
+    backSecondary: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
+    prev: { label: "Workforce Insights", href: insightsPath },
+    next: { label: "Disaster Recovery. Insight Three.", href: `${reportPath}/fes_disaster_recovery_3` },
+    prevPrefix: "Previous Section:",
+    nextPrefix: "Next Section:",
+  }}>
+    <section className={`${layout.hero} ${styles.hero}`}>
+      <div className={`${styles.heroCopy} animate-slide-up`}>
+        <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
+        <h1>1. Disaster Recovery. Insight Two.</h1>
+        <div className={styles.summary}>
+          <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
+          <p>Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters.</p>
+        </div>
+      </div>
+      <div className={`${styles.house} ${styles.animatedHouse} animate-zoom-in`}>
+        <Image src="/images/reports/public-safety/fes-recovery-house.png" width={111} height={122} alt="" unoptimized priority />
+      </div>
+    </section>
 
-    <section className="rounded-xl border border-[#E9EAEB] bg-white p-6 lg:p-8"><h2 className="text-xl font-bold text-[#252D02]">Sources</h2><ul className="mt-5 space-y-3">{sources.map((source,index)=><li key={source} className="flex gap-3 text-[11px] leading-5 text-[#535862]"><span className="mt-1 grid size-4 shrink-0 place-items-center rounded-full bg-[#7F9C37] text-[8px] text-white">{57+index}</span><span>{source}</span></li>)}</ul></section>
+    <section className={`${styles.detail} ${styles.animatedSection} animate-slide-up-delay`}>
+      <h2>Access to disaster recovery training</h2>
+      <div className={styles.narrative}>
+        <div className="max-w-[800px]">
+          <p>Despite the relevance and importance of disaster recovery training, there are limited TAFEs and RTOs equipped to deliver this training. For example:</p>
+          <ul className="list-disc ps-5">
+            <li>seven of the nine newly developed skill sets are not on scope for any RTO</li>
+            <li>only one RTO has the qualification and four associated units of competency on scope</li>
+            <li>only five RTOs have the PUASS00098 Manage a Recovery Centre skill set on scope.<sup>58</sup></li>
+          </ul>
+          <p>Additionally, there have been no enrolment or completion data for all 14 recovery training products since their release in 2022.<sup>59</sup></p>
+        </div>
+      </div>
+    </section>
+
+    <hr className={styles.rule} />
+    <section className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
+      <h2>Sources</h2>
+      <ol start={53}>
+        {fesDisasterRecoverySources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}
+      </ol>
+    </section>
   </PublicSafetyPageShell>;
 }

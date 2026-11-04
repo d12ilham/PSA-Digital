@@ -51,7 +51,7 @@ type JurisdictionCode = (typeof jurisdictions)[number]["code"];
 
 const mapLabels: Partial<Record<JurisdictionCode, [number, number]>> = {
   WA: [215, 312], NT: [404, 205], SA: [427, 385], QLD: [572, 258],
-  NSW: [602, 435], VIC: [575, 498], TAS: [569, 581],
+  NSW: [602, 435], VIC: [710, 535], TAS: [710, 590],
 };
 
 const characteristics = [
@@ -104,8 +104,8 @@ const expenditure = [
 ];
 
 const expenditureMapLabels: Record<string, [number, number]> = {
-  WA: [215, 340], NT: [405, 220], QLD: [575, 275], SA: [430, 395],
-  NSW: [595, 440], VIC: [565, 505], TAS: [615, 585], ACT: [720, 505],
+  WA: [215, 340], NT: [405, 220], QLD: [575, 275], SA: [426.9, 370],
+  NSW: [595, 410], VIC: [735, 530], TAS: [735, 590], ACT: [735, 465],
 };
 
 function useReveal(active: number) {
@@ -126,19 +126,19 @@ function HorizontalBars({ rows, max, suffix = "", visible }: {
   const ticks = suffix ? [0, 5, 10, 15, 20, 25, 30] : max === 50 ? [0, 10, 20, 30, 40, 50] : [0, 500, 1000, 1500, 2000];
   return (
     <div className="mt-7 overflow-x-auto">
-      <div className="min-w-[570px]">
+      <div className="min-w-[640px]">
         <div className="space-y-3">
           {rows.map(({ label, value, display }, index) => (
             <div key={label} className="grid grid-cols-[96px_minmax(0,1fr)] items-center gap-4">
               <span className="text-right text-xs font-semibold text-[#252D02]">{label}</span>
-              <div className="relative h-8">
+              <div className="relative mr-20 h-8">
                 <div className="h-full rounded-r-[3px] bg-[#424996] transition-[width,filter] duration-700 ease-out hover:brightness-125" style={{ width: visible ? `${(value / max) * 100}%` : "0%", transitionDelay: `${index * 55}ms` }} title={`${label}: ${display ?? `${value}${suffix}`}`} />
-                <span className="absolute top-1/2 -translate-y-1/2 pl-3 text-xs font-semibold tabular-nums text-[#424996]" style={{ left: `${(value / max) * 100}%` }}>{display ?? `${value.toFixed(suffix ? 1 : 0)}${suffix}`}</span>
+                <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-3 text-lg font-semibold leading-6 tabular-nums text-[#424996]" style={{ left: `${(value / max) * 100}%` }}>{display ?? `${value.toFixed(suffix ? 1 : 0)}${suffix}`}</span>
               </div>
             </div>
           ))}
         </div>
-        <div className="ml-[112px] mt-5 flex justify-between border-t border-[#E4E7EC] pt-2 text-[11px] tabular-nums text-[#667085]">
+        <div className="ml-[112px] mr-20 mt-5 flex justify-between border-t border-[#E4E7EC] pt-2 text-[11px] tabular-nums text-[#667085]">
           {ticks.map((tick) => <span key={tick}>{tick.toLocaleString()}{suffix}</span>)}
         </div>
       </div>
@@ -198,7 +198,7 @@ function FacilitiesMap() {
         </button>
       </div>
       <div ref={mapRef} className="relative mt-4 min-h-[300px] sm:min-h-[440px]">
-        <svg viewBox="55 20 740 605" role="img" aria-label="Map of Australian correctional services employment by jurisdiction" className={`block w-full motion-reduce:opacity-100 motion-reduce:animate-none sm:w-[73%] ${mapVisible ? "animate-zoom-in" : "opacity-0"}`}>
+        <svg viewBox="55 20 780 605" role="img" aria-label="Map of Australian correctional services employment by jurisdiction" className={`block w-full motion-reduce:opacity-100 motion-reduce:animate-none sm:w-[73%] ${mapVisible ? "animate-zoom-in" : "opacity-0"}`}>
           {Object.values(mapData.states).map((state) => (
             <path key={state.code} d={state.d} fill={selected === state.code ? "#858FC5" : "#A7B0D7"}
               stroke="#F7F8F9" strokeWidth="1.5" strokeLinejoin="round"
@@ -211,18 +211,43 @@ function FacilitiesMap() {
             const [x, y] = mapLabels[code] ?? [0, 0];
             return (
               <g key={code} className={`pointer-events-none motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: `${0.35 + index * 0.08}s` } : undefined}>
+                {(code === "VIC" || code === "TAS") && <>
+                  <circle cx={mapData.states[code].center[0]} cy={mapData.states[code].center[1]} r="3" fill="#424996" />
+                  <path d={`M${mapData.states[code].center.join(" ")}L${x - 60} ${y - 7.5}H${x - 22}`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </>}
                 <rect x={x - 22} y={y - 20} width="44" height="25" rx="12.5" fill="#424996" />
                 <text x={x} y={y - 3} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{code}</text>
-                <text x={x} y={y + 20} textAnchor="middle" fill="#252D02" fontSize="9" fontWeight="500">Employees: {employees.toLocaleString()}</text>
+                <text x={x} y={y + (code === "VIC" || code === "TAS" ? 26 : 20)} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>{employees.toLocaleString()}</text>
               </g>
             );
           })}
           <g className={`motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.91s" } : undefined}>
-            <circle cx="670" cy="455" r="4" fill="#424996" />
-            <path d="M670 455H728" stroke="#424996" strokeWidth="1.5" />
+            <path d={`M${mapData.states.ACT.center.join(" ")}L670 455H728`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
+            <circle
+              cx={mapData.states.ACT.center[0]}
+              cy={mapData.states.ACT.center[1]}
+              r="5"
+              fill={selected === "ACT" ? "#424996" : "#A7B0D7"}
+              stroke="#F7F8F9"
+              strokeWidth="1.5"
+              role="button"
+              tabIndex={0}
+              aria-label="Select Australian Capital Territory on the map"
+              aria-pressed={selected === "ACT"}
+              onClick={() => setSelected("ACT")}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setSelected("ACT");
+                }
+              }}
+              className="cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]"
+            >
+              <title>Select Australian Capital Territory</title>
+            </circle>
             <rect x="728" y="443" width="45" height="24" rx="12" fill="#424996" />
             <text x="750" y="460" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ACT</text>
-            <text x="750" y="481" textAnchor="middle" fill="#252D02" fontSize="9">Employees: 568</text>
+            <text x="750" y="481" textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>568</text>
           </g>
         </svg>
         <div key={selected} className={`relative mx-auto mt-2 w-full max-w-[250px] rounded-md bg-[#424996] p-3 motion-reduce:opacity-100 motion-reduce:animate-none sm:absolute sm:right-0 sm:top-[14%] sm:mt-0 sm:w-[28%] ${mapVisible ? "animate-card-entrance" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.35s" } : undefined} aria-live="polite">
@@ -230,7 +255,7 @@ function FacilitiesMap() {
           <div className="space-y-1.5">
             {counts.filter(([label, value]) => value > 0 || label === "Total").map(([label, value]) => (
               <div key={label} className="rounded-sm bg-white px-3 py-2 text-[#252D02]">
-                <strong className="block text-base leading-5 tabular-nums text-[#424996]">{value}</strong>
+                <strong className="block text-xl leading-7 tabular-nums text-[#424996]">{value}</strong>
                 <span className="text-[10px] leading-4">{label}</span>
               </div>
             ))}
@@ -249,8 +274,8 @@ function ExpenditureMap({ visible }: { visible: boolean }) {
         <span className="text-xs font-medium uppercase">Australia</span>
         <strong className="text-right text-2xl font-semibold tabular-nums sm:text-3xl">$6.38 billion</strong>
       </div>
-      <div className="overflow-x-auto">
-        <svg viewBox="0 0 800 630" className="min-w-[580px] w-full" role="img" aria-label="Map of 2024–25 prisons and community corrections operating expenditure by state and territory">
+      <div className="mx-auto max-w-[680px] overflow-x-auto">
+        <svg viewBox="0 0 860 630" className="min-w-[640px] w-full lg:min-w-0 lg:max-h-[clamp(350px,calc(var(--profile-pane-height,calc(100dvh-104px))-260px),480px)]" role="img" aria-label="Map of 2024–25 prisons and community corrections operating expenditure by state and territory">
           <g className="transition-opacity duration-700 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0 }}>
             {Object.values(mapData.states).map((state) => (
               <path key={state.code} d={state.d} fill="white" stroke="#424996" strokeWidth="1.5" strokeLinejoin="round" className="transition-colors duration-200 hover:fill-[#F2F3FA]">
@@ -260,14 +285,19 @@ function ExpenditureMap({ visible }: { visible: boolean }) {
           </g>
           {expenditure.map(({ label, display }, index) => {
             const [x, y] = expenditureMapLabels[label];
+            const calloutCode = label === "ACT" || label === "TAS" || label === "VIC" ? label : undefined;
             return <g key={label} className="transition-opacity duration-500 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0, transitionDelay: `${200 + index * 70}ms` }}>
-              <text x={x} y={y} fill="#727DB1" fontSize="20" fontWeight="500">{label}</text>
-              <text x={x} y={y + 20} fill="#252D02" fontSize="13" fontWeight="600">{display}</text>
+              {calloutCode && <>
+                <circle cx={mapData.states[calloutCode].center[0]} cy={mapData.states[calloutCode].center[1]} r="3" fill="#424996" pointerEvents="none" />
+                <path d={`M${mapData.states[calloutCode].center.join(" ")}L${x - 100} ${y + 7}H${x - 75}`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
+              </>}
+              <text x={x} y={y} textAnchor="middle" fill="#727DB1" fontSize="20" fontWeight="500">{label}</text>
+              <text x={x} y={y + 24} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600">{display}</text>
             </g>;
           })}
           <g className="transition-opacity duration-500 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0, transitionDelay: "680ms" }}>
             <text x="45" y="535" fill="#727DB1" fontSize="18">AUSTRALIA</text>
-            <text x="45" y="555" fill="#252D02" fontSize="13" fontWeight="600">$6.38 billion</text>
+            <text x="45" y="559" fill="#252D02" fontSize="22" fontWeight="600">$6.38 billion</text>
           </g>
         </svg>
       </div>
@@ -302,16 +332,16 @@ function ChartContent({ active }: { active: number }) {
                 <strong className="text-[11px] font-semibold leading-4 text-[#424996]">{label}</strong>
                 <div className="space-y-2">
                   {([ ["Community Corrections", community, "#9DA8D0"], ["Custodial Settings", custodial, "#424996"] ] as const).map(([series, value, color], seriesIndex) => (
-                    <div key={series} className="relative mr-9 h-6" title={`${label}: ${series} ${value}%`}>
+                    <div key={series} className="relative mr-20 h-7" title={`${label}: ${series} ${value}%`}>
                       <div className="h-full rounded-r-[3px] transition-[width,filter] duration-700 ease-out hover:brightness-110 motion-reduce:transition-none" style={{ width: visible ? `${(value / 80) * 100}%` : "0%", backgroundColor: color, transitionDelay: `${groupIndex * 110 + seriesIndex * 60}ms` }} />
-                      <span className="absolute top-1/2 -translate-y-1/2 pl-2 text-[11px] font-semibold tabular-nums text-[#424996] transition-opacity duration-300 motion-reduce:transition-none" style={{ left: `${(value / 80) * 100}%`, opacity: visible ? 1 : 0, transitionDelay: `${groupIndex * 110 + seriesIndex * 60 + 250}ms` }}>{value}%</span>
+                      <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-2 text-lg font-semibold leading-6 tabular-nums text-[#424996] transition-opacity duration-300 motion-reduce:transition-none" style={{ left: `${(value / 80) * 100}%`, opacity: visible ? 1 : 0, transitionDelay: `${groupIndex * 110 + seriesIndex * 60 + 250}ms` }}>{value}%</span>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-          <div className="ml-[188px] mr-9 mt-5 flex justify-between border-t border-[#E4E7EC] pt-2 text-[10px] tabular-nums text-[#667085]">
+          <div className="ml-[188px] mr-20 mt-5 flex justify-between border-t border-[#E4E7EC] pt-2 text-[10px] tabular-nums text-[#667085]">
             {[0, 20, 40, 60, 80].map((tick) => <span key={tick}>{tick}</span>)}
           </div>
           <div className="ml-[188px] mt-5 flex flex-wrap gap-x-10 gap-y-2 text-[11px] text-[#535862]">
@@ -328,7 +358,7 @@ function ChartContent({ active }: { active: number }) {
   if (active === 3) return (
     <>
       <div className="mt-6 overflow-x-auto">
-        <div className="min-w-[640px]">
+        <div className="min-w-[760px]">
           <div className="space-y-1">
             {[2024, 2023, 2022, 2021, 2020, 2019].map((year, yearIndex) => (
               <div key={year} className="grid grid-cols-[44px_minmax(0,1fr)] items-center gap-2 border-b border-[#D9DCE2] py-2 last:border-b-0">
@@ -341,9 +371,9 @@ function ChartContent({ active }: { active: number }) {
                     const value = values[5 - yearIndex];
                     const width = `${(value / 6000) * 100}%`;
                     return (
-                      <div key={qualification} className="relative h-3.5" title={`${year} ${qualification}: ${value.toLocaleString()} enrolments`}>
+                      <div key={qualification} className="relative h-6" title={`${year} ${qualification}: ${value.toLocaleString()} enrolments`}>
                         <div className="relative h-full rounded-r-[2px] transition-[width,filter] duration-700 ease-out hover:brightness-110 motion-reduce:transition-none" style={{ width: visible ? width : "0%", backgroundColor: color, transitionDelay: `${yearIndex * 75 + seriesIndex * 35}ms` }} />
-                        <span className="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[10px] font-medium tabular-nums text-[#535862] transition-opacity duration-300 motion-reduce:transition-none" style={{ left: width, opacity: visible ? 1 : 0, transitionDelay: `${yearIndex * 75 + seriesIndex * 35 + 260}ms` }}>{value.toLocaleString()}</span>
+                        <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-1.5 text-lg font-semibold leading-6 tabular-nums text-[#535862] transition-opacity duration-300 motion-reduce:transition-none" style={{ left: width, opacity: visible ? 1 : 0, transitionDelay: `${yearIndex * 75 + seriesIndex * 35 + 260}ms` }}>{value.toLocaleString()}</span>
                       </div>
                     );
                   })}
@@ -368,7 +398,7 @@ function ChartContent({ active }: { active: number }) {
     <>
       <p className="mt-4 text-[11px] text-[#667085]">Y-axis: imprisonment rate (per 100,000 adult population), 2024–2025</p>
       <div className="mt-5 w-full overflow-x-auto">
-        <svg viewBox="0 0 900 470" className="min-w-[620px] w-full" role="img" aria-label="Average daily imprisonment rate in Australia from March 2024 to December 2025">
+        <svg viewBox="0 0 900 470" className="min-w-[900px] w-full" role="img" aria-label="Average daily imprisonment rate in Australia from March 2024 to December 2025">
           <text x="18" y="227" transform="rotate(-90 18 227)" textAnchor="middle" fill="#252D02" fontSize="12">Imprisonment rate (per 100,000 adult population)</text>
           {Array.from({ length: 11 }, (_, index) => 220 - index * 2).map((tick) => {
             const y = 38 + ((220 - tick) / 20) * 350;
@@ -381,7 +411,7 @@ function ChartContent({ active }: { active: number }) {
             const below = index === 0 || index === 3;
             return <g key={label} className="transition-opacity duration-500 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0, transitionDelay: `${index * 85 + 320}ms` }}>
               <circle cx={x} cy={y} r="9" fill="transparent"><title>{label}: {value.toFixed(1)} per 100,000 adults</title></circle>
-              <text x={x} y={y + (below ? 22 : -12)} textAnchor="middle" fill="#252D02" fontSize="15" fontWeight="500">{value.toFixed(1)}</text>
+              <text x={x} y={y + (below ? 28 : -14)} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="500">{value.toFixed(1)}</text>
               <text x={x} y="422" textAnchor="middle" fill="#252D02" fontSize="13">{label}</text>
             </g>;
           })}
@@ -445,12 +475,50 @@ function ChartContent({ active }: { active: number }) {
 export default function CorrectionalServicesIndustryProfilePresentationView({ slug, report }: { slug: string; report: Report }) {
   const [active, setActive] = React.useState(0);
   const chartRef = React.useRef<HTMLDivElement>(null);
+  const selectorRef = React.useRef<HTMLDivElement>(null);
+  const workspaceRef = React.useRef<HTMLElement>(null);
+
+  React.useEffect(() => {
+    let frame = 0;
+    const updateHeight = () => {
+      frame = 0;
+      const workspace = workspaceRef.current;
+      if (!workspace || window.innerWidth < 1024) return;
+      const top = Math.max(80, workspace.getBoundingClientRect().top);
+      workspace.style.setProperty("--profile-pane-height", `${Math.max(200, window.innerHeight - top - 24)}px`);
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(updateHeight);
+    };
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
 
   const selectChart = (index: number) => {
     setActive(index);
-    if (window.matchMedia("(max-width: 1023px)").matches) {
-      requestAnimationFrame(() => chartRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
-    }
+    requestAnimationFrame(() => {
+      const chart = chartRef.current;
+      chart?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      const selector = selectorRef.current;
+      const selected = selector?.querySelector<HTMLButtonElement>(`#profile-tab-${index}`);
+      if (selector && selected) {
+        const top = selected.getBoundingClientRect().top - selector.getBoundingClientRect().top + selector.scrollTop;
+        if (top < selector.scrollTop) selector.scrollTop = top;
+        else if (top + selected.offsetHeight > selector.scrollTop + selector.clientHeight) {
+          selector.scrollTop = top + selected.offsetHeight - selector.clientHeight;
+        }
+      }
+      chart?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    });
   };
 
   return (
@@ -463,8 +531,14 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
           <h1 className="mt-4 text-[32px] font-bold leading-tight text-[#252D02] sm:text-[40px]">Industry Profile</h1>
           <p className="mt-2 text-sm text-[#535862]">Select a chart to open it in a large presentation view.</p>
         </section>
-        <section className="grid items-start gap-6 lg:grid-cols-[400px_minmax(0,1fr)]" aria-label="Industry Profile charts">
-          <div className="space-y-2" role="tablist" aria-label="Industry Profile charts">
+        <section ref={workspaceRef} className={`flex flex-col gap-6 lg:grid lg:items-start lg:grid-cols-[400px_minmax(0,1fr)] ${active === 7 ? "lg:min-h-[calc(100dvh-104px)]" : ""}`} aria-label="Industry Profile charts">
+          <div className="sticky top-[60px] z-30 min-w-0 rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
+            <label htmlFor="profile-chart-select" className="block text-xs font-semibold text-[#424996]">Choose a chart · {active + 1} of {chartTitles.length}</label>
+            <select id="profile-chart-select" value={active} onChange={(event) => selectChart(Number(event.target.value))} aria-controls="profile-chart" className="mt-2 block h-11 w-full min-w-0 rounded-md border border-[#424996] bg-white px-3 text-sm text-[#252D02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]">
+              {chartTitles.map((title, index) => <option key={title} value={index}>{String(index + 1).padStart(2, "0")} · {title}</option>)}
+            </select>
+          </div>
+          <div ref={selectorRef} className="hidden space-y-2 lg:sticky lg:top-20 lg:block lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:overflow-y-auto lg:overscroll-contain lg:pr-1" role="tablist" aria-label="Industry Profile charts" aria-orientation="vertical">
             {chartTitles.map((title, index) => (
               <button key={title} id={`profile-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls="profile-chart" onClick={() => selectChart(index)} className={`grid min-h-[122px] w-full grid-cols-[1fr_38px] items-center gap-4 rounded-lg border px-5 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ${active === index ? "border-[#424996] bg-[#F0F1F9] shadow-sm" : "border-[#E9EAEB] bg-white hover:border-[#9DA8D0] hover:bg-[#F8F8FC]"}`}>
                 <span><small className="mb-3 block text-[10px] font-semibold uppercase text-[#424996]">{String(index + 1).padStart(2, "0")} · CS · Presentation View</small><strong className="block text-sm leading-5 text-[#252D02]">{title}</strong>{index === 7 && <strong className="mt-2 block text-sm">$6.38 billion</strong>}</span>
@@ -472,9 +546,9 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
               </button>
             ))}
           </div>
-          <div ref={chartRef} id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} className={`min-w-0 scroll-mt-20 rounded-lg border border-[#E9EAEB] px-5 py-6 sm:px-7 ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
-            <div className={active === 2 ? "rounded-lg border border-[#E9EAEB] bg-white p-5 sm:p-6" : undefined}>
-              <h2 className="text-lg font-semibold leading-7 text-[#252D02]">{chartTitles[active]}{active === 2 && <sup><a href="#correctional-profile-footnote-18" aria-label="Footnote 18" className="ml-0.5 text-xs text-[#424996] hover:underline">18</a></sup>}</h2>
+          <div ref={chartRef} id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} className={`min-w-0 scroll-mt-40 rounded-lg border border-[#E9EAEB] px-5 pb-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] sm:px-7 lg:sticky lg:top-20 lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:scroll-mt-20 lg:overflow-y-auto lg:overscroll-contain ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
+            <div className={active === 2 ? "mt-6 rounded-lg border border-[#E9EAEB] bg-white px-5 pb-5 sm:px-6 sm:pb-6" : undefined}>
+              <h2 className={`sticky top-[154px] z-10 pb-3 text-lg font-semibold leading-7 text-[#252D02] lg:top-0 ${active === 2 ? "pt-5 sm:pt-6" : "pt-6"} ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>{chartTitles[active]}{active === 2 && <sup><a href="#correctional-profile-footnote-18" aria-label="Footnote 18" className="ml-0.5 text-xs text-[#424996] hover:underline">18</a></sup>}</h2>
               <ChartContent key={active} active={active} />
             </div>
           </div>

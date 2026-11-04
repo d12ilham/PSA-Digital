@@ -1,0 +1,120 @@
+.page > :first-child button { height: 40px; font-size: 14px; font-weight: 700; line-height: 20px; }
+.content { display: flex; flex-direction: column; gap: 24px; }
+.hero, .occupation, .skills, .conclusion, .sources { background: white; color: #252d02; }
+.hero { display: grid; grid-template-columns: minmax(0, 800px) 524px; align-items: center; gap: 24px; padding: 24px 68px 24px 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; }
+.heroCopy { min-width: 0; }
+.eyebrow { color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.hero h1 { margin-top: 16px; font-size: 40px; font-weight: 700; line-height: 54px; }
+.heroDescription { margin-top: 16px; font-size: 14px; line-height: 24px; }
+.diagram { width: 524px; height: 124.433px; }
+.diagram img { width: 524px; height: 125px; max-width: none; transition: transform .35s; animation: artworkIn 1s .15s backwards; }
+.footnote { font-size: 10px; line-height: 0; vertical-align: super; }
+.footnote a { color: inherit; text-decoration: none; }
+.footnote a:hover { color: #598303; text-decoration: underline; }
+.footnote a:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.occupations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.occupation { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 156px; padding: 32px 24px 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; transition: transform .3s, box-shadow .3s; }
+.accent { position: absolute; inset: 0 0 auto; height: 8px; border-radius: 14px 14px 0 0; }
+.occupation h2 { font-size: 20px; font-weight: 700; line-height: 28px; }
+.occupation p { margin-top: auto; padding-top: 20px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.skills { border: 1px solid #e9eaeb; border-radius: 16px; padding: 24px; transition: box-shadow .3s, border-color .3s; }
+.sectionTitle { padding-bottom: 16px; box-shadow: inset 0 -1px #e9eaeb; font-size: 24px; font-weight: 700; line-height: 32px; }
+.skillsIntro { max-width: 920px; margin-top: 16px; font-size: 14px; line-height: 24px; }
+.skillGrid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 24px; }
+.skillCard { display: flex; flex-direction: column; align-items: center; min-width: 0; min-height: 174px; padding: 16px; border-radius: 8px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: #f0f5df; transition: transform .3s, background-color .3s, box-shadow .3s; }
+.skillCard img { width: 74px; height: 74px; transition: transform .35s; }
+.skillLabel { margin-top: 20px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; text-align: center; }
+.skillLabel span { display: block; }
+.skillCard:first-child .skillLabel { margin-top: 16px; }
+.skillsClosing { margin-top: 24px; font-size: 14px; line-height: 24px; }
+.graphPanel { padding: 22px 30px; border: 2px solid #416102; border-radius: 14px; background: linear-gradient(to right, #416102 6px, #ebf1e4 6px); transition: box-shadow .3s; }
+.graphPanel h2 { font-size: 20px; font-weight: 700; line-height: 28px; text-transform: uppercase; }
+.graphRow { display: grid; grid-template-columns: 430px minmax(0, 1fr); align-items: center; gap: 100px; margin-top: 16px; }
+.graph { width: 430px; height: 430px; border-radius: 16px; transition: transform .35s, box-shadow .35s; }
+.graph img { width: 430px; height: 430px; border-radius: 16px; }
+.graphDetails { min-width: 0; }
+.skillChips { display: flex; flex-wrap: wrap; max-width: 660px; gap: 12px; }
+.skillChips span { border-radius: 11px; padding: 4px 10px; background: #d3e0c0; color: #535862; font-size: 12px; font-weight: 700; line-height: 18px; transition: transform .3s, background-color .3s; }
+.graphSource { margin-top: 16px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; text-transform: uppercase; }
+.sectorChips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
+.sectorChips span { display: inline-flex; align-items: center; min-height: 40px; padding: 9px 19px; border: 1px solid #e9eaeb; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; line-height: 20px; text-transform: uppercase; transition: transform .3s, box-shadow .3s; }
+.sectorChips span:nth-child(1) { background: #d3992c; }
+.sectorChips span:nth-child(2) { background: #c9481a; }
+.sectorChips span:nth-child(3) { background: #0d71a3; }
+.conclusion { padding: 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: linear-gradient(to right, #598303 8px, white 8px); transition: transform .3s, box-shadow .3s; }
+.conclusion p { max-width: 800px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
+.sources { padding: 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; transition: box-shadow .3s; }
+.sources h2 { font-size: 24px; font-weight: 700; line-height: 32px; }
+.sources ol { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; list-style: none; }
+.sources li { display: grid; grid-template-columns: 20px minmax(0, 780px); gap: 12px; scroll-margin-top: 84px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.sourceNumber { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: #598303; color: white; transition: transform .3s; }
+.pending { opacity: 0; transform: translateY(20px); }
+.enter { animation: reveal .65s cubic-bezier(.2,.7,.3,1) backwards; }
+@keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes artworkIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+@media (hover: hover) {
+  .hero:hover, .skills:hover, .graphPanel:hover, .sources:hover { box-shadow: 0 6px 20px #252d0210; }
+  .diagram:hover img { transform: scale(1.03); }
+  .occupation:hover, .skillCard:hover, .conclusion:hover { transform: translateY(-4px); box-shadow: 0 6px 16px #252d0214; }
+  .skillCard:hover { background: #e4edca; }
+  .skillCard:hover img { transform: scale(1.08) rotate(3deg); }
+  .graph:hover { transform: translateY(-4px); box-shadow: 0 8px 20px #252d0225; }
+  .skillChips span:hover { transform: translateY(-2px); background: #c5d7ad; }
+  .sectorChips span:hover { transform: translateY(-2px); box-shadow: 0 4px 10px #252d0220; }
+  .sources li:hover .sourceNumber { transform: scale(1.1); }
+}
+@media (max-width: 1487px) {
+  .hero { grid-template-columns: minmax(0, 1fr) 40%; padding-right: 24px; }
+  .diagram { width: 100%; height: auto; aspect-ratio: 524 / 125; }
+  .diagram img { width: 100%; height: auto; max-width: 524px; }
+  .occupation { min-height: 184px; }
+  .graphRow { gap: 40px; }
+  .skillGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  .hero { grid-template-columns: 1fr; }
+  .diagram { width: min(524px, 100%); margin: 0 auto; }
+  .occupations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .occupation { min-height: 156px; }
+  .graphRow { grid-template-columns: 1fr; gap: 32px; }
+  .graph { margin: 0 auto; }
+  .graphDetails { width: 100%; }
+}
+@media (max-width: 639px) {
+  .page > :first-child button { height: auto; min-height: 40px; white-space: normal; text-align: left; }
+  .hero, .skills, .sources { padding: 20px; }
+  .hero h1 { font-size: 32px; line-height: 42px; }
+  .occupations { grid-template-columns: 1fr; }
+  .occupation { min-height: 144px; }
+  .skillGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skillCard { padding: 16px 8px; min-height: 198px; }
+  .skillLabel { overflow-wrap: anywhere; }
+  .graphPanel { padding: 20px 18px; }
+  .graph { width: 100%; max-width: 430px; height: auto; aspect-ratio: 1; }
+  .graph img { width: 100%; height: auto; }
+  .graphPanel h2 { font-size: 18px; line-height: 26px; }
+  .sectorChips { margin-top: 24px; }
+  .sectorChips span { max-width: 100%; }
+  .conclusion { padding: 20px 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
+  .pending { opacity: 1; transform: none; }
+  .page .occupation:hover, .page .skillCard:hover, .page .graph:hover, .page .conclusion:hover, .page .diagram:hover img, .page .skillCard:hover img, .page .skillChips span:hover, .page .sectorChips span:hover, .page .sources li:hover .sourceNumber { transform: none; }
+}
+
+@media (min-width: 1488px) {
+.skillChips span:nth-child(1) { width: 135px; }
+.skillChips span:nth-child(2) { width: 161px; }
+.skillChips span:nth-child(3) { width: 71px; }
+.skillChips span:nth-child(4) { width: 79px; }
+.skillChips span:nth-child(5) { width: 138px; }
+.skillChips span:nth-child(6) { width: 160px; }
+.skillChips span:nth-child(7) { width: 113px; }
+.skillChips span:nth-child(8) { width: 68px; }
+.skillChips span:nth-child(9) { width: 80px; }
+.skillChips span:nth-child(10) { width: 64px; }
+.sectorChips span:nth-child(1) { width: 212px; }
+.sectorChips span:nth-child(2) { width: 346px; }
+.sectorChips span:nth-child(3) { width: 149px; }
+}

@@ -1,0 +1,193 @@
+.page > :first-child button { height: 40px; font-size: 14px; font-weight: 700; line-height: 20px; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 232px; padding: 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.heroCopy { flex: 0 1 866px; min-width: 0; }
+.heroCopy > * { animation: arrival .8s cubic-bezier(.16,1,.3,1) backwards; }
+.heroCopy > :nth-child(1) { animation-delay: .05s; }
+.heroCopy > :nth-child(2) { animation-delay: .18s; }
+.heroCopy > :nth-child(3) { animation-delay: .3s; }
+.badge { display: flex; align-items: center; width: 224px; min-height: 26px; padding: 4px 12px; border-radius: 13px; background: #d3992c; color: white; font-size: 12px; font-weight: 600; line-height: 18px; text-transform: uppercase; }
+.hero h1 { margin-top: 16px; color: #252d02; font-size: 40px; font-weight: 700; line-height: 54px; }
+.hero p { max-width: 800px; margin-top: 16px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.artwork { flex: 0 0 446px; width: 446px; height: 100px; }
+.artwork img { display: block; width: 446px; height: 100px; max-width: none; transition: transform .35s; }
+.intro > p { max-width: 800px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.intro h2 { margin-top: 24px; padding-bottom: 16px; border-bottom: 1px solid #d5d7da; color: #252d02; font-size: 24px; font-weight: 700; line-height: 32px; }
+.intro h2 span { display: block; max-width: 800px; }
+.intro.enter { animation: none; }
+.intro.enter > p { animation: arrival .75s .1s cubic-bezier(.16,1,.3,1) backwards; }
+.intro.enter > h2 { animation: arrival .75s .25s cubic-bezier(.16,1,.3,1) backwards; }
+.footnote { font-size: 10px; line-height: 0; vertical-align: super; }
+.footnote a { color: inherit; text-decoration: none; }
+.footnote a:hover { color: #598303; text-decoration: underline; }
+.footnote a:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.groups { display: flex; flex-direction: column; gap: 24px; }
+.group { position: relative; overflow: hidden; border-radius: 14px; transition: transform .3s, box-shadow .3s; }
+.closedGroup { background: rgb(100 100 94 / 20%); outline: 1px solid #64645e; outline-offset: -1px; }
+.closedGroup::before { content: ""; position: absolute; top: 0; bottom: 0; left: 1px; width: 8px; background: #64645e; }
+.toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 64px; padding: 12px 16px 12px 32px; text-align: left; cursor: pointer; }
+.toggle:focus-visible { outline: 2px solid #598303; outline-offset: -4px; }
+.groupTitle { color: #252d02; font-size: 20px; font-weight: 600; line-height: 28px; }
+.control { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 101px; gap: 12px; width: 101px; height: 40px; border-radius: 20px; background: #8ac900; color: #252d02; font-size: 14px; font-weight: 600; line-height: 20px; transition: transform .3s, box-shadow .3s; }
+.control svg { width: 14px; height: 14px; transition: transform .3s; }
+.openToggle { padding-left: 24px; border-radius: 14px 14px 0 0; background: #454740; }
+.openTitle { padding: 8px 16px; border-radius: 6px; background: #d3992c; color: white; font-size: 18px; font-weight: 700; }
+.veteransClose { background: white; }
+.chartPanel { padding: 24px; border-radius: 0 0 14px 14px; background: #fafaf0; animation: panelArrival .45s ease-out backwards; }
+.currentGroup { overflow: visible; border-radius: 0; }
+.currentToggle { position: relative; overflow: hidden; padding: 12px 24px 12px 32px; border-radius: 14px; background: #64645e; outline: 1px solid #64645e; outline-offset: -1px; }
+.currentToggle::before { content: ""; position: absolute; inset: 0 auto 0 1px; width: 8px; background: #d3992c; }
+.currentToggle .openTitle { line-height: 24px; border-radius: 8px; }
+.currentToggle .control { flex-basis: 103px; width: 103px; }
+.currentPanel { padding: 24px 0 0; border-radius: 0; background: transparent; }
+.currentContent { display: flex; flex-direction: column; gap: 24px; }
+.currentSummary { max-width: 800px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.currentCharts { display: grid; grid-template-columns: minmax(0, 960fr) minmax(0, 456fr); align-items: stretch; gap: 24px; }
+.currentChart { min-width: 0; height: 746px; padding: 41px; border-radius: 14px; outline: 1px solid #d5d7da; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.presentationLabel { color: #d3992c; font-size: 14px; font-weight: 400; line-height: 24px; text-transform: uppercase; }
+.currentChart h3 { margin-top: 6px; color: #252d02; font-size: 24px; font-weight: 700; line-height: 32px; }
+.chartViewport { margin-top: 24px; overflow-x: auto; }
+.chartViewport:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.currentPlot { position: relative; min-width: 640px; height: 522px; color: #252d02; font-size: 14px; font-weight: 600; line-height: 24px; }
+.currentAxis { position: absolute; inset: 0 0 auto; height: 450px; }
+.currentTick { position: absolute; left: 0; right: 0; height: 24px; }
+.currentTick > span { display: block; width: 80px; text-align: right; }
+.currentTick > i { position: absolute; top: 11.5px; left: 96px; right: 0; height: 1px; background: #64645e; }
+.currentTick > .baseline { top: 11.25px; height: 1.5px; }
+.currentBars { position: absolute; top: 13px; left: 96px; right: 0; height: 426px; }
+.currentBar { position: absolute; bottom: 0; width: 24.5524297%; }
+.currentBar:focus-visible { outline: 2px solid #598303; outline-offset: 4px; }
+.currentBarValue { position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); height: 24px; text-align: center; }
+.currentBarFill { width: 100%; height: 100%; border-radius: 2px 2px 0 0; background: #d3992c; transform-origin: bottom; transition: background-color .3s; }
+.currentLabels { position: absolute; top: 462px; left: 96px; right: 0; height: 60px; }
+.currentLabels > span { position: absolute; top: 0; width: 24.5524297%; text-align: center; }
+.currentChartSource { margin-top: 32px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.currentStats { min-width: 0; height: 746px; padding: 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: #e5e8da; }
+.currentStatsGrid { display: grid; grid-template-rows: repeat(4, 155px); gap: 12px; }
+.currentStat { display: flex; flex-direction: column; justify-content: center; gap: 12px; min-width: 0; padding: 20px; border-radius: 8px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; animation: arrival .8s cubic-bezier(.16,1,.3,1) backwards; transition: transform .3s, box-shadow .3s; }
+.currentStat strong { display: block; color: #d3992c; font-size: 40px; font-weight: 400; line-height: 54px; }
+.currentStat p { color: #535862; font-size: 14px; font-weight: 600; line-height: 24px; }
+.currentStatsSource { margin-top: 24px; color: #598303; font-size: 12px; font-weight: 600; line-height: 18px; }
+.futureGroup { overflow: visible; border-radius: 0; }
+.futureToggle { position: relative; overflow: hidden; padding: 12px 24px 12px 32px; border-radius: 14px; background: #64645e; outline: 1px solid #e9eaeb; outline-offset: -1px; }
+.futureToggle::before { content: ""; position: absolute; inset: 0 auto 0 1px; width: 8px; background: #d3992c; }
+.futureToggle .openTitle { border-radius: 8px; font-size: 20px; font-weight: 600; line-height: 28px; }
+.futureToggle .control { flex-basis: 103px; width: 103px; background: white; }
+.futurePanel { padding: 24px 0 0; border-radius: 0; background: transparent; }
+.futureContent, .futureCharts { display: flex; flex-direction: column; gap: 24px; }
+.futureSummary { max-width: 800px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.futureChartViewport { min-width: 0; overflow-x: auto; border-radius: 40px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.futureChartViewport:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.futureChart { display: block; width: 100%; min-width: 960px; height: auto; font-family: Arial, sans-serif; }
+.futureChartTitle { fill: #252a25; font-size: 30px; font-weight: 700; }
+.futureChartSubtitle { fill: #72766c; font-size: 24px; font-weight: 400; }
+.futureAxisText { fill: #8d9088; font-size: 23px; font-weight: 400; }
+.futureGridline { stroke: #e4e6dc; stroke-width: 1.5; stroke-dasharray: 8 6; }
+.futureBaseline { stroke: #cdd2c8; stroke-width: 2; }
+.futureBarFill { fill: #cfa165; stroke: #bd9658; stroke-width: 1; transform-box: fill-box; transform-origin: center bottom; transition: fill .3s; }
+.futureBarLabel { fill: #41531d; font-size: 22px; font-weight: 700; }
+.futureChartSource { fill: #8d9b6a; font-size: 20.5px; font-weight: 700; letter-spacing: .3px; }
+.forecastAxisText { fill: #8d9486; font-size: 21.8px; font-weight: 400; }
+.forecastBandFill { fill: #cfa060; transform-box: fill-box; transform-origin: center bottom; transition: fill .3s; }
+.forecastBandLight { fill: #e8cca7; }
+.forecastBandTitle { fill: #4b3820; font-size: 22px; font-weight: 700; pointer-events: none; }
+.forecastBandText { fill: #4b3820; font-size: 21px; font-weight: 400; pointer-events: none; }
+.forecastBandValue { fill: #3b2c18; font-size: 24px; font-weight: 700; pointer-events: none; }
+.forecastYear { fill: #6f7667; font-size: 20px; font-weight: 400; }
+.forecastActiveYear { fill: #473725; font-size: 20px; font-weight: 700; }
+.futureBar:focus-visible, .forecastBand:focus-visible { outline: 2px solid #598303; outline-offset: 4px; }
+.veteransGroup { overflow: visible; border-radius: 0; }
+.veteransToggle { position: relative; overflow: hidden; padding: 12px 24px 12px 32px; border-radius: 14px; background: #64645e; outline: 1px solid #e9eaeb; outline-offset: -1px; }
+.veteransToggle::before { content: ""; position: absolute; inset: 0 auto 0 1px; width: 8px; background: #d3992c; }
+.veteransToggle .openTitle { min-width: 118px; border-radius: 8px; font-size: 20px; font-weight: 600; line-height: 28px; }
+.veteransToggle .control { flex-basis: 103px; width: 103px; background: white; }
+.veteransPanel { padding: 24px 0 0; border-radius: 0; background: transparent; }
+.veteransContent { display: flex; flex-direction: column; gap: 24px; }
+.veteransCopy { max-width: 800px; }
+.veteransCopy > p, .veteransSupport > p { max-width: 800px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.veteransCopy h3 { margin-top: 10px; color: #64645e; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.veteransStats { margin-top: 10px; padding: 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: rgb(211 153 44 / 10%); }
+.veteransGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.veteransStat { position: relative; min-width: 0; min-height: 130px; padding: 20px 24px; border-radius: 0 8px 8px 0; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; animation: arrival .8s cubic-bezier(.16,1,.3,1) backwards; transition: transform .3s, box-shadow .3s; }
+.veteransStat::before { content: ""; position: absolute; inset: 0 auto 0 1px; width: 8px; background: #64645e; }
+.veteransStat:first-child::before { left: 0; }
+.veteransStat strong { display: block; color: #d3992c; font-size: 40px; font-weight: 500; line-height: 54px; }
+.veteransStat p { margin-top: 12px; color: #535862; font-size: 14px; font-weight: 600; line-height: 24px; }
+.veteransSource { margin-top: 24px; color: #64645e; font-size: 12px; font-weight: 600; line-height: 18px; }
+.sources { padding: 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.sources h2 { color: #252d02; font-size: 24px; font-weight: 700; line-height: 32px; }
+.sources ol { display: flex; flex-direction: column; gap: 16px; max-width: 800px; margin-top: 24px; list-style: none; }
+.sources li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; scroll-margin-top: 84px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.sourceNumber { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: #598303; color: white; font-size: 14px; font-weight: 400; transition: transform .3s; }
+.pending { opacity: 0; transform: translateY(24px); }
+.enter { animation: arrival .9s cubic-bezier(.16,1,.3,1) backwards; }
+@keyframes arrival { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes panelArrival { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 1488px) {
+  .page > :first-child button { justify-content: center; }
+  .page > :first-child button:nth-child(1) { width: 251px; }
+  .page > :first-child button:nth-child(2) { width: 229px; }
+  .page > :first-child button:nth-child(3) { width: 264px; }
+}
+@media (hover: hover) {
+  .hero:hover, .sources:hover { box-shadow: 0 6px 20px #252d0214; }
+  .artwork:hover img { transform: scale(1.03); }
+  .closedGroup:hover { transform: translateY(-2px); box-shadow: 0 6px 16px #252d0214; }
+  .toggle:hover .control { transform: scale(1.05); box-shadow: 0 3px 8px #252d0214; }
+  .toggle:hover .control svg { transform: translateY(2px); }
+  .openToggle:hover .control svg { transform: translateY(-2px); }
+  .sources li:hover .sourceNumber { transform: scale(1.1); }
+  .currentChart:hover { box-shadow: 0 6px 20px #252d0214; }
+  .currentBar:hover .currentBarFill, .currentBar:focus-visible .currentBarFill { background: #b77c0e; }
+  .currentStat:hover { transform: translateY(-3px); box-shadow: 0 6px 16px #252d0214; }
+  .futureChartViewport:hover { box-shadow: 0 6px 20px #252d0214; }
+  .futureBar:hover .futureBarFill, .futureBar:focus-visible .futureBarFill { fill: #b77c0e; }
+  .forecastBand:hover .forecastBandFill, .forecastBand:focus-visible .forecastBandFill { fill: #bd8b48; }
+  .veteransStat:hover { transform: translateY(-3px); box-shadow: 0 6px 16px #252d0214; }
+}
+@media (max-width: 1279px) {
+  .hero { flex-direction: column; align-items: stretch; }
+  .heroCopy { flex: auto; }
+  .artwork { flex: auto; align-self: center; }
+  .currentCharts { grid-template-columns: minmax(0, 1fr); }
+  .currentChart { height: auto; min-height: 746px; }
+  .currentStats { height: auto; }
+  .currentStatsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(155px, auto)); }
+  .veteransGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .page > :first-child button { height: auto; min-height: 40px; white-space: normal; text-align: left; }
+  .hero, .sources { padding: 20px; }
+  .hero h1 { font-size: 32px; line-height: 42px; }
+  .artwork { width: 100%; height: auto; aspect-ratio: 446 / 100; }
+  .artwork img { width: 100%; height: auto; max-width: 446px; }
+  .toggle { gap: 12px; padding-left: 24px; }
+  .groupTitle { font-size: 18px; line-height: 26px; }
+  .control { flex-basis: 88px; width: 88px; gap: 8px; }
+  .openToggle { flex-wrap: wrap; padding: 12px; }
+  .chartPanel { padding: 16px; }
+  .currentToggle { flex-wrap: nowrap; padding: 12px 16px 12px 24px; }
+  .currentToggle .openTitle { padding: 8px 12px; font-size: 16px; }
+  .currentToggle .control { flex-basis: 88px; width: 88px; }
+  .currentPanel { padding: 24px 0 0; }
+  .currentChart { padding: 24px 20px; min-height: 0; }
+  .currentChart h3 { font-size: 20px; line-height: 28px; }
+  .currentStats { padding: 20px; }
+  .currentStatsGrid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: minmax(155px, auto); }
+  .futureToggle { flex-wrap: nowrap; padding: 12px 16px 12px 24px; }
+  .futureToggle .openTitle { padding: 8px 12px; font-size: 16px; line-height: 24px; }
+  .futureToggle .control { flex-basis: 88px; width: 88px; }
+  .futurePanel { padding: 24px 0 0; }
+  .futureChartViewport { border-radius: 24px; }
+  .veteransToggle { flex-wrap: nowrap; padding: 12px 16px 12px 24px; }
+  .veteransToggle .openTitle { padding: 8px 12px; font-size: 16px; line-height: 24px; }
+  .veteransToggle .control { flex-basis: 88px; width: 88px; }
+  .veteransPanel { padding: 24px 0 0; }
+  .veteransStats { padding: 20px; }
+  .veteransGrid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *, .page *::before { animation: none !important; transition: none !important; }
+  .pending { opacity: 1; transform: none; }
+  .chartPanel :global(.animate-defence-bar) { opacity: 1; scale: 1 1; }
+  .page .artwork:hover img, .page .closedGroup:hover, .page .toggle:hover .control, .page .toggle:hover .control svg, .page .sources li:hover .sourceNumber, .page .currentStat:hover, .page .veteransStat:hover { transform: none; }
+}
