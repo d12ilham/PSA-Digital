@@ -1,9 +1,12 @@
 "use client";
 
-import { ChevronDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useId, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import chapter from "./PublicSafetyDefenceView.module.css";
+import police from "./PublicSafetyPoliceView.module.css";
+import styles from "./PublicSafetyPoliceOverviewView.module.css";
 
 const datapoints = [
   {
@@ -17,92 +20,144 @@ const datapoints = [
 ];
 
 function NationalWorkforceChart() {
-  const values = [59750, 61031, 60589, 59600, 59359, 59376];
+  const values = [59750, 61031, 60589, 59376, 59359, 59600];
   const labels = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"];
-  const min = 58500;
-  const max = 61500;
-  const points = values.map((value, index) => `${64 + index * 76},${210 - ((value - min) / (max - min)) * 148}`).join(" ");
+  const chartY = (value: number) => 329 - (value - 58500) / 10;
+  const points = values.map((value, index) => ({ value, x: 58 + index * 117, y: chartY(value) }));
 
-  return <div className="border-l border-[#E3E5DF] bg-white px-7 py-6">
-    <h3 className="text-center text-xs font-bold text-[#252D02]">Yearly National Sworn Police Officer FTE – AUSTRALIA</h3>
-    <svg viewBox="0 0 500 285" className="mt-4 w-full" role="img" aria-label="Yearly National Sworn Police Officer FTE in Australia">
-      {[58500, 59500, 60500, 61500].map((tick) => {
-        const y = 210 - ((tick - min) / (max - min)) * 148;
-        return <g key={tick}><line x1="52" x2="454" y1={y} y2={y} stroke="#E7E8E3" /><text x="44" y={y + 4} textAnchor="end" fontSize="9" fill="#69706A">{tick.toLocaleString()}</text></g>;
+  return <figure className={styles.chart}>
+    <h3>Yearly National Sworn Police Officer FTE – AUSTRALIA</h3>
+    <div className={styles.plot}>
+      <svg viewBox="0 0 720 390" role="img" aria-label="Yearly National Sworn Police Officer FTE in Australia">
+      <desc>{points.map(({ value }, index) => `${labels[index]}: ${value.toLocaleString("en-AU")}`).join(", ")}</desc>
+      {[58500, 59250, 60000, 60750, 61500].map((tick) => {
+        const y = chartY(tick);
+        return <g key={tick}><line x1="68" x2="643" y1={y} y2={y} stroke="#E5E7EB" /><text x="5" y={y + 4}>{tick.toLocaleString("en-AU")}</text></g>;
       })}
-      <line x1="52" x2="454" y1="210" y2="210" stroke="#AEB1AA" />
-      <polyline points={points} fill="none" stroke="#0D71A3" strokeWidth="3" pathLength="1" strokeDasharray="1" className="animate-profile-chart-line" />
-      {values.map((value, index) => {
-        const [x, y] = points.split(" ")[index].split(",").map(Number);
-        return <g key={value} className="animate-radar-point" style={{ animationDelay: `${index * 0.1 + 0.3}s` }}><circle cx={x} cy={y} r="4" fill="#0D71A3" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#0D71A3">{value.toLocaleString()}</text><text x={x} y="232" textAnchor="middle" fontSize="8" fill="#535862">{labels[index]}</text></g>;
-      })}
-      <line x1="140" x2="140" y1="54" y2="238" stroke="#C34D3C" strokeWidth="1.5" />
-      <text x="148" y="66" fontSize="9" fontWeight="700" fill="#C34D3C">COVID-19</text>
-      <text x="250" y="266" textAnchor="middle" fontSize="8" fill="#737770">NOTE: Data varied in response to the COVID-19 period</text>
-    </svg>
-    <p className="mt-1 text-[8px] uppercase text-[#777C75]">Source: Productivity Commission, Police services, Table 6A.2, 2026</p>
-  </div>;
+      <g className={styles.covid}>
+        <path d="M118 27v307 M371 27v307" />
+        <text x="124" y="42">COVID-19</text>
+        <text x="118" y="375">JAN 2020</text>
+        <text x="371" y="375">OCT 2022</text>
+      </g>
+      <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} fill="none" stroke="#1763AD" strokeWidth="3.5" pathLength="1" strokeDasharray="1" className="animate-profile-chart-line" />
+      {points.map(({ value, x, y }, index) => (
+        <g key={labels[index]}>
+          <g className={`animate-radar-point ${styles.marker}`} style={{ animationDelay: `${index * 0.1 + 0.3}s` }}>
+            <circle cx={x} cy={y} r="4.5" />
+            <text x={index === 0 ? x - 12 : x} y={y - (index === 0 ? 7 : 12)} textAnchor={index === 0 ? "end" : "start"}>{value.toLocaleString("en-AU")}</text>
+          </g>
+          <text x={x} y="347" fontSize="12">{labels[index]}</text>
+        </g>
+      ))}
+      </svg>
+    </div>
+    <figcaption>
+      <p>NOTE: Vertical lines represent the COVID-19 period</p>
+      <p>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+    </figcaption>
+  </figure>;
 }
 
+// Productivity Commission RoGS 2026, Table 6A.2. Operational and non-operational sworn FTE combined.
 const jurisdictionCharts = [
-  { code: "01 · CHART POL", name: "AUSTRALIAN CAPITAL TERRITORY", short: "ACT", values: [716, 863] },
-  { code: "02 · CHART POL", name: "NEW SOUTH WALES", short: "NSW", values: [17348, 15898] },
-  { code: "03 · CHART POL", name: "NORTHERN TERRITORY", short: "NT", values: [1222, 1404] },
-  { code: "04 · CHART POL", name: "QUEENSLAND", short: "QLD", values: [12016, 12562] },
-  { code: "05 · CHART POL", name: "SOUTH AUSTRALIA", short: "SA", values: [4664, 4520] },
-  { code: "06 · CHART POL", name: "VICTORIA", short: "VIC", values: [16032, 16021] },
-  { code: "07 · CHART POL", name: "TASMANIA", short: "TAS", values: [1287, 1418] },
-  { code: "08 · CHART POL", name: "WESTERN AUSTRALIA", short: "WA", values: [6460, 7105] },
+  { name: "AUSTRALIAN CAPITAL TERRITORY", values: [716, 727, 735, 780, 820, 863], axis: [500, 100] },
+  { name: "NEW SOUTH WALES", values: [17348, 17727, 17354, 16809, 16032, 15698], axis: [14500, 875] },
+  { name: "NORTHERN TERRITORY", values: [1222, 1265, 1247, 1276, 1314, 1404], axis: [1100, 87.5] },
+  { name: "QUEENSLAND", values: [12022, 12139, 12274, 12081, 12252, 12562], axis: [11900, 175] },
+  { name: "SOUTH AUSTRALIA", values: [4664, 4624, 4504, 4447, 4485, 4529], axis: [4350, 87.5] },
+  { name: "TASMANIA", values: [1287, 1331, 1352, 1330, 1374, 1418], axis: [1200, 62.5] },
+  { name: "VICTORIA", values: [16032, 16442, 16269, 15991, 16190, 16021], axis: [15800, 175] },
+  { name: "WESTERN AUSTRALIA", values: [6460, 6775, 6855, 6662, 6892, 7105], axis: [5800, 350] },
 ];
+
+const jurisdictionYears = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"];
+const jurisdictionChartTitle = "Yearly Sworn Police Officer FTE –";
 
 function JurisdictionChartLibrary() {
   const [selected, setSelected] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
   const chart = jurisdictionCharts[selected];
-  const isAct = chart.short === "ACT";
-  const isNsw = chart.short === "NSW";
-  const isNt = chart.short === "NT";
-  const isQld = chart.short === "QLD";
-  const isSa = chart.short === "SA";
-  const isVic = chart.short === "VIC";
-  const isTas = chart.short === "TAS";
-  const isWa = chart.short === "WA";
-  const endpointsOnly = isAct || isNsw || isNt || isQld || isSa || isVic || isTas || isWa;
-  const min = isAct ? 500 : isNsw ? 14500 : isNt ? 1100 : isQld ? 11900 : isSa ? 4350 : isVic ? 15800 : isTas ? 1200 : isWa ? 5800 : Math.floor(Math.min(...chart.values) * 0.9);
-  const max = isAct ? 900 : isNsw ? 18000 : isNt ? 1450 : isQld ? 12600 : isSa ? 4700 : isVic ? 16500 : isTas ? 1450 : isWa ? 7200 : Math.ceil(Math.max(...chart.values) * 1.05);
-  const labels = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"];
-  const chartPoints = chart.values.map((value, index) => ({
-    value,
-    x: endpointsOnly ? (index === 0 ? 70 : 450) : 70 + index * 76,
-    y: 220 - ((value - min) / Math.max(max - min, 1)) * 145,
-    label: endpointsOnly ? (index === 0 ? labels[0] : labels[5]) : labels[index],
+  const [min, step] = chart.axis;
+  const plotHeight = selected === 0 ? 390 : 392;
+  const plotBottom = 30 + plotHeight;
+  const xForYear = (index: number) => 112 + index * 164;
+  const yForValue = (value: number) => plotBottom - ((value - min) / (step * 4)) * plotHeight;
+  const points = chart.values.map((value, index) => ({
+    value, x: xForYear(index), y: yForValue(value), year: jurisdictionYears[index],
   }));
-  const points = chartPoints.map(({ x, y }) => `${x},${y}`).join(" ");
-  const selectChart = (index: number) => {
+  const count = jurisdictionCharts.length;
+
+  function selectChart(index: number) {
     setSelected(index);
     setAnimationKey((key) => key + 1);
-  };
+  }
 
-  return <div className="mt-6">
-    <h3 className="mb-4 text-sm font-bold uppercase text-[#252D02]">Chart Library · Select a chart to open</h3>
-    <div className="grid items-start gap-5 lg:grid-cols-[300px_1fr]">
-      <div className="space-y-3">{jurisdictionCharts.map((item, index) => <button key={item.short} type="button" onClick={() => selectChart(index)} className={`group flex min-h-[74px] w-full items-center justify-between rounded-lg border bg-white px-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1685A6] hover:shadow-md ${selected === index ? "border-[#1685A6] shadow-[inset_0_0_0_1px_#1685A6]" : "border-[#E9EAEB]"}`}>
-        <span><span className="block text-[8px] font-bold uppercase text-[#1685A6]">{item.code}</span><span className="mt-2 block text-[11px] font-bold leading-4 text-[#252D02]">Yearly Sworn Police Officer FTE -<br />{item.name}</span></span>
-        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#8AC900] text-sm font-bold text-[#252D02] transition-transform duration-300 group-hover:scale-110">{selected === index ? "−" : "+"}</span>
-      </button>)}</div>
-      <div className="rounded-xl border border-[#E9EAEB] bg-white p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4"><div><span className="text-[8px] font-bold uppercase text-[#1685A6]">Presenting · {selected + 1} of {jurisdictionCharts.length} · Selected from the list</span><h4 className="mt-2 text-lg font-bold leading-6 text-[#252D02]">Yearly Sworn Police Officer FTE - {chart.name}</h4></div><div className="flex items-center gap-2"><button type="button" onClick={() => selectChart((selected - 1 + jurisdictionCharts.length) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6] transition-all hover:-translate-y-0.5 hover:shadow-sm"><ChevronLeft className="size-3" /> Prev</button><button type="button" onClick={() => selectChart((selected + 1) % jurisdictionCharts.length)} className="inline-flex h-8 items-center gap-1 rounded-full border border-[#1685A6] bg-white px-3 text-[9px] font-bold text-[#1685A6] transition-all hover:-translate-y-0.5 hover:shadow-sm">Next <ChevronRight className="size-3" /></button><button type="button" onClick={() => setAnimationKey((key) => key + 1)} className="inline-flex h-8 items-center gap-1.5 rounded-full bg-[#1685A6] px-3 text-[9px] font-bold uppercase text-white transition-all hover:-translate-y-0.5 hover:bg-[#0D6F91] hover:shadow-sm"><Play className="size-3 fill-current" /> Replay Animation</button></div></div>
-        <svg viewBox="0 0 520 300" className="mt-5 w-full" role="img" aria-label={`Yearly sworn police officer FTE for ${chart.name}`}>
-          {(isAct ? [500, 600, 700, 800, 900] : isNsw ? [14500, 15375, 16250, 17125, 18000] : isNt ? [1100, 1187.5, 1275, 1362.5, 1450] : isQld ? [11900, 12075, 12250, 12425, 12600] : isSa ? [4350, 4437.5, 4525, 4612.5, 4700] : isVic ? [15800, 15975, 16150, 16325, 16500] : isTas ? [1200, 1262.5, 1325, 1387.5, 1450] : isWa ? [5800, 6150, 6500, 6850, 7200] : [0, 1, 2, 3].map((step) => min + ((max - min) * step) / 3)).map((value) => { const y = 220 - ((value - min) / Math.max(max - min, 1)) * 145; return <g key={value}><line x1="58" x2="478" y1={y} y2={y} stroke="#E7E8E3" /><text x="50" y={y + 4} textAnchor="end" fontSize="9" fill="#69706A">{value.toLocaleString()}</text></g>; })}
-          <polyline key={animationKey} points={points} fill="none" stroke="#1685A6" strokeWidth="2.5" strokeDasharray="4 5" pathLength="1" strokeDashoffset="0"><animate attributeName="stroke-dashoffset" from="1" to="0" dur="1.2s" /></polyline>
-          {chartPoints.map(({ value, x, y, label }, index) => <g key={`${animationKey}-${value}-${index}`} className="animate-radar-point" style={{ animationDelay: `${index * 0.12 + 0.25}s` }}><circle cx={x} cy={y} r="4" fill="#1685A6" /><text x={x} y={y - 12} textAnchor="middle" fontSize="9" fontWeight="700" fill="#1685A6">{value.toLocaleString()}</text><text x={x} y="242" textAnchor="middle" fontSize="8" fill="#535862">{label}</text></g>)}
-          <line x1="146" x2="146" y1="60" y2="250" stroke="#C34D3C" /><text x="154" y="72" fontSize="8" fontWeight="700" fill="#C34D3C">COVID-19</text><text x="146" y="264" textAnchor="middle" fontSize="8" fontWeight="700" fill="#C87C38">JAN 2020</text>
-          <line x1="298" x2="298" y1="60" y2="250" stroke="#D18A4B" strokeDasharray="3 3" /><text x="306" y="264" fontSize="8" fontWeight="700" fill="#C87C38">OCT 2022</text>
-        </svg>
-        <p className="text-[8px] uppercase text-[#777C75]">Note: Dataset varied in response to the COVID-19 period</p><p className="mt-2 text-[8px] uppercase text-[#777C75]">Source: Productivity Commission, Police services, Table 6A.2, 2026</p>
+  return (
+    <div className={styles.library}>
+      <h3>Chart Library · {count} · Select a chart to open</h3>
+      <div className={styles.libraryGrid}>
+        <div className={styles.chartChoices} role="group" aria-label="Jurisdiction charts">
+          {jurisdictionCharts.map((item, index) => (
+            <button key={item.name} type="button" aria-pressed={selected === index} onClick={() => selectChart(index)}>
+              <span>
+                <span className={styles.chartCode}>{String(index + 1).padStart(2, "0")} · CHART · POL</span>
+                <span className={styles.choiceTitle}>{jurisdictionChartTitle}<br />{item.name}</span>
+              </span>
+              <span className={styles.choiceArrow}><ArrowRight aria-hidden="true" /></span>
+            </button>
+          ))}
+        </div>
+        <figure className={`${styles.presentation} ${selected === 0 ? styles.actPresentation : ""}`}>
+          <div className={styles.presentationHeader}>
+            <div aria-live="polite">
+              <p className={styles.presenting}>Presenting · {selected + 1} of {count} · Selected from the list</p>
+              <h4>{jurisdictionChartTitle} {chart.name}</h4>
+            </div>
+            <div className={styles.chartControls}>
+              <button type="button" onClick={() => selectChart((selected - 1 + count) % count)}><ChevronLeft aria-hidden="true" /> Prev</button>
+              <button type="button" onClick={() => selectChart((selected + 1) % count)}>Next <ChevronRight aria-hidden="true" /></button>
+              <button type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
+            </div>
+          </div>
+          <div className={styles.jurisdictionPlot}>
+            <svg viewBox="0 0 980 500" role="img" aria-label={`Yearly sworn police officer FTE for ${chart.name}`}>
+              <desc>{points.map(({ value, year }) => `${year}: ${value.toLocaleString("en-AU")}`).join("; ")}</desc>
+              {Array.from({ length: 5 }, (_, index) => min + step * index).map((tick) => {
+                const y = yForValue(tick);
+                return <g key={tick}>
+                  <line x1="112" x2="932" y1={y} y2={y} stroke="#d5d7da" />
+                  <text x="104" y={y + 5} textAnchor="end">{tick.toLocaleString("en-AU")}</text>
+                </g>;
+              })}
+              <g className={styles.jurisdictionCovid}>
+                <path d={`M194 30v${plotHeight} M538 30v${plotHeight}`} />
+                <text x="201" y="46">COVID-19</text>
+                <text x="194" y="484" textAnchor="middle">JAN 2020</text>
+                <text x="538" y="484" textAnchor="middle">OCT 2022</text>
+              </g>
+              {jurisdictionYears.map((year, index) => (
+                <text key={year} x={xForYear(index)} y={plotBottom + 22} textAnchor="middle">{year}</text>
+              ))}
+              <g key={animationKey} className={styles.jurisdictionSeries}>
+                <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} />
+                {[points[0], points[points.length - 1]].map(({ value, x, y, year }) => (
+                  <g key={year} className={styles.jurisdictionPoint}>
+                    <circle cx={x} cy={y} r="6" />
+                    <text x={x} y={y - 15} textAnchor="middle">{value.toLocaleString("en-AU")}</text>
+                  </g>
+                ))}
+              </g>
+            </svg>
+          </div>
+          <figcaption>
+            <p>NOTE: Dotted vertical lines represent the COVID-19 period</p>
+            <p>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+          </figcaption>
+        </figure>
       </div>
     </div>
-  </div>;
+  );
 }
 
 const sources = [
@@ -112,29 +167,14 @@ const sources = [
 
 export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [open, setOpen] = useState<number | null>(null);
-  const contentRef = useRef<HTMLElement>(null);
-  const sourcesRef = useRef<HTMLElement>(null);
-  const [contentVisible, setContentVisible] = useState(false);
-  const [sourcesVisible, setSourcesVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        if (entry.target === contentRef.current) setContentVisible(true);
-        if (entry.target === sourcesRef.current) setSourcesVisible(true);
-      });
-    }, { threshold: 0.08 });
-    if (contentRef.current) observer.observe(contentRef.current);
-    if (sourcesRef.current) observer.observe(sourcesRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const panelId = useId();
 
   return (
     <PublicSafetyPageShell
       slug={slug}
       report={report}
       currentPage="police_industry_overview"
+      contentClassName={`${chapter.page} ${styles.page}`}
       navigation={{
         back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
         backSecondary: { label: "Police chapter", href: `/reports/${slug}/police` },
@@ -144,40 +184,44 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
         nextPrefix: "Next Section:",
       }}
     >
-      <section className="relative min-h-[230px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 hover:border-[#9AC7D6] hover:shadow-lg lg:pr-[280px]">
-        <div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#1685A6] px-4 py-1.5 text-[10px] font-bold uppercase text-white">POL · Industry-Sector Analysis</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Industry-Sector Overview</h1></div>
-        <p className="mt-4 max-w-[1020px] animate-slide-up-delay text-sm leading-6 text-[#535862]">Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
-        <div aria-hidden="true" className="absolute right-8 top-8 hidden size-40 animate-zoom-in place-items-center rounded-full bg-[#E5F2F7] transition-all duration-500 hover:scale-105 hover:bg-[#D7ECF3] lg:grid">
-          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} className="size-[136px] transition-transform duration-500 hover:-translate-x-1" />
+      <section className={`${chapter.hero} ${styles.hero}`}>
+        <div className={chapter.heroCopy}>
+          <span className={`${chapter.badge} ${styles.badge}`}>POL · Industry-Sector Analysis</span>
+          <h1>Industry-Sector Overview</h1>
+          <p>Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
+        </div>
+        <div className={`${chapter.artwork} ${police.artwork}`}>
+          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
         </div>
       </section>
 
-      <section ref={contentRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-lg ${contentVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
-        <p className="max-w-[1110px] text-sm leading-6 text-[#535862]">Operational (sworn) officers are increasingly supported by additional auxiliary officers (at times known as semi-sworn) such as Protective Service Officers and a rapidly growing cohort of unsworn specialists in intelligence, forensics, digital investigations, cybercrime and emergency management. Police must maintain a 24/7 operational readiness to respond to crime, maintain public safety and support community resilience.</p>
-        <h2 className="mt-6 max-w-[780px] border-b border-[#DADDD4] pb-4 text-2xl font-bold leading-8 text-[#252D02]">The following datapoints have been identified through this Industry Overview for the Police workforce:</h2>
+      <section className={`${styles.panel} ${chapter.enter} ${open === 1 ? styles.jurisdictionOpen : ""}`}>
+        <p className={styles.prose}>Operational (sworn) officers are increasingly supported by additional auxiliary officers (at times known as semi-sworn) such as Protective Service Officers and a rapidly growing cohort of unsworn specialists in intelligence, forensics, digital investigations, cybercrime and emergency management. Police must maintain a 24/7 operational readiness to respond to crime, maintain public safety and support community resilience.</p>
+        <h2 className={styles.datapointHeading}><span>The following datapoints have been identified through this Industry Overview for the Police workforce:</span></h2>
 
-        <div className="mt-5 space-y-4">
+        <div className={styles.datapoints}>
           {datapoints.map((item, index) => {
             const isOpen = open === index;
-            return <article key={item.title} style={contentVisible ? { animationDelay: `${index * 0.12 + 0.15}s` } : undefined} className={`overflow-hidden rounded-xl border border-[#83B6C7] border-l-[8px] border-l-[#1685A6] bg-[#E9F3F6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${contentVisible ? "animate-card-entrance" : "opacity-0"}`}>
-              <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : index)} className={`flex min-h-[60px] w-full items-center justify-between gap-5 px-5 text-left ${isOpen ? "bg-[#1685A6] text-white" : ""}`}>
-                <span className={`font-semibold ${isOpen ? "text-white" : "text-[#252D02]"}`}>{item.title}</span>
-                <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{isOpen ? "Close" : "Open"}<ChevronDown className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`} /></span>
+            return <article key={item.title}>
+              <button type="button" aria-expanded={isOpen} aria-controls={`${panelId}-${index}`} onClick={() => setOpen(isOpen ? null : index)} className={styles.toggle}>
+                <span>{item.title}</span>
+                <span className={styles.pill}>{isOpen ? "Close" : "Open"}<ChevronDown aria-hidden="true" /></span>
               </button>
-              {isOpen && <div className={`animate-content-switch border-t border-[#A7C9D4] bg-[#FAFAF0] ${index === 0 ? "grid lg:grid-cols-[1fr_520px]" : "px-6 py-5"}`}>
-                <div className={index === 0 ? "px-6 py-7" : ""}><p className="text-sm leading-6 text-[#535862]">{item.copy}<sup>{index === 0 ? 67 : 68}</sup></p></div>
-                {index === 0 && <NationalWorkforceChart />}
-                {index === 1 && <JurisdictionChartLibrary />}
-              </div>}
+              <div id={`${panelId}-${index}`} hidden={!isOpen}>
+                {isOpen && <div className={`${chapter.enter} ${index === 0 ? styles.national : styles.jurisdiction}`}>
+                  <p className={styles.prose}>{item.copy}<sup>{index === 0 ? 67 : 68}</sup></p>
+                  {index === 0 ? <NationalWorkforceChart /> : <JurisdictionChartLibrary />}
+                </div>}
+              </div>
             </article>;
           })}
         </div>
       </section>
 
-      <section ref={sourcesRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-300 hover:shadow-lg ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
-        <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
-        <ol className="mt-5 space-y-4 text-xs leading-5 text-[#535862]">
-          {sources.map((source, index) => <li key={source} style={sourcesVisible ? { animationDelay: `${index * 0.1 + 0.12}s` } : undefined} className={`grid grid-cols-[24px_1fr] gap-3 ${sourcesVisible ? "animate-card-entrance" : "opacity-0"}`}><span className="grid size-5 place-items-center rounded-full bg-[#8AC900] text-[9px] font-bold text-[#252D02] transition-transform duration-300 hover:scale-110">{index + 67}</span><span>{source}</span></li>)}
+      <section className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
+        <h2>Sources</h2>
+        <ol className={styles.sources} start={67}>
+          {sources.map((source, index) => <li key={source}><span aria-hidden="true">{index + 67}</span>{source}</li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

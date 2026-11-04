@@ -1,0 +1,37 @@
+.page .badge { background: #c9481a; text-transform: none; }
+.page .artwork { max-width: 42%; }
+.instruction { font-size: 20px; font-weight: 600; line-height: 28px; }
+.page .themes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.page .theme::before { background: #c9481a; }
+.page .insight { padding-left: 64px; gap: 24px; background: #faede9; }
+.page .number { color: rgb(201 72 26 / 10%); }
+.page .insightCopy strong { color: #c9481a; }
+.page .strategies { width: fit-content; }
+
+@media (min-width: 1488px) {
+  .page.page > :first-child button:nth-child(n) { width: auto; }
+}
+
+@media (hover: hover) {
+  .page .insight:hover { outline-color: #c9481a; background: #fff5f1; }
+}
+
+@media (max-width: 1100px) {
+  .page .themes { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 639px) {
+  .page .artwork { max-width: 100%; }
+  .page .insight { padding-left: 48px; gap: 12px; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .page .artwork { transition: scale .25s; }
+  .page .artwork:hover { scale: 1.03; }
+
+  .page .insight {
+    transition: background .25s, box-shadow .25s, outline-color .25s, translate .25s;
+  }
+
+  .page .insight:hover { translate: 0 -2px; }
+}

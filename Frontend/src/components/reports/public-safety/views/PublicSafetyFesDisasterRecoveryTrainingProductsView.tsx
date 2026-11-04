@@ -20,7 +20,7 @@ const units = [
 ];
 
 function ProductList({ items }: { items: string[] }) {
-  return <ul className="ml-5 mt-4 list-disc space-y-1.5 text-xs leading-5 text-[#535862]">
+  return <ul className="ml-5 mt-4 list-disc text-sm leading-6 text-[#535862] marker:text-[10px]">
     {items.map((item) => <li key={item}>{item}</li>)}
   </ul>;
 }
@@ -33,33 +33,31 @@ export default function PublicSafetyFesDisasterRecoveryTrainingProductsView({ sl
     slug={slug}
     report={report}
     currentPage="fes_disaster_recovery_training_products"
+    contentClassName="[&>div:first-child_button]:min-h-10 [&>div:first-child_button]:px-[22px] [&>div:first-child_button]:text-sm [&>div:first-child_button]:leading-[18px] [&>div:first-child_button]:text-left [&>div:first-child_button_svg]:size-4 [&>div:first-child_button_svg]:shrink-0"
     navigation={{
       back: { label: "Fire and Emergency Services chapter", href: `/reports/${slug}/fes` },
-      backSecondary: { label: "1. Disaster Recovery", href: `/reports/${slug}/fes_disaster_recovery` },
-      prev: { label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/fes_existing_strategies` },
-      next: { label: "Police", href: `/reports/${slug}/police` },
-      prevPrefix: "Previous Section:",
-      nextPrefix: "Next Section:",
+      backSecondary: { label: "1. Disaster Recovery. Insight One.", href: `/reports/${slug}/fes_disaster_recovery` },
+      pagesOrder: [],
     }}
   >
-    <section className="rounded-2xl border border-[#E9EAEB] bg-white px-6 py-7 lg:px-8">
-      <span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold uppercase text-white">FES · Industry-Sector Analysis</span>
-      <h1 className="mt-5 max-w-[1180px] text-[40px] font-bold leading-[1.15] text-[#252D02]">Disaster Recovery Training Products from the Royal Commission into National Natural Disaster Arrangements</h1>
+    <section className="flex flex-col items-start gap-4 rounded-2xl bg-white p-6 inset-ring inset-ring-[#E9EAEB]">
+      <span className="rounded-full bg-[#C9481A] px-4 py-1 text-xs font-bold uppercase leading-[18px] text-white">FES · Industry-Sector Analysis</span>
+      <h1 className="max-w-[1120px] text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-[1.35]">Disaster Recovery Training Products from the Royal Commission into National Natural Disaster Arrangements</h1>
     </section>
 
-    <section className="rounded-xl border border-[#E9EAEB] bg-white px-6 py-7 lg:px-8">
+    <section className="grid gap-10 rounded-2xl bg-white p-6 inset-ring inset-ring-[#E9EAEB] [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:leading-8">
       <div>
-        <h2 className="text-xl font-bold text-[#252D02]">Qualification</h2>
+        <h2>Qualification</h2>
         <ProductList items={["PUA50722 Diploma of Public Safety (Recovery Management)"]}/>
       </div>
 
-      <div className="mt-10">
-        <h2 className="text-xl font-bold text-[#252D02]">Skill Sets</h2>
+      <div>
+        <h2>Skill Sets</h2>
         <ProductList items={skillSets}/>
       </div>
 
-      <div className="mt-10">
-        <h2 className="text-xl font-bold text-[#252D02]">Units of Competency</h2>
+      <div>
+        <h2>Units of Competency</h2>
         <ProductList items={units}/>
       </div>
     </section>

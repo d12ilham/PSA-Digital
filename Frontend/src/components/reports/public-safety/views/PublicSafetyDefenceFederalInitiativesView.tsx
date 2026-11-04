@@ -1,8 +1,13 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, BookOpen, BriefcaseBusiness, ClipboardList, Landmark, Network, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+
+import layout from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
+import sourcesStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
+import styles from "./PublicSafetyDefenceFederalInitiativesView.module.css";
 
 const initiatives = [
   ["ACT Government", "ACT Government Veterans’ Employment Strategy, 2020", "Articulates the benefits of both the private and public sectors as career pathways for veterans and their families and highlights the resources available (at the time of publishing) for recruitment, networking and information sharing.", [87]],
@@ -57,11 +62,59 @@ const sources = [
 
 export default function PublicSafetyDefenceFederalInitiativesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [active, setActive] = useState(0);
-  const initiative = initiatives[active];
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="defence_federal_initiatives" navigation={{back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`},backSecondary:{label:"Defence chapter",href:`/reports/${slug}/defence`},prev:{label:"Existing Industry-Sector Strategies",href:`/reports/${slug}/defence_existing_strategies`},next:{label:"Fire and Emergency Services",href:`/reports/${slug}/fes`},prevPrefix:"Previous Section:",nextPrefix:"Next Section:"}}>
-    <section className="relative min-h-[190px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-8 lg:px-8"><div className="relative z-10"><span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold text-white">DEFENCE</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Defence Veterans’ Programs and Initiatives</h1><p className="mt-4 text-sm text-[#535862]">Select a veterans’ program or initiative to view more detail.</p></div><div className="absolute right-12 top-8 hidden h-[130px] w-[350px] items-center justify-between lg:flex">{[Network,ShieldCheck,ClipboardList,Landmark,BriefcaseBusiness,BookOpen].map((Icon,index)=><span key={index} className={`grid place-items-center rounded-full bg-[#F2F5E7] text-[#719926] ${index===3?"size-20":"size-12"}`}><Icon size={index===3?34:21} strokeWidth={1.5}/></span>)}</div></section>
-    <section><h2 className="mb-3 text-lg font-bold">PROGRAMS AND INITIATIVES · {initiatives.length} · SELECT TO OPEN</h2><div className="grid items-start gap-6 lg:grid-cols-[360px_1fr]"><div className="space-y-3">{initiatives.map((item,index)=><button key={`${item[0]}-${item[1]}`} type="button" onClick={()=>setActive(index)} className={`grid min-h-[88px] w-full grid-cols-[1fr_38px] items-center gap-3 rounded-xl border bg-white px-5 py-4 text-left ${active===index?"border-[#D6A21D] ring-1 ring-[#D6A21D]":"border-[#E1E3DC]"}`}><span><span className="block text-[10px] font-semibold uppercase text-[#C5951B]">{String(index+1).padStart(2,"0")} · {item[0]}</span><strong className="mt-3 block text-[13px] leading-[18px] text-[#252D02]">{item[1]}</strong></span><span className={`grid size-8 place-items-center rounded-full ${active===index?"border border-[#A9BE67] bg-white":"bg-[#7BC900]"}`}><ArrowRight size={14}/></span></button>)}</div>
-      <article className="rounded-xl bg-[#ECEDE2] p-6"><div className="flex items-center justify-between"><span className="rounded-full bg-[#D7A31A] px-5 py-2 text-xs font-bold text-white">{String(active+1).padStart(2,"0")}</span><div className="flex gap-3">{active>0&&<button type="button" onClick={()=>setActive(active-1)} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#A9BE67] bg-white px-5 text-xs font-semibold text-[#68821E]"><ArrowLeft size={15}/> Previous</button>}<button type="button" onClick={()=>setActive((active+1)%initiatives.length)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#7BC900] px-5 text-xs font-semibold">Next <ArrowRight size={15}/></button></div></div><div className="mt-6 rounded-xl bg-white p-6"><h3 className="text-xl font-bold text-[#252D02]">{initiative[1]}</h3><p className="mt-7 text-[13px] leading-[21px] text-[#535862]">{active === 7 ? <>Identifies six priority areas that are intended to support a positive transition out of the ADF.<sup className="ml-1 text-[10px] font-semibold text-[#719926]">94</sup> The Veteran Transition Action Plan provides the actions to support the implementation of the six priority areas identified in the Strategy, detailing the actions to be undertaken and the responsible organisation.<sup className="ml-1 text-[10px] font-semibold text-[#719926]">95</sup></> : <>{initiative[2]}{initiative[3].map((number) => <sup key={number} className="ml-1 text-[10px] font-semibold text-[#719926]">{number}</sup>)}</>}</p></div></article></div></section>
-    <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6"><h2 className="text-2xl font-bold">Sources</h2><ol className="mt-6 grid gap-3 text-xs leading-5 text-[#535862] lg:grid-cols-2">{sources.map((source,index)=><li key={index} className="grid grid-cols-[24px_1fr] gap-3"><span className="grid size-5 place-items-center rounded-full bg-[#78A800] text-[10px] font-bold text-white">{index+87}</span><span>{source}</span></li>)}</ol></section>
+  const [owner, title, description, references] = initiatives[active];
+  const [firstSentence, actionPlan] = description.split(" The Veteran Transition Action Plan");
+  const number = (index: number) => String(index + 1).padStart(2, "0");
+  return <PublicSafetyPageShell contentClassName={layout.page} slug={slug} report={report} currentPage="defence_federal_initiatives" navigation={{back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`},backSecondary:{label:"Defence chapter",href:`/reports/${slug}/defence`},prev:{label:"Existing Industry-Sector Strategies",href:`/reports/${slug}/defence_existing_strategies`},next:{label:"Fire and Emergency Services",href:`/reports/${slug}/fes`},prevPrefix:"Previous Section:",nextPrefix:"Next Section:"}}>
+    <section className={`${layout.hero} ${styles.hero}`}>
+      <div className="animate-slide-up">
+        <span className={layout.badge}>Defence</span>
+        <h1>Defence Veterans’ Programs and Initiatives</h1>
+        <p>Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
+      </div>
+      <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/correctional-existing-strategies-group-85.svg" width={487} height={104} alt="" unoptimized priority />
+    </section>
+
+    <section className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
+      <div className="animate-slide-up-delay">
+        <h2 id="defence-veterans-list">Strategies · {initiatives.length} · Select to open</h2>
+        <div className={layout.projectList}>
+          {initiatives.map(([agency, name], index) => (
+            <button key={name} type="button" aria-pressed={active === index} aria-controls="defence-veterans-panel" className={layout.projectButton} onClick={() => setActive(index)}>
+              <span><small>{number(index)} · {agency}</small><strong>{name}</strong></span>
+              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
+        <div className={layout.panelHeader}>
+          <span className={layout.badge} title={owner}>{number(active)} · DEF</span>
+          <div className={layout.controls}>
+            {active > 0 && <button className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < initiatives.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+          </div>
+        </div>
+        <div key={title} className={`${layout.details} animate-content-switch`}>
+          <header className={styles.detailHeading}>
+            <h3 id="defence-veterans-heading">{title}</h3>
+          </header>
+          <h4 className={styles.supportHeading}>How it Supports Transitioning and Transitioned Veterans</h4>
+          <p className={layout.copy}>
+            {firstSentence}<sup className={styles.footnote}>{references[0]}</sup>
+            {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}>{references[1]}</sup></>}
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section className={sourcesStyles.sources}>
+      <h2>Sources</h2>
+      <ol start={87}>
+        {sources.map((source, index) => <li key={source}>
+          <span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 87}</span><span>{source}</span>
+        </li>)}
+      </ol>
+    </section>
   </PublicSafetyPageShell>;
 }

@@ -1,0 +1,56 @@
+.page {
+  --police-blue: #0d71a3;
+  padding-bottom: 44px;
+}
+
+.page .hero {
+  min-height: 208px;
+}
+
+.page .badge {
+  width: 232px;
+  max-width: 100%;
+  background: var(--police-blue);
+}
+
+.artwork.artwork {
+  display: grid;
+  flex: none;
+  place-items: center;
+  align-self: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #e7f1f6;
+}
+
+.artwork.artwork img {
+  width: 136px;
+  height: 136px;
+}
+
+.page .hero p,
+.page .card p {
+  color: #252d02;
+  font-weight: 400;
+}
+
+.page .card::before {
+  background: var(--police-blue);
+}
+
+@media (min-width: 1488px) {
+  .page.page > :first-child button:nth-child(2) {
+    width: 524px;
+  }
+}
+
+@media (hover: hover) {
+  .page .card:hover {
+    outline-color: var(--police-blue);
+  }
+
+  .page .card:hover::before {
+    background: var(--police-blue);
+  }
+}

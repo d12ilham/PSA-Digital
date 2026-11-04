@@ -127,6 +127,39 @@
 .veterans .calloutCopy { max-width: 829px; }
 .veterans .content h2 { margin-right: 0; padding-right: 0; }
 .veterans .veteransColumns h2:first-child { margin-top: 0; }
+.veteransTwo .callout { min-height: 188px; }
+.veteransAppendix {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  margin-top: 24px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  outline: 1px solid #e9eaeb;
+  outline-offset: -1px;
+  background: #f0f5e2;
+  color: #252d02;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  transition: background .25s;
+}
+.veteransAppendix:hover { background: #e8f0d1; }
+.veteransAppendix:focus-visible { outline: 2px solid #598303; }
+.appendixAction {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #8ac900;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
 .columns {
   display: grid;
   grid-template-columns: minmax(0, 800fr) minmax(0, 574fr);
@@ -166,6 +199,7 @@
   .page > :first-child button:nth-child(4) { width: 312px; }
   .insightTwo > :first-child button:nth-child(4) { width: 329px; }
   .veterans > :first-child button:nth-child(4) { width: 320px; }
+  .veteransTwo > :first-child button:nth-child(4) { width: 300px; }
 }
 
 @media (hover: hover) {
@@ -184,6 +218,7 @@
   .hero, .content, .sources { padding: 20px; }
   .hero { flex-wrap: wrap; }
   .veteransDefinition { padding: 20px; }
+  .veteransAppendix { flex-wrap: wrap; padding-inline: 16px; font-size: 18px; }
   .hero h1 { margin-left: 0; font-size: 32px; line-height: 42px; }
   .icon { width: 88px; }
   .callout { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px 16px 20px 48px; }

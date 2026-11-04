@@ -1,0 +1,43 @@
+.page {
+  padding-bottom: 24px;
+}
+
+.page .badge {
+  width: fit-content;
+  background: #c9481a;
+  text-transform: none;
+}
+
+.artwork {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 180px;
+  height: 180px;
+  align-self: center;
+}
+
+.page .card {
+  padding-top: 24px;
+}
+
+.page .card::before {
+  background: #c9481a;
+}
+
+.number {
+  margin-bottom: 16px;
+  color: #087c36;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.page .card p {
+  color: #252d02;
+}
+
+@media (min-width: 1488px) {
+  .page > :first-child button:nth-child(2) {
+    width: 478px;
+  }
+}

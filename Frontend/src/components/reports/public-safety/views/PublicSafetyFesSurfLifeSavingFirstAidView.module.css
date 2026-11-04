@@ -1,0 +1,53 @@
+.artwork { flex: none; align-self: center; width: 180px; height: 180px; }
+.sectionTitle, .comparison {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d5d7da;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.columns { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 746fr); gap: 48px; align-items: start; }
+.copy { display: grid; gap: 12px; font-size: 14px; line-height: 24px; }
+.copy sup { top: auto; font-size: inherit; vertical-align: baseline; }
+.chart { display: grid; align-content: space-between; min-width: 0; min-height: 600px; padding: 28px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
+.chartHeader { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.chartHeader h3 { font-size: 16px; font-weight: 800; line-height: 24px; }
+.chartHeader sup { color: #598303; }
+.chart svg, .dialog svg { display: block; width: 100%; overflow: visible; fill: #303030; font-size: 13px; }
+.chart .value, .dialog .value { fill: #ad271b; font-size: 16px; font-weight: 800; }
+.controls { display: flex; gap: 8px; }
+.controls button, .close { min-height: 26px; padding: 2px 12px; border: 1px solid #a3bb86; border-radius: 999px; color: #24350b; font-size: 11px; font-weight: 700; cursor: pointer; }
+.controls button:last-child { border-color: #24350b; background: #24350b; color: white; letter-spacing: .08em; text-transform: uppercase; }
+.controls button:hover, .close:hover { filter: brightness(.85); }
+.dialog { width: min(1100px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 24px; border-radius: 16px; background: white; color: #252d02; }
+.dialog::backdrop { background: #252d0280; }
+.dialog h2 { font-size: 20px; font-weight: 700; }
+.dialog svg { max-height: 72dvh; margin-top: 20px; }
+.comparison { margin-top: 24px; }
+.tableTitle { margin: 24px 0 20px; font-size: 20px; font-weight: 600; line-height: 28px; }
+.conditions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: hidden; border: 1px solid #e9eaeb; border-radius: 8px; color: #535862; font-size: 14px; line-height: 24px; }
+.conditions > div + div { border-inline-start: 1px solid #e9eaeb; }
+.conditions h5 { padding: 10px 20px; border-bottom: 1px solid #e9eaeb; background: #faede9; color: #c9481a; font-weight: 600; }
+.conditions ul { padding: 10px 20px 12px 40px; list-style: disc; }
+.additions { padding: 10px 20px 12px; }
+.additions ul { padding-block: 0; }
+
+@media (max-width: 1050px) {
+  .columns { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .chart { min-height: 0; gap: 24px; }
+}
+@media (max-width: 639px) {
+  .chart, .dialog { padding: 16px; }
+  .conditions { grid-template-columns: minmax(0, 1fr); }
+  .conditions > div + div { border-inline-start: 0; border-top: 1px solid #e9eaeb; }
+}
+
+.point circle { transition: fill .2s, r .2s; }
+
+@media (hover: hover) {
+  .point:hover circle { fill: #c9481a; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .point:hover circle { r: 8px; }
+}

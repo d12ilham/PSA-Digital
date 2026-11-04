@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, ChevronDown, Landmark, Network, ShieldCheck, UserRound, Users } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+
+import layout from "./PublicSafetyDefenceWorkforceStrategiesView.module.css";
+import styles from "./PublicSafetyFesWorkforceStrategiesView.module.css";
 
 const strategies = [
   {
@@ -35,7 +40,7 @@ const strategies = [
     insight: "Hazardous Materials",
     jsc: "Training Product Development",
     objective: "Support increased access to hazardous materials training by reviewing a key unit of competency for the Fire and Emergency Services industry.",
-    approach: "Engage with key Fire and Emergency Services employers and unions, and mining stakeholders through AUSMASA, to review PUAFIR306 and its role as an incident and PUASAR025 Undertake confined space rescue units of competency.",
+    approach: "Engage with key Fire and Emergency Services employers and unions, and mining stakeholders through AUSMASA, to review the PUAFIR306 Identify, detect and monitor hazardous materials at an incident and PUASAR025 Undertake confined space rescue units of competency.",
     deliverables: ["Reviewed Units of Competency"],
     impact: "Increase accessible training to enable safe and effective hazardous materials response.",
     timing: "18-month project",
@@ -43,15 +48,77 @@ const strategies = [
   },
 ];
 
-function StrategyCard({ strategy, open, onToggle }: { strategy: typeof strategies[number]; open: boolean; onToggle: () => void }) {
-  return <article id={`strategy-${strategy.number.replace("Strategy ", "")}`} className="scroll-mt-24 overflow-hidden rounded-lg border border-[#E9EAEB] border-t-[7px] border-t-[#D95222] bg-white"><div className="p-5"><div className="flex items-center justify-between gap-4"><span className="rounded-full bg-[#D95222] px-3 py-1 text-[9px] font-bold uppercase text-white">{strategy.number}</span><button type="button" onClick={onToggle} aria-expanded={open} className="inline-flex h-8 items-center gap-2 rounded-full bg-[#7BC900] px-4 text-[10px] font-semibold text-[#253100]">{open ? "Close" : "Open"}<ChevronDown size={13} className={open ? "rotate-180" : ""}/></button></div><h2 className="mt-6 text-lg font-bold leading-6 text-[#252D02]">{strategy.title}</h2><p className="mt-4 border-b border-[#E9EAEB] pb-5 text-[11px] leading-5 text-[#535862]">Workforce Insight: {strategy.insight} · JSC Function: {strategy.jsc}</p>{open && <div className="mt-5 space-y-5 text-xs leading-5 text-[#535862]"><div><strong className="block text-[#252D02]">Workforce Insight:</strong>{strategy.insight}</div><div><strong className="block text-[#252D02]">JSC Function:</strong>{strategy.jsc}</div><div><strong className="block text-[#252D02]">Objective:</strong>{strategy.objective}</div><div><strong className="block text-[#252D02]">Approach:</strong>{strategy.approach}</div><div><strong className="block text-[#252D02]">Deliverable:</strong><ul className="ml-5 mt-1 list-disc">{strategy.deliverables.map(item=><li key={item}>{item}</li>)}</ul></div><div><strong className="block text-[#252D02]">Impact:</strong>{strategy.impact}</div><div><strong className="block text-[#252D02]">Anticipated timing:</strong>{strategy.timing}</div><div><strong className="mb-2 block text-[#252D02]">Key Stakeholders:</strong><div className="flex flex-wrap gap-2">{strategy.stakeholders.map(item=><span key={item} className="rounded-full bg-[#FBECE7] px-3 py-1 text-[10px] text-[#B44021]">• &nbsp;{item}</span>)}</div></div>{strategy.number === "Strategy 1" && <button type="button" className="inline-flex h-9 items-center rounded-full border border-[#D95222] px-4 text-[10px] font-semibold text-[#B44021]">Appendix B – training products &nbsp;→</button>}</div>}</div></article>;
+function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: typeof strategies[number]; open: boolean; onToggle: () => void; appendixHref?: string }) {
+  const id = `strategy-${strategy.number.replace("Strategy ", "")}`;
+  const rows = [
+    ["Workforce Insight", strategy.insight],
+    ["JSC Function", strategy.jsc],
+    ["Objective", strategy.objective],
+    ["Approach", strategy.approach],
+    ["Deliverable", strategy.deliverables],
+    ["Impact", strategy.impact],
+    ["Anticipated timing", strategy.timing],
+  ] as const;
+
+  return <article id={id} className={`${layout.strategy} ${styles.strategy} animate-card-entrance`}>
+    <div className={layout.cardHeader}>
+      <span className={`${layout.badge} ${styles.badge}`}>{strategy.number}</span>
+      <button type="button" onClick={onToggle} aria-expanded={open} aria-controls={`${id}-detail`} className={layout.toggle}>
+        {open ? "Close" : "Open"} <ChevronDown size={16} aria-hidden="true" />
+      </button>
+    </div>
+    <h2>{strategy.title}</h2>
+    <p className={styles.meta}>Workforce Insight: {strategy.insight} · JSC Function: {strategy.jsc}</p>
+    <div id={`${id}-detail`} hidden={!open}>
+      <div className={`${layout.details} ${styles.details} animate-content-switch`}>
+        <dl>
+          {rows.map(([label, value]) => <div key={label}>
+            <dt>{label}:</dt>
+            <dd>{typeof value === "string" ? value : <ul className="list-disc ps-5">{value.map(item => <li key={item}>{item}</li>)}</ul>}</dd>
+          </div>)}
+        </dl>
+        <h3>Key Stakeholders:</h3>
+        <ul className={layout.stakeholders}>
+          {strategy.stakeholders.map(item => <li key={item}><span aria-hidden="true">•</span> {item}</li>)}
+        </ul>
+        {appendixHref && <Link className={styles.appendix} href={appendixHref}>Appendix B – training products <ArrowRight size={16} aria-hidden="true" /></Link>}
+      </div>
+    </div>
+  </article>;
 }
 
 export default function PublicSafetyFesWorkforceStrategiesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [openCards, setOpenCards] = useState([true, true, true]);
   const allOpen = openCards.every(Boolean);
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_workforce_strategies" navigation={{ back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, backSecondary:{label:"Fire and Emergency Services chapter",href:`/reports/${slug}/fes`}, prev:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, next:{label:"2025 Strategy Updates",href:`/reports/${slug}/fes_update_2025_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="relative min-h-[245px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-8 lg:px-8"><div className="relative z-10 max-w-[820px]"><span className="inline-flex rounded-full bg-[#D95222] px-4 py-1.5 text-[10px] font-bold uppercase text-white">Fire and Emergency Services Workforce Strategies</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Proposed Strategies 2026</h1><p className="mt-4 max-w-[760px] text-xs leading-5 text-[#535862]">Public Skills Australia proposes the following strategies to align to the workforce insights identified to support Fire and Emergency Services.</p><button type="button" onClick={()=>setOpenCards([!allOpen,!allOpen,!allOpen])} className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#7BC900] px-5 text-xs font-semibold text-[#253100]">{allOpen ? "Close All" : "Open All"}<ChevronDown size={14} className={allOpen ? "rotate-180" : ""}/></button></div><div className="absolute right-9 top-12 hidden h-[160px] w-[350px] lg:block"><span className="absolute left-0 top-5 grid size-11 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Users size={21}/></span><span className="absolute left-0 top-24 grid size-11 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><UserRound size={20}/></span><span className="absolute left-[100px] top-5 grid size-28 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Landmark size={42}/></span><span className="absolute left-[120px] top-[92px] grid size-12 place-items-center rounded-full bg-white text-[#719926]"><ShieldCheck size={23}/></span><span className="absolute right-3 top-8 grid size-12 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Network size={22}/></span><span className="absolute right-0 top-24 grid size-11 place-items-center rounded-full bg-[#F2F5E9] text-[#719926]"><Building2 size={20}/></span></div></section>
-    <section className="grid items-start gap-6 lg:grid-cols-3">{strategies.map((strategy,index)=><StrategyCard key={strategy.number} strategy={strategy} open={openCards[index]} onToggle={()=>setOpenCards(current=>current.map((value,itemIndex)=>itemIndex===index?!value:value))}/>)}</section>
+  const reportPath = `/reports/${slug}`;
+
+  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_workforce_strategies" contentClassName={`${layout.page} ${styles.page}`} navigation={{
+    back: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
+    backSecondary: { label: "Fire and Emergency Services chapter", href: `${reportPath}/fes` },
+    prev: { label: "Workforce Insights", href: `${reportPath}/fes_workforce_insights` },
+    next: { label: "2025 Strategy Updates", href: `${reportPath}/fes_update_2025_strategies` },
+    prevPrefix: "Previous Section:",
+    nextPrefix: "Next Section:",
+  }}>
+    <section className={layout.hero}>
+      <div className={`${styles.heroCopy} animate-slide-up`}>
+        <span className={`${layout.badge} ${styles.badge}`}>Fire and Emergency Services Workforce Strategies</span>
+        <h1>Proposed Strategies 2026</h1>
+        <p className={layout.intro}>Public Skills Australia proposes the following strategies to align to the workforce insights identified to support Fire and Emergency Services:</p>
+        <button type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
+          {allOpen ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
+        </button>
+      </div>
+      <div className={`${styles.artwork} animate-zoom-in`}>
+        <Image src="/images/reports/public-safety/fes-chapter-fire-engine.svg" width={180} height={180} alt="" unoptimized priority />
+      </div>
+    </section>
+
+    <section className={`${layout.strategies} ${styles.strategies}`} aria-label="Proposed Fire and Emergency Services workforce strategies">
+      {strategies.map((strategy, index) => (
+        <StrategyCard key={strategy.number} strategy={strategy} open={openCards[index]} appendixHref={index === 0 ? `${reportPath}/fes_disaster_recovery_training_products` : undefined}
+          onToggle={() => setOpenCards(current => current.map((value, itemIndex) => itemIndex === index ? !value : value))} />
+      ))}
+    </section>
   </PublicSafetyPageShell>;
 }

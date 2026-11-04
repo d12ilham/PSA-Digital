@@ -1,0 +1,68 @@
+.artwork {
+  flex: 0 1 487px;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+.detailHeader > span {
+  background: #e4e7da;
+  text-transform: uppercase;
+}
+
+.sectionHeading {
+  color: #d3992c;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.summary {
+  display: grid;
+  gap: 12px;
+}
+
+.groups {
+  gap: 16px;
+}
+
+.note h5 {
+  margin-bottom: 8px;
+  color: #252d02;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+@media (max-width: 767px) {
+  .artwork {
+    flex: none;
+    align-self: center;
+  }
+}
+
+.controls button:first-child {
+  outline-color: #d3992c;
+}
+
+.selectedHeader > span {
+  text-transform: none;
+}
+
+.summary ul,
+.note ul {
+  padding-inline-start: 20px;
+  list-style: disc;
+}
+
+.summary ul + p {
+  margin-top: -12px;
+}
+
+.selectedHeader h3 {
+  overflow-wrap: anywhere;
+}
+
+.compactSummary p + ul {
+  margin-top: -12px;
+}

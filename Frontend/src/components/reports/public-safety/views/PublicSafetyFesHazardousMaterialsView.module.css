@@ -1,0 +1,42 @@
+.artwork { flex: none; align-self: center; width: 180px; height: 180px; }
+.heading { padding-bottom: 16px; border-bottom: 1px solid #d5d7da; }
+.columns { display: grid; grid-template-columns: minmax(0, 624fr) minmax(0, 710fr); align-items: start; gap: 60px; margin-top: 24px; }
+.copy { font-size: 14px; line-height: 24px; }
+.copy sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.units { display: grid; gap: 8px; margin-top: 24px; counter-reset: units; }
+.unit { display: flex; align-items: center; gap: 24px; min-height: 142px; padding: 24px; border-radius: 8px; background: #faede9; color: #535862; font-size: 24px; font-weight: 700; line-height: 32px; }
+.unit::before { counter-increment: units; content: counter(units); color: rgb(201 72 26 / 12%); font-size: 48px; line-height: 1; }
+.chart { display: grid; gap: 10px; min-width: 0; min-height: 600px; padding: 24px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
+.chartTitle { font-size: 13px; font-weight: 800; line-height: 18px; }
+.legend { display: grid; gap: 6px; padding-top: 8px; border-top: 1px solid #e9eaeb; font-size: 11px; line-height: 16px; }
+.chartNote { color: #535862; font-size: 10px; line-height: 14px; }
+.prose { display: grid; gap: 24px; max-width: 800px; margin-top: 24px; }
+.insight { margin-top: 24px; padding: 24px 24px 24px 20px; border-left: 12px solid #c9481a; border-radius: 14px; background: #faede9; }
+.insight p { margin-top: 12px; color: #535862; }
+.closing { gap: 12px; }
+
+@media (max-width: 1050px) {
+  .columns { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .chart { min-height: 0; }
+}
+@media (max-width: 639px) {
+  .unit { min-height: 0; gap: 16px; padding: 16px; font-size: 18px; line-height: 26px; }
+  .chart { padding: 16px; }
+}
+
+.unit { animation-delay: .25s; }
+.unit:nth-child(2) { animation-delay: .35s; }
+.unit:nth-child(3) { animation-delay: .45s; }
+
+.guide,
+.endpoints text { animation: chartFade .6s .25s both; }
+.endpoints circle { animation-delay: .25s; transition: r .2s; }
+
+@keyframes chartFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .endpoints circle:hover { r: 7px; }
+}

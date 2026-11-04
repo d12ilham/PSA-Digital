@@ -3,13 +3,14 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import layout from "./PublicSafetyDefenceView.module.css";
+import styles from "./PublicSafetyPoliceView.module.css";
 
 const sections = [
   {
     title: "Industry-Sector Overview",
-    description: "Statistics and data of the industry-sector's workforce – the national sworn police officer FTE trend and each state, territory and federal jurisdiction, with the report's charts.",
+    description: "Statistics and data of the industry-sector’s workforce — the national sworn police officer FTE trend and each state, territory and federal jurisdiction, with the report’s charts.",
     path: "police_industry_overview",
   },
   {
@@ -24,7 +25,7 @@ const sections = [
   },
   {
     title: "2026 Proposed Workforce Strategies",
-    description: "The strategy proposed to mitigate identified challenges – objective, approach, deliverable, impact, timing and key stakeholders.",
+    description: "The strategy proposed to mitigate identified challenges — objective, approach, deliverable, impact, timing and key stakeholders.",
     path: "police_workforce_strategies",
   },
   {
@@ -34,28 +35,19 @@ const sections = [
   },
   {
     title: "Existing Industry-Sector Strategies",
-    description: "Twelve existing strategies used by the Australian Federal Police and state and territory police, and how each informs Public Skills Australia's work.",
+    description: "Twelve existing strategies used by the Australian Federal Police and state and territory police, and how each informs Public Skills Australia’s work.",
     path: "police_existing_strategies",
   },
 ];
 
 export default function PublicSafetyPoliceView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const router = useRouter();
-  const cardsRef = useRef<HTMLElement>(null);
-  const [cardsVisible, setCardsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) setCardsVisible(true);
-    }, { threshold: 0.1 });
-    if (cardsRef.current) observer.observe(cardsRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   return <PublicSafetyPageShell
     slug={slug}
     report={report}
     currentPage="police"
+    contentClassName={`${layout.page} ${styles.page}`}
     navigation={{
       back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
       prev: { label: "Disaster Recovery Training Products (Appendix B)", href: `/reports/${slug}/fes_disaster_recovery_training_products` },
@@ -64,20 +56,24 @@ export default function PublicSafetyPoliceView({ slug, report }: { slug: string;
       nextPrefix: "Next Section:",
     }}
   >
-    <section className="relative min-h-[205px] overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white px-6 py-7 transition-all duration-500 hover:border-[#9AC7D6] hover:shadow-lg lg:px-8 lg:pr-[260px]">
-      <div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#1685A6] px-4 py-1.5 text-[10px] font-bold uppercase text-white">POL · Industry-Sector Analysis</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Police Chapter</h1></div>
-      <p className="mt-4 max-w-[980px] animate-slide-up-delay text-sm leading-6 text-[#535862]">This chapter of the 2026 Public Safety Workforce Insights Report covers the Police industry-sector – the eight state and territory police forces and the Australian Federal Police. Open any section below, or move through the chapter in report order.</p>
-
-      <div aria-hidden="true" className="absolute right-8 top-6 hidden size-40 animate-zoom-in place-items-center rounded-full bg-[#E5F2F7] transition-all duration-500 hover:scale-105 hover:bg-[#D7ECF3] lg:grid">
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} className="size-[136px] transition-transform duration-500 hover:-translate-x-1"/>
+    <section className={`${layout.hero} ${styles.hero}`}>
+      <div className={layout.heroCopy}>
+        <span className={`${layout.badge} ${styles.badge}`}>POL · Industry-Sector Analysis</span>
+        <h1>Police Chapter</h1>
+        <p>This chapter of the 2026 Public Safety Workforce Insights Report covers the Police industry-sector — the eight state and territory police forces and the Australian Federal Police. Open any section below, or move through the chapter in report order.</p>
+      </div>
+      <div className={`${layout.artwork} ${styles.artwork}`}>
+        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
       </div>
     </section>
 
-    <section ref={cardsRef} className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-      {sections.map((section, index) => <article key={section.title} style={cardsVisible ? { animationDelay: `${index * 0.1 + 0.08}s` } : undefined} className={`group flex min-h-[245px] flex-col rounded-lg border border-[#E9EAEB] border-t-[6px] border-t-[#1685A6] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#9AC7D6] hover:shadow-lg ${cardsVisible ? "animate-card-entrance" : "opacity-0"}`}>
-        <h2 className="text-xl font-bold leading-7 text-[#252D02]">{section.title}</h2>
-        <p className="mt-4 text-sm leading-6 text-[#535862]">{section.description}</p>
-        <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className="mt-auto flex w-fit cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-xs font-bold text-gray800 transition-all duration-300 group-hover:bg-[#046D2A] group-hover:text-white group-hover:shadow-md">Open <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" /></button>
+    <section className={layout.sections} aria-label="Police report sections">
+      {sections.map((section, index) => <article key={section.path} className={`${layout.card} ${styles.card} ${layout.enter}`} style={{ animationDelay: `${(index + 1) * 100}ms` }}>
+        <h2>{section.title}</h2>
+        <p>{section.description}</p>
+        <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className={layout.open} aria-label={`Open ${section.title}`}>
+          Open <ArrowRight aria-hidden="true" />
+        </button>
       </article>)}
     </section>
   </PublicSafetyPageShell>;
