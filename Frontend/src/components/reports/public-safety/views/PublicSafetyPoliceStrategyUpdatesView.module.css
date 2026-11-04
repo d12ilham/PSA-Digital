@@ -1,0 +1,36 @@
+.page {
+  --police-blue: #0d71a3;
+  --police-panel: #e2ece8;
+}
+
+.page .heroCopy { max-width: 950px; min-width: 0; }
+.heroCopy p { max-width: 800px; }
+.page .badge { background: var(--police-blue); }
+.page .projectButton small { color: var(--police-blue); font-weight: 500; }
+.page .projectButton[aria-pressed="true"] { outline-color: var(--police-blue); background: #e7f1f6; }
+.page .panel, .page .note { background: var(--police-panel); }
+.page .note { border-left-color: var(--police-blue); }
+.page .stakeholders { margin-top: 24px; }
+.page .note h4 { font-weight: 500; }
+.page .panel .subheading, .page .panel .update, .informs {
+  color: var(--police-blue);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+.page .panel .update { text-transform: none; }
+.page .panel h3 { max-width: 550px; }
+.page .panel h3 + span { background: #e5e8da; }
+.page .panel .previous { color: #598303; }
+
+@media (hover: hover) {
+  .page .projectButton:hover { outline-color: var(--police-blue); }
+}
+
+@media (min-width: 1488px) {
+  .page > :first-child button { justify-content: center; }
+  .page > :first-child button:nth-child(1) { width: 251px; }
+  .page > :first-child button:nth-child(2) { width: 229px; }
+  .page > :first-child button:nth-child(3) { width: 424px; }
+  .page > :first-child button:nth-child(4) { width: 400px; }
+}
