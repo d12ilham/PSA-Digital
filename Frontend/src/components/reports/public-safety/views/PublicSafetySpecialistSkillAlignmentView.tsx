@@ -1,12 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import styles from "./PublicSafetySpecialistSkillAlignmentView.module.css";
 
 const packages = [
-  { tag: "Defence training package", code: "DEFMIL024", title: "Conduct military searches", color: "#D7A31A" },
-  { tag: "Public Safety training package", code: "PUAAMS007", title: "Coordinate search and rescue operations", color: "#C94F27" },
-  { tag: "Police training package", code: "POLSAR012", title: "Coordinate police search and rescue (SAR) operations", color: "#1383A5" },
+  { tag: "Defence training package", code: "DEFMIL024", title: "Conduct military searches", color: "#D3992C" },
+  { tag: "Public Safety training package", code: "PUAAMS007", title: "Coordinate search and rescue operations", color: "#C9481A" },
+  { tag: "Police training package", code: "POLSAR012", title: "Coordinate police search and rescue (SAR) operations", color: "#0D71A3" },
 ];
 
 const sharedSkills = [
@@ -43,119 +45,115 @@ const comparisonRows = [
   },
 ];
 
-function AlignmentDiagram() {
-  const items = ["Investigations", "Incident Command", "Intelligence", "Search and Rescue"];
-  return (
-    <div className="relative aspect-[702/268] min-h-[237px] w-full overflow-hidden rounded-[32px] bg-[#598303]">
-      <svg viewBox="0 0 702 268" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
-        <g fill="none" stroke="#8AC900" strokeWidth="2.5" opacity=".95">
-          <path d="M110 47H592V163H110Z" strokeDasharray="9 5" className="animate-alignment-frame" />
-          <path d="M112 47 351 110 590 47M112 163l239-53 239 53" className="animate-alignment-cross" />
-        </g>
-      </svg>
-      <span className="animate-alignment-centre pointer-events-none absolute left-1/2 top-[42%] z-30 flex h-11 w-[28%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#355700] text-[13px] font-bold uppercase text-white shadow-[0_8px_24px_rgba(37,45,2,0.18)]">Skills alignment</span>
-      {items.map((item, index) => (
-        <div key={item} style={{ animationDelay: `${index * 0.12 + 0.12}s` }} className={`group absolute z-20 flex h-11 animate-alignment-item items-center gap-3 whitespace-nowrap rounded-full px-4 text-xs font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${index === 0 ? "left-[6%] top-[10%] w-[29%]" : index === 1 ? "right-[6%] top-[10%] w-[32%]" : index === 2 ? "left-[6%] top-[51%] w-[32%]" : "right-[6%] top-[51%] w-[32%]"} ${index === 3 ? "bg-[#355700] text-white" : "bg-white text-[#252D02] hover:bg-[#F0F3E5]"}`}>
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#252D02] text-[#8AC900] transition-transform duration-300 group-hover:scale-110"><span className="h-3 w-3 rounded-full border-2 border-current shadow-[inset_0_0_0_2px_#252D02] ring-2 ring-current" /></span>{item}
-        </div>
-      ))}
-      <p className="absolute bottom-[8%] left-[6%] right-[6%] text-[11px] leading-[17px] text-white">The connecting lines show the specialist skills alignment that exists between all four areas.<br />Search and Rescue is the worked example below.</p>
-    </div>
-  );
+
+function DesignLines({ lines }: { lines: string[] }) {
+  return <>{lines.map((line, index) => <span className={styles.designLine} key={line}>{line}{index < lines.length - 1 ? " " : ""}</span>)}</>;
 }
 
+const skillTitleLines = [
+  ["Planning and preparation"],
+  ["Search techniques and", "procedures"],
+  ["Information management", "and recording"],
+  ["Communication and", "coordination"],
+];
+const skillBodyLines = [
+  ["Relating to planning for", "searches, selecting/deploying", "search equipment and preparing", "for deployment."],
+  ["Relating to the application of", "search techniques and/or", "procedures relevant to the types", "of searches."],
+  ["Requiring a level of record", "keeping and information", "handling."],
+  ["Emphasising inter-organisation", "coordination and team", "communication."],
+];
+
 export default function PublicSafetySpecialistSkillAlignmentView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
-  const exampleRef = useRef<HTMLElement>(null);
-  const noteRef = useRef<HTMLElement>(null);
-  const tableRef = useRef<HTMLElement>(null);
-  const [exampleVisible, setExampleVisible] = useState(false);
-  const [noteVisible, setNoteVisible] = useState(false);
-  const [tableVisible, setTableVisible] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState<string[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        if (entry.target === exampleRef.current) setExampleVisible(true);
-        if (entry.target === noteRef.current) setNoteVisible(true);
-        if (entry.target === tableRef.current) setTableVisible(true);
+        const section = (entry.target as HTMLElement).dataset.reveal;
+        if (section) setVisible((current) => current.includes(section) ? current : [...current, section]);
+        observer.unobserve(entry.target);
       });
-    }, { threshold: 0.08 });
-
-    [exampleRef, noteRef, tableRef].forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
+    }, { threshold: .08 });
+    contentRef.current?.querySelectorAll("[data-reveal]").forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
+  const reveal = (section: string) => visible.includes(section) ? styles.enter : styles.pending;
+
   return (
     <PublicSafetyPageShell
-      slug={slug}
-      report={report}
-      currentPage="cross_sector_specialist_skill_alignment"
+      slug={slug} report={report} currentPage="cross_sector_specialist_skill_alignment" contentClassName={styles.page}
       navigation={{
         back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
         prev: { label: "Core Skill Alignment", href: `/reports/${slug}/cross_sector_core_skill_alignment` },
         next: { label: "Skills Recognition", href: `/reports/${slug}/cross_sector_skills_recognition` },
-        prevPrefix: "Previous Section:",
-        nextPrefix: "Next Section:",
+        prevPrefix: "Previous Section:", nextPrefix: "Next Section:",
       }}
     >
-      <section className="grid items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-shadow duration-500 hover:shadow-lg lg:grid-cols-[1fr_620px]">
-        <div className="animate-slide-up">
-          <p className="text-xs font-semibold uppercase leading-6 text-[#598303]">Cross-Sector Analysis · 02</p>
-          <h1 className="mt-3 text-[40px] font-bold leading-[52px] text-[#252D02]">Specialist Skill Alignment</h1>
-          <p className="mt-3 max-w-[680px] text-xs leading-6 text-[#535862]">Across the core skill alignment, some roles in the Public Safety industry-sector share a smaller specialist skills alignment. While each industry-sector has distinct operational and legislative contexts, there are specialist roles and skills alignment between. For example:</p>
-        </div>
-        <div className="animate-zoom-in"><AlignmentDiagram /></div>
-      </section>
-
-      <section ref={exampleRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 hover:border-[#8AC900] hover:shadow-lg ${exampleVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
-        <h2 className="border-b border-[#E9EAEB] pb-4 text-2xl font-bold leading-8 text-[#252D02]">Example</h2>
-        <p className="mt-5 max-w-[970px] text-xs leading-6 text-[#535862]">All three industry-sectors hold search and rescue related training products. The comparison illustrated below demonstrates, from a Vocational Education and Training (VET) Training Package perspective, that units of competency can share similarities across the search and rescue skills landscape. The following units are used for this demonstration.</p>
-        <div className="mt-6 grid gap-2 md:grid-cols-3">
-          {packages.map((item, index) => (
-            <article key={item.code} style={exampleVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`relative min-h-[142px] rounded-lg border border-[#E9EAEB] bg-white px-6 pb-5 pt-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${exampleVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-              <span className="absolute inset-x-0 top-0 h-1 rounded-t-lg" style={{ backgroundColor: item.color }} />
-              <span className="inline-flex rounded-full px-3 py-1.5 text-[9px] font-bold uppercase text-white" style={{ backgroundColor: item.color }}>{item.tag}</span>
-              <h3 className="mt-3 text-base font-bold text-[#252D02]">{item.code}</h3>
-              <p className="mt-2 text-xs font-semibold text-[#598303]">{item.title}</p>
-            </article>
-          ))}
-        </div>
-        <p className="mt-5 text-[10px] font-semibold uppercase text-[#535862]">These three units contain shared skills relating to:</p>
-        <div className="mt-4 grid gap-2 md:grid-cols-2 lg:grid-cols-4">
-          {sharedSkills.map((item, index) => (
-            <article key={item.number} style={exampleVisible ? { animationDelay: `${index * 0.1 + 0.45}s` } : undefined} className={`group relative min-h-[158px] overflow-hidden rounded-lg bg-[#F0F3E5] p-6 pl-14 transition-all duration-300 hover:-translate-y-1 hover:bg-[#E4EDCA] hover:shadow-md ${exampleVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-              <span className="absolute left-4 top-4 text-[48px] font-light leading-none text-[#DDE6C5]">{item.number}</span>
-              <h3 className="relative text-sm font-bold leading-5 text-[#252D02]">{item.title}</h3>
-              <p className="relative mt-3 text-[10px] leading-5 text-[#535862]">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <aside ref={noteRef} className={`rounded-lg border border-[#E9EAEB] border-l-4 border-l-[#598303] bg-white px-8 py-6 text-xs leading-6 text-[#535862] transition-all duration-500 hover:-translate-y-1 hover:border-[#598303] hover:shadow-md ${noteVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>Where these units of competency differ is in the application in operational contexts and the complexity of learning, with DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas PUAAMS007 and POLSAR012 units of competency are broader in their application of planning and coordinating search and rescue operations.</aside>
-
-      <section ref={tableRef} className={tableVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}>
-        <h2 className="mb-4 text-2xl font-bold leading-8 text-[#252D02]">Comparison table</h2>
-        <div className="overflow-hidden rounded-2xl border border-[#E9EAEB] bg-white transition-all duration-500 hover:border-[#8AC900] hover:shadow-lg">
-          <div className="grid grid-cols-[210px_repeat(3,minmax(0,1fr))] border-b border-[#E9EAEB] text-xs font-bold">
-            <div className="p-5">Relevant Performance Criteria</div>
-            {packages.map((item) => <div key={item.code} className="border-l border-[#E9EAEB] p-5" style={{ color: item.color }}><span>{item.code}</span><span className="mt-1 block font-medium text-[#535862]">{item.title}</span></div>)}
+      <div ref={contentRef} className={styles.content}>
+        <section className={`${styles.hero} ${styles.enter}`}>
+          <div className={styles.heroCopy}>
+            <p className={styles.eyebrow}>Cross-Sector Analysis · 02</p>
+            <h1>Specialist Skill Alignment</h1>
+            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between, for example:"]} /></p>
           </div>
-          {comparisonRows.map((row, rowIndex) => (
-            <div key={row.skill} style={tableVisible ? { animationDelay: `${rowIndex * 0.1 + 0.15}s` } : undefined} className={`group grid grid-cols-[210px_repeat(3,minmax(0,1fr))] border-b border-[#E9EAEB] transition-colors duration-300 last:border-b-0 hover:bg-[#F8FAF2] ${tableVisible ? "animate-card-entrance" : "opacity-0"}`}>
-              <h3 className="p-5 text-xs font-semibold leading-5 text-[#535862]">{row.skill}</h3>
-              {[row.defence, row.emergency, row.police].map((points, index) => (
-                <ul key={index} className="border-l border-[#E9EAEB] p-5 text-[10px] leading-5 text-[#535862]">
-                  {points.map((point) => <li key={point} className="mb-1.5 flex gap-2 before:mt-2 before:h-1 before:w-1 before:shrink-0 before:rounded-full before:bg-[#535862]">{point}</li>)}
-                </ul>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className={styles.diagram}>
+            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines. Search and Rescue is the worked example below." />
+          </div>
+        </section>
+
+        <section data-reveal="example" className={`${styles.example} ${reveal("example")}`}>
+          <h2 className={styles.sectionTitle}>Example</h2>
+          <p className={styles.exampleIntro}><DesignLines lines={["All three industry-sectors hold search and rescue related training products. The comparison illustrated below demonstrates", "from a Vocational Education and Training (VET) Training Package perspective, that units of competency are similar across", "the search and rescue skills landscape. The following units are used for this demonstration:"]} /></p>
+          <div className={styles.packageGrid}>
+            {packages.map((item, index) => (
+              <article key={item.code} className={`${styles.packageCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .1}s` }}>
+                <span className={styles.accent} style={{ backgroundColor: item.color }} />
+                <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
+                <h3>{item.code}</h3>
+                <p>{item.code === "POLSAR012" ? "Coordinate police search and rescue operations" : item.title}</p>
+              </article>
+            ))}
+          </div>
+          <p className={styles.sharedIntro}>These three units contain shared skills relating to:</p>
+          <div className={styles.sharedGrid}>
+            {sharedSkills.map((item, index) => (
+              <article key={item.number} className={`${styles.sharedCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .35}s` }}>
+                <span className={styles.number} aria-hidden="true">{item.number}</span>
+                <h3><DesignLines lines={skillTitleLines[index]} /></h3>
+                <p><DesignLines lines={skillBodyLines[index]} /></p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007 and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
+
+        <section data-reveal="table" className={reveal("table")}>
+          <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Comparison table</h2>
+          <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>
+            <table className={styles.table}>
+              <caption className={styles.srOnly}>Comparison of approved performance criteria for Defence, Public Safety and Police search and rescue training products.</caption>
+              <colgroup><col className={styles.skillColumn} /><col /><col /><col /></colgroup>
+              <thead><tr>
+                <th scope="col">Relevant Performance Criteria</th>
+                {packages.map((item) => <th key={item.code} scope="col"><span>{item.code}</span><span>{item.title}</span></th>)}
+              </tr></thead>
+              <tbody>{comparisonRows.map((row, rowIndex) => (
+                <tr key={row.skill}>
+                  <th scope="row">{row.skill}</th>
+                  {[row.defence, row.emergency, row.police].map((points, columnIndex) => {
+                    const plain = rowIndex === 1 && columnIndex === 1 || rowIndex === 2 && columnIndex === 0;
+                    return <td key={columnIndex}>{plain ? <p>{points[0]}</p> : <ul>{points.map((point) => <li key={point}>{point}</li>)}</ul>}</td>;
+                  })}
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </section>
+      </div>
     </PublicSafetyPageShell>
   );
 }

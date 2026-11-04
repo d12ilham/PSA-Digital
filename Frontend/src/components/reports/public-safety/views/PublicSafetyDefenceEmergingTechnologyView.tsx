@@ -1,21 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import styles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
 
-const sources = [
-  "Jobs and Skills Australia (JSA), Connecting for Impact - The Jobs and Skills Report 2025, JSA, 2025, page 81, accessed 19 November 2025.",
-  "Australian Computer Society (ACS), Digital Tasmania Strategy 2026-2031, ACS, 2024, page 7, accessed 6 January 2026.",
-  "Australian Computer Society (ACS), Digital Tasmania Strategy 2026-2031, ACS, 2024, page 12, accessed 6 January 2026.",
-  "Department of Defence, 2024 National Defence Strategy and 2024 Integrated Investment Program, Department of Defence, Australian Government, 2024, page 7, accessed 19 November 2025.",
-  "Department of Defence, 2024 National Defence Strategy, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
-  "Department of Defence, 2024 National Defence Strategy, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
-  "Department of Defence, 2024 Integrated Investment Program, Department of Defence, Australian Government, 2024, accessed 19 November 2025.",
-  "Department of Defence, Albanese Government to invest up to $7 billion in counter drone defence [media release], Department of Defence, Australian Government, 21 April 2026, accessed 28 April 2026.",
-  "S Baker, 'The drone war is moving too fast for old-school defence tech development', CEO Wars, Business Insider, 18 November 2025, accessed 5 January 2026; O Molloy, Drones in Modern Warfare: Lessons Learnt from the War in Ukraine, Australian Army Occasional Paper No. 29, 2024, accessed 6 January 2026.",
-  "S Baker, 'The drone war is moving too fast for old-school defence tech development', CEO Wars, Business Insider, 18 November 2025, accessed 5 January 2026.",
-  "Department of Defence, Growing sovereign nuclear base will 800 drones delivered to Defence [media release], Department of Defence, Australian Government, 19 August 2025.",
-];
+import { defenceTechnologySources } from "./defenceTechnologySources";
 
 export default function PublicSafetyDefenceEmergingTechnologyView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const contentRef = useRef<HTMLElement>(null);
@@ -36,15 +26,59 @@ export default function PublicSafetyDefenceEmergingTechnologyView({ slug, report
     return () => observer.disconnect();
   }, []);
 
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="defence_emerging_technology" navigation={{ back:{label:"Defence Workforce Insights",href:`/reports/${slug}/defence_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Workforce Insights",href:`/reports/${slug}/defence_workforce_insights`}, next:{label:"2. Transitioning Veterans",href:`/reports/${slug}/defence_transitioning_veterans`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className="rounded-2xl border border-[#E9EAEB] bg-white px-6 py-6 transition-shadow duration-500 hover:shadow-lg"><div className="animate-slide-up"><span className="inline-flex rounded-full bg-[#D7A31A] px-4 py-1.5 text-[10px] font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm">Theme 1. Emerging Technology · Insight One</span><h1 className="mt-5 text-[40px] font-bold leading-[48px] text-[#252D02]">Emerging Technology</h1></div><p className="mt-3 animate-slide-up-delay text-xs text-[#535862]">Each section below can also be opened individually.</p></section>
-
-    <section ref={contentRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 hover:border-[#D7A31A] hover:shadow-lg ${contentVisible?"animate-slide-up":"translate-y-6 opacity-0"}`}>
-      <div className="group grid min-h-[170px] overflow-hidden rounded-xl border border-[#E2E4DB] bg-[#FAFAF0] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C8A03A] hover:bg-white hover:shadow-md" style={{gridTemplateColumns:"8px 58px 1fr"}}><div className="bg-[#91AD45]"/><div className="animate-radar-centre pt-6 text-center text-[50px] font-light leading-none text-[#E7E8D9] transition-colors duration-300 group-hover:text-[#D7A31A]">1</div><div className="px-5 py-6"><p className="text-[10px] font-semibold uppercase text-[#6C8C20]">Industry Insight 1.1</p><p className="mt-5 max-w-[900px] text-sm font-semibold leading-6 text-[#252D02]">Challenges in rapid adoption of emerging technology remains, due to significant security screening requirements for any new technology adoption. Limitations exist for the speed of being able to upskill employees in the use of any new technology.</p><p className="mt-5 text-xs leading-5 text-[#535862]">The complete supporting report content follows below. Use ← Back to Workforce Insights to return to the presentation anchor.</p></div></div>
-
-      <div className="mt-6 animate-card-entrance" style={{animationDelay:".15s"}}><h2 className="border-b border-[#DADDD4] pb-5 text-2xl font-bold text-[#252D02] transition-colors duration-300 hover:text-[#6C8C20]">Emerging technologies across the labour market</h2><div className="max-w-[970px] pt-6 text-[13px] leading-[21px] text-[#535862]"><p>Across the broader labour market in Australia, emerging technologies are considered to be drivers of long-term productivity growth. Adopting these emerging technologies requires supporting workforces to rapidly train and upskill, changing traditional approaches to training.<sup>16</sup> It is anticipated that across the labour market, Australia will require 1.3 million technology professionals by 2030, equating to 52,000 employees.<sup>17</sup> Recent data indicates that between 2016 and 2021, 75,000 Information and Communication Technology (ICT) students entered the broader technology sector following completion of a university or VET qualification, which equates to only 15,000 ICT professionals annually.<sup>18</sup></p><p className="mt-4">While not Defence-specific, this shortage indicates the need to ensure the Australian Defence Force workforce is not only appropriately skilled to deploy emerging technologies, but that individuals are attracted and retained, noting the competing need for such professionals across the wider labour market.</p><p className="mt-4">The adoption of the 2024 National Defence Strategy has resulted in a change in capability priorities for the ADF, which has now moved “to an integrated, focused force designed to address Australia&apos;s most significant strategic risks”. This is markedly different from the previous balanced force approach, which was structured to respond to a range of possibilities.<sup>19</sup> Noting this change, ADF stakeholders who were consulted, emphasised the importance of training for capability that is agile and resilient to strategic shocks, and adaptable to government priorities.</p></div></div>
+  const reportPath = `/reports/${slug}`;
+  return <PublicSafetyPageShell
+    slug={slug}
+    report={report}
+    currentPage="defence_emerging_technology"
+    contentClassName={styles.page}
+    navigation={{
+      back: { label: "Defence Workforce Insights", href: `${reportPath}/defence_workforce_insights` },
+      backSecondary: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
+      prev: { label: "Workforce Insights", href: `${reportPath}/defence_workforce_insights` },
+      next: { label: "Emerging Technology 2", href: `${reportPath}/defence_emerging_technology_2` },
+      prevPrefix: "Previous Section:",
+      nextPrefix: "Next Section",
+    }}
+  >
+    <section className={styles.hero} aria-labelledby="defence-technology-title">
+      <div className="animate-slide-up">
+        <p className={styles.badge}>Theme 1. Emerging Technology. Insight One</p>
+        <h1 id="defence-technology-title">1. Emerging Technology</h1>
+      </div>
+      <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-emerging-technology-icon.png" width={120} height={120} alt="" unoptimized priority />
     </section>
 
-    <section ref={sourcesRef} className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 transition-all duration-500 hover:border-[#D7A31A] hover:shadow-md ${sourcesVisible?"animate-slide-up":"translate-y-6 opacity-0"}`}><h2 className="text-2xl font-bold text-[#252D02]">Sources</h2><ol className="mt-6 space-y-4">{sources.map((source,index)=><li key={source} style={sourcesVisible?{animationDelay:`${index*0.05+.1}s`}:undefined} className={`group grid grid-cols-[24px_1fr] gap-3 text-xs leading-5 text-[#535862] ${sourcesVisible?"animate-card-entrance":"opacity-0"}`}><span className="grid size-5 place-items-center rounded-full bg-[#78A800] text-[10px] font-bold text-white transition-transform duration-300 group-hover:scale-110">{index+16}</span><span>{source}</span></li>)}</ol></section>
+    <section ref={contentRef} className={`${styles.content} ${contentVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-technology-market">
+      <div className={styles.callout}>
+        <span className={styles.number} aria-hidden="true">1</span>
+        <div className={styles.calloutCopy}>
+          <p className={styles.insightLabel}>Theme One, Insight One</p>
+          <p className={styles.insightText}>Challenges in rapid adoption of emerging technology remains, due to significant security screening requirements for any new technology adoption. Limitations exist for the speed of being able to upskill employees in the use of any new technology.</p>
+        </div>
+        <Image className={`${styles.icon} ${contentVisible ? "animate-zoom-in" : ""}`} src="/images/reports/public-safety/defence-emerging-insight-icon.png" width={120} height={120} alt="" unoptimized />
+      </div>
+      <h2 id="defence-technology-market">Emerging technologies across the labour market</h2>
+      <div className={styles.body}>
+        <p>Across the broader labour market in Australia, emerging technologies are considered to be drivers of long-term productivity growth. Adopting these emerging technologies requires supporting workforces to rapidly train and upskill, changing traditional approaches to training.<sup>16</sup> It is anticipated that across the labour market, Australia will require 1.3 million technology professionals by 2030, equating to 52,000 employees.<sup>17</sup> Recent data indicates that between 2016 and 2021, 75,000 Information and Communication Technology (ICT) students entered the broader technology sector following completion of a university or VET qualification, which equates to only 15,000 ICT professionals annually.<sup>18</sup></p>
+        <p>While not Defence-specific, this shortage indicates the need to ensure the Australian Defence Force workforce is not only appropriately skilled to deploy emerging technologies, but that individuals are attracted and retained, noting the competing need for such professionals across the wider labour market.</p>
+        <p>The adoption of the 2024 National Defence Strategy has resulted in a change in capability priorities for the ADF, which has now moved “to an integrated, focused force designed to address Australia&apos;s most significant strategic risks”. This is markedly different from the previous balanced force approach, which was structured to respond to a range of possibilities.<sup>19</sup> Noting this change, ADF stakeholders who were consulted, emphasised the importance of training for capability that is agile and resilient to strategic shocks, and adaptable to government priorities.</p>
+      </div>
+    </section>
+
+    <hr className={styles.divider} />
+
+    <section ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-technology-sources">
+      <h2 id="defence-technology-sources">Sources</h2>
+      <ol start={16}>
+        {defenceTechnologySources.map((source, index) => {
+          const number = index + 16;
+          return <li key={number} className={sourcesVisible ? "animate-card-entrance" : undefined} style={{ animationDelay: `${index * .05 + .1}s` }}>
+            <span className={styles.sourceNumber} aria-hidden="true">{number}</span>
+            <span>{source}</span>
+          </li>;
+        })}
+      </ol>
+    </section>
   </PublicSafetyPageShell>;
 }

@@ -1,0 +1,156 @@
+@font-face { font-family: "PSA First Nations Inter"; src: url("/fonts/public-safety/inter-regular-latin.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: "PSA First Nations Mono"; src: url("/fonts/public-safety/jetbrains-mono-semibold-latin.woff2") format("woff2"); font-style: normal; font-weight: 600; font-display: swap; }
+.page > :first-child button { height: 40px; font-size: 14px; font-weight: 700; line-height: 20px; }
+.page > :first-child button:nth-child(3) { border-color: #598303; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 184px; padding: 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.heroCopy { min-width: 0; }
+.heroCopy > * { animation: arrival .8s cubic-bezier(.16,1,.3,1) backwards; }
+.heroCopy > :nth-child(2) { animation-delay: .15s; }
+.heroCopy > :nth-child(3) { animation-delay: .3s; }
+.badge { display: flex; align-items: center; width: 224px; min-height: 26px; padding: 4px 12px; border-radius: 13px; background: #d3992c; color: white; font-size: 12px; font-weight: 600; line-height: 18px; text-transform: uppercase; }
+.hero h1 { margin-top: 16px; color: #252d02; font-size: 40px; font-weight: 700; line-height: 54px; }
+.hero p { margin-top: 16px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
+.artwork { flex: 0 0 446px; width: 446px; height: 100px; animation: artworkArrival .9s .15s cubic-bezier(.16,1,.3,1) backwards; }
+.artwork img { display: block; width: 446px; height: 100px; max-width: none; transition: transform .35s; }
+.library > h2 { padding-bottom: 16px; border-bottom: 1px solid #d5d7da; color: #252d02; font-size: 24px; font-weight: 700; line-height: 32px; text-transform: uppercase; }
+.libraryGrid { display: grid; grid-template-columns: 400px minmax(0, 1fr); align-items: start; gap: 24px; margin-top: 24px; }
+.chartList { display: flex; flex-direction: column; gap: 8px; }
+.chartButton { display: grid; grid-template-columns: minmax(0, 1fr) 40px; align-items: center; gap: 12px; width: 100%; padding: 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; text-align: left; cursor: pointer; transition: transform .3s, box-shadow .3s, outline-color .3s; }
+.chartButton small { display: block; color: #d3992c; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.chartButton strong { display: block; margin-top: 20px; color: #252d02; font-size: 18px; font-weight: 700; line-height: 24px; white-space: pre-line; }
+.selected { outline: 2px solid #d3992c; outline-offset: -2px; background: rgb(211 153 44 / 10%); }
+.selected strong { color: #151d09; }
+.chartArrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 20px; background: #8ac900; color: #252d02; transition: transform .3s; }
+.selected .chartArrow { outline: 1px solid #9caa54; outline-offset: -1px; background: white; }
+.chartArrow svg { transition: transform .3s; }
+.chartButton:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.activeChart { min-width: 0; }
+.presentationPanel { min-width: 0; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: box-shadow .3s; }
+.headcountPanel { min-height: 645px; padding: 41px 0 33px; }
+.headcountContent { width: 670px; max-width: calc(100% - 48px); margin-inline: auto; }
+.presentationLabel { padding-inline: 20px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.headcountTitle { padding-inline: 20px; color: #151d09; font-size: 18px; font-weight: 700; line-height: 24px; }
+.plotViewport { width: 697px; max-width: calc(100% + 27px); margin-top: 12px; overflow-x: auto; }
+.plotViewport:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.headcountPlot { display: block; width: 697px; max-width: none; height: 414px; overflow: visible; font-family: inherit; }
+.gridline { stroke: #e1e1cf; stroke-width: 1; }
+.axisTitle { fill: #252c16; font-size: 12px; font-weight: 400; }
+.axisLabel { fill: #1e250f; font-size: 12px; font-weight: 700; }
+.valueLabels { font-size: 12px; font-weight: 700; }
+.changeLabel { font-size: 12px; }
+.seriesName { fill: #1e250f; font-size: 12px; font-weight: 700; }
+.yearLabels { fill: #171e0a; font-size: 12px; font-weight: 700; }
+.headcountSeries { transition: opacity .25s; }
+.headcountSeries:focus-visible { outline: 1px solid #598303; outline-offset: 4px; }
+.headcountSource { margin-top: 25px; padding-inline: 20px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.separationPanel { min-height: 645px; padding: 73px 0 25px; }
+.separationContent .presentationLabel, .separationContent .headcountTitle { padding-inline: 32px; }
+.separationViewport { width: 670px; max-width: 100%; margin-top: 24px; }
+.separationPlot { display: block; width: 670px; max-width: none; height: 448px; overflow: visible; font-family: inherit; }
+.separationSeriesName { fill: #161c0f; }
+.separationSource { margin-top: 3px; padding-inline: 32px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.genderPanel { min-height: 682px; padding: 41px; }
+.genderViewport { width: 708px; max-width: 100%; margin-inline: auto; overflow-x: auto; }
+.genderViewport:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.genderPlot { display: block; width: 708px; max-width: none; height: 600px; font-family: inherit; }
+.genderPresentationLabel, .genderSource { fill: #598303; font-size: 14px; font-weight: 600; }
+.genderTitle { fill: #151d09; font-size: 18px; font-weight: 700; }
+.genderAxisLabel { fill: #1e250f; font-size: 12px; font-weight: 700; }
+.genderBar { transform-box: fill-box; transform-origin: left center; transition: filter .25s; }
+.genderValues { fill: white; font-size: 12px; font-weight: 700; pointer-events: none; animation: arrival .6s cubic-bezier(.16,1,.3,1) backwards; }
+.genderLegend { fill: #1f290f; font-size: 14px; font-weight: 700; }
+.genderRow:focus-visible { outline: 1px solid #598303; outline-offset: 4px; }
+.firstNationsDefLabel { fill: #5d6f2c; font-family: "PSA First Nations Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: .5px; }
+.firstNationsAxisTitle { fill: #1f2a0e; font-family: "PSA First Nations Inter", sans-serif; font-size: 12px; font-weight: 400; letter-spacing: -.3px; }
+.firstNationsGridline { stroke: #dcddc8; stroke-width: 1.33924; }
+.firstNationsValues { font-size: 18px; font-weight: 700; }
+.locationPanel { min-width: 0; padding: 24px; border-radius: 4px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; box-shadow: 0 1px 2px #0000000d; color: #252d02; }
+.locationPanel > h2 { color: #151d09; font-size: 18px; font-weight: 700; line-height: 24px; }
+.locationControls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.locationControls button { display: grid; place-items: center; height: 40px; padding-inline: 20px; border-radius: 20px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; color: #252d02; font-size: 14px; font-weight: 700; line-height: 20px; cursor: pointer; transition: background .25s, box-shadow .25s, transform .25s; }
+.locationControls button:nth-child(1) { width: 68px; }
+.locationControls button:nth-child(2) { width: 73px; }
+.locationControls button:nth-child(3), .locationControls button:nth-child(5) { width: 59px; }
+.locationControls button:nth-child(4), .locationControls button:nth-child(9) { width: 68px; }
+.locationControls button:nth-child(6) { width: 67px; }
+.locationControls button:nth-child(7) { width: 64px; }
+.locationControls button:nth-child(8) { width: 63px; }
+.locationControls button[aria-pressed="true"] { background: #8ac900; outline: none; }
+.locationControls button:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.locationGrid { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 344fr); align-items: start; gap: 24px; margin-top: 24px; }
+.locationMap { min-width: 0; aspect-ratio: 600 / 539.165; overflow: hidden; animation: artworkArrival .9s .15s cubic-bezier(.16,1,.3,1) backwards; }
+.locationMapAsset { display: block; width: 100%; height: auto; aspect-ratio: 600 / 540; }
+.locationMapAsset:focus:not(:focus-visible) { outline: none; }
+.locationDetails { padding: 21px; border-radius: 8px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: rgb(211 153 44 / 10%); }
+.locationDetails h3 { font-size: 24px; font-weight: 700; line-height: 32px; }
+.locationStats { display: grid; gap: 8px; margin-top: 8px; }
+.locationStat { min-height: 96px; padding: 20px; border-radius: 8px; background: white; animation: arrival .7s cubic-bezier(.16,1,.3,1) backwards; transition: transform .3s, box-shadow .3s; }
+.locationStat strong { display: block; color: #d3992c; font-size: 24px; font-weight: 700; line-height: 32px; }
+.locationStat span { display: block; color: #535862; font-size: 14px; font-weight: 600; line-height: 24px; }
+.locationPrompt { margin-top: 8px; font-size: 14px; line-height: 24px; }
+.locationNote { max-width: 600px; margin-top: 24px; font-size: 14px; font-weight: 400; line-height: 24px; }
+.locationSource { margin-top: 24px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.operationsPanel { display: grid; gap: 24px; min-width: 0; padding: 24px; border-radius: 4px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; box-shadow: 0 1px 2px #0000000d; }
+.operationsHeader { display: grid; gap: 15.75px; padding-bottom: 4px; }
+.operationsHeader p, .operationsSource { color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.operationsHeader p { text-transform: uppercase; }
+.operationsHeader h2 { color: #151d09; font-size: 18px; font-weight: 700; line-height: 24px; }
+.operationsViewport { min-width: 0; overflow-x: auto; padding: 20px 20px 11px; }
+.operationsViewport:focus-visible { outline: 2px solid #598303; outline-offset: 2px; }
+.operationsMap { display: block; width: 100%; min-width: 740px; max-width: 928px; height: auto; }
+.operationsNote { color: #252d02; font-size: 14px; line-height: 24px; }
+.pending { opacity: 0; transform: translateY(24px); }
+.enter { animation: arrival .8s cubic-bezier(.16,1,.3,1) backwards; }
+@keyframes arrival { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes artworkArrival { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+@media (min-width: 1488px) {
+  .page > :first-child button { justify-content: center; }
+  .page > :first-child button:nth-child(1) { width: 251px; }
+  .page > :first-child button:nth-child(2) { width: 229px; }
+  .page > :first-child button:nth-child(3) { width: 361px; }
+  .page > :first-child button:nth-child(4) { width: 288px; }
+}
+@media (hover: hover) {
+  .hero:hover, .presentationPanel:hover { box-shadow: 0 6px 20px #252d0214; }
+  .artwork:hover img { transform: scale(1.03); }
+  .chartButton:hover { transform: translateY(-2px); outline-color: #d3992c; box-shadow: 0 6px 16px #252d0214; }
+  .chartButton:hover .chartArrow svg { transform: translateX(2px); }
+  .headcountSeries:hover { opacity: .75; }
+  .genderRow:hover .genderBar, .genderRow:focus-visible .genderBar { filter: brightness(1.08); }
+  .locationControls button:hover { transform: translateY(-2px); box-shadow: 0 3px 8px #252d0214; }
+  .locationControls button:not([aria-pressed="true"]):hover { background: #f3f7e8; }
+  .locationStat:hover { transform: translateY(-2px); box-shadow: 0 4px 12px #252d0214; }
+}
+@media (max-width: 1279px) {
+  .hero { flex-direction: column; align-items: stretch; }
+  .artwork { flex: auto; align-self: center; }
+  .libraryGrid { grid-template-columns: minmax(0, 1fr); }
+  .chartList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chartButton { height: 100%; }
+}
+@media (max-width: 639px) {
+  .page > :first-child button { height: auto; min-height: 40px; white-space: normal; text-align: left; }
+  .hero { padding: 20px; }
+  .hero h1 { font-size: 32px; line-height: 42px; }
+  .artwork { width: 100%; height: auto; aspect-ratio: 446 / 100; }
+  .artwork img { width: 100%; max-width: 446px; height: auto; }
+  .chartList { grid-template-columns: minmax(0, 1fr); }
+  .chartButton { padding: 20px; }
+  .headcountPanel { padding-top: 24px; }
+  .headcountContent { max-width: calc(100% - 40px); }
+  .presentationLabel, .headcountTitle, .headcountSource { padding-inline: 0; }
+  .plotViewport { max-width: 100%; }
+  .separationPanel { padding-top: 24px; }
+  .separationContent .presentationLabel, .separationContent .headcountTitle, .separationSource { padding-inline: 0; }
+  .genderPanel { min-height: 0; padding: 20px; }
+  .locationPanel, .operationsPanel { padding: 20px; }
+  .operationsViewport { padding-inline: 0; }
+  .locationGrid { grid-template-columns: minmax(0, 1fr); }
+  .locationControls button { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *, .page *::before { animation: none !important; transition: none !important; }
+  .pending { opacity: 1; transform: none; }
+  .page :global(.animate-profile-chart-line), .page :global(.animate-radar-point) { opacity: 1; stroke-dashoffset: 0; transform: none; }
+  .page .artwork:hover img, .page .chartButton:hover, .page .chartButton:hover .chartArrow svg, .page .locationControls button:hover, .page .locationStat:hover { transform: none; }
+}
