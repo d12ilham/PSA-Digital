@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { fesDisasterRecoverySources } from "../data/fesDisasterRecoverySources";
 import { useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -11,7 +10,6 @@ import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css
 import styles from "./PublicSafetyFesSurfLifeSavingFirstAidView.module.css";
 
 const sources = [
-  ...fesDisasterRecoverySources,
   "Surf Life Saving Australia (SLSA), 2022/23 Annual Report, SLSA, 2023, p 100; SLSA, 2023/24 Annual Report, SLSA, 2024, p 108; SLSA, 2024/25 Annual Report, SLSA, 2025, p 115.",
   "National Centre for Vocational Education Research (NCVER), Total VET students and courses 2024: DataBuilder, [data set], NCVER, 2025, accessed 17 December 2025.",
 ];
@@ -118,8 +116,8 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     <hr className={recovery.rule} />
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
-      <ol start={53}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}
+      <ol start={63}>
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span>{source}</span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

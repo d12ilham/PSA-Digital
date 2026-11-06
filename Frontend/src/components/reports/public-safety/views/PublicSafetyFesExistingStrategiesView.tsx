@@ -166,7 +166,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
     back: { label: "Executive Summary", href: `${reportPath}/executive_summary` },
     backSecondary: { label: "Fire and Emergency Services chapter", href: `${reportPath}/fes` },
     prev: { label: "2025 Strategy Updates", href: `${reportPath}/fes_update_2025_strategies` },
-    next: { label: "Disaster Recovery Training Products (Appendix B)", href: `${reportPath}/fes_disaster_recovery_training_products` },
+    next: { label: "Police Chapter", href: `${reportPath}/police` },
     prevPrefix: "Previous Section:",
     nextPrefix: "Next Section:",
   }}>

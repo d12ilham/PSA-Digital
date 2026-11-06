@@ -61,14 +61,14 @@ function NationalWorkforceChart() {
 
 // Productivity Commission RoGS 2026, Table 6A.2. Operational and non-operational sworn FTE combined.
 const jurisdictionCharts = [
-  { name: "AUSTRALIAN CAPITAL TERRITORY", values: [716, 727, 735, 780, 820, 863], axis: [500, 100] },
-  { name: "NEW SOUTH WALES", values: [17348, 17727, 17354, 16809, 16032, 15698], axis: [14500, 875] },
-  { name: "NORTHERN TERRITORY", values: [1222, 1265, 1247, 1276, 1314, 1404], axis: [1100, 87.5] },
-  { name: "QUEENSLAND", values: [12022, 12139, 12274, 12081, 12252, 12562], axis: [11900, 175] },
-  { name: "SOUTH AUSTRALIA", values: [4664, 4624, 4504, 4447, 4485, 4529], axis: [4350, 87.5] },
-  { name: "TASMANIA", values: [1287, 1331, 1352, 1330, 1374, 1418], axis: [1200, 62.5] },
-  { name: "VICTORIA", values: [16032, 16442, 16269, 15991, 16190, 16021], axis: [15800, 175] },
-  { name: "WESTERN AUSTRALIA", values: [6460, 6775, 6855, 6662, 6892, 7105], axis: [5800, 350] },
+  { name: "AUSTRALIAN CAPITAL TERRITORY", values: [716, 727, 735, 780, 820, 863], axis: [500, 900, 50] },
+  { name: "NEW SOUTH WALES", values: [17348, 17727, 17354, 16809, 16032, 15698], axis: [14500, 18000, 500] },
+  { name: "NORTHERN TERRITORY", values: [1222, 1265, 1247, 1276, 1314, 1404], axis: [1100, 1450, 50] },
+  { name: "QUEENSLAND", values: [12022, 12139, 12274, 12081, 12252, 12562], axis: [11900, 12600, 100] },
+  { name: "SOUTH AUSTRALIA", values: [4664, 4624, 4504, 4447, 4485, 4529], axis: [4350, 4700, 50] },
+  { name: "TASMANIA", values: [1287, 1331, 1352, 1330, 1374, 1418], axis: [1200, 1450, 50] },
+  { name: "VICTORIA", values: [16032, 16442, 16269, 15991, 16190, 16021], axis: [15800, 16500, 100] },
+  { name: "WESTERN AUSTRALIA", values: [6460, 6775, 6855, 6662, 6892, 7105], axis: [5800, 7200, 200] },
 ];
 
 const jurisdictionYears = ["2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"];
@@ -78,11 +78,14 @@ function JurisdictionChartLibrary() {
   const [selected, setSelected] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
   const chart = jurisdictionCharts[selected];
-  const [min, step] = chart.axis;
+  const [min, max, step] = chart.axis;
   const plotHeight = selected === 0 ? 390 : 392;
   const plotBottom = 30 + plotHeight;
-  const xForYear = (index: number) => 112 + index * 164;
-  const yForValue = (value: number) => plotBottom - ((value - min) / (step * 4)) * plotHeight;
+  const xForYear = (index: number) => 160 + index * 145;
+  // Match the dotted lines in the approved charts, including the ACT offset.
+  const covidStart = selected === 0 ? 75 : 94;
+  const covidEnd = 516;
+  const yForValue = (value: number) => plotBottom - ((value - min) / (max - min)) * plotHeight;
   const points = chart.values.map((value, index) => ({
     value, x: xForYear(index), y: yForValue(value), year: jurisdictionYears[index],
   }));
@@ -123,25 +126,25 @@ function JurisdictionChartLibrary() {
           <div className={styles.jurisdictionPlot}>
             <svg viewBox="0 0 980 500" role="img" aria-label={`Yearly sworn police officer FTE for ${chart.name}`}>
               <desc>{points.map(({ value, year }) => `${year}: ${value.toLocaleString("en-AU")}`).join("; ")}</desc>
-              {Array.from({ length: 5 }, (_, index) => min + step * index).map((tick) => {
+              {Array.from({ length: (max - min) / step + 1 }, (_, index) => min + step * index).map((tick) => {
                 const y = yForValue(tick);
                 return <g key={tick}>
-                  <line x1="112" x2="932" y1={y} y2={y} stroke="#d5d7da" />
-                  <text x="104" y={y + 5} textAnchor="end">{tick.toLocaleString("en-AU")}</text>
+                  <line x1="70" x2="932" y1={y} y2={y} stroke="#d5d7da" />
+                  <text x="63" y={y + 5} textAnchor="end">{tick.toLocaleString("en-AU")}</text>
                 </g>;
               })}
               <g className={styles.jurisdictionCovid}>
-                <path d={`M194 30v${plotHeight} M538 30v${plotHeight}`} />
-                <text x="201" y="46">COVID-19</text>
-                <text x="194" y="484" textAnchor="middle">JAN 2020</text>
-                <text x="538" y="484" textAnchor="middle">OCT 2022</text>
+                <path d={`M${covidStart} 30v${plotHeight} M${covidEnd} 30v${plotHeight}`} />
+                <text x={covidStart + 7} y="46">COVID-19</text>
+                <text x={covidStart} y="484" textAnchor="middle">JAN 2020</text>
+                <text x={covidEnd} y="484" textAnchor="middle">OCT 2022</text>
               </g>
               {jurisdictionYears.map((year, index) => (
                 <text key={year} x={xForYear(index)} y={plotBottom + 22} textAnchor="middle">{year}</text>
               ))}
               <g key={animationKey} className={styles.jurisdictionSeries}>
                 <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} />
-                {[points[0], points[points.length - 1]].map(({ value, x, y, year }) => (
+                {points.map(({ value, x, y, year }) => (
                   <g key={year} className={styles.jurisdictionPoint}>
                     <circle cx={x} cy={y} r="6" />
                     <text x={x} y={y - 15} textAnchor="middle">{value.toLocaleString("en-AU")}</text>

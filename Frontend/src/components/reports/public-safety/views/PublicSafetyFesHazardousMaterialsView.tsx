@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { fesDisasterRecoverySources } from "../data/fesDisasterRecoverySources";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 import layout from "./PublicSafetyDefenceWorkforceInsightsView.module.css";
@@ -9,7 +8,7 @@ import recovery from "./PublicSafetyFesDisasterRecoveryView.module.css";
 import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
 import styles from "./PublicSafetyFesHazardousMaterialsView.module.css";
 
-const chartSource = "National Centre for Vocational Education Research (NCVER), Total VET students and courses 2024: DataBuilder, [subject enrolments data set], 2025, accessed 17 December 2025.";
+const chartSource = "National Centre for Vocational Education Research (NCVER), Total VET students and courses 2024: DataBuilder, [subject enrolments, subject data set], NCVER, 2025, accessed 17 December 2025.";
 
 const sources = [
   "Productivity Commission, Emergency services for fire and other events – Table 9A.6 [data set], Productivity Commission, 2026, accessed 17 February 2026.",
@@ -17,25 +16,26 @@ const sources = [
 ];
 
 function EnrolmentsChart() {
+  // The approved PDF (p. 72) provides plotted coordinates, but only labels the endpoints.
   const series = [
-    { code: "PUAFIR306", start: 1010, end: 2810, color: "#c9481a", labelOffset: -8 },
-    { code: "PUAFIR308", start: 850, end: 2320, color: "#456130", labelOffset: 5 },
-    { code: "PUAFIR324", start: 1115, end: 3130, color: "#ad271b", labelOffset: -20 },
+    { code: "PUAFIR306", start: 1010, end: 2810, plotY: [422.101, 393.755, 356.906, 308.716, 317.220], color: "#c9481a", labelOffset: -8 },
+    { code: "PUAFIR308", start: 850, end: 2320, plotY: [430.607, 407.929, 393.757, 366.828, 351.238], color: "#456130", labelOffset: 5 },
+    { code: "PUAFIR324", start: 1115, end: 3130, plotY: [410.765, 368.245, 348.402, 318.638, 300.214], color: "#ad271b", labelOffset: -20 },
   ];
   const x = (index: number) => 66 + index * 137;
   const y = (value: number) => 325 - value / 3500 * 270;
+  const plotYToSvg = (point: number) => 325 + (point - 477.664) * (270 / 198.4255);
   return <figure className={`${styles.chart} ${recovery.animatedSection}`}>
     <figcaption className={styles.chartTitle}>Yearly Enrolments for all Three Hazardous Materials Units of Competency Since 2020</figcaption>
-    <svg viewBox="0 0 660 367" role="img" aria-label="Verified 2020 and 2024 enrolments for PUAFIR306, PUAFIR308 and PUAFIR324; dashed guides compare endpoints only" className="mt-4 h-auto w-full">
-      {[0, 875, 1750, 2625, 3500].map((tick) => <g key={tick}><line x1="55" y1={y(tick)} x2="625" y2={y(tick)} stroke="#DADDD4"/><text x="45" y={y(tick) + 4} textAnchor="end" fill="#74786F" fontSize="11">{tick.toLocaleString()}</text></g>)}
+    <svg viewBox="0 0 660 367" role="img" aria-label="Published 2020–2024 enrolment trajectories for PUAFIR306, PUAFIR308 and PUAFIR324. The report labels only the 2020 and 2024 values." className="mt-4 h-auto w-full">
+      {[0, 500, 1000, 1500, 2000, 2500, 3000, 3500].map((tick) => <g key={tick}><line x1="55" y1={y(tick)} x2="625" y2={y(tick)} stroke="#DADDD4"/><text x="45" y={y(tick) + 4} textAnchor="end" fill="#74786F" fontSize="11">{tick.toLocaleString()}</text></g>)}
       {["2020", "2021", "2022", "2023", "2024"].map((year, index) => <text key={year} x={x(index)} y="347" textAnchor="middle" fill="#74786F" fontSize="11">{year}</text>)}
-      {series.map(({ code, start, end, color }) => (
-        <line key={code} x1={x(0)} y1={y(start)} x2={x(4)} y2={y(end)} stroke={color} strokeWidth="2.5" strokeDasharray="5 4" className={styles.guide} />
+      {series.map(({ code, plotY, color }) => (
+        <polyline key={code} points={plotY.map((point, index) => `${x(index)},${plotYToSvg(point)}`).join(" ")} fill="none" stroke={color} strokeWidth="2.5" className={styles.guide} />
       ))}
-      {series.map(({ code, start, end, color, labelOffset }) => (
+      {series.map(({ code, start, end, plotY, color, labelOffset }) => (
         <g key={code} fill={color} fontSize="11" fontWeight="700" className={styles.endpoints}>
-          <circle cx={x(0)} cy={y(start)} r="4.5" className="animate-industry-chart-point" />
-          <circle cx={x(4)} cy={y(end)} r="4.5" className="animate-industry-chart-point" />
+          {plotY.map((point, index) => <circle key={index} cx={x(index)} cy={plotYToSvg(point)} r="4.5" className="animate-industry-chart-point" />)}
           <text x={x(0) - 8} y={y(start) + labelOffset} textAnchor="end">{start.toLocaleString("en-AU")}</text>
           <text x={x(4) + 8} y={y(end) - 6}>{end.toLocaleString("en-AU")}</text>
         </g>
@@ -43,12 +43,12 @@ function EnrolmentsChart() {
     </svg>
     <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[12px_1fr_auto_auto] items-center gap-2"><i className="size-2.5 rounded-full" style={{ backgroundColor: item.color }}/><strong>{item.code}</strong><span>2020: {item.start.toLocaleString()}</span><span>2024: {item.end.toLocaleString()}</span></div>)}</div>
     <p data-source-caption className={styles.chartNote}>Chart source: {chartSource}</p>
-    <p className={styles.chartNote}>Dashed lines compare the approved 2020 and 2024 values. No data points are shown for 2021–2023.</p>
+    <p className={styles.chartNote}>Lines and markers reproduce the approved report chart. Exact counts are shown for 2020 and 2024, the years labelled in the report.</p>
   </figure>;
 }
 
 export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
-  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_hazardous_materials" contentClassName={`${layout.page} ${recovery.page}`} navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, next:{label:"Proposed Strategies 2026",href:`/reports/${slug}/fes_workforce_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
+  return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_hazardous_materials" contentClassName={`${layout.page} ${recovery.page}`} navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Surf Life Saving First Aid",href:`/reports/${slug}/fes_surf_life_saving_first_aid`}, next:{label:"Proposed Strategies 2026",href:`/reports/${slug}/fes_workforce_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
     <section className={`${layout.hero} ${recovery.hero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
@@ -85,9 +85,6 @@ export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: 
     <hr className={recovery.rule} />
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
-      <ol start={53}>
-        {fesDisasterRecoverySources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}
-      </ol>
       <ol start={65}>
         {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{65 + index}</span><span>{source}</span></li>)}
       </ol>
