@@ -51,7 +51,7 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
     </section>
 
     <hr className={styles.rule} />
-    <section className={`${styles.panel} ${styles.sources} ${layout.enter}`}>
+    <section data-report-sources className={`${styles.panel} ${styles.sources} ${layout.enter}`}>
       <h2>Sources</h2>
       <ol start={80}>
         {sources.map((source, index) => (

@@ -49,7 +49,7 @@ export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report 
     </section>
 
     <hr className={styles.rule} />
-    <section className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
+    <section data-report-sources className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={60}>
         {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{60 + index}</span><span>{source}</span></li>)}

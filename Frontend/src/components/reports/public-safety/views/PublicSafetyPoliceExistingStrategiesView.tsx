@@ -108,7 +108,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
         </div>
       </article></section>
 
-    <section ref={sourcesRef} aria-labelledby="police-strategy-sources" className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 hover:shadow-sm motion-safe:transition-shadow ${sourcesVisible ? "animate-slide-up motion-reduce:animate-none!" : ""}`}>
+    <section data-report-sources ref={sourcesRef} aria-labelledby="police-strategy-sources" className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 hover:shadow-sm motion-safe:transition-shadow ${sourcesVisible ? "animate-slide-up motion-reduce:animate-none!" : ""}`}>
       <h2 id="police-strategy-sources" className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
       <ol role="list" className="mt-6 space-y-4 text-sm leading-6 text-[#252D02]">
         {strategies.map((item, index) => (

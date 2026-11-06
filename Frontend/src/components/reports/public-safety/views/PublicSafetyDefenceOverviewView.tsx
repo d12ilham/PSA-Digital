@@ -110,7 +110,7 @@ function CurrentWorkforceCharts() {
             <div className={styles.currentLabels} aria-hidden="true">{bars.map((bar) => <span key={bar.value} style={{ left: `${bar.left / 782 * 100}%` }}>{bar.label}</span>)}</div>
           </div>
         </div>
-        <p className={styles.currentChartSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentChartSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
       </section>
       <aside className={styles.currentStats} aria-label="Defence enlistment statistics">
         <div className={styles.currentStatsGrid}>
@@ -118,7 +118,7 @@ function CurrentWorkforceCharts() {
             <strong><AnimatedNumber value={value} delay={index * 100 + 150} /></strong><p>{label}</p>
           </div>)}
         </div>
-        <p className={styles.currentStatsSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentStatsSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
       </aside>
     </div>
   </div>;
@@ -126,14 +126,9 @@ function CurrentWorkforceCharts() {
 function FutureWorkforceCharts() {
   const separation = [9.7, 9, 9.5, 11.2, 11.1, 9.5, 7.9];
   const years = ["2019", "2020", "2021", "2022", "2023", "2024", "2025"];
-  const forecastYears = Array.from({ length: 18 }, (_, index) => 2023 + index);
-  const forecastYearPositions = [149, 218, 287, 375, 444, 513, 582, 650, 719, 787, 856, 925, 994, 1062, 1131, 1200, 1268, 1337];
-  // These are the existing design's planning-period bands, not annual forecast data.
-  const forecastBands = [
-    { from: 2026, to: 2028, x: 340.62, width: 205.25, label: "Budgeted Workforce Requirement Period", lines: ["Budgeted", "Workforce", "Requirement", "Period"], value: 85000 },
-    { from: 2030, to: 2033, x: 615.74, width: 274.03, label: "2030s Target Period", lines: ["2030s Target", "Period"], value: 85000 },
-    { from: 2036, to: 2040, x: 1026.24, width: 344.97, label: "2040s Target Period", lines: ["2040s Target", "Period"], value: 85000 },
-  ];
+  // Plot coordinates come from the approved report's vector chart on printed p. 21.
+  const forecastYearPositions = [133.94, 157.12, 180.38, 203.82, 226.99, 250.03, 273.48, 296.98, 319.61, 342.1, 365.16, 388.29, 411.5, 434.82, 457.88, 480.8, 504.13, 527.69];
+  const forecastTicks = [85000, 80000, 75000, 70000, 65000, 60000, 55000, 50000];
 
   return <div className={styles.futureContent}>
     <p className={styles.futureSummary}>To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654 and 6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year between 2026 and 2040. Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
@@ -158,30 +153,38 @@ function FutureWorkforceCharts() {
               <text x={center} y={484} textAnchor="middle" className={styles.futureAxisText}>{years[index]}</text>
             </g>;
           })}
-          <text x={52} y={551} className={styles.futureChartSource}>SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25</text>
+          <text data-source-caption x={52} y={551} className={styles.futureChartSource}>SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25</text>
         </svg>
       </div>
-      <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF workforce planning-period bands; scroll horizontally on smaller screens">
-        <svg className={styles.futureChart} width={1440} height={617.923} viewBox="0 0 1440 617.923" role="img" aria-labelledby="defence-forecast-title defence-forecast-description">
+      <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF permanent workforce forecast chart; scroll horizontally on smaller screens">
+        <svg className={styles.futureChart} width={1449} height={957} viewBox="77 475 483 319" role="img" aria-labelledby="defence-forecast-title defence-forecast-description" fill="#252a25">
           <title id="defence-forecast-title">Australian Defence Force Permanent Workforce – Forecast to 2040</title>
-          <desc id="defence-forecast-description">Budgeted workforce requirement period: 2026–2028. 2030s target period: 2030–2033. 2040s target period: 2036–2040. The intervening years 2029, 2034 and 2035 are unshaded.</desc>
-          <text x={52} y={70} className={styles.futureChartTitle}>Australian Defence Force Permanent Workforce – Forecast to 2040</text>
-          <text x={52} y={105} className={styles.futureChartSubtitle}>Target &amp; requirement forecast bands across planning periods</text>
-          {[85000, 76250, 67500, 58750, 50000].map((tick, index) => {
-            const y = 162.66 + index * 73.72;
-            return <g key={tick} aria-hidden="true"><line x1={122} x2={1374} y1={y} y2={y} className={index === 4 ? styles.futureBaseline : styles.futureGridline} /><text x={105} y={y + 8} textAnchor="end" className={styles.forecastAxisText}>{tick.toLocaleString("en-AU")}</text></g>;
-          })}
-          {forecastBands.map((band, index) => {
-            const center = band.x + band.width / 2;
-            const first = index === 0;
-            return <g key={band.from} className={styles.forecastBand} tabIndex={0} role="img" aria-label={`${band.label}, ${band.from}–${band.to}: ${band.value.toLocaleString("en-AU")}`}>
-              <rect data-band-start={band.from} data-band-end={band.to} x={band.x} y={162.66} width={band.width} height={294.88} rx={8} className={`${styles.forecastBandFill} ${index === 1 ? styles.forecastBandLight : ""} animate-defence-bar`} style={{ animationDelay: `${index * .12 + .12}s` }} />
-              {band.lines.map((line, lineIndex) => <text key={line} x={center} y={(first ? 209 : 222) + lineIndex * 30.5} textAnchor="middle" className={lineIndex === 0 ? styles.forecastBandTitle : styles.forecastBandText}>{line}</text>)}
-              <text x={center} y={first ? 359 : 322} textAnchor="middle" className={styles.forecastBandValue}><AnimatedNumber value={band.value.toLocaleString("en-AU")} delay={index * 120 + 120} svg /></text>
+          <desc id="defence-forecast-description">The line is flat from 2023 to 2024, rises through the budgeted workforce requirement period to 2027, and continues as a dashed forecast to 2040. The three shaded regions show the budgeted requirement, 2030s target and 2040s target periods. The approved report does not label annual headcounts.</desc>
+          <text x={92} y={500} fontSize={10} fontWeight={700}>Australian Defence Force Permanent Workforce – Forecast to 2040</text>
+          {forecastTicks.map((tick, index) => {
+            const y = 533.3924 + index * 28.34646;
+            return <g key={tick}>
+              <line x1={134.3858} x2={534.0704} y1={y} y2={y} stroke="#c6c6c6" strokeWidth={0.65} />
+              <text x={131} y={y} textAnchor="end" fontSize={10}>{tick.toLocaleString("en-AU")}</text>
             </g>;
           })}
-          {forecastYears.map((year, index) => <text key={year} x={forecastYearPositions[index]} y={493} textAnchor="middle" className={forecastBands.some((band) => year >= band.from && year <= band.to) ? styles.forecastActiveYear : styles.forecastYear}>{year}</text>)}
-          <text x={52} y={579} className={styles.futureChartSource}>SOURCE: Defence Annual Report 2024–25, 2025 &amp; Defence Workforce Plan 2024, 2024</text>
+          <g aria-hidden="true">
+            <rect x={179.74} y={533.3924} width={48.189} height={198.4252} fill="#d9ad69" />
+            <rect x={227.929} y={533.3924} width={93.543} height={198.4252} fill="#ebd0ad" />
+            <rect x={321.472} y={533.3924} width={212.5984} height={198.4252} fill="#d9ad69" />
+          </g>
+          <g fontSize={8} textAnchor="middle">
+            <text x={203.83} y={548}>Budgeted<tspan x={203.83} dy={9}>Workforce</tspan><tspan x={203.83} dy={9}>Requirement</tspan><tspan x={203.83} dy={9}>Period</tspan></text>
+            <text x={274.7} y={548}>2030s Target Period</text>
+            <text x={427.77} y={548}>2040s Target Period</text>
+          </g>
+          <line x1={134.3858} x2={534.0704} y1={731.8176} y2={731.8176} stroke="#555" strokeWidth={0.65} />
+          <g fill="none" stroke="#20351e" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 134.3858 689.9769 H 157.0628 L 227.9288 653.1259" />
+            <path d="M 227.9291 653.1254 L 531.2361 559.5824" strokeDasharray="6.022 4.022" />
+          </g>
+          {forecastYearPositions.map((x, index) => <text key={x} x={x} y={750} textAnchor="middle" fontSize={7.5}>{2023 + index}</text>)}
+          <text data-source-caption x={546} y={776} textAnchor="end" fontSize={7.5}>Sources: Defence Annual Report 2024–25, 2025 &amp; Defence Workforce Plan 2024, 2024</text>
         </svg>
       </div>
     </div>
@@ -202,7 +205,7 @@ function VeteransCharts() {
             <strong><AnimatedNumber value={value} delay={index * 120 + 150} /></strong><p>{label}</p>
           </article>)}
         </div>
-        <p className={styles.veteransSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.veteransSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
       </div>
     </div>
   </div>;
@@ -281,7 +284,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
         })}
       </section>
 
-      <section ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? styles.enter : styles.pending}`}>
+      <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? styles.enter : styles.pending}`}>
         <h2>Sources</h2>
         <ol start={12}>
           {sources.map((source, index) => <li id={`defence-overview-source-${index + 12}`} value={index + 12} key={index} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.1}s` } : undefined} className={sourcesVisible ? styles.enter : styles.pending}><span className={styles.sourceNumber} aria-hidden="true">{index + 12}</span><p>{source}</p></li>)}

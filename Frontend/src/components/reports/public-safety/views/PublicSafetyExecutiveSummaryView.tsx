@@ -22,7 +22,7 @@ function ActionButton({ children, onClick }: { children: React.ReactNode; onClic
   return <button type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
 }
 
-function SectionHeading({ icon, title, description, action, onClick }: { icon: SummaryIcon; title: string; description: string; action: string; onClick: () => void }) {
+function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description: string; children: React.ReactNode }) {
   return (
     <div className={styles.heading}>
       <Image src={icons[icon]} alt="" width={64} height={64} className={styles.sectionIcon} />
@@ -30,7 +30,7 @@ function SectionHeading({ icon, title, description, action, onClick }: { icon: S
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      <ActionButton onClick={onClick}>{action}</ActionButton>
+      {children}
     </div>
   );
 }
@@ -129,26 +129,30 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section className={styles.panel}>
-        <SectionHeading icon="Drivers" title="Drivers of Change" description="Four drivers of change impacting workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports." action="Present Drivers of Change" onClick={() => navigate("drivers_of_change")} />
+        <SectionHeading icon="Drivers" title="Drivers of Change" description="Four drivers of change impacting workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports."><ActionButton onClick={() => navigate("drivers_of_change")}>Present Drivers of Change</ActionButton></SectionHeading>
       </section>
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven industry insights" description="OPEN reveals the content on this page." action="Present Workforce Insights" onClick={() => navigate("defence_workforce_insights")} /></div>
+        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
+          <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+        </div></SectionHeading></div>
         <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>
 
       <section ref={strategiesRef} className={`${styles.panel} ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights." action="Present Workforce Strategies" onClick={() => navigate("police_proposed_strategies_summary")} /></div>
+        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights."><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
         <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>
 
       <section className={styles.panel}>
-        <SectionHeading icon="Summary" title="2027 and Beyond" description="This report concludes by looking towards the 2027 Workforce Insights Reports and beyond. Future work will focus on broader priorities, including the participation of First Nations people, women and other genders in the Public Safety and Government workforces, in addition to examining the implications of artificial intelligence (AI) and digital transformation." action="View 2027 and Beyond" onClick={() => navigate("looking_forward")} />
+        <SectionHeading icon="Summary" title="2027 and Beyond" description="This report concludes by looking towards the 2027 Workforce Insights Reports and beyond. Future work will focus on broader priorities, including the participation of First Nations people, women and other genders in the Public Safety and Government workforces, in addition to examining the implications of artificial intelligence (AI) and digital transformation."><ActionButton onClick={() => navigate("looking_forward")}>View 2027 and Beyond</ActionButton></SectionHeading>
       </section>
 
       <section className={styles.supporting}>
         <h2>Supporting Sections:</h2>
-        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["DEF CHAPTER", "defence"], ["FES CHAPTER", "fes"], ["POL CHAPTER", "police"]].map(([label, path]) => <button key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
+        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["Defence Chapter", "defence"], ["Fire and Emergency Services Chapter", "fes"], ["Police Chapter", "police"]].map(([label, path]) => <button key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
       </section>
     </PublicSafetyPageShell>
   );

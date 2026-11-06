@@ -52,9 +52,9 @@ function NationalWorkforceChart() {
       ))}
       </svg>
     </div>
-    <figcaption>
+    <figcaption data-source-caption>
       <p>NOTE: Vertical lines represent the COVID-19 period</p>
-      <p>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+      <p data-source-caption>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
     </figcaption>
   </figure>;
 }
@@ -150,9 +150,9 @@ function JurisdictionChartLibrary() {
               </g>
             </svg>
           </div>
-          <figcaption>
+          <figcaption data-source-caption>
             <p>NOTE: Dotted vertical lines represent the COVID-19 period</p>
-            <p>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+            <p data-source-caption>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
           </figcaption>
         </figure>
       </div>
@@ -218,7 +218,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
         </div>
       </section>
 
-      <section className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
+      <section data-report-sources className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
         <h2>Sources</h2>
         <ol className={styles.sources} start={67}>
           {sources.map((source, index) => <li key={source}><span aria-hidden="true">{index + 67}</span>{source}</li>)}

@@ -47,7 +47,7 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
     </section>
 
     <hr className={styles.rule} />
-    <section className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
+    <section data-report-sources className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={53}>
         {fesDisasterRecoverySources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}

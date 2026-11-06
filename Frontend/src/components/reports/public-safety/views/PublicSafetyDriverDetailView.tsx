@@ -190,7 +190,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         <p className={styles.megatrendRecap}>These megatrends were identified in previous <span className={styles.reportTitle}>Workforce Insights Reports</span> and will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors.</p>
       </section>
 
-      <section ref={sourcesSectionRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
+      <section data-report-sources ref={sourcesSectionRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <h2>Sources</h2>
         <ol>{sources.map(([number, source], index) => (
           <li key={number} id={`driver-source-${number}`} style={{ animationDelay: `${index * 0.08 + 0.15}s` }} className={sourcesVisible ? "animate-card-entrance" : "opacity-0"}>

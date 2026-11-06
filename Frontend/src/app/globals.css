@@ -1058,3 +1058,17 @@ a.bg-\[\#fafaf0\] > *,
     opacity: 1;
   }
 }
+
+/* Public Safety citations use a common text treatment across report pages. */
+[data-public-safety-report] :is([data-source-caption], [data-report-sources] :is(h2, li, li > :last-child:not(:first-child), a)) {
+  color: #000;
+}
+
+[data-public-safety-report] :is([data-source-caption]:not(text), [data-report-sources] li) {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+[data-public-safety-report] text[data-source-caption] {
+  fill: #000;
+}

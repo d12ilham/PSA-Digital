@@ -116,7 +116,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     </section>
 
     <hr className={recovery.rule} />
-    <section className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
+    <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={53}>
         {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}

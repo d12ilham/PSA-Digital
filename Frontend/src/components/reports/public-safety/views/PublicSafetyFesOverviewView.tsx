@@ -83,7 +83,7 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
         </g>
       ))}
     </svg>
-    <figcaption>Source: {source}</figcaption>
+    <figcaption data-source-caption>Source: {source}</figcaption>
   </figure>;
 }
 
@@ -164,7 +164,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
           })}
         </div>
       </section>
-      <section className={`${sourcesStyles.sources} ${styles.sources} animate-slide-up-delay`}>
+      <section data-report-sources className={`${sourcesStyles.sources} ${styles.sources} animate-slide-up-delay`}>
         <h2>Sources</h2>
         <ol start={43}>
           {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span>{source}</span></li>)}

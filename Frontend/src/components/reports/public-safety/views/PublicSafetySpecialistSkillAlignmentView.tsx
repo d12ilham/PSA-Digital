@@ -26,10 +26,10 @@ const comparisonRows = [
     police: ["Assess environmental factors to determine impact on SAR operation", "Assess resources required to undertake SAR operations based on information about environmental factors", "Develop rescue plan to assist in managing SAR operation."],
   },
   {
-    skill: "Communication and coordination",
-    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations."],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people."],
-    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities."],
+    skill: "Search techniques and procedures",
+    defence: ["Carry out search drills/procedures applicable to the type of search", "Protect potential evidence and/or other items or material of interest from contamination, improper handling or removal."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people", "Initial search procedures are implemented, in accordance with search and rescue organisational policies."],
+    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation."],
   },
   {
     skill: "Information management and recording",
@@ -38,10 +38,10 @@ const comparisonRows = [
     police: ["Maintain critical decision records for accountability purposes."],
   },
   {
-    skill: "Search techniques and procedures",
-    defence: ["Carry out search drills/procedures applicable to the type of search", "Protect potential evidence and/or other items or material of interest from contamination, improper handling or removal."],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people", "Initial search procedures are implemented, in accordance with search and rescue organisational policies."],
-    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation."],
+    skill: "Communication and coordination",
+    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people."],
+    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities."],
   },
 ];
 
@@ -132,7 +132,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
         <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007 and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
 
         <section data-reveal="table" className={reveal("table")}>
-          <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Comparison table</h2>
+          <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Cross Industry-Sector Units of Competency Insights</h2>
           <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>
             <table className={styles.table}>
               <caption className={styles.srOnly}>Comparison of approved performance criteria for Defence, Public Safety and Police search and rescue training products.</caption>
@@ -141,11 +141,11 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                 <th scope="col">Relevant Performance Criteria</th>
                 {packages.map((item) => <th key={item.code} scope="col"><span>{item.code}</span><span>{item.title}</span></th>)}
               </tr></thead>
-              <tbody>{comparisonRows.map((row, rowIndex) => (
+              <tbody>{comparisonRows.map((row) => (
                 <tr key={row.skill}>
                   <th scope="row">{row.skill}</th>
                   {[row.defence, row.emergency, row.police].map((points, columnIndex) => {
-                    const plain = rowIndex === 1 && columnIndex === 1 || rowIndex === 2 && columnIndex === 0;
+                    const plain = (row.skill === "Communication and coordination" && columnIndex === 1) || (row.skill === "Information management and recording" && columnIndex === 0);
                     return <td key={columnIndex}>{plain ? <p>{points[0]}</p> : <ul>{points.map((point) => <li key={point}>{point}</li>)}</ul>}</td>;
                   })}
                 </tr>

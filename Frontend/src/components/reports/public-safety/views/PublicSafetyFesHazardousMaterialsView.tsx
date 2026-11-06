@@ -42,7 +42,7 @@ function EnrolmentsChart() {
       ))}
     </svg>
     <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[12px_1fr_auto_auto] items-center gap-2"><i className="size-2.5 rounded-full" style={{ backgroundColor: item.color }}/><strong>{item.code}</strong><span>2020: {item.start.toLocaleString()}</span><span>2024: {item.end.toLocaleString()}</span></div>)}</div>
-    <p className={styles.chartNote}>Chart source: {chartSource}</p>
+    <p data-source-caption className={styles.chartNote}>Chart source: {chartSource}</p>
     <p className={styles.chartNote}>Dashed lines compare the approved 2020 and 2024 values. No data points are shown for 2021–2023.</p>
   </figure>;
 }
@@ -83,7 +83,7 @@ export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: 
     </section>
 
     <hr className={recovery.rule} />
-    <section className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
+    <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={53}>
         {fesDisasterRecoverySources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}

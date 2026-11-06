@@ -142,7 +142,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
           <button key={path} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
         ))}
       </div>
-      <p className="text-xs font-semibold uppercase leading-6 text-[#598303]">Source: <sup>2</sup> Public Safety Industry-Sectors refer to Defence, Fire and Emergency Services and Police.</p>
+      <p data-source-caption className="text-xs font-semibold uppercase leading-6 text-[#598303]">Source: <sup>2</sup> Public Safety Industry-Sectors refer to Defence, Fire and Emergency Services and Police.</p>
     </PublicSafetyPageShell>
   );
 }

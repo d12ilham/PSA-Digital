@@ -108,7 +108,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       </article>
     </section>
 
-    <section className={sourcesStyles.sources}>
+    <section data-report-sources className={sourcesStyles.sources}>
       <h2>Sources</h2>
       <ol start={87}>
         {sources.map((source, index) => <li key={source}>

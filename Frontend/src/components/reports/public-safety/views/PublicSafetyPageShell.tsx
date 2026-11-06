@@ -18,7 +18,7 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} currentPage={currentPage} />
-      <main className={`mx-auto w-full max-w-[1488px] flex-1 space-y-6 px-4 py-6 sm:px-6 ${contentClassName}`}>
+      <main data-public-safety-report className={`mx-auto w-full max-w-[1488px] flex-1 space-y-6 px-4 py-6 sm:px-6 ${contentClassName}`}>
         <ReportNavButtons
           slug={slug}
           currentPage={currentPage}
@@ -65,7 +65,6 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
     { label: "2026 Proposed Workforce Strategies", path: `${prefix}_workforce_strategies` },
     { label: "Update on 2025 Strategies", path: `${prefix}_update_2025_strategies` },
     { label: "Existing Industry-Sector Strategies", path: `${prefix}_existing_strategies` },
-    { label: "Commonwealth Government Initiatives", path: `${prefix}_federal_initiatives` },
   ];
 
   const items: MenuGroup[] = [
@@ -96,13 +95,22 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
         { label: "Skills Recognition", path: "cross_sector_skills_recognition" },
       ],
     },
-    { label: "DEF", path: "defence", accent: "#D6A52D", matches: (page) => page.startsWith("defence"), children: sectorChildren("defence") },
+    {
+      label: "DEF",
+      path: "defence",
+      accent: "#D6A52D",
+      matches: (page) => page.startsWith("defence"),
+      children: [
+        ...sectorChildren("defence"),
+        { label: "Defence Veterans’ Programs and Initiatives", path: "defence_federal_initiatives" },
+      ],
+    },
     { label: "FES", path: "fes", accent: "#CF4C2C", matches: (page) => page === "fes" || page.startsWith("fes_"), children: sectorChildren("fes") },
-    { label: "POL", path: "police", accent: "#1685AD", matches: (page) => page.startsWith("police"), children: sectorChildren("police") },
+    { label: "POL", path: "police", accent: "#1685AD", matches: (page) => page.startsWith("police") && page !== "police_proposed_strategies_summary" && page !== "police_federal_initiatives", children: sectorChildren("police") },
     {
       label: "Cross-Sector Strategies",
       path: "police_proposed_strategies_summary",
-      matches: (page) => page === "police_proposed_strategies_summary",
+      matches: (page) => page === "police_proposed_strategies_summary" || page === "police_federal_initiatives",
       children: [
         { label: "Proposed Strategies Summary", path: "police_proposed_strategies_summary" },
         { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
