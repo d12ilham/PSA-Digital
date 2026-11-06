@@ -46,14 +46,14 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
     next: { label: "Proposed Strategies Summary", href: `/reports/${slug}/police_proposed_strategies_summary` },
     prevPrefix: "Previous Section:", nextPrefix: "Next Section:",
   }}>
-    <section className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-[#E9EAEB] bg-white p-6 motion-safe:animate-slide-up motion-safe:transition-shadow hover:shadow-sm lg:flex-row lg:items-center">
+    <section className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none! motion-safe:transition-shadow hover:shadow-sm lg:flex-row lg:items-center">
       <div>
         <span className="inline-flex rounded-full bg-[#0D71A3] px-3 py-1 text-xs font-semibold uppercase text-white">POL · Industry-Sector Analysis</span>
         <h1 className="mt-5 text-[32px] font-bold leading-tight text-[#252D02] xl:text-[40px] xl:leading-[48px]">Existing Industry-Sector Strategies</h1>
         <p className="mt-5 text-sm leading-6 text-[#252D02]">Select a strategy to see the detail and how it informs Public Skills Australia&apos;s work.</p>
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="h-auto w-full max-w-[487px] motion-safe:animate-zoom-in motion-safe:transition-transform motion-safe:hover:scale-[1.03] lg:w-[35%]" src="/images/reports/public-safety/police-existing-strategies-group-85.png" width={487} height={104} alt="" />
+      <img className="h-auto w-full max-w-[487px] animate-zoom-in motion-reduce:animate-none! motion-safe:transition-transform motion-safe:hover:scale-[1.03] lg:w-[35%]" src="/images/reports/public-safety/police-existing-strategies-group-85.png" width={487} height={104} alt="" />
     </section>
 
     <section className="grid items-start gap-6 lg:grid-cols-[minmax(260px,400px)_minmax(0,1fr)]">
@@ -68,7 +68,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
               aria-controls="police-existing-strategy-panel"
               onClick={() => setActive(index)}
               style={{ animationDelay: `${80 + index * 45}ms` }}
-              className={`group flex w-full items-center justify-between gap-2 rounded-2xl border p-6 text-left hover:shadow-sm motion-safe:animate-card-entrance motion-safe:transition motion-safe:hover:-translate-y-0.5 ${active === index ? "border-[#0D71A3] bg-[#E7F1F6] ring-1 ring-inset ring-[#0D71A3]" : "border-[#E9EAEB] bg-white hover:border-[#0D71A3]"}`}
+              className={`group flex w-full items-center justify-between gap-2 rounded-2xl border p-6 text-left hover:shadow-sm animate-card-entrance motion-reduce:animate-none! motion-safe:transition motion-safe:hover:-translate-y-0.5 ${active === index ? "border-[#0D71A3] bg-[#E7F1F6] ring-1 ring-inset ring-[#0D71A3]" : "border-[#E9EAEB] bg-white hover:border-[#0D71A3]"}`}
             >
               <span>
                 <span className="block text-sm font-medium uppercase leading-6 text-[#0D71A3]">{String(index + 1).padStart(2, "0")} · {item.owner}</span>
@@ -80,7 +80,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
         </div>
       </div>
 
-      <article id="police-existing-strategy-panel" className="min-w-0 rounded-2xl bg-[#E2ECE8] p-4 motion-safe:animate-slide-up-delay sm:p-6">
+      <article id="police-existing-strategy-panel" className="min-w-0 rounded-2xl bg-[#E2ECE8] p-4 animate-slide-up-delay motion-reduce:animate-none! sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="rounded-full bg-[#0D71A3] px-5 py-2.5 text-sm font-semibold text-white">{String(active + 1).padStart(2, "0")} · {strategy.owner}</span>
           <div className="ml-auto flex flex-wrap gap-2">
@@ -88,7 +88,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
             {active < strategies.length - 1 && <button type="button" aria-label="Next strategy" onClick={() => move(1)} className="group inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold text-[#252D02] hover:bg-[#9BD51F] motion-safe:transition-colors">Next <ArrowRight size={16} className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" /></button>}
           </div>
         </div>
-        <div key={active} className="mt-6 rounded-xl bg-[#FAFAF0] p-5 motion-safe:animate-content-switch sm:p-8">
+        <div key={active} className="mt-6 rounded-xl bg-[#FAFAF0] p-5 animate-content-switch motion-reduce:animate-none! sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4 xl:flex-nowrap">
             <h2 className="max-w-[560px] text-xl font-semibold leading-7 text-[#252D02]">{strategy.title}</h2>
             <span className="shrink-0 rounded-full bg-[#E5E8DA] px-5 py-1.5 text-sm text-[#535862]">{strategy.period}</span>
@@ -108,7 +108,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
         </div>
       </article></section>
 
-    <section ref={sourcesRef} aria-labelledby="police-strategy-sources" className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 hover:shadow-sm motion-safe:transition-shadow ${sourcesVisible ? "motion-safe:animate-slide-up" : ""}`}>
+    <section ref={sourcesRef} aria-labelledby="police-strategy-sources" className={`rounded-2xl border border-[#E9EAEB] bg-white p-6 hover:shadow-sm motion-safe:transition-shadow ${sourcesVisible ? "animate-slide-up motion-reduce:animate-none!" : ""}`}>
       <h2 id="police-strategy-sources" className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
       <ol role="list" className="mt-6 space-y-4 text-sm leading-6 text-[#252D02]">
         {strategies.map((item, index) => (
