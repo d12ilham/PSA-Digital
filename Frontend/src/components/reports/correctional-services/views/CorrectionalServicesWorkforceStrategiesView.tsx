@@ -37,7 +37,7 @@ export default function CorrectionalServicesWorkforceStrategiesView({ slug, repo
         <ReportNavButtons
           slug={slug}
           currentPage="workforce_strategies"
-          prev={{ label: "Theme 2 – PSA Insight 2", href: `/reports/${slug}/workforce_insights_career_pathways` }}
+          prev={{ label: "Theme 1 – PSA Insight 3", href: `/reports/${slug}/workforce_insights_career_pathways` }}
           next={{ label: "Update on 2024 Workforce Strategies", href: `/reports/${slug}/update_2024_strategies` }}
           prevPrefix=""
         />
