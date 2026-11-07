@@ -1,5 +1,6 @@
 "use client";
 
+import { NumberedSource, SourceLink } from "../SourceCitation";
 import { GenderChartHeading, GenderPayGapCard } from "./DocumentGenderGraphic";
 
 import { ChartScroll, ProfileColumnChart } from "./FederalStateProfileCharts";
@@ -91,7 +92,7 @@ function RepresentationChart() {
           </div>
         </ChartScroll>
         <div className={chartStyles.legend}><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#754D32]" />Percentage</span><span className="flex items-center gap-2"><span className="h-3 w-3 rounded bg-[#A58D7B]" />Target</span></div>
-        <p data-act-chart-source className="mt-5 border-t border-[#E6DCD5] text-xs leading-5 text-[#252b37]">SOURCE: ACT Government, State of the Service Reports: 2022–23, 2023–24, 2024–25, Table A.1</p>
+        <p data-citation-copy data-act-chart-source className="mt-5 border-t border-[#E6DCD5] text-sm leading-6 text-black">SOURCE: ACT Government, State of the Service Reports: <SourceLink row={28}>2022–23</SourceLink>, <SourceLink row={30}>2023–24</SourceLink>, <SourceLink row={39}>2024–25</SourceLink>, Table A.1</p>
       </div>
     </div>
   );
@@ -102,11 +103,11 @@ const payGapCohorts = [
   { label: <>First Nations</>, value: -2.6 },
   { label: <>People with<br />disability</>, value: -2.0 },
   { label: <>CALD<br />background</>, value: 2.5 },
-  { label: <>LGBTQIA+</>, value: 5.7 },
+  { label: <>LGBTIQA+</>, value: 5.7 },
 ];
 
 function PayGapChart() {
-  return <ProfileColumnChart genderGraphic title="ACT Public Service Pay Gap by Cohort" data={payGapCohorts.map(item => ({ ...item, text: `${item.value.toFixed(1)}%` }))} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4" surface="standard" accent="#754D32" />;
+  return <ProfileColumnChart genderGraphic title="ACT Public Service Pay Gap by Cohort" data={payGapCohorts.map(item => ({ ...item, text: `${item.value.toFixed(1)}%` }))} source={<SourceLink row={37}>SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Figure 6.4</SourceLink>} surface="standard" accent="#754D32" />;
 }
 
 const sources = [
@@ -148,7 +149,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
                 <p className="text-base leading-6 text-black">In 2025, the ACT <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
                 <strong className="mt-1 block text-4xl text-black">31,825</strong>
                 <p className="mt-1 text-base leading-6 text-black">employees (28,181 FTE) - ACT Public Servants represent 11.6% of the ACT workforce</p>
-                <p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: ACT Government, State of the Service Report 2024–25, 2025, pg. 6</p>
+                <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={37}>Source: ACT Government, State of the Service Report 2024–25, 2025, pg. 6</SourceLink></p>
               </div>
               <div className="rounded-md bg-[#F8EEE8] p-4">
                 <strong className="block text-4xl text-black">70,221</strong>
@@ -163,9 +164,9 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
-              <p className="mt-2 text-xs leading-6 text-[#42463B]">The Australian Capital Territory Public Service (ACTPS) comprises approximately 31,825 employees.<sup>12</sup> ACTPS makes up approximately 11.6 per cent of the whole ACT workforce,<sup>13</sup> emphasising its position as a major employer in the territory. The workforce is predominantly female, with women accounting for close to two-thirds of employees. A small proportion of employees identify as non-binary.<sup>14</sup></p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">The ACTPS workforce is diverse with employees from culturally and linguistically diverse (CALD) backgrounds accounting for over 25 per cent of the workforce. 2.8 per cent of the workforce identify as LGBTQIA+ and 3 per cent of employees report living with a disability.<sup>15</sup></p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">In the ACTPS, First Nations employees account for approximately 2 per cent of the workforce, below the ACT Government&apos;s 3 per cent employment target by 2026.<sup>16</sup> Since 2020, the level of ACT public service employees who identify as First Nations has been consistent at around 2 per cent.<sup>17</sup></p>
+              <p className="mt-2 text-xs leading-6 text-[#42463B]">The Australian Capital Territory Public Service (ACTPS) comprises approximately 31,825 employees.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">12</sup> ACTPS makes up approximately 11.6 per cent of the whole ACT workforce,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">13</sup> emphasising its position as a major employer in the territory. The workforce is predominantly female, with women accounting for close to two-thirds of employees. A small proportion of employees identify as non-binary.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">14</sup></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">The ACTPS workforce is diverse with employees from culturally and linguistically diverse (CALD) backgrounds accounting for over 25 per cent of the workforce. 2.8 per cent of the workforce identify as LGBTQIA+ and 3 per cent of employees report living with a disability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">15</sup></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">In the ACTPS, First Nations employees account for approximately 2 per cent of the workforce, below the ACT Government&apos;s 3 per cent employment target by 2026.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">16</sup> Since 2020, the level of ACT public service employees who identify as First Nations has been consistent at around 2 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">17</sup></p>
             </div>
             <div>
               <h3 className="text-sm font-bold">Structure and Legal Context</h3>
@@ -184,22 +185,22 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
                   <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#B6A79B]" />Male</dt><dd className="font-semibold">35%</dd></div>
                   <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#E8DED6]" />Non-Binary</dt><dd className="font-semibold">0.2%</dd></div>
                 </dl>
-                <GenderPayGapCard value="-0.3%" source="Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.8" inset className="sm:col-span-2" />
+                <GenderPayGapCard value="-0.3%" source={<SourceLink row={37}>Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.8</SourceLink>} inset className="sm:col-span-2" />
               </div>
-              <p className="mt-3 text-xs leading-5 text-[#694834]">Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</p>
+              <p data-citation-copy className="mt-3 text-sm leading-6 text-black"><SourceLink row={37}>Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</SourceLink></p>
             </div>
-            <ColumnChart title="Workforce Participation as Proportion of Total Workforce" data={[{ label: "First Nations participation", value: 2, text: "2.0%", muted: true }, { label: "People with disability", value: 3, text: "3.0%" }, { label: "CALD background", value: 26.6, text: "26.6%" }, { label: "LGBTIQA+", value: 2.8, text: "2.8%" }]} source="SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Table A.1" />
+            <ColumnChart title="Workforce Participation as Proportion of Total Workforce" data={[{ label: "First Nations participation", value: 2, text: "2.0%", muted: true }, { label: "People with disability", value: 3, text: "3.0%" }, { label: "CALD background", value: 26.6, text: "26.6%" }, { label: "LGBTIQA+", value: 2.8, text: "2.8%" }]} source={<SourceLink row={37}>SOURCE: ACT Government, State of the Service Report 2024–25, 2025, Table A.1</SourceLink>} />
           </div>
         </Section>
 
         <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
           <h3 className="text-sm font-bold">Workforce Trends</h3>
-          <p className="mt-2 max-w-4xl text-xs leading-6 text-[#42463B]">Between 2023–24 and 2024–25, the ACTPS grew by 3.5 per cent,<sup>18</sup> which is greater than the projected 10-year employment growth for the Public Administration and Safety industry<sup>19</sup> in the ACT (16 per cent over 10 years).<sup>20</sup> The ACT Government has implemented several initiatives to build capability in the ACTPS and has committed to embedding a culture of continuous learning and innovation in leadership development to build a future ready workforce. This includes targeting entry-level recruitment through the ACTPS Graduate Program, which in 2025 transitioned to a career path model that supports balancing business needs and graduate capability.<sup>21</sup></p>
-          <p className="mt-3 max-w-4xl text-xs leading-6 text-[#42463B]">The ACT Skills Needs List identifies more than 150 occupational skills shortages. This list enables targeted workforce strategies by aligning in-need occupations and the VET qualifications that support them. The list includes two occupations split across five qualifications under the PSP Public Sector Training Package, which Public Skills Australia can address.<sup>22</sup></p>
+          <p className="mt-2 max-w-4xl text-xs leading-6 text-[#42463B]">Between 2023–24 and 2024–25, the ACTPS grew by 3.5 per cent,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">18</sup> which is greater than the projected 10-year employment growth for the Public Administration and Safety industry<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">19</sup> in the ACT (16 per cent over 10 years).<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">20</sup> The ACT Government has implemented several initiatives to build capability in the ACTPS and has committed to embedding a culture of continuous learning and innovation in leadership development to build a future ready workforce. This includes targeting entry-level recruitment through the ACTPS Graduate Program, which in 2025 transitioned to a career path model that supports balancing business needs and graduate capability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">21</sup></p>
+          <p className="mt-3 max-w-4xl text-xs leading-6 text-[#42463B]">The ACT Skills Needs List identifies more than 150 occupational skills shortages. This list enables targeted workforce strategies by aligning in-need occupations and the VET qualifications that support them. The list includes two occupations split across five qualifications under the PSP Public Sector Training Package, which Public Skills Australia can address.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">22</sup></p>
           <div className="mt-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
             <div className="space-y-4">
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">16%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for ACT Public Administration and Safety Industry</p><p className="mt-4 text-[9px] text-[#694834]">Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 2</p></div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><h4 className="text-sm font-semibold text-[#754D32]">ACT Occupational Shortages</h4><ul className="mt-2 list-disc pl-5 text-xs leading-5"><li>Social Professionals (Interpreters, Translators)</li><li>Inspectors and Regulatory Officers</li></ul><p className="mt-4 text-[9px] text-[#694834]">Source: ACT Government, ACT Skills Needs List - Occupation needs employed by Public Administration and Safety Industry, 2025</p></div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">16%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for ACT Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={41}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 2</SourceLink></p></div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><h4 className="text-sm font-semibold text-[#754D32]">ACT Occupational Shortages</h4><ul className="mt-2 list-disc pl-5 text-xs leading-5"><li>Social Professionals (Interpreters, Translators)</li><li>Inspectors and Regulatory Officers</li></ul><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={40}>Source: ACT Government, ACT Skills Needs List - Occupation needs employed by Public Administration and Safety Industry, 2025</SourceLink></p></div>
             </div>
             <div>
               <h4 className="text-sm font-bold">As the table below indicates, they relate to skills gaps in Australian Sign Language (Auslan) qualifications and occupations:</h4>
@@ -224,9 +225,9 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
             {[sources.slice(0, 6), sources.slice(6)].map((column, index) => (
               <ol key={index} className="space-y-3">
                 {column.map(({ number, text }) => (
-                  <li key={number} className="flex items-start gap-3 text-xs leading-5 text-[#252D02]">
+                  <li data-citation-copy key={number} className="flex items-start gap-3 text-sm leading-6 text-black">
                     <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
-                    <span>{text}</span>
+                    <span><NumberedSource number={number} text={text} /></span>
                   </li>
                 ))}
               </ol>

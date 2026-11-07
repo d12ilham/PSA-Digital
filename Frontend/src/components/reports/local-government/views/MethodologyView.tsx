@@ -503,11 +503,12 @@ export default function MethodologyView({
         {/* Footnote Box */}
         <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
           <p className="w-full xl:w-1/2">
-            3 - Note: councils were able to participate in both consultation and
+            <sup>3</sup> Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted
             once. Public Skills Australia did not meet with stakeholders from
             the ACT as they do not have local councils. Insights related to the
             ACT Government industry-sector are included in the 2026 Federal and
+            State/Territory Workforce Insights Report.
           </p>
         </div>
       </main>

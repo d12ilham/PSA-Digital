@@ -1,5 +1,6 @@
 "use client";
 
+import { SourceLink } from "../SourceCitation";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -15,7 +16,7 @@ const DRIVERS = [
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc: <>
-      Organisational resilience is emerging as a critical driver of change across Australia&apos;s Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress.<sup>2</sup>
+      Organisational resilience is emerging as a critical driver of change across Australia&apos;s Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyber attacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that supports system-wide preparedness, robust governance and the ability to maintain critical functions under stress.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">2</sup>
     </>,
     sources:
       "Sources (2): Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026.",
@@ -27,7 +28,7 @@ const DRIVERS = [
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc: <>
-      In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup>3</sup> These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup>4</sup>
+      In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">3</sup> These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">4</sup>
     </>,
     sources:
       "Sources (3, 4): Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026 · Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026.",
@@ -41,7 +42,7 @@ const DRIVERS = [
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
     fullDesc: <>
-      AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.<sup>5</sup> These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.<sup>6</sup>
+      AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">5</sup> These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">6</sup>
     </>,
     sources:
       "Sources (5, 6): Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, 2024, accessed 25 February 2026 · Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, 2025, accessed 25 February 2026 · Australian Security Intelligence Organisation (ASIO), Director-General's Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026.",
@@ -396,58 +397,48 @@ export default function FederalStateDriversOfChangeView({
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 2
               </span>
-              <p>
-                Australian Government Department of Home Affairs, Organisational
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={5}>Australian Government Department of Home Affairs, Organisational
                 Resilience: Good Practice Guide , Australian Government
-                Department of Home Affairs, 2024, accessed 25 February 2026.
-              </p>
+                Department of Home Affairs, 2024, accessed 25 February 2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 3
               </span>
-              <p>
-                Productivity Commission, Five pillars of productivity inquiries
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={6}>Productivity Commission, Five pillars of productivity inquiries
                 – final reports , Productivity Commission, 2025, accessed 13
-                February 2026.
-              </p>
+                February 2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
               </span>
-              <p>
-                Productivity Commission, Five pillars of productivity inquiries
-                , Productivity Commission, 2025, accessed 25 February 2026.
-              </p>
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={7}>Productivity Commission, Five pillars of productivity inquiries
+                , Productivity Commission, 2025, accessed 25 February 2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 5
               </span>
-              <p>
-                Australian Government Department of Finance, National framework
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={8}>Australian Government Department of Finance, National framework
                 for the assurance of artificial intelligence in government ,
                 Australian Government Department of Finance, 2024, accessed 25
-                February 2026; Australian Government Digital Transformation
+                February 2026</SourceLink>; <SourceLink row={9}>Australian Government Digital Transformation
                 Agency, Policy for the responsible use of AI in government ,
                 Australian Government Digital Transformation Agency, 2025,
-                accessed 25 February 2026.
-              </p>
+                accessed 25 February 2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-2.5">
               <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
                 6
               </span>
-              <p>
-                Australian Security Intelligence Organisation (ASIO),
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={10}>Australian Security Intelligence Organisation (ASIO),
                 Director-General's Annual Threat Assessment 2025 , ASIO, 2025,
-                accessed 25 February 2026.
-              </p>
+                accessed 25 February 2026.</SourceLink></p>
             </div>
           </div>
         </div>

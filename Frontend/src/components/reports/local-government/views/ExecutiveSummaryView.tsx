@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { strategyOneContent } from "../strategyOneContent";
+import { strategyTwoContent } from "../strategyTwoContent";
 import {
   ArrowLeft,
   ArrowRight,
@@ -595,15 +597,11 @@ export default function ExecutiveSummaryView({
               </div>
 
               <h4 className="font-bold text-base text-gray800 leading-snug">
-                Map Local Government occupational shortages to relevant VET
-                training products
+                {strategyOneContent.title}
               </h4>
 
               <p className="text-xs text-gray600 leading-relaxed">
-                Identify and map the use of relevant qualifications (beyond the
-                Local Government Area (LGA) Local Government Training Package)
-                to support VET training for key occupational shortages in Local
-                Government.
+                {strategyOneContent.objective}
               </p>
 
               {/* EXPANDED CONTENT FOR STRATEGY 1 */}
@@ -622,10 +620,10 @@ export default function ExecutiveSummaryView({
                   >
                     <div className="flex flex-col items-start gap-2">
                       <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                        Workforce Insight: LG Specific Occupational Shortages
+                        Workforce Insight: {strategyOneContent.workforceInsight}
                       </span>
                       <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                        12-month project
+                        {strategyOneContent.anticipatedTiming}
                       </span>
                     </div>
 
@@ -634,7 +632,7 @@ export default function ExecutiveSummaryView({
                         JSC Function:
                       </h5>
                       <p className="text-xs text-gray600">
-                        Implementation, Promotion and Monitoring.
+                        {strategyOneContent.jscFunction}
                       </p>
                     </div>
 
@@ -643,12 +641,7 @@ export default function ExecutiveSummaryView({
                         Approach:
                       </h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Map the most challenging occupational shortages (as
-                        identified through the JSA Occupation Shortage List and
-                        the Local Government Skills Audit) to relevant
-                        qualifications contained in both the LGA Local Government
-                        Training Package and other Training Packages, as well as
-                        the RTOs that deliver them.
+                        {strategyOneContent.approach}
                       </p>
                     </div>
 
@@ -657,7 +650,7 @@ export default function ExecutiveSummaryView({
                         Deliverable:
                       </h5>
                       <p className="text-xs text-gray600">
-                        Occupational Shortage Map.
+                        {strategyOneContent.deliverable}
                       </p>
                     </div>
 
@@ -665,16 +658,15 @@ export default function ExecutiveSummaryView({
                       <h5 className="text-xs font-bold text-gray800">
                         Anticipated timing:
                       </h5>
-                      <p className="text-xs text-gray600">12-month project.</p>
+                      <p className="text-xs text-gray600">
+                        {strategyOneContent.anticipatedTiming}
+                      </p>
                     </div>
 
                     <div className="space-y-1">
                       <h5 className="text-xs font-bold text-gray800">Impact:</h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        An Occupational Shortage Map connecting the most
-                        challenging shortages to the qualifications and RTOs that
-                        can address them — enabling the sector to meet expanding
-                        and increasing service delivery requirements.
+                        {strategyOneContent.impact}
                       </p>
                     </div>
 
@@ -682,11 +674,11 @@ export default function ExecutiveSummaryView({
                       <h5 className="text-xs font-bold text-gray800">
                         Key stakeholders:
                       </h5>
-                      <p className="text-xs text-gray600 leading-relaxed">
-                        ALGA · state/territory LG Associations · LG Workforce
-                        Development Group · RTOs · STTAs/SROs · state/territory LG
-                        Departments.
-                      </p>
+                      <ul className="list-disc pl-5 space-y-1 text-xs text-gray600 leading-relaxed">
+                        {strategyOneContent.keyStakeholders.map((stakeholder) => (
+                          <li key={stakeholder}>{stakeholder}</li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -713,14 +705,11 @@ export default function ExecutiveSummaryView({
               </div>
 
               <h4 className="font-bold text-base text-gray800 leading-snug">
-                Facilitate a roundtable on whole of VET system responses to
-                Local Government challenges
+                {strategyTwoContent.title}
               </h4>
 
               <p className="text-xs text-gray600 leading-relaxed">
-                Promote the Local Government industry-sector as a sustainable
-                and skilled career pathway to enhance service delivery to
-                communities.
+                {strategyTwoContent.objective}
               </p>
 
               {/* EXPANDED CONTENT FOR STRATEGY 2 */}
@@ -739,8 +728,7 @@ export default function ExecutiveSummaryView({
                   >
                     <div className="flex flex-wrap gap-2">
                       <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                        Workforce Insight: Access to VET Qualifications and
-                        Training Delivery Partners
+                        Workforce Insight: {strategyTwoContent.workforceInsight}
                       </span>
                     </div>
 
@@ -749,7 +737,7 @@ export default function ExecutiveSummaryView({
                         JSC Function:
                       </h5>
                       <p className="text-xs text-gray600">
-                        Industry Stewardship, Training Product Development
+                        {strategyTwoContent.jscFunction}
                       </p>
                     </div>
 
@@ -758,14 +746,7 @@ export default function ExecutiveSummaryView({
                         Approach – Part A:
                       </h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Bring together state and territory decision makers,
-                        STTAs/SROs, Local Government Partners, TAFEs and RTOs to
-                        facilitate conversations about whole of VET system
-                        responses to Local Government industry-sector challenges.
-                        This should include discussions about training delivery,
-                        funding of training for occupations in shortage in local
-                        councils and could see potential agreements between local
-                        councils and RTOs regarding training delivery.
+                        {strategyTwoContent.approachPartA}
                       </p>
                     </div>
 
@@ -774,13 +755,7 @@ export default function ExecutiveSummaryView({
                         Approach – Part B (optional):
                       </h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        If gaps in specialist local council skills are identified
-                        in Strategy 1 (Map Local Government occupational shortages
-                        to relevant VET training products), an evaluation of the
-                        current LGA Local Government Training Package may be
-                        undertaken, with a focus on the number of qualifications,
-                        training pathways, design of specialisation areas and the
-                        potential utility of skill sets.
+                        {strategyTwoContent.approachPartB}
                       </p>
                     </div>
 
@@ -789,10 +764,9 @@ export default function ExecutiveSummaryView({
                         Deliverable:
                       </h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Part A: Roundtable discussions and summary report of
-                        discussions.
+                        Part A: {strategyTwoContent.deliverablePartA}
                         <br />
-                        Part B: Reviewed training product/s
+                        Part B: {strategyTwoContent.deliverablePartB}
                       </p>
                     </div>
 
@@ -801,19 +775,27 @@ export default function ExecutiveSummaryView({
                         Key Stakeholders:
                       </h5>
                       <ul className="space-y-1 text-xs text-gray600 pl-4 list-disc">
-                        <li>Australian Local Government Association</li>
-                        <li>State/Territory Local Government Associations</li>
-                        <li>Local Government Workforce Development Group</li>
-                        <li>Jobs and Skills Councils &gt; RTOs &gt; STTA/SROs</li>
-                        <li>State/Territory Local Government Departments</li>
+                        {strategyTwoContent.keyStakeholders.map((stakeholder) => (
+                          <li key={stakeholder}>{stakeholder}</li>
+                        ))}
                       </ul>
                     </div>
 
                     <div className="space-y-1">
                       <h5 className="text-xs font-bold text-gray800">Impact:</h5>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Support the Local Government industry-sector by
-                        facilitating access to whole of VET sector stakeholders.
+                        {strategyTwoContent.impact}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Anticipated timing:
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Part A: {strategyTwoContent.anticipatedTimingPartA}
+                        <br />
+                        Part B: {strategyTwoContent.anticipatedTimingPartB}
                       </p>
                     </div>
                   </div>

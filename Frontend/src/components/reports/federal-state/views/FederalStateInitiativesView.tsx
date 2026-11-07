@@ -45,9 +45,18 @@ const workingForWomen = {
   source: "Australian Government – Minister for Women",
   period: "2023 – ongoing",
   paragraphs: [
-    "Working for Women is the Australian Government’s national strategy for gender equality. It informs workforce inclusivity priorities across the Public Safety and Government industry-sectors.",
-    "The Strategy sets five priority areas, with progress reported annually. Priority Area 3 focuses on economic equality and security, including gender pay gaps, access to skills and training, and reducing occupational and industrial gender segregation. The Advancing Gender Equality in Gender Segregated Industries grant program supports this work.",
-    "These priorities provide context for Public Skills Australia’s research and stakeholder engagement on participation, career pathways and workforce capability in Federal and State/Territory Government.",
+    "The Working for Women strategy outlines a framework for the Australian Government to improve national gender equality. It sets out five priority areas and reports on a range of outcomes and indicators annually to monitor Australia’s progress.",
+    "Specific to JSCs, Priority Area 3 focuses on improving gender pay gaps, supporting access to skills and training and reducing occupational and industrial gender segregation.",
+    "To date, the Australian Government has increased female recruitment into trades and other occupations through apprenticeship supports, fee-free TAFE and targets in the Australian Skills Guarantee, along with including gender equality as a national priority in the National Skills Agreement.",
+    "In March 2025, the Department for Workplace Relations launched the Advancing Gender Equality in Gender Segregated Industries grant program, directly linked to Priority Area 3. This grant program received a $28.5 million extension in December 2025.",
+    "Priority Area 3 of the Working for Women strategy – addressing economic equality and security – directly informed the requirement for, and development of, the proposed strategy Identify future skills needs for Federal and State/Territory Government. This work will seek opportunities to identify where any gender-based differences in future skills requirements may exist.",
+  ],
+  priorityAreas: [
+    "Gender-based violence",
+    "Unpaid and paid care",
+    "Economic equality and security",
+    "Health",
+    "Leadership, representation and decision-making",
   ],
 };
 
@@ -318,6 +327,11 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
             <h3 className="text-lg font-medium text-[#5A8900]">SUMMARY</h3>
             <div className="mt-3 space-y-4 text-sm leading-6 text-[#696969]">{initiative.paragraphs.map((paragraph, index) => <div key={paragraph} className="animate-content-switch motion-reduce:animate-none" style={{ animationDelay: `${0.08 + index * 0.1}s` }}>
               <p>{paragraph}</p>
+              {initiative === workingForWomen && index === 0 && (
+                <ol className="mt-3 list-decimal space-y-1 pl-7">
+                  {workingForWomen.priorityAreas.map((area) => <li key={area}>{area}</li>)}
+                </ol>
+              )}
               {selected === 5 && index === 0 && <ul className="mt-3 list-disc space-y-1 pl-6">{vetRecommendations.map((recommendation) => <li key={recommendation}>{recommendation}</li>)}</ul>}
               {selected === 8 && index === 0 && <ul className="mt-3 list-disc space-y-1 pl-6">{betterTogetherPillars.map((pillar) => <li key={pillar}>{pillar}</li>)}</ul>}
               {selected === 10 && index === 0 && <ul className="mt-3 list-disc space-y-1 pl-6">{productivityPillars.map((pillar) => <li key={pillar}>{pillar}</li>)}</ul>}

@@ -1,5 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
+
+import { SourceLink } from "../SourceCitation";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -131,7 +134,7 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
   const national = selectedState === "NATIONAL";
 
   return (
-    <div className={`relative rounded-md bg-[#FBF5F1] p-2 pb-16 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
+    <div className={`relative rounded-md bg-[#FBF5F1] p-2 pb-20 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
@@ -212,10 +215,9 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
           Employees 70,221
         </text>
       </svg>
-      <p className={`absolute bottom-3 left-4 text-black ${national ? "pr-4 text-xs leading-5" : "text-[9px] leading-3"}`}>
-        Source: Australian Government, State of the Service Report 2024–25,
-        Table 13
-      </p>
+      <p data-citation-copy className="absolute inset-x-4 bottom-3 text-sm leading-6 text-black">
+        <SourceLink row={19}>Source: Australian Government, State of the Service Report 2024–25,
+        Table 13</SourceLink></p>
     </div>
   );
 }
@@ -227,7 +229,7 @@ function BarChart({
 }: {
   title: string;
   bars: { label: string; value: number; color: string; display: string }[];
-  source: string;
+  source: ReactNode;
 }) {
   const maxValue = Math.max(...bars.map((bar) => bar.value));
 
@@ -249,7 +251,7 @@ function BarChart({
           </div>
         </div>
       </div>
-      <p className="mt-auto pt-4 text-xs leading-5">{source}</p>
+      <p data-citation-copy className="mt-auto pt-4 text-sm leading-6 text-black">{source}</p>
     </article>
   );
 }
@@ -318,7 +320,7 @@ function CountUp({ value, decimals = 0, suffix = "" }: { value: number; decimals
       observer.disconnect();
       const start = performance.now();
       const step = (now: number) => {
-        const progress = Math.min((now - start) / 1200, 1);
+        const progress = Math.max(0, Math.min((now - start) / 1200, 1));
         setCurrent(value * (1 - (1 - progress) ** 3));
         if (progress < 1) frame = requestAnimationFrame(step);
       };
@@ -503,7 +505,7 @@ export default function FederalStateIndustryProfileView({
                         <p className="mt-1 text-base font-semibold">Gender Pay Gap</p>
                       </div>
                     </div>
-                    <p className="mt-3 border-t border-[#D9BCAF] pt-3 text-xs leading-5">Source: Australian Government, State of the Service Report 2024–25, 2025.</p>
+                    <p data-citation-copy className="mt-3 border-t border-[#D9BCAF] pt-3 text-sm leading-6 text-black"><SourceLink row={19}>Source: Australian Government, State of the Service Report 2024-25, 2025, pg. 32</SourceLink></p>
                   </section>
                 </Reveal>
               </div>
@@ -525,7 +527,7 @@ export default function FederalStateIndustryProfileView({
                           color: "#754D32",
                         },
                       ]}
-                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table A8 and p.31"
+                      source={<SourceLink row={19}>SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table AB 1 &amp; pg. 31</SourceLink>}
                     />
                   </Reveal>
                   <Reveal delay={0.18} className="h-full min-w-0">
@@ -535,11 +537,11 @@ export default function FederalStateIndustryProfileView({
                         { label: "First Nations", value: 3.4, display: "3.4%", color: "#E8D9D1" },
                         { label: "Employees with disability", value: 5.8, display: "5.8%", color: "#CDB9AD" },
                         { label: "Neurodivergent", value: 10.8, display: "10.8%", color: "#BBA295" },
-                        { label: "LGBTQIA+", value: 9.5, display: "9.5%", color: "#8E654A" },
+                        { label: "LGBTIQA+", value: 9.5, display: "9.5%", color: "#8E654A" },
                         { label: "CALD", value: 26.8, display: "26.8%", color: "#754D32" },
                         { label: "Women", value: 60.5, display: "60.5%", color: "#694834" },
                       ]}
-                      source="SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table 5"
+                      source={<SourceLink row={19}>SOURCE: Australian Government, State of the Service Report 2024–25, 2025, Table 5</SourceLink>}
                     />
                   </Reveal>
                 </div>

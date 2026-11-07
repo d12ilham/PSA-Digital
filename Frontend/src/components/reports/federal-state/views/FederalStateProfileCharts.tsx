@@ -11,7 +11,7 @@ export function ChartScroll({ children }: { children: ReactNode }) {
 export function ProfileColumnChart({ title, data, source, surface = "standard", wide = false, accent, genderGraphic = false }: {
   title: string;
   data: { label: ReactNode; value: number; text: string; muted?: boolean }[];
-  source: string;
+  source: ReactNode;
   surface?: "standard" | "representation";
   wide?: boolean;
   accent?: string;
@@ -43,7 +43,7 @@ export function ProfileColumnChart({ title, data, source, surface = "standard", 
           </div>
         </div>
       </ChartScroll>
-      <p data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-xs leading-5">{source}</p>
+      <p data-citation-copy data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-sm leading-6 text-black">{source}</p>
     </article>
   );
 }
