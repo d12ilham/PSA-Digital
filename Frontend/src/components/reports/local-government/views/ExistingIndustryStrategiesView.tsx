@@ -410,7 +410,7 @@ export default function ExistingIndustryStrategiesView({
             onClick={() => router.push(`/reports/${slug}/federal_initiatives`)}
             className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
-            Next Section: Commonwealth Government Initiatives{" "}
+            Next Section: Federal Government Initiatives{" "}
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>

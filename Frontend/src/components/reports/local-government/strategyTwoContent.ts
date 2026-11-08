@@ -1,6 +1,6 @@
 export const strategyTwoContent = {
   title:
-    "Facilitate a roundtable on whole of VET system responses to Local Government challenges",
+    "Facilitate a roundtable on whole-of-VET-system responses to Local Government challenges",
   workforceInsight: "Access to VET Qualifications and Training Delivery Partners",
   jscFunction: "Industry Stewardship, Training Product Development",
   objective:
