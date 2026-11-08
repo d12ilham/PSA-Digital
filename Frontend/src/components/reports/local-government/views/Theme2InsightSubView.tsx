@@ -130,6 +130,9 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Two
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Access to VET Qualifications and Training Delivery Partners
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Few TAFEs and RTOs are willing to travel to geographically
                 isolated locations to deliver required qualifications.
@@ -149,8 +152,11 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Three
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
+              <p className="text-sm sm:text-base font-bold text-gray800">
                 Access to VET Qualifications and Training Delivery Partners
+              </p>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
+                Local councils have limited training budgets to support financial impost of course enrolment as well as travel to and from training
               </h1>
             </div>
           </div>
@@ -167,6 +173,9 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight Four
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Access to VET Qualifications and Training Delivery Partners
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Course delivery is often not tailored to suit those from
                 regional, rural or remote locations
@@ -215,8 +224,11 @@ export default function Theme2InsightSubView({
 
       {/* INSIGHT 2 BODY */}
       {insightId === 2 && (
-        <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+            <h3 className="text-xl font-bold text-gray800">
+              Few TAFEs and RTOs are willing to travel to geographically isolated locations to deliver training:
+            </h3>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               Few RTOs are willing or able to deliver tailored, in-community
               training, especially for niche or highly contextual skills.
@@ -227,9 +239,34 @@ export default function Theme2InsightSubView({
               appropriate level of cultural sensitivity or access to translated
               materials and interpreters.
             </p>
-
           </div>
-
+          <div
+            style={{ animationDelay: "0.22s" }}
+            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/frame-7.svg"
+                    alt=""
+                    className="w-8 h-8 object-contain animate-zoom-in"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                Stakeholders noted that closer engagement with government
+                decision makers, TAFEs, RTOs and councils to consider solutions
+                to challenges such as access to training, delivery options and
+                costs may support local councils to build the technical
+                capability they need for the future.
+              </p>
+            </div>
+            <p className="pt-4 border-t border-gray200 text-[11px] text-notes">
+              HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND TRAINING PACKAGE PROJECT
+            </p>
+          </div>
         </div>
       )}
 
@@ -281,8 +318,8 @@ export default function Theme2InsightSubView({
 
       {/* INSIGHT 4 BODY */}
       {insightId === 4 && (
-        <div className="max-w-5xl mx-auto space-y-6">
-          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5">
             <h3 className="text-xl font-bold text-gray800">
               Non-Tailored delivery options:
             </h3>
@@ -312,42 +349,48 @@ export default function Theme2InsightSubView({
               options that accommodate people from non-English speaking
               backgrounds.
             </p>
-
           </div>
-
-          <div
-            style={{ animationDelay: "0.22s" }}
-            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/frame-7.svg"
-                    alt="Industry Insight"
-                    className="w-8 h-8 object-contain animate-zoom-in"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-gray800">
-                  Industry Insight
-                </h3>
-              </div>
-
+          <section className="bg-white rounded-2xl border border-gray200 p-6 space-y-5">
+            <h2 className="text-xl font-bold text-gray800">
+            Contextualisation of Qualifications to Local Government Service Delivery
+            </h2>
+            <div className="space-y-5">
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                Stakeholders noted that closer engagement with government decision
-                makers, TAFEs, RTOs and councils to consider solutions to challenges
-                such as access to training, delivery options and costs may support
-                local councils to build the technical capability they need for the future.
+                Stakeholders expressed concern with the ability of qualifications to
+                be contextualised to accommodate the unique operating environments of
+                local councils. Some indicated a preference for training that:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-xs sm:text-sm text-gray600 leading-relaxed">
+                <li>Includes cultural, geographic and operational contexts of working in regional, rural and remote, and First Nations communities, with case studies drawn from real-world experiences</li>
+                <li>Accurately reflects the realities of local council work and aligned with operational priorities</li>
+                <li>Reflects jurisdiction-specific requirements, particularly for modules covering regulations and local laws, which may differ across LGAs</li>
+              </ul>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                While some stakeholders expressed interest in an expansion of the LGA
+                Local Government Training Package to host contextualised qualifications,
+                challenges with qualification duplication could emerge. Bringing
+                together state and territory decision makers, State and Territory
+                Training Authorities/Senior Responsible Officers (STTA/SRO), Local
+                Government partner TAFEs and RTOs to discuss solutions to training
+                access, delivery styles, financial implications and contextualisation
+                of learning materials, may support more sustainable and targeted
+                training outcomes for Local Government industry-sector occupational
+                shortages.
               </p>
             </div>
-
-            <div className="pt-4 border-t border-gray200">
-              <p className="text-xs text-notes uppercase">
-                HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                TRAINING PACKAGE PROJECT
+            <div className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
+              <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                Stakeholders from New South Wales noted challenges with delivery of
+                some civil qualifications which were deemed not sufficiently flexible
+                and included modules that did not align with operational needs.
+                Stakeholders indicated a preference for tailored electives that
+                directly address workforce requirements and ensure modules are
+                specific to LGA contexts, since regulatory demands differ across
+                regions.
               </p>
             </div>
-          </div>
+          </section>
         </div>
       )}
     </div>

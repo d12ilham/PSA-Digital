@@ -33,6 +33,77 @@ interface InitiativeItem {
 const INITIATIVES_DATA: InitiativeItem[] =
   federalInitiativesData as InitiativeItem[];
 
+function InitiativeDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "13") {
+    const [challengeSection, recommendationSection] = item.description.split("\n\n");
+    const [challengeIntroduction, ...challenges] = challengeSection.split("\n");
+    const [recommendationIntroduction, ...recommendations] = recommendationSection.split("\n");
+
+    return (
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <p>{challengeIntroduction}</p>
+          <ul className="space-y-1">
+            {challenges.map((challenge) => (
+              <li key={challenge} className="flex items-start gap-2">
+                <span aria-hidden="true" className="shrink-0">›</span>
+                <span>{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="space-y-2">
+          <p>{recommendationIntroduction}</p>
+          <ol className="list-decimal space-y-1 pl-5">
+            {recommendations.map((recommendation) => (
+              <li key={recommendation} className="pl-1">
+                {recommendation.replace(/^\d+\.\s*/, "")}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    );
+  }
+
+  if (item.number !== "09" && item.number !== "11") {
+    return <div className="whitespace-pre-line">{item.description}</div>;
+  }
+
+  const [pillarSection, closing] = item.description.split("\n\n");
+  const [introduction, ...pillars] = pillarSection.split("\n");
+
+  return (
+    <div className="space-y-4">
+      <p>{introduction}</p>
+      <ul className="space-y-2">
+        {pillars.map((pillar) => {
+          const separator = item.number === "09" ? pillar.indexOf(": ") : -1;
+
+          return (
+            <li key={pillar} className="flex items-start gap-2">
+              <span aria-hidden="true" className="shrink-0">›</span>
+              <span>
+                {separator >= 0 ? (
+                  <>
+                    <strong className="font-bold text-gray800">
+                      {pillar.slice(0, separator + 1)}
+                    </strong>{" "}
+                    {pillar.slice(separator + 2)}
+                  </>
+                ) : (
+                  pillar
+                )}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <p>{closing}</p>
+    </div>
+  );
+}
+
 export default function FederalGovernmentInitiativesView({
   slug,
   report,
@@ -182,8 +253,8 @@ export default function FederalGovernmentInitiativesView({
                         </div>
 
                         {/* Description */}
-                        <div className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal whitespace-pre-line space-y-3">
-                          {item.description}
+                        <div className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                          <InitiativeDescription item={item} />
                         </div>
 
                         <hr className="border-t border-gray200 my-3" />
@@ -262,8 +333,8 @@ export default function FederalGovernmentInitiativesView({
               </div>
 
               {/* Description */}
-              <div className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal whitespace-pre-line space-y-3">
-                {selectedItem.description}
+              <div className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                <InitiativeDescription item={selectedItem} />
               </div>
 
               <hr className="border-t border-gray200 my-4" />

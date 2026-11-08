@@ -67,9 +67,6 @@ export default function ExistingStrategiesView({
         {/* ── HERO BANNER CARD ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
           <div className="space-y-3">
-            <span className="text-xs font-semibold text-notes uppercase tracking-wider block">
-              THE CULMINATION OF THIS REPORT
-            </span>
             <h1 className="text-2xl sm:text-3xl font-bold text-[#046D2A] animate-slide-up">
               Update on 2025 Workforce Strategies
             </h1>
@@ -222,6 +219,10 @@ export default function ExistingStrategiesView({
                 training packages to identify whether this content can assist in
                 addressing identified shortages.
               </p>
+              <p>
+                This Project continues to support several other priorities for
+                Public Skills Australia, including:
+              </p>
             </div>
 
             {/* EXPANDED CONTENT */}
@@ -296,13 +297,6 @@ export default function ExistingStrategiesView({
                 {/* Buttons */}
                 <div className="flex flex-col items-stretch sm:items-start gap-3 pt-2">
                   <button
-                    onClick={() => router.push(`/reports/${slug}/downloads`)}
-                    className="bg-[#046D2A] hover:bg-[#035822] text-white text-xs font-bold px-5 py-2.5 rounded-full flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                  >
-                    <span>Download {report?.year?.label || "2026"} PDF for participant list</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-                  <button
                     onClick={() =>
                       router.push(`/reports/${slug}/industry_overview`)
                     }
@@ -316,14 +310,14 @@ export default function ExistingStrategiesView({
             )}
           </div>
 
-          {/* Card 2: Strategy 2 */}
+          {/* Card 2: Project 2 - 2025 */}
           <div
             style={{ animationDelay: "0.30s" }}
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-5"
           >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                STRATEGY 2
+                PROJECT 2 - 2025
               </span>
               <button
                 onClick={() => setStrategy2Open(!strategy2Open)}
@@ -359,6 +353,10 @@ export default function ExistingStrategiesView({
                 management. The Skills Project will also identify where skill
                 sets may be used from other Training Packages, or where the
                 creation of new skill sets may be required.
+              </p>
+              <p>
+                The Skills Project continues to support several broad priorities
+                for Public Skills Australia:
               </p>
             </div>
 

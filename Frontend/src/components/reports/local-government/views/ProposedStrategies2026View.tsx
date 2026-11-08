@@ -67,7 +67,9 @@ export default function ProposedStrategies2026View({
               THE CULMINATION OF THIS REPORT
             </span>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
-              2026 Proposed Local Government Workforce Strategies
+              2026 Proposed Local Government
+              <br />
+              Workforce Strategies
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia proposes the following strategies aligned
@@ -118,9 +120,6 @@ export default function ProposedStrategies2026View({
               <div className="flex flex-col items-start gap-2 pt-1">
                 <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
                   Workforce Insight: {strategyOneContent.workforceInsight}
-                </span>
-                <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                  {strategyOneContent.anticipatedTiming}
                 </span>
               </div>
             </div>
@@ -254,14 +253,18 @@ export default function ProposedStrategies2026View({
 
                   <div className="space-y-1">
                     <h3 className="text-xs font-bold text-gray800">
-                      Approach:
+                      Approach — Part A:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                      <span className="underline">Part A:</span>{" "}
                       {strategyTwoContent.approachPartA}
                     </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">
+                      Approach — Part B (optional):
+                    </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                      <span className="underline">Part B (optional):</span>{" "}
                       {strategyTwoContent.approachPartB}
                     </p>
                   </div>
@@ -279,12 +282,16 @@ export default function ProposedStrategies2026View({
 
                   <div className="space-y-1">
                     <h3 className="text-xs font-bold text-gray800">
-                      Key stakeholders:
+                      Key Stakeholders:
                     </h3>
                     <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
-                      {strategyTwoContent.keyStakeholders.map((stakeholder) => (
+                      {strategyTwoContent.keyStakeholders.slice(0, 3).map((stakeholder) => (
                         <li key={stakeholder}>{stakeholder}</li>
                       ))}
+                      <li>
+                        {strategyTwoContent.keyStakeholders.slice(3, 6).join(" · ")}
+                      </li>
+                      <li>{strategyTwoContent.keyStakeholders[6]}</li>
                     </ul>
                   </div>
 
