@@ -1,5 +1,6 @@
 "use client";
 
+import { NumberedSource, SourceLink } from "../SourceCitation";
 import { GenderPayGapCard } from "./DocumentGenderGraphic";
 
 import { ChartScroll } from "./FederalStateProfileCharts";
@@ -18,6 +19,14 @@ interface Report {
   contactUrl?: string;
   pdfFileUrl?: string;
   year?: { label: string };
+}
+
+function QldFootnote({ number }: { number: number }) {
+  return (
+    <sup className="text-[0.8em] font-semibold text-black">
+      <a href={`#qld-source-${number}`} aria-label={`Source ${number}`} className="text-black underline">{number}</a>
+    </sup>
+  );
 }
 
 const sources = [
@@ -55,7 +64,7 @@ function RepresentationChart() {
         </g>)}
       </svg></ChartScroll>
       <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Target</span></div>
-      <p className="mt-5 border-t border-[#E6DCD5] pt-3 text-[9px] text-[#694834]">SOURCE Queensland Government, State of the Sector Report, 2025, pg. 42</p>
+      <p data-citation-copy className="mt-5 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report, 2025, pg. 42</SourceLink></p>
     </div>
   );
 }
@@ -75,7 +84,7 @@ function ProjectionChart() {
         return <g key={years[i]}><circle cx={x} cy={(y) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" /><text x={x} y={(y - 16) * 1.5} textAnchor="middle" fontSize="12" fontWeight="600" fill="#754D32">{v.toLocaleString()}</text><text x={x} y="315" textAnchor="middle" fontSize="11" fill="#565A60">{years[i]}</text></g>;
       })}
     </svg></ChartScroll>
-    <p className="mt-4 border-t border-[#E6DCD5] pt-3 text-[9px] text-[#694834]">SOURCE Queensland Government, Regional employment projections data, Tables 2010-11 to 2040-41</p>
+    <p data-citation-copy className="mt-4 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={85}>SOURCE Queensland Government, Regional employment projections data, Tables 2010-11 to 2040-41</SourceLink></p>
   </div>;
 }
 
@@ -91,7 +100,7 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
           <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Queensland<br /><span className="whitespace-nowrap">Public Service</span></h1>
           <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
           <div className="mt-3 max-w-[520px] space-y-3">
-            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the Queensland <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">74,410</strong><p className="mt-1 text-base leading-6 text-black">employees<br />20.9% FTE in Brisbane inner city<br />63.6% FTE in regional locations</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: Queensland Government, State of the Sector Report 2025, 2025, pg. 6</p></div>
+            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the Queensland <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">74,410</strong><p className="mt-1 text-base leading-6 text-black">employees<br />20.9% FTE in Brisbane inner city<br />63.6% FTE in regional locations</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={81}>Source: Queensland Government, State of the Sector Report 2025, 2025, pg. 6</SourceLink></p></div>
             <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">26,448</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in Queensland</p></div>
           </div>
         </div>
@@ -99,7 +108,7 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
       </section>
       <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The Queensland Public Service (QPS) comprises approximately 74,410.52 FTE. The workforce is geographically dispersed, with close to two thirds employed in regional areas and one-fifth located in Brisbane&apos;s inner city. Women represent most of the workforce, while men comprise just over one-third. A small proportion of employees identify as non-binary or preferred not to disclose their gender. Diversity data shows employees from CALD backgrounds as the largest cohort, followed by LGBTQIA+ and those with disabilities.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people make up a smaller (2.7 per cent) share of the workforce. Between 2021 and 2025, QPS saw gradual growth in First Nations peoples representation from 2.5 per cent to 2.7 per cent. During this period the Queensland (QLD) Government increased its First Nations workforce target from 3 per cent to 4 per cent in 2023. While the data indicates progress, a gap remains relative to the stated target, highlighting the continued focus required on First Nations employment. The QLD Government has established explicit employment diversity targets for CALD individuals and people with disabilities, with the target for both cohorts set at 12 per cent of the workforce.</p></div>
+          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The Queensland Public Service (QPS) comprises approximately 74,410.52 FTE.<QldFootnote number={43} /> The workforce is geographically dispersed, with close to two thirds employed in regional areas and one-fifth located in Brisbane&apos;s inner city.<QldFootnote number={44} /> Women represent most of the workforce, while men comprise just over one-third.<QldFootnote number={45} /> A small proportion of employees identify as non-binary or preferred not to disclose their gender.<QldFootnote number={46} /> Diversity data shows employees from CALD backgrounds as the largest cohort, followed by LGBTQIA+ and those with disabilities.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people make up a smaller (2.7 per cent) share of the workforce. Between 2021 and 2025, QPS saw gradual growth in First Nations peoples representation from 2.5 per cent to 2.7 per cent.<QldFootnote number={47} /> During this period the Queensland (QLD) Government increased its First Nations workforce target from 3 per cent to 4 per cent in 2023.<QldFootnote number={48} /> While the data indicates progress, a gap remains relative to the stated target, highlighting the continued focus required on First Nations employment. The QLD Government has established explicit employment diversity targets for CALD individuals and people with disabilities, with the target for both cohorts set at 12 per cent of the workforce.<QldFootnote number={49} /></p></div>
           <div><h3 className="text-sm font-bold">Structure and Legal Context</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The QPS comprises Departments, Statutory Agencies related to a department, and separate Public Service Agencies. The Public Service consists of those employed under the Public Sector Act 2022. There are 22 departments of the Public Service, each led by a Secretary. The Queensland Public Sector comprises over 100 different organisations and involves delivering different services including education, healthcare, social welfare and public security.</p></div>
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -107,16 +116,16 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
             ["13%", "Employment growth rate projection to May 2035 for Public Administration and Safety Industry", "Jobs and Skills Australia, Employment Projections - outlook for states and territories, 2025, Table 2"],
             ["6.7%", "Employment increase in public servant workforce from 2024 to 2025", "Queensland Government, State of the Sector Report 2025, pg. 6"],
             ["6.0%", "Gender Pay Gap", "Queensland Government, State of the Sector Report 2025, pg. 66"],
-          ].map(([value, label, source]) => label === "Gender Pay Gap" ? <GenderPayGapCard key={value} value={value} source={`Source: ${source}`} /> : <div key={value} className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">{value}</strong><p className="mt-2 min-h-12 text-xs leading-5">{label}</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Source: {source}</p></div>)}
+          ].map(([value, label, source], index) => label === "Gender Pay Gap" ? <GenderPayGapCard key={value} value={value} source={<SourceLink row={83}>Source: {source}</SourceLink>} /> : <div key={value} className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">{value}</strong><p className="mt-2 min-h-12 text-xs leading-5">{label}</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={index === 0 ? 82 : 83}>Source: {source}</SourceLink></p></div>)}
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <RepresentationChart />
-          <ColumnChart title="Diversity in the Queensland Public Sector" data={[{ label: "First Nations", value: 2.7, text: "2.7%" }, { label: "Culturally and linguistically diverse", value: 9, text: "9.0%" }, { label: "People with disability", value: 3.6, text: "3.6%" }, { label: "LGBTQIA+", value: 6.6, text: "6.6%" }]} source="SOURCE Queensland Government, State of the Sector Report 2025, pg. 35" />
+          <ColumnChart title="Diversity in the Queensland Public Sector" data={[{ label: "First Nations", value: 2.7, text: "2.7%" }, { label: "Culturally and linguistically diverse", value: 9, text: "9.0%" }, { label: "People with disability", value: 3.6, text: "3.6%" }, { label: "LGBTQIA+", value: 6.6, text: "6.6%" }]} source={<SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report 2025, pg. 35</SourceLink>} />
         </div>
       </Section>
       <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
         <div className="grid gap-6 lg:grid-cols-2">
-          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025. According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent. However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation. The Better Public Sector for Queensland Strategy 2024-2028 provides an opportunity to build and grow current and future workforce skills.</p>
+          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025.<QldFootnote number={50} /> According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent.<QldFootnote number={51} /> However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation.<QldFootnote number={52} /> The Better Public Sector for Queensland Strategy 2024-2028 provides an opportunity to build and grow current and future workforce skills.</p>
           <ProjectionChart />
         </div>
       </Section>
@@ -124,9 +133,9 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
         <h2 className="text-xl font-bold">Sources</h2>
         <ol className="mt-5 space-y-3">
           {sources.map(({ number, text }) => (
-            <li key={number} className="flex items-start gap-3 text-xs leading-5 text-[#252D02]">
+            <li id={`qld-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
               <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
-              <span>{text}</span>
+              <span><NumberedSource number={number} text={text} /></span>
             </li>
           ))}
         </ol>

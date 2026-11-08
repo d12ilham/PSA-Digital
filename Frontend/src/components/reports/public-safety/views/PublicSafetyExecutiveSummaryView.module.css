@@ -23,6 +23,9 @@
 .action svg { width: 14px; height: 14px; transition: transform .25s; }
 .action:hover svg { transform: translateX(3px); }
 .heading > .action { margin-left: auto; }
+.insightActions { display: flex; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 0; margin-left: auto; }
+.insightActions .action { flex-shrink: 1; max-width: 100%; text-align: center; }
+.insightActions svg { flex-shrink: 0; }
 .action:focus-visible, .toggle:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
 .collectionHeader { position: relative; padding-bottom: 24px; }
 .collectionHeader::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: #e9eaeb; }
@@ -75,6 +78,7 @@
   .heading { flex-wrap: wrap; }
   .headingCopy { flex-basis: calc(100% - 84px); }
   .heading > .action { margin-left: 84px; }
+  .insightActions { justify-content: flex-start; margin-left: 84px; }
 }
 @media (max-width: 599px) {
   .panel, .sector { padding: 20px; }
@@ -85,6 +89,7 @@
   .sectionIcon { width: 52px; height: 52px; }
   .headingCopy { flex-basis: calc(100% - 68px); }
   .heading > .action { margin-left: 0; max-width: 100%; }
+  .insightActions { margin-left: 0; }
   .tile { padding-right: 16px; }
   .tileTitle { font-size: 18px; line-height: 26px; }
 }

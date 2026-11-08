@@ -1,12 +1,13 @@
 "use client";
 
+import { NumberedSource } from "../SourceCitation";
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight } from "lucide-react";
-import { themeOverviewSources, workforceInsightSummaries } from "../workforceInsightsContent";
+import { themeOverviewSources, workforceInsightsTheme, workforceInsightSummaries } from "../workforceInsightsContent";
 
 interface Report {
   id: string;
@@ -233,13 +234,13 @@ export default function FederalStateExecutiveSummaryView({
               </div>
               <div>
                 <h2 id="summary-insights-title" className="font-bold text-base text-gray800 pb-2">One Theme, Three Insights</h2>
-                <h3 className="text-base font-bold text-[#754C2D]">Future of the Public Service</h3>
+                <h3 className="text-base font-bold text-[#754C2D]">{workforceInsightsTheme}</h3>
               </div>
             </div>
           </div>
 
           <p className="max-w-[80ch] text-xs leading-6 text-gray600">
-            ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.<sup><a href="#summary-source-85" aria-label="Source 85" className="underline">85</a></sup> According to Jobs and Skills Australia&apos;s employment projections, employment in the Public Administration industry group is projected to steadily grow over the next 10 years from the current baseline of 505,200 in May 2025 to 574,900 in May 2035.<sup><a href="#summary-source-86" aria-label="Source 86" className="underline">86</a></sup> These projections encompass government activities at the federal, state and territory levels only.<sup><a href="#summary-source-87" aria-label="Source 87" className="underline">87</a></sup> The future public service workforce will continue to have effects on national economic growth and productivity.
+            ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-85" aria-label="Source 85" className="underline">85</a></sup> According to Jobs and Skills Australia&apos;s employment projections, employment in the Public Administration industry group is projected to steadily grow over the next 10 years from the current baseline of 505,200 in May 2025 to 574,900 in May 2035.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-86" aria-label="Source 86" className="underline">86</a></sup> These projections encompass government activities at the federal, state and territory levels only.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-87" aria-label="Source 87" className="underline">87</a></sup> The future public service workforce will continue to have effects on national economic growth and productivity.
           </p>
           <ol className="space-y-3" aria-label="Executive Summary insights">
             {workforceInsightSummaries.map((insight, index) => (
@@ -257,7 +258,7 @@ export default function FederalStateExecutiveSummaryView({
           <div className="border-t border-gray200 pt-4">
             <h3 className="text-xs font-bold text-gray800">Sources</h3>
             <ol className="mt-3 max-w-[80ch] space-y-3 text-xs leading-5 text-gray600">
-              {themeOverviewSources.map(({ number, text }) => <li key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3"><span className="font-semibold text-[#754C2D]">{number}</span><span>{text}</span></li>)}
+              {themeOverviewSources.map(({ number, text }) => <li data-citation-copy key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3 text-sm leading-6 text-black"><span className="font-semibold text-[#754C2D]">{number}</span><span><NumberedSource number={number} text={text} /></span></li>)}
             </ol>
           </div>
         </div>

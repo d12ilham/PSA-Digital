@@ -1,5 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
+
+import { SourceLink } from "../SourceCitation";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -129,10 +132,9 @@ function EmploymentProjectionsChart({ animate }: { animate: boolean }) {
         </svg>
       </div>
 
-      <p className="text-[10px] text-black font-medium leading-tight">
-        SOURCE: Jobs Skills Australia, Employment projections – May 2025 to May
-        2035, Table 5
-      </p>
+      <p data-citation-copy className="font-medium text-sm leading-6 text-black">
+        <SourceLink row={17}>SOURCE: Jobs Skills Australia, Employment projections – May 2025 to May
+        2035, Table 5</SourceLink></p>
     </div>
   );
 }
@@ -151,7 +153,7 @@ function SkillsBarChart({
 }: {
   title: string;
   bars: BarItem[];
-  source: string;
+  source: ReactNode;
   animate: boolean;
 }) {
   return (
@@ -201,7 +203,7 @@ function SkillsBarChart({
       </div>
 
       {/* Source */}
-      <p data-skills-source className="text-[10px] sm:text-[11px] text-black font-medium leading-tight pt-2">
+      <p data-citation-copy data-skills-source className="font-medium pt-2 text-sm leading-6 text-black">
         {source}
       </p>
     </div>
@@ -372,17 +374,17 @@ export default function FederalStateIndustryOverviewView({
             <p className="text-xs text-black leading-relaxed font-normal">
               The Federal Government is made up of 102 agencies and 198,529
               Australian Public Service (APS) employees (Federal Government
-              workforce, as of 30 June 2025).<sup>7</sup> While a large
+              workforce, as of 30 June 2025).<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">7</sup> While a large
               proportion (35.4 per cent) of APS employees are based in the
               Australian Capital Territory (ACT), APS employees are spread
               across Australia, with a considerable proportion based in Victoria
               (18 per cent), New South Wales (16.9 per cent) and Queensland
               (13.3 per cent). The APS workforce is diverse with women
               comprising a large proportion of employees (60.5 per cent).
-              <sup>8</sup> First Nations employees comprise 3.4 per cent of the
+              <sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">8</sup> First Nations employees comprise 3.4 per cent of the
               APS, however the Federal Government has committed to increasing
               First Nations employment to 5 per cent of the APS by 2030.
-              <sup>9</sup> The following datapoints were identified through this
+              <sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">9</sup> The following datapoints were identified through this
               industry overview for the Federal Government workforce:
             </p>
           </div>
@@ -527,12 +529,12 @@ export default function FederalStateIndustryOverviewView({
                     per cent) between 2024 and 2025, JSA projects this rate of
                     growth to slow substantially, with 18,000 employees
                     projected to join the workforce in 2030, at a growth rate of
-                    approximately 1.7 per cent per year.<sup>10</sup> Reporting
+                    approximately 1.7 per cent per year.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">10</sup> Reporting
                     by the Australian Public Service Commission (APSC) reported
                     that 79% of agencies identified cyber security as a critical
                     skills shortage, with identified critical skill shortages in
                     2025, and 64% identified critical skills shortages in
-                    enterprise/technology architecture.<sup>11</sup>
+                    enterprise/technology architecture.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">11</sup>
                   </p>
                 </div>
 
@@ -643,7 +645,7 @@ export default function FederalStateIndustryOverviewView({
                       color: "#5A3D2B",
                     },
                   ]}
-                  source="SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-36"
+                  source={<SourceLink row={16}>SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-36</SourceLink>}
                 />
                 </div>
 
@@ -681,7 +683,7 @@ export default function FederalStateIndustryOverviewView({
                       color: "#5A3D2B",
                     },
                   ]}
-                  source="SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-37"
+                  source={<SourceLink row={16}>SOURCE: Australian Government, State of the Service Report 2024-25, 2025, Table A-37</SourceLink>}
                 />
                 </div>
               </div>
@@ -697,10 +699,9 @@ export default function FederalStateIndustryOverviewView({
                       in shortage
                     </p>
                   </div>
-                  <p className="px-6 pb-6 text-[10px] sm:text-[11px] text-black font-medium">
-                    SOURCE: Australian Government, State of the Service Report
-                    2024-25, 2025, Table A-36
-                  </p>
+                  <p data-citation-copy className="px-6 pb-6 font-medium text-sm leading-6 text-black">
+                    <SourceLink row={18}>SOURCE: Australian Government, State of the Service Report
+                    2024-25, 2025, Table A-36</SourceLink></p>
                 </article>
 
                 <article data-skills-callout aria-label="Cyber Security skills shortage" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#EDE9DC] motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-md">
@@ -712,10 +713,9 @@ export default function FederalStateIndustryOverviewView({
                       lacking capability
                     </p>
                   </div>
-                  <p className="px-6 pb-6 text-[10px] sm:text-[11px] text-black font-medium">
-                    SOURCE: Australian Government, State of the Service report
-                    2024-25
-                  </p>
+                  <p data-citation-copy className="px-6 pb-6 font-medium text-sm leading-6 text-black">
+                    <SourceLink row={18}>SOURCE: Australian Government, State of the Service report
+                    2024-25</SourceLink></p>
                 </article>
               </div>
             </div>
@@ -731,55 +731,45 @@ export default function FederalStateIndustryOverviewView({
               <span className="w-5 h-5 rounded-full bg-[#EED4C4] text-black text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 7
               </span>
-              <p>
-                Australian Government, State of the Service report 2024-25,
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={11}>Australian Government, State of the Service report 2024-25,
                 Australian Public Service Commission, 2025, accessed 2 February
-                2026.
-              </p>
+                2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full bg-[#EED4C4] text-black text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 8
               </span>
-              <p>
-                Australian Government, State of the Service report 2024-25,
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={12}>Australian Government, State of the Service report 2024-25,
                 Australian Public Service Commission, 2025, accessed 2 February
-                2026.
-              </p>
+                2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full bg-[#EED4C4] text-black text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 9
               </span>
-              <p>
-                Australian Government, State of the Service report 2024-25,
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={13}>Australian Government, State of the Service report 2024-25,
                 Australian Public Service Commission, 2025, accessed 2 February
-                2026.
-              </p>
+                2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full bg-[#EED4C4] text-black text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 10
               </span>
-              <p>
-                Jobs and Skills Australia (JSA), Employment projections – May
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={14}>Jobs and Skills Australia (JSA), Employment projections – May
                 2025 to May 2035 [data table], JSA, 2025, accessed 4 February
-                2026.
-              </p>
+                2026.</SourceLink></p>
             </div>
 
             <div className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full bg-[#EED4C4] text-black text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                 11
               </span>
-              <p>
-                Australian Government, State of the Service report 2024-25,
+              <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={15}>Australian Government, State of the Service report 2024-25,
                 Australian Public Service Commission, 2025, accessed 2 February
-                2026, p.329.
-              </p>
+                2026, p.329.</SourceLink></p>
             </div>
           </div>
         </div>

@@ -53,7 +53,7 @@ const reportSections: ReportSection[] = [
     icon: "/images/reports/introduction/Overview.svg",
     description: "An overview of the industry-sector and workforce profile data",
     tags: [
-      "Federal Government Industry-Sector Overview",
+      "Correctional Services Industry-Sector Overview",
       "Industry Profile",
       "Eight State and Territory Workforce Overviews",
     ],

@@ -36,15 +36,26 @@ interface StateData {
   lgSpecificShortages: string[];
 }
 
-const COUNCIL_SOURCES: Record<string, { footnote: number; citation: string }> = {
-  WA: { footnote: 18, citation: "Western Australia Local Government Association (WALGA), The Western Australian Government Local Government Directory 2025, WALGA, 2025, accessed 24 February 2026." },
-  NT: { footnote: 19, citation: "Northern Territory Government, Find your council, Northern Territory Government, 2026, accessed 24 February 2026." },
-  SA: { footnote: 20, citation: "Local Government Association South Australia (LGA SA), SA Councils list and map, LGASA, n.d., accessed 24 February 2026." },
-  QLD: { footnote: 21, citation: "Department of Local Government, Water and Volunteers, Local Government Directory, 2026, accessed 24 February 2026." },
-  NSW: { footnote: 22, citation: "Local Government New South Wales (LGNSW), NSW Council Links, LGNSW, n.d., accessed 24 February 2026." },
-  VIC: { footnote: 23, citation: "Victorian Government, Know Your Council, 2025, accessed 24 February 2026." },
-  TAS: { footnote: 24, citation: "Local Government Association Tasmania (LGAT), Tasmanian Councils, LGAT, n.d., accessed 24 February 2026." },
+const SOURCE_LINK_CLASS = "text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active";
+const ABS_SOURCE_URL = "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/public-sector-employment-and-earnings/latest-release";
+const ALGA_SURVEY_URL = "https://alga.com.au/wp-content/uploads/2025/04/2022-Local-Government-Workforce-Skills-and-Capability-Survey-National-Report.pdf";
+
+type CouncilSource = { footnote: number; citation: string; title: string; href: string };
+
+const COUNCIL_SOURCES: Record<string, CouncilSource> = {
+  WA: { footnote: 18, citation: "Western Australia Local Government Association (WALGA), The Western Australian Government Local Government Directory 2025, WALGA, 2025, accessed 24 February 2026.", title: "The Western Australian Government Local Government Directory 2025", href: "https://walga.asn.au/awcontent/Web/Documents/Advocacy/The-Western-Australian-Local-Government-Directory.pdf" },
+  NT: { footnote: 19, citation: "Northern Territory Government, Find your council, Northern Territory Government, 2026, accessed 24 February 2026.", title: "Find your council", href: "https://nt.gov.au/community/local-councils-remote-communities-and-homelands/find-your-council" },
+  SA: { footnote: 20, citation: "Local Government Association South Australia (LGA SA), SA Councils list and map, LGASA, n.d., accessed 24 February 2026.", title: "SA Councils list and map", href: "https://www.lga.sa.gov.au/sa-councils/councils-listing" },
+  QLD: { footnote: 21, citation: "Department of Local Government, Water and Volunteers, Local Government Directory, Department of Local Government, Water and Volunteers, 2026, accessed 24 February 2026.", title: "Local Government Directory", href: "https://www.dlgwv.qld.gov.au/local-government/for-the-community/local-government-directory" },
+  NSW: { footnote: 22, citation: "Local Government New South Wales (LGNSW), NSW Council Links, LGNSW, n.d., accessed 24 February 2026.", title: "NSW Council Links", href: "https://lgnsw.org.au/Public/Public/NSW-Councils/NSW-Council-Links.aspx" },
+  VIC: { footnote: 23, citation: "Victorian Government, Know Your Council, Victorian Government, 2025, accessed 24 February 2026.", title: "Know Your Council", href: "https://www.vic.gov.au/know-your-council" },
+  TAS: { footnote: 24, citation: "Local Government Association Tasmania (LGAT), Tasmanian Councils, LGAT, n.d., accessed 24 February 2026.", title: "Tasmanian Councils", href: "https://www.lgat.tas.gov.au/tasmanian-councils" },
 };
+
+function CouncilCitation({ source }: { source: CouncilSource }) {
+  const titlePosition = source.citation.indexOf(source.title);
+  return <>{source.citation.slice(0, titlePosition)}<a href={source.href} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>{source.title}</a>{source.citation.slice(titlePosition + source.title.length)}</>;
+}
 
 const STATES_DATA: Record<string, StateData> = {
   NSW: {
@@ -1130,8 +1141,7 @@ export default function StateTerritoryView({
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        <sup>25</sup> ABS, Public Sector Employment and Earnings,
-                        2025, Table 1.
+                        <sup>25</sup> ABS, <a href={ABS_SOURCE_URL} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>Public Sector Employment and Earnings</a>, 2025, Table 1.
                       </p>
                     </div>
                   </div>
@@ -1163,8 +1173,7 @@ export default function StateTerritoryView({
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        <sup>26</sup> ALGA, 2022 Local Government Workforce Skills
-                        and Capability Survey, 2022, Table D2.
+                        <sup>26</sup> ALGA, <a href={ALGA_SURVEY_URL} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>2022 Local Government Workforce Skills and Capability Survey</a>, 2022, Table D2.
                       </p>
                     </div>
                   </div>
@@ -1186,8 +1195,7 @@ export default function StateTerritoryView({
                     <div>
                       <div className="border-t border-gray200 mb-3" />
                       <p className="text-xs text-[#416102] leading-relaxed">
-                        <sup>26</sup> ALGA, 2022 Local Government Workforce Skills
-                        and Capability Survey, 2022, Table D2.
+                        <sup>26</sup> ALGA, <a href={ALGA_SURVEY_URL} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>2022 Local Government Workforce Skills and Capability Survey</a>, 2022, Table D2.
                       </p>
                     </div>
                   </div>
@@ -1215,8 +1223,7 @@ export default function StateTerritoryView({
                     </div>
 
                     <p className="text-xs text-active leading-relaxed pt-1">
-                      Source: ABS, Public sector employment and earnings, 2025,
-                      Table 2 · state and territory Local Government
+                      Source: Australian Bureau of Statistics (ABS), <a href={ABS_SOURCE_URL} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>Public sector employment and earnings</a>, 2025, Table 2 · state and territory Local Government
                       associations (see state profiles for full references).
                     </p>
                   </div>
@@ -1606,8 +1613,7 @@ export default function StateTerritoryView({
                       </p>
                       <div className="border-t border-gray-100 my-2" />
                       <p className="text-xs text-active">
-                        Source: ABS, Public sector employment and earnings,
-                        2025, Table 2
+                        Source: Australian Bureau of Statistics (ABS), <a href={ABS_SOURCE_URL} target="_blank" rel="noopener noreferrer" className={SOURCE_LINK_CLASS}>Public sector employment and earnings</a>, 2025, Table 2.
                       </p>
                     </div>
 
@@ -1627,7 +1633,7 @@ export default function StateTerritoryView({
                       <div className="border-t border-gray-100 my-2" />
                       <p className="text-xs text-active">
                         <sup>{COUNCIL_SOURCES[selectedState].footnote}</sup>{" "}
-                        {COUNCIL_SOURCES[selectedState].citation}
+                        <CouncilCitation source={COUNCIL_SOURCES[selectedState]} />
                       </p>
                     </div>
                   </div>

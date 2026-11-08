@@ -21,7 +21,7 @@ const strategyDetails = [
   { label: "JSC Function", value: "Industry Stewardship" },
   { label: "Objective", value: "To support the Federal and State/Territory public service in identifying future workforce skilling needs." },
   { label: "Approach", value: "Using a strategic-foresight approach, convene 'Future Skills for the Public Service' workshops to identify future skilling needs across jurisdictions to support clarifying emerging skills gaps and identify where nationally accredited VET can support capability development." },
-  { label: "Deliverable", value: "Findings report" },
+  { label: "Proposed Deliverable", value: "Findings report" },
   { label: "Impact", value: "To support the Federal and State/Territory Government public service by providing critical insight to the future needs of public service workforces which can support workforce planning." },
   { label: "Anticipated timing", value: "12-month project" },
 ];

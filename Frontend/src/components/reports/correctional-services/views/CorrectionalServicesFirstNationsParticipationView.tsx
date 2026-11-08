@@ -26,7 +26,7 @@ export default function CorrectionalServicesFirstNationsParticipationView({ slug
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[232px] lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-[815px]">
-            <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">2024 Workforce Strategies: Project 02</span>
+            <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">2025 Workforce Strategies: Project 02</span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.2]">2. First Nations Workforce Participation</h1>
             <p className="mt-4 text-sm leading-6">A proposal to Investigate Barriers to First Nations Workforce Participation was put forward for further consideration in the 2025 Correctional Services Workforce Insights Report. This strategy proposal sought to investigate barriers for First Nations people to participate in the Correctional Services workforce, focussing on attraction, attrition and retention. Following the launch of the 2025 Correctional Services Workforce Insights Report, Public Skills Australia received a Statement of Federal Government priorities from the Minister for Employment and Workplace Relations and Minister for Skills and Training. This letter set out a priority to work with First Nations peoples, industry (employers and unions) across all Public Safety and Government industry-sectors and other JSCs to advance the priority reforms under the Closing the Gap National Agreement.</p>
           </div>

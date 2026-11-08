@@ -1,5 +1,6 @@
 "use client";
 
+import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 import { GenderChartHeading } from "./DocumentGenderGraphic";
 
@@ -36,11 +37,19 @@ const demand = [
   ["Clerical and Administrative Workers", "-"],
 ];
 
+function SaFootnote({ number }: { number: number }) {
+  return (
+    <sup className="text-[0.8em] font-semibold text-black">
+      <a href={`#sa-source-${number}`} aria-label={`Source ${number}`} className="text-black underline">{number}</a>
+    </sup>
+  );
+}
+
 const sources = [
-  "Government of South Australia, Workforce Information Report 2024-25, Government of South Australia, 2025, accessed 9 February 2026.",
-  "Government of South Australia, Workforce Information Report 2024-25, Government of South Australia, 2025, accessed 9 February 2026.",
+  "Government of South Australia, Workforce Information Report 2024-25, Government of South Australia, 2025, accessed 9 February 2025.",
+  "Government of South Australia, Workforce Information Report 2024-25, Government of South Australia, 2025, accessed 9 February 2025.",
   "Government of South Australia, State of the Sector Report 2025, Government of South Australia, 2025, accessed 9 February 2026.",
-  "Government of South Australia, State of the Sector Reports 2020-2025, accessed 9 February 2026.",
+  "Government of South Australia, State of the Sector Report 2020, 2020; Government of South Australia, State of the Sector Report 2021, 2021; Government of South Australia, State of the Sector Report 2022, 2022; Government of South Australia, State of the Sector Report 2023, 2023; Government of South Australia, State of the Sector Report 2024, 2024; Government of South Australia, State of the Sector Report 2025, 2025, accessed 9 February 2026.",
   "Department of State Development, Jobs and Skills Outlook 2024, Government of South Australia, 2024, accessed 11 February 2026.",
 ];
 
@@ -54,7 +63,7 @@ function RepresentationChart() {
       <polyline points={representation.map(({ value }, i) => `${x(i)},${(y(value)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="3" />
       {representation.map(({ year, value }, i) => <g key={year}><circle cx={x(i)} cy={(y(value)) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" /><text x={x(i)} y={(y(value) - 12) * 1.5} textAnchor="middle" fontSize="10" fontWeight="600" fill="#382219">{value.toFixed(2)}%</text><text x={x(i)} y="304.5" textAnchor="middle" fontSize="10" fill="#62666D">{year}</text></g>)}
     </svg></ChartScroll>
-    <p className="mt-4 border-t border-[#E6DCD5] pt-3 text-[9px] leading-4 text-[#694834]">SOURCE Government of South Australia, Workforce Information Report Data Dashboard [data set], 2025</p>
+    <p data-citation-copy className="mt-4 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={99}>SOURCE Government of South Australia, Workforce Information Report Data Dashboard [data set], 2025</SourceLink></p>
   </div>;
 }
 
@@ -74,7 +83,7 @@ function GenderChart() {
       <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4 bg-[#807064]" />Male</li>
       <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4 bg-[#DFD3C6]" />Other</li>
     </ul>
-    <p data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-xs leading-5">Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</p>
+    <p data-citation-copy data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-sm leading-6 text-black"><SourceLink row={96}>Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</SourceLink></p>
   </article>;
 }
 
@@ -103,7 +112,7 @@ function DiversityChart() {
         </g>;
       })}
     </svg></ChartScroll>
-    <p data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-xs leading-5">Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8 &amp; 18</p>
+    <p data-citation-copy data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-sm leading-6 text-black"><SourceLink row={96}>Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8 &amp; 18</SourceLink></p>
   </article>;
 }
 
@@ -119,7 +128,7 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
           <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">South Australian<br /><span className="whitespace-nowrap">Public Service</span></h1>
           <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
           <div className="mt-3 max-w-[520px] space-y-3">
-            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the South Australian <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">122,644</strong><p className="mt-1 text-base leading-6 text-black">employees (101,732 FTE)</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</p></div>
+            <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the South Australian <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">122,644</strong><p className="mt-1 text-base leading-6 text-black">employees (101,732 FTE)</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={96}>Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</SourceLink></p></div>
             <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">14,111</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in South Australia</p></div>
           </div>
         </div>
@@ -127,7 +136,7 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
       </section>
       <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian public sector (SAPS) employs approximately 101,700 FTE employees, with a headcount of 122,644 employees. Just under three in ten employees were engaged in frontline or direct support roles outside health and education, while a similar proportion were employed in policy or administrative roles, highlighting the dual service-delivery and system-stewardship functions of the sector.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">Women comprise close to 70 per cent of employees, while men represent under one-third. The age profile of the SAPS shows most employees concentrated in the 30-40 and 40-50 age cohorts. First Nations employees accounted for approximately 2.3 per cent of the workforce in 2025 rising from 2.1 per cent in 2020.</p></div>
+          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian public sector (SAPS) employs approximately 101,700 FTE employees, with a headcount of 122,644 employees.<SaFootnote number={53} /> Just under three in ten employees were engaged in frontline or direct support roles outside health and education, while a similar proportion were employed in policy or administrative roles, highlighting the dual service-delivery and system-stewardship functions of the sector.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">Women comprise close to 70 per cent of employees, while men represent under one-third.<SaFootnote number={54} /> The age profile of the SAPS shows most employees concentrated in the 30-40 and 40-50 age cohorts.<SaFootnote number={55} /> First Nations employees accounted for approximately 2.3 per cent of the workforce in 2025 rising from 2.1 per cent in 2020.<SaFootnote number={56} /></p></div>
           <div><h3 className="text-sm font-bold">Structure and Legal Context</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian Public Sector is defined under the Public Sector Act (2009) and consists of General Government Sector agencies, Public Non-Financial Corporations, Public Financial Corporations and Non-Budget Entities. The General Government sector covers the largest portion of services and consists of 79 agencies including:</p><ul className="mt-2 list-disc pl-5 text-xs leading-6 text-[#42463B]"><li>Departments</li><li>Police</li><li>Fire and Emergency Services</li></ul></div>
         </div>
         <div data-sa-overview-charts className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -142,20 +151,20 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
         <p className="text-xs leading-6 text-[#42463B]">The South Australian (SA) Government undertakes employment projections annually.</p>
         <div data-sa-trends-statistics className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
-            <div data-sa-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">7%</strong><p className="mt-2 min-h-12 text-xs leading-5">Employment growth rate to May 2035 for Public Administration and Safety Industry</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Source: Jobs and Skills Australia, Employment Projections - outlook for states and territories, 2025, Table 2</p></div>
+            <div data-sa-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">7%</strong><p className="mt-2 min-h-12 text-xs leading-5">Employment growth rate to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={100}>Source: Jobs and Skills Australia, Employment Projections - outlook for states and territories, 2025, Table 2</SourceLink></p></div>
             <div data-sa-first-nations-change className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">2.1%→2.25%</strong><p className="mt-2 min-h-12 text-xs leading-5">Since 2021, the proportion of First Nations people&apos;s employment in the South Australian General Government sector rose from:</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Government of South Australia, Workforce Information Report Data Dashboard [data set], 2025</p></div>
           </div>
           <div data-sa-age-chart className="min-w-0">
-            <ColumnChart title="South Australian Public Sector Employees by Age" data={[{ label: "Under 30", value: 17.4, text: "17.4%" }, { label: "30-40", value: 24.7, text: "24.7%" }, { label: "40-50", value: 24.1, text: "24.1%" }, { label: "50-60", value: 21.5, text: "21.5%" }, { label: "Over 60", value: 12.4, text: "12.4%" }]} source="SOURCE Government of South Australia, State of the Sector Report 2025, 2025, Table 1" />
+            <ColumnChart title="South Australian Public Sector Employees by Age" data={[{ label: "Under 30", value: 17.4, text: "17.4%" }, { label: "30-40", value: 24.7, text: "24.7%" }, { label: "40-50", value: 24.1, text: "24.1%" }, { label: "50-60", value: 21.5, text: "21.5%" }, { label: "Over 60", value: 12.4, text: "12.4%" }]} source={<SourceLink row={96}>SOURCE Government of South Australia, State of the Sector Report 2025, 2025, Table 1</SourceLink>} />
           </div>
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-md border border-[#E6E4E0]"><h3 className="bg-[#F3F3F2] p-3 text-xs font-medium leading-5">Qualifications are projected to be in very high or high demand for the following occupations between 2025-2028:</h3><ul className="divide-y divide-[#E6E4E0] text-xs text-[#42463B]">{demand.map(([occupation]) => <li className="p-3" key={occupation}>{occupation}</li>)}</ul></div>
+          <div className="overflow-hidden rounded-md border border-[#E6E4E0]"><h3 className="bg-[#F3F3F2] p-3 text-xs font-medium leading-5">Qualifications are projected to be in very high or high demand for the following occupations between 2025-2028:<SaFootnote number={57} /></h3><ul className="divide-y divide-[#E6E4E0] text-xs text-[#42463B]">{demand.map(([occupation]) => <li className="p-3" key={occupation}>{occupation}</li>)}</ul></div>
           <div className="overflow-hidden rounded-md border border-[#E6E4E0]"><h3 className="bg-[#F3F3F2] p-3 text-xs font-medium leading-5">Occupations in digital, technology and cybersecurity are also in strong demand, including:</h3><ul className="divide-y divide-[#E6E4E0] text-xs text-[#42463B]">{demand.map(([, occupation]) => <li className="p-3" key={occupation}>{occupation}</li>)}</ul></div>
         </div>
         <IndustryInsightCard className="mt-6"><p>Alongside projected high-demand qualifications and occupations, stakeholders also identified future skills needs in AI, Digital Transformation, IT (architects and specialists).</p></IndustryInsightCard>
       </Section>
-      <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={53} className="mt-4 space-y-3">{sources.map((source, index) => <li key={index} className="flex gap-3 text-[11px] leading-5 text-[#42463B]"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{53 + index}</span>{source}</li>)}</ol></section>
+      <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={53} className="mt-4 space-y-3">{sources.map((source, index) => <li id={`sa-source-${53 + index}`} data-citation-copy key={index} className="scroll-mt-24 flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{53 + index}</span><span><NumberedSource number={53 + index} text={source} /></span></li>)}</ol></section>
     </ContentTag>
     {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
   </div>;

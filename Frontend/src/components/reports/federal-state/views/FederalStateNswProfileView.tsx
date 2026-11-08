@@ -1,5 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
+
+import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 
 import { DocumentGenderGraphic } from "./DocumentGenderGraphic";
@@ -27,12 +30,12 @@ const occupations = [
   "ICT Customer Support Officers",
   "Welfare Support Workers",
   "ICT Support Technicians",
-  "Cyber Security Analysts",
+  "Cyber Security Analysis",
   "Hardware Technicians",
   "Developer Programmers",
 ];
 
-export function RepresentationChart({ title, years, values, target, source, min, max }: { title: string; years: number[]; values: number[]; target: number; source: string; min: number; max: number }) {
+export function RepresentationChart({ title, years, values, target, source, min, max }: { title: string; years: number[]; values: number[]; target: number; source: ReactNode; min: number; max: number }) {
   const xAt = (index: number) => 45 + index * (498 / (years.length - 1));
   const yAt = (value: number) => 151 - ((value - min) / (max - min)) * 90;
   const points = values.map((value, index) => `${xAt(index)},${(yAt(value)) * 1.5}`).join(" ");
@@ -57,8 +60,16 @@ export function RepresentationChart({ title, years, values, target, source, min,
         })}
       </svg></ChartScroll>
       <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Target</span></div>
-      <p className="mt-4 text-[9px] text-[#694834]">{source}</p>
+      <p data-citation-copy className="mt-4 text-sm leading-6 text-black">{source}</p>
     </div>
+  );
+}
+
+function NswFootnote({ number }: { number: number }) {
+  return (
+    <sup className="text-[0.8em] font-semibold text-black">
+      <a href={`#nsw-source-${number}`} aria-label={`Source ${number}`} className="text-black underline">{number}</a>
+    </sup>
   );
 }
 
@@ -66,13 +77,13 @@ const sources = [
   { number: 23, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 24, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 25, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
-  { number: 26, text: "NSW Government, NSW Women’s Strategy 2023–2026, NSW Government, 2022, accessed on 6 February 2026." },
+  { number: 26, text: "NSW Government, NSW Women’s Strategy 2023-2026, NSW Government, 2022, accessed on 6 February 2026." },
   { number: 27, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 28, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 29, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 30, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 31, text: "NSW Government, NSW Public Sector Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
-  { number: 32, text: "NSW Government, NSW Aboriginal Employment Strategy 2019–2025: Refresh 2022, NSW Government, 2022, accessed 12 February 2026." },
+  { number: 32, text: "NSW Government, NSW Aboriginal Employment Strategy 2019-2025: Refresh 2022, NSW Government, 2022, accessed 12 February 2026." },
   { number: 33, text: "NSW Government, Workforce Profile Report 2025, NSW Government, 2025, accessed on 6 February 2026." },
   { number: 34, text: "Jobs and Skills Australia (JSA), Employment Projections – Outlook for states territories, JSA, 2025, accessed 6 February 2026." },
   { number: 35, text: "NSW Department of Education, NSW Skills Plan 2024–28: Building Skills and Shaping Success, NSW Government, 2024, accessed 4 February 2026." },
@@ -110,7 +121,7 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
                 <p className="text-base leading-6 text-black">In 2025, the NSW <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
                 <strong className="mt-1 block text-4xl text-black">84,780</strong>
                 <p className="mt-1 text-base leading-6 text-black">employees<br />55,959 FTE in metro areas<br />27,782 FTE in regional locations</p>
-                <p className="mt-4 border-t border-[#DECFC5] pt-3 text-xs leading-5 text-black">Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</p>
+                <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={55}>Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</SourceLink></p>
               </div>
               <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">33,646</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in New South Wales</p></div>
             </div>
@@ -122,10 +133,10 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
-              <p className="mt-2 text-xs leading-6 text-[#42463B]">The New South Wales Public Service (NSWPS) employed approximately 84,780 full-time equivalent (FTE) employees in 2025. The majority were engaged on an ongoing basis, with smaller numbers of staff employed on temporary or casual arrangements. The workforce is geographically distributed, with more than 27,782 employees in regional areas, emphasising the NSWPS as a major employer in regional areas.</p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">The NSW Women&apos;s Strategy 2023–2026 identifies improving gender equality outcomes, including reducing the gender pay gap. In 2025, women comprised 66.6 per cent of the NSWPS workforce, while men accounted for 33.3 per cent of employees. A small proportion of employees identified as non-binary. Despite women representing a majority, the gender pay gap in the NSWPS stood at 7.3 per cent in 2025, an increase from 7.2 per cent in 2024. Addressing this pay gap remains an ongoing priority for the NSWPS.</p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">Diversity information indicates that employees who speak a language other than English comprise over one fifth of the NSWPS workforce. Employees with disability comprise 2.8 per cent.</p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people comprise four per cent of the NSWPS workforce, above the New South Wales Government&apos;s three per cent employment target by 2025 in non-executive salary levels, as set out in the NSW Public Sector Aboriginal Employment Strategy.</p>
+              <p className="mt-2 text-xs leading-6 text-[#42463B]">The New South Wales Public Service (NSWPS) employed approximately 84,780 full-time equivalent (FTE) employees in 2025.<NswFootnote number={23} /> The majority were engaged on an ongoing basis, with smaller numbers of staff employed on temporary or casual arrangements.<NswFootnote number={24} /> The workforce is geographically distributed, with more than 27,782 employees in regional areas,<NswFootnote number={25} /> emphasising the NSWPS as a major employer in regional areas.</p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">The NSW Women&apos;s Strategy 2023–2026 identifies improving gender equality outcomes, including reducing the gender pay gap.<NswFootnote number={26} /> In 2025, women comprised 66.6 per cent of the NSWPS workforce, while men accounted for 33.3 per cent of employees.<NswFootnote number={27} /> A small proportion of employees identified as non-binary. Despite women representing a majority, the gender pay gap in the NSWPS stood at 7.3 per cent in 2025, an increase from 7.2 per cent in 2024.<NswFootnote number={28} /> Addressing this pay gap remains an ongoing priority for the NSWPS.</p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">Diversity information indicates that employees who speak a language other than English comprise over one fifth of the NSWPS workforce.<NswFootnote number={29} /> Employees with disability comprise 2.8 per cent.<NswFootnote number={30} /></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people comprise four per cent of the NSWPS workforce,<NswFootnote number={31} /> above the New South Wales Government&apos;s three per cent employment target by 2025 in non-executive salary levels, as set out in the NSW Public Sector Aboriginal Employment Strategy.<NswFootnote number={32} /></p>
             </div>
             <div>
               <h3 className="text-sm font-bold">Structure and Legal Context</h3>
@@ -158,31 +169,31 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
                   <div className="mt-auto pt-3">
                     <strong className="block text-4xl leading-none">7.3%</strong>
                     <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
-                    <p className="mt-2 text-xs leading-5 text-white/90">Source: NSW Government,<br /><span className="underline">Workforce Profile Report</span> 2025, pg. 3</p>
+                    <p data-citation-copy className="mt-2 text-sm leading-6 text-black rounded-md bg-white p-2">Source: NSW Government,<br /><SourceLink row={55}>Workforce Profile Report</SourceLink> 2025, pg. 3</p>
                   </div>
                 </div>
               </div>
-            <p className={chartStyles.genderSource}>Source: NSW Government, <span className="underline">Workforce Profile Report</span>, 2025, pg. 25</p>
+            <p data-citation-copy className={chartStyles.genderSource}>Source: NSW Government, <SourceLink row={55}>Workforce Profile Report</SourceLink>, 2025, pg. 25</p>
 </div>
-            <ColumnChart title="Diversity in the NSW Public Sector" data={[{ label: "Employees with a disability", value: 2.8, text: "2.8%", muted: true }, { label: "Employees who speak a language other than English", value: 20.8, text: "20.8%" }, { label: "Women", value: 66.6, text: "66.6%" }, { label: "Aboriginal and Torres Strait Islander employees", value: 4, text: "4.0%" }]} source="SOURCE: NSW Government, Workforce Profile Report, 2025, pg. 19" />
+            <ColumnChart title="Diversity in the NSW Public Sector" data={[{ label: "Employees with a disability", value: 2.8, text: "2.8%", muted: true }, { label: "Employees who speak a language other than English", value: 20.8, text: "20.8%" }, { label: "Women", value: 66.6, text: "66.6%" }, { label: "Aboriginal and Torres Strait Islander employees", value: 4, text: "4.0%" }]} source={<SourceLink row={55}>SOURCE: NSW Government, Workforce Profile Report, 2025, pg. 19</SourceLink>} />
           </div>
         </Section>
 
         <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
           <div data-nsw-trends-columns className="grid gap-5 lg:grid-cols-2">
             <div data-nsw-trends-copy className="min-w-0">
-              <p className="text-xs leading-6 text-[#42463B]">The number of employees in the NSWPS increased by 1.2 per cent in 2025. Employment projections from Jobs and Skills Australia suggest a projected growth rate for the Public Administration and Safety Industry in NSW of 11 per cent over 10 years.</p>
+              <p className="text-xs leading-6 text-[#42463B]">The number of employees in the NSWPS increased by 1.2 per cent in 2025.<NswFootnote number={33} /> Employment projections from Jobs and Skills Australia suggest a projected growth rate for the Public Administration and Safety Industry in NSW of 11 per cent over 10 years.<NswFootnote number={34} /></p>
               <div data-nsw-occupational-demand className="mt-3">
-              <p id="nsw-occupational-demand-description" className="text-xs leading-6 text-[#42463B]">The NSW Skills Plan 2024–28 is the NSW Government strategic plan for skills and reform in VET. The non-government sector has previously provided many of these identified skills to government. The plan identifies six critical areas as a focus including &apos;Digital and cyber&apos; and &apos;Care and support economy&apos;, of which the following occupations are in demand (relevant to Public Administration and Safety):</p>
+              <p id="nsw-occupational-demand-description" className="text-xs leading-6 text-[#42463B]">The NSW Skills Plan 2024–28 is the NSW Government strategic plan for skills and reform in VET. The non-government sector has previously provided many of these identified skills to government. The plan identifies six critical areas as a focus including &apos;Digital and cyber&apos; and &apos;Care and support economy&apos;, of which the following occupations are in demand (relevant to Public Administration and Safety):<NswFootnote number={35} /></p>
               <ul data-nsw-occupation-boxes aria-label="NSW occupations in demand" aria-describedby="nsw-occupational-demand-description" className="mt-3 grid list-none grid-cols-1 gap-3 min-[380px]:grid-cols-2 xl:grid-cols-3">
                 {occupations.map((occupation) => <li key={occupation} className="flex min-h-20 min-w-0 items-center justify-center rounded-md bg-[#F8EEE8] p-3 text-center text-sm font-semibold leading-5 text-[#754D32] [overflow-wrap:anywhere]">{occupation}</li>)}
               </ul>
               </div>
               <IndustryInsightCard className="mt-5" attribution="Workforce Trends · NSW Public Service"><p>Building in-house capability, rather than relying on non-government sector resources, is becoming increasingly important due to increased community expectations on the NSW Public Service.</p></IndustryInsightCard>
-              <div className="mt-6 space-y-4"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">11%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: Jobs and Skills Australia, Employment projections - Outlook for states and territories, Table 2</p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">1,410</strong><p className="mt-1 text-xs">Additional public servants in the workforce in 2025</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] text-[#694834]">Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</p></div></div>
+              <div className="mt-6 space-y-4"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">11%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={58}>Source: Jobs and Skills Australia, Employment projections - Outlook for states and territories, Table 2</SourceLink></p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">1,410</strong><p className="mt-1 text-xs">Additional public servants in the workforce in 2025</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={55}>Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</SourceLink></p></div></div>
             </div>
             <div className="min-w-0">
-              <div><RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source="SOURCE: NSW Government, Workforce Profile Report, 2025, Figure 5.3" /></div>
+              <div><RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source={<SourceLink row={55}>SOURCE: NSW Government, Workforce Profile Report, 2025, Figure 5.3</SourceLink>} /></div>
             </div>
           </div>
         </Section>
@@ -193,9 +204,9 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
             {[sources.slice(0, 7), sources.slice(7)].map((column, index) => (
               <ol key={index} className="space-y-3">
                 {column.map(({ number, text }) => (
-                  <li key={number} className="flex items-start gap-3 text-xs leading-5 text-[#252D02]">
+                  <li id={`nsw-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
                     <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
-                    <span>{text}</span>
+                    <span><NumberedSource number={number} text={text} /></span>
                   </li>
                 ))}
               </ol>

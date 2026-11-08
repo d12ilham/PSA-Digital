@@ -5,6 +5,9 @@ import layout from "./PublicSafetyDefenceWorkforceInsightsView.module.css";
 import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
 import styles from "./PublicSafetyFesDisasterRecoveryView.module.css";
 
+const firstSourceNumber = 57;
+const insightTwoSources = fesDisasterRecoverySources.slice(firstSourceNumber - 53, 59 - 53 + 1);
+
 export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const reportPath = `/reports/${slug}`;
   const insightsPath = `${reportPath}/fes_workforce_insights`;
@@ -35,6 +38,7 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
       <h2>Access to disaster recovery training</h2>
       <div className={styles.narrative}>
         <div className="max-w-[800px]">
+          <p>Collectively, these disaster recovery training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup>57</sup></p>
           <p>Despite the relevance and importance of disaster recovery training, there are limited TAFEs and RTOs equipped to deliver this training. For example:</p>
           <ul className="list-disc ps-5">
             <li>seven of the nine newly developed skill sets are not on scope for any RTO</li>
@@ -47,10 +51,10 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
     </section>
 
     <hr className={styles.rule} />
-    <section className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
+    <section data-report-sources className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
-      <ol start={53}>
-        {fesDisasterRecoverySources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}
+      <ol start={firstSourceNumber}>
+        {insightTwoSources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{firstSourceNumber + index}</span><span>{source}</span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

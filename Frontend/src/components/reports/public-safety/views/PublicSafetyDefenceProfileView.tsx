@@ -60,7 +60,7 @@ function HeadcountChart() {
           <g className={styles.yearLabels} aria-hidden="true"><text x={151} y={400} textAnchor="middle">2024</text><text x={541} y={400} textAnchor="middle">2025</text></g>
         </svg>
       </div>
-      <p className={styles.headcountSource}>SOURCE: Defence Annual Report 2024-25, 2025 &amp; Defence Annual Report 2023-24, 2024</p>
+      <p data-source-caption className={styles.headcountSource}>SOURCE: Defence Annual Report 2024-25, 2025 &amp; Defence Annual Report 2023-24, 2024</p>
     </div>
   </section>;
 }
@@ -98,7 +98,7 @@ function SeparationChart() {
           <g className={styles.yearLabels} aria-hidden="true"><text x={165} y={426.43} textAnchor="middle">2024</text><text x={565.25} y={426.43} textAnchor="middle">2025</text></g>
         </svg>
       </div>
-      <p className={styles.separationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+      <p data-source-caption className={styles.separationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
     </div>
   </section>;
 }
@@ -133,7 +133,7 @@ function GenderChart() {
           <rect x={88} y={518} width={14} height={14} rx={7} fill="#64645E" /><text x={110} y={530}>Male (%)</text>
           <rect x={195} y={518} width={14} height={14} rx={7} fill="#D3992C" /><text x={217} y={530}>Female (%)</text>
         </g>
-        <text x={24} y={570} className={styles.genderSource}>SOURCE: Defence Annual Report 2024-25, 2025</text>
+        <text data-source-caption x={24} y={570} className={styles.genderSource}>SOURCE: Defence Annual Report 2024-25, 2025</text>
       </svg>
     </div>
   </section>;
@@ -171,7 +171,7 @@ function FirstNationsChart() {
           <text x={item.nameX} y={y(item.current) + item.nameOffset} className={styles.seriesName}>{item.name}</text>
         </g>)}
         <g className={styles.yearLabels} aria-hidden="true"><text x={188.64} y={523.5} textAnchor="middle">2024</text><text x={619.265} y={523.5} textAnchor="middle">2025</text></g>
-        <text x={28} y={575} className={styles.genderSource}>SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025</text>
+        <text data-source-caption x={28} y={575} className={styles.genderSource}>SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025</text>
       </svg>
     </div>
   </section>;
@@ -194,7 +194,7 @@ function LocationChart() {
       </aside>
     </div>
     <p className={styles.locationNote}>Major Defence bases. Please note total number of bases may change in the next 12 months inline with recommendations from the Defence Estate Audit</p>
-    <p className={styles.locationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+    <p data-source-caption className={styles.locationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
   </section>;
 }
 
@@ -290,11 +290,11 @@ function OperationsChart() {
           </text>
         </g>)}
         <text x={0} y={535} fill="#222" fontSize={6}>{note}</text>
-        <text x={0} y={546} fill="#222" fontSize={6}>Source: {source}</text>
+        <text data-source-caption x={0} y={546} fill="#222" fontSize={6}>Source: {source}</text>
       </svg>
     </div>
     <p className={styles.operationsNote}>{note}</p>
-    <p className={styles.operationsSource}>SOURCE: {source}</p>
+    <p data-source-caption className={styles.operationsSource}>SOURCE: {source}</p>
   </section>;
 }
 

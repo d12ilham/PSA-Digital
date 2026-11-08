@@ -25,15 +25,14 @@ interface ChartSeries {
   name: string;
   values: number[];
   color: string;
-  labelBelow?: boolean;
+  colors?: string[];
 }
 
-function ReportLineChart({
+function ReportBarChart({
   years,
   series,
   min,
   max,
-  step,
   loaded,
   activeIndex,
   onActiveIndexChange,
@@ -42,70 +41,66 @@ function ReportLineChart({
   series: ChartSeries[];
   min: number;
   max: number;
-  step: number;
   loaded: boolean;
   activeIndex: number | null;
   onActiveIndexChange: (index: number | null) => void;
 }) {
-  const left = 100;
-  const right = 580;
-  const top = 30;
-  const bottom = 220;
-  const x = (index: number) => left + (index * (right - left)) / (years.length - 1);
-  const y = (value: number) => bottom - ((value - min) / (max - min)) * (bottom - top);
-  const ticks = Array.from({ length: (max - min) / step + 1 }, (_, index) => min + index * step);
+  const left = 16;
+  const right = 604;
+  const top = 42;
+  const bottom = 210;
+  const groupWidth = (right - left) / years.length;
+  const barGap = series.length > 1 ? 7 : 0;
+  const barWidth = (groupWidth - 14 - barGap * (series.length - 1)) / series.length;
+  const selectedBar = activeIndex === null ? null : {
+    yearIndex: Math.floor(activeIndex / series.length),
+    seriesIndex: activeIndex % series.length,
+  };
+  const barHeight = (value: number) => Math.max(4, ((value - min) / (max - min)) * (bottom - top));
+  const barX = (yearIndex: number, seriesIndex: number) =>
+    left + yearIndex * groupWidth + 7 + seriesIndex * (barWidth + barGap);
 
   return (
-    <div className="overflow-x-auto" onMouseLeave={() => onActiveIndexChange(null)}>
-      <svg viewBox="0 0 620 260" className="w-full min-w-[520px] h-auto" role="img" aria-label={`${series.map((item) => item.name).join(" and ")} by year`}>
-        {ticks.map((tick) => (
-          <g key={tick}>
-            <line x1={left} x2={right} y1={y(tick)} y2={y(tick)} stroke="#D3D8D0" strokeWidth="1" />
-            <text x={left - 20} y={y(tick) + 4} textAnchor="end" className="fill-gray600 text-[11px]">
-              {tick.toLocaleString("en-AU")}
-            </text>
-          </g>
-        ))}
+    <div className="overflow-x-auto" onMouseLeave={() => onActiveIndexChange(series.length === 1 ? years.length - 1 : null)}>
+      <svg viewBox="0 0 620 255" className="w-full min-w-[520px] h-auto" role="img" aria-label={`${series.map((item) => item.name).join(" and ")} by year`}>
         {years.map((year, index) => (
-          <text key={year} x={x(index)} y="245" textAnchor="middle" className="fill-gray600 text-[11px]">
+          <text key={year} x={left + index * groupWidth + groupWidth / 2} y="239" textAnchor="middle" className="fill-gray800 text-[11px]">
             {year}
           </text>
         ))}
-        {series.map((item) => (
-          <g key={item.name}>
-            <path
-              d={item.values.map((value, index) => `${index === 0 ? "M" : "L"}${x(index)} ${y(value)}`).join(" ")}
-              fill="none"
-              stroke={item.color}
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              pathLength={1}
-              strokeDasharray="1"
-              strokeDashoffset={loaded ? 0 : 1}
-              className="transition-[stroke-dashoffset] duration-1000 ease-out"
+        {years.flatMap((year, yearIndex) => series.map((item, seriesIndex) => {
+          const value = item.values[yearIndex];
+          const height = barHeight(value);
+          const x = barX(yearIndex, seriesIndex);
+          return (
+            <rect
+              key={`${item.name}-${year}`}
+              x={x} y={bottom - height} width={barWidth} height={height}
+              rx="7" fill={item.colors?.[yearIndex] ?? item.color}
+              className="outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"
+              tabIndex={0}
+              aria-label={`${year}: ${item.name} ${value.toLocaleString("en-AU")}`}
+              onMouseEnter={() => onActiveIndexChange(yearIndex * series.length + seriesIndex)}
+              onFocus={() => onActiveIndexChange(yearIndex * series.length + seriesIndex)}
+              onBlur={() => onActiveIndexChange(null)}
+              style={{ transform: loaded ? "scaleY(1)" : "scaleY(0)", transformOrigin: "center bottom", transformBox: "fill-box", transition: `transform 750ms ease-out ${yearIndex * 90}ms`, cursor: "pointer" }}
             />
-            {item.values.map((value, index) => (
-              <g key={`${item.name}-${years[index]}`} onMouseEnter={() => onActiveIndexChange(index)}>
-                <circle cx={x(index)} cy={y(value)} r="13" fill="transparent" />
-                <circle
-                  cx={x(index)} cy={y(value)} r={activeIndex === index ? 6.5 : 5}
-                  fill="white" stroke={item.color} strokeWidth="3"
-                  opacity={loaded ? 1 : 0}
-                  className="transition-all duration-500"
-                />
-                <text
-                  x={x(index)} y={y(value) + (item.labelBelow ? 20 : -12)}
-                  textAnchor="middle" className="fill-gray800 text-[12px] font-semibold"
-                  opacity={loaded ? 1 : 0}
-                >
-                  {value.toLocaleString("en-AU")}
-                </text>
-                <title>{`${years[index]}: ${item.name} ${value.toLocaleString("en-AU")}`}</title>
-              </g>
-            ))}
-          </g>
-        ))}
+          );
+        }))}
+        {loaded && selectedBar && (() => {
+          const { yearIndex, seriesIndex } = selectedBar;
+          const value = series[seriesIndex].values[yearIndex];
+          const centerX = barX(yearIndex, seriesIndex) + barWidth / 2;
+          const label = `${years[yearIndex]} · ${value.toLocaleString("en-AU")}`;
+          const tooltipWidth = series.length > 1 ? 124 : 152;
+          const tooltipX = Math.min(620 - tooltipWidth - 4, Math.max(4, centerX - tooltipWidth / 2));
+          const tooltipY = Math.max(2, bottom - barHeight(value) - 41);
+          return <g pointerEvents="none">
+            <rect x={tooltipX} y={tooltipY} width={tooltipWidth} height="32" rx="6" fill="#252D02" />
+            <path d={`M${centerX - 6} ${tooltipY + 32} L${centerX + 6} ${tooltipY + 32} L${centerX} ${tooltipY + 39} Z`} fill="#252D02" />
+            <text x={tooltipX + tooltipWidth / 2} y={tooltipY + 21} textAnchor="middle" fill="white" fontSize="12" fontWeight="600">{label}</text>
+          </g>;
+        })()}
       </svg>
     </div>
   );
@@ -119,7 +114,7 @@ export default function IndustryProfileView({
   report: Report;
 }) {
   const router = useRouter();
-  const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(null);
+  const [activeGrowthBar, setActiveGrowthBar] = useState<number | null>(4);
   const [activeTrainingBar, setActiveTrainingBar] = useState<number | null>(null);
   const [chartsLoaded, setChartsLoaded] = useState(false);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
@@ -216,17 +211,16 @@ export default function IndustryProfileView({
           >
             <div className="space-y-2">
               <span className="text-xs text-active uppercase block">
-                SOURCE: ABS, PUBLIC SECTOR EMPLOYMENT AND EARNINGS, RELEASES
-                2020–2025
+                Source: ABS, <a href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/public-sector-employment-and-earnings/latest-release" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Public sector employment and earnings</a>, 2025, releases 2020–2025
               </span>
               <h3 className="font-bold text-lg text-gray800 mb-6">
                 2020–2025 Employment Growth in Local Government
               </h3>
 
-              <ReportLineChart
+              <ReportBarChart
                 years={growthData.map((item) => item.year)}
-                series={[{ name: "Employees", values: growthData.map((item) => item.value), color: "#086B37" }]}
-                min={190000} max={220000} step={5000}
+                series={[{ name: "Employees", values: growthData.map((item) => item.value), color: "#598303", colors: ["#B2DB79", "#B2DB79", "#8AC900", "#8AC900", "#598303"] }]}
+                min={160000} max={218000}
                 loaded={chartsLoaded}
                 activeIndex={activeGrowthBar}
                 onActiveIndexChange={setActiveGrowthBar}
@@ -245,33 +239,31 @@ export default function IndustryProfileView({
           >
             <div className="space-y-2">
               <span className="text-xs text-active uppercase block">
-                SOURCE: NCVER, TOTAL VET STUDENTS AND COURSES 2024: DATABUILDER
-                [DATASET], 2024
+                Source: NCVER, <a href="https://www.ncver.edu.au/research-and-statistics/data/databuilder" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Total VET students and courses 2024: DataBuilder</a> [dataset], 2024
               </span>
               <h3 className="font-bold text-lg text-gray800 mb-6">
-                Local Government Training Package — Enrolment and Completion
+                Local Government Training Package Enrolments and Completions
               </h3>
 
-              <ReportLineChart
+              <div className="flex items-center gap-5 text-xs font-semibold text-gray800 pt-1">
+                <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#9CAA54]" />Enrolments</span>
+                <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#086B37]" />Completions</span>
+              </div>
+              <ReportBarChart
                 years={trainingData.map((item) => item.year)}
                 series={[
-                  { name: "Enrolments", values: trainingData.map((item) => item.enrol), color: "#086B37" },
-                  { name: "Completions", values: trainingData.map((item) => item.comp), color: "#A6C9A2", labelBelow: true },
+                  { name: "Enrolments", values: trainingData.map((item) => item.enrol), color: "#9CAA54" },
+                  { name: "Completions", values: trainingData.map((item) => item.comp), color: "#086B37" },
                 ]}
-                min={0} max={1000} step={100}
+                min={0} max={1000}
                 loaded={chartsLoaded}
                 activeIndex={activeTrainingBar}
                 onActiveIndexChange={setActiveTrainingBar}
               />
-              <div className="flex items-center gap-6 text-xs font-bold text-gray600">
-                <span className="flex items-center gap-2"><span className="w-5 border-t-2 border-[#086B37]" />Enrolments</span>
-                <span className="flex items-center gap-2"><span className="w-5 border-t-2 border-[#A6C9A2]" />Completions</span>
-              </div>
             </div>
 
             <p className="text-xs text-active leading-relaxed">
-              Figure 2: LGA Local Government Training Package enrolments and
-              completions.
+              Figure 2: Local Government Training Package Enrolments and Completions.
             </p>
           </div>
         </div>
@@ -280,36 +272,14 @@ export default function IndustryProfileView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
           <div className="space-y-2.5">
             <span className="text-xs text-active block">
-              SOURCE: ALGA, 2024 NATIONAL STATE OF THE ASSETS REPORT
+              Source: ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/ALGA-National-State-of-the-Assets-Report-2024-final.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2024 National State of the Assets Report</a>, 2024, pg. 5 &amp; 8
             </span>
             <h3 className="font-bold text-xl text-gray800">Asset Management</h3>
           </div>
 
-          {/* 3 Stat Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Stat 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div
               style={{ animationDelay: "0.15s" }}
-              className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
-            >
-              <img
-                src="/images/reports/industry-profile/item-1.svg"
-                alt="~1/3"
-                className="w-14 h-14 shrink-0 object-contain"
-              />
-              <div className="space-y-2">
-                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
-                  ~1/3
-                </span>
-                <p className="text-xs font-semibold text-gray600 leading-tight">
-                  of Australia's public infrastructure assets
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 2 */}
-            <div
-              style={{ animationDelay: "0.27s" }}
               className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
             >
               <img
@@ -327,9 +297,8 @@ export default function IndustryProfileView({
               </div>
             </div>
 
-            {/* Stat 3 */}
             <div
-              style={{ animationDelay: "0.39s" }}
+              style={{ animationDelay: "0.27s" }}
               className="animate-card-entrance bg-white border border-gray200 rounded-xl p-5 flex items-center gap-4"
             >
               <img

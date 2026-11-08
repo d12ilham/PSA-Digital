@@ -20,7 +20,7 @@ import FederalStateWorkforceInsightThreeView from "./views/FederalStateWorkforce
 import FederalStateProposedStrategiesView from "./views/FederalStateProposedStrategiesView";
 import FederalStateUpdate2025StrategiesView from "./views/FederalStateUpdate2025StrategiesView";
 import FederalState2025ProjectView from "./views/FederalState2025ProjectView";
-import FederalStateExistingStrategiesView from "./views/FederalStateExistingStrategiesFrameView";
+import FederalStateExistingStrategiesFrameView from "./views/FederalStateExistingStrategiesFrameView";
 import FederalStateInitiativesView from "./views/FederalStateInitiativesView";
 import FederalStateLookingForwardView from "./views/FederalStateLookingForwardView";
 import FederalStateDownloadsView from "./views/FederalStateDownloadsView";
@@ -57,8 +57,8 @@ export const federalStateViews: Record<
   update_2025_project_1: FederalState2025ProjectView,
   update_2025_project_2: FederalState2025ProjectView,
   update_2025_project_3: FederalState2025ProjectView,
-  existing_strategies: FederalStateExistingStrategiesView,
-  existing_industry_strategies: FederalStateExistingStrategiesView,
+  existing_strategies: FederalStateExistingStrategiesFrameView,
+  existing_industry_strategies: FederalStateExistingStrategiesFrameView,
   federal_initiatives: FederalStateInitiativesView,
   federal_government_initiatives: FederalStateInitiativesView,
   looking_forward: FederalStateLookingForwardView,
@@ -80,7 +80,7 @@ export {
   FederalStateIndustryProfileView,
   FederalStateWorkforceInsightsView,
   FederalStateProposedStrategiesView,
-  FederalStateExistingStrategiesView,
+  FederalStateExistingStrategiesFrameView as FederalStateExistingStrategiesView,
   FederalStateInitiativesView,
   FederalStateLookingForwardView,
   FederalStateDownloadsView,

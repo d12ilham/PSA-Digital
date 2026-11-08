@@ -97,7 +97,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
       </article>
     </section>
 
-    <section className={sourceStyles.sources}>
+    <section data-report-sources className={sourceStyles.sources}>
       <h2>Sources</h2>
       <ol start={37}>
         {["Previously referred to as Contemporary Cadet Training.", "Previously referred to as Development of Training Products for Emerging Skills in the Cyber Domain.", "Previously referred to as Development of Training Products for Emerging Skills in the Space Domain.", "Previously referred to as Defence Evolving Skills Requirements – VET System Pathways Framework."].map((source, index) => <li key={source}>

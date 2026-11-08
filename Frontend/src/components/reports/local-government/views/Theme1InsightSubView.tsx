@@ -81,6 +81,9 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight One
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Local Government employers require a diverse range of skills to
                 maintain the breadth of responsibilities undertaken by local
@@ -89,24 +92,6 @@ export default function Theme1InsightSubView({
             </div>
           </div>
 
-          {/* Theme context Box inside the same White BG container */}
-          <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3 animate-slide-up-delay">
-            <h2 className="text-base font-bold text-gray800">Theme context.</h2>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full xl:w-2/3">
-              In support of both the 2024 Federal, State/Territory &amp; Local
-              Government Workforce Plan and the 2025 Local Government Workforce
-              Insights Report, local council employers continue to emphasise the
-              broad scope of occupations employed in their workforce. Role
-              expansion has been a consistent theme, further examined through
-              two Parliamentary inquiries<sup>27</sup> — which confirmed that the role of
-              local councils has expanded over time and that this expansion is
-              impacting both financial and workforce sustainability.<sup>28</sup>
-            </p>
-            <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
-              <p><sup>27</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Parliamentary Inquiry into Local Government Funding and Fiscal Sustainability</em>, 2026; <em>Parliamentary Inquiry into Local Government Sustainability</em>, 2024, accessed 11 February 2026.</p>
-              <p><sup>28</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Interim Report into Local Government Sustainability</em>, 2025, pages 5 and 21, accessed 11 February 2026.</p>
-            </div>
-          </div>
         </div>
       )}
 
@@ -120,9 +105,12 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Two
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Skills needs are changing due to workforce pressures,
-                technological advances and shifting community expectations.
+                technological advancements and shifting community expectations.
               </h1>
             </div>
           </div>
@@ -139,10 +127,13 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Three
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
-                There are acute occupational shortages specific to the Local
-                Government industry-sector, particularly for Emergency
-                Management.
+                While local council employers are experiencing some shortages
+                in identified national shortage occupations, several Local
+                Government specific shortages were also identified.
               </h1>
             </div>
           </div>
@@ -183,12 +174,6 @@ export default function Theme1InsightSubView({
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-gray200">
-                <p className="text-xs text-notes">
-                  Source: PSA, 2026 Local Government Workforce Insights Report,
-                  Workforce Insights.
-                </p>
-              </div>
             </div>
 
             {/* Right Box: Industry Insight */}
@@ -240,12 +225,6 @@ export default function Theme1InsightSubView({
                 </ul>
               </div>
 
-              <div className="pt-4 border-t border-gray200">
-                <p className="text-xs font-bold text-notes uppercase">
-                  HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                  TRAINING PACKAGE PROJECT
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -259,7 +238,7 @@ export default function Theme1InsightSubView({
             {/* Card 1: Technological advancement */}
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col">
               <h3 className="text-xl font-bold text-gray800">
-                Technological advancement
+                Technological Advancement
               </h3>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Across the broader Australian labour market, technological
@@ -271,8 +250,8 @@ export default function Theme1InsightSubView({
                 access to TAFE and RTOs.<sup>30</sup>
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal"><sup>29</sup> Jobs and Skills Australia (JSA), <em>Connecting for Impact – The Jobs and Skills Report 2025</em>, 2025, page 81, accessed 19 November 2025.</p>
-                <p className="text-xs text-notes font-normal"><sup>30</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, pages 14–15, accessed 11 February 2026.</p>
+                <p className="text-xs text-notes font-normal"><sup>29</sup> Jobs and Skills Australia (JSA), <a href="https://www.jobsandskills.gov.au/news/connecting-impact-jobs-and-skills-report-2025" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Connecting for Impact – The Jobs and Skills Report 2025</em></a>, JSA, 2025, page 81, accessed 19 November 2025.</p>
+                <p className="text-xs text-notes font-normal"><sup>30</sup> PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 14-15, accessed 11 February 2026.</p>
               </div>
             </div>
 
@@ -303,8 +282,8 @@ export default function Theme1InsightSubView({
                 councils.
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal leading-normal"><sup>31</sup> Australian Government, Department of Health, Disability and Ageing, <em>About the new rights-based Aged Care Act</em>, 2025, accessed 11 February 2026.</p>
-                <p className="text-xs text-notes font-normal leading-normal"><sup>32</sup> New South Wales Environmental Protection Agency (NSW EPA), <em>FOGO mandates and rollout</em>, 2025, accessed 11 February 2026.</p>
+                <p className="text-xs text-notes font-normal leading-normal"><sup>31</sup> Australian Government, Department of Health, Disability and Ageing, <a href="https://www.health.gov.au/our-work/aged-care-act/about?language=en" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>About the new rights-based Aged Care Act</em></a>, Australian Government, Department of Health, Disability and Ageing, 2025, accessed 11 February 2026.</p>
+                <p className="text-xs text-notes font-normal leading-normal"><sup>32</sup> New South Wales Environmental Protection Agency (NSW EPA), <a href="https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/business-government-recycling/Food-organics-and-garden-organics/fogo-mandates-and-rollout" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>FOGO mandates and rollout</em></a>, NSW EPA, 2025, accessed 11 February 2026.</p>
               </div>
             </div>
           </div>
@@ -371,12 +350,6 @@ export default function Theme1InsightSubView({
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-gray200">
-                <p className="text-xs text-notes uppercase">
-                  HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                  TRAINING PACKAGE PROJECT
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -421,7 +394,7 @@ export default function Theme1InsightSubView({
                 industry-sector.
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal"><sup>33</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, page 19, accessed 11 February 2026.</p>
+                <p className="text-xs text-notes font-normal"><sup>33</sup> PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 19, accessed 11 February 2026.</p>
               </div>
             </div>
 
@@ -435,12 +408,6 @@ export default function Theme1InsightSubView({
                 needed to enable the sector to meet expanding and increasing
                 service delivery requirements.
               </p>
-              <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal">
-                  Source: PSA, 2026 LG WIR — see the State and Territory
-                  Workforce Profile for the full shortage comparison data.
-                </p>
-              </div>
             </div>
           </div>
 

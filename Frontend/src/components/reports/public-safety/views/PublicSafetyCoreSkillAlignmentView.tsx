@@ -108,7 +108,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
             </div>
             <div className={styles.graphDetails}>
               <div className={styles.skillChips}>{jsaSkills.map((skill) => <span key={skill}>{skill}</span>)}</div>
-              <p className={styles.graphSource}>Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024</p>
+              <p data-source-caption className={styles.graphSource}>Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024</p>
               <div className={styles.sectorChips}>
                 <span>Defence Force Member</span>
                 <span>Emergency Service Worker · Fire Fighter</span>
@@ -120,7 +120,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
 
         <aside data-reveal="conclusion" className={`${styles.conclusion} ${reveal("conclusion")}`}><p>These four occupations encompass a range of core skills that may likely enable industry-sector cross-skilling, greater interoperability and would enhance national capability to prepare for, respond to and recover from natural disasters, emergency incidents and geopolitical uncertainty.</p></aside>
 
-        <section data-reveal="sources" className={`${styles.sources} ${reveal("sources")}`}>
+        <section data-report-sources data-reveal="sources" className={`${styles.sources} ${reveal("sources")}`}>
           <h2>Sources</h2>
           <ol start={8}>{sources.map(({ number, text }) => <li key={number} id={`core-source-${number}`} value={number}><span className={styles.sourceNumber} aria-hidden="true">{number}</span><span>{text}</span></li>)}</ol>
         </section>

@@ -220,7 +220,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
               <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${themeOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                   <div className="max-w-[800px] pt-5 text-sm font-medium leading-6 text-[#535862]">
-                    <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:<sup>23</sup></p>
+                    <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
                     <ul className="mt-2 list-disc space-y-1 pl-5">
                       <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
                       <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation). As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
@@ -230,6 +230,9 @@ export default function CorrectionalServicesExecutiveSummaryView({
                 </div>
               </div>
 
+              <p className="mt-5 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
+                This Report also outlines two key challenges impacting the Correctional Services workforce that were identified in the 2025 Correctional Services Workforce Insights Report and the 2024 Correctional Services Workforce Plan – namely, the Correctional Services recruitment pipeline and the implementation of vocational education and training (VET) – as well as the strategies devised to support efforts to address them. These challenges and their related projects focused on Correctional Officer (CO) occupations in custodial settings rather than Community Corrections Officer (CCO) occupations in community settings. Accordingly, the community corrections workforce became the primary focus for this Report.
+              </p>
               <p className="mt-5 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">The Report identifies three industry insights relating to the community corrections workforce. These include:</p>
               <div className="mt-5 space-y-2">
                 {insights.map((insight, index) => {
@@ -334,7 +337,6 @@ export default function CorrectionalServicesExecutiveSummaryView({
 
         <aside data-summary-reveal="sources" className={`rounded-[14px] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`} aria-label="Sources">
           <p><sup>2.</sup> HumanAbility is the Jobs and Skills council for the care and support sectors. They are responsible for maintaining and updating the CHC Community Services, HLT Health, and SIS Sports, Fitness and Recreation Training Packages.</p>
-          <p className="mt-2"><sup>23.</sup> Public Skills Australia 2025, Corrections Implementation Report, unpublished.</p>
         </aside>
       </main>
 

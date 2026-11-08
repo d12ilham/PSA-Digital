@@ -16,6 +16,15 @@
   min-width: 0;
 }
 
+.context {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 10;
+  flex-shrink: 0;
+  background: #ede9df;
+  padding-bottom: 1rem;
+}
+
 @media (min-width: 1024px) {
   .workspace {
     height: calc(100dvh - 7rem);
@@ -32,6 +41,11 @@
     display: flex;
     min-height: 0;
     flex-direction: column;
+  }
+
+  .context {
+    position: static;
+    padding-bottom: 0;
   }
 
   .detail {

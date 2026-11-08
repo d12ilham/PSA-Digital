@@ -88,7 +88,7 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
 
       <hr className={styles.divider} />
 
-      <section ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-veterans-sources">
+      <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-veterans-sources">
         <h2 id="defence-veterans-sources">Sources</h2>
         <ol start={29}>
           {sources.map((source, index) => <li key={index + 29} className={sourcesVisible ? "animate-card-entrance" : undefined} style={{ animationDelay: `${index * .05 + .1}s` }}>

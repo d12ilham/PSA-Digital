@@ -56,7 +56,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
 
     <hr className={styles.divider} />
 
-    <section className={`${styles.sources} animate-slide-up`} aria-labelledby="defence-veterans-two-source">
+    <section data-report-sources className={`${styles.sources} animate-slide-up`} aria-labelledby="defence-veterans-two-source">
       <h2 id="defence-veterans-two-source">Sources</h2>
       <ol start={36}>
         <li>

@@ -121,7 +121,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
       </div>
     </section>
 
-    <section ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-technology-two-sources">
+    <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-technology-two-sources">
       <h2 id="defence-technology-two-sources">Sources</h2>
       <ol start={16}>
         {defenceTechnologySources.map((source, index) => {

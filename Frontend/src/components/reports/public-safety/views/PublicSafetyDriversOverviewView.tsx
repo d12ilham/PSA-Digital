@@ -85,7 +85,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
           ))}
       </section>
 
-      <section className="h-[456px] rounded-2xl border border-[#E9EAEB] bg-white p-6">
+      <section data-report-sources className="h-[456px] rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <h2 className="text-2xl font-bold leading-8 text-[#252D02]">Sources</h2>
           <ol className="mt-6 w-full max-w-[800px] space-y-4">
             {sources.map(([number, source]) => (

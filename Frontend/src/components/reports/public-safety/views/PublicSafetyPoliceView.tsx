@@ -50,7 +50,7 @@ export default function PublicSafetyPoliceView({ slug, report }: { slug: string;
     contentClassName={`${layout.page} ${styles.page}`}
     navigation={{
       back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
-      prev: { label: "Disaster Recovery Training Products (Appendix B)", href: `/reports/${slug}/fes_disaster_recovery_training_products` },
+      prev: { label: "FES Existing Industry-Sector Strategies", href: `/reports/${slug}/fes_existing_strategies` },
       next: { label: "Industry-Sector Overview", href: `/reports/${slug}/police_industry_overview` },
       prevPrefix: "Previous Section:",
       nextPrefix: "Next Section:",
@@ -59,7 +59,7 @@ export default function PublicSafetyPoliceView({ slug, report }: { slug: string;
     <section className={`${layout.hero} ${styles.hero}`}>
       <div className={layout.heroCopy}>
         <span className={`${layout.badge} ${styles.badge}`}>POL · Industry-Sector Analysis</span>
-        <h1>Police Chapter</h1>
+        <h1>Police</h1>
         <p>This chapter of the 2026 Public Safety Workforce Insights Report covers the Police industry-sector — the eight state and territory police forces and the Australian Federal Police. Open any section below, or move through the chapter in report order.</p>
       </div>
       <div className={`${layout.artwork} ${styles.artwork}`}>

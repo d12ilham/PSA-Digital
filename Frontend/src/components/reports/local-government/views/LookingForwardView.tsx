@@ -62,8 +62,9 @@ export default function LookingForwardView({
             <div className="space-y-3 animate-slide-up-delay">
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6">
                 Public Skills Australia has built on the 2024 Workforce Plans and
-                the 2025 Local Government Workforce Insights Report. These reports
-                continue to be the strategic centerpiece guiding annual Business
+                the 2025 Local Government Workforce Insights Reports to deliver
+                the 2026 Local Government Workforce Insights Report. These reports
+                continue to be the strategic centrepiece guiding annual Business
                 Plans for Public Skills Australia, alongside Ministerial,
                 industry-sector and other priorities (e.g. Royal Commissions and
                 Inquiries).

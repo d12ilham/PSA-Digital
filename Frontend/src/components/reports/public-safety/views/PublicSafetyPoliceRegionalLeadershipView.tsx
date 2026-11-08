@@ -51,7 +51,7 @@ export default function PublicSafetyPoliceRegionalLeadershipView({ slug, report 
       </section>
     </div>
 
-    <section className={`${styles.panel} ${styles.sources} ${layout.enter}`}>
+    <section data-report-sources className={`${styles.panel} ${styles.sources} ${layout.enter}`}>
       <h2>Sources</h2>
       <ol start={83}>
         {sources.map((source) => (

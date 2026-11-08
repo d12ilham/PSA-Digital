@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -54,7 +55,9 @@ export default function IndustryOverviewView({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
-                Local Government Industry-Sector Overview
+                <Link href={`/reports/${slug}/industry_profile`} className="text-inherit">
+                  Local Government Industry-Sector Overview
+                </Link>
               </h1>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
                 Across Australia, there are 537 local councils.<sup>9</sup> Of these local
@@ -198,13 +201,6 @@ export default function IndustryOverviewView({
               </p>
             </div>
 
-            <p className="text-xs text-[#598303] pt-4 border-t border-gray200">
-              Sources (13–16): ALGA, Facts and Figures, 2025; ABS, Public Sector
-              Employment and Earnings, 2025; PSA, Federal, State/Territory and
-              Local Government Workforce Plan 2024; PSA, 2025 Local Government
-              Workforce Insights Report; Parliament of Australia, Inquiry into
-              Local Government Sustainability interim Report, 2025.
-            </p>
           </div>
 
           {/* Card 2 */}
@@ -302,8 +298,7 @@ export default function IndustryOverviewView({
                   9
                 </span>
                 <p>
-                  ALGA, Facts and Figures, ALGA, 2025, accessed 24 September
-                  2025.
+                  ALGA, <a href="https://alga.com.au/about/local-government/facts-and-figures/" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Facts and Figures</a>, ALGA, 2025, accessed 24 September 2025.
                 </p>
               </div>
 
@@ -312,8 +307,7 @@ export default function IndustryOverviewView({
                   11
                 </span>
                 <p>
-                  ALGA, 2024 National State of the Assets Report, ALGA, 2024,
-                  pages 4, 5 and 8, accessed 11 February 2026.
+                  ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/ALGA-National-State-of-the-Assets-Report-2024-final.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2024 National State of the Assets Report</a>, ALGA, 2024, pages 4, 5 and 8, accessed 11 February 2026.
                 </p>
               </div>
 
@@ -322,8 +316,7 @@ export default function IndustryOverviewView({
                   13
                 </span>
                 <p>
-                  ALGA, Facts and Figures, ALGA, 2025, accessed 24 September
-                  2025.
+                  ALGA, <a href="https://alga.com.au/about/local-government/facts-and-figures/" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Facts and Figures</a>, ALGA, 2025, accessed 24 September 2025.
                 </p>
               </div>
 
@@ -332,10 +325,7 @@ export default function IndustryOverviewView({
                   15
                 </span>
                 <p>
-                  Public Skills Australia (PSA), Federal, State/Territory and
-                  Local Government Workforce Plan 2024, PSA, 2024, accessed 11
-                  February 2026; PSA, 2025 Local Government Workforce Insights
-                  Report, PSA, 2025, accessed 11 February 2026.
+                  Public Skills Australia (PSA), <a href="https://psa-directus-prod.azurewebsites.net/assets/acd96fb3-8c56-4df4-9670-6a92e6eb696d" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Federal, State/Territory and Local Government Workforce Plan 2024</a>, PSA, 2024, accessed 11 February 2026; PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2025 Local Government Workforce Insights Report</a>, PSA, 2025, accessed 11 February 2026.
                 </p>
               </div>
 
@@ -344,10 +334,7 @@ export default function IndustryOverviewView({
                   17
                 </span>
                 <p>
-                  ABS, Estimates of Aboriginal and Torres Strait Islander
-                  Australians, ABS, 2021, accessed 12 February 2026; ALGA, 2022
-                  Local Government Workforce Skills and Capability Survey, ALGA,
-                  2022, page 39, accessed 11 February 2026.
+                  ABS, <a href="https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-aboriginal-and-torres-strait-islander-australians/latest-release" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Estimates of Aboriginal and Torres Strait Islander Australians</a>, ABS, 2021, accessed 12 February 2026; ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/2022-Local-Government-Workforce-Skills-and-Capability-Survey-National-Report.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2022 Local Government Workforce Skills and Capability Survey</a>, ALGA, 2022, page 39, accessed 11 February 2026.
                 </p>
               </div>
             </div>
@@ -358,8 +345,7 @@ export default function IndustryOverviewView({
                   10
                 </span>
                 <p>
-                  ALGA, Facts and Figures, ALGA, 2025, accessed 24 September
-                  2025.
+                  ALGA, <a href="https://alga.com.au/about/local-government/facts-and-figures/" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Facts and Figures</a>, ALGA, 2025, accessed 24 September 2025.
                 </p>
               </div>
 
@@ -368,8 +354,7 @@ export default function IndustryOverviewView({
                   12
                 </span>
                 <p>
-                  ALGA, 2024 National State of the Assets Report, ALGA, 2024,
-                  pages 4, 5 and 8, accessed 11 February 2026.
+                  ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/ALGA-National-State-of-the-Assets-Report-2024-final.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2024 National State of the Assets Report</a>, ALGA, 2024, pages 4, 5 and 8, accessed 11 February 2026.
                 </p>
               </div>
 
@@ -378,8 +363,7 @@ export default function IndustryOverviewView({
                   14
                 </span>
                 <p>
-                  Australian Bureau of Statistics (ABS), Public Sector
-                  Employment and Earnings, ABS, 2025, accessed 11 February 2026.
+                  Australian Bureau of Statistics (ABS), <a href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/public-sector-employment-and-earnings/latest-release" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Public Sector Employment and Earnings</a>, ABS, 2025, accessed 11 February 2026.
                 </p>
               </div>
 
@@ -388,9 +372,7 @@ export default function IndustryOverviewView({
                   16
                 </span>
                 <p>
-                  Parliament of Australia, Inquiry into Local Government
-                  Sustainability Interim Report, Parliament of Australia, 2025,
-                  accessed 11 February 2026.
+                  Parliament of Australia, <a href="https://www.aph.gov.au/Parliamentary_Business/Committees/House/Regional_Development_Infrastructure_and_Transport/Localgovernmentsustaina/Interim_Report" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Inquiry into Local Government Sustainability Interim Report</a>, Parliament of Australia, 2025, accessed 11 February 2026.
                 </p>
               </div>
             </div>

@@ -13,7 +13,7 @@ const datapoints = [
   { title:"Demand for Services", copy:"Demand continues to increase as communities face more frequent and complex emergency events, including natural disasters and climate-related incidents." },
   { title:"Career Firefighters and Emergency Services Employees", copy:"Career firefighters and emergency services employees: In the 20 years from August 2005 to August 2025, the career Fire and Emergency Services occupation (ANZSCO 4412) experienced a 65.9 per cent growth, outpacing the wider job market at 48.4 per cent." },
   { title:"Volunteer Services", copy:"Despite relative increases in career Firefighter and operational SES members from 2019–20 to 2024–25, in absolute terms, the increases in career employees are heavily negated by the decreases experienced in volunteer cohorts. Collectively, in the five years from 2019–2020, a total of 1,130 career Firefighters and SES members were added to Australia’s emergency response capability, while a total of 10,336 volunteers were lost." },
-  { title:"Surf Life Saving", copy:"Surf Life Saving: Across 2024–2025, Surf Life Saving provided a combined total of 1.95 million hours of lifesaving patrol activity, with New South Wales and Queensland accounting for more than 70 per cent of total hours served. This enabled a combined total of 2.19 million preventative actions, along with 65,942 administrations of first aid and 8,207 rescues across both volunteer and career surf lifesavers." },
+  { title:"Surf Life Saving", copy:<>Surf Life Saving: Across 2024–2025, Surf Life Saving provided a combined total of 1.95 million hours of lifesaving patrol activity, with New South Wales and Queensland accounting for more than 70 per cent of total hours served.<sup>50</sup> This enabled a combined total of 2.19 million preventative actions, along with 65,942 administrations of first aid and 8,207 rescues across both volunteer and career surf lifesavers.<sup>51</sup></> },
 ];
 
 const sources = [
@@ -83,7 +83,7 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
         </g>
       ))}
     </svg>
-    <figcaption>Source: {source}</figcaption>
+    <figcaption data-source-caption>Source: {source}</figcaption>
   </figure>;
 }
 
@@ -164,7 +164,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
           })}
         </div>
       </section>
-      <section className={`${sourcesStyles.sources} animate-slide-up-delay`}>
+      <section data-report-sources className={`${sourcesStyles.sources} ${styles.sources} animate-slide-up-delay`}>
         <h2>Sources</h2>
         <ol start={43}>
           {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span>{source}</span></li>)}

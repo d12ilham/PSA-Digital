@@ -216,10 +216,10 @@ export default function WorkforceInsightsView({
                           employers continue to emphasise the broad scope of
                           occupations employed in their workforce. Role expansion
                           has been a consistent theme, further examined through two
-                          Parliamentary inquiries — which confirmed that the role of
+                          Parliamentary inquiries<sup>27</sup> — which confirmed that the role of
                           local councils has expanded over time and that this
                           expansion is impacting both financial and workforce
-                          sustainability.
+                          sustainability.<sup>28</sup>
                         </p>
                       </div>
                     </div>
@@ -277,7 +277,7 @@ export default function WorkforceInsightsView({
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
                           Skills needs are changing due to workforce pressures,
-                          technological advances and shifting community
+                          technological advancements and shifting community
                           expectations.
                         </p>
                       </div>
@@ -306,9 +306,10 @@ export default function WorkforceInsightsView({
                           Theme One, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          There are acute occupational shortages specific to the
-                          Local Government industry-sector, particularly for
-                          Emergency Management.
+                          While local council employers are experiencing some
+                          shortages in identified national shortage occupations,
+                          several Local Government specific shortages were also
+                          identified.
                         </p>
                       </div>
                     </div>
@@ -391,9 +392,8 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight One
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Access to Technical and Further Education (TAFE) or
-                          Registered Training Organisations (RTOs) in regional,
-                          rural and remote locations is limited.
+                          Access to TAFE or RTO in regional, rural and remote
+                          locations is limited.
                         </p>
                       </div>
                     </div>
@@ -486,6 +486,23 @@ export default function WorkforceInsightsView({
                       <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-4">
+              <h3 className="font-bold text-xl text-gray800">Footnotes</h3>
+              <div className="space-y-3 text-xs text-gray600 leading-relaxed">
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-xs font-bold shrink-0">27</span>
+                  <p>
+                    Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://www.aph.gov.au/Parliamentary_Business/Committees/House/Regional_Development_Infrastructure_and_Transport/LocalGovernmentFunding/Terms_of_Reference" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Parliamentary Inquiry into Local Government Funding and Fiscal Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2026, accessed 11 February 2026; Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://www.aph.gov.au/LocalGovernmentSustainability" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Parliamentary Inquiry into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2024, accessed 11 February 2026.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-xs font-bold shrink-0">28</span>
+                  <p>
+                    Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, pages 5 and 21, accessed 11 February 2026.
+                  </p>
                 </div>
               </div>
             </div>

@@ -90,7 +90,7 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
             <p className={styles.context}><DesignLines lines={["An interesting complexity of the VET sector is the drive to integrate the areas above into training delivery to ensure students", "are job ready. In Public Safety industry-sectors, such contextualisation is crucial, noting the operating environment.", "However, it is exactly this contextualisation of training that limits RPL when employees want to work in other industries."]} /></p>
           </div>
         </section>
-        <section data-reveal="sources" className={styles.sources + " " + reveal("sources")}>
+        <section data-report-sources data-reveal="sources" className={styles.sources + " " + reveal("sources")}>
           <h2>Sources</h2>
           <ol start={11}><li id="recognition-source-11" value={11}><span className={styles.sourceNumber} aria-hidden="true">11</span><p>Productivity Commission, Building a skilled and adaptable workforce, Productivity Commission, Australian Government, 2025.</p></li></ol>
         </section>

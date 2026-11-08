@@ -76,9 +76,6 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
           <div className="max-w-[850px] text-pretty animate-slide-up">
             <h1 className="text-[32px] font-semibold leading-tight text-[#424996] sm:text-[40px]">Workforce Insights</h1>
             <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail page.</p>
-            <p className="mt-3 text-sm leading-6">The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</p>
-            <p className="mt-3 text-sm leading-6">Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation).<sup><a href="#correctional-workforce-footnote-23" className="ml-0.5 text-[#424996] hover:underline">23</a></sup> As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</p>
-            <p className="mt-3 text-sm leading-6">Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</p>
           </div>
           <div className="mx-auto w-full max-w-[480px] animate-zoom-in motion-reduce:animate-none">
             <Image

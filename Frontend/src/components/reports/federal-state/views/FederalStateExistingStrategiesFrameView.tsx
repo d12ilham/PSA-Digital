@@ -101,19 +101,21 @@ export default function FederalStateExistingStrategiesFrameView({ slug, report }
         </nav>
 
         <section ref={panelRef} id="existing-strategy-panel" aria-labelledby="existing-strategy-detail-title" aria-live="polite" className={`${styles.panel} animate-slide-up-delay rounded-md bg-[#EDE9DF] p-4 sm:p-5`}>
-          <div data-strategy-detail-controls className="flex shrink-0 flex-wrap items-center justify-between gap-3">
-            <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">{String(selected + 1).padStart(2, "0")} · {strategy.source}</span>
-            <div className="flex items-center gap-2">
-              {selected > 0 && <button type="button" onClick={() => selectStrategy(selected - 1)} className="inline-flex items-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2 text-xs font-semibold transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32]"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> Previous</button>}
-              {selected < strategies.length - 1 && <button type="button" onClick={() => selectStrategy(selected + 1)} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2 text-xs font-semibold transition-[background-color,box-shadow] duration-300 hover:bg-[#9BDC16] hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32]">Next <ArrowRight aria-hidden="true" className="h-4 w-4" /></button>}
+          <div className={styles.context}>
+            <div data-strategy-detail-controls className="flex shrink-0 flex-wrap items-center justify-between gap-3">
+              <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">{String(selected + 1).padStart(2, "0")} · {strategy.source}</span>
+              <div className="flex items-center gap-2">
+                {selected > 0 && <button type="button" onClick={() => selectStrategy(selected - 1)} className="inline-flex items-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2 text-xs font-semibold transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32]"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> Previous</button>}
+                {selected < strategies.length - 1 && <button type="button" onClick={() => selectStrategy(selected + 1)} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2 text-xs font-semibold transition-[background-color,box-shadow] duration-300 hover:bg-[#9BDC16] hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32]">Next <ArrowRight aria-hidden="true" className="h-4 w-4" /></button>}
+              </div>
             </div>
+            <div className="mt-4 flex flex-wrap items-start justify-between gap-3"><h2 id="existing-strategy-detail-title" className="min-w-0 flex-1 text-base font-bold">{selected + 1}. {strategy.title}</h2>{selected < 11 && <span className="shrink-0 whitespace-nowrap rounded-full bg-[#EDE9DF] px-4 py-1 text-[11px] text-[#696969]">{selected === 1 ? "2022 – 2025" : selected === 3 || selected === 8 ? "2024 – 2028" : selected === 4 ? "2019 – 2025" : selected === 5 ? "2021 – 2026" : selected === 6 ? "2022 – 2032" : selected === 9 || selected === 10 ? "2023 – 2026" : "Ongoing"}</span>}</div>
           </div>
           <div ref={detailRef} key={selected} role="region" aria-label="Selected strategy details" tabIndex={0} onFocus={(event) => {
             if (event.target === event.currentTarget && window.matchMedia("(min-width: 1024px)").matches) {
               requestAnimationFrame(() => workspaceRef.current?.scrollIntoView({ block: "start", behavior: "instant" }));
             }
           }} className={`${styles.detail} animate-content-switch mt-5 rounded-md bg-[#FAFAF0] p-5 text-xs leading-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] sm:p-6`}>
-            <div className="flex items-start justify-between gap-3"><h2 id="existing-strategy-detail-title" className="min-w-0 flex-1 text-base font-bold">{selected + 1}. {strategy.title}</h2>{selected < 11 && <span className="shrink-0 whitespace-nowrap rounded-full bg-[#EDE9DF] px-4 py-1 text-[11px] text-[#696969]">{selected === 1 ? "2022 – 2025" : selected === 3 || selected === 8 ? "2024 – 2028" : selected === 4 ? "2019 – 2025" : selected === 5 ? "2021 – 2026" : selected === 6 ? "2022 – 2032" : selected === 9 || selected === 10 ? "2023 – 2026" : "Ongoing"}</span>}</div>
             {selected === 0 ? <>
               <h3 className="mt-6 text-sm font-medium text-[#694834]">SUMMARY</h3>
               <p className="mt-3">The Federal Government&apos;s APSC and each state and territory&apos;s Public Service Commission or equivalent prepares yearly reports on the state of the public sector, called State of the Service Reports (the Reports). These reports are requirements under individual Federal and State/Territory Public Sector Acts.</p>

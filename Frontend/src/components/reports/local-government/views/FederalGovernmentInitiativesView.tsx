@@ -96,7 +96,7 @@ export default function FederalGovernmentInitiativesView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="space-y-3 flex-1">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray800 leading-tight animate-slide-up">
-              Federal Government Initiatives
+              Commonwealth Government Initiatives
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia's work is informed and guided by the

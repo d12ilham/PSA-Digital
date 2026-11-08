@@ -233,7 +233,7 @@ export default function FederalStateAboutView({
               </h3>
               <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                 Public Skills Australia remains committed to encouraging the
-                participation of First Nations people,<sup>1</sup> those from
+                participation of First Nations people,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">1</sup> those from
                 culturally and linguistically diverse backgrounds, those living
                 with or experiencing disabilities, women and other gender
                 diverse people and mature people in the Public Safety and
@@ -244,7 +244,7 @@ export default function FederalStateAboutView({
 
           {/* Footnote Box */}
           <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
-            <p className="w-full xl:w-2/3">
+            <p data-citation-copy className="w-full text-sm leading-6 text-black xl:w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.
               When citing a data source (such as government strategies or state

@@ -268,7 +268,7 @@ export default function MethodologyView({
                   "Local Government New South Wales (LGNSW)",
                   "Local Government Association of the Northern Territory (LGANT)",
                   "Local Government Association of Queensland (LGAQ)",
-                  "Local Government Association of South Australia (LGASA)",
+                  "Local Government Association of South Australia (LGA SA)",
                   "Local Government Association Tasmania (LGAT)",
                   "Local Government Professionals Victoria (LGPro VIC)",
                   "Municipal Association of Victoria (MAV)",
@@ -312,11 +312,11 @@ export default function MethodologyView({
               }`}
             >
               <span className="text-3xl font-bold text-gray800">
-                <AnimatedCounter target={280} suffix="³" />
+                <AnimatedCounter target={280} />
               </span>
               <span className="text-sm font-semibold text-gray600 leading-tight">
                 In total, Public Skills Australia engaged with a total of 280
-                councils
+                councils<sup><a href="#methodology-footnote-3" className="text-inherit no-underline" aria-label="Footnote 3">3</a></sup>
               </span>
             </div>
 
@@ -501,13 +501,14 @@ export default function MethodologyView({
         </div>
 
         {/* Footnote Box */}
-        <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
+        <div id="methodology-footnote-3" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
           <p className="w-full xl:w-1/2">
-            3 - Note: councils were able to participate in both consultation and
+            <sup>3</sup> Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted
             once. Public Skills Australia did not meet with stakeholders from
             the ACT as they do not have local councils. Insights related to the
             ACT Government industry-sector are included in the 2026 Federal and
+            State/Territory Workforce Insights Report.
           </p>
         </div>
       </main>
