@@ -23,7 +23,9 @@ interface StrategyItem {
   id: number;
   code: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  owners?: string[];
+  status?: string;
   description: string;
   impactItems: {
     title: string;
@@ -39,22 +41,22 @@ const STRATEGIES_DATA: StrategyItem[] = [
     subtitle:
       "Australian Local Government Association (ALGA) · Anticipated mid-2026",
     description:
-      "ALGA has run the Local Government Workforce Skills and Capabilities Survey since 2018. For the 2026 survey, Public Skills Australia collaborated with ALGA to include new questions on local council skills, occupations and training needs. The 2026 survey received 210 responses from across Australia; results will be integrated into national and state/territory reports in 2026 through the Local Government Skills Audit and Training Package Review project.",
+      "ALGA has run the Local Government Workforce Skills and Capabilities Survey since 2018. For the 2026 survey, Public Skills Australia collaborated with ALGA to include new questions on local council skills, occupations, and training needs. The 2026 survey received 210 responses from across Australia. The results of this survey will be integrated into national and state/territory reports in 2026 through Public Skills Australia's delivery of the Local Government Skills Audit and Review of Uptake and Utility of the LGA Local Government Training Package project.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "Over 200 local councils responded to the survey. The rich data and contributions provided by these local councils informed detailed consultation with industry-sector stakeholders.",
+          "Over 200 local councils responded to the survey. The rich data and contributions provided by these local councils informed detailed consultation with Local Government industry-sector stakeholders particularly through engagement with the research process and findings.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "Collaborating with ALGA on this survey bolstered the Local Government Skills Audit and Training Package Review project by providing an evidence base, with detailed insights on jurisdictional occupational shortages and current training needs.",
+          "Collaborating with ALGA on this survey bolstered the Local Government Skills Audit and Review of Uptake and Utility of the LGA Local Government Training Package project by providing an evidence base. This survey provided detailed insights and data, particularly for jurisdictional-specific occupational shortages and current training needs.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "This survey will positively impact both 2026 strategies — the Occupational Shortage Mapping and the whole-of-VET-system roundtable — by providing up-to-date data and analysis.",
+          "This survey will positively impact the Mapping of Local Government occupational shortages to relevant VET training products and Facilitate a roundtable on whole of VET system responses to Local Government challenges strategies, by providing up-to-date data and analysis.",
       },
     ],
   },
@@ -65,22 +67,22 @@ const STRATEGIES_DATA: StrategyItem[] = [
     subtitle:
       "Standing Committee on Regional Development, Infrastructure and Transport · Lapsed",
     description:
-      "Examined the sustainability of the Local Government industry-sector — 287 submissions and 16 public hearings, with emphasis on the constant expansion of roles and responsibilities local councils perform, financial sustainability and funding, and workforce trends in attracting and retaining skilled employees.",
+      "The Parliamentary Inquiry into Local Government Sustainability, conducted by a House of Representatives Committee, is examining the sustainability of the Local Government industry-sector. Through submissions and hearings, it has gathered insights from Local Government stakeholders on key challenges. This includes ongoing issues relating to financial sustainability and funding, increasing infrastructure and service delivery obligations, structural barriers that affect local council employees and the services they provide, and workforce trends, particularly in attracting and retaining skilled employees, and the impacts of labourhire practices. The inquiry received 287 submissions, held 16 public hearings and examined the sustainability of service delivery in the Local Government industry-sector, with emphasis on the constant expansion of roles and responsibilities that local councils perform.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This inquiry provided greater context and focus on the future of the industry-sector. Consultations and engagements benefited from the interim report findings, which align to the challenges from the ongoing expansion of council roles and responsibilities.",
+          "This inquiry has provided greater context and focus on the future of the Local Government industry-sector. Public Skills Australia's consultations and engagements have benefited from the interim report findings, which align to the challenges from the ongoing expansion of roles and responsibilities of local councils across Australia.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The Local Government Skills Audit and Training Package Review highlighted similar findings — expansion of core duties, increased service delivery needs and structural barriers to employment.",
+          "The Local Government Skills Audit and uptake and utility of the LGA Local Government Training Package highlighted similar findings to this inquiry which contribute to ongoing skills challenges for the Local Government workforce, such as the expansion of core duties, increased service delivery needs and structural barriers to employment.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "The inquiry will inform research on the Facilitate a roundtable on whole-of-VET-system responses strategy by identifying potential systemic responses to current and emerging challenges.",
+          "The inquiry will inform Public Skills Australia's research on the Facilitate a roundtable on whole of VET system responses to Local Government challenges strategy by identifying potential systemic responses to the current and emerging challenges local councils are experiencing.",
       },
     ],
   },
@@ -92,72 +94,72 @@ const STRATEGIES_DATA: StrategyItem[] = [
     subtitle:
       "Standing Committee on Regional Development, Infrastructure and Transport · Ongoing",
     description:
-      "Examines how current funding arrangements affect the ability of local councils to deliver services and invest in infrastructure, building on evidence from the previous sustainability inquiry.",
+      "The Inquiry is being undertaken by referral from the Minister of Emergency Management; Minister for Regional Development Local Government and Territories, to examine how current funding arrangements affect the ability of local councils to deliver services and invest in infrastructure. This Inquiry notes the evidence provided in the previous Parliamentary Inquiry into Local Government Sustainability, which will be considered in this inquiry as per the terms of reference. This Inquiry seeks submissions that provide further information into this issue. Submissions have been closed at time of publishing this Report.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This inquiry informed and aligned to recurring themes in ongoing consultation — stakeholders consistently identified sustainability challenges in the industry-sector.",
+          "This Inquiry informed and aligned to recurring themes in Public Skills Australia's ongoing consultation with stakeholders. Stakeholders consistently identified challenges with sustainability in the Local Government industry-sector.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "Provides context about funding and fiscal elements of workforce skills shortages, as highlighted in the Local Government Skills Audit.",
+          "Expanding roles and responsibilities is a consistent theme identified in Public Skills Australia's research and this Inquiry provides context about funding and fiscal elements of workforce skills shortages across the Local Government industry-sector. This was highlighted in the Local Government Skills Audit and uptake and utility of the LGA Local Government Training Package, noting the obligations local councils have to their communities.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "The inquiry will inform the roundtable strategy research, which seeks to resolve resourcing and cost-based challenges when accessing accredited VET training.",
+          "The Inquiry will inform the research into the Facilitate a roundtable on whole of VET system responses to Local Government challenges proposed strategy, that will seek to resolve resourcing and cost based challenges when accessing accredited VET training.",
       },
     ],
   },
   {
     id: 4,
     code: "04-NATIONAL",
-    title: "National Housing Accord 2024–2029",
+    title: "National Housing Accord 2024 - 2029",
     subtitle: "The Australian Government · Ongoing",
     description:
-      "Federal and state/territory governments have agreed to deliver 1.2 million homes over five years from mid-2024, with $3.5 billion in federal funding to assist governments and local councils. Access to housing continues to be a key challenge for attraction and retention in regional, rural and remote LGAs.",
+      "The federal and state/territory governments have all agreed to deliver 1.2 million homes over five years commencing in mid-2024, as part of a broader housing agenda supporting social housing, renters and homebuyers. National Cabinet has endorsed $3.5 billion in federal funding to assist state/territory governments and local councils in delivering the National Housing Accord 2024-2029 (The Accord).",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "Access to housing continues to be a key challenge for Local Government workforces, particularly attraction and retention in regional, rural and remote LGAs. The Accord will continue to be monitored for workforce impact.",
+          "Access to housing continues to be a key challenge for Local Government Workforces, particularly in attraction and retention in regional, rural and remote LGAs. The Accord will continue to be monitored to assess impact to the Local Government workforces.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The Accord provided valuable context for understanding how housing supply impacts skills and occupational shortages across diverse regional, rural and remote contexts during Skills Audit scoping research.",
+          "The Accord provided valuable context for understanding how housing supply impacts skills and occupational shortages across diverse regional, rural and remote contexts as part Public Skills Australia's scoping research for the Local Government Skills Audit and review of the uptake and utility of the LGA Local Government Training Package.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Progress of the Accord will be factored into the roundtable strategy — housing affects attraction, retention and access to training for regional, rural and remote workforces.",
+          "Public Skills Australia will continue to monitor the progress of the Accord and factor this progress into the Facilitate a roundtable on whole of VET system responses to Local Government challenges. Whilst housing is not directly in the remit of Jobs and Skills Councils, challenges facing regional, rural and remote Local Government workforces such as attraction and retention, as well as access to training, may be impacted by this strategy.",
       },
     ],
   },
   {
     id: 5,
     code: "05-QUEENSLAND",
-    title: "Queensland Local Government Workforce Strategy 2024–2028",
-    subtitle: "Local Government Association Queensland · 2024–2028",
+    title: "Queensland Local Government Workforce Strategy 2024 - 2028",
+    subtitle: "Local Government Association Queensland · 2024 - 2028",
     description:
-      "A succinct plan for developing and strengthening Queensland's Local Government workforce — objectives, strategies and measures centred on supporting the work conducted, building a capable workforce and ensuring a safe working environment.",
+      "The LGAQ Workforce Strategy 2024-2028 (The Strategy) provides a succinct plan for developing and strengthening the Local Government industry-sector in Queensland and its workforce. It sets out objectives, strategies and measures, and identifies risks and opportunities. Key themes centre around support for the work conducted, building a capable workforce and ensuring a safe working environment.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This strategy informed engagement with Queensland stakeholders, providing insights specific to Queensland's Local Government workforce.",
+          "This strategy informed engagement with Queensland Local Government stakeholders and provided insights specific to Queensland's Local Government workforce.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "Queensland-specific objectives and strategies were considered throughout the Skills Audit research and will inform the Queensland jurisdictional report published as part of this work.",
+          "Queensland-specific objectives and strategies were considered throughout the process of research for the Local Government Skills Audit and review of the uptake and utility of the LGA Local Government Training Package and will inform the jurisdictional report for Queensland, published as part of this work.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Connecting the LGAQ strategy to RTOs, TAFEs and STTAs/SROs through the roundtable may provide greater opportunity for Queensland councils to overcome access-to-training challenges.",
+          "Jurisdictional context is important for the Facilitate a roundtable on whole of VET system responses to Local Government challenges. Connecting the LGAQ's Workforce Strategy to the broader influential organisations, including RTOs, TAFEs, STTAs/SROs may provide greater opportunity for Queensland local councils to overcome their access to training challenges.",
       },
     ],
   },
@@ -167,22 +169,22 @@ const STRATEGIES_DATA: StrategyItem[] = [
     title: "Workforce and Gender Equality in South Australian Local Government",
     subtitle: "Local Government Professionals South Australia · 2025",
     description:
-      "An in-depth overview of the gender equity landscape in South Australian councils: near-equal gender balance but persistent disparities — gender pay gap issues, segregation by workforce streams and longer male length-of-service.",
+      "The Workforce Gender and Equality in South Australian Local Government Report (This Report), provides an in-depth overview of the current gender equity landscape in South Australia, and more specifically in its local councils. The Report highlights an almost equal gender balance in South Australia's Local Government workforce but acknowledges that there are still disparities. This Report goes further to highlight gender pay gap issues, segregation by workforce streams (e.g. women making up more part-time, casual and short-term contract roles) and that the length of service is generally longer for males.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This Report provided specific jurisdictional information for South Australia on a key priority area — valuable context for engagements addressing diversity and inclusion challenges.",
+          "This Report provided specific jurisdictional information for the Local Government industry-sector in South Australia on a key priority area. It provides valuable context in engagements with stakeholders addressing diversity and inclusion challenges.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The Skills Audit addressed the workplace gender equality challenges identified in this Report through its National Survey and workshops.",
+          "The Local Government Skills Audit and review of the uptake and utility of the LGA Local Government Training Package addressed challenges with workplace gender equality identified in this Report, through the National Survey and workshops undertaken for this project.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Themes of diversity and inclusion identified in this Report will inform the roundtable strategy's engagement across South Australia.",
+          "Addressing themes of diversity and inclusion, in this case, gender equality, are leading themes for the Facilitate a roundtable on whole of VET system responses to Local Government challenges. This Report will inform Public Skills Australia's broader understanding of gender parity and different gendered workforce experiences in Local Government, and the challenges and opportunities these present.",
       },
     ],
   },
@@ -193,22 +195,22 @@ const STRATEGIES_DATA: StrategyItem[] = [
       "2023 Local Government Workforce Shortages Survey in Western Australia",
     subtitle: "Local Government Professionals Western Australia · 2023",
     description:
-      "Found significant recruitment and retention challenges driven by persistent skills shortages, geographic constraints and strong competition from other industries; recommended more targeted, flexible training.",
+      "The 2023 Local Government Workforce Shortage Survey in Western Australia (This Survey) found significant recruitment and retention challenges, driven by persistent skills shortages, geographic constraints and strong competition from other industries. It also highlighted the growing role of social media in recruitment and upskilling and recommended more targeted, flexible training to strengthen the workforce and support effective service delivery.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This survey informed engagement with Western Australian stakeholders, supporting Public Skills Australia to understand jurisdiction-specific skills and training challenges.",
+          "This survey informed engagement with Western Australian Local Government Stakeholders, supporting Public Skills Australia to understand jurisdictional-specific skills and training challenges.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The survey shaped the development of the industry-sector-wide surveys for the Skills Audit and is a reference point of comparison for the Western Australian jurisdictional report.",
+          "This survey was valuable in identifying the key aspects in Public Skills Australia's development of industry-sector-wide surveys for the Local Government Skills Audit and uptake and utility of the LGA Local Government Training Package. This survey provided context in Public Skills Australia's engagement with Western Australian stakeholders for this project and is a reference point of comparison as the jurisdictional report for Western Australia it publishes.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Provides Western Australian context for the roundtable strategy on recruitment, retention and more targeted, flexible training delivery.",
+          "Findings from this survey will provide specific data for Western Australian local councils and will be informative in the project to Map Local Government occupational shortages to relevant VET training product, to identify opportunities for Local Government in Western Australia.",
       },
     ],
   },
@@ -216,24 +218,33 @@ const STRATEGIES_DATA: StrategyItem[] = [
     id: 8,
     code: "08-NATIONAL",
     title: "Careers at Council",
-    subtitle: "Seven LG Associations + ALGA · Ongoing",
+    owners: [
+      "Local Government NSW",
+      "Local Government Association of South Australia",
+      "Municipal Association of Victoria",
+      "Local Government Association Tasmania",
+      "Western Australian Local Government Association",
+      "Local Government Association Queensland",
+      "Local Government Association of the Northern Territory",
+    ],
+    status: "Ongoing",
     description:
-      "An online hub showcasing the career areas and occupations employed by local councils, where potential employees can search current job opportunities and register for alerts.",
+      "The Careers at Council Hub (The Hub) is an online database that showcases the career areas and occupations employed by local councils, and what potential employees can expect from having a career in the Local Government industry-sector. It is informed and run by seven Local Government Associations and the Australian Local Government Association. Potential employees can also search for current job opportunities and register to be informed of opportunities.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "The Hub has informed consultation — several stakeholders referred to insights from this recruitment initiative, providing specific understanding of how local councils organise their workforces.",
+          "The Hub has informed consultation as several Local Government stakeholders have referred to insights and information garnered through this recruitment initiative. These insights have provided specific understanding for how local councils organise their workforces.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The Hub informed the Skills Audit's understanding of the breadth of occupations employed across local councils.",
+          "The Hub informed the Local Government Skills Audit and uptake and utility of the LGA Local Government Training Package, to understand the breadth of occupations currently employed in the Local Government industry-sector.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Supports promoting the Local Government industry-sector as a sustainable and skilled career pathway — the objective of the roundtable strategy.",
+          "The categories of occupations provided by the Hub will inform research for the project to Map Local Government occupational shortages to relevant VET training products project, by providing a list of occupations employed by local councils nationally. This will then be mapped against the LGA Local Government Training Package to identify greater training pathways and opportunities for occupations that are currently in shortage across the Local Government industry-sector.",
       },
     ],
   },
@@ -242,24 +253,24 @@ const STRATEGIES_DATA: StrategyItem[] = [
     code: "09-VICTORIA",
     title: "Earn and Learn Program",
     subtitle:
-      "RMIT, Swinburne, Victoria University and Federation University · 2024-ongoing",
+      "RMIT, Swinburne, Victoria University and Federation University · 2024 - ongoing",
     description:
-      "A nationally recognised work-based-learning qualification delivered with industry — students earn a wage while completing their degree, creating pathways into occupations with critical skills shortages.",
+      "The Earn and Learn Program (This Program) is designed to address skills shortages that are critical to Australia's future economic prosperity. It is a nationally recognised work-based-learning qualification to be delivered in collaboration with industry. Students will earn a wage while completing their degree and be partially sponsored through the employer and learn skills of the job-role at the same time. For the Local Government industry-sector, it is an opportunity to fill critical skills shortages by creating pathways into occupations in collaboration with higher-education institutions.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This program informed engagement with stakeholders, particularly when discussing apprenticeship and traineeship opportunities in Local Government workforces.",
+          "This program has informed engagement with Local Government stakeholders, particularly when discussing apprenticeship and traineeship opportunities in Local Government workforces, and how this program may provide an opportunity for the Local Government industry-sector.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "The Skills Audit was informed by this program's findings on the industry-sector's demand for work-based-learning training programs.",
+          "The Local Government Skills Audit and uptake and utility of the LGA Local Government Training Package was informed by this program, by providing findings on the industry-sector's demand for these types of training programs.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "A collaboration model with higher-education institutions that will inform whole-of-VET-system conversations at the roundtable.",
+          "The Mapping of Local Government occupational shortages to relevant VET training products project, will be informed by this program to understand the current training landscape in VET, and in higher education institutions.",
       },
     ],
   },
@@ -267,24 +278,24 @@ const STRATEGIES_DATA: StrategyItem[] = [
     id: 10,
     code: "10-NEW SOUTH WALES",
     title: "Fresh Start Program",
-    subtitle: "LGNSW & NSW Department of Planning and Environment · Ongoing",
+    subtitle: "NSW Office of Local Government · 2025 - 2031",
     description:
-      "Targeted initiative supporting career transition for displaced workers into essential local government roles.",
+      "The New South Wales Government aims to increase the Local Government workforce through the employment of apprentices for a period of six years, starting January 2026, through the Fresh Start Program (This Program). Through a grant program with councils, the NSW Government will provide local councils with funding for wages and ongoing costs of employment. This aims to increase the capacity of the NSW Local Government workforce, generate local knowledge, training and employment opportunities, and contribute to the National Agreement on Closing the Gap.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "Informed consultation regarding career transition pathways and reskilling initiatives across NSW local councils.",
+          "This program provided context on current workforce needs for NSW local councils, and potential challenge mitigation opportunities through further training and employment opportunities in collaboration with other levels of Government.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "Provided valuable evidence for the Skills Audit on reskilling programs for plant operators and asset maintenance roles.",
+          "This program informed the Local Government Skills Audit and uptake and utility of the Local Government Training Package, by providing specific jurisdictional data for NSW. This program also contributed to a broader understanding around different and novel approaches to training attraction and promotion.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "Informs the roundtable strategy on structured mentoring and transition pathways into local government employment.",
+          "This program will inform the Mapping of Local Government Occupational Shortages to relevant VET training products by providing comparative data and the opportunity for knowledge sharing among other states and territories.",
       },
     ],
   },
@@ -293,24 +304,24 @@ const STRATEGIES_DATA: StrategyItem[] = [
     code: "11-NORTHERN TERRITORY",
     title:
       "Local Government Association of the Northern Territory Strategic Plan",
-    subtitle: "LGANT · 2025-2028",
+    subtitle: "Local Government Association of the Northern Territory · 2025 - 2028",
     description:
-      "Outlines LGANT's purpose, vision and focus areas — advocacy, development, engagement and performance — including strategies to connect workforces to further training and technical expertise.",
+      "The Local Government Association of the Northern Territory Strategic Plan (This Plan) outlines LGANT's purpose, vision, values and focus areas. The main priorities to support the Local Government workforces in the Northern Territory include advocacy, development, engagement and performance. Included in these areas of support include strategies to connect workforces to further training and technical expertise and facilitate strong engagement to understand ongoing operational needs of local councils and their workforces.",
     impactItems: [
       {
         title: "Consultation and engagement",
         description:
-          "This Plan provided context when engaging with Northern Territory stakeholders, informing current challenges faced by their workforces and the initiatives being developed to mitigate them.",
+          "This Plan provided context when engaging with stakeholders in the Northern Territory, informing current challenges faced by their Local Government Workforces, and future initiatives being conducted to mitigate these challenges.",
       },
       {
         title: "2025 Workforce Strategies",
         description:
-          "Informed the development phase of the Skills Audit by providing specific jurisdictional data and workforce challenges.",
+          "This Plan informed the development phase of the Local Government Skills Audit and uptake and utility of the Local Government Training Package by providing specific jurisdictional data and workforce challenges.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "This Plan will provide insights specific to the Northern Territory for the roundtable strategy.",
+          "This Plan will provide insights specific to the Northern Territory for the Facilitate a roundtable on whole of VET system responses to Local Government challenges. This will ensure engagement with stakeholders for this Project are robust and sensitive to specific opportunities and challenges in the Northern Territory. This Plan will be important for key stakeholders to connect to as part of this strategy, to ensure that any whole-of-system response meets the needs and goals of LGANT and the local councils.",
       },
     ],
   },
@@ -318,9 +329,9 @@ const STRATEGIES_DATA: StrategyItem[] = [
     id: 12,
     code: "12-TASMANIA",
     title: "Local Government Association of Tasmania Strategic Plan",
-    subtitle: "LGAT · 2025-2030",
+    subtitle: "Local Government Association Tasmania · 2025 - 2030",
     description:
-      "Highlights key outcomes for mitigating local council challenges to 2030 through advocacy, leadership, support and representation — including outcomes specific to the skills and training needs of workforces.",
+      "The Local Government Association of Tasmania's Strategic Plan (This Plan) highlights key outcomes for the mitigation of local council challenges for this cycle of planning until 2030. This will be achieved through advocacy, leadership, support and representation of Tasmania's local councils. This Plan includes outcomes specific to the skills and training needs of the workforces to ensure the needs to Tasmanian communities are being met.",
     impactItems: [
       {
         title: "Consultation and engagement",
@@ -330,12 +341,12 @@ const STRATEGIES_DATA: StrategyItem[] = [
       {
         title: "2025 Workforce Strategies",
         description:
-          "Informed the Skills Audit by bolstering state-based data for Tasmania — valuable in identifying specific workforce planning challenges and opportunities.",
+          "This Plan informed the development of the Local Government Skills Audit and uptake and utility of the Local Government Training Package by bolstering the specific state-based data for Tasmania. This was valuable in identifying specific workforce planning challenges and opportunities addressed in the audit.",
       },
       {
         title: "2026 Workforce Strategies",
         description:
-          "This Plan will provide insights specific to Tasmania for the roundtable strategy.",
+          "This Plan will provide insights specific to Tasmania in the Facilitate a roundtable on whole of VET system responses to Local Government challenges. This will inform Public Skills Australia's consultation on the roundtable, by informing discussions of workforce planning opportunities and challenges in the Tasmanian context and ensuring that any whole-of-system response meets the needs and goals of LGAT and the local councils.",
       },
     ],
   },
@@ -488,9 +499,18 @@ export default function ExistingIndustryStrategiesView({
                           <h2 className="text-base sm:text-lg font-bold text-gray800 leading-snug">
                             {String(item.id).padStart(2, "0")} · {item.title}
                           </h2>
-                          <p className="text-xs sm:text-sm font-semibold text-notes block">
-                            {item.subtitle}
-                          </p>
+                          {item.owners ? (
+                            <div className="flex items-start justify-between gap-3 text-xs sm:text-sm font-semibold text-notes">
+                              <div className="space-y-0.5">
+                                {item.owners.map((owner) => <p key={owner}>{owner}</p>)}
+                              </div>
+                              <span className="shrink-0">{item.status}</span>
+                            </div>
+                          ) : (
+                            <p className="text-xs sm:text-sm font-semibold text-notes block">
+                              {item.subtitle}
+                            </p>
+                          )}
                         </div>
 
                         {/* Description */}
@@ -579,9 +599,18 @@ export default function ExistingIndustryStrategiesView({
                   {String(selectedStrategy.id).padStart(2, "0")} ·{" "}
                   {selectedStrategy.title}
                 </h2>
-                <p className="text-sm font-semibold text-notes block">
-                  {selectedStrategy.subtitle}
-                </p>
+                {selectedStrategy.owners ? (
+                  <div className="flex items-start justify-between gap-4 text-sm font-semibold text-notes">
+                    <div className="space-y-0.5">
+                      {selectedStrategy.owners.map((owner) => <p key={owner}>{owner}</p>)}
+                    </div>
+                    <span className="shrink-0">{selectedStrategy.status}</span>
+                  </div>
+                ) : (
+                  <p className="text-sm font-semibold text-notes block">
+                    {selectedStrategy.subtitle}
+                  </p>
+                )}
               </div>
 
               {/* Description */}

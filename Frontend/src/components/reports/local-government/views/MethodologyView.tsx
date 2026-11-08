@@ -268,7 +268,7 @@ export default function MethodologyView({
                   "Local Government New South Wales (LGNSW)",
                   "Local Government Association of the Northern Territory (LGANT)",
                   "Local Government Association of Queensland (LGAQ)",
-                  "Local Government Association of South Australia (LGASA)",
+                  "Local Government Association of South Australia (LGA SA)",
                   "Local Government Association Tasmania (LGAT)",
                   "Local Government Professionals Victoria (LGPro VIC)",
                   "Municipal Association of Victoria (MAV)",

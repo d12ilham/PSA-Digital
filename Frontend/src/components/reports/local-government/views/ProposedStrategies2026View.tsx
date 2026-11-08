@@ -254,18 +254,14 @@ export default function ProposedStrategies2026View({
 
                   <div className="space-y-1">
                     <h3 className="text-xs font-bold text-gray800">
-                      Approach – Part A:
+                      Approach:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      <span className="underline">Part A:</span>{" "}
                       {strategyTwoContent.approachPartA}
                     </p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
-                      Approach – Part B (optional):
-                    </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      <span className="underline">Part B (optional):</span>{" "}
                       {strategyTwoContent.approachPartB}
                     </p>
                   </div>

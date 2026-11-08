@@ -130,9 +130,9 @@ export default function Theme2InsightSubView({
               </p>
             </div>
             <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
-              <p><sup>34</sup> Standing Committee on Regional Development, Infrastructure and Transport, <em>Interim Report into Local Government Sustainability</em>, 2025, page 21, accessed 11 February 2026.</p>
-              <p><sup>35</sup> PSA, <em>Local Government Workforce Insights Report 2025</em>, 2025, page 19, accessed 11 February 2026.</p>
-              <p><sup>36</sup> ALGA, <em>2022 Local Government Workforce Skills and Capability Survey</em>, 2022, page 10, accessed 11 February 2026.</p>
+              <p><sup>34</sup> Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, page 21, accessed 11 February 2026.</p>
+              <p><sup>35</sup> PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 19, accessed 11 February 2026.</p>
+              <p><sup>36</sup> ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/2022-Local-Government-Workforce-Skills-and-Capability-Survey-National-Report.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>2022 Local Government Workforce Skills and Capability Survey</em></a>, ALGA, 2022, page 10, accessed 11 February 2026.</p>
             </div>
           </div>
         </div>
@@ -199,7 +199,7 @@ export default function Theme2InsightSubView({
 
       {/* INSIGHT 1 BODY */}
       {insightId === 1 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-gray800">
@@ -217,54 +217,14 @@ export default function Theme2InsightSubView({
               </p>
             </div>
 
-            <div className="pt-4 border-t border-gray200 mt-auto">
-              <p className="text-xs text-notes">
-                Source: PSA, 2026 LG WIR, Access to VET Qualifications and
-                Training Delivery Partners.
-              </p>
-            </div>
           </div>
 
-          <div
-            style={{ animationDelay: "0.22s" }}
-            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/frame-7.svg"
-                    alt="Industry Insight"
-                    className="w-8 h-8 object-contain animate-zoom-in"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-gray800">
-                  Industry Insight
-                </h3>
-              </div>
-
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to consider solutions
-                to challenges such as access to training, delivery options and
-                costs may support local councils to build the technical
-                capability they need for the future.
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-gray200">
-              <p className="text-xs text-notes uppercase">
-                HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                TRAINING PACKAGE PROJECT
-              </p>
-            </div>
-          </div>
         </div>
       )}
 
       {/* INSIGHT 2 BODY */}
       {insightId === 2 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               Few RTOs are willing or able to deliver tailored, in-community
@@ -277,54 +237,14 @@ export default function Theme2InsightSubView({
               materials and interpreters.
             </p>
 
-            <div className="pt-4 border-t border-gray200 mt-auto">
-              <p className="text-xs text-notes">
-                Source: PSA, 2026 LG WIR, Access to VET Qualifications and
-                Training Delivery Partners.
-              </p>
-            </div>
           </div>
 
-          <div
-            style={{ animationDelay: "0.22s" }}
-            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/frame-7.svg"
-                    alt="Industry Insight"
-                    className="w-8 h-8 object-contain animate-zoom-in"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-gray800">
-                  Industry Insight
-                </h3>
-              </div>
-
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to consider solutions
-                to challenges such as access to training, delivery options and
-                costs may support local councils to build the technical
-                capability they need for the future.
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-gray200">
-              <p className="text-xs text-notes uppercase">
-                HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                TRAINING PACKAGE PROJECT
-              </p>
-            </div>
-          </div>
         </div>
       )}
 
       {/* INSIGHT 3 BODY */}
       {insightId === 3 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               Several VET programs require travel to urban centres, which is
@@ -338,55 +258,18 @@ export default function Theme2InsightSubView({
               $40,000 for water operator training for six participants.
             </p>
 
-            <div className="pt-4 border-t border-gray200 mt-auto">
-              <p className="text-xs text-notes">
-                Source: PSA, 2026 LG WIR, Access to VET Qualifications and
-                Training Delivery Partners.
-              </p>
-            </div>
           </div>
 
-          <div
-            style={{ animationDelay: "0.22s" }}
-            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/frame-7.svg"
-                    alt="Industry Insight"
-                    className="w-8 h-8 object-contain animate-zoom-in"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-gray800">
-                  Industry Insight
-                </h3>
-              </div>
-
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to consider solutions
-                to challenges such as access to training, delivery options and
-                costs may support local councils to build the technical
-                capability they need for the future.
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-gray200">
-              <p className="text-xs text-notes uppercase">
-                HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                TRAINING PACKAGE PROJECT
-              </p>
-            </div>
-          </div>
         </div>
       )}
 
       {/* INSIGHT 4 BODY */}
       {insightId === 4 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto space-y-6">
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+            <h3 className="text-xl font-bold text-gray800">
+              Non-Tailored delivery options:
+            </h3>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               Local councils consistently reported that self-paced online
               learning, which may be offered by both TAFEs and RTOs, is
@@ -414,12 +297,6 @@ export default function Theme2InsightSubView({
               backgrounds.
             </p>
 
-            <div className="pt-4 border-t border-gray200 mt-auto">
-              <p className="text-xs text-notes">
-                Source: PSA, 2026 LG WIR, Access to VET Qualifications and
-                Training Delivery Partners.
-              </p>
-            </div>
           </div>
 
           <div

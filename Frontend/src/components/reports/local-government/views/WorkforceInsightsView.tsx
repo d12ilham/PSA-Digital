@@ -277,7 +277,7 @@ export default function WorkforceInsightsView({
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
                           Skills needs are changing due to workforce pressures,
-                          technological advances and shifting community
+                          technological advancements and shifting community
                           expectations.
                         </p>
                       </div>
@@ -306,9 +306,10 @@ export default function WorkforceInsightsView({
                           Theme One, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          There are acute occupational shortages specific to the
-                          Local Government industry-sector, particularly for
-                          Emergency Management.
+                          While local council employers are experiencing some
+                          shortages in identified national shortage occupations,
+                          several Local Government specific shortages were also
+                          identified.
                         </p>
                       </div>
                     </div>
@@ -391,9 +392,8 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight One
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Access to Technical and Further Education (TAFE) or
-                          Registered Training Organisations (RTOs) in regional,
-                          rural and remote locations is limited.
+                          Access to TAFE or RTO in regional, rural and remote
+                          locations is limited.
                         </p>
                       </div>
                     </div>
