@@ -376,9 +376,7 @@ export default function ExecutiveSummaryView({
                         Theme One, Insight Three
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        There are acute occupational shortages specific to the
-                        Local Government industry-sector, particularly for
-                        Emergency Management.
+                        While local council employers are experiencing some shortages in identified national shortage occupations, several Local Government specific shortages were also identified.
                       </p>
                     </div>
                   </div>
@@ -504,7 +502,7 @@ export default function ExecutiveSummaryView({
                         Theme Two, Insight Three
                       </span>
                       <p className="text-xs text-gray600 leading-relaxed">
-                        Local councils have limited training budgets.
+                        Local councils have limited training budgets to support financial impost of course enrolment as well as travel to and from training.
                       </p>
                     </div>
                   </div>
@@ -601,6 +599,7 @@ export default function ExecutiveSummaryView({
               </h4>
 
               <p className="text-xs text-gray600 leading-relaxed">
+                <span className="font-bold text-gray800">Objective: </span>
                 {strategyOneContent.objective}
               </p>
 
@@ -621,9 +620,6 @@ export default function ExecutiveSummaryView({
                     <div className="flex flex-col items-start gap-2">
                       <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
                         Workforce Insight: {strategyOneContent.workforceInsight}
-                      </span>
-                      <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
-                        {strategyOneContent.anticipatedTiming}
                       </span>
                     </div>
 
@@ -655,18 +651,18 @@ export default function ExecutiveSummaryView({
                     </div>
 
                     <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">Impact:</h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyOneContent.impact}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
                       <h5 className="text-xs font-bold text-gray800">
                         Anticipated timing:
                       </h5>
                       <p className="text-xs text-gray600">
                         {strategyOneContent.anticipatedTiming}
-                      </p>
-                    </div>
-
-                    <div className="space-y-1">
-                      <h5 className="text-xs font-bold text-gray800">Impact:</h5>
-                      <p className="text-xs text-gray600 leading-relaxed">
-                        {strategyOneContent.impact}
                       </p>
                     </div>
 
@@ -709,6 +705,7 @@ export default function ExecutiveSummaryView({
               </h4>
 
               <p className="text-xs text-gray600 leading-relaxed">
+                <span className="font-bold text-gray800">Objective: </span>
                 {strategyTwoContent.objective}
               </p>
 

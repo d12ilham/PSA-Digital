@@ -81,6 +81,9 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight One
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Local Government employers require a diverse range of skills to
                 maintain the breadth of responsibilities undertaken by local
@@ -89,27 +92,6 @@ export default function Theme1InsightSubView({
             </div>
           </div>
 
-          {/* Theme context Box inside the same White BG container */}
-          <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3 animate-slide-up-delay">
-            <h2 className="text-base font-bold text-gray800">Theme context.</h2>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full xl:w-2/3">
-              In support of both the 2024 Federal, State/Territory &amp; Local
-              Government Workforce Plan and the 2025 Local Government Workforce
-              Insights Report, local council employers continue to emphasise the
-              broad scope of occupations employed in their workforce. Role
-              expansion in local councils has been a consistent theme identified
-              during consultations which has been further examined through two
-              Parliamentary inquiries examining Local Government sustainability
-              and Local Government funding and fiscal sustainability.<sup>27</sup>{" "}
-              These inquiries confirmed that the role of local councils has
-              expanded over time and that this expansion is impacting both
-              financial and workforce sustainability.<sup>28</sup>
-            </p>
-            <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
-              <p><sup>27</sup> Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://www.aph.gov.au/Parliamentary_Business/Committees/House/Regional_Development_Infrastructure_and_Transport/LocalGovernmentFunding/Terms_of_Reference" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Parliamentary Inquiry into Local Government Funding and Fiscal Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2026, accessed 11 February 2026; Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://www.aph.gov.au/LocalGovernmentSustainability" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Parliamentary Inquiry into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2024, accessed 11 February 2026.</p>
-              <p><sup>28</sup> Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, pages 5 and 21, accessed 11 February 2026.</p>
-            </div>
-          </div>
         </div>
       )}
 
@@ -123,6 +105,9 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Two
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Skills needs are changing due to workforce pressures,
                 technological advancements and shifting community expectations.
@@ -142,6 +127,9 @@ export default function Theme1InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme One, Insight Three
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Local Government Specific Occupational Shortages
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 While local council employers are experiencing some shortages
                 in identified national shortage occupations, several Local
@@ -237,12 +225,6 @@ export default function Theme1InsightSubView({
                 </ul>
               </div>
 
-              <div className="pt-4 border-t border-gray200">
-                <p className="text-xs font-bold text-notes uppercase">
-                  HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                  TRAINING PACKAGE PROJECT
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -256,7 +238,7 @@ export default function Theme1InsightSubView({
             {/* Card 1: Technological advancement */}
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col">
               <h3 className="text-xl font-bold text-gray800">
-                Technological advancement
+                Technological Advancement
               </h3>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Across the broader Australian labour market, technological
@@ -368,12 +350,6 @@ export default function Theme1InsightSubView({
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-gray200">
-                <p className="text-xs text-notes uppercase">
-                  HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND
-                  TRAINING PACKAGE PROJECT
-                </p>
-              </div>
             </div>
           </div>
         </div>

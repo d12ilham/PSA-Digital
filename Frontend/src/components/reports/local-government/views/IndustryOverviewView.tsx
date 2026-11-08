@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -54,7 +55,9 @@ export default function IndustryOverviewView({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
-                Local Government Industry-Sector Overview
+                <Link href={`/reports/${slug}/industry_profile`} className="text-inherit">
+                  Local Government Industry-Sector Overview
+                </Link>
               </h1>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
                 Across Australia, there are 537 local councils.<sup>9</sup> Of these local
@@ -198,13 +201,6 @@ export default function IndustryOverviewView({
               </p>
             </div>
 
-            <p className="text-xs text-[#598303] pt-4 border-t border-gray200">
-              Sources (13–16): ALGA, Facts and Figures, 2025; ABS, Public Sector
-              Employment and Earnings, 2025; PSA, Federal, State/Territory and
-              Local Government Workforce Plan 2024; PSA, 2025 Local Government
-              Workforce Insights Report; Parliament of Australia, Inquiry into
-              Local Government Sustainability interim Report, 2025.
-            </p>
           </div>
 
           {/* Card 2 */}

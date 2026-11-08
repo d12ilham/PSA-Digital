@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
@@ -27,22 +28,36 @@ export default function DownloadsAndReferenceView({
   report: Report;
 }) {
   const router = useRouter();
+  const is2025Report = slug === "local-government-workforce-insights-report-2025";
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
-      <ReportHeader slug={slug} report={report} currentPage="downloads" />
+      <ReportHeader
+        slug={is2025Report ? "local-government-workforce-insights-report" : slug}
+        report={report}
+        currentPage="downloads"
+      />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
         <div>
-          <button
-            onClick={() => router.push(`/reports/${slug}/introduction`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Introduction
-          </button>
+          {is2025Report ? (
+            <Link
+              href="/reports/local-government-workforce-insights-report/introduction"
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full inline-flex items-center gap-2 transition-colors no-underline"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 report
+            </Link>
+          ) : (
+            <button
+              onClick={() => router.push(`/reports/${slug}/introduction`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to Introduction
+            </button>
+          )}
         </div>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
@@ -52,7 +67,9 @@ export default function DownloadsAndReferenceView({
               Download PDF
             </span>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
-              Downloads and reference
+              {is2025Report
+                ? "Local Government Workforce Insights Reports PDFs"
+                : "Downloads and reference"}
             </h1>
           </div>
 
@@ -66,7 +83,7 @@ export default function DownloadsAndReferenceView({
         </div>
 
         {/* ── 3 COLUMN CARDS GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className={`grid grid-cols-1 ${is2025Report ? "lg:grid-cols-2" : "lg:grid-cols-3"} gap-6 items-stretch`}>
           {/* CARD 1: FULL REPORT (DEEP GREEN) */}
           <div
             style={{ animationDelay: "0.15s" }}
@@ -89,12 +106,12 @@ export default function DownloadsAndReferenceView({
               {/* Title & Description */}
               <div className="space-y-3">
                 <h2 className="text-xl font-bold text-white leading-snug">
-                  2026 Local Government Workforce Insights Report
+                  {is2025Report ? "2025" : "2026"} Local Government Workforce Insights Report
                 </h2>
                 <p className="text-sm text-white/90 leading-relaxed font-normal">
-                  Includes Appendix A: participants in the Local Government
-                  Skills Audit — the full list of participating councils by
-                  state.
+                  {is2025Report
+                    ? "The previous Local Government Workforce Insights Report is available as a PDF."
+                    : "Includes Appendix A: participants in the Local Government Skills Audit — the full list of participating councils by state."}
                 </p>
               </div>
             </div>
@@ -102,12 +119,14 @@ export default function DownloadsAndReferenceView({
             {/* Download Button */}
             <div>
               <a
-                href="https://psa-directus-prod.azurewebsites.net/assets/895e9b7a-2c55-4531-95a1-dafa90b60a1c.pdf"
+                href={is2025Report
+                  ? "https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408"
+                  : "https://psa-directus-prod.azurewebsites.net/assets/895e9b7a-2c55-4531-95a1-dafa90b60a1c.pdf"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-sweep-white-notes text-gray800 font-bold text-xs px-6 py-3 rounded-full inline-flex items-center gap-2 cursor-pointer shadow-xs"
               >
-                <span>Open 2026 PDF</span>
+                <span>Open {is2025Report ? "2025" : "2026"} PDF</span>
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
@@ -124,8 +143,7 @@ export default function DownloadsAndReferenceView({
               </span>
 
               <div className="space-y-4">
-                {/* 2025 */}
-                <a
+                {!is2025Report && <a
                   href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -136,7 +154,7 @@ export default function DownloadsAndReferenceView({
                     2025 Local Government Workforce Insights Report
                   </span>
                   <ExternalLink className="h-4 w-4 text-[#728C28] shrink-0" aria-hidden="true" />
-                </a>
+                </a>}
 
                 {/* 2024 */}
                 <a
@@ -155,7 +173,8 @@ export default function DownloadsAndReferenceView({
             </div>
           </div>
 
-          {/* CARD 3: ABOUT THE APPENDIX */}
+          {!is2025Report && (
+          /* CARD 3: ABOUT THE APPENDIX */
           <div
             style={{ animationDelay: "0.39s" }}
             className="animate-card-entrance bg-white border border-gray200 border-t-[12px] border-t-[#046D2A] rounded-2xl p-6 flex flex-col justify-between space-y-6"
@@ -175,9 +194,7 @@ export default function DownloadsAndReferenceView({
             <div className="space-y-3 pt-4">
               <div>
                 <button
-                  onClick={() =>
-                    router.push(`/reports/${slug}/update_2025_strategies`)
-                  }
+                  onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
                   className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full inline-flex items-center gap-2 transition-colors cursor-pointer"
                 >
                   <span>Go to the 2025 project update</span>
@@ -196,11 +213,12 @@ export default function DownloadsAndReferenceView({
               </div>
             </div>
           </div>
+          )}
         </div>
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter contactUrl={report.contactUrl} year={is2025Report ? "2025" : "2026"} />
     </div>
   );
 }

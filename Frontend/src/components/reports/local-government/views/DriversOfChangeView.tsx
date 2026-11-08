@@ -101,7 +101,6 @@ const DRIVERS = [
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc:
       "Organisational resilience is emerging as a critical driver of change across Australia's Public Safety and Government industry-sectors, particularly as agencies confront increasingly frequent and complex strategic shocks. Recent experience with compounding crises (such as increasingly intense bushfires, major cyberattacks and intensifying geopolitical tensions) have exposed structural vulnerabilities and highlighted the need for more adaptive, anticipatory and integrated capabilities. Investment will be required to deepen organisational capabilities that support systemwide preparedness, robust governance and the ability to maintain critical functions under stress.4",
-    sourceNumbers: [4],
   },
   {
     id: 2,
@@ -111,7 +110,6 @@ const DRIVERS = [
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc:
       "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.5 These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.6",
-    sourceNumbers: [5, 6],
   },
   {
     id: 3,
@@ -123,7 +121,6 @@ const DRIVERS = [
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
     fullDesc:
       "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.7 These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.8",
-    sourceNumbers: [7, 8],
   },
   {
     id: 4,
@@ -133,7 +130,6 @@ const DRIVERS = [
     fullTitle: "Driver 4 — Workforce inclusivity",
     fullDesc:
       "Workforce inclusivity has been a key focus across the labour market. In the Public Safety and Government industry-sectors this is likely to translate into a continued focus on recruiting, retaining and developing employees from diverse cultural, linguistic, gender, disability and neurodivergent backgrounds. As organisations seek to increase workforce participation from these cohorts, they will be required to adapt and change legacy systems and processes to respond to the needs of the modern workforce.",
-    sourceNumbers: [],
   },
 ];
 
@@ -416,16 +412,6 @@ export default function DriversOfChangeView({
                           <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                             {renderDriverDescription(driver.fullDesc)}
                           </p>
-                          {driver.sourceNumbers.length > 0 && (
-                            <>
-                              <p className="text-xs text-active border-t border-gray200/60"></p>
-                              <div className="space-y-1 text-xs text-active leading-relaxed">
-                                {DRIVER_SOURCES.filter((source) => driver.sourceNumbers.includes(source.number)).map((source) => (
-                                  <p key={source.number}><DriverSourceText source={source} /></p>
-                                ))}
-                              </div>
-                            </>
-                          )}
                         </div>
                       )}
                     </div>
@@ -459,16 +445,6 @@ export default function DriversOfChangeView({
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                       {renderDriverDescription(activeDriver.fullDesc)}
                     </p>
-                    {activeDriver.sourceNumbers.length > 0 && (
-                      <>
-                        <p className="text-xs text-active border-t border-gray200"></p>
-                        <div className="space-y-1 text-xs text-active w-full xl:w-2/3 leading-relaxed">
-                          {DRIVER_SOURCES.filter((source) => activeDriver.sourceNumbers.includes(source.number)).map((source) => (
-                            <p key={source.number}><DriverSourceText source={source} /></p>
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </div>
                 </div>
               )}
@@ -573,7 +549,7 @@ export default function DriversOfChangeView({
                   <h3 className="text-xl font-bold text-gray800">
                     {activeMegatrend.title}
                   </h3>
-                  <p className="text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
+                  <p className="text-sm text-gray600 leading-relaxed w-full">
                     {activeMegatrend.desc}
                   </p>
                 </div>

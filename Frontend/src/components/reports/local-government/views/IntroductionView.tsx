@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -100,19 +101,6 @@ export default function IntroductionView({
   const structureRef = React.useRef<HTMLDivElement>(null);
   const [isStructureVisible, setIsStructureVisible] = React.useState(false);
 
-  const getPreviousReportSlug = () => {
-    const currentYear = parseInt(report?.year?.label || "2026", 10);
-    const prevYear = isNaN(currentYear) ? 2025 : currentYear - 1;
-
-    if (slug.endsWith(`-${currentYear}`)) {
-      return slug.replace(new RegExp(`-${currentYear}$`), `-${prevYear}`);
-    }
-    if (/-\d{4}$/.test(slug)) {
-      return slug.replace(/-\d{4}$/, `-${prevYear}`);
-    }
-    return `${slug}-${prevYear}`;
-  };
-
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -177,23 +165,30 @@ export default function IntroductionView({
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
-              <button
-                onClick={() => router.push(`/reports/${getPreviousReportSlug()}`)}
+              <Link
+                href="/reports/local-government-workforce-insights-report-2025/downloads"
                 className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
-              </button>
-              <a
-                href={
-                  report.psaSectorPageUrl ||
-                  "https://publicskillsaustralia.org.au"
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-gray200 bg-white hover:bg-gray-50 text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer no-underline"
-              >
-                PSA Website
-              </a>
+              </Link>
+              {report.psaSectorPageUrl ? (
+                <a
+                  href={report.psaSectorPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-gray200 bg-white hover:bg-gray-50 text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer no-underline"
+                >
+                  PSA Website
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="border border-gray200 bg-white text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full"
+                >
+                  PSA Website
+                </button>
+              )}
             </div>
           </div>
 
@@ -238,7 +233,7 @@ export default function IntroductionView({
                       <AnimatedCounter target={2} />
                     </span>
                     <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
-                      Themes
+                      Workforce<br />Themes
                     </span>
                   </div>
                   <div className="flex flex-col items-start">

@@ -11,6 +11,27 @@ interface Theme2InsightSubViewProps {
   onBackToOverview: () => void;
 }
 
+const consultationText = "The consultations for the 2024 Federal, State/Territory & Local Government Workforce Plan and the 2025 Local Government Workforce Insights Report, as well as the Local Government Skills Audit and Uptake and Utility of the LGA Local Government Training Package project, re-affirmed the challenges relating to access to qualifications and training delivery. These are further detailed below:";
+
+function TrainingDeliveryCard({ travel = false, body, title }: { travel?: boolean; body?: string; title?: string }) {
+  return (
+    <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+      <div className="space-y-4">
+        <h3 className="text-xl font-bold text-gray800">
+          {title ?? (travel
+            ? "Few TAFEs and RTOs are willing to travel to geographically isolated locations to deliver training:"
+            : "Limited local TAFEs or RTOs to support training delivery")}
+        </h3>
+        <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+          {body ?? (travel
+            ? "Few RTOs are willing or able to deliver tailored, in-community training, especially for niche or highly contextual skills. Regional, rural and remote local councils stressed the need for more RTOs experienced in delivering training in community settings and to First Nations learners. Stakeholders also indicated that for First Nations learners, some training may not offer an appropriate level of cultural sensitivity or access to translated materials and interpreters."
+            : "Regional, rural and remote local councils face acute challenges in accessing suitable VET training. Further, some qualifications require supervision in the workplace as part of their delivery (e.g., mechanic apprenticeships), which is challenging for local councils. For example, some local councils reported having to contract external trainers to supervise apprentices or alternatively, employees having to travel significant distances for face-to-face instruction under supervision.")}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Theme2InsightSubView({
   slug,
   insightId,
@@ -86,6 +107,9 @@ export default function Theme2InsightSubView({
               <span className="text-xs font-semibold text-notes block">
                 Theme Two, Insight One
               </span>
+              <p className="text-sm sm:text-base font-bold text-gray800">
+                Access to VET Qualifications and Training Delivery Partners
+              </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
                 Access to TAFE or RTOs in regional, rural and remote locations
                 is limited.
@@ -93,48 +117,6 @@ export default function Theme2InsightSubView({
             </div>
           </div>
 
-          <div className="bg-[#F2F6E9] border border-gray200 rounded-2xl p-6 space-y-3 animate-slide-up-delay">
-            <h2 className="text-base font-bold text-gray800">Theme context.</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-              <p>
-                Access to training has consistently been raised as a challenge
-                for local council employers located in regional, rural and
-                remote locations. This challenge is affirmed in the Interim
-                Report into Local Government Sustainability,<sup>34</sup> Public Skills
-                Australia's 2025 Local Government Workforce Insights Report,<sup>35</sup>
-                and the Australian Local Government Association's 2022 Local
-                Government Workforce Skills and Capability Survey.<sup>36</sup> Throughout
-                consultation for the Local Government Skills Audit and Uptake
-                and Utility of the LGA Local Government Training Package
-                project, VET was consistently identified as the most relevant
-                pathway for roles requiring technical expertise and compliance
-                assurance. Local councils emphasised the importance of VET's
-                role where formal qualifications underpin regulatory compliance
-                and risk management in functions such as water treatment and
-                civil construction, and for several technical positions that
-                require Certificate III or IV such as Water Operator, Mechanic
-                and Childcare Educator. However, while they acknowledged VET
-                overwhelmingly supports work-related training, some stakeholders
-                noted concerns about their ability to access TAFEs and RTOs to
-                obtain qualifications that are contextualised to the Local
-                Government industry-sector.
-              </p>
-              <p>
-                The consultations for the 2024 Federal, State/Territory &amp;
-                Local Government Workforce Plan and the 2025 Local Government
-                Workforce Insights Report, as well as the Local Government
-                Skills Audit and Uptake and Utility of the LGA Local Government
-                Training Package project, re-affirmed the challenges relating to
-                access to qualifications and training delivery. These are
-                further detailed below:
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray200 space-y-1 text-xs text-gray600">
-              <p><sup>34</sup> Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, page 21, accessed 11 February 2026.</p>
-              <p><sup>35</sup> PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 19, accessed 11 February 2026.</p>
-              <p><sup>36</sup> ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/2022-Local-Government-Workforce-Skills-and-Capability-Survey-National-Report.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>2022 Local Government Workforce Skills and Capability Survey</em></a>, ALGA, 2022, page 10, accessed 11 February 2026.</p>
-            </div>
-          </div>
         </div>
       )}
 
@@ -168,8 +150,7 @@ export default function Theme2InsightSubView({
                 Theme Two, Insight Three
               </span>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
-                Limited training budgets to support course enrolment and travel
-                to access training
+                Access to VET Qualifications and Training Delivery Partners
               </h1>
             </div>
           </div>
@@ -199,26 +180,36 @@ export default function Theme2InsightSubView({
 
       {/* INSIGHT 1 BODY */}
       {insightId === 1 && (
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+        <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TrainingDeliveryCard title="Access to VET Training" body={consultationText} />
+          <div
+            style={{ animationDelay: "0.22s" }}
+            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
+          >
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-gray800">
-                Limited local TAFEs or RTOs to support training delivery
-              </h3>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
-                Regional, rural and remote local councils face acute challenges
-                in accessing suitable VET training. Further, some qualifications
-                require supervision in the workplace as part of their delivery
-                (e.g., mechanic apprenticeships), which is challenging for local
-                councils. For example, some local councils reported having to
-                contract external trainers to supervise apprentices or
-                alternatively, employees having to travel significant distances
-                for face-to-face instruction under supervision.
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/frame-7.svg"
+                    alt=""
+                    className="w-8 h-8 object-contain animate-zoom-in"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                Stakeholders noted that closer engagement with government
+                decision makers, TAFEs, RTOs and councils to find solutions to
+                challenges such as access to training, delivery options and
+                costs may support local councils to build the technical
+                capability they need for the future.
               </p>
             </div>
-
           </div>
-
+          <TrainingDeliveryCard />
+          <TrainingDeliveryCard travel />
+          </div>
         </div>
       )}
 
@@ -244,8 +235,11 @@ export default function Theme2InsightSubView({
 
       {/* INSIGHT 3 BODY */}
       {insightId === 3 && (
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col justify-between gap-5">
+            <h3 className="text-xl font-bold text-gray800">
+              Limited training budgets to support course enrolment and travel to access training:
+            </h3>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
               Several VET programs require travel to urban centres, which is
               costly and disruptive, especially for remote employees and their
@@ -257,9 +251,31 @@ export default function Theme2InsightSubView({
               example, one local council body reported spending approximately
               $40,000 for water operator training for six participants.
             </p>
-
           </div>
-
+          <div
+            style={{ animationDelay: "0.22s" }}
+            className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/frame-7.svg"
+                    alt=""
+                    className="w-8 h-8 object-contain animate-zoom-in"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                Stakeholders noted that closer engagement with government
+                decision makers, TAFEs, RTOs and councils to find solutions to
+                challenges such as access to training, delivery options and
+                costs may support local councils to build the technical
+                capability they need for the future.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
