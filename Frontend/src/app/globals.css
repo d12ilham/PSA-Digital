@@ -324,6 +324,12 @@ aside button.bg-\[\#8AC900\] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .fstg-profile-page .animate-card-entrance,
+  .fstg-profile-page .animate-content-switch,
+  .fstg-profile-page .animate-defence-bar,
+  .fstg-initiatives-page .animate-slide-up,
+  .fstg-initiatives-page .animate-card-entrance,
+  .fstg-initiatives-page .animate-content-switch,
   .fstg-insights-page .animate-slide-up,
   .fstg-insights-page .animate-zoom-in,
   .fstg-insights-page .animate-card-entrance,
@@ -335,6 +341,10 @@ aside button.bg-\[\#8AC900\] {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .fstg-profile-page .animate-defence-bar {
+    scale: 1;
   }
 
   .fstg-existing-strategies-page .border-l-\[6px\] {

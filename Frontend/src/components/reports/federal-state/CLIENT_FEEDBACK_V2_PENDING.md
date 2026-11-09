@@ -17,7 +17,7 @@ This tracker records the workbook statuses in worksheet order. The 23 items orig
 
 | ID | Priority | Report area | Issue | Status | QA checked |
 | --- | --- | --- | --- | --- | --- |
-| FSTG-V2-001 | P0 Critical | Global | External source links missing | Open | No · [Implementation progress](#fstg-v2-001-progress) |
+| FSTG-V2-001 | P0 Critical | Global | External source links missing | Open | No · [Completed and verified locally](#fstg-v2-001-progress) |
 | FSTG-V2-002 | P1 High | Global | Source styling inconsistent with client instruction | Open | No · [Completed and verified](#fstg-v2-002-progress) |
 | FSTG-V2-003 | P0 Critical | Executive Summary / Workforce Insights | Content dependency not supplied | Blocked | No · [Completed and verified](#fstg-v2-003-progress) |
 | FSTG-V2-004 | P1 High | Global navigation / utility row | Rendered/shared-component verification required | Blocked / Rendered QA | No · [Completed and verified](#fstg-v2-004-progress) |
@@ -45,12 +45,14 @@ This tracker records the workbook statuses in worksheet order. The 23 items orig
 
 ### FSTG-V2-001 progress
 
-**In progress · 65 of 67 distinct approved destinations verified · 7 November 2026**
+**Completed and verified locally · 10 November 2026**
+
+The initial V2 audit verified 65 of 67 distinct destinations. The NT destination was resolved under V2-012; the remaining Tasmania survey dependency was resolved under FINAL-010, as recorded below.
 
 - Added external anchors to existing numbered sources and chart citations in the FSTG report. Retained inline footnote markers and citation wording. Compound citations link each document separately, including the years in the ACT references and the six annual SA reports grouped under footnote 56.
 - Inspected 163 rendered anchors across 15 routes and compared their hrefs character for character with the Source Link Matrix. Links open in a new tab. This check verified the destinations in the markup.
 - **Matrix row 63, footnote 40 (NT)** · Resolved under [FSTG-V2-012](#fstg-v2-012-progress). The numbered NT source list now links to “Hard to fill jobs in the NT”.
-- **Matrix row 113 (Tasmania diversity chart)** · The supplied URL is a Microsoft sign-in redirect with session-specific parameters. A stable approved survey URL is needed for the chart citation. The survey's numbered footnotes use their own matrix URLs.
+- **Matrix row 113 (Tasmania diversity chart)** · Resolved under [FINAL-010](./CLIENT_FEEDBACK_PPT_FOLLOW_UP_2026-11-09.md#fstg-final-010--reconcile-source-and-footnote-presentation) on 10 November 2026. The official DPAC survey page now provides the public [2024 whole-of-service results PDF](https://www.dpac.tas.gov.au/__data/assets/pdf_file/0017/509120/2024-State-Service-Survey-Results.pdf). Chart row 113 and numbered sources 60–61 (matrix rows 104–105) link directly to the verified matching document. The prior generic landing-page URLs for 104–105 and the session-specific sign-in dependency for 113 are superseded.
 - WA evidence shows the same chart and Sources section with the link renderer disabled for the baseline and enabled for the result. [Before](../../../../../../../outputs/fstg-v2-001/before-wa-sources.jpg) · [After](../../../../../../../outputs/fstg-v2-001/after-wa-sources.jpg) · [Rendered link audit](../../../../../../../outputs/fstg-v2-001/rendered-citations.json).
 
 ### FSTG-V2-002 progress
@@ -228,7 +230,7 @@ Verified a single aligned utility row and fitting controls on 39 report routes a
 | UAT-046 | Fixed the selected strategy heading and controls scrolling out of view. Verified strategy 11 retains its heading and controls during mobile page scroll and desktop detail scroll. |
 | UAT-049, 050 | Verified the Working for Women title stays visible while scrolling on mobile. Tested all 14 initiatives forward and backward, including selection/title synchronisation and the first/last button boundaries. |
 
-Checked 13 targeted routes at 1280px and 390px with no page-level horizontal overflow. The local report API was unavailable, so the browser rendered the built-in FSTG pages. A deployed UAT run is still pending. The separate Tasmania survey destination in V2-001 still needs a stable approved URL.
+Checked 13 targeted routes at 1280px and 390px with no page-level horizontal overflow. The local report API was unavailable, so the browser rendered the built-in FSTG pages. A deployed UAT run is still pending. The separate Tasmania survey destination dependency in V2-001 was subsequently resolved under FINAL-010 on 10 November 2026.
 
 - Existing Strategies mobile · [Before](../../../../../../../outputs/fstg-v2-023/before-mobile-strategy.jpg) · [After](../../../../../../../outputs/fstg-v2-023/after-mobile-strategy.jpg) · [Desktop detail scroll](../../../../../../../outputs/fstg-v2-023/after-desktop-strategy.jpg)
 - Verification · [National counters](../../../../../../../outputs/fstg-v2-023/verified-national.jpg) · [Industry Overview charts](../../../../../../../outputs/fstg-v2-023/verified-industry-charts.jpg) · [ACT charts](../../../../../../../outputs/fstg-v2-023/verified-act-charts.jpg) · [Proposal anchor](../../../../../../../outputs/fstg-v2-023/verified-strategy-anchor.jpg) · [Mobile initiative](../../../../../../../outputs/fstg-v2-023/verified-mobile-initiative.jpg) · [Rendered audit](../../../../../../../outputs/fstg-v2-023/viewport-audit.json)

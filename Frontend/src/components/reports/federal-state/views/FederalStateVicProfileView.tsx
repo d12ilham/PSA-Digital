@@ -43,12 +43,11 @@ const occupationGrowth = [
 ];
 
 const occupations = [
-  "Policy and Planning Managers",
-  "Inspectors and Regulatory Officers",
-  "Human Resource Professionals",
-  "Intelligence and Policy Analysts",
-  "General Clerks",
-  "Organisation Professionals",
+  ["Policy and Planning Managers"],
+  ["Inspectors and Regulatory Officers"],
+  ["Human Resource Professionals"],
+  ["Intelligence and Policy Analysts"],
+  ["General Clerks", "Organisation Professionals"],
 ];
 
 const sources = [
@@ -68,7 +67,7 @@ function GenderLineChart() {
   const series = [
     { key: "female" as const, label: "Female", color: "#754D32", top: 56, scale: 10 },
     { key: "male" as const, label: "Male", color: "#95694D", top: 100, scale: 10 },
-    { key: "selfDescribed" as const, label: "Self Described", color: "#E7CDBF", top: 150, scale: 15 },
+    { key: "selfDescribed" as const, label: "Self Described", color: "#A58D7B", top: 150, scale: 15 },
   ];
   const y = (key: "female" | "male" | "selfDescribed", value: number) => key === "female" ? 56 - (value - 59) * 10 : key === "male" ? 105 - (value - 40) * 10 : 151 - value * 15;
   return <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
@@ -88,7 +87,7 @@ function RepresentationChart() {
   const actual = [1.2, 1.2, 1.5, 1.6];
   const x = (i: number) => 50 + i * 145;
   const y = (value: number) => 157 - (value - 1) * 70;
-  return <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md  p-4 sm:p-5`}><h3 className="min-h-10 text-sm font-bold">Aboriginal and Torres Strait Islander Representation in the Victorian Public Service (2021-2024)</h3><ChartScroll><svg viewBox="0 0 550 330" role="img" aria-label="Representation: 1.2% in 2021 and 2022, 1.5% in 2023, 1.6% in 2024; 2% target" className="mt-4 w-full"><line x1="40" x2="510" y1="267" y2="267" stroke="#E5DCD6" /><line x1="50" x2="485" y1={(y(2)) * 1.5} y2={(y(2)) * 1.5} stroke="#E7CDBF" strokeWidth="3" strokeDasharray="5 4" /><polyline points={actual.map((value, i) => `${x(i)},${(y(value)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="3" />{years.map((year, i) => <g key={year}><circle cx={x(i)} cy={(y(actual[i])) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" /><text x={x(i)} y={(y(actual[i]) - 12) * 1.5} textAnchor="middle" fontSize="10" fill="#754D32">{actual[i].toFixed(1)}%</text><text x={x(i)} y={(y(2) - 10) * 1.5} textAnchor="middle" fontSize="10" fill="#E7CDBF">2.0%</text><text x={x(i)} y="303" textAnchor="middle" fontSize="10" fill="#5E6268">{year}</text></g>)}</svg></ChartScroll><div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Target</span></div><p data-citation-copy className="mt-5 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={128}>SOURCE Victorian Government, Workforce data (state of the public sector) 2024-25, 2023-24, 2022-23, 2021-22</SourceLink></p></div>;
+  return <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md  p-4 sm:p-5`}><h3 className="min-h-10 text-sm font-bold">Aboriginal and Torres Strait Islander Representation in the Victorian Public Service (2021-2024)</h3><ChartScroll><svg viewBox="0 0 550 330" role="img" aria-label="Representation: 1.2% in 2021 and 2022, 1.5% in 2023, 1.6% in 2024; 2% target" className="mt-4 w-full"><line x1="40" x2="510" y1="267" y2="267" stroke="#E5DCD6" /><line x1="50" x2="485" y1={(y(2)) * 1.5} y2={(y(2)) * 1.5} stroke="#A58D7B" strokeWidth="3" strokeDasharray="5 4" /><polyline points={actual.map((value, i) => `${x(i)},${(y(value)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="3" />{years.map((year, i) => <g key={year}><circle cx={x(i)} cy={(y(actual[i])) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" /><text x={x(i)} y={(y(actual[i]) - 12) * 1.5} textAnchor="middle" fontSize="10" fill="#754D32">{actual[i].toFixed(1)}%</text><text x={x(i)} y={(y(2) - 10) * 1.5} textAnchor="middle" fontSize="10" fill="#A58D7B">2.0%</text><text x={x(i)} y="303" textAnchor="middle" fontSize="10" fill="#5E6268">{year}</text></g>)}</svg></ChartScroll><div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#A58D7B]" />Target</span></div><p data-citation-copy className="mt-5 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={128}>SOURCE Victorian Government, Workforce data (state of the public sector) 2024-25, 2023-24, 2022-23, 2021-22</SourceLink></p></div>;
 }
 
 function GrowthChart() {
@@ -112,10 +111,10 @@ export default function FederalStateVicProfileView({ slug, report, embedded = fa
       </div>
       <div className="mt-6"><p className="max-w-4xl text-xs leading-6 text-[#42463B]"><sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">71</sup> While the projected 10-year growth rate for Public Administration and Safety is 1.3 per cent,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">72</sup> this growth rate is slightly higher for the following Public Administration Industry occupations:</p>
         <div role="region" aria-label="Victoria occupation growth points" tabIndex={0} className="mt-4 min-w-0 overflow-x-auto pb-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
-          <ol data-vic-occupations aria-label="Public Administration occupations with higher projected growth" role="list" className="grid min-w-[1020px] list-none grid-cols-6 gap-3">
-            {occupations.map((occupation, index) => <li key={occupation} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
+          <ol data-vic-occupations aria-label="Public Administration occupations with higher projected growth" role="list" className="grid min-w-[1020px] list-none grid-cols-5 gap-3">
+            {occupations.map((group, index) => <li key={group[0]} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
               <span aria-hidden="true" className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#754D32] text-base font-bold text-white">{index + 1}</span>
-              <span data-vic-occupation-copy>{occupation}</span>
+              {group.map((occupation) => <span key={occupation} data-vic-occupation-copy className="block">{occupation}</span>)}
             </li>)}
           </ol>
         </div>
