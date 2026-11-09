@@ -20,14 +20,6 @@
   box-shadow: none;
 }
 
-.summary {
-  margin-top: 12px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #d5d7da;
-  font-size: 14px;
-  line-height: 24px;
-}
-
 .page .details {
   display: grid;
   grid-template-columns: minmax(0, 760fr) minmax(0, 536fr);

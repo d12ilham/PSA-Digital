@@ -326,7 +326,7 @@ export default function FederalStateExecutiveSummaryView({
 
             <div className="border-t border-gray-200 my-4" />
 
-            <div className="max-w-[80ch] space-y-3.5 pt-1">
+            <div data-summary-strategy-details className="max-w-[72ch] space-y-3.5 pt-1 text-xs">
               <div>
                 <h5 className="text-xs font-bold text-gray800">
                   Workforce Insight:

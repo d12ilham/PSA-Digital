@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -72,7 +74,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
         <h1>Defence Veterans’ Programs and Initiatives</h1>
         <p>Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
       </div>
-      <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/correctional-existing-strategies-group-85.svg" width={487} height={104} alt="" unoptimized priority />
+      <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} alt="" unoptimized priority />
     </section>
 
     <section className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
@@ -87,7 +89,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
           ))}
         </div>
       </div>
-      <article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
+      <ReportSelectionPanel selection={active} label="Defence veterans program details"><article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
         <div className={layout.panelHeader}>
           <span className={layout.badge} title={owner}>{number(active)} · DEF</span>
           <div className={layout.controls}>
@@ -105,7 +107,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
             {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}>{references[1]}</sup></>}
           </p>
         </div>
-      </article>
+      </article></ReportSelectionPanel>
     </section>
 
     <section data-report-sources className={sourcesStyles.sources}>

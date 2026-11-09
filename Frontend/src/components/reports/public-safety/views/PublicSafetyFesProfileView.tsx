@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -13,7 +15,7 @@ import styles from "./PublicSafetyFesProfileView.module.css";
 const firefighterTitle = "Yearly Student Enrolments and Completions for Primary Firefighter Recruit Qualifications (Career and Volunteer)";
 const charts = [
   firefighterTitle,
-  firefighterTitle,
+  "Yearly Student Enrolments and Completions for Firefighting Operations Qualifications",
   "Fire and Emergency Services Workforce by Jurisdiction",
   "Yearly Student Enrolments and Completions for SES Qualifications",
   "Yearly Student Enrolments and Completions for Surf Life Saving Qualifications",
@@ -55,8 +57,8 @@ function FirefighterQualificationsChart({ mode, title, height, note }: { mode: Q
   return <figure className={styles.chart} style={{ "--chart-height": `${height}px` } as React.CSSProperties}>
     <div><p className={styles.eyebrow}>FES · Presentation View</p><h3>{title}{note && <sup>52</sup>}</h3></div>
     <svg viewBox="0 0 960 345" role="img" aria-label={`${title}. ${chartYears.map((year, index) => `${year}: ${darkValues[index]}, ${lightValues[index]}`).join("; ")}`}>
-    {ticks.map((value)=>{const y=295-value/max*244;return <g key={value}><line x1="58" x2="956" y1={y} y2={y} stroke="#E3E5DE"/><text x="45" y={y+4} textAnchor="end" fontSize="11" fill="#6B6E68">{value.toLocaleString()}</text></g>})}
-    {chartYears.map((year,index)=>{const groupX=58+(index+0.5)*898/chartYears.length-29;const darkHeight=darkValues[index]/max*244;const lightHeight=lightValues[index]/max*244;return <g key={year} className={styles.barGroup} style={{ animationDelay: `${index * 65}ms` }}><rect className="animate-industry-chart-bar" x={groupX} y={295-darkHeight} width="28" height={darkHeight} fill="#ad271b"/><rect className="animate-industry-chart-bar" x={groupX+30} y={295-lightHeight} width="28" height={lightHeight} fill="#de6b52"/><text x={groupX+14} y={285-darkHeight} textAnchor="middle" fontSize="11" fontWeight="700" fill="#252D02">{darkValues[index].toLocaleString()}</text><text x={groupX+44} y={285-lightHeight} textAnchor="middle" fontSize="11" fontWeight="700" fill="#252D02">{lightValues[index].toLocaleString()}</text><text x={groupX+29} y="319" textAnchor="middle" fontSize="11" fill="#252D02">{year}</text></g>})}
+    {ticks.map((value)=>{const y=295-value/max*244;return <g key={value}><line x1="58" x2="956" y1={y} y2={y} stroke="#E3E5DE"/><text x="45" y={y+4} textAnchor="end" fontSize="14" fill="#6B6E68">{value.toLocaleString()}</text></g>})}
+    {chartYears.map((year,index)=>{const groupX=58+(index+0.5)*898/chartYears.length-29;const darkHeight=darkValues[index]/max*244;const lightHeight=lightValues[index]/max*244;return <g key={year} className={styles.barGroup} style={{ animationDelay: `${index * 65}ms` }}><rect className="animate-industry-chart-bar" x={groupX} y={295-darkHeight} width="28" height={darkHeight} fill="#ad271b"/><rect className="animate-industry-chart-bar" x={groupX+30} y={295-lightHeight} width="28" height={lightHeight} fill="#de6b52"/><text x={groupX+14} y={285-darkHeight} textAnchor="middle" fontSize="14" fontWeight="700" fill="#252D02">{darkValues[index].toLocaleString()}</text><text x={groupX+44} y={285-lightHeight} textAnchor="middle" fontSize="14" fontWeight="700" fill="#252D02">{lightValues[index].toLocaleString()}</text><text x={groupX+29} y="319" textAnchor="middle" fontSize="14" fill="#252D02">{year}</text></g>})}
   </svg><div className={styles.legend}>{legend.map((label, index) => <span key={label} className="inline-flex items-center gap-2"><i className={`size-2.5 shrink-0 rounded-full ${index === 0 ? "bg-[#ad271b]" : "bg-[#de6b52]"}`} />{label}</span>)}</div><figcaption data-source-caption>Source: NCVER, Total VET students and courses: VOCSTATS, 2026</figcaption></figure>;
 }
 
@@ -96,7 +98,7 @@ function JurisdictionChart() {
         </table>
       </aside>
     </div>
-    <p>LEGEND: Firefighters | Fire support | Operational SES | SES support | Patrolling surf lifesavers</p>
+
     <p><strong>Data are headcount except where * indicates full-time equivalent.</strong></p>
     <p data-source-caption className={styles.mapSource}>SOURCE: Report on Government Services, Emergency services for fire and other events, 2026; Surf Life Saving Australia, 2024/25 Annual Report, 2025.</p>
   </section>;
@@ -139,7 +141,7 @@ export default function PublicSafetyFesProfileView({ slug, report }: { slug: str
             </button>
           ))}
         </div>
-        <div id="fes-profile-presentation" className={styles.presentation}>
+        <ReportSelectionPanel selection={active} label="Fire and Emergency Services profile presentation"><div id="fes-profile-presentation" className={styles.presentation}>
           {active === 2 ? <JurisdictionChart /> : (
             <div key={active} className={`${styles.pair} animate-content-switch`}>
               {chartPairs[active].modes.map((mode, index) => {
@@ -152,7 +154,7 @@ export default function PublicSafetyFesProfileView({ slug, report }: { slug: str
               {showRecruitNote && <p className={styles.note}>52 It should be noted that for several Fire and Emergency Services organisations recruit training focuses on completions of Units of Competency rather than full qualifications.</p>}
             </div>
           )}
-        </div>
+        </div></ReportSelectionPanel>
       </div>
     </section>
   </PublicSafetyPageShell>;

@@ -17,6 +17,7 @@ import FederalStateSaProfileView from "./FederalStateSaProfileView";
 import FederalStateTasProfileView from "./FederalStateTasProfileView";
 import FederalStateVicProfileView from "./FederalStateVicProfileView";
 import FederalStateWaProfileView from "./FederalStateWaProfileView";
+import chartStyles from "./FederalStateProfileCharts.module.css";
 
 interface Report {
   id: string;
@@ -226,15 +227,17 @@ function BarChart({
   title,
   bars,
   source,
+  surface = "standard",
 }: {
   title: string;
   bars: { label: string; value: number; color: string; display: string }[];
   source: ReactNode;
+  surface?: "standard" | "representation";
 }) {
   const maxValue = Math.max(...bars.map((bar) => bar.value));
 
   return (
-    <article data-national-chart className="flex h-full min-w-0 flex-col rounded-md bg-[#FBF5F1] p-4 text-black sm:p-5">
+    <article data-national-chart data-chart-surface={surface} className={`${chartStyles[surface]} flex h-full min-w-0 flex-col rounded-md p-4 text-black sm:p-5`}>
       <h3 className="min-h-14 text-lg font-bold leading-7">{title}</h3>
       <div role="region" aria-label={`${title} chart`} tabIndex={0} className="mt-4 overflow-x-auto pb-2 focus-visible:outline-2 focus-visible:outline-[#754C2D]">
         <div className={bars.length === 2 ? "min-w-[260px]" : "min-w-[620px]"}>
@@ -251,7 +254,7 @@ function BarChart({
           </div>
         </div>
       </div>
-      <p data-citation-copy className="mt-auto pt-4 text-sm leading-6 text-black">{source}</p>
+      <p data-citation-copy className="mt-auto min-h-[80px] pt-4 text-sm leading-6 text-black">{source}</p>
     </article>
   );
 }
@@ -355,7 +358,7 @@ export default function FederalStateIndustryProfileView({
     : null;
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#1B240E] antialiased selection:bg-[#8AC900]/20">
+    <div className="fstg-profile-page flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#1B240E] antialiased selection:bg-[#8AC900]/20">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-3 px-4 py-5 sm:px-6 lg:px-8">
@@ -513,6 +516,7 @@ export default function FederalStateIndustryProfileView({
                   <Reveal delay={0.12} className="h-full min-w-0">
                     <BarChart
                       title="First Nations Employment in the APS"
+                      surface="representation"
                       bars={[
                         {
                           label: "First Nations employees at 30 June 2025",

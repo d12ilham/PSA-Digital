@@ -1,0 +1,13 @@
+.panel { min-width: 0; }
+.panel:focus-visible { outline: 2px solid #598303; outline-offset: 4px; }
+
+@media (min-width: 1200px) {
+  .panel {
+    position: sticky;
+    top: 84px;
+    max-height: calc(100dvh - 108px);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+}

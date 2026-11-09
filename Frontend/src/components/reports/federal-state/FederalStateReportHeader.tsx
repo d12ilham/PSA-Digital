@@ -82,6 +82,22 @@ const navigation: NavigationGroup[] = [
   },
 ];
 
+const pageAliases: Record<string, string> = {
+  state_territory: "industry_profile",
+  proposed_strategies: "workforce_strategies",
+  workforce_strategies_2025: "update_2025_strategies",
+  update_2025_project_1: "update_2025_strategies",
+  update_2025_project_2: "update_2025_strategies",
+  update_2025_project_3: "update_2025_strategies",
+  existing_industry_strategies: "existing_strategies",
+  federal_government_initiatives: "federal_initiatives",
+  "2027_and_beyond": "looking_forward",
+  downloads_and_reference: "downloads",
+  downloads_reference: "downloads",
+  download_pdf: "downloads",
+  download: "downloads",
+};
+
 export default function FederalStateReportHeader({
   slug,
   year,
@@ -114,7 +130,9 @@ export default function FederalStateReportHeader({
     setOpenGroup(null);
     setMobileOpen(false);
   };
-  const isActive = (page: string) => !page.includes("#") && pathname === `${base}/${page}`;
+  const currentPage = pathname.slice(base.length + 1);
+  const activePage = pageAliases[currentPage] ?? currentPage;
+  const isActive = (page: string) => !page.includes("#") && activePage === page;
   const renderItem = (item: NavigationItem) => (
     <li key={item.page}>
       <Link
@@ -196,7 +214,7 @@ export default function FederalStateReportHeader({
             );
           })}
         </nav>
-        <Link href={`${base}/downloads`} prefetch={false} onClick={closeMenu} className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-bold transition-colors ${sectorPalette ? "bg-[#EED4C4] text-[#754C2D] hover:bg-white" : "bg-[#046D2A] hover:bg-[#058237]"} ${focusClass}`}>
+        <Link href={`${base}/downloads`} prefetch={false} onClick={closeMenu} aria-current={isActive("downloads") ? "page" : undefined} className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-bold transition-colors ${sectorPalette ? "bg-[#EED4C4] text-[#754C2D] hover:bg-white" : "bg-[#046D2A] hover:bg-[#058237]"} ${focusClass}`}>
           <span className="hidden sm:inline">Download {year} PDF</span>
           <Download className="h-3.5 w-3.5" aria-hidden="true" />
           <span className="sr-only sm:hidden">Download {year} PDF</span>

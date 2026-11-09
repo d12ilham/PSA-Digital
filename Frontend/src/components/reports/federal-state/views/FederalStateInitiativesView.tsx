@@ -272,7 +272,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
     else setSelected(index);
   };
 
-  return <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
+  return <div className="fstg-initiatives-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
       <ReportNavButtons slug={slug} currentPage="federal_initiatives" prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} next={{ label: "2027 and Beyond", href: `/reports/${slug}/looking_forward` }} prevPrefix="" />
@@ -300,7 +300,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
               <span className="block text-xs leading-5 text-[#54710F]">{String(index + 1).padStart(2, "0")} · {item.source}</span>
               <span className="mt-4 block text-base font-semibold leading-6">{item.title}</span>
             </span>
-            <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 ${selected === index ? "border border-[#94AF59] bg-white" : "bg-[#8AC900]"}`}><ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
+            <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 motion-safe:group-hover:scale-110 ${selected === index ? "border border-[#94AF59] bg-white" : "bg-[#8AC900]"}`}><ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
           </button>)}
         </nav>
 
@@ -342,6 +342,6 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
         </section>
       </div>
     </main>
-    <ReportFooter contactUrl={report?.contactUrl} />
+      <ReportFooter contactUrl={report?.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
   </div>;
 }

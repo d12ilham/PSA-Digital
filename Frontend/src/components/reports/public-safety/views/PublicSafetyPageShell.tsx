@@ -105,7 +105,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
         { label: "Defence Veterans’ Programs and Initiatives", path: "defence_federal_initiatives" },
       ],
     },
-    { label: "FES", path: "fes", accent: "#CF4C2C", matches: (page) => page === "fes" || page.startsWith("fes_"), children: sectorChildren("fes") },
+    { label: "FES", path: "fes", accent: "#CF4C2C", matches: (page) => page === "fes" || page.startsWith("fes_"), children: [...sectorChildren("fes"), { label: "Disaster Recovery Training Products – Appendix B", path: "fes_disaster_recovery_training_products" }] },
     { label: "POL", path: "police", accent: "#1685AD", matches: (page) => page.startsWith("police") && page !== "police_proposed_strategies_summary" && page !== "police_federal_initiatives", children: sectorChildren("police") },
     {
       label: "Cross-Sector Strategies",

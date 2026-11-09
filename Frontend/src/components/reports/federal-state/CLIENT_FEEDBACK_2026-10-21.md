@@ -422,6 +422,8 @@ Additional evidence: [Workforce Insight 3 mobile](C:/Users/wmsan/Documents/Codex
 
 ### FSTG-UAT-025 - completed 25 October 2026
 
+Placement superseded on 9 November 2026 by [FSTG-FINAL-002](./CLIENT_FEEDBACK_PPT_FOLLOW_UP_2026-11-09.md#fstg-final-002--correct-sa-chart-placement). The latest client direction places Age in Workforce Overview and First Nations representation in Workforce Trends.
+
 - Moved the 7% growth callout, 2.1% → 2.25% First Nations change callout and Employees by Age chart from Workforce Overview to Workforce Trends in `FederalStateSaProfileView.tsx`. On desktop the callouts sit beside the age chart; on mobile they stack above it.
 - Kept the 2021–2025 Aboriginal and Torres Strait Islander representation line chart in Overview, along with the Gender and Diversity charts added under UAT-024. Removed the old grid pairing with Age, avoiding an empty column.
 - Preserved the callout copy, all percentages, age bands, chart data and source captions. Checked the growth/age text and retained representation chart against the pre-change browser baseline.
@@ -539,6 +541,8 @@ Additional evidence: [Workforce Insight 3 mobile](C:/Users/wmsan/Documents/Codex
 
 ### FSTG-UAT-037 - completed 25 October 2026
 
+Header graphic treatment superseded on 9 November 2026 by [FSTG-FINAL-004](./CLIENT_FEEDBACK_PPT_FOLLOW_UP_2026-11-09.md). The latest client direction restores the three PPT graphics in FSTG-coloured circles.
+
 - Reviewed PPT slide 37 and its main strategy/teacher/briefcase graphics. In the current page, UAT-009 had already removed the duplicate metadata and extra circular icons; the main strategy graphic was also absent.
 - Updated `FederalStateProposedStrategiesView.tsx` with a responsive header containing the existing main `/images/stratergies.svg` graphic only. No teacher/briefcase circular decorations are rendered. Kept the existing asset, sharp at desktop/mobile sizes, without changing shared assets.
 - Capped the header copy at 850px and retained the intro's 80ch text width. Existing strategy detail/body width constraints from UAT-009 remain. The correct Workforce Insight and JSC Function appear once in the details; the old Emerging technologies 1 / Training Product Development metadata does not reappear. UAT-038's separate field-width acceptance review remains pending.
@@ -614,6 +618,8 @@ Additional evidence: [Workforce Insight 3 mobile](C:/Users/wmsan/Documents/Codex
 - Evidence: [Before desktop](../../../../../../../outputs/fstg-uat-044/before-desktop.png) · [After desktop](../../../../../../../outputs/fstg-uat-044/after-desktop.png) · [After mobile](../../../../../../../outputs/fstg-uat-044/after-mobile.png) · [Mobile menu](../../../../../../../outputs/fstg-uat-044/after-mobile-menu.png) · [Palette/content audit](../../../../../../../outputs/fstg-uat-044/palette-audit.json).
 
 ### FSTG-UAT-045 - completed 25 October 2026
+
+Project badge wording superseded on 9 November 2026 by [FSTG-FINAL-005](./CLIENT_FEEDBACK_PPT_FOLLOW_UP_2026-11-09.md). Each project detail page now shows its own Project 1, Project 2 or Project 3 label.
 
 - Reviewed the actual tracker task and PPT slides 41–43, including their common “STRATEGY 2” badge reference. All three routes already render through `FederalState2025ProjectView.tsx`; refined that shared view rather than creating three separate layouts.
 - Extracted a reusable `ProjectUpdateHeader` component with the same FSTG brown Strategy 2 badge, numbered project title, type scale, spacing and intro width on all three pages. This replaces the oversized proposal-title pill with the compact badge specified by the feedback.

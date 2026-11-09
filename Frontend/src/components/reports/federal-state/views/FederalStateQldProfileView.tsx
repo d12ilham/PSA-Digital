@@ -53,17 +53,17 @@ function RepresentationChart() {
       <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the Queensland Public Sector (2021-2025)</h3>
       <ChartScroll><svg viewBox="0 0 540 337.5" role="img" aria-label="Actual representation from 2.5% in 2021 to 2.7% in 2025; target 3% in 2021 and 2022, then 4%" className="mt-5 w-full">
         <line x1="42" x2="502" y1="276" y2="276" stroke="#DFD6CF" />
-        <polyline points={target.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#E7CDBF" strokeWidth="3" strokeDasharray="5 4" />
+        <polyline points={target.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#A58D7B" strokeWidth="3" strokeDasharray="5 4" />
         <polyline points={actual.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="2.5" />
         {years.map((year, i) => <g key={year}>
-          <circle cx={x(i)} cy={(y(target[i])) * 1.5} r="4" fill="white" stroke="#E7CDBF" strokeWidth="3" />
+          <circle cx={x(i)} cy={(y(target[i])) * 1.5} r="4" fill="white" stroke="#A58D7B" strokeWidth="3" />
           <circle cx={x(i)} cy={(y(actual[i])) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" />
           <text x={x(i)} y={(y(target[i]) - 10) * 1.5} textAnchor="middle" fontSize="10" fill="#D9BFB1">{target[i].toFixed(1)}%</text>
           <text x={x(i)} y={(y(actual[i]) - 10) * 1.5} textAnchor="middle" fontSize="10" fontWeight="600" fill="#754D32">{actual[i].toFixed(1)}%</text>
           <text x={x(i)} y="310.5" textAnchor="middle" fontSize="10" fill="#565A60">{year}</text>
         </g>)}
       </svg></ChartScroll>
-      <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Target</span></div>
+      <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#A58D7B]" />Target</span></div>
       <p data-citation-copy className="mt-5 border-t border-[#E6DCD5] pt-3 text-sm leading-6 text-black"><SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report, 2025, pg. 42</SourceLink></p>
     </div>
   );

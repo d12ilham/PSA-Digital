@@ -49,7 +49,7 @@ function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: n
   return (
     <section data-project-update-header className="rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8">
       <div className="max-w-[1050px]">
-        <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Strategy 2</span>
+        <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Project {projectNumber}</span>
         <h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight text-gray800 sm:text-[38px]">{projectNumber}. {title}</h1>
         <p className="mt-5 max-w-[96ch] text-xs leading-6 text-gray600">{intro}</p>
       </div>

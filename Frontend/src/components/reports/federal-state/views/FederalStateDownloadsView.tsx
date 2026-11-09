@@ -96,7 +96,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
         </section>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} />
+      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

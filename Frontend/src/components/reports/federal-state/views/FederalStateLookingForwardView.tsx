@@ -137,7 +137,7 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
         </div>
       </main>
 
-      <ReportFooter sectorPalette contactUrl={report.contactUrl} />
+      <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

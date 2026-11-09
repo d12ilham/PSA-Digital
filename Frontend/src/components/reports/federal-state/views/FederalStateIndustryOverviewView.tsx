@@ -157,14 +157,14 @@ function SkillsBarChart({
   animate: boolean;
 }) {
   return (
-    <div data-skills-chart className="group grid h-full min-w-0 grid-rows-[4.125rem_auto_2.75rem] gap-6 bg-white rounded-2xl border border-gray200 p-5 sm:p-6 sm:grid-rows-[3.125rem_auto_2.75rem] transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:shadow-lg">
+    <div data-skills-chart className="group grid h-full min-w-0 grid-rows-[minmax(4.125rem,auto)_auto_minmax(5rem,auto)] gap-6 bg-white rounded-2xl border border-gray200 p-5 sm:p-6 sm:grid-rows-[minmax(3.125rem,auto)_auto_minmax(5rem,auto)] transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:shadow-lg">
       <h4 className="text-base sm:text-lg font-bold text-black leading-snug">
         {title}
       </h4>
 
       {/* Both charts reserve identical plot and label tracks. */}
       <div role="region" aria-label={`${title} chart`} tabIndex={0} className="min-w-0 overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
-      <div className="min-w-[460px] pt-2">
+      <div className="min-w-[520px] pt-2">
         {/* Flush on bottom border line (no bottom padding) with minimal gap between bars */}
         <div data-skills-plot className="grid grid-cols-5 gap-1.5 sm:gap-2 items-end h-44 sm:h-48 border-b border-gray200">
           {bars.map((bar, idx) => (
@@ -173,7 +173,7 @@ function SkillsBarChart({
               className="flex flex-col items-center h-full justify-end group px-0.5"
             >
               {/* Percentage Label */}
-              <span className="text-xs sm:text-sm font-semibold text-[#754C2D] mb-1.5 transition-transform duration-200 group-hover:scale-105">
+              <span className="text-base font-semibold text-black mb-1.5 transition-transform duration-200 group-hover:scale-105">
                 {bar.percentage}%
               </span>
               {/* Bar Fill: wide width with tiny gap, sitting flush on the bottom line */}
@@ -190,11 +190,11 @@ function SkillsBarChart({
         </div>
 
         {/* Labels below bars */}
-        <div data-skills-labels className="grid h-28 grid-cols-5 gap-1.5 sm:gap-2 pt-2.5">
+        <div data-skills-labels className="grid min-h-40 grid-cols-5 gap-1.5 sm:gap-2 pt-2.5">
           {bars.map((bar, idx) => (
             <div key={idx} className="text-center px-0.5">
-              <span className="text-[10px] sm:text-[11px] text-[#754C2D] leading-tight block font-normal [overflow-wrap:anywhere]">
-                {bar.label}
+              <span className="text-sm text-black leading-5 block font-normal">
+                {bar.label.split("/").map((part, index, parts) => <React.Fragment key={index}>{part}{index < parts.length - 1 && <>/<wbr /></>}</React.Fragment>)}
               </span>
             </div>
           ))}

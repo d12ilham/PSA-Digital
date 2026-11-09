@@ -46,12 +46,12 @@ export function RepresentationChart({ title, years, values, target, source, min,
       <ChartScroll><svg viewBox="0 0 590 307.5" role="img" aria-label={`${title}: ${years.map((year, index) => `${year} ${values[index].toFixed(1)}%`).join(", ")}; target ${target.toFixed(1)}%`} className="mt-5 w-full">
         <line x1="35" y1="240" x2="553" y2="240" stroke="#DDD8D3" />
         <line x1="45" y1={(targetY) * 1.5} x2="543" y2={(targetY) * 1.5} stroke="#754D32" strokeWidth="2.5" strokeDasharray="6 6" />
-        <polyline points={points} fill="none" stroke="#E7CDBF" strokeWidth="3" />
+        <polyline points={points} fill="none" stroke="#A58D7B" strokeWidth="3" />
         {values.map((value, index) => {
           const x = xAt(index);
           const y = yAt(value);
           return <g key={years[index]}>
-            <circle cx={x} cy={(y) * 1.5} r="4" fill="white" stroke="#E7CDBF" strokeWidth="3" />
+            <circle cx={x} cy={(y) * 1.5} r="4" fill="white" stroke="#A58D7B" strokeWidth="3" />
             <circle cx={x} cy={(targetY) * 1.5} r="4" fill="white" stroke="#754D32" strokeWidth="3" />
             <text x={x} y={(y - 11) * 1.5} textAnchor="middle" fontSize="11" fontWeight="600" fill="#754D32">{value.toFixed(1)}%</text>
             <text x={x} y={(targetY - 8) * 1.5} textAnchor="middle" fontSize="10" fill="#754D32">{target.toFixed(1)}%</text>
@@ -59,7 +59,7 @@ export function RepresentationChart({ title, years, values, target, source, min,
           </g>;
         })}
       </svg></ChartScroll>
-      <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#E7CDBF]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Target</span></div>
+      <div className={chartStyles.legend}><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#A58D7B]" />Percentage</span><span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Target</span></div>
       <p data-citation-copy className="mt-4 text-sm leading-6 text-black">{source}</p>
     </div>
   );

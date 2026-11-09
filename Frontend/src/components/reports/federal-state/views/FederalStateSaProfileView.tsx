@@ -144,7 +144,9 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
           <DiversityChart />
         </div>
         <div className="mt-4 max-w-[760px]">
-          <RepresentationChart />
+          <div data-sa-age-chart className="min-w-0">
+            <ColumnChart title="South Australian Public Sector Employees by Age" data={[{ label: "Under 30", value: 17.4, text: "17.4%" }, { label: "30-40", value: 24.7, text: "24.7%" }, { label: "40-50", value: 24.1, text: "24.1%" }, { label: "50-60", value: 21.5, text: "21.5%" }, { label: "Over 60", value: 12.4, text: "12.4%" }]} source={<SourceLink row={96}>SOURCE Government of South Australia, State of the Sector Report 2025, 2025, Table 1</SourceLink>} />
+          </div>
         </div>
       </Section>
       <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
@@ -152,10 +154,10 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
         <div data-sa-trends-statistics className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
             <div data-sa-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">7%</strong><p className="mt-2 min-h-12 text-xs leading-5">Employment growth rate to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={100}>Source: Jobs and Skills Australia, Employment Projections - outlook for states and territories, 2025, Table 2</SourceLink></p></div>
-            <div data-sa-first-nations-change className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">2.1%→2.25%</strong><p className="mt-2 min-h-12 text-xs leading-5">Since 2021, the proportion of First Nations people&apos;s employment in the South Australian General Government sector rose from:</p><p className="mt-4 border-t border-[#DECFC5] pt-3 text-[9px] leading-4 text-[#694834]">Government of South Australia, Workforce Information Report Data Dashboard [data set], 2025</p></div>
+            <div data-sa-first-nations-change className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">2.1%→2.25%</strong><p className="mt-2 min-h-12 text-xs leading-5">Since 2021, the proportion of First Nations people&apos;s employment in the South Australian General Government sector rose from:</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={99}>Government of South Australia, Workforce Information Report Data Dashboard [data set], 2025</SourceLink></p></div>
           </div>
-          <div data-sa-age-chart className="min-w-0">
-            <ColumnChart title="South Australian Public Sector Employees by Age" data={[{ label: "Under 30", value: 17.4, text: "17.4%" }, { label: "30-40", value: 24.7, text: "24.7%" }, { label: "40-50", value: 24.1, text: "24.1%" }, { label: "50-60", value: 21.5, text: "21.5%" }, { label: "Over 60", value: 12.4, text: "12.4%" }]} source={<SourceLink row={96}>SOURCE Government of South Australia, State of the Sector Report 2025, 2025, Table 1</SourceLink>} />
+          <div data-sa-representation-chart className="min-w-0">
+            <RepresentationChart />
           </div>
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
