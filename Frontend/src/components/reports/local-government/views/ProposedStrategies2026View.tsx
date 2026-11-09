@@ -164,18 +164,18 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
+                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      {strategyOneContent.impact}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
                     <h3 className="text-xs font-bold text-gray800">
                       Anticipated timing:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
                       {strategyOneContent.anticipatedTiming}
-                    </p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
-                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                      {strategyOneContent.impact}
                     </p>
                   </div>
 

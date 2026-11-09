@@ -450,7 +450,7 @@ export default function WorkforceInsightsView({
                           Theme Two, Insight Three
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Limited training budgets to support course enrolment and travel to access training.
+                          Local councils have limited training budgets to support financial impost of course enrolment as well as travel to and from training.
                         </p>
                       </div>
                     </div>
