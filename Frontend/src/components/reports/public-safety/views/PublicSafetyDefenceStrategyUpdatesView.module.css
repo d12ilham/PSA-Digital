@@ -51,7 +51,7 @@
 .detailHeader { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 12px; }
 .details { margin-top: 24px; padding: 32px; border-radius: 12px; background: #fafaf0; }
 .detailHeader h3, .subheading { font-size: 20px; font-weight: 700; line-height: 28px; }
-.detailHeader sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.detailHeader sup { position: static; vertical-align: super; font-size: .65em; font-weight: 400; line-height: 0; }
 .detailHeader > span { padding: 6px 20px; border-radius: 999px; background: #ecece1; color: #535862; font-size: 14px; line-height: 20px; }
 .subheading { margin-top: 24px; text-transform: uppercase; }
 .copy, .note { color: #535862; font-size: 14px; line-height: 24px; }

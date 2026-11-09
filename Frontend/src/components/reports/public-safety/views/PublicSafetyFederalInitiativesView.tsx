@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -30,13 +32,15 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
   return <PublicSafetyPageShell slug={slug} report={report} currentPage="police_federal_initiatives" navigation={{
     back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
     prev: { label: "Public Safety Strategies Summary", href: `/reports/${slug}/police_proposed_strategies_summary` },
+    next: { label: "Looking Forward", href: `/reports/${slug}/looking_forward` },
+    nextPrefix: "Next Section:",
     prevPrefix: "Back to",
   }}>
     <section className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-[#E9EAEB] bg-white p-6 sm:p-10 lg:flex-row lg:items-center">
       <div className="max-w-[620px]">
         <p className="text-sm font-semibold uppercase text-[#598303]">Cross-Sector Strategies</p>
         <h1 className="mt-5 text-[32px] font-bold leading-tight text-[#252D02] xl:text-[40px] xl:leading-[52px]">Commonwealth Government Initiatives</h1>
-        <p className="mt-4 text-sm leading-6 text-[#252D02]">Public Skills Australia&apos;s work is informed and guided by the Federal Government initiatives detailed below.</p>
+        <p className="mt-4 text-sm leading-6 text-[#252D02]">Public Skills Australia&apos;s work is informed and guided by the Commonwealth Government initiatives detailed below.</p>
       </div>
       <Image src="/images/reports/public-safety/federal-initiatives-group-87.svg" alt="" width={672} height={216} loading="eager" className="h-auto w-full max-w-[672px] self-center lg:w-1/2" />
     </section>
@@ -57,7 +61,7 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
         </div>
       </div>
 
-      <article className="min-w-0 rounded-2xl bg-[#E5E8DA] p-4 sm:p-6">
+      <ReportSelectionPanel selection={active} label="Commonwealth initiative details"><article className="min-w-0 rounded-2xl bg-[#E5E8DA] p-4 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="rounded-full bg-[#598303] px-5 py-2.5 text-xs font-semibold uppercase leading-5 text-white">{String(active + 1).padStart(2, "0")} · {initiative.owner}</span>
           <div className="ml-auto flex flex-wrap gap-2">
@@ -80,7 +84,7 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
           {active === 12 && <div className="mt-5 space-y-4 text-sm leading-6 text-[#535862]"><h3 className="text-xl font-semibold leading-7 text-[#598303]">Jobs and Skills Australia / 2025–ongoing</h3><p>The Gender Economic Equality Study explored three challenges for the jobs and skills systems that contribute to gender economic inequality:</p><ul className="list-disc space-y-1 pl-5"><li>occupational segregation</li><li>pay gaps and gendered divides in the education</li><li>training and skills systems.</li></ul><p>The study was reported over three papers, with the third and final paper <i>Speeding up progress towards gender economic equality</i> being released in October 2025. This paper sets out 10 recommendations to address challenges in the jobs and skills system that perpetuate inequality and impact productivity:</p><ol className="list-decimal space-y-1 pl-5"><li>Deliver a three-year &apos;Shifting the Dial on Gender Segregation&apos; action and evaluation agenda</li><li>Introduce early career learning into schools to intervene earlier in gendered study choices</li><li>Embed gender targets and reporting across future National Skills Agreements</li><li>Coordinate national action to reduce gender segregation in VET pathways for shortage occupations</li><li>Support First Nation women through a standalone economy-wide plan</li><li>Accelerate inclusive, safe and respectful workplaces and training settings</li><li>Normalise men&apos;s participation in paid and unpaid care work</li><li>Adopt the Gender Segregation Intensity Scale (GSIS) to guide and measure progress</li><li>Further address gender bias in labour market and skills frameworks</li><li>Expand research, data and intersectional analysis to strengthen accountability</li></ol><p>This study informed Public Skills Australia&apos;s approach to the 2026 Public Safety Workforce Insights Report by ensuring that stakeholder consultations considered any workforce challenges that may be linked to women&apos;s economic equality or participation in Public Safety occupations. Public Skills Australia will utilise the GSIS in future work, where relevant, to provide important insight on gender trends in Public Safety occupations.</p></div>}
           {active === 13 && <div className="mt-5 space-y-4 text-sm leading-6 text-[#535862]"><h3 className="text-xl font-semibold leading-7 text-[#598303]">Jobs and Skills Australia / Ongoing</h3><p>The Occupational Shortage List (OSL), which was formerly the Skills Priority List, offers an annual point-in-time review of the status of Australian occupations. Specifically, the OSL reports on whether occupations (at the 4-digit and 6-digit ANZSCO level, and the 6-digit OSCA level) are experiencing shortages nationally and for each State and Territory in regional or metropolitan areas.</p><p>The OSL was last updated in 2025. The latest OSL differed from previous iterations due to the fact that in 2024 the ANZSCO classification framework for occupations was replaced with the OSCA framework. In terms of the 2025 OSL results, it was reported that 29 per cent of occupations (293 out of 1022 assessed) were in national shortage, which was 4 per cent lower than 2024 (33 per cent), and more than 7 per cent lower than 2023 (36 per cent). The OSL in 2025 also added 29 occupations newly in shortage compared to 2024, most of which were roles related to health, science, technicians and trades and machinery operators and drivers. As at February 2026, JSA had started the 2026 OSL survey but it had not yet confirmed a publication date for this year&apos;s list.</p><p>The OSL provided important context for stakeholder consultation preparation for the 2026 Public Safety Workforce Insights Report. This list indicates on a national level where specific occupation demands currently exist and enabled Public Skills Australia to proactively pursue conversations with Public Safety stakeholders on whether these demands exist within their contexts.</p></div>}
         </div>
-      </article>
+      </article></ReportSelectionPanel>
     </section>
   </PublicSafetyPageShell>;
 }

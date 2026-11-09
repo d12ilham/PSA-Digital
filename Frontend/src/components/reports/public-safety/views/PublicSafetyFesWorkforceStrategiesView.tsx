@@ -68,7 +68,7 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
       </button>
     </div>
     <h2>{strategy.title}</h2>
-    <p className={styles.meta}>Workforce Insight: {strategy.insight} · JSC Function: {strategy.jsc}</p>
+
     <div id={`${id}-detail`} hidden={!open}>
       <div className={`${layout.details} ${styles.details} animate-content-switch`}>
         <dl>

@@ -1,4 +1,6 @@
 "use client";
+
+import ReportSelectionPanel from "./ReportSelectionPanel";
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -192,7 +194,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
         </div>
       </div>
 
-      <article id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
+      <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
         <div className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · {strategy.owner}</span>
           <div className={`${layout.controls} ${styles.controls}`}>
@@ -218,7 +220,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
             ))}
           </div>
         </div>
-      </article>
+      </article></ReportSelectionPanel>
     </section>
   </PublicSafetyPageShell>;
 }

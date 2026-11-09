@@ -29,7 +29,7 @@ export default function PublicSafetyPoliceWorkforceStrategiesView({ slug, report
     <section className={`${layout.strategy} ${styles.strategy} ${chapter.enter}`}>
       <span className={`${layout.badge} ${styles.badge}`}>Strategy 1</span>
       <h2>Develop Training Products for Digital Forensics</h2>
-      <p className={styles.summary}>Workforce Insight: Digital Forensics · JSC Function: Training Product Development</p>
+
 
       <div className={`${layout.details} ${styles.details}`}>
         <dl>

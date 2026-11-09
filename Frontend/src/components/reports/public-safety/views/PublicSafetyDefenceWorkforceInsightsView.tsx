@@ -31,15 +31,15 @@ const themes = [
     title: "2. Transitioning Veterans",
     insights: [
       {
-        number: "3",
+        number: "1",
         href: "defence_transitioning_veterans",
-        label: "Theme Two, Insight Three",
+        label: "Theme Two, Insight One",
         text: "The Vocational Education and Training (VET) system remains important for the ADF as it provides a national standard, with meaningful qualifications written by industry, for industry.",
       },
       {
-        number: "4",
+        number: "2",
         href: "defence_transitioning_veterans_2",
-        label: "Theme Two, Insight Four",
+        label: "Theme Two, Insight Two",
         text: "Greater focus is required to support those transitioning (including veterans) to articulate the transferability of their VET qualifications and the relevance of their ADF experience to the civilian workforce. Where support is available, the information provided could be bolstered.",
       },
     ],

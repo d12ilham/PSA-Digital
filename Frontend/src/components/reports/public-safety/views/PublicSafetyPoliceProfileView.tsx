@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceLink, { policeWorkforceSourceUrl } from "./PublicSafetySourceLink";
+
 import { ArrowRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -128,7 +130,7 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
             </div>
           </div>}
           {active === 0 ? <FirstNationsChart animationKey={animationKey}/> : active === 1 ? <FemaleGenderChart animationKey={animationKey}/> : <PoliceEmployeesMap animationKey={animationKey}/>}
-          <figcaption data-source-caption>Source: Productivity Commission, Police services, Table 6A.2, 2026</figcaption>
+          <figcaption data-source-caption><PublicSafetySourceLink href={policeWorkforceSourceUrl}>Source: Productivity Commission, Police services, Table 6A.2, 2026</PublicSafetySourceLink></figcaption>
           {active === 2 && <div className={`${library.chartControls} ${styles.mapReplay}`}>
             <button type="button" onClick={() => select(active - 1)}><ChevronLeft aria-hidden="true" /> Prev</button>
             <button type="button" onClick={() => select(0)}>Next <ChevronRight aria-hidden="true" /></button>

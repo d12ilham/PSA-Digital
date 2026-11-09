@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
@@ -144,10 +146,10 @@ export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { s
           ))}
         </div>
       </div>
-      <div id="fes-update-projects" className={styles.panels}>
+      <ReportSelectionPanel selection={expanded ? -1 : active} label="Fire and Emergency Services project details"><div id="fes-update-projects" className={styles.panels}>
         {expanded ? projects.map((project, index) => <ProjectPanel key={project.title} index={index} />)
           : <ProjectPanel index={active} onSelect={selectProject} />}
-      </div>
+      </div></ReportSelectionPanel>
     </section>
   </PublicSafetyPageShell>;
 }

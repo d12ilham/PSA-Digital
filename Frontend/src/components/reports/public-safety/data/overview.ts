@@ -5,7 +5,7 @@ export const PUBLIC_SAFETY_SECTIONS = [
   { title: "Defence", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "defence", icon: "/images/reports/introduction/Insights.svg", accent: "#D7A32A", sector: "defence" },
   { title: "Fire and Emergency Services", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "fes", icon: "/images/reports/introduction/Strategies.svg", accent: "#C9481A", sector: "fire" },
   { title: "Police", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "police", icon: "/images/reports/introduction/Insights.svg", accent: "#0D71A3", sector: "police" },
-  { title: "2026 Proposed Cross Sector Strategies Summaries", path: "police_proposed_strategies_summary", icon: "/images/reports/introduction/Strategies.svg", accent: "#046D2A" },
+  { title: "2026 Proposed Cross Sector Strategies Summaries", description: "The six proposed Strategies, and other Strategies informing these.", path: "police_proposed_strategies_summary", icon: "/images/reports/introduction/Strategies.svg", accent: "#046D2A" },
   { title: "2027 and Beyond", description: "The future lines of enquiry and priorities for the next reports.", path: "looking_forward", icon: "/images/reports/introduction/Summary.svg", accent: "#046D2A" },
 ] as const;
 
@@ -24,7 +24,7 @@ export const PUBLIC_SAFETY_AT_A_GLANCE = [
   },
   {
     metrics: [
-      { value: "7", label: "industry insights across all the Public Safety industry-sectors" },
+      { value: "12", label: "industry insights across all the Public Safety industry-sectors" },
     ],
   },
   {

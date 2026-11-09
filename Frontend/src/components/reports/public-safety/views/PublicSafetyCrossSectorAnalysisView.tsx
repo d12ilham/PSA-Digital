@@ -124,6 +124,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
         </div>
       </section>
 
+      <p className={styles.analysisInstruction}>Select ‘view’ to explore cross-industry skills in detail.</p>
       <section ref={linksRef} className={styles.analysisLinks} aria-label="Cross-sector analysis sections">
         {analysisLinks.map((item, index) => (
           <article key={item.number} style={{ animationDelay: (index * 0.12 + 0.1) + "s" }} className={styles.analysisCard + " " + (linksVisible ? styles.enter : styles.pending)}>

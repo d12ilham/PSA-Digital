@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import styles from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
@@ -57,7 +59,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
           </button>)}
         </div>
       </div>
-      <article id="defence-project-panel" className={styles.panel} aria-labelledby="defence-project-heading">
+      <ReportSelectionPanel selection={active} label="Defence project details"><article id="defence-project-panel" className={styles.panel} aria-labelledby="defence-project-heading">
         <div className={styles.panelHeader}>
           <span className={styles.badge}>{project.number} · Completion: {project.completion}</span>
           <div className={styles.controls}>
@@ -94,7 +96,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
             </section>
           </div>
         </div>
-      </article>
+      </article></ReportSelectionPanel>
     </section>
 
     <section data-report-sources className={sourceStyles.sources}>

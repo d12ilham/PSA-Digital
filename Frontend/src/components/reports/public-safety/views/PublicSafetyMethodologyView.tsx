@@ -101,8 +101,7 @@ export default function PublicSafetyMethodologyView({ slug, report }: { slug: st
           <div className="grid gap-5 xl:min-h-[368px] xl:grid-cols-3">
             {governanceSteps.map((item, index) => (
               <article key={item.step} style={governanceVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`group min-w-0 break-words rounded-lg border border-transparent bg-[#F0F5DF] p-5 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:scale-[1.01] hover:border-[#728C28] hover:bg-white hover:shadow-xl sm:p-8 ${governanceVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-                <span className="block text-xs font-medium leading-6 text-[#046D2A]">{item.step}</span>
-                <h3 className="mt-5 text-base font-bold leading-7 text-[#252D02] transition-colors duration-300 group-hover:text-[#046D2A]">{item.title}</h3>
+                <h3 className="text-xl font-bold leading-7 text-[#252D02] transition-colors duration-300 group-hover:text-[#046D2A]">{index + 1} · {item.title}</h3>
                 <div className="mt-2 space-y-2 text-sm leading-6 text-[#535862]">
                   {item.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>
@@ -116,7 +115,7 @@ export default function PublicSafetyMethodologyView({ slug, report }: { slug: st
             <Image src="/images/reports/methodology/Data-sources-bottom.svg" alt="" width={100} height={100} className={`h-[100px] w-[100px] shrink-0 transition-transform duration-500 hover:scale-110 ${dataVisible ? "animate-zoom-in" : "opacity-0"}`} />
             <div className="min-w-0 w-full max-w-[1268px] sm:flex-1">
               <h2 className="text-xl font-bold leading-7 text-[#252D02]">Data sources</h2>
-              <div className="mt-3 flex max-w-[800px] flex-wrap gap-1">
+              <div className="mt-3 flex max-w-full flex-wrap gap-1">
                 {primarySources.map((source) => <span key={source} className="max-w-full break-words rounded-full bg-[#F0F5DF] px-3 py-1 text-xs font-bold leading-[18px] text-[#598303] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E4EDCA] hover:shadow-sm">{source}</span>)}
               </div>
               <p className="mt-3 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">

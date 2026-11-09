@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -94,7 +96,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
         </div>
       </div>
 
-      <article className={`${layout.panel} ${styles.panel}`}>
+      <ReportSelectionPanel selection={active} label="Police project details"><article className={`${layout.panel} ${styles.panel}`}>
         <div className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · Completion: {project.completion}</span>
           <div className={layout.controls}>
@@ -143,7 +145,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             ))}
           </div>
         </div>
-      </article>
+      </article></ReportSelectionPanel>
     </section>
   </PublicSafetyPageShell>;
 }

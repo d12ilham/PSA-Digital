@@ -6,14 +6,14 @@
 .page .heroCopy { max-width: 950px; min-width: 0; }
 .heroCopy p { max-width: 800px; }
 .page .badge { background: var(--police-blue); }
-.page .projectButton small { color: var(--police-blue); font-weight: 500; }
+.page .projectButton small { color: #000; font-weight: 500; }
 .page .projectButton[aria-pressed="true"] { outline-color: var(--police-blue); background: #e7f1f6; }
 .page .panel, .page .note { background: var(--police-panel); }
 .page .note { border-left-color: var(--police-blue); }
 .page .stakeholders { margin-top: 24px; }
 .page .note h4 { font-weight: 500; }
 .page .panel .subheading, .page .panel .update, .informs {
-  color: var(--police-blue);
+  color: #000;
   font-size: 20px;
   font-weight: 600;
   line-height: 28px;
@@ -34,3 +34,5 @@
   .page > :first-child button:nth-child(3) { width: 424px; }
   .page > :first-child button:nth-child(4) { width: 400px; }
 }
+
+.page :is(h1, h2, h3, h4, h5), .page .panel :is(.subheading, .update), .page .informs, .page .projectButton :is(small, strong) { color: #000; }

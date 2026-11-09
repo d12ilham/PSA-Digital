@@ -117,3 +117,7 @@
   .pending { opacity: 1; transform: none; }
   .themeCard:hover, .analysisCard:hover, .interoperability:hover, .diagram:hover img { transform: none; }
 }
+
+.analysisInstruction { color: #252d02; font-size: 18px; font-weight: 700; line-height: 28px; }
+
+.themes { background: #f0f5df; }

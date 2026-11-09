@@ -22,14 +22,14 @@ const themes = [
     eyebrow: "Theme 2 · 1 insight",
     title: "2. Surf Life Saving First Aid",
     insights: [
-      { number: "4", href: "fes_surf_life_saving_first_aid", label: "Theme Two, Insight Four", text: "The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers." },
+      { number: "1", href: "fes_surf_life_saving_first_aid", label: "Theme Two, Insight One", text: "The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers." },
     ],
   },
   {
     eyebrow: "Theme 3 · 1 insight",
     title: "3. Hazardous Materials",
     insights: [
-      { number: "5", href: "fes_hazardous_materials", label: "Theme Three, Insight Five", text: "Incidents involving hazardous materials are becoming increasingly important while current training may be limiting in some Fire and Emergency Services organisations ability to deliver this type of service." },
+      { number: "1", href: "fes_hazardous_materials", label: "Theme Three, Insight One", text: "Incidents involving hazardous materials are becoming increasingly important while current training may be limiting in some Fire and Emergency Services organisations ability to deliver this type of service." },
     ],
   },
 ];

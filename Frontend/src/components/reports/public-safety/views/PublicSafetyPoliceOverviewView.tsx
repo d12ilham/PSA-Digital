@@ -1,5 +1,9 @@
 "use client";
 
+import PublicSafetySourceLink, { policeWorkforceSourceUrl } from "./PublicSafetySourceLink";
+
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Image from "next/image";
 import { useId, useState } from "react";
@@ -54,7 +58,7 @@ function NationalWorkforceChart() {
     </div>
     <figcaption data-source-caption>
       <p>NOTE: Vertical lines represent the COVID-19 period</p>
-      <p data-source-caption>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+      <p data-source-caption><PublicSafetySourceLink href={policeWorkforceSourceUrl}>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</PublicSafetySourceLink></p>
     </figcaption>
   </figure>;
 }
@@ -111,7 +115,7 @@ function JurisdictionChartLibrary() {
             </button>
           ))}
         </div>
-        <figure className={`${styles.presentation} ${selected === 0 ? styles.actPresentation : ""}`}>
+        <ReportSelectionPanel selection={selected} label="Police jurisdiction presentation"><figure className={`${styles.presentation} ${selected === 0 ? styles.actPresentation : ""}`}>
           <div className={styles.presentationHeader}>
             <div aria-live="polite">
               <p className={styles.presenting}>Presenting · {selected + 1} of {count} · Selected from the list</p>
@@ -155,9 +159,9 @@ function JurisdictionChartLibrary() {
           </div>
           <figcaption data-source-caption>
             <p>NOTE: Dotted vertical lines represent the COVID-19 period</p>
-            <p data-source-caption>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</p>
+            <p data-source-caption><PublicSafetySourceLink href={policeWorkforceSourceUrl}>SOURCE: Productivity Commission, Police services, Table 6A.2, 2026</PublicSafetySourceLink></p>
           </figcaption>
-        </figure>
+        </figure></ReportSelectionPanel>
       </div>
     </div>
   );
@@ -212,7 +216,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
               </button>
               <div id={`${panelId}-${index}`} hidden={!isOpen}>
                 {isOpen && <div className={`${chapter.enter} ${index === 0 ? styles.national : styles.jurisdiction}`}>
-                  <p className={styles.prose}>{item.copy}<sup>{index === 0 ? 67 : 68}</sup></p>
+                  <p className={styles.prose}>{item.copy}<sup><a href={`#police-overview-source-${index === 0 ? 67 : 68}`} aria-label={`Source ${index === 0 ? 67 : 68}`}>{index === 0 ? 67 : 68}</a></sup></p>
                   {index === 0 ? <NationalWorkforceChart /> : <JurisdictionChartLibrary />}
                 </div>}
               </div>
@@ -224,7 +228,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
       <section data-report-sources className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
         <h2>Sources</h2>
         <ol className={styles.sources} start={67}>
-          {sources.map((source, index) => <li key={source}><span aria-hidden="true">{index + 67}</span>{source}</li>)}
+          {sources.map((source, index) => <li id={`police-overview-source-${index + 67}`} key={source}><span aria-hidden="true">{index + 67}</span><span>{index === 0 ? <PublicSafetySourceLink href={policeWorkforceSourceUrl}>{source}</PublicSafetySourceLink> : source}</span></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

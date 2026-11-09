@@ -1,5 +1,7 @@
 "use client";
 
+import ReportSelectionPanel from "./ReportSelectionPanel";
+
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -55,11 +57,12 @@ function HeadcountChart() {
               <text x={551} y={item.rightLabelY}>{item.current.toLocaleString("en-AU")}</text>
               <text x={597.5} y={item.rightLabelY} className={styles.changeLabel}>▲ {item.change}</text>
             </g>
-            <text x={551} y={item.nameY} className={styles.seriesName}>{item.name}</text>
+
           </g>)}
           <g className={styles.yearLabels} aria-hidden="true"><text x={151} y={400} textAnchor="middle">2024</text><text x={541} y={400} textAnchor="middle">2025</text></g>
         </svg>
       </div>
+      <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
       <p data-source-caption className={styles.headcountSource}>SOURCE: Defence Annual Report 2024-25, 2025 &amp; Defence Annual Report 2023-24, 2024</p>
     </div>
   </section>;
@@ -93,11 +96,12 @@ function SeparationChart() {
               <text x={153.28} y={item.leftLabelY} textAnchor="end">{item.previous.toFixed(1)}%</text>
               <text x={item.rightX} y={item.rightLabelY}>{item.current.toFixed(1)}%</text>
             </g>
-            <text x={item.rightX} y={item.nameY} className={`${styles.seriesName} ${styles.separationSeriesName}`}>{item.name}</text>
+
           </g>)}
           <g className={styles.yearLabels} aria-hidden="true"><text x={165} y={426.43} textAnchor="middle">2024</text><text x={565.25} y={426.43} textAnchor="middle">2025</text></g>
         </svg>
       </div>
+      <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
       <p data-source-caption className={styles.separationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
     </div>
   </section>;
@@ -168,12 +172,13 @@ function FirstNationsChart() {
             <text x={155} y={y(item.previous) - 14}>{item.previous.toFixed(1)}%</text>
             <text x={605} y={y(item.current) + item.valueOffset}>{item.current.toFixed(1)}%</text>
           </g>
-          <text x={item.nameX} y={y(item.current) + item.nameOffset} className={styles.seriesName}>{item.name}</text>
+
         </g>)}
         <g className={styles.yearLabels} aria-hidden="true"><text x={188.64} y={523.5} textAnchor="middle">2024</text><text x={619.265} y={523.5} textAnchor="middle">2025</text></g>
         <text data-source-caption x={28} y={575} className={styles.genderSource}>SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025</text>
       </svg>
     </div>
+    <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
   </section>;
 }
 
@@ -268,8 +273,6 @@ function OperationsChart() {
       <svg viewBox="0 0 928 556" width={928} height={556} className={styles.operationsMap} role="img" aria-labelledby="defence-operations-title" aria-describedby="defence-operations-description">
         <desc id="defence-operations-description">{operations.map(({ names, place }) => `${place}: ${names.join(place === "Hawaii" || place === "Antarctica" ? " " : ", ")}`).join(". ")}</desc>
         <image href={map} x={-83} y={-29} width={990.85} height={625.765} />
-        <text x={0} y={14} fill="#1d1d1d" fontSize={8}>List of Operations and Activities Undertaken by the Australian Defence Force</text>
-        <text x={0} y={27} fill="#1d1d1d" fontSize={8}>Throughout 2024 and 2025</text>
         <g fill="none" stroke="#1a2d15" strokeWidth={1.65} strokeLinejoin="round">
           {connectorPaths.map((path, index) => <path key={index} d={path} />)}
         </g>
@@ -289,8 +292,6 @@ function OperationsChart() {
             <tspan x={x + 4.5} dy={14} fill="#fff" fontSize={10}>{place}</tspan>
           </text>
         </g>)}
-        <text x={0} y={535} fill="#222" fontSize={6}>{note}</text>
-        <text data-source-caption x={0} y={546} fill="#222" fontSize={6}>Source: {source}</text>
       </svg>
     </div>
     <p className={styles.operationsNote}>{note}</p>
@@ -332,7 +333,7 @@ export default function PublicSafetyDefenceProfileView({ slug, report }: { slug:
             <span className={styles.chartArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.5} /></span>
           </button>)}
         </div>
-        <div id="defence-profile-presentation" className={styles.activeChart} role="region" aria-labelledby={`defence-profile-chart-${active}`}><ActiveChart key={active} active={active} /></div>
+        <ReportSelectionPanel selection={active} label="Defence profile presentation"><div id="defence-profile-presentation" className={styles.activeChart} role="region" aria-labelledby={`defence-profile-chart-${active}`}><ActiveChart key={active} active={active} /></div></ReportSelectionPanel>
       </div>
     </section>
   </PublicSafetyPageShell>;

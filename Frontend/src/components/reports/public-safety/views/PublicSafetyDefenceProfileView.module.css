@@ -42,18 +42,19 @@
 .yearLabels { fill: #171e0a; font-size: 12px; font-weight: 700; }
 .headcountSeries { transition: opacity .25s; }
 .headcountSeries:focus-visible { outline: 1px solid #598303; outline-offset: 4px; }
-.headcountSource { margin-top: 25px; padding-inline: 20px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.headcountSource { margin-top: 25px; padding-inline: 20px; color: #000; font-size: 14px; font-weight: 600; line-height: 24px; }
 .separationPanel { min-height: 645px; padding: 73px 0 25px; }
 .separationContent .presentationLabel, .separationContent .headcountTitle { padding-inline: 32px; }
 .separationViewport { width: 670px; max-width: 100%; margin-top: 24px; }
 .separationPlot { display: block; width: 670px; max-width: none; height: 448px; overflow: visible; font-family: inherit; }
 .separationSeriesName { fill: #161c0f; }
-.separationSource { margin-top: 3px; padding-inline: 32px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
+.separationSource { margin-top: 3px; padding-inline: 32px; color: #000; font-size: 14px; font-weight: 600; line-height: 24px; text-transform: uppercase; }
 .genderPanel { min-height: 682px; padding: 41px; }
 .genderViewport { width: 708px; max-width: 100%; margin-inline: auto; overflow-x: auto; }
 .genderViewport:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
 .genderPlot { display: block; width: 708px; max-width: none; height: 600px; font-family: inherit; }
-.genderPresentationLabel, .genderSource { fill: #598303; font-size: 14px; font-weight: 600; }
+.genderPresentationLabel { fill: #598303; font-size: 14px; font-weight: 600; }
+.genderSource { fill: #000; font-size: 14px; font-weight: 600; }
 .genderTitle { fill: #151d09; font-size: 18px; font-weight: 700; }
 .genderAxisLabel { fill: #1e250f; font-size: 12px; font-weight: 700; }
 .genderBar { transform-box: fill-box; transform-origin: left center; transition: filter .25s; }
@@ -89,10 +90,11 @@
 .locationStat span { display: block; color: #535862; font-size: 14px; font-weight: 600; line-height: 24px; }
 .locationPrompt { margin-top: 8px; font-size: 14px; line-height: 24px; }
 .locationNote { max-width: 600px; margin-top: 24px; font-size: 14px; font-weight: 400; line-height: 24px; }
-.locationSource { margin-top: 24px; color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.locationSource { margin-top: 24px; color: #000; font-size: 14px; font-weight: 600; line-height: 24px; }
 .operationsPanel { display: grid; gap: 24px; min-width: 0; padding: 24px; border-radius: 4px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; box-shadow: 0 1px 2px #0000000d; }
 .operationsHeader { display: grid; gap: 15.75px; padding-bottom: 4px; }
-.operationsHeader p, .operationsSource { color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.operationsHeader p { color: #598303; font-size: 14px; font-weight: 600; line-height: 24px; }
+.operationsSource { color: #000; font-size: 14px; font-weight: 600; line-height: 24px; }
 .operationsHeader p { text-transform: uppercase; }
 .operationsHeader h2 { color: #151d09; font-size: 18px; font-weight: 700; line-height: 24px; }
 .operationsViewport { min-width: 0; overflow-x: auto; padding: 20px 20px 11px; }
@@ -154,3 +156,8 @@
   .page :global(.animate-profile-chart-line), .page :global(.animate-radar-point) { opacity: 1; stroke-dashoffset: 0; transform: none; }
   .page .artwork:hover img, .page .chartButton:hover, .page .chartButton:hover .chartArrow svg, .page .locationControls button:hover, .page .locationStat:hover { transform: none; }
 }
+
+
+.seriesLegend { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 12px 20px; color: #000; font-size: 14px; line-height: 24px; }
+.seriesLegend li { display: inline-flex; align-items: center; gap: 8px; }
+.seriesLegend li span { width: 24px; height: 4px; border-radius: 2px; }
