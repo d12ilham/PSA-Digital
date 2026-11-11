@@ -2,11 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Download } from "lucide-react";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import PublicSafetyPageShell, { PublicSafetyEyebrow, type PublicSafetyReport } from "./PublicSafetyPageShell";
-import { PUBLIC_SAFETY_AT_A_GLANCE, PUBLIC_SAFETY_SECTIONS } from "../data/overview";
+import { PREVIOUS_PUBLIC_SAFETY_REPORT_URL, PUBLIC_SAFETY_AT_A_GLANCE, PUBLIC_SAFETY_SECTIONS } from "../data/overview";
 
 const sectorTagColours: Record<string, string> = {
   defence: "bg-[#FFF7DA] text-[#946800]",
@@ -35,11 +36,11 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
     <PublicSafetyPageShell slug={slug} report={report} currentPage="introduction">
       <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
         <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-[100px]">
-          <div className="flex flex-1 flex-col justify-between space-y-6">
+          <div className="flex min-w-0 flex-1 flex-col justify-between space-y-6">
             <div>
               <div className="animate-slide-up">
                 <PublicSafetyEyebrow>INTRODUCTION</PublicSafetyEyebrow>
-                <h1 className="mt-4 max-w-[623px] text-3xl font-bold leading-tight text-[#252D02] sm:text-4xl">
+                <h1 className="mt-4 text-3xl font-bold leading-tight text-[#252D02] sm:text-4xl">
                   2026 Public Safety Workforce Insights Report
                 </h1>
               </div>
@@ -49,12 +50,16 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
                 <p>Choose to download the PDF report or read on to our interactive digital version.</p>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <button type="button" onClick={() => router.push(`/reports/${slug}/downloads`)} className="flex h-10 items-center gap-2 rounded-full bg-[#046D2A] px-5 text-xs font-bold text-white hover:bg-[#035A23]">
-                Download 2026 PDF <Download className="h-3.5 w-3.5" />
-              </button>
-              <button type="button" onClick={() => router.push(`/reports/${slug}/about`)} className="h-10 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-xs font-bold text-[#252D02]">About Public Skills Australia</button>
-              <button type="button" onClick={() => router.push(`/reports/${slug}/methodology`)} className="h-10 rounded-full border border-[#B2DB79] bg-white px-5 text-xs font-bold text-[#252D02]">Methodology</button>
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link href={`/reports/${slug}/downloads?from=${encodeURIComponent(`/reports/${slug}/introduction`)}`} className="inline-flex items-center gap-2 rounded-full bg-lg-dark px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#046D2A]">
+                Download 2026 PDF <Download className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+              <a href={PREVIOUS_PUBLIC_SAFETY_REPORT_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2.5 text-xs font-bold text-notes transition-colors hover:bg-gray-50">
+                Previous Report
+              </a>
+              <a href={report.psaSectorPageUrl || "https://publicskillsaustralia.org.au/workforce-plans"} target="_blank" rel="noopener noreferrer" className="rounded-full border border-gray200 bg-white px-5 py-2.5 text-xs font-bold text-[#252D02] transition-colors hover:bg-gray-50">
+                PSA Website
+              </a>
             </div>
           </div>
 
@@ -101,8 +106,15 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
           {PUBLIC_SAFETY_SECTIONS.map((section, index) => (
             <article key={section.title} onClick={() => router.push(`/reports/${slug}/${section.path}`)} style={isStructureVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`relative flex min-h-[388px] cursor-pointer flex-col overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white p-6 pt-[42px] transition-all duration-200 hover:border-2 hover:border-[#728C28] ${isStructureVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}>
               <span className="absolute inset-x-0 top-0 h-3" style={{ backgroundColor: section.accent }} />
-              <Image src={section.icon} alt="" width={64} height={64} className="absolute right-5 top-[30px] h-16 w-16 object-contain" />
-              <div className="max-w-[234px]">
+              {section.path === "looking_forward" ? (
+                <div className="pointer-events-none absolute right-5 top-[30px] size-16 overflow-hidden rounded-full">
+                  {/* The PowerPoint image has a 48 px badge inset by 16 px and 10 px. */}
+                  <Image src={section.icon} alt="" width={97} height={100} className="h-auto w-[97.33px] max-w-none -translate-x-[21.33px] -translate-y-[13.33px]" />
+                </div>
+              ) : (
+                <Image src={section.icon} alt="" width={64} height={section.path === "defence" ? 212 : 64} className="absolute right-5 top-[30px] h-auto w-16 object-contain" />
+              )}
+              <div className={section.path === "defence" ? "pr-[72px]" : "max-w-[234px]"}>
                 <h3 className="pr-4 text-base font-bold leading-7 text-[#252D02]">{section.title}</h3>
                 {"subtitle" in section && section.subtitle && <p className="mt-3 text-xs font-medium leading-[18px] text-[#598303]">{section.subtitle}</p>}
                 {"description" in section && section.description && <p className="mt-3 text-xs leading-6 text-[#535862]">{section.description}</p>}

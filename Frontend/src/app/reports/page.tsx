@@ -70,7 +70,7 @@ const SECTOR_REPORTS = [
     sectorKey: "Public Safety",
     badgeText: "PUBLIC SAFETY",
     title: "2026 Public Safety Workforce Insights Report",
-    coverImage: "/images/reports/sector-card-public-safety.png",
+    coverImage: "/images/reports/public-safety-card-background.webp",
     targetUrl: "/reports/public-safety-wir-2026",
   },
   {
@@ -495,10 +495,27 @@ export default function ReportsArchivePage() {
                 key={sector.id}
                 href={matched ? `/reports/${matched.slug}` : sector.targetUrl}
                 style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
-                className="animate-card-entrance block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
+                className="animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
                 aria-label={`View ${sector.title}`}
               >
-                <img src={sector.coverImage} alt="" className="block h-full w-full" />
+                <img
+                  src={sector.coverImage}
+                  alt=""
+                  className={sector.id === "public-safety"
+                    ? "block h-full w-full object-cover object-[50%_58%]"
+                    : "block h-full w-full"}
+                />
+                {sector.id === "public-safety" && (
+                  <div className="absolute inset-0 flex flex-col items-start justify-between p-3 text-[#1B240E] sm:p-4">
+                    <div className="leading-tight">
+                      <h3 className="text-base font-extrabold">2026 Public Safety</h3>
+                      <p className="text-xs font-bold">Workforce Insights Report</p>
+                    </div>
+                    <span className="rounded-full bg-[#85CC00] px-4 py-1.5 text-xs font-bold">
+                      View
+                    </span>
+                  </div>
+                )}
               </Link>;
             })}
           </div>

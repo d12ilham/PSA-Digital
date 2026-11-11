@@ -57,6 +57,9 @@
 .sources li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; color: #252d02; font-size: 14px; line-height: 24px; }
 .sourceNumber { display: inline-flex; align-items: center; justify-content: center; height: 20px; margin-top: 2px; border-radius: 50%; background: #598303; color: white; font-size: 14px; line-height: 20px; }
 .sources li { scroll-margin-top: 84px; }
+.sourceLink { color: #000; text-decoration: underline; text-underline-offset: 3px; }
+.sourceLink:hover { text-decoration-thickness: 2px; }
+.sourceLink:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
 @media (max-width: 1439px) {
   .hero { padding-right: 24px; }
   .driverGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

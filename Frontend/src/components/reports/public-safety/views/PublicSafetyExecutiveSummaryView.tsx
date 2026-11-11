@@ -134,9 +134,9 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
-          <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
         </div></SectionHeading></div>
         <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 import styles from "./PublicSafetyDriverDetailView.module.css";
@@ -62,11 +62,59 @@ const megatrends = [
 const megatrendsSummary = "These megatrends were identified in previous Workforce Insights Reports and will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors.";
 
 const sources = [
-  ["3", "Australian Government Department of Home Affairs, Organisational Resilience: Good Practice Guide, Australian Government Department of Home Affairs, 2024, accessed 25 February 2026."],
-  ["4", "Productivity Commission, Five pillars of productivity inquiries – final reports, Productivity Commission, 2025, accessed 13 February 2026."],
-  ["5", "Productivity Commission, Five pillars of productivity inquiries, Productivity Commission, 2025, accessed 25 February 2026."],
-  ["6", "Australian Government Department of Finance, National framework for the assurance of artificial intelligence in government, Australian Government Department of Finance, 2024, accessed 25 February 2026; Australian Government Digital Transformation Agency, Policy for the responsible use of AI in government, Australian Government Digital Transformation Agency, 2025, accessed 25 February 2026."],
-  ["7", "Australian Security Intelligence Organisation (ASIO), Director-General’s Annual Threat Assessment 2025, ASIO, 2025, accessed 25 February 2026."],
+  {
+    number: "3",
+    citations: [{
+      author: "Australian Government Department of Home Affairs",
+      title: "Organisational Resilience: Good Practice Guide",
+      href: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf",
+      details: "Australian Government Department of Home Affairs, 2024, accessed 25 February 2026",
+    }],
+  },
+  {
+    number: "4",
+    citations: [{
+      author: "Productivity Commission",
+      title: "Five pillars of productivity inquiries – final reports",
+      href: "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/",
+      details: "Productivity Commission, 2025, accessed 13 February 2026",
+    }],
+  },
+  {
+    number: "5",
+    citations: [{
+      author: "Productivity Commission",
+      title: "Five pillars of productivity inquiries",
+      href: "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/",
+      details: "Productivity Commission, 2025, accessed 25 February 2026",
+    }],
+  },
+  {
+    number: "6",
+    citations: [
+      {
+        author: "Australian Government Department of Finance",
+        title: "National framework for the assurance of artificial intelligence in government",
+        href: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government",
+        details: "Australian Government Department of Finance, 2024, accessed 25 February 2026",
+      },
+      {
+        author: "Australian Government Digital Transformation Agency",
+        title: "Policy for the responsible use of AI in government",
+        href: "https://www.digital.gov.au/ai/ai-in-government-policy",
+        details: "Australian Government Digital Transformation Agency, 2025, accessed 25 February 2026",
+      },
+    ],
+  },
+  {
+    number: "7",
+    citations: [{
+      author: "Australian Security Intelligence Organisation (ASIO)",
+      title: "Director-General’s Annual Threat Assessment 2025",
+      href: "https://www.asio.gov.au/resources/speeches-and-statements/director-generals-annual-threat-assessment-2025",
+      details: "ASIO, 2025, accessed 25 February 2026",
+    }],
+  },
 ];
 
 export default function PublicSafetyDriverDetailView({ slug, report, pageType }: { slug: string; report: PublicSafetyReport; pageType?: string }) {
@@ -192,9 +240,15 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
 
       <section data-report-sources ref={sourcesSectionRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
         <h2>Sources</h2>
-        <ol>{sources.map(([number, source], index) => (
+        <ol>{sources.map(({ number, citations }, index) => (
           <li key={number} id={`driver-source-${number}`} style={{ animationDelay: `${index * 0.08 + 0.15}s` }} className={sourcesVisible ? "animate-card-entrance" : "opacity-0"}>
-            <span className={styles.sourceNumber}>{number}</span><span>{source}</span>
+            <span className={styles.sourceNumber}>{number}</span>
+            <span>{citations.map((citation, citationIndex) => (
+              <Fragment key={citation.href}>
+                {citationIndex > 0 && "; "}
+                {citation.author}, <a href={citation.href} target="_blank" rel="noopener noreferrer" className={styles.sourceLink}>{citation.title}</a>, {citation.details}
+              </Fragment>
+            ))}.</span>
           </li>
         ))}</ol>
       </section>

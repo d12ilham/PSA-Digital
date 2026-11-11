@@ -273,7 +273,7 @@ export default function ReportLandingPage({
               industry-sectors - with cross-sector analysis of the skills that
               connect them.
             </p>
-            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[800px] text-[15px] font-semibold leading-5 text-[#648605] sm:text-base">
+            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[800px] text-[15px] font-semibold leading-5 text-black sm:text-base">
               Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
             </p>
           </section>
@@ -315,7 +315,7 @@ export default function ReportLandingPage({
             ))}
           </section>
 
-          <p className="mt-5 text-[15px] font-semibold text-[#648605] sm:text-base">
+          <p className="mt-5 text-[15px] font-semibold text-black sm:text-base">
             Or go straight to a sector chapter
           </p>
 
