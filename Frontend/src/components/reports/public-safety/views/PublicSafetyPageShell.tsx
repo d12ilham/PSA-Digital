@@ -14,7 +14,7 @@ export interface PublicSafetyReport {
   year?: { label: string };
 }
 
-export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation, contentClassName = "" }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; contentClassName?: string; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string; pagesOrder?: { key: string; label: string }[] } }) {
+export default function PublicSafetyPageShell({ slug, report, currentPage, children, navigation, contentClassName = "" }: { slug: string; report: PublicSafetyReport; currentPage: string; children: ReactNode; contentClassName?: string; navigation?: { back?: NavTarget; backSecondary?: NavTarget; prev?: NavTarget; next?: NavTarget; prevPrefix?: string; nextPrefix?: string; onPrevious?: () => void; pagesOrder?: { key: string; label: string }[] } }) {
   return (
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} currentPage={currentPage} />
@@ -28,6 +28,7 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
           backSecondary={navigation?.backSecondary}
           prevPrefix={navigation?.prevPrefix}
           nextPrefix={navigation?.nextPrefix}
+          onPrevious={navigation?.onPrevious}
           pagesOrder={navigation?.pagesOrder}
         />
         {children}
@@ -124,6 +125,13 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
     router.push(`/reports/${slug}/${path}`);
   };
 
+  const openDownloads = () => {
+    if (currentPage === "downloads") return;
+    const { pathname, search, hash } = window.location;
+    const query = new URLSearchParams({ from: pathname + search + hash });
+    navigate(`downloads?${query}`);
+  };
+
   const isActive = (item: MenuGroup) => item.matches?.(currentPage) ?? item.path === currentPage;
 
   return (
@@ -167,7 +175,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => navigate("downloads")} className="hidden h-9 cursor-pointer items-center gap-2 rounded-full bg-[#087D37] px-4 text-xs font-bold text-white transition-colors hover:bg-[#0A9141] sm:flex">
+          <button type="button" onClick={openDownloads} className="hidden h-9 cursor-pointer items-center gap-2 rounded-full bg-[#087D37] px-4 text-xs font-bold text-white transition-colors hover:bg-[#0A9141] sm:flex">
             Download {report.year?.label || "2026"} PDF <Download className="h-3.5 w-3.5" strokeWidth={2} />
           </button>
           <button

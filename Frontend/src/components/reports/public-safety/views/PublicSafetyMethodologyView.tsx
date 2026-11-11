@@ -121,7 +121,7 @@ export default function PublicSafetyMethodologyView({ slug, report }: { slug: st
               <p className="mt-3 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
                 The report uses publicly available datasets accessible from Jobs and Skills Australia (JSA), the Australian Bureau of Statistics (ABS), the National Centre for Vocational Education Research (NCVER) and other supporting online sources. Due to the complexity of large-scale workforce data, no single source provides an accurate or complete picture. Therefore, multiple data sources are used to provide the most accurate representation of the workforce as possible, supported by qualitative research (including interviews with stakeholders). This report prioritises the data source, or combination of data sources, that provide the most accurate representation of the workforce possible. This research was bolstered by literature reviews of government reports and documents, online sources, annual reports, departmental documentation, legislation, research articles and relevant Royal Commission Reports.
               </p>
-              <div className="mt-3 flex max-w-[800px] flex-wrap gap-1">
+              <div className="mt-3 flex max-w-full flex-wrap gap-1">
                 {supportingSources.map((source) => <span key={source} className="max-w-full break-words rounded-full border border-[#E9EAEB] bg-white px-[11px] py-[3px] text-xs font-bold leading-[18px] text-[#414651] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#728C28] hover:shadow-sm">{source}</span>)}
               </div>
             </div>

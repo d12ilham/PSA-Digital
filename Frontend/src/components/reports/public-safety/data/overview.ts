@@ -1,12 +1,15 @@
+export const PREVIOUS_PUBLIC_SAFETY_REPORT_URL =
+  "https://psa-directus-prod.azurewebsites.net/assets/8606dd9e-6351-4d5d-b595-2dcfdd27bf43";
+
 export const PUBLIC_SAFETY_SECTIONS = [
-  { title: "Executive Summary", subtitle: "The Public Safety industry-sectors on one page", description: "A concise, presentation-friendly view of the report story.", path: "executive_summary", icon: "/images/reports/introduction/Executive.svg", accent: "#D9B43B" },
+  { title: "Executive Summary", subtitle: "The Public Safety industry-sectors on one page", description: "A concise, presentation-friendly view of the report story.", path: "executive_summary", icon: "/images/reports/introduction/Executive.svg", accent: "#046D2A" },
   { title: "Drivers of Change", description: "Four key drivers of change and the nine megatrends shaping long-term workforce trends.", tags: ["Drivers of Change", "Nine Megatrends"], path: "drivers_of_change", icon: "/images/reports/introduction/Drivers.svg", accent: "#046D2A" },
   { title: "Cross-Sector Analysis", description: "Analyses themes consistent across all three public safety industry-sector.", tags: ["Cross-Sector Analysis Overview", "Cross-Sector Alignment", "Specialist Skill Alignment", "Skill Recognition"], path: "cross_sector_analysis", icon: "/images/reports/introduction/Overview.svg", accent: "#046D2A" },
-  { title: "Defence", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "defence", icon: "/images/reports/introduction/Insights.svg", accent: "#D7A32A", sector: "defence" },
-  { title: "Fire and Emergency Services", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "fes", icon: "/images/reports/introduction/Strategies.svg", accent: "#C9481A", sector: "fire" },
-  { title: "Police", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "police", icon: "/images/reports/introduction/Insights.svg", accent: "#0D71A3", sector: "police" },
+  { title: "Defence", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "defence", icon: "/images/reports/public-safety/defence-introduction-icons.svg", accent: "#D7A32A", sector: "defence" },
+  { title: "Fire and Emergency Services", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "fes", icon: "/images/reports/public-safety/fes-introduction-fire-engine.png", accent: "#C9481A", sector: "fire" },
+  { title: "Police", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "police", icon: "/images/police-chapter-vehicle.svg", accent: "#0D71A3", sector: "police" },
   { title: "2026 Proposed Cross Sector Strategies Summaries", description: "The six proposed Strategies, and other Strategies informing these.", path: "police_proposed_strategies_summary", icon: "/images/reports/introduction/Strategies.svg", accent: "#046D2A" },
-  { title: "2027 and Beyond", description: "The future lines of enquiry and priorities for the next reports.", path: "looking_forward", icon: "/images/reports/introduction/Summary.svg", accent: "#046D2A" },
+  { title: "2027 and Beyond", description: "The future lines of enquiry and priorities for the next reports.", path: "looking_forward", icon: "/images/reports/public-safety/looking-forward-introduction-icon.png", accent: "#046D2A" },
 ] as const;
 
 export const PUBLIC_SAFETY_AT_A_GLANCE = [

@@ -96,8 +96,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
       </section>
 
       <section ref={themesRef} className={styles.themes + " " + (themesVisible ? styles.enter : styles.pending)}>
-        <h2 className={styles.sectionTitle}>Four Themes Consistently Impacting Workforce Planning · 2025 Public Safety Workforce Insight Report</h2>
-        <p className={styles.themeIntro}>The 2025 Public Safety Workforce Insights Report identified four themes that consistently impact workforce planning across these industry-sectors, they include:</p>
+        <h2 className={styles.themeIntro}><strong>Four Themes:</strong> The 2025 Public Safety Workforce Insights Report identified four themes that consistently impact workforce planning across these industry-sectors, they include:</h2>
         <div className={styles.themeGrid + (selectedTheme ? " " + styles.themeGridOpen : "")}>
           {themes.map((theme, index) => {
             const selected = activeTheme === index;

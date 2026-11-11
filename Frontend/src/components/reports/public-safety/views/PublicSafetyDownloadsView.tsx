@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ExternalLink } from "lucide-react";
+import { PREVIOUS_PUBLIC_SAFETY_REPORT_URL } from "../data/overview";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 const currentReportUrl =
@@ -10,7 +12,7 @@ const currentReportUrl =
 const previousReports = [
   {
     title: "2025 Public Safety Workforce Insights Report",
-    url: "https://psa-directus-prod.azurewebsites.net/assets/8606dd9e-6351-4d5d-b595-2dcfdd27bf43",
+    url: PREVIOUS_PUBLIC_SAFETY_REPORT_URL,
   },
   {
     title: "2024 Defence Workforce Plan",
@@ -27,12 +29,30 @@ const previousReports = [
 ];
 
 export default function PublicSafetyDownloadsView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
+  const router = useRouter();
+  const reportPath = `/reports/${slug}`;
+  const introductionHref = `${reportPath}/introduction`;
+
+  const handleBack = () => {
+    const from = new URLSearchParams(window.location.search).get("from");
+    const destination = from?.startsWith(`${reportPath}/`) && URL.canParse(from, window.location.origin)
+      ? new URL(from, window.location.origin)
+      : null;
+    const returnHref = destination?.origin === window.location.origin
+      && destination.pathname.startsWith(`${reportPath}/`)
+      && destination.pathname.replace(/\/$/, "") !== `${reportPath}/downloads`
+      ? destination.pathname + destination.search + destination.hash
+      : introductionHref;
+
+    router.replace(returnHref);
+  };
+
   return (
     <PublicSafetyPageShell
       slug={slug}
       report={report}
       currentPage="downloads"
-      navigation={{ prev: { label: "2027 and Beyond", href: `/reports/${slug}/looking_forward` } }}
+      navigation={{ prev: { label: "Back", href: introductionHref }, prevPrefix: "", onPrevious: handleBack }}
     >
       <section className="relative flex min-h-[194px] items-center overflow-hidden rounded-md border border-[#ECECE5] bg-white px-6 py-8 sm:px-8">
         <div className="relative z-10 max-w-[1050px] animate-slide-up motion-reduce:animate-none">
